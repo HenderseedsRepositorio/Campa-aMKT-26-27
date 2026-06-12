@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Plantilla carrusel — Henderseeds</title>
+<!--
+  PLANTILLA DE CARRUSEL HENDERSEEDS (1080×1350 por slide)
+  - Una <section class="slide"> = un slide del carrusel.
+  - Cada slide se screenshotea limpio: sin scroll interno, tipografía grande,
+    UN dato o idea por slide.
+  - Para exportar: abrir en el navegador y capturar cada slide a 1080×1350
+    (zoom al 100%), o usar herramienta de captura por elemento.
+  - Colores y reglas: ver brand/identidad.md (paleta provisoria a confirmar).
+  - Duplicar este archivo como carruseles/AAAA-Www-tema.html y editar el contenido.
+-->
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --naranja: #E8761C;
+    --crema: #F7F4EE;
+    --tinta: #1A1A1A;
+    --blanco: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #555;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
+    padding: 40px 0;
+  }
+  .slide {
+    width: 1080px; height: 1350px;
+    background: var(--crema);
+    color: var(--tinta);
+    padding: 90px 80px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .slide.oscuro { background: var(--navy); color: var(--blanco); }
+
+  .marca {
+    font-size: 34px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .marca span { color: var(--naranja); }
+  .nro {
+    position: absolute; top: 90px; right: 80px;
+    font-size: 30px; font-weight: 700; opacity: .55;
+  }
+  h1 { font-size: 96px; line-height: 1.05; font-weight: 800; }
+  h2 { font-size: 72px; line-height: 1.1; font-weight: 800; }
+  .acento { color: var(--naranja); }
+  .dato {
+    font-size: 230px; font-weight: 800; color: var(--naranja); line-height: 1;
+  }
+  .dato small { font-size: 70px; font-weight: 700; color: inherit; }
+  .bajada { font-size: 44px; line-height: 1.35; max-width: 880px; }
+  .fuente { font-size: 26px; opacity: .6; }
+  .avanzar {
+    font-size: 36px; font-weight: 700; color: var(--naranja);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .pie { display: flex; justify-content: space-between; align-items: flex-end; }
+  .cta-box {
+    background: var(--naranja); color: var(--blanco);
+    padding: 44px 56px; font-size: 52px; font-weight: 800;
+    border-radius: 18px; align-self: flex-start;
+  }
+  .barra { width: 180px; height: 14px; background: var(--naranja); margin: 36px 0; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 · Portada: pregunta o afirmación que frena el scroll -->
+<section class="slide oscuro">
+  <div class="marca">HENDER<span>SEEDS</span></div>
+  <div>
+    <h1>[GANCHO:<br>pregunta o<br>afirmación <span class="acento">fuerte</span>]</h1>
+    <div class="barra"></div>
+    <p class="bajada">[Bajada corta: a quién le hablás y qué va a encontrar al deslizar.]</p>
+  </div>
+  <div class="pie">
+    <span class="bajada">Precampaña 26/27</span>
+    <span class="avanzar">Deslizá →</span>
+  </div>
+</section>
+
+<!-- SLIDE 2 · El problema / la pregunta del productor -->
+<section class="slide">
+  <div class="marca" style="color:var(--navy)">HENDER<span>SEEDS</span></div>
+  <span class="nro">2/6</span>
+  <div>
+    <h2>[El problema en palabras del <span class="acento">productor</span>]</h2>
+    <div class="barra"></div>
+    <p class="bajada">[Una sola idea. Frases cortas. Nada de manual.]</p>
+  </div>
+  <span class="avanzar">→</span>
+</section>
+
+<!-- SLIDE 3 · EL dato (uno solo, gigante, con fuente) -->
+<section class="slide">
+  <div class="marca" style="color:var(--navy)">HENDER<span>SEEDS</span></div>
+  <span class="nro">3/6</span>
+  <div>
+    <p class="bajada">[Qué mide este número]</p>
+    <p class="dato">[112]<small> qq/ha</small></p>
+    <p class="fuente">Fuente: [COMPLETAR: ensayo/REM/dato Nidera + año + localidad]</p>
+  </div>
+  <span class="avanzar">→</span>
+</section>
+
+<!-- SLIDE 4 · Comparación simple (de a pares) -->
+<section class="slide">
+  <div class="marca" style="color:var(--navy)">HENDER<span>SEEDS</span></div>
+  <span class="nro">4/6</span>
+  <div>
+    <h2>[Opción A] <span class="acento">vs</span> [Opción B]</h2>
+    <div class="barra"></div>
+    <p class="bajada">[Comparación en 2–3 líneas o dos cifras enfrentadas.
+    Una conclusión clara al final.]</p>
+  </div>
+  <span class="avanzar">→</span>
+</section>
+
+<!-- SLIDE 5 · Qué hacemos nosotros / la herramienta -->
+<section class="slide oscuro">
+  <div class="marca">HENDER<span>SEEDS</span></div>
+  <span class="nro">5/6</span>
+  <div>
+    <h2>[Cómo te ayudamos: <span class="acento">asesoramiento</span> o herramienta]</h2>
+    <div class="barra"></div>
+    <p class="bajada">[Ej: con la calculadora de márgenes hacés este número
+    para TU lote en 2 minutos.]</p>
+  </div>
+  <span class="avanzar">→</span>
+</section>
+
+<!-- SLIDE 6 · CTA -->
+<section class="slide oscuro">
+  <div class="marca">HENDER<span>SEEDS</span></div>
+  <span class="nro">6/6</span>
+  <div>
+    <h2>[Cierre: qué tiene que hacer <span class="acento">ahora</span>]</h2>
+    <div class="barra"></div>
+    <div class="cta-box">📲 Escribinos: [COMPLETAR: WhatsApp]</div>
+  </div>
+  <p class="bajada">Henderseeds · RED.IN Nidera · Henderson – Daireaux – Bolívar<br>
+  <span class="fuente">henderseeds.com</span></p>
+</section>
+
+</body>
+</html>
