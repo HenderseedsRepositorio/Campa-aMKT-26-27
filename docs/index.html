@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henderseeds — Precampaña Maíz & Girasol 26/27 (DEMO)</title>
+<meta name="description" content="Demo de la campaña digital 26/27 de Henderseeds: ejemplos de posteos y calculadora de márgenes. Distribuidor RED.IN Nidera — Henderson, Daireaux y Bolívar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --navy-2: #24385f;
+    --naranja: #E8761C;
+    --naranja-2: #c95f0e;
+    --crema: #F7F4EE;
+    --tinta: #1A1A1A;
+    --gris: #6b7280;
+    --blanco: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--crema);
+    color: var(--tinta);
+    line-height: 1.55;
+  }
+  h1, h2, h3 { font-family: 'Archivo', 'Inter', sans-serif; line-height: 1.12; }
+
+  .demo-ribbon {
+    background: var(--naranja);
+    color: var(--blanco);
+    text-align: center;
+    font-size: .85rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    padding: 8px 16px;
+    text-transform: uppercase;
+  }
+
+  /* ===== Header ===== */
+  header {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: var(--blanco);
+    padding: 56px 24px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "🌻";
+    position: absolute; right: -30px; bottom: -55px;
+    font-size: 230px; opacity: .08; transform: rotate(-12deg);
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .marca { font-family: 'Archivo'; font-weight: 900; font-size: 1.5rem; letter-spacing: .04em; }
+  .marca span { color: var(--naranja); }
+  .redin {
+    display: inline-block; margin-top: 6px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .06em;
+    color: #c9d4ea; text-transform: uppercase;
+  }
+  header h1 {
+    font-size: clamp(2.1rem, 6vw, 3.6rem);
+    font-weight: 900; margin: 34px 0 14px; max-width: 780px;
+  }
+  header h1 em { color: var(--naranja); font-style: normal; }
+  .sub { font-size: clamp(1rem, 2.5vw, 1.2rem); color: #d7deec; max-width: 640px; }
+  .cta-row { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 26px; border-radius: 12px;
+    font-weight: 800; text-decoration: none; font-size: 1rem;
+    transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-naranja { background: var(--naranja); color: var(--blanco); }
+  .btn-ghost { border: 2px solid #4a5d85; color: var(--blanco); }
+
+  /* ===== Secciones ===== */
+  section { padding: 64px 24px; }
+  .sec-title { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; color: var(--navy); }
+  .sec-title .tag {
+    display: block; font-family: 'Inter'; font-size: .8rem; font-weight: 800;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--naranja);
+    margin-bottom: 8px;
+  }
+  .sec-sub { color: var(--gris); margin-top: 10px; max-width: 620px; }
+
+  /* ===== Posts estilo Instagram ===== */
+  .posts-grid {
+    margin-top: 38px;
+    display: grid; gap: 26px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  }
+  .ig-card {
+    background: var(--blanco); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 8px 28px rgba(27,42,74,.12);
+    display: flex; flex-direction: column;
+  }
+  .ig-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--navy); color: var(--blanco);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: .8rem; flex-shrink: 0;
+    border: 2px solid var(--naranja);
+  }
+  .ig-user { font-weight: 700; font-size: .9rem; }
+  .ig-loc { font-size: .75rem; color: var(--gris); }
+  .placa {
+    aspect-ratio: 4 / 5; padding: 9%;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .placa .mini-marca { font-family: 'Archivo'; font-weight: 900; font-size: .95rem; letter-spacing: .05em; }
+  .placa h3 { font-size: clamp(1.35rem, 2.2vw, 1.7rem); font-weight: 900; }
+  .placa .chip {
+    align-self: flex-start; padding: 8px 14px; border-radius: 999px;
+    font-weight: 800; font-size: .85rem;
+  }
+  .placa-navy { background: var(--navy); color: var(--blanco); }
+  .placa-navy .mini-marca span, .placa-navy h3 em { color: var(--naranja); font-style: normal; }
+  .placa-navy .chip { background: var(--naranja); color: var(--blanco); }
+  .placa-crema { background: var(--crema); color: var(--navy); }
+  .placa-crema .mini-marca span, .placa-crema h3 em { color: var(--naranja); font-style: normal; }
+  .placa-crema .chip { background: var(--navy); color: var(--blanco); }
+  .placa-naranja { background: linear-gradient(165deg, var(--naranja) 0%, var(--naranja-2) 100%); color: var(--blanco); }
+  .placa-naranja .mini-marca span { color: var(--navy); }
+  .placa-naranja .chip { background: var(--navy); color: var(--blanco); }
+  .ig-actions { padding: 10px 14px 0; font-size: 1.05rem; letter-spacing: .35em; color: var(--navy); }
+  .ig-caption { padding: 8px 14px 16px; font-size: .86rem; }
+  .ig-caption b { font-weight: 700; }
+  .ig-caption .hashtags { color: #1d4ed8; display: block; margin-top: 8px; font-size: .8rem; }
+
+  /* ===== Calculadora ===== */
+  .calc-section { background: var(--navy); color: var(--blanco); }
+  .calc-section .sec-title { color: var(--blanco); }
+  .calc-box {
+    margin-top: 38px; display: grid; gap: 26px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    align-items: stretch;
+  }
+  .calc-form, .calc-result {
+    background: var(--blanco); color: var(--tinta);
+    border-radius: 16px; padding: 28px;
+  }
+  .calc-form label { display: block; font-weight: 700; font-size: .85rem; margin: 16px 0 6px; color: var(--navy); }
+  .calc-form label:first-of-type { margin-top: 0; }
+  .calc-form input, .calc-form select {
+    width: 100%; padding: 12px 14px; border: 2px solid #e2e0da; border-radius: 10px;
+    font-size: 1rem; font-family: inherit; background: var(--crema);
+  }
+  .calc-form input:focus, .calc-form select:focus { outline: 2px solid var(--naranja); border-color: var(--naranja); }
+  .calc-btn {
+    width: 100%; margin-top: 22px; padding: 14px; border: none; border-radius: 12px;
+    background: var(--naranja); color: var(--blanco); font-weight: 800; font-size: 1.05rem;
+    cursor: pointer; font-family: inherit;
+  }
+  .calc-btn:hover { background: var(--naranja-2); }
+  .calc-result { display: flex; flex-direction: column; justify-content: center; }
+  .res-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed #e2e0da; font-size: .95rem; }
+  .res-row b { font-size: 1.05rem; }
+  .res-final { border: none; margin-top: 10px; }
+  .res-final .label { font-weight: 800; color: var(--navy); }
+  #margen { font-family: 'Archivo'; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; color: var(--naranja); }
+  .disclaimer { margin-top: 18px; font-size: .78rem; color: var(--gris); }
+
+  /* ===== Qué más ===== */
+  .more-grid { margin-top: 38px; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .more-card { background: var(--blanco); border-radius: 14px; padding: 24px; box-shadow: 0 4px 18px rgba(27,42,74,.08); }
+  .more-card .emoji { font-size: 1.8rem; }
+  .more-card h3 { color: var(--navy); margin: 10px 0 6px; font-size: 1.05rem; }
+  .more-card p { font-size: .87rem; color: var(--gris); }
+
+  /* ===== Footer ===== */
+  footer { background: var(--navy); color: #c9d4ea; padding: 44px 24px; font-size: .88rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
+  footer a { color: var(--naranja); text-decoration: none; font-weight: 600; }
+  .nota-ejemplo {
+    max-width: 1080px; margin: 26px auto 0; font-size: .8rem; color: var(--gris);
+    border-left: 3px solid var(--naranja); padding-left: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-ribbon">⚠ Página de demostración — contenido de ejemplo, datos comerciales sin cargar</div>
+
+<header>
+  <div class="wrap">
+    <div class="marca">HENDER<span>SEEDS</span></div>
+    <span class="redin">Red RED.IN · Nidera Semillas · Henderson – Daireaux – Bolívar</span>
+    <h1>Precampaña <em>maíz y girasol</em> 26/27: el momento de hacer números es ahora.</h1>
+    <p class="sub">Semilla Nidera con asesoramiento de la zona, herramientas para calcular tu margen y condiciones de precampaña. De productor a productor.</p>
+    <div class="cta-row">
+      <a class="btn btn-naranja" href="#calculadora">📈 Probá la calculadora</a>
+      <a class="btn btn-ghost" href="#posts">Ver los posteos</a>
+    </div>
+  </div>
+</header>
+
+<section id="posts">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="tag">Contenido orgánico</span>Así se van a ver los posteos</h2>
+    <p class="sec-sub">Tres ejemplos del mix semanal: cultivo + herramienta + cultivo. Copy con voseo, un mensaje por placa y CTA a WhatsApp.</p>
+
+    <div class="posts-grid">
+
+      <!-- Post 1: Maíz -->
+      <article class="ig-card">
+        <div class="ig-head">
+          <div class="avatar">HS</div>
+          <div>
+            <div class="ig-user">henderseeds</div>
+            <div class="ig-loc">Henderson, Buenos Aires</div>
+          </div>
+        </div>
+        <div class="placa placa-navy">
+          <div class="mini-marca">HENDER<span>SEEDS</span></div>
+          <h3>Tus mejores lotes piden un maíz que <em>se la banque</em>.</h3>
+          <div class="chip">NS 7626 VIPTERA3 CL</div>
+        </div>
+        <div class="ig-actions">♥ 💬 ➤</div>
+        <div class="ig-caption">
+          <b>henderseeds</b> ¿Ya definiste el maíz de tus lotes de punta? El NS 7626 VIPTERA3 CL combina potencial de rinde con protección frente a orugas. En precampaña lo asegurás con las mejores condiciones del año. 📲 Escribinos y lo posicionamos juntos para tu ambiente.
+          <span class="hashtags">#Henderseeds #Nidera #Maiz #Precampaña2627 #Henderson #Daireaux #Bolivar #AgroArgentino</span>
+        </div>
+      </article>
+
+      <!-- Post 2: Calculadora -->
+      <article class="ig-card">
+        <div class="ig-head">
+          <div class="avatar">HS</div>
+          <div>
+            <div class="ig-user">henderseeds</div>
+            <div class="ig-loc">Henderson, Buenos Aires</div>
+          </div>
+        </div>
+        <div class="placa placa-crema">
+          <div class="mini-marca">HENDER<span>SEEDS</span></div>
+          <h3>¿Cuánto te deja una hectárea de girasol? <em>Calculalo en 2 minutos.</em></h3>
+          <div class="chip">📈 Calculadora de márgenes</div>
+        </div>
+        <div class="ig-actions">♥ 💬 ➤</div>
+        <div class="ig-caption">
+          <b>henderseeds</b> Antes de decidir qué sembrar, hacé números. Con nuestra calculadora de márgenes cargás rinde esperado, precio y costos, y tenés el margen de TU lote. Sin vueltas. 📲 Pedila por WhatsApp, es sin cargo.
+          <span class="hashtags">#Henderseeds #CalculadoraDeMargenes #Girasol #Maiz #MargenBruto #Agro #OesteBonaerense</span>
+        </div>
+      </article>
+
+      <!-- Post 3: Girasol -->
+      <article class="ig-card">
+        <div class="ig-head">
+          <div class="avatar">HS</div>
+          <div>
+            <div class="ig-user">henderseeds</div>
+            <div class="ig-loc">Henderson, Buenos Aires</div>
+          </div>
+        </div>
+        <div class="placa placa-naranja">
+          <div class="mini-marca">HENDER<span>SEEDS</span></div>
+          <h3>El oeste es tierra de girasol. 🌻</h3>
+          <div class="chip">NS 1113 CL</div>
+        </div>
+        <div class="ig-actions">♥ 💬 ➤</div>
+        <div class="ig-caption">
+          <b>henderseeds</b> Girasol en el oeste no es moda: es historia y es margen. Con la tecnología CL arrancás con el lote limpio y el NS 1113 CL es uno de los candidatos para la zona. Te ayudamos a elegir según tu lote y tu planteo. 📲 Consultanos por la precampaña 26/27.
+          <span class="hashtags">#Henderseeds #Nidera #Girasol #Clearfield #Precampaña2627 #Henderson #Daireaux #Bolivar</span>
+        </div>
+      </article>
+
+    </div>
+    <p class="nota-ejemplo">Los textos son de ejemplo para esta demo: antes de publicar, cada dato técnico y comercial se valida contra los archivos de <code>contexto/</code> del repo y la ficha oficial de Nidera.</p>
+  </div>
+</section>
+
+<section class="calc-section" id="calculadora">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="tag">Demo interactiva</span>Calculadora de margen bruto</h2>
+    <p class="sec-sub" style="color:#c9d4ea">Una muestra de lo que se puede publicar online desde este repo: cargá tus números y mirá el resultado al instante.</p>
+
+    <div class="calc-box">
+      <div class="calc-form">
+        <label for="cultivo">Cultivo</label>
+        <select id="cultivo">
+          <option value="girasol">🌻 Girasol</option>
+          <option value="maiz">🌽 Maíz</option>
+        </select>
+
+        <label for="rinde">Rinde esperado (qq/ha)</label>
+        <input type="number" id="rinde" value="22" min="0" step="1">
+
+        <label for="precio">Precio esperado (USD/tonelada)</label>
+        <input type="number" id="precio" value="300" min="0" step="5">
+
+        <label for="costos">Costos directos (USD/ha) — semilla, labores, insumos</label>
+        <input type="number" id="costos" value="450" min="0" step="10">
+
+        <label for="comerc">Gastos de comercialización y cosecha (% del ingreso)</label>
+        <input type="number" id="comerc" value="25" min="0" max="100" step="1">
+
+        <button class="calc-btn" onclick="calcular()">Calcular margen</button>
+      </div>
+
+      <div class="calc-result">
+        <div class="res-row"><span>Ingreso bruto</span><b id="ingreso">—</b></div>
+        <div class="res-row"><span>Gastos comercialización + cosecha</span><b id="gastos">—</b></div>
+        <div class="res-row"><span>Costos directos</span><b id="directos">—</b></div>
+        <div class="res-row res-final"><span class="label">Margen bruto por hectárea</span><span id="margen">—</span></div>
+        <p class="disclaimer">⚠ Demo ilustrativa con fines de prueba. No es la calculadora oficial de Henderseeds, no constituye asesoramiento y los valores precargados son ficticios. Para el cálculo completo de tu planteo: 📲 <b>[COMPLETAR: WhatsApp comercial]</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec-title"><span class="tag">El repo en acción</span>Qué más sale de acá</h2>
+    <div class="more-grid">
+      <div class="more-card"><div class="emoji">📝</div><h3>2–3 posteos por semana</h3><p>Copy listo para Instagram/Facebook siguiendo la rotación del calendario: maíz, girasol, herramientas, técnica.</p></div>
+      <div class="more-card"><div class="emoji">🎠</div><h3>Carruseles 1080×1350</h3><p>Placas HTML listas para screenshotear: un dato por slide, estética navy/naranja.</p></div>
+      <div class="more-card"><div class="emoji">🎬</div><h3>Guiones de reels</h3><p>Hook, escenas, texto en pantalla y audio sugerido. Para filmar con el celular en 20 minutos.</p></div>
+      <div class="more-card"><div class="emoji">📣</div><h3>Briefs de pauta Meta</h3><p>Segmentación geográfica de la zona, presupuesto y objetivo listos para cargar en Meta Business Suite.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="marca" style="font-size:1.1rem">HENDER<span>SEEDS</span></div>
+      <div>Distribuidor RED.IN Nidera · Henderson – Daireaux – Bolívar</div>
+      <div>📲 WhatsApp: [COMPLETAR] · 🌐 <a href="https://henderseeds.com" target="_blank" rel="noopener">henderseeds.com</a></div>
+    </div>
+    <div>
+      Página demo generada desde el repo<br>
+      <a href="https://github.com/HenderseedsRepositorio/Campa-aMKT-26-27" target="_blank" rel="noopener">Campa-aMKT-26-27</a> con Claude Code 🤖
+    </div>
+  </div>
+</footer>
+
+<script>
+  const fmt = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+  function calcular() {
+    const rinde  = parseFloat(document.getElementById('rinde').value)  || 0;
+    const precio = parseFloat(document.getElementById('precio').value) || 0;
+    const costos = parseFloat(document.getElementById('costos').value) || 0;
+    const pct    = parseFloat(document.getElementById('comerc').value) || 0;
+
+    const ingreso = (rinde / 10) * precio;        // qq/ha → tn/ha × USD/tn
+    const gastos  = ingreso * (pct / 100);
+    const margen  = ingreso - gastos - costos;
+
+    document.getElementById('ingreso').textContent  = fmt.format(ingreso);
+    document.getElementById('gastos').textContent   = '− ' + fmt.format(gastos);
+    document.getElementById('directos').textContent = '− ' + fmt.format(costos);
+    const m = document.getElementById('margen');
+    m.textContent = fmt.format(margen) + ' /ha';
+    m.style.color = margen >= 0 ? 'var(--naranja)' : '#c0392b';
+  }
+
+  calcular();
+</script>
+</body>
+</html>

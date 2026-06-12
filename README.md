@@ -7,6 +7,9 @@ precampaña maíz/girasol 26/27: posts, carruseles, reels y pauta de Meta.
 > 🧠 Las reglas del juego están en [`CLAUDE.md`](CLAUDE.md). Claude las lee
 > automáticamente en cada sesión.
 
+**🌐 Página demo online:** <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/>
+(se publica sola desde `docs/` con cada push, vía GitHub Pages + Actions).
+
 ## Cómo se usa (desde la web o el celular)
 
 Abrí una sesión de Claude Code sobre este repo y tirá uno de estos prompts:
