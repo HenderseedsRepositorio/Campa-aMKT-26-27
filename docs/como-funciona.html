@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub en criollo — Cómo trabajamos con Claude Code</title>
+<meta name="description" content="Infografía: qué es un repositorio, commit, push, rama, pull request y merge — explicado de productor a productor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --navy-2: #24385f;
+    --naranja: #E8761C;
+    --crema: #F7F4EE;
+    --tinta: #1A1A1A;
+    --gris: #6b7280;
+    --blanco: #ffffff;
+    --verde: #2e7d32;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--crema); color: var(--tinta); line-height: 1.55; }
+  h1, h2, h3 { font-family: 'Archivo', sans-serif; line-height: 1.12; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  header { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%); color: var(--blanco); padding: 48px 0 56px; text-align: center; }
+  .marca { font-family: 'Archivo'; font-weight: 900; font-size: 1.2rem; letter-spacing: .05em; }
+  .marca span { color: var(--naranja); }
+  header h1 { font-size: clamp(1.9rem, 6vw, 3rem); font-weight: 900; margin: 18px 0 10px; }
+  header h1 em { color: var(--naranja); font-style: normal; }
+  header p { color: #d7deec; max-width: 560px; margin: 0 auto; }
+
+  section { padding: 52px 0; }
+  .sec-title { font-size: clamp(1.4rem, 4.5vw, 2rem); font-weight: 900; color: var(--navy); text-align: center; margin-bottom: 8px; }
+  .sec-sub { text-align: center; color: var(--gris); margin-bottom: 36px; }
+
+  /* Tarjetas de términos */
+  .cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card { background: var(--blanco); border-radius: 16px; padding: 24px; box-shadow: 0 6px 22px rgba(27,42,74,.10); border-top: 5px solid var(--naranja); }
+  .card .emoji { font-size: 2.2rem; }
+  .card h3 { color: var(--navy); font-size: 1.15rem; margin: 10px 0 2px; }
+  .card .alias { color: var(--naranja); font-weight: 800; font-size: .9rem; display: block; margin-bottom: 8px; }
+  .card p { font-size: .9rem; color: #374151; }
+
+  /* Flujo paso a paso */
+  .flujo-sec { background: var(--navy); color: var(--blanco); }
+  .flujo-sec .sec-title { color: var(--blanco); }
+  .flujo-sec .sec-sub { color: #b8c4dc; }
+  .pasos { position: relative; max-width: 560px; margin: 0 auto; }
+  .pasos::before { content: ""; position: absolute; left: 26px; top: 10px; bottom: 10px; width: 4px; background: var(--naranja); border-radius: 2px; }
+  .paso { position: relative; padding: 0 0 28px 76px; }
+  .paso:last-child { padding-bottom: 0; }
+  .paso .nro {
+    position: absolute; left: 0; top: 0;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--naranja); color: var(--blanco);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; border: 4px solid var(--navy);
+    box-shadow: 0 0 0 3px var(--naranja);
+  }
+  .paso h3 { font-size: 1.1rem; margin-bottom: 4px; }
+  .paso h3 small { color: var(--naranja); font-weight: 800; }
+  .paso p { font-size: .9rem; color: #c9d4ea; }
+  .paso .globo {
+    background: var(--blanco); color: var(--tinta);
+    border-radius: 12px; padding: 10px 14px; font-size: .85rem;
+    margin-top: 8px; display: inline-block; font-style: italic;
+  }
+
+  /* Tu repo hoy */
+  .repo-map { background: var(--blanco); border-radius: 16px; padding: 28px; box-shadow: 0 6px 22px rgba(27,42,74,.10); }
+  .rama { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px dashed #e2e0da; }
+  .rama:last-child { border-bottom: none; }
+  .rama .icono { font-size: 1.6rem; flex-shrink: 0; }
+  .rama code { background: var(--crema); padding: 2px 8px; border-radius: 6px; font-size: .82rem; color: var(--navy); font-weight: 700; word-break: break-all; }
+  .rama p { font-size: .88rem; color: #374151; margin-top: 4px; }
+  .etiqueta { display: inline-block; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; padding: 3px 10px; border-radius: 999px; margin-left: 6px; }
+  .et-naranja { background: var(--naranja); color: var(--blanco); }
+  .et-gris { background: #e5e7eb; color: var(--gris); }
+
+  .clave {
+    margin-top: 26px; background: #fff7ef; border: 2px solid var(--naranja);
+    border-radius: 14px; padding: 20px 22px; font-size: .95rem;
+  }
+  .clave b { color: var(--naranja); }
+
+  footer { background: var(--navy); color: #c9d4ea; padding: 36px 0; text-align: center; font-size: .88rem; }
+  footer a { color: var(--naranja); text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="marca">HENDER<span>SEEDS</span> × CLAUDE CODE</div>
+    <h1>GitHub <em>en criollo</em></h1>
+    <p>Los términos que te van a aparecer cuando trabajamos juntos, explicados de productor a productor. Sin chamuyo técnico.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec-title">Los 6 términos que importan</h2>
+    <p class="sec-sub">Cada uno con su traducción al campo 🚜</p>
+    <div class="cards">
+
+      <div class="card">
+        <div class="emoji">🏠</div>
+        <h3>Repositorio (repo)</h3>
+        <span class="alias">= El galpón</span>
+        <p>La carpeta madre en la nube donde vive TODO el proyecto: los posteos, las plantillas, el calendario, la página web. Tu repo se llama <b>Campa-aMKT-26-27</b>.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">📸</div>
+        <h3>Commit</h3>
+        <span class="alias">= El asiento en el cuaderno de campo</span>
+        <p>Una "foto" de los cambios, guardada con fecha, autor y una nota de qué se hizo. Queda el historial completo: siempre podés ver qué cambió y volver atrás.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🚚</div>
+        <h3>Push</h3>
+        <span class="alias">= Despachar el camión</span>
+        <p>Subir los commits a GitHub. Hasta el push, los cambios están solo en la computadora donde se trabajó. Después del push, ya están en la nube, a salvo y visibles.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🌱</div>
+        <h3>Rama (branch)</h3>
+        <span class="alias">= El lote de ensayo</span>
+        <p>Una copia paralela del proyecto para trabajar tranquilo sin tocar lo oficial. Se prueba ahí y, si funciona, recién después se pasa al "campo entero".</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">📋</div>
+        <h3>Pull Request (PR)</h3>
+        <span class="alias">= El remito antes de descargar</span>
+        <p>El pedido formal de pasar los cambios de una rama a otra. Te muestra TODO lo que va a cambiar, línea por línea, para que lo revises antes de aceptar.</p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">✅</div>
+        <h3>Merge</h3>
+        <span class="alias">= Descargar el camión al galpón</span>
+        <p>Aceptar el Pull Request: los cambios entran a la rama principal y quedan oficiales. Si el remito no te cierra, no descargás: pedís correcciones o lo rechazás.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="flujo-sec">
+  <div class="wrap">
+    <h2 class="sec-title">El flujo completo, paso a paso</h2>
+    <p class="sec-sub">Qué pasa desde que me escribís hasta que el contenido queda listo</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="nro">💬</div>
+        <h3>1. Vos pedís <small>(desde el celular)</small></h3>
+        <p>Abrís Claude Code y tirás el pedido.</p>
+        <div class="globo">"Generá los 3 posts de la semana que viene"</div>
+      </div>
+      <div class="paso">
+        <div class="nro">🤖</div>
+        <h3>2. Claude trabaja <small>en una rama</small></h3>
+        <p>Leo las reglas del repo (CLAUDE.md, marca, contexto) y creo o edito los archivos en el lote de ensayo.</p>
+      </div>
+      <div class="paso">
+        <div class="nro">📸</div>
+        <h3>3. Commit</h3>
+        <p>Guardo la foto de los cambios con su descripción: "3 posts semana W25".</p>
+      </div>
+      <div class="paso">
+        <div class="nro">🚚</div>
+        <h3>4. Push</h3>
+        <p>Despacho el camión: los cambios suben a GitHub y ya quedan en la nube.</p>
+      </div>
+      <div class="paso">
+        <div class="nro">📋</div>
+        <h3>5. Pull Request <small>(opcional)</small></h3>
+        <p>Si la rama no es la principal, revisás el remito y aceptás con Merge. <b>En tu repo hoy este paso no existe:</b> trabajo directo en la rama principal.</p>
+      </div>
+      <div class="paso">
+        <div class="nro">🎉</div>
+        <h3>6. Listo y publicado</h3>
+        <p>El contenido queda oficial en el repo. Y si el cambio tocó la carpeta <b>docs/</b>, un robot (GitHub Actions) republica la página web solo, sin que nadie haga nada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec-title">Así está armado TU repo hoy</h2>
+    <p class="sec-sub">Dos ramas, cada una con su función</p>
+
+    <div class="repo-map">
+      <div class="rama">
+        <div class="icono">🌾</div>
+        <div>
+          <code>claude/peaceful-sagan-srghou</code><span class="etiqueta et-naranja">Principal</span>
+          <p>Acá vive todo: CLAUDE.md, posteos, plantillas, calendario y la página (<b>docs/</b>). Como es la rama principal, lo que pusheo queda oficial directo — por eso no usamos Pull Requests por ahora.</p>
+        </div>
+      </div>
+      <div class="rama">
+        <div class="icono">🌐</div>
+        <div>
+          <code>gh-pages</code><span class="etiqueta et-gris">Automática — no tocar</span>
+          <p>La copia publicada de la página web. La maneja el robot: cada vez que cambia <b>docs/</b>, la actualiza solo y GitHub Pages la sirve en internet.</p>
+        </div>
+      </div>
+      <div class="rama">
+        <div class="icono">🤖</div>
+        <div>
+          <code>GitHub Actions</code><span class="etiqueta et-gris">El robot</span>
+          <p>Un empleado que no duerme: mira los push, y cuando detecta cambios en la página, la republica. Esta misma infografía llegó a tu pantalla por ese circuito.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="clave">
+      💡 <b>La idea clave:</b> nada se pierde y nada se pisa. Cada cambio queda registrado (commit), respaldado en la nube (push), y si algún día querés control de calidad antes de aprobar, se agrega el paso del remito (Pull Request + Merge). GitHub guarda el historial completo: siempre se puede volver atrás.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><a href="./">← Volver a la página demo de la campaña</a></p>
+    <p style="margin-top:8px">Henderseeds · Campaña 26/27 · Infografía generada con Claude Code 🤖</p>
+  </div>
+</footer>
+
+</body>
+</html>
