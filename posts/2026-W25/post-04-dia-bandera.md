@@ -24,13 +24,10 @@
 Texto en placa: **"Feliz Día de la Bandera"** + bajada *"El orgullo de trabajar la tierra argentina"* + firma *"Henderseeds · RED.IN Nidera"*.
 Celeste y blanco patrio protagonistas (sol de mayo sutil); navy/naranja de marca como acento; fondo de campo del oeste bonaerense.
 
-**Generada en Canva (job 0e0883ba) — 4 candidatos para elegir:**
-1. https://www.canva.com/d/5VW84h7XAAR1hea
-2. https://www.canva.com/d/gszSsWYm9cQlJvd
-3. https://www.canva.com/d/syLXjDFD-MZBf2y
-4. https://www.canva.com/d/ulgG2gKg5VuR1bE
+**En Canva** (cuenta henderseeds@gmail.com): diseño **"Post de Instagram - Feliz Día de la Bandera"** (ID `DAHNHK8XbRE`), con **3 variantes** en 3 páginas.
+Para abrirlo: buscar **"Bandera"** en el buscador de Canva (los short links `canva.com/d/...` rotan y no sirven como referencia fija; el ID del diseño sí es estable).
 
-`[COMPLETAR: link del diseño final elegido + export PNG]`
+`[COMPLETAR: variante elegida (pág. 1/2/3) + export PNG final para publicar]`
 
 ## Hashtags (pocos, efeméride)
 #DíaDeLaBandera #20DeJunio #Henderseeds #Nidera #AgroArgentino
