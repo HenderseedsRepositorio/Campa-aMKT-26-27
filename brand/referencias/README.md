@@ -7,7 +7,15 @@ el estilo real (colores, tipografías, formato, uso del logo, tono de los textos
 > (Instagram pide login y el entorno bloquea esas páginas). Pero **sí puede leer
 > las imágenes que subas a esta carpeta.**
 
-## Qué subir (ideal: 3 a 5 capturas)
+## Qué subir
+
+**Lo más valioso para clavar colores y tipografías (subí esto si lo tenés):**
+- El **logo** en buena calidad (PNG con fondo transparente, ideal). Puede ir
+  también en `brand/logo/`.
+- El **manual de marca / paleta oficial**, si existe (imagen o PDF con los
+  colores y las fuentes reales).
+
+**Capturas de posteos reales (ideal 3 a 8):**
 - El **posteo de lanzamiento** de la precampaña 26/27 (para mantener coherencia).
 - 1–2 **placas típicas** de producto (maíz o girasol).
 - 1 **carrusel** o historia, si tenés.
