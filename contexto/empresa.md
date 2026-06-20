@@ -25,7 +25,7 @@
 - Horario de atención: `[COMPLETAR]`
 
 ## Redes sociales
-- Instagram: `[COMPLETAR: @usuario]`
+- Instagram: **@henderseeds** — [instagram.com/henderseeds](https://www.instagram.com/henderseeds/)
 - Facebook: `[COMPLETAR: página]`
 - Otras (X/LinkedIn/YouTube): `[COMPLETAR si existen]`
 - Meta Business Suite configurado: sí (se pauta desde ahí).
