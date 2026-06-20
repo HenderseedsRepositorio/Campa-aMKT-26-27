@@ -14,6 +14,8 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W25 | 15/06 | ✍️ [Maíz: posicionar antes de comprar](posts/2026-W25/post-01-maiz-posicionamiento.md) | ✍️ [Calculadora de márgenes](posts/2026-W25/post-02-calculadora-margenes.md) | ✍️ [Institucional: somos de acá / RED.IN](posts/2026-W25/post-03-institucional-redin.md) |
 | 2026-W26 | 22/06 | 💡 Girasol: por qué girasol en el oeste + NS 1113 CL | 💡 Márgenes: el número del girasol 26/27 (ejemplo zona) | 💡 Técnico: cómo elegir híbrido por ambiente |
 
+> 🇦🇷 **Extra W25 — Día de la Bandera (20/06):** post institucional/emotivo fuera de rotación. Copy aprobado · pieza en Canva (Brand Kit Henderseeds). → [post-04](posts/2026-W25/post-04-dia-bandera.md)
+
 ## Julio 2026
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|
