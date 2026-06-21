@@ -14,13 +14,19 @@ productor y herramientas financieras para la reventa.
 Acá se generan: posteos para Instagram/Facebook, carruseles, guiones de reels y briefs
 de pauta para Meta Business Suite. Ritmo objetivo: **2–3 posteos por semana**.
 
+## Skill maestra de generación de contenido
+Leer **`.claude/skills/generar-contenido.md`** — contiene el flujo completo
+paso a paso (7 pasos), checklist, reglas duras y tabla de híbridos prioritarios.
+Seguirla al pie de la letra para generar cualquier lote semanal o post suelto.
+
 ## Antes de generar cualquier contenido (obligatorio)
-1. Leé `brand/identidad.md` y `brand/tono-voz.md`.
-2. Leé los archivos de `contexto/` que toquen el tema del posteo
+1. Leé `.claude/skills/generar-contenido.md` (skill maestra).
+2. Leé `brand/identidad.md` y `brand/tono-voz.md`.
+3. Leé los archivos de `contexto/` que toquen el tema del posteo
    (productos, herramientas, zona, calendario comercial).
-3. Revisá `calendario.md`: qué toca esta semana y qué ya se publicó.
+4. Revisá `calendario.md`: qué toca esta semana y qué ya se publicó.
    No repetir tema de las últimas 2 semanas.
-4. Si falta un dato comercial (precio, descuento, rinde, fecha), **no lo inventes**:
+5. Si falta un dato (rinde, fecha), **no lo inventes**:
    dejá `[COMPLETAR: qué falta]` en el texto y listalo en tu resumen final.
 
 ## Pilares de contenido (rotarlos)
@@ -39,16 +45,22 @@ Mix semanal sugerido: 1 post de cultivo (maíz o girasol, alternando) +
 ## Estructura del repo
 ```
 CLAUDE.md                  ← este archivo (leerlo siempre primero)
+prompt-opus-master.md      ← prompt para copiar/pegar en sesión con Opus
 calendario.md              ← grilla semanal: qué sale, cuándo, estado
+.claude/
+  skills/
+    generar-contenido.md   ← SKILL MAESTRA: flujo paso a paso para generar contenido
 brand/
   identidad.md             ← paleta, tipografías, logo, formatos de pieza
   tono-voz.md              ← voz de marca, ejemplos, checklist de calidad
+  referencias/             ← logos, carrusel HTML de referencia, capturas
 contexto/
   empresa.md               ← quiénes somos, contacto, redes
-  productos-26-27.md       ← híbridos maíz/girasol con argumentos de venta
+  productos-26-27.md       ← 13 híbridos con fichas completas de marbete oficial
   herramientas.md          ← calculadora de márgenes y herramientas financieras
   zona-y-audiencia.md      ← perfil del productor y audiencias para Meta
   calendario-comercial.md  ← hitos de precampaña y fechas Nidera
+  marbetes/                ← PDFs oficiales Nidera (fuente de verdad de producto)
 posts/
   _plantilla-post.md       ← formato obligatorio de cada post
   AAAA-Www/                ← una carpeta por semana (ej: 2026-W25/)
