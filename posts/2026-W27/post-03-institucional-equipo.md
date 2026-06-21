@@ -15,7 +15,7 @@
 >
 > Pasá por la oficina, llamanos o escribinos. La precampaña 26/27 se charla mejor con un mate de por medio.
 >
-> 📲 Coordiná una visita por WhatsApp.
+> 📩 Mandanos un DM o pasá por la oficina. Te esperamos.
 
 ## Pieza visual
 **Foto real** del equipo Henderseeds (en la oficina, en un campo, o en una jornada). Si no hay foto disponible todavía: placa **crema** (`#F6F4EE`) con texto navy.
@@ -28,7 +28,7 @@
 #Henderseeds #Nidera #REDIN #Henderson #Daireaux #Bolivar #OesteBonaerense #Agro
 
 ## CTA
-📲 Coordiná una visita o escribinos: wa.me/5492314530691
+Primario: 📩 Mandanos un DM o pasá por la oficina. · Secundario (info de última): WhatsApp wa.me/5492314530691 (también en la bio).
 
 ## Fuentes de los datos usados
 - Datos de zona y posicionamiento como RED.IN: `contexto/empresa.md`, `contexto/zona-y-audiencia.md`.

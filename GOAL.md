@@ -88,6 +88,10 @@ Las piezas se hacen en **HTML single-file**, NO en Canva (Canva no respeta logo 
 - **Linkear** cada placa desde el dashboard (`docs/index.html`) con "Ver placa".
 - El productor las ve online en GitHub Pages y las screenshotea a 1080×1350.
 
+**Regla de contacto (Instagram):** el CTA primario es **"Mandanos un DM"** (ícono
+avioncito) — es la acción nativa sin fricción. El **WhatsApp va como info de última**,
+chico y abajo, con el ícono SVG real verde (`#25D366`). Nunca el número grande/protagonista.
+
 ## Cómo usar esto
 
 **Vos (usuario):** abrís sesión y decís "seguí", "avanzá", o algo más específico.

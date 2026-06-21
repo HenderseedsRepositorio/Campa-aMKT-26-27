@@ -15,7 +15,7 @@
 >
 > Corré el número. Después decidí.
 >
-> 📲 Escribinos y te pasamos la herramienta con tu caso.
+> 📩 Mandanos un DM y te pasamos la herramienta con tu caso.
 
 ## Pieza visual
 Placa **navy oscuro** (`#0A0F1B`), estilo agro-tech.
@@ -32,7 +32,7 @@ Placa **navy oscuro** (`#0A0F1B`), estilo agro-tech.
 #Henderseeds #Precampaña2627 #Finanzas #Agro #OesteBonaerense #Henderson #Daireaux #Bolivar
 
 ## CTA
-📲 Escribinos por WhatsApp y te pasamos la herramienta: wa.me/5492314530691
+Primario: 📩 Mandanos un DM por Instagram. · Secundario (info de última): WhatsApp wa.me/5492314530691 (también en la bio).
 
 ## Fuentes de los datos usados
 - Herramienta pesos vs. dólares: `contexto/herramientas.md` (link: 13-finanzas-suite.vercel.app/finanzas).
