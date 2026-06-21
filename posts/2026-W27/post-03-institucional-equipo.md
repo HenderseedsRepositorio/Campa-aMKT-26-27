@@ -2,7 +2,7 @@
 
 - **Semana:** 2026-W27 · publicación tentativa: 2026-07-04
 - **Pilar:** institucional / cercanía
-- **Formato:** foto real del equipo o la oficina (1080×1350)
+- **Formato:** placa crema (1080×1350) → pieza HTML: `docs/placas/w27-post-03-institucional.html` · (opción: reemplazar por foto real del equipo)
 - **Objetivo:** humanizar la marca; mostrar que detrás hay personas de la zona que conocen los campos; reforzar la confianza y el vínculo cercano. Invitar a pasar por la oficina.
 - **Pauta:** no (orgánico, bajo presupuesto si se quiere amplificar alcance)
 

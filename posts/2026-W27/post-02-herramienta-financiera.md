@@ -2,7 +2,7 @@
 
 - **Semana:** 2026-W27 · publicación tentativa: 2026-07-02
 - **Pilar:** herramientas / márgenes
-- **Formato:** placa simple (1080×1350)
+- **Formato:** placa simple (1080×1350) → pieza HTML: `docs/placas/w27-post-02-finanzas.html`
 - **Objetivo:** que el productor se pregunte si le conviene comprar en precampaña o esperar; presentar la herramienta financiera (pesos vs. dólares) como recurso para decidir; generar consultas por WhatsApp.
 - **Pauta:** candidato a pauta (objetivo: mensajes WhatsApp)
 

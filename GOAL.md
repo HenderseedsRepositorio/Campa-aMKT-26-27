@@ -73,6 +73,21 @@ Cada vez que entro al proyecto, sigo este ciclo:
 
 ---
 
+## Estándar visual (IMPORTANTE — seguir siempre)
+
+Las piezas se hacen en **HTML single-file**, NO en Canva (Canva no respeta logo ni estilo).
+
+- **Ubicación:** `docs/placas/AAAA-WXX-tema.html` (dentro de `docs/` para que GitHub Pages las sirva).
+- **Estilo:** calcar el carrusel `carruseles/2026-W26-elegir-girasol-por-ambiente.html`:
+  fondo navy `#0A0F1B`, grilla naranja sutil, barra naranja superior 8px, Archivo Black
+  para títulos, DM Mono para datos/etiquetas, dato hero grande en naranja/amarillo.
+- **Logos REALES** (no recreados con texto): están en `docs/assets/`
+  - `logo-henderseeds-white.png` → placas navy (fondo oscuro)
+  - `logo-henderseeds-navy.png` → placas crema (fondo claro)
+  - `logo-nidera.png` → sello RED.IN en el footer
+- **Linkear** cada placa desde el dashboard (`docs/index.html`) con "Ver placa".
+- El productor las ve online en GitHub Pages y las screenshotea a 1080×1350.
+
 ## Cómo usar esto
 
 **Vos (usuario):** abrís sesión y decís "seguí", "avanzá", o algo más específico.

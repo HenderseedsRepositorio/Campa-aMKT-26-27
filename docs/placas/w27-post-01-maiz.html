@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa W27 · NS 7765 VIPTERA3</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --navy-dark:#091E3E;
+  --orange:#F5A623; --yellow:#F59E0B; --white:#FFFFFF;
+  --wf:rgba(255,255,255,0.05); --wb:rgba(255,255,255,0.09);
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --orange-glow:rgba(245,166,35,0.15); --txt-dim:rgba(255,255,255,0.55); --txt-faint:rgba(255,255,255,0.32);
+}
+body { background:#06080f; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+
+/* placa 1080×1350 */
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:90px 80px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:10; }
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(245,166,35,0.18); border-style:solid; z-index:5; }
+.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+/* logo real */
+.logo-hs { position:absolute; top:74px; right:80px; height:60px; z-index:6; }
+
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:12px; z-index:2; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
+
+.badge { display:inline-block; align-self:flex-start; background:var(--orange-glow); border:1px solid rgba(245,166,35,0.35); color:var(--orange); font-family:var(--mono); font-size:22px; letter-spacing:2px; text-transform:uppercase; padding:9px 20px; border-radius:8px; margin:46px 0 22px; z-index:2; }
+
+.title { font-family:var(--arch); color:var(--white); font-size:72px; line-height:0.98; letter-spacing:-2px; z-index:2; }
+
+.stat-row { display:flex; align-items:flex-end; gap:34px; margin:54px 0 14px; z-index:2; }
+.stat-big { font-family:var(--mono); font-weight:500; font-size:150px; line-height:0.82; letter-spacing:-6px; color:var(--orange); }
+.stat-side { display:flex; flex-direction:column; padding-bottom:14px; }
+.stat-unit { font-family:var(--sans); font-size:30px; color:var(--white); }
+.stat-detail { font-family:var(--mono); font-size:23px; color:var(--txt-faint); margin-top:4px; }
+
+.stat-second { font-family:var(--mono); font-size:30px; color:var(--txt-dim); margin-top:6px; z-index:2; }
+.stat-second b { color:var(--yellow); font-weight:500; }
+
+.tags { display:flex; flex-wrap:wrap; gap:14px; margin-top:40px; z-index:2; }
+.tag { font-family:var(--mono); font-size:22px; color:var(--white); background:var(--wf); border:1px solid var(--wb); border-radius:999px; padding:11px 22px; }
+.tag b { color:var(--orange); font-weight:500; }
+
+.forwho { margin-top:46px; padding-top:28px; border-top:1px dashed rgba(255,255,255,0.18); font-family:var(--sans); font-size:34px; color:var(--white); line-height:1.4; z-index:2; }
+.forwho .hl { color:var(--yellow); font-weight:700; }
+
+.spacer { flex:1; }
+.footrow { display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:34px; }
+.redin-logo span { font-family:var(--mono); font-size:18px; letter-spacing:2px; color:var(--txt-faint); text-transform:uppercase; }
+.tagdata { font-family:var(--mono); font-size:18px; letter-spacing:1px; color:var(--txt-faint); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> PRECAMPAÑA 26/27 · MAÍZ</div>
+
+  <span class="badge">NS 7765 VIPTERA3</span>
+  <div class="title">El top del portafolio.<br>Temprana y tardía.</div>
+
+  <div class="stat-row">
+    <div class="stat-big">+392</div>
+    <div class="stat-side">
+      <div class="stat-unit">kg/ha · temprana</div>
+      <div class="stat-detail">74% éxito · 191 comp.</div>
+    </div>
+  </div>
+  <div class="stat-second">Tardía: <b>+324 kg/ha</b> · 71% éxito · 165 comp.</div>
+
+  <div class="tags">
+    <div class="tag">Quebrado <b>1</b></div>
+    <div class="tag">Roya <b>2</b></div>
+    <div class="tag">Viptera <b>3</b></div>
+    <div class="tag">MR <b>118</b></div>
+  </div>
+
+  <div class="forwho">Para el lote donde <span class="hl">no querés arriesgar.</span> El maíz más completo, en cualquier fecha.</div>
+
+  <div class="spacer"></div>
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="tagdata">Dato: marbete oficial Nidera</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+</body>
+</html>

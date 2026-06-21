@@ -2,7 +2,7 @@
 
 - **Semana:** 2026-W27 · publicación tentativa: 2026-06-30
 - **Pilar:** maíz (precampaña)
-- **Formato:** placa simple (1080×1350)
+- **Formato:** placa simple (1080×1350) → pieza HTML: `docs/placas/w27-post-01-maiz.html`
 - **Objetivo:** consultas por WhatsApp sobre el NS 7765 VIP3; posicionarlo como el top del portafolio para lotes de alta y media productividad, tanto en temprana como en tardía.
 - **Pauta:** no (evaluar si se pauta junto con el carrusel de maíz futuro)
 
