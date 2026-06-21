@@ -3,365 +3,924 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Henderseeds — Precampaña Maíz & Girasol 26/27 (DEMO)</title>
-<meta name="description" content="Demo de la campaña digital 26/27 de Henderseeds: ejemplos de posteos y calculadora de márgenes. Distribuidor RED.IN Nidera — Henderson, Daireaux y Bolívar.">
+<title>HenderSeeds — Dashboard de Contenido</title>
+<meta name="description" content="Dashboard interno de contenido semanal — HenderSeeds, distribuidor RED.IN Nidera Semillas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #1B2A4A;
-    --navy-2: #24385f;
-    --naranja: #E8761C;
-    --naranja-2: #c95f0e;
-    --crema: #F7F4EE;
-    --tinta: #1A1A1A;
-    --gris: #6b7280;
-    --blanco: #ffffff;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: var(--crema);
-    color: var(--tinta);
-    line-height: 1.55;
-  }
-  h1, h2, h3 { font-family: 'Archivo', 'Inter', sans-serif; line-height: 1.12; }
+/* ── Reset & Variables ────────────────────────────── */
+:root {
+  --navy: #0A0F1B;
+  --navy-mid: #1A4A8A;
+  --orange: #F5A623;
+  --yellow: #F59E0B;
+  --white: #E8EEF7;
+  --white-pure: #FFFFFF;
+  --green-wa: #25D366;
+  --grey: #8FA0BE;
+  --card-border: rgba(255,255,255,0.09);
+  --card-bg: rgba(255,255,255,0.04);
+  --card-bg-hover: rgba(255,255,255,0.07);
+  --radius: 14px;
+  --grid-line: rgba(245,166,35,0.04);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: var(--navy);
+  color: var(--white);
+  line-height: 1.6;
+  min-height: 100vh;
+  /* Subtle grid background */
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
 
-  .demo-ribbon {
-    background: var(--naranja);
-    color: var(--blanco);
-    text-align: center;
-    font-size: .85rem;
-    font-weight: 800;
-    letter-spacing: .12em;
-    padding: 8px 16px;
-    text-transform: uppercase;
-  }
+/* ── Typography ───────────────────────────────────── */
+h1, h2, h3 {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400; /* Archivo Black only has 400 */
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.mono {
+  font-family: 'DM Mono', monospace;
+}
 
-  /* ===== Header ===== */
-  header {
-    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
-    color: var(--blanco);
-    padding: 56px 24px 72px;
-    position: relative;
-    overflow: hidden;
-  }
-  header::after {
-    content: "🌻";
-    position: absolute; right: -30px; bottom: -55px;
-    font-size: 230px; opacity: .08; transform: rotate(-12deg);
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; }
-  .marca { font-family: 'Archivo'; font-weight: 900; font-size: 1.5rem; letter-spacing: .04em; }
-  .marca span { color: var(--naranja); }
-  .redin {
-    display: inline-block; margin-top: 6px;
-    font-size: .8rem; font-weight: 600; letter-spacing: .06em;
-    color: #c9d4ea; text-transform: uppercase;
-  }
-  header h1 {
-    font-size: clamp(2.1rem, 6vw, 3.6rem);
-    font-weight: 900; margin: 34px 0 14px; max-width: 780px;
-  }
-  header h1 em { color: var(--naranja); font-style: normal; }
-  .sub { font-size: clamp(1rem, 2.5vw, 1.2rem); color: #d7deec; max-width: 640px; }
-  .cta-row { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn {
-    display: inline-block; padding: 14px 26px; border-radius: 12px;
-    font-weight: 800; text-decoration: none; font-size: 1rem;
-    transition: transform .15s ease;
-  }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-naranja { background: var(--naranja); color: var(--blanco); }
-  .btn-ghost { border: 2px solid #4a5d85; color: var(--blanco); }
+/* ── Layout ───────────────────────────────────────── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-  /* ===== Secciones ===== */
-  section { padding: 64px 24px; }
-  .sec-title { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 900; color: var(--navy); }
-  .sec-title .tag {
-    display: block; font-family: 'Inter'; font-size: .8rem; font-weight: 800;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--naranja);
-    margin-bottom: 8px;
-  }
-  .sec-sub { color: var(--gris); margin-top: 10px; max-width: 620px; }
+/* ── Header ───────────────────────────────────────── */
+.header {
+  padding: 40px 0 32px;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo-text {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 28px;
+  color: var(--white-pure);
+  letter-spacing: -1px;
+}
+.logo-text span {
+  color: var(--orange);
+}
+.header-subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--grey);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: column;
+  text-align: right;
+}
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--green-wa);
+}
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--green-wa);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+}
+.last-updated {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--grey);
+}
 
-  /* ===== Posts estilo Instagram ===== */
-  .posts-grid {
-    margin-top: 38px;
-    display: grid; gap: 26px;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  }
-  .ig-card {
-    background: var(--blanco); border-radius: 16px; overflow: hidden;
-    box-shadow: 0 8px 28px rgba(27,42,74,.12);
-    display: flex; flex-direction: column;
-  }
-  .ig-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
-  .avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: var(--navy); color: var(--blanco);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: .8rem; flex-shrink: 0;
-    border: 2px solid var(--naranja);
-  }
-  .ig-user { font-weight: 700; font-size: .9rem; }
-  .ig-loc { font-size: .75rem; color: var(--gris); }
-  .placa {
-    aspect-ratio: 4 / 5; padding: 9%;
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
-  .placa .mini-marca { font-family: 'Archivo'; font-weight: 900; font-size: .95rem; letter-spacing: .05em; }
-  .placa h3 { font-size: clamp(1.35rem, 2.2vw, 1.7rem); font-weight: 900; }
-  .placa .chip {
-    align-self: flex-start; padding: 8px 14px; border-radius: 999px;
-    font-weight: 800; font-size: .85rem;
-  }
-  .placa-navy { background: var(--navy); color: var(--blanco); }
-  .placa-navy .mini-marca span, .placa-navy h3 em { color: var(--naranja); font-style: normal; }
-  .placa-navy .chip { background: var(--naranja); color: var(--blanco); }
-  .placa-crema { background: var(--crema); color: var(--navy); }
-  .placa-crema .mini-marca span, .placa-crema h3 em { color: var(--naranja); font-style: normal; }
-  .placa-crema .chip { background: var(--navy); color: var(--blanco); }
-  .placa-naranja { background: linear-gradient(165deg, var(--naranja) 0%, var(--naranja-2) 100%); color: var(--blanco); }
-  .placa-naranja .mini-marca span { color: var(--navy); }
-  .placa-naranja .chip { background: var(--navy); color: var(--blanco); }
-  .ig-actions { padding: 10px 14px 0; font-size: 1.05rem; letter-spacing: .35em; color: var(--navy); }
-  .ig-caption { padding: 8px 14px 16px; font-size: .86rem; }
-  .ig-caption b { font-weight: 700; }
-  .ig-caption .hashtags { color: #1d4ed8; display: block; margin-top: 8px; font-size: .8rem; }
+/* ── Section titles ───────────────────────────────── */
+.section-title {
+  font-size: 20px;
+  margin: 40px 0 20px;
+  color: var(--white-pure);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title .accent {
+  color: var(--orange);
+}
+.section-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--grey);
+  background: rgba(255,255,255,0.06);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
 
-  /* ===== Calculadora ===== */
-  .calc-section { background: var(--navy); color: var(--blanco); }
-  .calc-section .sec-title { color: var(--blanco); }
-  .calc-box {
-    margin-top: 38px; display: grid; gap: 26px;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    align-items: stretch;
-  }
-  .calc-form, .calc-result {
-    background: var(--blanco); color: var(--tinta);
-    border-radius: 16px; padding: 28px;
-  }
-  .calc-form label { display: block; font-weight: 700; font-size: .85rem; margin: 16px 0 6px; color: var(--navy); }
-  .calc-form label:first-of-type { margin-top: 0; }
-  .calc-form input, .calc-form select {
-    width: 100%; padding: 12px 14px; border: 2px solid #e2e0da; border-radius: 10px;
-    font-size: 1rem; font-family: inherit; background: var(--crema);
-  }
-  .calc-form input:focus, .calc-form select:focus { outline: 2px solid var(--naranja); border-color: var(--naranja); }
-  .calc-btn {
-    width: 100%; margin-top: 22px; padding: 14px; border: none; border-radius: 12px;
-    background: var(--naranja); color: var(--blanco); font-weight: 800; font-size: 1.05rem;
-    cursor: pointer; font-family: inherit;
-  }
-  .calc-btn:hover { background: var(--naranja-2); }
-  .calc-result { display: flex; flex-direction: column; justify-content: center; }
-  .res-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed #e2e0da; font-size: .95rem; }
-  .res-row b { font-size: 1.05rem; }
-  .res-final { border: none; margin-top: 10px; }
-  .res-final .label { font-weight: 800; color: var(--navy); }
-  #margen { font-family: 'Archivo'; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; color: var(--naranja); }
-  .disclaimer { margin-top: 18px; font-size: .78rem; color: var(--gris); }
+/* ── Calendar grid ────────────────────────────────── */
+.calendar-grid {
+  display: grid;
+  gap: 8px;
+}
+.cal-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 16px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  transition: background 0.2s;
+}
+.cal-row:hover {
+  background: var(--card-bg-hover);
+}
+.cal-row.current {
+  border-color: var(--orange);
+  background: rgba(245,166,35,0.06);
+}
+.cal-row.future {
+  opacity: 0.45;
+}
+.cal-week {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--orange);
+  white-space: nowrap;
+}
+.cal-week small {
+  display: block;
+  font-size: 11px;
+  color: var(--grey);
+  font-weight: 400;
+}
+.cal-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 14px;
+  color: var(--white);
+}
+.cal-items .item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cal-items .sep {
+  color: rgba(255,255,255,0.15);
+}
 
-  /* ===== Qué más ===== */
-  .more-grid { margin-top: 38px; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-  .more-card { background: var(--blanco); border-radius: 14px; padding: 24px; box-shadow: 0 4px 18px rgba(27,42,74,.08); }
-  .more-card .emoji { font-size: 1.8rem; }
-  .more-card h3 { color: var(--navy); margin: 10px 0 6px; font-size: 1.05rem; }
-  .more-card p { font-size: .87rem; color: var(--gris); }
+/* ── Content cards ────────────────────────────────── */
+.cards-grid {
+  display: grid;
+  gap: 16px;
+}
+.card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  padding: 24px;
+  transition: background 0.2s;
+}
+.card:hover {
+  background: var(--card-bg-hover);
+}
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 16px;
+  color: var(--white-pure);
+  flex: 1;
+  min-width: 200px;
+}
+.pillar-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+.pillar-girasol { background: var(--yellow); }
+.pillar-maiz { background: var(--orange); }
+.pillar-margenes { background: var(--orange); }
+.pillar-tecnico { background: var(--navy-mid); color: var(--white-pure); }
+.pillar-herramientas { background: var(--green-wa); }
+.pillar-institucional { background: #7CB9E8; }
+.pillar-efemeride { background: #7CB9E8; }
 
-  /* ===== Footer ===== */
-  footer { background: var(--navy); color: #c9d4ea; padding: 44px 24px; font-size: .88rem; }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
-  footer a { color: var(--naranja); text-decoration: none; font-weight: 600; }
-  .nota-ejemplo {
-    max-width: 1080px; margin: 26px auto 0; font-size: .8rem; color: var(--gris);
-    border-left: 3px solid var(--naranja); padding-left: 12px;
+.status-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--grey);
+}
+.copy-block {
+  background: rgba(0,0,0,0.25);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(232,238,247,0.9);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 14px;
+  font-size: 12px;
+}
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--grey);
+}
+.meta-value {
+  color: var(--white);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.hashtag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--orange);
+  background: rgba(245,166,35,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ── Mini table (hybrids in carrusel card) ────────── */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.mini-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--grey);
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.mini-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: var(--white);
+}
+.mini-table td:nth-child(2) {
+  font-family: 'DM Mono', monospace;
+  color: var(--orange);
+  font-weight: 500;
+}
+
+/* ── Details / collapsible ────────────────────────── */
+details {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  margin-top: 24px;
+}
+details > summary {
+  padding: 16px 24px;
+  cursor: pointer;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 16px;
+  color: var(--white-pure);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before {
+  content: '\25B6';
+  font-size: 10px;
+  color: var(--orange);
+  transition: transform 0.2s;
+}
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+details > summary:hover {
+  background: var(--card-bg-hover);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+details .details-content {
+  padding: 0 24px 24px;
+  display: grid;
+  gap: 16px;
+}
+
+/* ── Portfolio table ──────────────────────────────── */
+.portfolio-section {
+  margin-top: 40px;
+}
+.portfolio-crop {
+  margin-bottom: 24px;
+}
+.portfolio-crop h3 {
+  font-size: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.portfolio-table thead th {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--grey);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.portfolio-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.portfolio-table tbody td:first-child {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  color: var(--white-pure);
+}
+.portfolio-table tbody td:nth-child(2) {
+  font-family: 'DM Mono', monospace;
+  color: var(--orange);
+  font-weight: 500;
+}
+.portfolio-table tbody td:nth-child(3) {
+  color: var(--grey);
+  font-size: 12px;
+}
+
+/* ── Footer ───────────────────────────────────────── */
+.footer {
+  margin-top: 60px;
+  padding: 32px 0;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+  text-align: center;
+}
+.footer-brand {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 14px;
+  color: var(--grey);
+  margin-bottom: 6px;
+}
+.footer-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(143,160,190,0.6);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.footer-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--green-wa);
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid rgba(37,211,102,0.3);
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.footer-wa:hover {
+  background: rgba(37,211,102,0.1);
+}
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
   }
+  .header-status {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .logo-text { font-size: 24px; }
+  .cal-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .cal-week {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cal-week small {
+    display: inline;
+  }
+  .card { padding: 16px; }
+  .card-title { font-size: 14px; min-width: unset; }
+  .copy-block { padding: 12px; font-size: 13px; }
+  .section-title { font-size: 17px; }
+  details > summary { padding: 14px 16px; font-size: 14px; }
+  details .details-content { padding: 0 16px 16px; }
+  .portfolio-table { font-size: 12px; }
+  .portfolio-table thead th, .portfolio-table tbody td { padding: 6px 8px; }
+}
 </style>
 </head>
 <body>
 
-<div class="demo-ribbon">⚠ Página de demostración — contenido de ejemplo, datos comerciales sin cargar</div>
-
-<header>
-  <div class="wrap">
-    <div class="marca">HENDER<span>SEEDS</span></div>
-    <span class="redin">Red RED.IN · Nidera Semillas · Henderson – Daireaux – Bolívar</span>
-    <h1>Precampaña <em>maíz y girasol</em> 26/27: el momento de hacer números es ahora.</h1>
-    <p class="sub">Semilla Nidera con asesoramiento de la zona, herramientas para calcular tu margen y condiciones de precampaña. De productor a productor.</p>
-    <div class="cta-row">
-      <a class="btn btn-naranja" href="#calculadora">📈 Probá la calculadora</a>
-      <a class="btn btn-ghost" href="#posts">Ver los posteos</a>
+<!-- ═══════════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════════ -->
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div>
+        <div class="logo-text">Hender<span>Seeds</span></div>
+        <div class="header-subtitle">Dashboard de Contenido &middot; Precampa&ntilde;a 26/27</div>
+      </div>
+      <div class="header-status">
+        <div class="status-badge">
+          <span class="pulse-dot"></span>
+          Precampa&ntilde;a abierta
+        </div>
+        <div class="last-updated">Actualizado: 21 de junio, 2026</div>
+      </div>
     </div>
   </div>
 </header>
 
-<section id="posts">
-  <div class="wrap">
-    <h2 class="sec-title"><span class="tag">Contenido orgánico</span>Así se van a ver los posteos</h2>
-    <p class="sec-sub">Tres ejemplos del mix semanal: cultivo + herramienta + cultivo. Copy con voseo, un mensaje por placa y CTA a WhatsApp.</p>
+<main class="container">
 
-    <div class="posts-grid">
+<!-- ═══════════════════════════════════════════════════
+     CALENDARIO
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent">Calendario</span> de contenido</h2>
 
-      <!-- Post 1: Maíz -->
-      <article class="ig-card">
-        <div class="ig-head">
-          <div class="avatar">HS</div>
-          <div>
-            <div class="ig-user">henderseeds</div>
-            <div class="ig-loc">Henderson, Buenos Aires</div>
-          </div>
-        </div>
-        <div class="placa placa-navy">
-          <div class="mini-marca">HENDER<span>SEEDS</span></div>
-          <h3>Tus mejores lotes piden un maíz que <em>se la banque</em>.</h3>
-          <div class="chip">NS 7626 VIPTERA3 CL</div>
-        </div>
-        <div class="ig-actions">♥ 💬 ➤</div>
-        <div class="ig-caption">
-          <b>henderseeds</b> ¿Ya definiste el maíz de tus lotes de punta? El NS 7626 VIPTERA3 CL combina potencial de rinde con protección frente a orugas. En precampaña lo asegurás con las mejores condiciones del año. 📲 Escribinos y lo posicionamos juntos para tu ambiente.
-          <span class="hashtags">#Henderseeds #Nidera #Maiz #Precampaña2627 #Henderson #Daireaux #Bolivar #AgroArgentino</span>
-        </div>
-      </article>
+<div class="calendar-grid">
 
-      <!-- Post 2: Calculadora -->
-      <article class="ig-card">
-        <div class="ig-head">
-          <div class="avatar">HS</div>
-          <div>
-            <div class="ig-user">henderseeds</div>
-            <div class="ig-loc">Henderson, Buenos Aires</div>
-          </div>
-        </div>
-        <div class="placa placa-crema">
-          <div class="mini-marca">HENDER<span>SEEDS</span></div>
-          <h3>¿Cuánto te deja una hectárea de girasol? <em>Calculalo en 2 minutos.</em></h3>
-          <div class="chip">📈 Calculadora de márgenes</div>
-        </div>
-        <div class="ig-actions">♥ 💬 ➤</div>
-        <div class="ig-caption">
-          <b>henderseeds</b> Antes de decidir qué sembrar, hacé números. Con nuestra calculadora de márgenes cargás rinde esperado, precio y costos, y tenés el margen de TU lote. Sin vueltas. 📲 Pedila por WhatsApp, es sin cargo.
-          <span class="hashtags">#Henderseeds #CalculadoraDeMargenes #Girasol #Maiz #MargenBruto #Agro #OesteBonaerense</span>
-        </div>
-      </article>
-
-      <!-- Post 3: Girasol -->
-      <article class="ig-card">
-        <div class="ig-head">
-          <div class="avatar">HS</div>
-          <div>
-            <div class="ig-user">henderseeds</div>
-            <div class="ig-loc">Henderson, Buenos Aires</div>
-          </div>
-        </div>
-        <div class="placa placa-naranja">
-          <div class="mini-marca">HENDER<span>SEEDS</span></div>
-          <h3>El oeste es tierra de girasol. 🌻</h3>
-          <div class="chip">NS 1113 CL</div>
-        </div>
-        <div class="ig-actions">♥ 💬 ➤</div>
-        <div class="ig-caption">
-          <b>henderseeds</b> Girasol en el oeste no es moda: es historia y es margen. Con la tecnología CL arrancás con el lote limpio y el NS 1113 CL es uno de los candidatos para la zona. Te ayudamos a elegir según tu lote y tu planteo. 📲 Consultanos por la precampaña 26/27.
-          <span class="hashtags">#Henderseeds #Nidera #Girasol #Clearfield #Precampaña2627 #Henderson #Daireaux #Bolivar</span>
-        </div>
-      </article>
-
+  <!-- W24 -->
+  <div class="cal-row">
+    <div class="cal-week">W24 <small>08/06</small></div>
+    <div class="cal-items">
+      <span class="item">Lanzamiento precampa&ntilde;a &#x1F4E4; publicado</span>
     </div>
-    <p class="nota-ejemplo">Los textos son de ejemplo para esta demo: antes de publicar, cada dato técnico y comercial se valida contra los archivos de <code>contexto/</code> del repo y la ficha oficial de Nidera.</p>
   </div>
-</section>
 
-<section class="calc-section" id="calculadora">
-  <div class="wrap">
-    <h2 class="sec-title"><span class="tag">Demo interactiva</span>Calculadora de margen bruto</h2>
-    <p class="sec-sub" style="color:#c9d4ea">Una muestra de lo que se puede publicar online desde este repo: cargá tus números y mirá el resultado al instante.</p>
+  <!-- W25 -->
+  <div class="cal-row">
+    <div class="cal-week">W25 <small>15/06</small></div>
+    <div class="cal-items">
+      <span class="item">Ma&iacute;z posicionamiento &#x270D;&#xFE0F;</span>
+      <span class="sep">|</span>
+      <span class="item">Calculadora m&aacute;rgenes &#x270D;&#xFE0F;</span>
+      <span class="sep">|</span>
+      <span class="item">Institucional RED.IN &#x270D;&#xFE0F;</span>
+      <span class="sep">|</span>
+      <span class="item">Extra: D&iacute;a de la Bandera &#x270D;&#xFE0F;</span>
+    </div>
+  </div>
 
-    <div class="calc-box">
-      <div class="calc-form">
-        <label for="cultivo">Cultivo</label>
-        <select id="cultivo">
-          <option value="girasol">🌻 Girasol</option>
-          <option value="maiz">🌽 Maíz</option>
-        </select>
+  <!-- W26 (current) -->
+  <div class="cal-row current">
+    <div class="cal-week">W26 <small>22/06</small></div>
+    <div class="cal-items">
+      <span class="item">Girasol NS 1113 CL &#x270D;&#xFE0F;&#x1F4E3;</span>
+      <span class="sep">|</span>
+      <span class="item">M&aacute;rgenes girasol &#x270D;&#xFE0F;</span>
+      <span class="sep">|</span>
+      <span class="item">Carrusel: elegir girasol &#x270D;&#xFE0F;</span>
+    </div>
+  </div>
 
-        <label for="rinde">Rinde esperado (qq/ha)</label>
-        <input type="number" id="rinde" value="22" min="0" step="1">
+  <!-- W27-W31 -->
+  <div class="cal-row future">
+    <div class="cal-week">W27 <small>29/06</small></div>
+    <div class="cal-items">
+      <span class="item">&#x1F4A1; propuesto</span>
+    </div>
+  </div>
+  <div class="cal-row future">
+    <div class="cal-week">W28 <small>06/07</small></div>
+    <div class="cal-items">
+      <span class="item">&#x1F4A1; propuesto</span>
+    </div>
+  </div>
+  <div class="cal-row future">
+    <div class="cal-week">W29 <small>13/07</small></div>
+    <div class="cal-items">
+      <span class="item">&#x1F4A1; propuesto</span>
+    </div>
+  </div>
+  <div class="cal-row future">
+    <div class="cal-week">W30 <small>20/07</small></div>
+    <div class="cal-items">
+      <span class="item">&#x1F4A1; propuesto</span>
+    </div>
+  </div>
+  <div class="cal-row future">
+    <div class="cal-week">W31 <small>27/07</small></div>
+    <div class="cal-items">
+      <span class="item">&#x1F4A1; propuesto</span>
+    </div>
+  </div>
 
-        <label for="precio">Precio esperado (USD/tonelada)</label>
-        <input type="number" id="precio" value="300" min="0" step="5">
+</div>
 
-        <label for="costos">Costos directos (USD/ha) — semilla, labores, insumos</label>
-        <input type="number" id="costos" value="450" min="0" step="10">
+<!-- ═══════════════════════════════════════════════════
+     SEMANA W26 — ACTUAL
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title">Semana <span class="accent">W26</span> <span class="section-tag">actual</span></h2>
 
-        <label for="comerc">Gastos de comercialización y cosecha (% del ingreso)</label>
-        <input type="number" id="comerc" value="25" min="0" max="100" step="1">
+<div class="cards-grid">
 
-        <button class="calc-btn" onclick="calcular()">Calcular margen</button>
+  <!-- Post 01 — Girasol NS 1113 CL -->
+  <div class="card">
+    <div class="card-header">
+      <span class="pillar-tag pillar-girasol">Girasol</span>
+      <span class="card-title">Post 01 &mdash; Girasol NS 1113 CL</span>
+      <span class="status-label">&#x270D;&#xFE0F; Borrador &middot; &#x1F4E3; Con pauta</span>
+    </div>
+    <div class="copy-block">En el oeste, el girasol nunca se fue.
+
+Es el cultivo que mejor se banca nuestros ambientes, y este a&ntilde;o la gen&eacute;tica acompa&ntilde;a. El NS 1113 CL es el techo de rendimiento y contenido de aceite del portafolio Nidera: en los ensayos de la regi&oacute;n Sur + Oeste rindi&oacute; +2,11 qq/ha sobre el promedio, con 74% de &eacute;xito en 225 comparaciones (dato de marbete oficial Nidera).
+
+Sumale la tecnolog&iacute;a Clearfield para el control de malezas y un perfil sanitario firme (Sclerotinia 2, resistente a Downy Mildew y Roya negra), y ten&eacute;s un girasol para apuntar alto sin resignar estabilidad.
+
+La siembra arranca en agosto. La precampa&ntilde;a est&aacute; abierta ahora: es el momento de asegurar la bolsa.
+
+&#x1F4F2; Escribinos y lo vemos para tus lotes.</div>
+    <div class="hashtags">
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#Nidera</span>
+      <span class="hashtag">#Girasol2627</span>
+      <span class="hashtag">#NS1113CL</span>
+      <span class="hashtag">#Henderson</span>
+      <span class="hashtag">#Daireaux</span>
+      <span class="hashtag">#Bolivar</span>
+      <span class="hashtag">#OesteBonaerense</span>
+    </div>
+    <div class="card-meta">
+      <div class="meta-item">
+        <span class="meta-label">Visual</span>
+        <span class="meta-value">Placa navy con dato hero +2,11 qq/ha en amarillo</span>
       </div>
+    </div>
+  </div>
 
-      <div class="calc-result">
-        <div class="res-row"><span>Ingreso bruto</span><b id="ingreso">—</b></div>
-        <div class="res-row"><span>Gastos comercialización + cosecha</span><b id="gastos">—</b></div>
-        <div class="res-row"><span>Costos directos</span><b id="directos">—</b></div>
-        <div class="res-row res-final"><span class="label">Margen bruto por hectárea</span><span id="margen">—</span></div>
-        <p class="disclaimer">⚠ Demo ilustrativa con fines de prueba. No es la calculadora oficial de Henderseeds, no constituye asesoramiento y los valores precargados son ficticios. Para el cálculo completo de tu planteo: 📲 <b>[COMPLETAR: WhatsApp comercial]</b>.</p>
+  <!-- Post 02 — El número del girasol -->
+  <div class="card">
+    <div class="card-header">
+      <span class="pillar-tag pillar-margenes">M&aacute;rgenes</span>
+      <span class="card-title">Post 02 &mdash; El n&uacute;mero del girasol</span>
+      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+    </div>
+    <div class="copy-block">&iquest;Descartaste el girasol sin hacer el n&uacute;mero?
+
+Pasa seguido. Y a veces el girasol esconde un margen mejor de lo que parece: es un cultivo m&aacute;s defensivo, con un costo de implantaci&oacute;n m&aacute;s bajo que el ma&iacute;z y bonificaci&oacute;n por aceite. En nuestros ambientes del oeste, eso pesa.
+
+No te vamos a tirar un n&uacute;mero que no es tuyo. El margen real depende de TU rinde y TUS costos. Por eso armamos una calculadora: carg&aacute;s los datos de tu lote y te muestra el margen estimado por hect&aacute;rea, para girasol y para ma&iacute;z, lado a lado.
+
+Corr&eacute; el n&uacute;mero antes de cerrar la rotaci&oacute;n. Capaz te sorprende.
+
+&#x1F4F2; Pedinos la calculadora por WhatsApp y la cargamos con tu caso.</div>
+    <div class="hashtags">
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#Girasol</span>
+      <span class="hashtag">#Margenes</span>
+      <span class="hashtag">#Precampa&ntilde;a2627</span>
+      <span class="hashtag">#CalculadoraDeMargenes</span>
+      <span class="hashtag">#OesteBonaerense</span>
+      <span class="hashtag">#Agro</span>
+      <span class="hashtag">#Nidera</span>
+    </div>
+    <div class="card-meta">
+      <div class="meta-item">
+        <span class="meta-label">Visual</span>
+        <span class="meta-value">Placa crema con barras comparativas girasol vs ma&iacute;z (sin cifras)</span>
       </div>
     </div>
   </div>
-</section>
 
-<section>
-  <div class="wrap">
-    <h2 class="sec-title"><span class="tag">El repo en acción</span>Qué más sale de acá</h2>
-    <div class="more-grid">
-      <div class="more-card"><div class="emoji">📝</div><h3>2–3 posteos por semana</h3><p>Copy listo para Instagram/Facebook siguiendo la rotación del calendario: maíz, girasol, herramientas, técnica.</p></div>
-      <div class="more-card"><div class="emoji">🎠</div><h3>Carruseles 1080×1350</h3><p>Placas HTML listas para screenshotear: un dato por slide, estética navy/naranja.</p></div>
-      <div class="more-card"><div class="emoji">🎬</div><h3>Guiones de reels</h3><p>Hook, escenas, texto en pantalla y audio sugerido. Para filmar con el celular en 20 minutos.</p></div>
-      <div class="more-card"><div class="emoji">📣</div><h3>Briefs de pauta Meta</h3><p>Segmentación geográfica de la zona, presupuesto y objetivo listos para cargar en Meta Business Suite.</p></div>
+  <!-- Post 03 — Carrusel: elegir girasol por ambiente -->
+  <div class="card">
+    <div class="card-header">
+      <span class="pillar-tag pillar-tecnico">T&eacute;cnico</span>
+      <span class="card-title">Post 03 &mdash; Carrusel: elegir girasol por ambiente</span>
+      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+    </div>
+    <div class="copy-block">No hay un girasol mejor. Hay un girasol mejor para TU lote.
+
+Elegir el h&iacute;brido no es mirar qui&eacute;n rinde m&aacute;s en la revista. Es cruzar dos cosas: el ambiente del lote (su potencial) y su historia sanitaria (qu&eacute; enfermedad te complic&oacute; otras campa&ntilde;as). As&iacute; trabajamos en la red RED.IN de Nidera: posicionamiento, no g&oacute;ndola.
+
+En este carrusel, los 3 girasoles Clearfield que estamos posicionando para la 26/27 y para qu&eacute; lote va cada uno &#x1F449;
+
+&#x1F4F2; &iquest;Quer&eacute;s que lo veamos lote por lote? Escribinos.</div>
+
+    <table class="mini-table">
+      <thead>
+        <tr>
+          <th>H&iacute;brido</th>
+          <th>Rinde vs promedio</th>
+          <th>Perfil</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NS 1113 CL</td>
+          <td>+2,11 qq/ha</td>
+          <td>Techo de rinde y aceite</td>
+        </tr>
+        <tr>
+          <td>NS 1115 CL</td>
+          <td>+1,64 qq/ha</td>
+          <td>Mejor sanidad</td>
+        </tr>
+        <tr>
+          <td>NS 1117 CL</td>
+          <td>+1,75 qq/ha</td>
+          <td>Rinde + Phomopsis</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hashtags">
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#Nidera</span>
+      <span class="hashtag">#Girasol2627</span>
+      <span class="hashtag">#Clearfield</span>
+      <span class="hashtag">#Posicionamiento</span>
+      <span class="hashtag">#Henderson</span>
+      <span class="hashtag">#Daireaux</span>
+      <span class="hashtag">#OesteBonaerense</span>
+    </div>
+    <div class="card-meta">
+      <div class="meta-item">
+        <span class="meta-label">Visual</span>
+        <span class="meta-value">Carrusel 5 slides, estilo agro-tech navy</span>
+      </div>
     </div>
   </div>
-</section>
 
-<footer>
-  <div class="wrap">
-    <div>
-      <div class="marca" style="font-size:1.1rem">HENDER<span>SEEDS</span></div>
-      <div>Distribuidor RED.IN Nidera · Henderson – Daireaux – Bolívar</div>
-      <div>📲 WhatsApp: [COMPLETAR] · 🌐 <a href="https://henderseeds.com" target="_blank" rel="noopener">henderseeds.com</a></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SEMANA W25 — ANTERIOR (colapsable)
+     ═══════════════════════════════════════════════════ -->
+<details>
+  <summary>Semana W25 &mdash; 15 de junio <span class="section-tag" style="margin-left:auto">anterior</span></summary>
+  <div class="details-content">
+
+    <!-- Post 01 — Maíz: posicionar antes de comprar -->
+    <div class="card" style="border:none; background:transparent; padding:0">
+      <div class="card-header">
+        <span class="pillar-tag pillar-maiz">Ma&iacute;z</span>
+        <span class="card-title">Post 01 &mdash; Ma&iacute;z: posicionar antes de comprar</span>
+        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      </div>
+      <div class="copy-block">El mejor ma&iacute;z no es el que m&aacute;s rinde en la revista. Es el que mejor se porta en TU lote.
+
+Antes de cerrar la bolsa, hacemos un laburo que marca la diferencia: analizar tus ambientes, cruzar datos de densidad, ciclo y trait, y recomendar el h&iacute;brido que mejor encaja en cada lote. Posicionamiento, no g&oacute;ndola.
+
+Es lo que hacemos como parte de la red RED.IN de Nidera Semillas. Y es lo que te ofrecemos para la 26/27.
+
+&#x1F4F2; Escribinos y lo vemos lote por lote.</div>
+      <div class="hashtags">
+        <span class="hashtag">#Henderseeds</span>
+        <span class="hashtag">#Nidera</span>
+        <span class="hashtag">#Maiz2627</span>
+        <span class="hashtag">#Posicionamiento</span>
+        <span class="hashtag">#Henderson</span>
+        <span class="hashtag">#Daireaux</span>
+        <span class="hashtag">#Bolivar</span>
+        <span class="hashtag">#OesteBonaerense</span>
+      </div>
     </div>
-    <div>
-      Página demo generada desde el repo<br>
-      <a href="https://github.com/HenderseedsRepositorio/Campa-aMKT-26-27" target="_blank" rel="noopener">Campa-aMKT-26-27</a> con Claude Code 🤖<br>
-      <a href="como-funciona.html">📖 ¿Cómo funciona esto? GitHub en criollo</a>
+
+    <!-- Post 02 — Calculadora de márgenes -->
+    <div class="card" style="border:none; background:transparent; padding:0">
+      <div class="card-header">
+        <span class="pillar-tag pillar-herramientas">Herramientas</span>
+        <span class="card-title">Post 02 &mdash; Calculadora de m&aacute;rgenes</span>
+        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      </div>
+      <div class="copy-block">&iquest;Te cierran los n&uacute;meros antes de decidir qu&eacute; sembrar?
+
+Armamos una calculadora de m&aacute;rgenes: carg&aacute;s rinde esperado, costos de tu lote, y te muestra el margen bruto estimado por hect&aacute;rea. Para ma&iacute;z y girasol, lado a lado. Sin verso, con tus datos.
+
+Porque el mejor h&iacute;brido es el que te cierra en TU campo.
+
+&#x1F4F2; Pedila por WhatsApp y te ayudamos a cargarla con tu caso.</div>
+      <div class="hashtags">
+        <span class="hashtag">#Henderseeds</span>
+        <span class="hashtag">#Herramientas</span>
+        <span class="hashtag">#CalculadoraDeMargenes</span>
+        <span class="hashtag">#Precampa&ntilde;a2627</span>
+        <span class="hashtag">#Agro</span>
+        <span class="hashtag">#Henderson</span>
+        <span class="hashtag">#Daireaux</span>
+        <span class="hashtag">#OesteBonaerense</span>
+      </div>
     </div>
+
+    <!-- Post 03 — Institucional RED.IN -->
+    <div class="card" style="border:none; background:transparent; padding:0">
+      <div class="card-header">
+        <span class="pillar-tag pillar-institucional">Institucional</span>
+        <span class="card-title">Post 03 &mdash; Institucional RED.IN</span>
+        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      </div>
+      <div class="copy-block">Somos de ac&aacute;. Y en semillas, eso se nota.
+
+Henderson, Daireaux, Bol&iacute;var: conocemos los lotes, los ambientes y a la gente. Como parte de la red RED.IN de Nidera Semillas, sumamos gen&eacute;tica de punta con asesoramiento t&eacute;cnico que entiende lo local.
+
+No vendemos semillas: posicionamos h&iacute;bridos lote por lote.
+
+&#x1F4F2; &iquest;Arrancamos la 26/27 juntos?</div>
+      <div class="hashtags">
+        <span class="hashtag">#Henderseeds</span>
+        <span class="hashtag">#Nidera</span>
+        <span class="hashtag">#REDIN</span>
+        <span class="hashtag">#Henderson</span>
+        <span class="hashtag">#Daireaux</span>
+        <span class="hashtag">#Bolivar</span>
+        <span class="hashtag">#OesteBonaerense</span>
+        <span class="hashtag">#Agro</span>
+      </div>
+    </div>
+
+    <!-- Post 04 — Día de la Bandera -->
+    <div class="card" style="border:none; background:transparent; padding:0">
+      <div class="card-header">
+        <span class="pillar-tag pillar-efemeride">Efem&eacute;ride</span>
+        <span class="card-title">Post 04 &mdash; D&iacute;a de la Bandera</span>
+        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      </div>
+      <div class="copy-block">Hoy flamea sobre cada lote. &#x1F1E6;&#x1F1F7;
+
+Desde Henderson, Daireaux y Bol&iacute;var, un saludo a todos los que la ven flamear cada ma&ntilde;ana camino al campo. Ac&aacute;, la bandera no es solo un s&iacute;mbolo: es el techo del galpón, la camiseta de la rural y el fondo de cada foto de cosecha.
+
+Feliz D&iacute;a de la Bandera.</div>
+      <div class="hashtags">
+        <span class="hashtag">#Henderseeds</span>
+        <span class="hashtag">#DiaDeLaBandera</span>
+        <span class="hashtag">#20DeJunio</span>
+        <span class="hashtag">#Henderson</span>
+        <span class="hashtag">#Daireaux</span>
+        <span class="hashtag">#Bolivar</span>
+        <span class="hashtag">#OesteBonaerense</span>
+        <span class="hashtag">#Agro</span>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════════════════════════════════════════════════
+     PORTAFOLIO DE HÍBRIDOS
+     ═══════════════════════════════════════════════════ -->
+<div class="portfolio-section">
+  <h2 class="section-title">Portafolio <span class="accent">prioritario</span></h2>
+
+  <div class="portfolio-crop">
+    <h3>&#x1F33D; Ma&iacute;z</h3>
+    <table class="portfolio-table">
+      <thead>
+        <tr>
+          <th>H&iacute;brido</th>
+          <th>Dato top</th>
+          <th>Diferencial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NS 7765 VIP3</td>
+          <td>+392 kg/ha (74%)</td>
+          <td>Top del portafolio</td>
+        </tr>
+        <tr>
+          <td>NS 7621 VIP3</td>
+          <td>+290 kg/ha (67%)</td>
+          <td>Performance temprana</td>
+        </tr>
+        <tr>
+          <td>NS 7921 VIP3 CL</td>
+          <td>+179 kg/ha (60%)</td>
+          <td>Vers&aacute;til + 3 herbicidas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="portfolio-crop">
+    <h3>&#x1F33B; Girasol</h3>
+    <table class="portfolio-table">
+      <thead>
+        <tr>
+          <th>H&iacute;brido</th>
+          <th>Dato top</th>
+          <th>Diferencial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NS 1113 CL</td>
+          <td>+2,11 qq/ha (74%)</td>
+          <td>Techo rinde y aceite</td>
+        </tr>
+        <tr>
+          <td>NS 1115 CL</td>
+          <td>+1,64 qq/ha (69%)</td>
+          <td>Mejor sanidad</td>
+        </tr>
+        <tr>
+          <td>NS 1117 CL</td>
+          <td>+1,75 qq/ha (67%)</td>
+          <td>Rinde + Phomopsis</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">HenderSeeds &middot; RED.IN Nidera Semillas</div>
+    <div class="footer-note">Dashboard interno &mdash; no publicar</div>
+    <a class="footer-wa" href="https://wa.me/5492314530691" target="_blank" rel="noopener">
+      &#x1F4F2; wa.me/5492314530691
+    </a>
   </div>
 </footer>
 
-<script>
-  const fmt = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-
-  function calcular() {
-    const rinde  = parseFloat(document.getElementById('rinde').value)  || 0;
-    const precio = parseFloat(document.getElementById('precio').value) || 0;
-    const costos = parseFloat(document.getElementById('costos').value) || 0;
-    const pct    = parseFloat(document.getElementById('comerc').value) || 0;
-
-    const ingreso = (rinde / 10) * precio;        // qq/ha → tn/ha × USD/tn
-    const gastos  = ingreso * (pct / 100);
-    const margen  = ingreso - gastos - costos;
-
-    document.getElementById('ingreso').textContent  = fmt.format(ingreso);
-    document.getElementById('gastos').textContent   = '− ' + fmt.format(gastos);
-    document.getElementById('directos').textContent = '− ' + fmt.format(costos);
-    const m = document.getElementById('margen');
-    m.textContent = fmt.format(margen) + ' /ha';
-    m.style.color = margen >= 0 ? 'var(--naranja)' : '#c0392b';
-  }
-
-  calcular();
-</script>
 </body>
 </html>
