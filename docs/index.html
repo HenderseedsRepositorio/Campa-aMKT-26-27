@@ -419,6 +419,82 @@ details .details-content {
   font-size: 12px;
 }
 
+/* ── Gallery grid ────────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  gap: 24px;
+}
+.gallery-week-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.gallery-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.gallery-card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+  display: block;
+}
+.gallery-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+.gallery-preview {
+  aspect-ratio: 4/5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  gap: 6px;
+}
+.navy-preview {
+  background: var(--navy);
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.cream-preview {
+  background: #F6F4EE;
+}
+.gallery-stat {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--orange);
+}
+.gallery-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.gallery-info {
+  padding: 10px 12px;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid var(--card-border);
+}
+.gallery-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--white);
+  font-weight: 500;
+}
+
 /* ── Footer ───────────────────────────────────────── */
 .footer {
   margin-top: 60px;
@@ -488,6 +564,8 @@ details .details-content {
   details .details-content { padding: 0 16px 16px; }
   .portfolio-table { font-size: 12px; }
   .portfolio-table thead th, .portfolio-table tbody td { padding: 6px 8px; }
+  .gallery-items { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .gallery-stat { font-size: 20px; }
 }
 </style>
 </head>
@@ -973,6 +1051,76 @@ Feliz D&iacute;a de la Bandera.</div>
 
   </div>
 </details>
+
+<!-- ═══════════════════════════════════════════════════
+     GALERÍA DE PLACAS — TODAS LAS PIEZAS VISUALES
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent">Galer&iacute;a</span> de placas <span class="section-tag">todas las piezas</span></h2>
+<p style="font-size:13px;color:var(--grey);margin-bottom:20px;font-family:'DM Mono',monospace">Cada placa es un HTML 1080&times;1350, screenshoteable directo para Instagram. Clic en &ldquo;Abrir placa&rdquo; para verla a tama&ntilde;o real.</p>
+
+<div class="gallery-grid">
+
+  <!-- W27 -->
+  <div class="gallery-week">
+    <div class="gallery-week-header">
+      <span class="cal-week">W27 <small>29/06</small></span>
+      <span class="section-tag">3 placas</span>
+    </div>
+    <div class="gallery-items">
+      <a class="gallery-card" href="placas/w27-post-01-maiz.html" target="_blank">
+        <div class="gallery-preview navy-preview">
+          <span class="gallery-stat">+392</span>
+          <span class="gallery-label">kg/ha &middot; NS 7765 VIP3</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-maiz" style="font-size:9px;padding:2px 6px">Ma&iacute;z</span>
+          <span class="gallery-title">NS 7765 VIPTERA3</span>
+        </div>
+      </a>
+      <a class="gallery-card" href="placas/w27-post-02-finanzas.html" target="_blank">
+        <div class="gallery-preview navy-preview">
+          <span class="gallery-stat" style="font-size:22px">&iquest;HOY o DESPU&Eacute;S?</span>
+          <span class="gallery-label">Herramienta financiera</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-herramientas" style="font-size:9px;padding:2px 6px">Herramientas</span>
+          <span class="gallery-title">Precampa&ntilde;a vs. esperar</span>
+        </div>
+      </a>
+      <a class="gallery-card" href="placas/w27-post-03-institucional.html" target="_blank">
+        <div class="gallery-preview cream-preview">
+          <span class="gallery-stat" style="font-size:18px;color:#0A0F1B">Equipo local</span>
+          <span class="gallery-label" style="color:#0A0F1B">Henderson &middot; Daireaux &middot; Bol&iacute;var</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-institucional" style="font-size:9px;padding:2px 6px">Institucional</span>
+          <span class="gallery-title">El equipo detr&aacute;s</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- W26 -->
+  <div class="gallery-week">
+    <div class="gallery-week-header">
+      <span class="cal-week">W26 <small>22/06</small></span>
+      <span class="section-tag">1 carrusel</span>
+    </div>
+    <div class="gallery-items">
+      <a class="gallery-card" href="placas/w26-carrusel-girasol.html" target="_blank">
+        <div class="gallery-preview navy-preview">
+          <span class="gallery-stat" style="font-size:18px">3 girasoles CL</span>
+          <span class="gallery-label">Carrusel 5 slides &middot; posicionamiento</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-girasol" style="font-size:9px;padding:2px 6px">Girasol</span>
+          <span class="gallery-title">Elegir por ambiente</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
 
 <!-- ═══════════════════════════════════════════════════
      PORTAFOLIO DE HÍBRIDOS
