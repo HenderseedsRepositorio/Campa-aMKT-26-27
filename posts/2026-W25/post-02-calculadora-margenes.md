@@ -23,8 +23,8 @@ Placa crema (`#F7F4EE`) con título en navy. Elemento central: un número grande
 #Henderseeds #CalculadoraDeMargenes #Margenes #Girasol #Maiz #Agro #OesteBonaerense
 
 ## CTA
-📲 Pedí la calculadora por WhatsApp: `[COMPLETAR: número de WhatsApp comercial]`
-`[COMPLETAR: si la calculadora tiene link web propio o se entrega como archivo, aclararlo acá]`
+📲 Pedí la calculadora por WhatsApp: wa.me/5492314530691
+Link web: margen.henderseeds.com
 
 ## Fuentes de los datos usados
 - Existencia y uso de la calculadora: `contexto/herramientas.md`.

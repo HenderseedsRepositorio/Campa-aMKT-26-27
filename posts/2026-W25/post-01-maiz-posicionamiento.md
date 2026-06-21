@@ -9,9 +9,9 @@
 ## Copy (Instagram/Facebook)
 > El mejor maíz no es el que más rinde en la revista. Es el que mejor se porta en TU lote.
 >
-> En la zona tenemos ambientes muy distintos de un cuadro al otro: lomas, bajos, planteos de punta y lotes más defensivos. El mismo híbrido puede ser un golazo en uno y quedar flojo en el de al lado.
+> En la zona tenemos ambientes muy distintos de un cuadro al otro. El mismo híbrido puede ser un golazo en uno y quedar flojo en el de al lado.
 >
-> Por eso, antes de pensar la compra de la precampaña 26/27, pensamos el posicionamiento: qué híbrido va en qué ambiente y con qué manejo. Esa charla es gratis y es la que más plata mueve.
+> Por eso, antes de cerrar la precampaña 26/27, hacemos posicionamiento: qué híbrido va en qué ambiente y con qué manejo. Esa charla es gratis y es la que más plata mueve.
 >
 > 📲 Escribinos y lo vemos lote por lote.
 
@@ -23,7 +23,7 @@ Foto de fondo opcional: lote de maíz de la zona (oeste bonaerense), con leve os
 #Henderseeds #Nidera #Maiz #Precampaña2627 #Henderson #Daireaux #Bolivar #RedINNidera
 
 ## CTA
-📲 Escribinos por WhatsApp y lo vemos lote por lote: `[COMPLETAR: número de WhatsApp comercial]`
+📲 Escribinos por WhatsApp y lo vemos lote por lote: wa.me/5492314530691
 
 ## Fuentes de los datos usados
 - Ninguna afirmación de rinde: el post es de criterio/posicionamiento, no promete números (cumple regla dura).
