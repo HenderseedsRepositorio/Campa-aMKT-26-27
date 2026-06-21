@@ -18,7 +18,6 @@
 - Dato de ensayo citable: +283 kg/ha** vs. índice ambiental en siembra temprana (815 comparaciones, 67% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: todos (B a A), preferencia medio-alto a alto en temprana
 - Perfil sanitario: Tizón 2 · Roya 1 · Green Snap 2 · Quebrado 4 · Vuelco 3 · MRCV 4 · Spiroplasma 4
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar (data técnica completa)
 
 ### NS 7621 VIPTERA3 — maíz
@@ -32,7 +31,6 @@
 - Dato de ensayo citable: +290 kg/ha** vs. índice ambiental en siembra temprana (419 comparaciones, 67% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: medio-bajo a alto en temprana. No recomendado como primera opción en tardía (-102 kg/ha*).
 - Perfil sanitario: Tizón 4 · Roya 2 · Green Snap 2 · Quebrado 4 · Vuelco 2 · MRCV 6 · Spiroplasma 5
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7624 VIPTERA3 CL — maíz
@@ -47,7 +45,6 @@
 - Dato de ensayo citable: +163 kg/ha** en siembra tardía templada (222 comparaciones, 60% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: todos los ambientes (B a A), brilla en tardía
 - Perfil sanitario: Tizón 3 · Roya 2 · Green Snap 3 · Quebrado 2 · Vuelco 3 · MRCV 5 · Spiroplasma 5
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7765 VIPTERA3 — maíz
@@ -62,7 +59,6 @@
 - Dato de ensayo citable: +392 kg/ha** en temprana (191 comparaciones, 74% éxito) y +324 kg/ha** en tardía templada (165 comp., 71% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: todos, desde bajo hasta alto. El que va en los mejores lotes.
 - Perfil sanitario: Tizón 3 · Roya 2 · Green Snap 4 · Quebrado 1 · Vuelco 3 · MRCV 3 · Spiroplasma 5
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7800 CLTG — maíz (REFUGIO)
@@ -75,7 +71,6 @@
   - Posicionable en todas las zonas y ambientes
 - Para qué ambiente de la zona: todos (acompaña al VIPTERA3 que se elija)
 - Perfil sanitario: Tizón 2 · Roya 2 · Green Snap 3 · Quebrado 3 · Vuelco 3
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7818 VIP3 — maíz
@@ -90,7 +85,6 @@
 - Dato de ensayo citable: Performance consistente vs. índice ambiental (DNS en todas las fechas — no se diferencia significativamente del top, pero tampoco cae). 564 comparaciones en temprana. Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: todos los ambientes (B a A), especialmente en tardía
 - Perfil sanitario: Tizón 2 · Roya 1 · Green Snap 2 · Quebrado 4 · Vuelco 4 · MRCV 5 · Spiroplasma 5
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7852 VIPTERA3 — maíz (LANZAMIENTO)
@@ -105,7 +99,6 @@
 - Dato de ensayo citable: +316 kg/ha** en temprana (133 comp., 69% éxito) y +194 kg/ha** en tardía templada (120 comp., 62% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: todos (B a A), temprana y tardía
 - Perfil sanitario: Tizón 4 · Roya 2 · Green Snap 3 · Quebrado 4 · Vuelco 3 · MRCV 4 · Spiroplasma 5
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7921 VIPTERA3 CL — maíz
@@ -120,7 +113,6 @@
 - Dato de ensayo citable: +167 kg/ha** en temprana (478 comp., 58% éxito) y +179 kg/ha** en tardía templada (364 comp., 60% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: todos (B a A), temprana y tardía
 - Perfil sanitario: Tizón 4 · Roya 3 · Green Snap 3 · Quebrado 2 · Vuelco 4 · MRCV 4 · Spiroplasma 6
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 7925 VIPTERA3 — maíz (LANZAMIENTO)
@@ -135,7 +127,6 @@
 - Dato de ensayo citable: +228 kg/ha** en tardía templada (120 comp., 59% éxito). Fuente: marbete oficial Nidera.
 - Para qué ambiente de la zona: medio-bajo a alto, especialmente tardía
 - Perfil sanitario: Tizón 3 · Roya 2 · Green Snap 2 · Quebrado 2 · Vuelco 5 · MRCV 3 · Spiroplasma 3
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ---
@@ -155,7 +146,6 @@
 - Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
 - Para qué ambiente de la zona: todos (B a A). Ideal para Henderson/Daireaux/Bolívar.
 - Perfil sanitario: Verticilium 4 · Sclerotinia 2 · Roya negra R · Phomopsis 3 · Downy Mildew R
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 1115 CL — girasol
@@ -171,7 +161,6 @@
 - Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
 - Para qué ambiente de la zona: todos (B a A). Especialmente lotes con presión de Phomopsis.
 - Perfil sanitario: Verticilium 3 · Sclerotinia 2 · Roya negra R · Phomopsis 2 · Downy Mildew R
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 1117 CL — girasol
@@ -187,7 +176,6 @@
 - Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
 - Para qué ambiente de la zona: todos (B a A). Ideal donde Phomopsis es problema recurrente.
 - Perfil sanitario: Verticilium 3 · Sclerotinia 2 · Roya negra R · Phomopsis 2 · Downy Mildew R
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ### NS 1227 CL HO — girasol (ALTO OLEICO)
@@ -203,7 +191,6 @@
 - Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
 - Para qué ambiente de la zona: todos (B a A). Donde el comprador pague diferencial alto oleico.
 - Perfil sanitario: Verticilium 3 · Sclerotinia 4 · Roya negra S/D · Phomopsis 4 · Downy Mildew R
-- Condición de precampaña: `[COMPLETAR]`
 - Estado: ✅ listo para comunicar
 
 ---
@@ -242,10 +229,24 @@ o fue reemplazado por NS 7624 VIPTERA3 CL]`
 ---
 
 ## Posicionamiento general 26/27
-- **Maíz estrella temprana:** NS 7765 VIPTERA3 (+392 kg/ha**, 74% éxito). El dato más fuerte del portafolio.
-- **Maíz estrella tardía:** NS 7925 VIPTERA3 (lanzamiento, Spiroplasma 3) o NS 7624 VIP3 CL (ciclo corto + herbicidas).
-- **Lanzamientos:** NS 7852 y NS 7925 — novedad para comunicar.
-- **Girasol estrella:** NS 1113 CL (techo de rinde, 74% éxito en la zona Sur+Oeste).
-- **Girasol diferencial:** NS 1227 CL HO (alto oleico, para capturar bonificación).
-- `[COMPLETAR: ¿qué híbrido empujamos más esta precampaña y por qué?]`
-- `[COMPLETAR: ¿hay novedades/lanzamientos Nidera 26/27 adicionales para la zona?]`
+
+### Híbridos que empujamos (definidos por Henderseeds)
+
+**Maíz — los 3 caballos de batalla:**
+1. **NS 7765 VIPTERA3** — el top del portafolio. +392 kg/ha**, 74% éxito. Para los mejores lotes, temprana y tardía.
+2. **NS 7621 VIPTERA3** — performance pura en temprana. +290 kg/ha**, 67% éxito. Ambientes de medio y alto potencial.
+3. **NS 7921 VIPTERA3 CL** — el versátil con 3 herramientas herbicidas. +179 kg/ha** en tardía, +167 kg/ha** en temprana. Para todo ambiente y toda fecha.
+
+**Girasol — los 3 que van:**
+1. **NS 1113 CL** — techo de rinde y aceite. +2,11 qq/ha**, 74% éxito en Sur+Oeste. El número 1.
+2. **NS 1115 CL** — la mejor sanidad del portafolio. +1,64 qq/ha**. Phomopsis 2.
+3. **NS 1117 CL** — máximo rinde con excelente Phomopsis. +1,75 qq/ha**. Genética de avanzada.
+
+> El resto del portafolio (AX 7761, NS 7624, NS 7800 refugio, NS 7818, NS 7852, NS 7925,
+> NS 1227 HO) se comunica según oportunidad, pero el contenido de precampaña rota
+> sobre estos 6 prioritarios.
+
+### Regla de comunicación comercial
+**NUNCA publicar % de descuento, precios ni condiciones específicas en redes/web.**
+Hablamos de "precampaña abierta" en general. La negociación se cierra cara a cara
+o por WhatsApp. El CTA siempre lleva a la conversación privada.

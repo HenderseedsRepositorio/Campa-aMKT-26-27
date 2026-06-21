@@ -77,8 +77,10 @@ meta-ads/
 ## Reglas duras
 - Voseo rioplatense, técnico pero cercano: hablamos de productor a productor.
 - Nunca prometer rindes ni resultados sin fuente (ensayo, dato Nidera, REM). Citarla.
-- Nada de precios ni condiciones comerciales inventadas: `[COMPLETAR]` y avisar.
-- CTA siempre a WhatsApp comercial `[COMPLETAR: número]`.
+- **NUNCA publicar % de descuento, precios ni condiciones comerciales específicas
+  en redes ni en la web.** Hablamos de "precampaña" en general. La venta se cierra
+  cara a cara o por WhatsApp. El CTA siempre lleva a la conversación privada.
+- CTA siempre a WhatsApp comercial: wa.me/5492314530691
 - Máximo 8 hashtags por post.
 - Prohibido el marketing genérico: "¡imperdible!", "¡no te lo pierdas!", "¡calidad premium!".
 - Paleta y tipografías según `brand/identidad.md`.

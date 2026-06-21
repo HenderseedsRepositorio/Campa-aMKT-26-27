@@ -9,14 +9,12 @@
 - Cierre estimado: **agosto/septiembre 2026** `[COMPLETAR: fecha exacta cuando Nidera la confirme]`.
 - Primer post de lanzamiento: ya publicado `[COMPLETAR: fecha y link]`.
 
-## Condiciones comerciales vigentes
-> ⚠️ NO publicar condiciones que no estén en esta tabla.
-
-| Condición | Detalle | Vigencia | Fuente |
-|-----------|---------|----------|--------|
-| `[COMPLETAR: descuento precampaña]` | | | Nidera |
-| `[COMPLETAR: financiación]` | | | |
-| `[COMPLETAR: canje grano]` | | | |
+## Condiciones comerciales
+> ⚠️ **REGLA DURA: NUNCA publicar % de descuento, precios ni condiciones comerciales
+> específicas en redes ni en la web.** En el contenido hablamos de "precampaña" en
+> general (que está abierta, que conviene asegurar la bolsa, etc.).
+> La negociación real se cierra cara a cara o por WhatsApp.
+> El CTA siempre lleva a la conversación privada, nunca a una tabla de precios.
 
 ## Hitos para contenido (marcan picos de publicación)
 | Hito | Fecha estimada | Contenido asociado |

@@ -19,7 +19,7 @@ según brand/identidad.md.]
 #Henderseeds #Nidera ...
 
 ## CTA
-📲 [Acción concreta + WhatsApp `[COMPLETAR: número]`]
+📲 [Acción concreta + WhatsApp wa.me/5492314530691]
 
 ## Fuentes de los datos usados
 - [archivo de contexto/ o fuente externa citada]
