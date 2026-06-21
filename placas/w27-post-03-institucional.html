@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa W27 · Institucional</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --cream:#F6F4EE; --sand:#EFEAE0;
+  --orange:#F5A623; --ink:#15181E; --grey:#4A5264; --wa:#25D366;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+}
+body { background:#d9d4c8; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--cream);
+  position:relative; overflow:hidden; padding:90px 80px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(13,45,94,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13,45,94,0.04) 1px, transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:10; }
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(13,45,94,0.15); border-style:solid; z-index:5; }
+.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+.logo-hs { position:absolute; top:74px; left:80px; height:64px; z-index:6; }
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:12px; z-index:2; align-self:flex-end; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px rgba(245,166,35,0.6); }
+
+.spacer { flex:1; }
+
+.title { font-family:var(--arch); color:var(--navy-2); font-size:78px; line-height:1.02; letter-spacing:-2px; z-index:2; }
+.title .hl { color:var(--orange); }
+.subtitle { font-family:var(--sans); font-size:36px; font-weight:600; color:var(--grey); line-height:1.4; margin-top:34px; z-index:2; max-width:880px; }
+
+.zona { display:flex; gap:14px; flex-wrap:wrap; margin-top:40px; z-index:2; }
+.chip { font-family:var(--mono); font-size:24px; color:var(--navy-2); background:var(--sand); border:1px solid rgba(13,45,94,0.12); border-radius:999px; padding:12px 26px; }
+
+.claim { margin-top:54px; padding:30px 34px; background:var(--navy-2); border-radius:16px; font-family:var(--sans); font-size:30px; font-weight:600; color:#fff; line-height:1.4; z-index:2; }
+.claim b { color:var(--orange); }
+
+/* ── Contacto: DM primario, WhatsApp como info de última ── */
+.cta-line { font-family:var(--sans); font-weight:700; font-size:33px; color:var(--navy-2); display:flex; align-items:center; gap:16px; z-index:2; margin-top:54px; }
+.cta-line svg { flex-shrink:0; }
+.footrow { display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:26px; border-top:1px dashed rgba(13,45,94,0.18); z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:38px; }
+.redin-logo span { font-family:var(--mono); font-size:17px; letter-spacing:1.5px; color:var(--grey); text-transform:uppercase; }
+.wa-min { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--grey); }
+.wa-min svg { flex-shrink:0; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <img class="logo-hs" src="../assets/logo-henderseeds-navy.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> RED.IN · NIDERA</div>
+
+  <div class="spacer"></div>
+
+  <div class="title">Detrás de cada<br>recomendación hay<br><span class="hl">alguien que conoce<br>tu lote.</span></div>
+  <div class="subtitle">No somos un 0800 ni un catálogo. Somos de acá, y recorremos los campos.</div>
+
+  <div class="zona">
+    <div class="chip">📍 Henderson</div>
+    <div class="chip">📍 Daireaux</div>
+    <div class="chip">📍 Bolívar</div>
+  </div>
+
+  <div class="claim">Genética de punta <b>+</b> respaldo técnico local. Eso es ser parte de la red <b>RED.IN</b> de Nidera Semillas.</div>
+
+  <div class="cta-line">
+    <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    Escribinos por DM o pasá por la oficina
+  </div>
+
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="wa-min">
+      <svg viewBox="0 0 32 32" width="24" height="24" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg>
+      WhatsApp · 2314 53-0691
+    </div>
+  </div>
+
+  <span class="corner corner-br"></span>
+</div>
+</body>
+</html>

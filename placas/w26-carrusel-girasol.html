@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>HenderSeeds — Cómo elegir el girasol por ambiente (W26)</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --navy:        #0A0F1B;
+  --navy-2:      #0D2D5E;
+  --navy-dark:   #091E3E;
+  --orange:      #F5A623;
+  --yellow:      #F59E0B;
+  --white:       #FFFFFF;
+  --wf:          rgba(255,255,255,0.05);
+  --wb:          rgba(255,255,255,0.09);
+  --mono:        'DM Mono', monospace;
+  --sans:        'DM Sans', sans-serif;
+  --arch:        'Archivo Black', sans-serif;
+  --orange-glow: rgba(245,166,35,0.15);
+  --txt-dim:     rgba(255,255,255,0.55);
+  --txt-faint:   rgba(255,255,255,0.32);
+}
+
+body {
+  background:#06080f;
+  font-family:var(--sans);
+  padding:50px 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:42px;
+}
+
+.lbl {
+  width:1080px;
+  color:var(--orange);
+  font-family:var(--mono);
+  font-size:18px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  padding:6px 0 2px;
+  border-top:1px solid rgba(245,166,35,0.2);
+}
+
+/* ── Slide base ── */
+.slide {
+  width:1080px;
+  height:1350px;
+  background:var(--navy);
+  position:relative;
+  overflow:hidden;
+  padding:90px 80px;
+  display:flex;
+  flex-direction:column;
+}
+/* grilla agro-tech sutil */
+.slide::after {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+/* barra naranja superior */
+.slide::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:8px; background:var(--orange); z-index:10;
+}
+
+/* esquinas tipo marca */
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(245,166,35,0.18); border-style:solid; z-index:5; }
+.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+/* kicker / etiqueta tipo terminal */
+.kicker {
+  font-family:var(--mono); font-size:20px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--orange);
+  display:flex; align-items:center; gap:12px; z-index:2;
+}
+.led { width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
+
+/* logo */
+.logo-hs { position:absolute; top:78px; right:80px; height:42px; z-index:6; }
+.logo-hs .seed { color:var(--orange); }
+.logo-hs span { font-family:var(--arch); font-size:30px; color:var(--white); letter-spacing:-1px; }
+
+/* titulos */
+.title {
+  font-family:var(--arch); color:var(--white);
+  font-size:88px; line-height:0.98; letter-spacing:-2px; z-index:2;
+}
+.title .sun { color:var(--yellow); }
+.title-md { font-size:64px; }
+.subtitle { font-family:var(--sans); font-size:30px; color:var(--txt-dim); line-height:1.45; margin-top:30px; z-index:2; max-width:880px; }
+
+.spacer { flex:1; }
+
+/* numerador */
+.slide-num { font-family:var(--mono); font-size:20px; letter-spacing:2px; color:var(--txt-faint); z-index:2; }
+.footrow { display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.redin { font-family:var(--mono); font-size:18px; letter-spacing:2px; color:var(--txt-faint); text-transform:uppercase; }
+
+/* ── Cards de lógica (S2) ── */
+.logic-wrap { display:flex; flex-direction:column; gap:26px; margin-top:54px; z-index:2; }
+.logic-card { display:flex; align-items:center; gap:26px; background:var(--wf); border:1px solid var(--wb); border-left:4px solid var(--orange); border-radius:14px; padding:30px 34px; }
+.logic-num { font-family:var(--arch); font-size:46px; color:var(--orange); line-height:1; flex-shrink:0; width:64px; }
+.logic-h { font-family:var(--arch); font-size:34px; color:var(--white); line-height:1.05; }
+.logic-s { font-family:var(--sans); font-size:25px; color:var(--txt-dim); margin-top:6px; line-height:1.35; }
+.plus { text-align:center; font-family:var(--arch); font-size:40px; color:var(--orange); z-index:2; margin:2px 0; }
+
+/* ── Ficha de híbrido (S3–S5) ── */
+.badge { display:inline-block; align-self:flex-start; background:var(--orange-glow); border:1px solid rgba(245,166,35,0.35); color:var(--orange); font-family:var(--mono); font-size:20px; letter-spacing:2px; text-transform:uppercase; padding:8px 18px; border-radius:8px; margin-bottom:30px; z-index:2; }
+.badge.launch { background:var(--yellow); color:var(--navy-dark); border:none; font-weight:500; }
+
+.stat-row { display:flex; align-items:flex-end; gap:34px; margin:38px 0 12px; z-index:2; }
+.stat-big { font-family:var(--mono); font-weight:500; font-size:130px; line-height:0.85; letter-spacing:-5px; color:var(--yellow); }
+.stat-side { display:flex; flex-direction:column; padding-bottom:10px; }
+.stat-unit { font-family:var(--sans); font-size:28px; color:var(--txt-dim); }
+.stat-detail { font-family:var(--mono); font-size:22px; color:var(--txt-faint); margin-top:4px; }
+
+.tags { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; z-index:2; }
+.tag { font-family:var(--mono); font-size:21px; color:var(--white); background:var(--wf); border:1px solid var(--wb); border-radius:999px; padding:10px 20px; }
+.tag b { color:var(--orange); font-weight:500; }
+
+.forwho { margin-top:40px; padding-top:26px; border-top:1px dashed rgba(255,255,255,0.18); font-family:var(--sans); font-size:30px; color:var(--white); line-height:1.4; z-index:2; }
+.forwho .hl { color:var(--yellow); font-weight:700; }
+
+/* ── CTA (S5) ── */
+.cta-box { margin-top:36px; background:var(--orange); border-radius:16px; padding:34px 40px; display:flex; align-items:center; justify-content:space-between; z-index:2; }
+.cta-txt { font-family:var(--arch); font-size:36px; color:var(--navy-dark); line-height:1.05; }
+.cta-wa { font-family:var(--mono); font-size:26px; color:var(--navy-dark); margin-top:6px; }
+.cta-ic { font-size:60px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ S1 — GANCHO ════════════ -->
+<div class="lbl">SLIDE 1 / 5 — GANCHO</div>
+<div class="slide">
+  <div class="logo-hs"><span>Hender<span class="seed">Seeds</span></span></div>
+  <div class="kicker"><span class="led"></span> PRECAMPAÑA 26/27 · GIRASOL</div>
+  <div class="spacer"></div>
+  <div class="title">No hay un girasol<br>mejor.</div>
+  <div class="subtitle" style="font-size:42px;color:var(--white);margin-top:24px;">
+    Hay un girasol mejor<br>para <span style="color:var(--yellow);font-weight:700;">TU lote.</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="footrow">
+    <div class="redin">RED.IN · Nidera Semillas</div>
+    <div class="slide-num">01 / 05</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+
+<!-- ════════════ S2 — LA LÓGICA ════════════ -->
+<div class="lbl">SLIDE 2 / 5 — CÓMO SE ELIGE</div>
+<div class="slide">
+  <div class="logo-hs"><span>Hender<span class="seed">Seeds</span></span></div>
+  <div class="kicker"><span class="led"></span> POSICIONAR, NO GÓNDOLA</div>
+  <div class="title title-md" style="margin-top:34px;">Se elige cruzando<br>dos cosas</div>
+
+  <div class="logic-wrap">
+    <div class="logic-card">
+      <div class="logic-num">1</div>
+      <div>
+        <div class="logic-h">El ambiente del lote</div>
+        <div class="logic-s">Su potencial de rinde: de bajo (&lt;1.500 kg/ha) a alto (&gt;3.500 kg/ha).</div>
+      </div>
+    </div>
+    <div class="plus">+</div>
+    <div class="logic-card">
+      <div class="logic-num">2</div>
+      <div>
+        <div class="logic-h">La historia sanitaria</div>
+        <div class="logic-s">Qué te complicó antes: Phomopsis, Sclerotinia, Verticilium.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subtitle" style="margin-top:46px;">
+    Cruzá las dos y aparece el híbrido que va. Eso es <strong style="color:var(--white)">posicionar</strong> — lo que hacemos en RED.IN.
+  </div>
+  <div class="spacer"></div>
+  <div class="footrow">
+    <div class="redin">RED.IN · Nidera Semillas</div>
+    <div class="slide-num">02 / 05</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+
+<!-- ════════════ S3 — NS 1113 CL ════════════ -->
+<div class="lbl">SLIDE 3 / 5 — MÁXIMO TECHO</div>
+<div class="slide">
+  <div class="logo-hs"><span>Hender<span class="seed">Seeds</span></span></div>
+  <div class="kicker"><span class="led"></span> GIRASOL CLEARFIELD</div>
+  <span class="badge" style="margin-top:30px;">NS 1113 CL</span>
+  <div class="title title-md">El máximo techo<br>de rinde y aceite</div>
+
+  <div class="stat-row">
+    <div class="stat-big">+2,11</div>
+    <div class="stat-side">
+      <div class="stat-unit">qq/ha · Sur + Oeste</div>
+      <div class="stat-detail">74% éxito · 225 comp.</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <div class="tag">Sclerotinia <b>2</b></div>
+    <div class="tag">Downy Mildew <b>R</b></div>
+    <div class="tag">Roya negra <b>R</b></div>
+    <div class="tag">Aceite <b>muy alto</b></div>
+  </div>
+
+  <div class="forwho">Para cuando vas por el <span class="hl">máximo potencial</span> y querés estabilidad en todos los ambientes.</div>
+  <div class="spacer"></div>
+  <div class="footrow">
+    <div class="redin">Dato: marbete oficial Nidera</div>
+    <div class="slide-num">03 / 05</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+
+<!-- ════════════ S4 — NS 1115 CL ════════════ -->
+<div class="lbl">SLIDE 4 / 5 — MÁXIMA SANIDAD</div>
+<div class="slide">
+  <div class="logo-hs"><span>Hender<span class="seed">Seeds</span></span></div>
+  <div class="kicker"><span class="led"></span> GIRASOL CLEARFIELD</div>
+  <span class="badge" style="margin-top:30px;">NS 1115 CL</span>
+  <div class="title title-md">El perfil sanitario<br>más completo</div>
+
+  <div class="stat-row">
+    <div class="stat-big">+1,64</div>
+    <div class="stat-side">
+      <div class="stat-unit">qq/ha · Sur + Oeste</div>
+      <div class="stat-detail">69% éxito · 192 comp.</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <div class="tag">Phomopsis <b>2</b></div>
+    <div class="tag">Sclerotinia <b>2</b></div>
+    <div class="tag">Downy Mildew <b>R</b></div>
+    <div class="tag">Roya negra <b>R</b></div>
+  </div>
+
+  <div class="forwho">Para lotes con <span class="hl">historia de enfermedad</span>: la sanidad cuida el rinde que ya tenés.</div>
+  <div class="spacer"></div>
+  <div class="footrow">
+    <div class="redin">Dato: marbete oficial Nidera</div>
+    <div class="slide-num">04 / 05</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+
+<!-- ════════════ S5 — NS 1117 CL + CTA ════════════ -->
+<div class="lbl">SLIDE 5 / 5 — RINDE + SANIDAD + CTA</div>
+<div class="slide">
+  <div class="logo-hs"><span>Hender<span class="seed">Seeds</span></span></div>
+  <div class="kicker"><span class="led"></span> GIRASOL CLEARFIELD</div>
+  <span class="badge" style="margin-top:30px;">NS 1117 CL</span>
+  <div class="title title-md">Rinde de avanzada<br>+ Phomopsis</div>
+
+  <div class="stat-row">
+    <div class="stat-big">+1,75</div>
+    <div class="stat-side">
+      <div class="stat-unit">qq/ha · Sur + Oeste</div>
+      <div class="stat-detail">67% éxito · 73 comp.</div>
+    </div>
+  </div>
+
+  <div class="tags">
+    <div class="tag">Phomopsis <b>2</b></div>
+    <div class="tag">Sclerotinia <b>2</b></div>
+    <div class="tag">Genética <b>de avanzada</b></div>
+  </div>
+
+  <div class="cta-box">
+    <div>
+      <div class="cta-txt">¿Cuál va en tu lote?<br>Lo vemos juntos.</div>
+      <div class="cta-wa">WhatsApp · wa.me/5492314530691</div>
+    </div>
+    <div class="cta-ic">📲</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="footrow">
+    <div class="redin">HenderSeeds · RED.IN Nidera</div>
+    <div class="slide-num">05 / 05</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+
+</body>
+</html>

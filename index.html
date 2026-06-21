@@ -419,6 +419,82 @@ details .details-content {
   font-size: 12px;
 }
 
+/* ── Gallery grid ────────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  gap: 24px;
+}
+.gallery-week-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.gallery-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.gallery-card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+  display: block;
+}
+.gallery-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+.gallery-preview {
+  aspect-ratio: 4/5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  gap: 6px;
+}
+.navy-preview {
+  background: var(--navy);
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.cream-preview {
+  background: #F6F4EE;
+}
+.gallery-stat {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--orange);
+}
+.gallery-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.gallery-info {
+  padding: 10px 12px;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid var(--card-border);
+}
+.gallery-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--white);
+  font-weight: 500;
+}
+
 /* ── Footer ───────────────────────────────────────── */
 .footer {
   margin-top: 60px;
@@ -488,6 +564,8 @@ details .details-content {
   details .details-content { padding: 0 16px 16px; }
   .portfolio-table { font-size: 12px; }
   .portfolio-table thead th, .portfolio-table tbody td { padding: 6px 8px; }
+  .gallery-items { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .gallery-stat { font-size: 20px; }
 }
 </style>
 </head>
@@ -508,7 +586,7 @@ details .details-content {
           <span class="pulse-dot"></span>
           Precampa&ntilde;a abierta
         </div>
-        <div class="last-updated">Actualizado: 21 de junio, 2026</div>
+        <div class="last-updated">Actualizado: 21 de junio, 2026 (W27 lista)</div>
       </div>
     </div>
   </div>
@@ -545,8 +623,8 @@ details .details-content {
     </div>
   </div>
 
-  <!-- W26 (current) -->
-  <div class="cal-row current">
+  <!-- W26 -->
+  <div class="cal-row">
     <div class="cal-week">W26 <small>22/06</small></div>
     <div class="cal-items">
       <span class="item">Girasol NS 1113 CL &#x270D;&#xFE0F;&#x1F4E3;</span>
@@ -557,11 +635,15 @@ details .details-content {
     </div>
   </div>
 
-  <!-- W27-W31 -->
-  <div class="cal-row future">
+  <!-- W27 (current) -->
+  <div class="cal-row current">
     <div class="cal-week">W27 <small>29/06</small></div>
     <div class="cal-items">
-      <span class="item">&#x1F4A1; propuesto</span>
+      <span class="item">Ma&iacute;z NS 7765 VIP3 &#x270D;&#xFE0F;</span>
+      <span class="sep">|</span>
+      <span class="item">Precampa&ntilde;a vs. esperar &#x270D;&#xFE0F;</span>
+      <span class="sep">|</span>
+      <span class="item">Institucional: equipo &#x270D;&#xFE0F;</span>
     </div>
   </div>
   <div class="cal-row future">
@@ -592,9 +674,136 @@ details .details-content {
 </div>
 
 <!-- ═══════════════════════════════════════════════════
-     SEMANA W26 — ACTUAL
+     SEMANA W27 — ACTUAL
      ═══════════════════════════════════════════════════ -->
-<h2 class="section-title">Semana <span class="accent">W26</span> <span class="section-tag">actual</span></h2>
+<h2 class="section-title">Semana <span class="accent">W27</span> <span class="section-tag">actual</span></h2>
+
+<div class="cards-grid">
+
+  <!-- Post 01 — Maíz NS 7765 VIPTERA3 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="pillar-tag pillar-maiz">Ma&iacute;z</span>
+      <span class="card-title">Post 01 &mdash; NS 7765 VIPTERA3: el top del portafolio</span>
+      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+    </div>
+    <div class="copy-block">+392 kg/ha sobre el promedio. 74% de &eacute;xito. En temprana Y en tard&iacute;a.
+
+El NS 7765 VIPTERA3 es el ma&iacute;z m&aacute;s completo que tenemos: rinde arriba en los mejores ambientes y no cae en los m&aacute;s ajustados. Dato de marbete oficial Nidera, 191 comparaciones.
+
+&iquest;Tard&iacute;a? Tambi&eacute;n: +324 kg/ha, 71% de &eacute;xito en 165 comparaciones. Y con Quebrado 1 &mdash; no se te cae.
+
+Es el h&iacute;brido para el lote donde no quer&eacute;s arriesgar. Y la precampa&ntilde;a para asegurarlo est&aacute; abierta ahora.
+
+&#x1F4E9; Mandanos un DM y lo posicionamos para tus ambientes.</div>
+    <div class="hashtags">
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#Nidera</span>
+      <span class="hashtag">#Maiz2627</span>
+      <span class="hashtag">#NS7765</span>
+      <span class="hashtag">#VIPTERA3</span>
+      <span class="hashtag">#Henderson</span>
+      <span class="hashtag">#Daireaux</span>
+      <span class="hashtag">#OesteBonaerense</span>
+    </div>
+    <div class="card-meta">
+      <div class="meta-item">
+        <span class="meta-label">Visual</span>
+        <span class="meta-value">Placa navy agro-tech con dato hero +392 kg/ha en naranja</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pieza</span>
+        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-01-maiz.html" target="_blank">&#x1F5BC;&#xFE0F; Ver placa &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 02 — Precampaña vs. esperar -->
+  <div class="card">
+    <div class="card-header">
+      <span class="pillar-tag pillar-herramientas">Herramientas</span>
+      <span class="card-title">Post 02 &mdash; Precampa&ntilde;a vs. esperar</span>
+      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+    </div>
+    <div class="copy-block">&ldquo;Espero a ver c&oacute;mo viene&rdquo; es una decisi&oacute;n financiera. Y tiene un costo.
+
+La precampa&ntilde;a te fija condiciones hoy. Esperar te expone a devaluaci&oacute;n, suba de insumos y disponibilidad. A veces conviene; a veces no. El tema es saberlo ANTES, no despu&eacute;s.
+
+Armamos una herramienta que compara el costo real de financiarte en pesos vs. en d&oacute;lares, ajustando por devaluaci&oacute;n esperada. Te devuelve el n&uacute;mero limpio: cu&aacute;nto te sale cada opci&oacute;n en USD reales.
+
+Corr&eacute; el n&uacute;mero. Despu&eacute;s decid&iacute;.
+
+&#x1F4E9; Mandanos un DM y te pasamos la herramienta con tu caso.</div>
+    <div class="hashtags">
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#Precampa&ntilde;a2627</span>
+      <span class="hashtag">#Finanzas</span>
+      <span class="hashtag">#Agro</span>
+      <span class="hashtag">#OesteBonaerense</span>
+      <span class="hashtag">#Henderson</span>
+      <span class="hashtag">#Daireaux</span>
+      <span class="hashtag">#Bolivar</span>
+    </div>
+    <div class="card-meta">
+      <div class="meta-item">
+        <span class="meta-label">Visual</span>
+        <span class="meta-value">Placa navy con &ldquo;HOY vs. DESPU&Eacute;S&rdquo; lado a lado</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pieza</span>
+        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-02-finanzas.html" target="_blank">&#x1F5BC;&#xFE0F; Ver placa &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 03 — Institucional equipo -->
+  <div class="card">
+    <div class="card-header">
+      <span class="pillar-tag pillar-institucional">Institucional</span>
+      <span class="card-title">Post 03 &mdash; El equipo detr&aacute;s de la recomendaci&oacute;n</span>
+      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+    </div>
+    <div class="copy-block">Detr&aacute;s de cada recomendaci&oacute;n hay alguien que conoce tu lote.
+
+No somos un 0800 ni un cat&aacute;logo. Somos de Henderson, recorremos los campos de Daireaux y Bol&iacute;var, y cuando te decimos &ldquo;este h&iacute;brido va ac&aacute;&rdquo;, es porque lo vimos funcionar en ambientes como el tuyo.
+
+Eso es ser parte de la red RED.IN de Nidera Semillas: gen&eacute;tica de punta con respaldo t&eacute;cnico local.
+
+Pas&aacute; por la oficina, llamanos o escribinos. La precampa&ntilde;a 26/27 se charla mejor con un mate de por medio.
+
+&#x1F4E9; Mandanos un DM o pas&aacute; por la oficina. Te esperamos.</div>
+    <div class="hashtags">
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#Nidera</span>
+      <span class="hashtag">#REDIN</span>
+      <span class="hashtag">#Henderson</span>
+      <span class="hashtag">#Daireaux</span>
+      <span class="hashtag">#Bolivar</span>
+      <span class="hashtag">#OesteBonaerense</span>
+      <span class="hashtag">#Agro</span>
+    </div>
+    <div class="card-meta">
+      <div class="meta-item">
+        <span class="meta-label">Visual</span>
+        <span class="meta-value">Placa crema con texto navy (foto real del equipo, opcional)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pieza</span>
+        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-03-institucional.html" target="_blank">&#x1F5BC;&#xFE0F; Ver placa &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SEMANA W26 — ANTERIOR (colapsable)
+     ═══════════════════════════════════════════════════ -->
+<details>
+  <summary>Semana W26 &mdash; 22 de junio <span class="section-tag" style="margin-left:auto">anterior</span></summary>
+  <div class="details-content">
+
+<h2 class="section-title" style="margin-top:16px">Semana <span class="accent">W26</span></h2>
 
 <div class="cards-grid">
 
@@ -728,6 +937,9 @@ En este carrusel, los 3 girasoles Clearfield que estamos posicionando para la 26
 
 </div>
 
+  </div>
+</details>
+
 <!-- ═══════════════════════════════════════════════════
      SEMANA W25 — ANTERIOR (colapsable)
      ═══════════════════════════════════════════════════ -->
@@ -839,6 +1051,76 @@ Feliz D&iacute;a de la Bandera.</div>
 
   </div>
 </details>
+
+<!-- ═══════════════════════════════════════════════════
+     GALERÍA DE PLACAS — TODAS LAS PIEZAS VISUALES
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent">Galer&iacute;a</span> de placas <span class="section-tag">todas las piezas</span></h2>
+<p style="font-size:13px;color:var(--grey);margin-bottom:20px;font-family:'DM Mono',monospace">Cada placa es un HTML 1080&times;1350, screenshoteable directo para Instagram. Clic en &ldquo;Abrir placa&rdquo; para verla a tama&ntilde;o real.</p>
+
+<div class="gallery-grid">
+
+  <!-- W27 -->
+  <div class="gallery-week">
+    <div class="gallery-week-header">
+      <span class="cal-week">W27 <small>29/06</small></span>
+      <span class="section-tag">3 placas</span>
+    </div>
+    <div class="gallery-items">
+      <a class="gallery-card" href="placas/w27-post-01-maiz.html" target="_blank">
+        <div class="gallery-preview navy-preview">
+          <span class="gallery-stat">+392</span>
+          <span class="gallery-label">kg/ha &middot; NS 7765 VIP3</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-maiz" style="font-size:9px;padding:2px 6px">Ma&iacute;z</span>
+          <span class="gallery-title">NS 7765 VIPTERA3</span>
+        </div>
+      </a>
+      <a class="gallery-card" href="placas/w27-post-02-finanzas.html" target="_blank">
+        <div class="gallery-preview navy-preview">
+          <span class="gallery-stat" style="font-size:22px">&iquest;HOY o DESPU&Eacute;S?</span>
+          <span class="gallery-label">Herramienta financiera</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-herramientas" style="font-size:9px;padding:2px 6px">Herramientas</span>
+          <span class="gallery-title">Precampa&ntilde;a vs. esperar</span>
+        </div>
+      </a>
+      <a class="gallery-card" href="placas/w27-post-03-institucional.html" target="_blank">
+        <div class="gallery-preview cream-preview">
+          <span class="gallery-stat" style="font-size:18px;color:#0A0F1B">Equipo local</span>
+          <span class="gallery-label" style="color:#0A0F1B">Henderson &middot; Daireaux &middot; Bol&iacute;var</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-institucional" style="font-size:9px;padding:2px 6px">Institucional</span>
+          <span class="gallery-title">El equipo detr&aacute;s</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- W26 -->
+  <div class="gallery-week">
+    <div class="gallery-week-header">
+      <span class="cal-week">W26 <small>22/06</small></span>
+      <span class="section-tag">1 carrusel</span>
+    </div>
+    <div class="gallery-items">
+      <a class="gallery-card" href="placas/w26-carrusel-girasol.html" target="_blank">
+        <div class="gallery-preview navy-preview">
+          <span class="gallery-stat" style="font-size:18px">3 girasoles CL</span>
+          <span class="gallery-label">Carrusel 5 slides &middot; posicionamiento</span>
+        </div>
+        <div class="gallery-info">
+          <span class="pillar-tag pillar-girasol" style="font-size:9px;padding:2px 6px">Girasol</span>
+          <span class="gallery-title">Elegir por ambiente</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
 
 <!-- ═══════════════════════════════════════════════════
      PORTAFOLIO DE HÍBRIDOS

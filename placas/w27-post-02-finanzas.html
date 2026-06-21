@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa W27 · Precampaña vs. esperar</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --navy-dark:#091E3E;
+  --orange:#F5A623; --yellow:#F59E0B; --white:#FFFFFF; --wa:#25D366;
+  --wf:rgba(255,255,255,0.05); --wb:rgba(255,255,255,0.09);
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --orange-glow:rgba(245,166,35,0.15); --txt-dim:rgba(255,255,255,0.55); --txt-faint:rgba(255,255,255,0.32);
+}
+body { background:#06080f; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:90px 80px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:10; }
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(245,166,35,0.18); border-style:solid; z-index:5; }
+.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+.logo-hs { position:absolute; top:74px; right:80px; height:60px; z-index:6; }
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:12px; z-index:2; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
+
+.title { font-family:var(--arch); color:var(--white); font-size:84px; line-height:0.98; letter-spacing:-2px; margin-top:50px; z-index:2; }
+.title .q { color:var(--orange); }
+
+.cards { display:flex; gap:28px; margin-top:70px; z-index:2; }
+.opt { flex:1; background:var(--wf); border:1px solid var(--wb); border-radius:18px; padding:40px 34px; display:flex; flex-direction:column; gap:18px; }
+.opt.hoy { border-top:5px solid var(--orange); }
+.opt.desp { border-top:5px solid rgba(255,255,255,0.2); }
+.opt-ic { font-size:62px; line-height:1; }
+.opt-lbl { font-family:var(--mono); font-size:26px; letter-spacing:3px; text-transform:uppercase; }
+.opt.hoy .opt-lbl { color:var(--orange); }
+.opt.desp .opt-lbl { color:var(--txt-dim); }
+.opt-desc { font-family:var(--sans); font-size:27px; line-height:1.4; color:var(--white); }
+.opt.desp .opt-desc { color:var(--txt-dim); }
+
+.kein { font-family:var(--sans); font-size:38px; line-height:1.35; color:var(--white); margin-top:64px; z-index:2; }
+.kein .hl { color:var(--yellow); font-weight:700; }
+
+.spacer { flex:1; }
+
+/* ── Contacto: DM primario, WhatsApp como info de última ── */
+.cta-line { font-family:var(--sans); font-weight:700; font-size:33px; color:var(--white); display:flex; align-items:center; gap:16px; z-index:2; margin-bottom:30px; }
+.cta-line svg { flex-shrink:0; }
+.footrow { display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:32px; }
+.redin-logo span { font-family:var(--mono); font-size:17px; letter-spacing:1.5px; color:var(--txt-faint); text-transform:uppercase; }
+.wa-min { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--txt-dim); }
+.wa-min svg { flex-shrink:0; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> HERRAMIENTAS HENDERSEEDS</div>
+
+  <div class="title">¿Precampaña<br>o <span class="q">esperar?</span></div>
+
+  <div class="cards">
+    <div class="opt hoy">
+      <div class="opt-ic">🔒</div>
+      <div class="opt-lbl">Hoy</div>
+      <div class="opt-desc">Fijás condiciones de precampaña. Sabés contra qué jugás.</div>
+    </div>
+    <div class="opt desp">
+      <div class="opt-ic">⏳</div>
+      <div class="opt-lbl">Después</div>
+      <div class="opt-desc">Te exponés a devaluación, suba de insumos y disponibilidad.</div>
+    </div>
+  </div>
+
+  <div class="kein">A veces conviene esperar, a veces no.<br>El número lo sacás <span class="hl">antes de firmar</span>, no después.</div>
+
+  <div class="spacer"></div>
+
+  <div class="cta-line">
+    <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    Escribinos por DM y te pasamos la herramienta
+  </div>
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="wa-min">
+      <svg viewBox="0 0 32 32" width="24" height="24" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg>
+      WhatsApp · 2314 53-0691
+    </div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+</body>
+</html>
