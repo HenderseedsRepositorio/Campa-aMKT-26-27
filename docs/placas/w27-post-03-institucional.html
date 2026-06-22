@@ -40,7 +40,8 @@ body { background:#d9d4c8; display:flex; justify-content:center; align-items:fle
 .subtitle { font-family:var(--sans); font-size:36px; font-weight:600; color:var(--grey); line-height:1.4; margin-top:34px; z-index:2; max-width:880px; }
 
 .zona { display:flex; gap:14px; flex-wrap:wrap; margin-top:40px; z-index:2; }
-.chip { font-family:var(--mono); font-size:24px; color:var(--navy-2); background:var(--sand); border:1px solid rgba(13,45,94,0.12); border-radius:999px; padding:12px 26px; }
+.chip { font-family:var(--mono); font-size:24px; color:var(--navy-2); background:var(--sand); border:1px solid rgba(13,45,94,0.12); border-radius:999px; padding:12px 26px; display:inline-flex; align-items:center; gap:8px; }
+.pin-icon { flex-shrink:0; vertical-align:middle; }
 
 .claim { margin-top:54px; padding:30px 34px; background:var(--navy-2); border-radius:16px; font-family:var(--sans); font-size:30px; font-weight:600; color:#fff; line-height:1.4; z-index:2; }
 .claim b { color:var(--orange); }
@@ -67,9 +68,9 @@ body { background:#d9d4c8; display:flex; justify-content:center; align-items:fle
   <div class="subtitle">No somos un 0800 ni un catálogo. Somos de acá, y recorremos los campos.</div>
 
   <div class="zona">
-    <div class="chip">📍 Henderson</div>
-    <div class="chip">📍 Daireaux</div>
-    <div class="chip">📍 Bolívar</div>
+    <div class="chip"><svg class="pin-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#F5A623" stroke-width="2.2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Henderson</div>
+    <div class="chip"><svg class="pin-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#F5A623" stroke-width="2.2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Daireaux</div>
+    <div class="chip"><svg class="pin-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#F5A623" stroke-width="2.2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Bolívar</div>
   </div>
 
   <div class="claim">Genética de punta <b>+</b> respaldo técnico local. Eso es ser parte de la red <b>RED.IN</b> de Nidera Semillas.</div>
@@ -93,26 +94,32 @@ body { background:#d9d4c8; display:flex; justify-content:center; align-items:fle
   <span class="corner corner-br"></span>
 </div>
 
-<button class="btn-download" onclick="descargar()">⬇ Descargar PNG</button>
+<button class="btn-download" onclick="descargar()" style="display:none">Descargar PNG</button>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
+if (window.self === window.top) {
+  var btn = document.querySelector('.btn-download');
+  btn.style.display = '';
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(script);
+}
 function descargar() {
-  const btn = document.querySelector('.btn-download');
-  btn.textContent = 'Generando...';
+  var btn = document.querySelector('.btn-download');
+  btn.textContent = 'Esperando fuentes...';
   btn.disabled = true;
-  html2canvas(document.querySelector('.slide'), {
-    scale: 1,
-    useCORS: true,
-    backgroundColor: null,
-    width: 1080,
-    height: 1350
-  }).then(canvas => {
-    const a = document.createElement('a');
+  document.fonts.ready.then(function () {
+    btn.textContent = 'Generando...';
+    return html2canvas(document.querySelector('.slide'), {
+      scale: 1, useCORS: true, backgroundColor: null,
+      width: 1080, height: 1350
+    });
+  }).then(function (canvas) {
+    var a = document.createElement('a');
     a.download = 'w27-post-03-institucional-equipo.png';
     a.href = canvas.toDataURL('image/png');
     a.click();
-    btn.textContent = '⬇ Descargar PNG';
+    btn.textContent = 'Descargar PNG';
     btn.disabled = false;
   });
 }

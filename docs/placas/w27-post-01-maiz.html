@@ -111,26 +111,32 @@ body { background:#06080f; display:flex; justify-content:center; align-items:fle
   <span class="corner corner-br"></span>
 </div>
 
-<button class="btn-download" onclick="descargar()">⬇ Descargar PNG</button>
+<button class="btn-download" onclick="descargar()" style="display:none">Descargar PNG</button>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
+if (window.self === window.top) {
+  var btn = document.querySelector('.btn-download');
+  btn.style.display = '';
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(script);
+}
 function descargar() {
-  const btn = document.querySelector('.btn-download');
-  btn.textContent = 'Generando...';
+  var btn = document.querySelector('.btn-download');
+  btn.textContent = 'Esperando fuentes...';
   btn.disabled = true;
-  html2canvas(document.querySelector('.slide'), {
-    scale: 1,
-    useCORS: true,
-    backgroundColor: null,
-    width: 1080,
-    height: 1350
-  }).then(canvas => {
-    const a = document.createElement('a');
+  document.fonts.ready.then(function () {
+    btn.textContent = 'Generando...';
+    return html2canvas(document.querySelector('.slide'), {
+      scale: 1, useCORS: true, backgroundColor: null,
+      width: 1080, height: 1350
+    });
+  }).then(function (canvas) {
+    var a = document.createElement('a');
     a.download = 'w27-post-01-maiz-ns7765.png';
     a.href = canvas.toDataURL('image/png');
     a.click();
-    btn.textContent = '⬇ Descargar PNG';
+    btn.textContent = 'Descargar PNG';
     btn.disabled = false;
   });
 }
