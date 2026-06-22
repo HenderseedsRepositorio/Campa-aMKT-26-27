@@ -74,12 +74,12 @@ body { background:#06080f; display:flex; justify-content:center; align-items:fle
 
   <div class="cards">
     <div class="opt hoy">
-      <div class="opt-ic">🔒</div>
+      <div class="opt-ic"><svg viewBox="0 0 24 24" width="62" height="62" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16.5" r="1.5"/></svg></div>
       <div class="opt-lbl">Hoy</div>
       <div class="opt-desc">Fijás condiciones de precampaña. Sabés contra qué jugás.</div>
     </div>
     <div class="opt desp">
-      <div class="opt-ic">⏳</div>
+      <div class="opt-ic"><svg viewBox="0 0 24 24" width="62" height="62" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="7"/><path d="M12 8v4l2 2"/></svg></div>
       <div class="opt-lbl">Después</div>
       <div class="opt-desc">Te exponés a devaluación, suba de insumos y disponibilidad.</div>
     </div>
@@ -106,26 +106,32 @@ body { background:#06080f; display:flex; justify-content:center; align-items:fle
   <span class="corner corner-br"></span>
 </div>
 
-<button class="btn-download" onclick="descargar()">⬇ Descargar PNG</button>
+<button class="btn-download" onclick="descargar()" style="display:none">Descargar PNG</button>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
+if (window.self === window.top) {
+  var btn = document.querySelector('.btn-download');
+  btn.style.display = '';
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(script);
+}
 function descargar() {
-  const btn = document.querySelector('.btn-download');
-  btn.textContent = 'Generando...';
+  var btn = document.querySelector('.btn-download');
+  btn.textContent = 'Esperando fuentes...';
   btn.disabled = true;
-  html2canvas(document.querySelector('.slide'), {
-    scale: 1,
-    useCORS: true,
-    backgroundColor: null,
-    width: 1080,
-    height: 1350
-  }).then(canvas => {
-    const a = document.createElement('a');
+  document.fonts.ready.then(function () {
+    btn.textContent = 'Generando...';
+    return html2canvas(document.querySelector('.slide'), {
+      scale: 1, useCORS: true, backgroundColor: null,
+      width: 1080, height: 1350
+    });
+  }).then(function (canvas) {
+    var a = document.createElement('a');
     a.download = 'w27-post-02-precampana-vs-esperar.png';
     a.href = canvas.toDataURL('image/png');
     a.click();
-    btn.textContent = '⬇ Descargar PNG';
+    btn.textContent = 'Descargar PNG';
     btn.disabled = false;
   });
 }
