@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Portada para compartir (1200×630)</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --orange:#F5A623; --white:#FFFFFF;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --txt-dim:rgba(255,255,255,0.6);
+}
+body { background:#06080f; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.cover {
+  width:1200px; height:630px; background:var(--navy);
+  position:relative; overflow:hidden; padding:70px 80px;
+  display:flex; flex-direction:column; justify-content:center; flex-shrink:0;
+}
+.cover::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:54px 54px; pointer-events:none;
+}
+.cover::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:10; }
+.logo-hs { position:absolute; top:60px; left:80px; height:64px; z-index:6; }
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:12px; z-index:2; margin-bottom:22px; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
+.title { font-family:var(--arch); color:var(--white); font-size:88px; line-height:0.98; letter-spacing:-2px; z-index:2; }
+.title .hl { color:var(--orange); }
+.subtitle { font-family:var(--sans); font-size:30px; font-weight:600; color:var(--txt-dim); line-height:1.4; margin-top:26px; max-width:900px; z-index:2; }
+.footrow { position:absolute; left:80px; right:80px; bottom:60px; display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:34px; }
+.redin-logo span { font-family:var(--mono); font-size:17px; letter-spacing:1.5px; color:rgba(255,255,255,0.4); text-transform:uppercase; }
+.zona { font-family:var(--mono); font-size:18px; letter-spacing:1px; color:rgba(255,255,255,0.4); }
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(245,166,35,0.18); border-style:solid; z-index:5; }
+.corner-br { bottom:30px; right:30px; border-width:0 2px 2px 0; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <img class="logo-hs" src="assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> Campaña Digital · Maíz y Girasol</div>
+  <div class="title">Contenido<br>Precampaña <span class="hl">26/27</span></div>
+  <div class="subtitle">Placas, carruseles y posteos. Distribuidor RED.IN de Nidera Semillas.</div>
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="zona">Henderson · Daireaux · Bolívar</div>
+  </div>
+  <span class="corner corner-br"></span>
+</div>
+
+<button class="btn-download" onclick="descargar()" style="display:none">Descargar og-cover.png</button>
+
+<script>
+if (window.self === window.top) {
+  var btn = document.querySelector('.btn-download');
+  btn.style.display = '';
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(script);
+}
+function descargar() {
+  var btn = document.querySelector('.btn-download');
+  btn.textContent = 'Esperando fuentes...';
+  btn.disabled = true;
+  document.fonts.ready.then(function () {
+    btn.textContent = 'Generando...';
+    return html2canvas(document.querySelector('.cover'), {
+      scale: 1, useCORS: true, backgroundColor: null,
+      width: 1200, height: 630
+    });
+  }).then(function (canvas) {
+    var a = document.createElement('a');
+    a.download = 'og-cover.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    btn.textContent = 'Descargar og-cover.png';
+    btn.disabled = false;
+  });
+}
+</script>
+<style>
+.btn-download {
+  position:fixed; bottom:24px; right:24px; z-index:9999;
+  font-family:'DM Mono',monospace; font-size:15px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:14px 28px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.btn-download:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-download:disabled { opacity:0.6; cursor:wait; }
+</style>
+</body>
+</html>
