@@ -110,5 +110,41 @@ body { background:#06080f; display:flex; justify-content:center; align-items:fle
   </div>
   <span class="corner corner-br"></span>
 </div>
+
+<button class="btn-download" onclick="descargar()">⬇ Descargar PNG</button>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+function descargar() {
+  const btn = document.querySelector('.btn-download');
+  btn.textContent = 'Generando...';
+  btn.disabled = true;
+  html2canvas(document.querySelector('.slide'), {
+    scale: 1,
+    useCORS: true,
+    backgroundColor: null,
+    width: 1080,
+    height: 1350
+  }).then(canvas => {
+    const a = document.createElement('a');
+    a.download = 'w27-post-01-maiz-ns7765.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    btn.textContent = '⬇ Descargar PNG';
+    btn.disabled = false;
+  });
+}
+</script>
+<style>
+.btn-download {
+  position:fixed; bottom:24px; right:24px; z-index:9999;
+  font-family:'DM Mono',monospace; font-size:15px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:14px 28px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.btn-download:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-download:disabled { opacity:0.6; cursor:wait; }
+</style>
 </body>
 </html>
