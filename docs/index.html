@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HenderSeeds — Dashboard de Contenido</title>
 <meta name="description" content="Dashboard interno de contenido semanal — HenderSeeds, distribuidor RED.IN Nidera Semillas.">
+
+<!-- ── Open Graph / preview al compartir el link ── -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="HenderSeeds — Contenido Precampaña 26/27">
+<meta property="og:description" content="Placas y posteos de la campaña digital de maíz y girasol. Distribuidor RED.IN de Nidera Semillas en Henderson, Daireaux y Bolívar.">
+<meta property="og:url" content="https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/">
+<meta property="og:image" content="https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/assets/logo-henderseeds-navy.png">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="HenderSeeds">
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HenderSeeds — Contenido Precampaña 26/27">
+<meta name="twitter:description" content="Placas y posteos de la campaña digital de maíz y girasol.">
+<meta name="twitter:image" content="https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/assets/logo-henderseeds-navy.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -1086,6 +1101,7 @@ Feliz D&iacute;a de la Bandera.</div>
 
 <!-- ═══════════════════════════════════════════════════
      GALERÍA DE PLACAS — TODAS LAS PIEZAS VISUALES
+     (data-driven: se arma sola desde el array PLACAS más abajo)
      ═══════════════════════════════════════════════════ -->
 <h2 class="section-title"><span class="accent">Galer&iacute;a</span> de placas <span class="section-tag">todas las piezas</span></h2>
 <p style="font-size:13px;color:var(--grey);margin-bottom:24px;font-family:'DM Mono',monospace;line-height:1.7">
@@ -1093,83 +1109,7 @@ Feliz D&iacute;a de la Bandera.</div>
   Orden: m&aacute;s nuevo arriba &darr; hist&oacute;rico abajo.
 </p>
 
-<div class="gallery-grid">
-
-  <!-- ─── W27 (29/06 – actual) ────────────────────── -->
-  <div class="gallery-week">
-    <div class="gallery-week-header">
-      <span class="cal-week">W27 <small>29/06</small></span>
-      <span class="section-tag">3 placas</span>
-    </div>
-    <div class="gallery-items">
-
-      <a class="gallery-card" href="placas/w27-post-01-maiz.html" target="_blank">
-        <div class="gallery-thumb">
-          <iframe src="placas/w27-post-01-maiz.html" loading="lazy" sandbox="allow-same-origin" tabindex="-1"></iframe>
-        </div>
-        <div class="gallery-info">
-          <div class="gallery-info-top">
-            <span class="pillar-tag pillar-maiz" style="font-size:9px;padding:2px 6px">Ma&iacute;z</span>
-            <span class="gallery-title">NS 7765 VIPTERA3</span>
-          </div>
-          <span class="gallery-date">30/06 &middot; Precampa&ntilde;a ma&iacute;z &middot; Abrir &amp; descargar &rarr;</span>
-        </div>
-      </a>
-
-      <a class="gallery-card" href="placas/w27-post-02-finanzas.html" target="_blank">
-        <div class="gallery-thumb">
-          <iframe src="placas/w27-post-02-finanzas.html" loading="lazy" sandbox="allow-same-origin" tabindex="-1"></iframe>
-        </div>
-        <div class="gallery-info">
-          <div class="gallery-info-top">
-            <span class="pillar-tag pillar-herramientas" style="font-size:9px;padding:2px 6px">Herramientas</span>
-            <span class="gallery-title">Precampa&ntilde;a vs. esperar</span>
-          </div>
-          <span class="gallery-date">02/07 &middot; Herramienta financiera &middot; Abrir &amp; descargar &rarr;</span>
-        </div>
-      </a>
-
-      <a class="gallery-card" href="placas/w27-post-03-institucional.html" target="_blank">
-        <div class="gallery-thumb">
-          <iframe src="placas/w27-post-03-institucional.html" loading="lazy" sandbox="allow-same-origin" tabindex="-1"></iframe>
-        </div>
-        <div class="gallery-info">
-          <div class="gallery-info-top">
-            <span class="pillar-tag pillar-institucional" style="font-size:9px;padding:2px 6px">Institucional</span>
-            <span class="gallery-title">El equipo detr&aacute;s</span>
-          </div>
-          <span class="gallery-date">04/07 &middot; Cercan&iacute;a &middot; Abrir &amp; descargar &rarr;</span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- ─── W26 (22/06) ─────────────────────────────── -->
-  <div class="gallery-week">
-    <div class="gallery-week-header">
-      <span class="cal-week">W26 <small>22/06</small></span>
-      <span class="section-tag">1 carrusel</span>
-    </div>
-    <div class="gallery-items">
-
-      <a class="gallery-card" href="placas/w26-carrusel-girasol.html" target="_blank">
-        <div class="gallery-thumb">
-          <iframe src="placas/w26-carrusel-girasol.html" loading="lazy" sandbox="allow-same-origin" tabindex="-1"></iframe>
-        </div>
-        <div class="gallery-info">
-          <div class="gallery-info-top">
-            <span class="pillar-tag pillar-girasol" style="font-size:9px;padding:2px 6px">Girasol</span>
-            <span class="gallery-title">Elegir girasol por ambiente</span>
-          </div>
-          <span class="gallery-date">24/06 &middot; Carrusel 5 slides &middot; Abrir &rarr;</span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-</div>
+<div class="gallery-grid" id="galeria"></div>
 
 <!-- ═══════════════════════════════════════════════════
      PORTAFOLIO DE HÍBRIDOS
@@ -1240,8 +1180,84 @@ Feliz D&iacute;a de la Bandera.</div>
 
 </main>
 
-<!-- Ajusta el zoom de cada miniatura al ancho real de su tarjeta -->
+<!-- ═══════════════════════════════════════════════════
+     GALERÍA DATA-DRIVEN
+     Para agregar una placa nueva: sumá UN objeto al array PLACAS.
+     Campos: semana, fecha (DD/MM), pilar (maiz|girasol|herramientas|
+     margenes|tecnico|institucional|efemeride), titulo, archivo,
+     nota (texto corto bajo el título), tipo ("placa" | "carrusel").
+     El orden de las semanas se controla con ORDEN_SEMANAS (más nueva
+     primero). Lo demás se arma solo.
+     ═══════════════════════════════════════════════════ -->
 <script>
+  const PLACAS = [
+    { semana:"W27", fecha:"30/06", pilar:"maiz",         titulo:"NS 7765 VIPTERA3",          archivo:"placas/w27-post-01-maiz.html",          nota:"Precampaña maíz",     tipo:"placa" },
+    { semana:"W27", fecha:"02/07", pilar:"herramientas", titulo:"Precampaña vs. esperar",    archivo:"placas/w27-post-02-finanzas.html",      nota:"Herramienta financiera", tipo:"placa" },
+    { semana:"W27", fecha:"04/07", pilar:"institucional",titulo:"El equipo detrás",          archivo:"placas/w27-post-03-institucional.html", nota:"Cercanía",            tipo:"placa" },
+    { semana:"W26", fecha:"24/06", pilar:"girasol",      titulo:"Elegir girasol por ambiente",archivo:"placas/w26-carrusel-girasol.html",     nota:"Carrusel 5 slides",   tipo:"carrusel" }
+  ];
+
+  // Semanas de más nueva a más vieja. Si agregás una semana nueva,
+  // ponela arriba de todo. {fecha} es el lunes de esa semana.
+  const ORDEN_SEMANAS = [
+    { semana:"W27", fecha:"29/06" },
+    { semana:"W26", fecha:"22/06" }
+  ];
+
+  const PILAR_LABEL = {
+    maiz:"Maíz", girasol:"Girasol", herramientas:"Herramientas",
+    margenes:"Márgenes", tecnico:"Técnico", institucional:"Institucional",
+    efemeride:"Efeméride"
+  };
+
+  function renderGaleria() {
+    const cont = document.getElementById('galeria');
+    if (!cont) return;
+    ORDEN_SEMANAS.forEach(function (sem) {
+      const items = PLACAS.filter(function (p) { return p.semana === sem.semana; });
+      if (!items.length) return;
+
+      const bloque = document.createElement('div');
+      bloque.className = 'gallery-week';
+
+      const head = document.createElement('div');
+      head.className = 'gallery-week-header';
+      const nPiezas = items.length;
+      const etiqueta = nPiezas === 1
+        ? (items[0].tipo === 'carrusel' ? '1 carrusel' : '1 placa')
+        : nPiezas + ' placas';
+      head.innerHTML =
+        '<span class="cal-week">' + sem.semana + ' <small>' + sem.fecha + '</small></span>' +
+        '<span class="section-tag">' + etiqueta + '</span>';
+      bloque.appendChild(head);
+
+      const grid = document.createElement('div');
+      grid.className = 'gallery-items';
+      items.forEach(function (p) {
+        const accion = p.tipo === 'carrusel' ? 'Abrir →' : 'Abrir &amp; descargar →';
+        const a = document.createElement('a');
+        a.className = 'gallery-card';
+        a.href = p.archivo;
+        a.target = '_blank';
+        a.innerHTML =
+          '<div class="gallery-thumb">' +
+            '<iframe src="' + p.archivo + '" loading="lazy" sandbox="allow-same-origin" tabindex="-1"></iframe>' +
+          '</div>' +
+          '<div class="gallery-info">' +
+            '<div class="gallery-info-top">' +
+              '<span class="pillar-tag pillar-' + p.pilar + '" style="font-size:9px;padding:2px 6px">' + (PILAR_LABEL[p.pilar] || p.pilar) + '</span>' +
+              '<span class="gallery-title">' + p.titulo + '</span>' +
+            '</div>' +
+            '<span class="gallery-date">' + p.fecha + ' · ' + p.nota + ' · ' + accion + '</span>' +
+          '</div>';
+        grid.appendChild(a);
+      });
+      bloque.appendChild(grid);
+      cont.appendChild(bloque);
+    });
+  }
+
+  // Ajusta el zoom de cada miniatura al ancho real de su tarjeta
   function ajustarMiniaturas() {
     document.querySelectorAll('.gallery-thumb').forEach(function (thumb) {
       var iframe = thumb.querySelector('iframe');
@@ -1250,9 +1266,11 @@ Feliz D&iacute;a de la Bandera.</div>
       iframe.style.transform = 'scale(' + escala + ')';
     });
   }
+
+  renderGaleria();
   window.addEventListener('load', ajustarMiniaturas);
   window.addEventListener('resize', ajustarMiniaturas);
-  // Reintentar tras cargar fuentes/iframes (evita saltos)
+  ajustarMiniaturas();
   setTimeout(ajustarMiniaturas, 400);
   setTimeout(ajustarMiniaturas, 1200);
 </script>
