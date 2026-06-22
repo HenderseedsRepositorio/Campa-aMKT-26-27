@@ -295,5 +295,91 @@ body {
   <span class="corner corner-br"></span>
 </div>
 
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar las 5 &middot; feed 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar las 5 &middot; historia 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga del carrusel: baja las 5 placas, una por una (feed o historia), 2x retina ── -->
+<script>
+(function () {
+  var FILE = 'w26-carrusel-girasol';
+  var STORY_BG = '#06080f';
+  var SCALE = 2;
+  if (window.self !== window.top) return;
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function render(slide, fmt) {
+    if (fmt === 'feed') {
+      return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 });
+    }
+    var frame = document.createElement('div');
+    frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+    var clone = slide.cloneNode(true);
+    clone.style.boxShadow = '0 0 0 2px rgba(245,166,35,0.25)';
+    frame.appendChild(clone);
+    document.body.appendChild(frame);
+    return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+      .then(function (c) { document.body.removeChild(frame); return c; });
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    var slides = document.querySelectorAll('.slide');
+    document.fonts.ready.then(function () {
+      var i = 0;
+      (function next() {
+        if (i >= slides.length) {
+          btn.textContent = orig;
+          botones.forEach(function (b) { b.disabled = false; });
+          return;
+        }
+        btn.textContent = 'Generando ' + (i + 1) + '/' + slides.length + '…';
+        var n = ('0' + (i + 1)).slice(-2);
+        render(slides[i], fmt).then(function (c) {
+          bajar(c, FILE + '-' + fmt + '-slide' + n);
+          i++;
+          setTimeout(next, 500);
+        });
+      })();
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
