@@ -106,46 +106,78 @@ body { background:#06080f; display:flex; justify-content:center; align-items:fle
   <span class="corner corner-br"></span>
 </div>
 
-<button class="btn-download" onclick="descargar()" style="display:none">Descargar PNG</button>
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar feed &middot; 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
 
-<script>
-if (window.self === window.top) {
-  var btn = document.querySelector('.btn-download');
-  btn.style.display = '';
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
-  document.head.appendChild(script);
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
 }
-function descargar() {
-  var btn = document.querySelector('.btn-download');
-  btn.textContent = 'Esperando fuentes...';
-  btn.disabled = true;
-  document.fonts.ready.then(function () {
-    btn.textContent = 'Generando...';
-    return html2canvas(document.querySelector('.slide'), {
-      scale: 1, useCORS: true, backgroundColor: null,
-      width: 1080, height: 1350
-    });
-  }).then(function (canvas) {
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: feed 1080×1350 (4:5) + historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = 'w27-post-02-precampana-vs-esperar';
+  var STORY_BG = '#06080f';   // bandas de la historia
+  var SCALE = 2;              // 2x retina
+  if (window.self !== window.top) return;  // no cargar en miniatura/iframe
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
     var a = document.createElement('a');
-    a.download = 'w27-post-02-precampana-vs-esperar.png';
+    a.download = nombre + '.png';
     a.href = canvas.toDataURL('image/png');
     a.click();
-    btn.textContent = 'Descargar PNG';
-    btn.disabled = false;
-  });
-}
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      if (fmt === 'feed') {
+        return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 })
+          .then(function (c) { bajar(c, FILE + '-feed-1080x1350'); });
+      }
+      // Historia: la placa 4:5 centrada sobre un lienzo 9:16 de marca
+      var frame = document.createElement('div');
+      frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+      var clone = slide.cloneNode(true);
+      clone.style.boxShadow = '0 0 0 2px rgba(245,166,35,0.25)';
+      frame.appendChild(clone);
+      document.body.appendChild(frame);
+      return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { document.body.removeChild(frame); bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
 </script>
-<style>
-.btn-download {
-  position:fixed; bottom:24px; right:24px; z-index:9999;
-  font-family:'DM Mono',monospace; font-size:15px; font-weight:500;
-  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
-  padding:14px 28px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
-  transition:transform 0.15s,box-shadow 0.15s;
-}
-.btn-download:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
-.btn-download:disabled { opacity:0.6; cursor:wait; }
-</style>
 </body>
 </html>

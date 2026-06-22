@@ -578,6 +578,29 @@ details .details-content {
   background: rgba(37,211,102,0.1);
 }
 
+/* ── Íconos SVG de interfaz ────────────────────────
+   Reemplazan emojis en el chrome del dashboard para que
+   rendericen igual en todos los dispositivos. (Los emojis
+   dentro del copy de cada post se dejan como emoji: ese
+   texto se copia y pega tal cual en Instagram.) */
+.ic {
+  display: inline-block;
+  width: 1em; height: 1em;
+  vertical-align: -0.14em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+}
+.ic-edit    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238FA0BE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z'/%3E%3C/svg%3E"); }
+.ic-mega    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5A623' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z'/%3E%3Cpath d='M16 8a4 4 0 0 1 0 8'/%3E%3C/svg%3E"); }
+.ic-pub     { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2325D366' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+.ic-bulb    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238FA0BE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6'/%3E%3Cpath d='M10 22h4'/%3E%3Cpath d='M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z'/%3E%3C/svg%3E"); }
+.ic-img     { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5A623' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpath d='M21 15l-5-5L5 21'/%3E%3C/svg%3E"); }
+.ic-maiz    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5A623' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V11'/%3E%3Cpath d='M12 11C12 7 9 5 5 5c0 4 3 6 7 6z'/%3E%3Cpath d='M12 13c0-4 3-6 7-6 0 4-3 6-7 6z'/%3E%3C/svg%3E"); }
+.ic-girasol { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F59E0B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2'/%3E%3C/svg%3E"); }
+.ic-wa      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='%2325D366'%3E%3Cpath d='M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4z'/%3E%3C/svg%3E"); }
+
 /* ── Responsive ───────────────────────────────────── */
 @media (max-width: 640px) {
   .header-inner {
@@ -653,7 +676,7 @@ details .details-content {
   <div class="cal-row">
     <div class="cal-week">W24 <small>08/06</small></div>
     <div class="cal-items">
-      <span class="item">Lanzamiento precampa&ntilde;a &#x1F4E4; publicado</span>
+      <span class="item">Lanzamiento precampa&ntilde;a <span class="ic ic-pub"></span> publicado</span>
     </div>
   </div>
 
@@ -661,13 +684,13 @@ details .details-content {
   <div class="cal-row">
     <div class="cal-week">W25 <small>15/06</small></div>
     <div class="cal-items">
-      <span class="item">Ma&iacute;z posicionamiento &#x270D;&#xFE0F;</span>
+      <span class="item">Ma&iacute;z posicionamiento <span class="ic ic-edit"></span></span>
       <span class="sep">|</span>
-      <span class="item">Calculadora m&aacute;rgenes &#x270D;&#xFE0F;</span>
+      <span class="item">Calculadora m&aacute;rgenes <span class="ic ic-edit"></span></span>
       <span class="sep">|</span>
-      <span class="item">Institucional RED.IN &#x270D;&#xFE0F;</span>
+      <span class="item">Institucional RED.IN <span class="ic ic-edit"></span></span>
       <span class="sep">|</span>
-      <span class="item">Extra: D&iacute;a de la Bandera &#x270D;&#xFE0F;</span>
+      <span class="item">Extra: D&iacute;a de la Bandera <span class="ic ic-edit"></span></span>
     </div>
   </div>
 
@@ -675,11 +698,11 @@ details .details-content {
   <div class="cal-row">
     <div class="cal-week">W26 <small>22/06</small></div>
     <div class="cal-items">
-      <span class="item">Girasol NS 1113 CL &#x270D;&#xFE0F;&#x1F4E3;</span>
+      <span class="item">Girasol NS 1113 CL <span class="ic ic-edit"></span><span class="ic ic-mega"></span></span>
       <span class="sep">|</span>
-      <span class="item">M&aacute;rgenes girasol &#x270D;&#xFE0F;</span>
+      <span class="item">M&aacute;rgenes girasol <span class="ic ic-edit"></span></span>
       <span class="sep">|</span>
-      <span class="item">Carrusel: elegir girasol &#x270D;&#xFE0F;</span>
+      <span class="item">Carrusel: elegir girasol <span class="ic ic-edit"></span></span>
     </div>
   </div>
 
@@ -687,35 +710,35 @@ details .details-content {
   <div class="cal-row current">
     <div class="cal-week">W27 <small>29/06</small></div>
     <div class="cal-items">
-      <span class="item">Ma&iacute;z NS 7765 VIP3 &#x270D;&#xFE0F;</span>
+      <span class="item">Ma&iacute;z NS 7765 VIP3 <span class="ic ic-edit"></span></span>
       <span class="sep">|</span>
-      <span class="item">Precampa&ntilde;a vs. esperar &#x270D;&#xFE0F;</span>
+      <span class="item">Precampa&ntilde;a vs. esperar <span class="ic ic-edit"></span></span>
       <span class="sep">|</span>
-      <span class="item">Institucional: equipo &#x270D;&#xFE0F;</span>
+      <span class="item">Institucional: equipo <span class="ic ic-edit"></span></span>
     </div>
   </div>
   <div class="cal-row future">
     <div class="cal-week">W28 <small>06/07</small></div>
     <div class="cal-items">
-      <span class="item">&#x1F4A1; propuesto</span>
+      <span class="item"><span class="ic ic-bulb"></span> propuesto</span>
     </div>
   </div>
   <div class="cal-row future">
     <div class="cal-week">W29 <small>13/07</small></div>
     <div class="cal-items">
-      <span class="item">&#x1F4A1; propuesto</span>
+      <span class="item"><span class="ic ic-bulb"></span> propuesto</span>
     </div>
   </div>
   <div class="cal-row future">
     <div class="cal-week">W30 <small>20/07</small></div>
     <div class="cal-items">
-      <span class="item">&#x1F4A1; propuesto</span>
+      <span class="item"><span class="ic ic-bulb"></span> propuesto</span>
     </div>
   </div>
   <div class="cal-row future">
     <div class="cal-week">W31 <small>27/07</small></div>
     <div class="cal-items">
-      <span class="item">&#x1F4A1; propuesto</span>
+      <span class="item"><span class="ic ic-bulb"></span> propuesto</span>
     </div>
   </div>
 
@@ -733,7 +756,7 @@ details .details-content {
     <div class="card-header">
       <span class="pillar-tag pillar-maiz">Ma&iacute;z</span>
       <span class="card-title">Post 01 &mdash; NS 7765 VIPTERA3: el top del portafolio</span>
-      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
     </div>
     <div class="copy-block">+392 kg/ha sobre el promedio. 74% de &eacute;xito. En temprana Y en tard&iacute;a.
 
@@ -761,7 +784,7 @@ Es el h&iacute;brido para el lote donde no quer&eacute;s arriesgar. Y la precamp
       </div>
       <div class="meta-item">
         <span class="meta-label">Pieza</span>
-        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-01-maiz.html" target="_blank">&#x1F5BC;&#xFE0F; Ver placa &rarr;</a>
+        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-01-maiz.html" target="_blank"><span class="ic ic-img"></span> Ver placa &rarr;</a>
       </div>
     </div>
   </div>
@@ -771,7 +794,7 @@ Es el h&iacute;brido para el lote donde no quer&eacute;s arriesgar. Y la precamp
     <div class="card-header">
       <span class="pillar-tag pillar-herramientas">Herramientas</span>
       <span class="card-title">Post 02 &mdash; Precampa&ntilde;a vs. esperar</span>
-      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
     </div>
     <div class="copy-block">&ldquo;Espero a ver c&oacute;mo viene&rdquo; es una decisi&oacute;n financiera. Y tiene un costo.
 
@@ -799,7 +822,7 @@ Corr&eacute; el n&uacute;mero. Despu&eacute;s decid&iacute;.
       </div>
       <div class="meta-item">
         <span class="meta-label">Pieza</span>
-        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-02-finanzas.html" target="_blank">&#x1F5BC;&#xFE0F; Ver placa &rarr;</a>
+        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-02-finanzas.html" target="_blank"><span class="ic ic-img"></span> Ver placa &rarr;</a>
       </div>
     </div>
   </div>
@@ -809,7 +832,7 @@ Corr&eacute; el n&uacute;mero. Despu&eacute;s decid&iacute;.
     <div class="card-header">
       <span class="pillar-tag pillar-institucional">Institucional</span>
       <span class="card-title">Post 03 &mdash; El equipo detr&aacute;s de la recomendaci&oacute;n</span>
-      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
     </div>
     <div class="copy-block">Detr&aacute;s de cada recomendaci&oacute;n hay alguien que conoce tu lote.
 
@@ -837,7 +860,7 @@ Pas&aacute; por la oficina, llamanos o escribinos. La precampa&ntilde;a 26/27 se
       </div>
       <div class="meta-item">
         <span class="meta-label">Pieza</span>
-        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-03-institucional.html" target="_blank">&#x1F5BC;&#xFE0F; Ver placa &rarr;</a>
+        <a class="meta-value" style="color:var(--orange);text-decoration:none;font-family:'DM Mono',monospace" href="placas/w27-post-03-institucional.html" target="_blank"><span class="ic ic-img"></span> Ver placa &rarr;</a>
       </div>
     </div>
   </div>
@@ -860,7 +883,7 @@ Pas&aacute; por la oficina, llamanos o escribinos. La precampa&ntilde;a 26/27 se
     <div class="card-header">
       <span class="pillar-tag pillar-girasol">Girasol</span>
       <span class="card-title">Post 01 &mdash; Girasol NS 1113 CL</span>
-      <span class="status-label">&#x270D;&#xFE0F; Borrador &middot; &#x1F4E3; Con pauta</span>
+      <span class="status-label"><span class="ic ic-edit"></span> Borrador &middot; <span class="ic ic-mega"></span> Con pauta</span>
     </div>
     <div class="copy-block">En el oeste, el girasol nunca se fue.
 
@@ -894,7 +917,7 @@ La siembra arranca en agosto. La precampa&ntilde;a est&aacute; abierta ahora: es
     <div class="card-header">
       <span class="pillar-tag pillar-margenes">M&aacute;rgenes</span>
       <span class="card-title">Post 02 &mdash; El n&uacute;mero del girasol</span>
-      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
     </div>
     <div class="copy-block">&iquest;Descartaste el girasol sin hacer el n&uacute;mero?
 
@@ -928,7 +951,7 @@ Corr&eacute; el n&uacute;mero antes de cerrar la rotaci&oacute;n. Capaz te sorpr
     <div class="card-header">
       <span class="pillar-tag pillar-tecnico">T&eacute;cnico</span>
       <span class="card-title">Post 03 &mdash; Carrusel: elegir girasol por ambiente</span>
-      <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+      <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
     </div>
     <div class="copy-block">No hay un girasol mejor. Hay un girasol mejor para TU lote.
 
@@ -1000,7 +1023,7 @@ En este carrusel, los 3 girasoles Clearfield que estamos posicionando para la 26
       <div class="card-header">
         <span class="pillar-tag pillar-maiz">Ma&iacute;z</span>
         <span class="card-title">Post 01 &mdash; Ma&iacute;z: posicionar antes de comprar</span>
-        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+        <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
       </div>
       <div class="copy-block">El mejor ma&iacute;z no es el que m&aacute;s rinde en la revista. Es el que mejor se porta en TU lote.
 
@@ -1026,7 +1049,7 @@ Es lo que hacemos como parte de la red RED.IN de Nidera Semillas. Y es lo que te
       <div class="card-header">
         <span class="pillar-tag pillar-herramientas">Herramientas</span>
         <span class="card-title">Post 02 &mdash; Calculadora de m&aacute;rgenes</span>
-        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+        <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
       </div>
       <div class="copy-block">&iquest;Te cierran los n&uacute;meros antes de decidir qu&eacute; sembrar?
 
@@ -1052,7 +1075,7 @@ Porque el mejor h&iacute;brido es el que te cierra en TU campo.
       <div class="card-header">
         <span class="pillar-tag pillar-institucional">Institucional</span>
         <span class="card-title">Post 03 &mdash; Institucional RED.IN</span>
-        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+        <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
       </div>
       <div class="copy-block">Somos de ac&aacute;. Y en semillas, eso se nota.
 
@@ -1078,7 +1101,7 @@ No vendemos semillas: posicionamos h&iacute;bridos lote por lote.
       <div class="card-header">
         <span class="pillar-tag pillar-efemeride">Efem&eacute;ride</span>
         <span class="card-title">Post 04 &mdash; D&iacute;a de la Bandera</span>
-        <span class="status-label">&#x270D;&#xFE0F; Borrador</span>
+        <span class="status-label"><span class="ic ic-edit"></span> Borrador</span>
       </div>
       <div class="copy-block">Hoy flamea sobre cada lote. &#x1F1E6;&#x1F1F7;
 
@@ -1106,7 +1129,7 @@ Feliz D&iacute;a de la Bandera.</div>
      ═══════════════════════════════════════════════════ -->
 <h2 class="section-title"><span class="accent">Galer&iacute;a</span> de placas <span class="section-tag">todas las piezas</span></h2>
 <p style="font-size:13px;color:var(--grey);margin-bottom:24px;font-family:'DM Mono',monospace;line-height:1.7">
-  Cada miniatura muestra la placa real. Clic para abrir a tama&ntilde;o completo (1080&times;1350) con bot&oacute;n <b style="color:var(--orange)">&ldquo;Descargar PNG&rdquo;</b> directo para postear.<br>
+  Cada miniatura muestra la placa real. Clic para abrir a tama&ntilde;o completo y bajarla lista para postear, en <b style="color:var(--orange)">2x retina</b>: <b style="color:var(--orange)">Feed 4:5</b> (1080&times;1350, para posteo y carrusel) o <b style="color:var(--orange)">Historia 9:16</b> (1080&times;1920).<br>
   Orden: m&aacute;s nuevo arriba &darr; hist&oacute;rico abajo.
 </p>
 
@@ -1119,7 +1142,7 @@ Feliz D&iacute;a de la Bandera.</div>
   <h2 class="section-title">Portafolio <span class="accent">prioritario</span></h2>
 
   <div class="portfolio-crop">
-    <h3>&#x1F33D; Ma&iacute;z</h3>
+    <h3><span class="ic ic-maiz"></span> Ma&iacute;z</h3>
     <table class="portfolio-table">
       <thead>
         <tr>
@@ -1149,7 +1172,7 @@ Feliz D&iacute;a de la Bandera.</div>
   </div>
 
   <div class="portfolio-crop">
-    <h3>&#x1F33B; Girasol</h3>
+    <h3><span class="ic ic-girasol"></span> Girasol</h3>
     <table class="portfolio-table">
       <thead>
         <tr>
@@ -1289,7 +1312,7 @@ Feliz D&iacute;a de la Bandera.</div>
     <div class="footer-brand">RED.IN Nidera Semillas &middot; Henderson &middot; Daireaux &middot; Bol&iacute;var</div>
     <div class="footer-note">Dashboard interno &mdash; no publicar</div>
     <a class="footer-wa" href="https://wa.me/5492314530691" target="_blank" rel="noopener">
-      &#x1F4F2; wa.me/5492314530691
+      <span class="ic ic-wa"></span> wa.me/5492314530691
     </a>
   </div>
 </footer>
