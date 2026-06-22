@@ -1,6 +1,7 @@
 name: Publicar página en GitHub Pages
 
-# Publica el contenido de docs/ en GitHub Pages.
+# Publica el contenido de docs/ en la rama gh-pages.
+# GitHub Pages sirve esa rama en:
 # https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/
 
 on:
@@ -12,31 +13,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  publicar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Configurar Pages
-        uses: actions/configure-pages@v5
-
-      - name: Subir artefacto
-        uses: actions/upload-pages-artifact@v3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          path: docs
-
-      - name: Deploy a Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
