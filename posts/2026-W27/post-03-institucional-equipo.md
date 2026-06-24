@@ -9,7 +9,7 @@
 ## Copy (Instagram/Facebook)
 > Detrás de cada recomendación hay alguien que conoce tu lote.
 >
-> No vendemos bolsas: posicionamos híbridos lote por lote. Te cotizamos en menos de 24 hs y, si querés, recorremos el lote antes de recomendarte nada. Somos de Henderson, Daireaux y Bolívar, y ya acompañamos a más de 100 productores de la zona.
+> No vendemos bolsas: posicionamos híbridos lote por lote. Te cotizamos en menos de 24 hs y, si querés, recorremos el lote antes de recomendarte nada. Somos de Henderson, Daireaux y Bolívar, y conocemos los lotes de la zona porque andamos en ellos todo el año.
 >
 > Eso es ser RED.IN de Nidera Semillas: genética de punta con alguien de acá que la pone a jugar en tu campo.
 >

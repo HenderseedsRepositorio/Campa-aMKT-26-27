@@ -9,9 +9,11 @@
 ## Copy (Instagram/Facebook)
 > +392 kg/ha sobre el promedio. En temprana Y en tardía.
 >
-> NS 7765 VIPTERA3. El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados. 74% de éxito en 191 comparaciones, dato de marbete oficial Nidera. Tardía: +324 kg/ha, 71% éxito. Quebrado 1 — no se te cae.
+> NS 7765 VIPTERA3. El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados.
 >
-> 📩 Mandanos un DM y lo posicionamos para tu campo.
+> 74% de éxito en 191 comparaciones, dato de marbete oficial Nidera. Tardía: +324 kg/ha, 71% éxito. Quebrado 1 — no se te cae.
+>
+> 📩 Mandanos un DM con tu zona y lo posicionamos para tu campo.
 
 ## Pieza visual
 Placa **navy oscuro** (`#0A0F1B`) con grilla sutil naranja (estilo agro-tech).
