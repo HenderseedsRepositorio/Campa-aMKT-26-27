@@ -7,9 +7,9 @@
 - **Pauta:** no (orgánico, bajo presupuesto si se quiere amplificar alcance)
 
 ## Copy (Instagram/Facebook)
-> 30.000 hectáreas bajo plan. 100+ productores. Henderson, Daireaux y Bolívar.
+> Detrás de cada recomendación hay alguien que conoce tu lote.
 >
-> No vendemos bolsas: posicionamos híbridos lote por lote. Te cotizamos en menos de 24 hs y, si querés, recorremos el lote antes de recomendarte nada.
+> No vendemos bolsas: posicionamos híbridos lote por lote. Te cotizamos en menos de 24 hs y, si querés, recorremos el lote antes de recomendarte nada. Somos de Henderson, Daireaux y Bolívar, y ya acompañamos a más de 100 productores de la zona.
 >
 > Eso es ser RED.IN de Nidera Semillas: genética de punta con alguien de acá que la pone a jugar en tu campo.
 >

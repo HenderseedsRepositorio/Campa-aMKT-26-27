@@ -7,9 +7,9 @@
 - **Pauta:** no (evaluar si se pauta junto con el carrusel de maíz futuro)
 
 ## Copy (Instagram/Facebook)
-> +392 kg/ha sobre el promedio. 74% de éxito en 191 comparaciones. En temprana Y en tardía.
+> +392 kg/ha sobre el promedio. En temprana Y en tardía.
 >
-> NS 7765 VIPTERA3. El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados. Tardía: +324 kg/ha, 71% éxito. Quebrado 1 — no se te cae. Dato de marbete oficial Nidera.
+> NS 7765 VIPTERA3. El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados. 74% de éxito en 191 comparaciones, dato de marbete oficial Nidera. Tardía: +324 kg/ha, 71% éxito. Quebrado 1 — no se te cae.
 >
 > 📩 Mandanos un DM y lo posicionamos para tu campo.
 
