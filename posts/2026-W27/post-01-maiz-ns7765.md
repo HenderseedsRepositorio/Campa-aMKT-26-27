@@ -7,15 +7,11 @@
 - **Pauta:** no (evaluar si se pauta junto con el carrusel de maíz futuro)
 
 ## Copy (Instagram/Facebook)
-> +392 kg/ha sobre el promedio. 74% de éxito. En temprana Y en tardía.
+> +392 kg/ha sobre el promedio. 74% de éxito en 191 comparaciones. En temprana Y en tardía.
 >
-> El NS 7765 VIPTERA3 es el maíz más completo que tenemos: rinde arriba en los mejores ambientes y no cae en los más ajustados. Dato de marbete oficial Nidera, 191 comparaciones.
+> NS 7765 VIPTERA3. El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados. Tardía: +324 kg/ha, 71% éxito. Quebrado 1 — no se te cae. Dato de marbete oficial Nidera.
 >
-> ¿Tardía? También: +324 kg/ha, 71% de éxito en 165 comparaciones. Y con Quebrado 1 — no se te cae.
->
-> Es el híbrido para el lote donde no querés arriesgar. Y la precampaña para asegurarlo está abierta ahora.
->
-> 📩 Mandanos un DM y lo posicionamos para tus ambientes.
+> 📩 Mandanos un DM y lo posicionamos para tu campo.
 
 ## Pieza visual
 Placa **navy oscuro** (`#0A0F1B`) con grilla sutil naranja (estilo agro-tech).

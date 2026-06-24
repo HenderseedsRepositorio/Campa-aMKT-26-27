@@ -7,15 +7,13 @@
 - **Pauta:** no (orgánico, bajo presupuesto si se quiere amplificar alcance)
 
 ## Copy (Instagram/Facebook)
-> Detrás de cada recomendación hay alguien que conoce tu lote.
+> 30.000 hectáreas bajo plan. 100+ productores. Henderson, Daireaux y Bolívar.
 >
-> No somos un 0800 ni un catálogo. Somos de Henderson, recorremos los campos de Daireaux y Bolívar, y cuando te decimos "este híbrido va acá", es porque lo vimos funcionar en ambientes como el tuyo.
+> No vendemos bolsas: posicionamos híbridos lote por lote. Te cotizamos en menos de 24 hs y, si querés, recorremos el lote antes de recomendarte nada.
 >
-> Eso es ser parte de la red RED.IN de Nidera Semillas: genética de punta con respaldo técnico local.
+> Eso es ser RED.IN de Nidera Semillas: genética de punta con alguien de acá que la pone a jugar en tu campo.
 >
-> Pasá por la oficina, llamanos o escribinos. La precampaña 26/27 se charla mejor con un mate de por medio.
->
-> 📩 Mandanos un DM o pasá por la oficina. Te esperamos.
+> 📩 Mandanos un DM o pasá por la oficina. La precampaña se charla mejor con un mate de por medio.
 
 ## Pieza visual
 **Foto real** del equipo Henderseeds (en la oficina, en un campo, o en una jornada). Si no hay foto disponible todavía: placa **crema** (`#F6F4EE`) con texto navy.

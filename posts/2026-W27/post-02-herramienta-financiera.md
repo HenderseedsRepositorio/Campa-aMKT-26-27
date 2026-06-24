@@ -9,13 +9,11 @@
 ## Copy (Instagram/Facebook)
 > "Espero a ver cómo viene" es una decisión financiera. Y tiene un costo.
 >
-> La precampaña te fija condiciones hoy. Esperar te expone a devaluación, suba de insumos y disponibilidad. A veces conviene; a veces no. El tema es saberlo ANTES, no después.
+> La precampaña te fija condiciones hoy. Esperar te expone a devaluación, suba de insumos y disponibilidad. A veces conviene esperar. A veces no. El tema es saberlo ANTES.
 >
-> Armamos una herramienta que compara el costo real de financiarte en pesos vs. en dólares, ajustando por devaluación esperada. Te devuelve el número limpio: cuánto te sale cada opción en USD reales.
+> Tenemos una herramienta que te da el número limpio: cuánto te sale cada opción en USD reales. Corré el número. Después decidí.
 >
-> Corré el número. Después decidí.
->
-> 📩 Mandanos un DM y te pasamos la herramienta con tu caso.
+> 📩 Mandanos un DM y te lo armamos con tu caso.
 
 ## Pieza visual
 Placa **navy oscuro** (`#0A0F1B`), estilo agro-tech.
@@ -27,6 +25,7 @@ Placa **navy oscuro** (`#0A0F1B`), estilo agro-tech.
 - Bajada en DM Sans, gris claro: *El número lo sacás antes de firmar, no después.*
 - Logo Henderseeds blanco arriba derecha.
 - No mostrar cifras reales de tasas ni precios.
+- `[OPCIONAL: agregar screenshot de la herramienta en uso con datos ficticios — el usuario confirmó que puede capturar la interfaz]`
 
 ## Hashtags (máx 8)
 #Henderseeds #Precampaña2627 #Finanzas #Agro #OesteBonaerense #Henderson #Daireaux #Bolivar
