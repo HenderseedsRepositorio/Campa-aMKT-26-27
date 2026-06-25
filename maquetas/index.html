@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Laboratorio de Maquetas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A0F1B;
+  --navy-mid: #1A4A8A;
+  --orange: #F5A623;
+  --yellow: #F59E0B;
+  --cream: #F6F4EE;
+  --white: #E8EEF7;
+  --white-pure: #FFFFFF;
+  --green-wa: #25D366;
+  --grey: #8FA0BE;
+  --radius: 14px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Nav ── */
+.topnav {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px;
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: 'DM Mono', monospace; font-size: 12px;
+}
+.topnav a {
+  color: var(--grey); text-decoration: none;
+  transition: color .15s;
+}
+.topnav a:hover { color: var(--orange); }
+.topnav .active { color: var(--orange); font-weight: 500; }
+.topnav .sep { color: rgba(255,255,255,0.15); }
+
+/* ── Header ── */
+.header {
+  padding: 40px 20px 32px;
+  max-width: 1400px; margin: 0 auto;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+.header h1 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 26px; color: var(--white-pure);
+  letter-spacing: -0.5px;
+}
+.header h1 span { color: var(--orange); }
+.header p {
+  font-size: 14px; color: var(--grey); margin-top: 8px;
+  max-width: 700px; line-height: 1.6;
+}
+
+/* ── Filter bar ── */
+.filters {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 20px; max-width: 1400px; margin: 0 auto;
+}
+.filter-btn {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 6px 14px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent; color: var(--grey);
+  cursor: pointer; transition: all .15s;
+}
+.filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+.filter-btn.active { background: var(--orange); color: var(--navy); border-color: var(--orange); font-weight: 500; }
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 20px;
+  max-width: 1400px; margin: 0 auto;
+}
+
+/* ── Card wrapper ── */
+.maqueta-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.maqueta-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange);
+  box-shadow: 0 12px 40px rgba(245,166,35,0.12);
+}
+.maqueta-card .info {
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.maqueta-card .info-title {
+  font-family: 'DM Sans', sans-serif; font-weight: 600;
+  font-size: 13px; color: var(--white-pure);
+}
+.maqueta-card .info-tags {
+  display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;
+}
+.maqueta-card .tag {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 2px 8px; border-radius: 4px;
+}
+.tag-maiz { background: rgba(245,166,35,0.15); color: var(--orange); }
+.tag-girasol { background: rgba(245,158,11,0.15); color: var(--yellow); }
+.tag-institucional { background: rgba(124,185,232,0.15); color: #7CB9E8; }
+.tag-herramientas { background: rgba(37,211,102,0.15); color: var(--green-wa); }
+.tag-style { background: rgba(255,255,255,0.06); color: var(--grey); }
+
+/* ── Placa preview (4:5 aspect) ── */
+.placa {
+  width: 100%;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  position: relative;
+  display: flex; flex-direction: column;
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.85);
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-content {
+  max-width: 540px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+}
+.modal-close {
+  position: fixed; top: 20px; right: 24px;
+  font-size: 28px; color: var(--grey); cursor: pointer;
+  background: none; border: none; z-index: 1001;
+  transition: color .15s;
+}
+.modal-close:hover { color: var(--white-pure); }
+
+/* ── Footer ── */
+.footer {
+  margin-top: 60px; padding: 32px 20px;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+  text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--grey);
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; }
+  .header h1 { font-size: 20px; }
+  .maqueta-card .info { padding: 8px 10px; }
+  .maqueta-card .info-title { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="topnav">
+  <a href="../">Dashboard</a>
+  <span class="sep">|</span>
+  <a href="./" class="active">Maquetas</a>
+  <span class="sep">|</span>
+  <span style="color:rgba(255,255,255,0.3);margin-left:auto">HenderSeeds &middot; Precampa&ntilde;a 26/27</span>
+</nav>
+
+<!-- Header -->
+<div class="header">
+  <h1>Laboratorio de <span>Maquetas</span></h1>
+  <p>Variaciones de dise&ntilde;o para las placas de campa&ntilde;a. Clic en cualquier maqueta para verla a tama&ntilde;o completo. Cada una usa los mismos datos reales &mdash; solo cambia el enfoque visual.</p>
+</div>
+
+<!-- Filters -->
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todas</button>
+  <button class="filter-btn" data-filter="maiz">Ma&iacute;z</button>
+  <button class="filter-btn" data-filter="girasol">Girasol</button>
+  <button class="filter-btn" data-filter="institucional">Institucional</button>
+  <button class="filter-btn" data-filter="herramientas">Herramientas</button>
+</div>
+
+<!-- Grid -->
+<div class="grid" id="grid"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <button class="modal-close" id="modal-close">&times;</button>
+  <div class="modal-content" id="modal-content"></div>
+</div>
+
+<footer class="footer">
+  <a href="../" style="color:var(--orange);text-decoration:none">&#8592; Volver al Dashboard</a>
+  <br><br>
+  HenderSeeds &middot; RED.IN Nidera Semillas &middot; Dashboard interno
+</footer>
+
+<script>
+const MAQUETAS = [
+
+// ═══════════════════════════════════════════════
+// MAÍZ — NS 7765 VIPTERA3
+// ═══════════════════════════════════════════════
+
+{
+  id: 1,
+  titulo: "Navy clásico — dato hero",
+  categoria: "maiz",
+  tags: ["clásico", "navy"],
+  render: function() {
+    return '<div style="background:linear-gradient(170deg,#0A0F1B 0%,#111827 100%);padding:40px 36px;height:100%;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase;letter-spacing:2px">Precampaña Maíz 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:52px;color:#F5A623;line-height:1;margin:16px 0">+392<span style="font-size:18px;color:#8FA0BE"> kg/ha</span></div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:14px;color:#E8EEF7;line-height:1.6;margin-top:12px">NS 7765 VIPTERA3. El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados.</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#8FA0BE;margin-top:12px">74% éxito · 191 comparaciones · marbete oficial Nidera</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="height:1px;background:rgba(255,255,255,0.1);margin:16px 0"></div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F5A623">📩 Mandanos un DM con tu zona y lo posicionamos para tu campo</div>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:rgba(255,255,255,0.9)">HenderSeeds</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">RED.IN Nidera Semillas</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 2,
+  titulo: "Dato gigante — minimalista",
+  categoria: "maiz",
+  tags: ["bold", "minimal"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 30px">' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase;letter-spacing:3px;margin-bottom:20px">NS 7765 VIPTERA3</div>' +
+      '<div style="font-family:\'Archivo Black\',sans-serif;font-size:80px;color:#F5A623;line-height:0.9">+392</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:16px;color:#E8EEF7;margin-top:8px;letter-spacing:2px">KG/HA SOBRE EL PROMEDIO</div>' +
+      '<div style="width:60px;height:3px;background:#F5A623;margin:24px auto;border-radius:2px"></div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;max-width:240px">En temprana Y en tardía. 74% de éxito en 191 comparaciones.</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#F5A623;margin-top:30px;padding:8px 20px;border:1px solid rgba(245,166,35,0.3);border-radius:6px">MANDANOS UN DM</div>' +
+      '<div style="position:absolute;bottom:20px;font-family:\'DM Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.25)">HenderSeeds · RED.IN Nidera</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 3,
+  titulo: "Crema invertido",
+  categoria: "maiz",
+  tags: ["claro", "crema"],
+  render: function() {
+    return '<div style="background:#F6F4EE;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:40px 36px">' +
+      '<div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase;letter-spacing:2px">Precampaña 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:48px;color:#0A0F1B;line-height:1;margin:16px 0">+392<span style="font-size:18px;color:#8FA0BE"> kg/ha</span></div>' +
+        '<div style="width:50px;height:4px;background:#F5A623;border-radius:2px;margin-bottom:16px"></div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:16px;color:#0A0F1B;margin-bottom:8px">NS 7765 VIPTERA3</div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#555;line-height:1.6">El maíz que no te discute el lote. Rinde arriba en los mejores ambientes y no cae en los ajustados.</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="background:#0A0F1B;border-radius:12px;padding:16px 20px;margin-top:20px">' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#F5A623;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Dato de marbete oficial</div>' +
+          '<div style="display:flex;gap:20px">' +
+            '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:22px;color:#F5A623">74%</div><div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">ÉXITO</div></div>' +
+            '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:22px;color:#E8EEF7">191</div><div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">COMPARACIONES</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:13px;color:#0A0F1B">HenderSeeds</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">Henderson · Daireaux · Bolívar</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 4,
+  titulo: "Split horizontal",
+  categoria: "maiz",
+  tags: ["layout", "dividido"],
+  render: function() {
+    return '<div style="height:100%;display:grid;grid-template-rows:45% 55%">' +
+      '<div style="background:#F5A623;padding:30px 36px;display:flex;flex-direction:column;justify-content:flex-end">' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:rgba(10,15,27,0.5);text-transform:uppercase;letter-spacing:2px">Maíz Precampaña 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:56px;color:#0A0F1B;line-height:0.95">+392</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:14px;color:#0A0F1B;font-weight:500">KG/HA SOBRE EL PROMEDIO</div>' +
+      '</div>' +
+      '<div style="background:#0A0F1B;padding:30px 36px;display:flex;flex-direction:column;justify-content:space-between">' +
+        '<div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:18px;color:#E8EEF7;margin-bottom:10px">NS 7765 VIPTERA3</div>' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;line-height:1.6">El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados.</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#E8EEF7;margin-top:12px">74% éxito · 191 comp. · Quebrado 1</div>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:8px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:12px;color:rgba(255,255,255,0.8)">HenderSeeds</div>' +
+          '<div style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">RED.IN</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 5,
+  titulo: "Tarjeta flotante",
+  categoria: "maiz",
+  tags: ["card", "elevado"],
+  render: function() {
+    return '<div style="background:linear-gradient(135deg,#0A0F1B,#1a2332);height:100%;display:flex;align-items:center;justify-content:center;padding:24px">' +
+      '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px 28px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">' +
+          '<div style="width:8px;height:8px;background:#F5A623;border-radius:50%"></div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase;letter-spacing:2px">NS 7765 VIPTERA3</div>' +
+        '</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:46px;color:#F5A623;line-height:1">+392</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:12px;color:#E8EEF7;margin:4px 0 16px">kg/ha sobre el promedio</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0">' +
+          '<div style="background:rgba(245,166,35,0.08);border-radius:10px;padding:12px;text-align:center">' +
+            '<div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#F5A623">74%</div>' +
+            '<div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE;text-transform:uppercase">éxito temprana</div>' +
+          '</div>' +
+          '<div style="background:rgba(245,166,35,0.08);border-radius:10px;padding:12px;text-align:center">' +
+            '<div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#F5A623">71%</div>' +
+            '<div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE;text-transform:uppercase">éxito tardía</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#8FA0BE;line-height:1.5;margin-bottom:16px">En temprana y en tardía. Quebrado 1 — no se te cae.</div>' +
+        '<div style="background:#F5A623;border-radius:10px;padding:10px;text-align:center;font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:700;color:#0A0F1B">Mandanos un DM con tu zona</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 6,
+  titulo: "Grid de datos",
+  categoria: "maiz",
+  tags: ["data", "grid"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:36px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:18px;color:#E8EEF7">NS 7765 VIPTERA3</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE;margin-top:4px;text-transform:uppercase;letter-spacing:1.5px">El top del portafolio Nidera</div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0">' +
+        '<div style="background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);border-radius:12px;padding:16px">' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE;text-transform:uppercase;letter-spacing:1px">Temprana</div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:28px;color:#F5A623;margin:4px 0">+392</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#E8EEF7">kg/ha · 74%</div>' +
+        '</div>' +
+        '<div style="background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.12);border-radius:12px;padding:16px">' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE;text-transform:uppercase;letter-spacing:1px">Tardía</div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:28px;color:#F5A623;margin:4px 0">+324</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#E8EEF7">kg/ha · 71%</div>' +
+        '</div>' +
+        '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px">' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE;text-transform:uppercase;letter-spacing:1px">Comparaciones</div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:28px;color:#E8EEF7;margin:4px 0">191</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">dato marbete oficial</div>' +
+        '</div>' +
+        '<div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.15);border-radius:12px;padding:16px">' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE;text-transform:uppercase;letter-spacing:1px">Quebrado</div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:28px;color:#22c55e;margin:4px 0">1</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">no se te cae</div>' +
+        '</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F5A623;margin-bottom:12px">📩 Mandanos un DM con tu zona</div>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:12px;color:rgba(255,255,255,0.8)">HenderSeeds</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">RED.IN Nidera</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 7,
+  titulo: "Gradiente diagonal",
+  categoria: "maiz",
+  tags: ["gradiente", "premium"],
+  render: function() {
+    return '<div style="background:linear-gradient(135deg,#0A0F1B 0%,#1A4A8A 50%,#0A0F1B 100%);height:100%;padding:40px 36px;display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative">' +
+      '<div style="position:absolute;top:24px;left:36px;font-family:\'DM Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:2px">Precampaña 26/27</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#8FA0BE;text-transform:uppercase;letter-spacing:3px">NS 7765 VIPTERA3</div>' +
+      '<div style="font-family:\'Archivo Black\',sans-serif;font-size:72px;color:#F5A623;line-height:0.9;margin:12px 0;text-shadow:0 4px 20px rgba(245,166,35,0.3)">+392</div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:14px;color:#E8EEF7;font-weight:600;letter-spacing:1px">KG/HA SOBRE EL PROMEDIO</div>' +
+      '<div style="width:40px;height:2px;background:#F5A623;margin:20px auto;opacity:0.5"></div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:260px;margin:0 auto">En temprana y en tardía.<br>74% de éxito en 191 comparaciones.<br>Marbete oficial Nidera.</div>' +
+      '<div style="position:absolute;bottom:30px;left:0;right:0;text-align:center">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:rgba(255,255,255,0.9)">HenderSeeds</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 8,
+  titulo: "Estilo infografía",
+  categoria: "maiz",
+  tags: ["infografia", "visual"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:15px;color:#E8EEF7">NS 7765 VIPTERA3</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#F5A623;margin-top:4px;text-transform:uppercase;letter-spacing:2px">El top del portafolio</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="text-align:center;margin-bottom:20px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:52px;color:#F5A623">+392</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#8FA0BE">kg/ha sobre el promedio</div>' +
+        '</div>' +
+        '<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px 18px">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
+            '<span style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#8FA0BE">Temprana</span>' +
+            '<div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;background:rgba(245,166,35,0.15);border-radius:3px"><div style="width:74%;height:100%;background:#F5A623;border-radius:3px"></div></div><span style="font-family:\'DM Mono\',monospace;font-size:11px;color:#F5A623">74%</span></div>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
+            '<span style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#8FA0BE">Tardía</span>' +
+            '<div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;background:rgba(245,166,35,0.15);border-radius:3px"><div style="width:71%;height:100%;background:#F5A623;border-radius:3px"></div></div><span style="font-family:\'DM Mono\',monospace;font-size:11px;color:#F5A623">71%</span></div>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">' +
+            '<span style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#8FA0BE">Quebrado</span>' +
+            '<span style="font-family:\'DM Mono\',monospace;font-size:12px;color:#22c55e;font-weight:600">Nota 1 ✔</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F5A623;margin-bottom:8px">📩 Mandanos un DM con tu zona</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">HenderSeeds · RED.IN Nidera Semillas</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 9,
+  titulo: "Bold tipográfico",
+  categoria: "maiz",
+  tags: ["tipografia", "bold"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:40px 36px;display:flex;flex-direction:column;justify-content:center">' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:26px;color:#E8EEF7;font-weight:700;line-height:1.3">' +
+        'El maíz que <span style="color:#F5A623">no te discute</span> el lote.' +
+      '</div>' +
+      '<div style="margin:24px 0">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:60px;color:#F5A623;line-height:0.85">+392</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:13px;color:#E8EEF7;margin-top:6px">kg/ha sobre el promedio</div>' +
+      '</div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:14px;color:#8FA0BE;line-height:1.6">' +
+        'Rinde arriba en los mejores ambientes.<br>No cae en los ajustados.<br>' +
+        '<span style="color:#E8EEF7;font-weight:600">74% de éxito. 191 comparaciones.</span>' +
+      '</div>' +
+      '<div style="margin-top:24px;padding-top:16px;border-top:2px solid #F5A623;display:flex;align-items:center;justify-content:space-between">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:#E8EEF7">NS 7765<br><span style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;font-weight:400">VIPTERA3</span></div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:12px;color:rgba(255,255,255,0.6)">HenderSeeds</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 10,
+  titulo: "Con badge precampaña",
+  categoria: "maiz",
+  tags: ["badge", "destaque"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between;position:relative">' +
+      '<div style="position:absolute;top:0;right:0;background:#F5A623;color:#0A0F1B;font-family:\'DM Mono\',monospace;font-size:9px;font-weight:600;padding:8px 16px;border-radius:0 0 0 12px;text-transform:uppercase;letter-spacing:1.5px">Precampaña 26/27</div>' +
+      '<div style="margin-top:30px">' +
+        '<div style="display:inline-block;border:1px solid rgba(245,166,35,0.3);border-radius:8px;padding:4px 12px;font-family:\'DM Mono\',monospace;font-size:10px;color:#F5A623">TOP DEL PORTAFOLIO</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#E8EEF7;margin:14px 0 6px">NS 7765 VIPTERA3</div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;line-height:1.5">El maíz que no te discute el lote: rinde arriba en los mejores ambientes y no cae en los ajustados.</div>' +
+      '</div>' +
+      '<div style="text-align:center;margin:20px 0">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:56px;color:#F5A623">+392</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:12px;color:#E8EEF7">kg/ha sobre el promedio</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#8FA0BE;margin-top:6px">74% éxito · 191 comp. · Quebrado 1</div>' +
+      '</div>' +
+      '<div style="background:rgba(245,166,35,0.1);border-radius:10px;padding:14px;text-align:center">' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#F5A623;font-weight:600">📩 Mandanos un DM con tu zona y lo posicionamos</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;margin-top:6px">HenderSeeds · RED.IN Nidera Semillas</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+// ═══════════════════════════════════════════════
+// GIRASOL — NS 1113 CL
+// ═══════════════════════════════════════════════
+
+{
+  id: 11,
+  titulo: "Girasol — amarillo hero",
+  categoria: "girasol",
+  tags: ["clásico", "amarillo"],
+  render: function() {
+    return '<div style="background:linear-gradient(170deg,#0A0F1B 0%,#1a1a0a 100%);height:100%;padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase;letter-spacing:2px">Precampaña Girasol 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:48px;color:#F59E0B;line-height:1;margin:16px 0">+2,11<span style="font-size:18px;color:#8FA0BE"> qq/ha</span></div>' +
+        '<div style="width:50px;height:3px;background:#F59E0B;border-radius:2px;margin-bottom:14px"></div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:16px;color:#E8EEF7;margin-bottom:8px">NS 1113 CL</div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;line-height:1.6">Techo de rendimiento y contenido de aceite del portafolio Nidera. Tecnología Clearfield.</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#E8EEF7;margin-top:10px">74% éxito · 225 comparaciones · Región Sur + Oeste</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="height:1px;background:rgba(255,255,255,0.1);margin:16px 0"></div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F59E0B">📩 Escribinos y lo vemos para tus lotes</div>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:rgba(255,255,255,0.9)">HenderSeeds</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">RED.IN Nidera</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 12,
+  titulo: "Girasol — split dorado",
+  categoria: "girasol",
+  tags: ["split", "dorado"],
+  render: function() {
+    return '<div style="height:100%;display:grid;grid-template-rows:40% 60%">' +
+      '<div style="background:linear-gradient(135deg,#F59E0B,#d97706);padding:28px 36px;display:flex;flex-direction:column;justify-content:flex-end">' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:rgba(10,15,27,0.5);text-transform:uppercase;letter-spacing:2px">Girasol 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:50px;color:#0A0F1B;line-height:0.95">+2,11</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:13px;color:#0A0F1B;font-weight:500">QQ/HA SOBRE EL PROMEDIO</div>' +
+      '</div>' +
+      '<div style="background:#0A0F1B;padding:28px 36px;display:flex;flex-direction:column;justify-content:space-between">' +
+        '<div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:18px;color:#E8EEF7;margin-bottom:8px">NS 1113 CL</div>' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#8FA0BE;line-height:1.6">En el oeste, el girasol nunca se fue. Techo de rinde y aceite del portafolio, con tecnología Clearfield.</div>' +
+          '<div style="display:flex;gap:14px;margin-top:14px">' +
+            '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#F59E0B">74%</div><div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE">ÉXITO</div></div>' +
+            '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#E8EEF7">225</div><div style="font-family:\'DM Mono\',monospace;font-size:8px;color:#8FA0BE">COMP.</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:8px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:11px;color:rgba(255,255,255,0.7)">HenderSeeds</div>' +
+          '<div style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">RED.IN</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 13,
+  titulo: "Girasol — comparativa 3 híbridos",
+  categoria: "girasol",
+  tags: ["comparativa", "tabla"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#F59E0B;text-transform:uppercase;letter-spacing:3px">Girasol Clearfield 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:18px;color:#E8EEF7;margin-top:8px">No hay un girasol mejor.</div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;margin-top:4px">Hay un girasol mejor para TU lote.</div>' +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;gap:10px;margin:16px 0">' +
+        '<div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">' +
+          '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:15px;color:#E8EEF7">NS 1113 CL</div><div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">Techo rinde + aceite</div></div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:22px;color:#F59E0B">+2,11</div>' +
+        '</div>' +
+        '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">' +
+          '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:15px;color:#E8EEF7">NS 1115 CL</div><div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">Mejor sanidad</div></div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:22px;color:#F59E0B">+1,64</div>' +
+        '</div>' +
+        '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between">' +
+          '<div><div style="font-family:\'Archivo Black\',sans-serif;font-size:15px;color:#E8EEF7">NS 1117 CL</div><div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">Rinde + Phomopsis</div></div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:22px;color:#F59E0B">+1,75</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE;margin-bottom:4px">qq/ha sobre el promedio · dato marbete oficial Nidera</div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F59E0B">📩 ¿Querés que lo veamos lote por lote?</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;margin-top:8px">HenderSeeds · RED.IN Nidera</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 14,
+  titulo: "Girasol — crema oeste",
+  categoria: "girasol",
+  tags: ["crema", "regional"],
+  render: function() {
+    return '<div style="background:#F6F4EE;height:100%;padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:22px;color:#0A0F1B;font-weight:700;line-height:1.3">En el oeste, el girasol <span style="color:#d97706">nunca se fue.</span></div>' +
+        '<div style="width:40px;height:3px;background:#F59E0B;border-radius:2px;margin:16px 0"></div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#555;line-height:1.6">Es el cultivo que mejor se banca nuestros ambientes, y este año la genética acompaña.</div>' +
+      '</div>' +
+      '<div style="background:#0A0F1B;border-radius:16px;padding:20px;margin:16px 0">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:#F59E0B;margin-bottom:10px">NS 1113 CL</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:38px;color:#F59E0B;line-height:1">+2,11<span style="font-size:14px;color:#8FA0BE"> qq/ha</span></div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#E8EEF7;margin-top:8px">74% éxito · 225 comp. · Región Sur + Oeste</div>' +
+        '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:4px">Clearfield</span>' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:4px">Alto aceite</span>' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:4px">Sclerotinia 2</span>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;justify-content:space-between">' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:13px;color:#0A0F1B">HenderSeeds</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#888">Henderson · Daireaux · Bolívar</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 15,
+  titulo: "Girasol — dato gigante dorado",
+  categoria: "girasol",
+  tags: ["bold", "minimal"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 30px">' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase;letter-spacing:3px;margin-bottom:20px">NS 1113 CL · CLEARFIELD</div>' +
+      '<div style="font-family:\'Archivo Black\',sans-serif;font-size:70px;color:#F59E0B;line-height:0.9">+2,11</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:15px;color:#E8EEF7;margin-top:8px;letter-spacing:2px">QQ/HA SOBRE EL PROMEDIO</div>' +
+      '<div style="width:50px;height:3px;background:#F59E0B;margin:24px auto;border-radius:2px"></div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;max-width:250px">Techo de rinde y aceite. 74% de éxito en 225 comparaciones. Región Sur + Oeste.</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#F59E0B;margin-top:28px;padding:8px 20px;border:1px solid rgba(245,158,11,0.3);border-radius:6px">ESCRIBINOS</div>' +
+      '<div style="position:absolute;bottom:20px;font-family:\'DM Mono\',monospace;font-size:9px;color:rgba(255,255,255,0.25)">HenderSeeds · RED.IN Nidera</div>' +
+    '</div>';
+  }
+},
+
+// ═══════════════════════════════════════════════
+// INSTITUCIONAL
+// ═══════════════════════════════════════════════
+
+{
+  id: 16,
+  titulo: "Institucional — navy cercano",
+  categoria: "institucional",
+  tags: ["cercanía", "navy"],
+  render: function() {
+    return '<div style="background:linear-gradient(170deg,#0A0F1B 0%,#111827 100%);height:100%;padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#F5A623;text-transform:uppercase;letter-spacing:3px;margin-bottom:20px">Quienes somos</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:22px;color:#E8EEF7;line-height:1.25">' +
+          'Detrás de cada recomendación hay alguien que <span style="color:#F5A623">conoce tu lote.</span>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#8FA0BE;line-height:1.7">' +
+        'No vendemos bolsas: posicionamos híbridos lote por lote. Somos de Henderson, Daireaux y Bolívar, y conocemos los lotes de la zona porque andamos en ellos todo el año.' +
+      '</div>' +
+      '<div>' +
+        '<div style="background:rgba(124,185,232,0.08);border:1px solid rgba(124,185,232,0.15);border-radius:12px;padding:14px 18px;text-align:center">' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#7CB9E8">Genética de punta con alguien de acá</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE;margin-top:6px">RED.IN de Nidera Semillas</div>' +
+        '</div>' +
+        '<div style="text-align:center;margin-top:14px">' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F5A623">📩 La precampaña se charla mejor con un mate</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 17,
+  titulo: "Institucional — crema equipo",
+  categoria: "institucional",
+  tags: ["crema", "equipo"],
+  render: function() {
+    return '<div style="background:#F6F4EE;height:100%;padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:24px;color:#0A0F1B;line-height:1.25">' +
+          'Somos de acá.<br><span style="color:#1A4A8A">Y en semillas, eso se nota.</span>' +
+        '</div>' +
+        '<div style="width:40px;height:3px;background:#F5A623;border-radius:2px;margin:18px 0"></div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:14px;color:#333;line-height:1.7">' +
+          'Henderson, Daireaux, Bolívar: conocemos los lotes, los ambientes y a la gente. No vendemos semillas: posicionamos híbridos lote por lote.' +
+        '</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="background:#0A0F1B;border-radius:14px;padding:20px;text-align:center">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:16px;color:#E8EEF7">HenderSeeds</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#F5A623;margin-top:6px;text-transform:uppercase;letter-spacing:1.5px">RED.IN de Nidera Semillas</div>' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#8FA0BE;margin-top:10px">📩 ¿Arrancamos la 26/27 juntos?</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 18,
+  titulo: "Institucional — tres ciudades",
+  categoria: "institucional",
+  tags: ["geo", "ciudades"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#F5A623;text-transform:uppercase;letter-spacing:3px">Donde estamos</div>' +
+      '<div style="display:flex;flex-direction:column;gap:12px">' +
+        '<div style="background:rgba(245,166,35,0.06);border-left:3px solid #F5A623;border-radius:0 10px 10px 0;padding:14px 18px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#E8EEF7">Henderson</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">Oficina central</div>' +
+        '</div>' +
+        '<div style="background:rgba(245,166,35,0.04);border-left:3px solid rgba(245,166,35,0.5);border-radius:0 10px 10px 0;padding:14px 18px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#E8EEF7">Daireaux</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">Cobertura zona oeste</div>' +
+        '</div>' +
+        '<div style="background:rgba(245,166,35,0.04);border-left:3px solid rgba(245,166,35,0.5);border-radius:0 10px 10px 0;padding:14px 18px">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:20px;color:#E8EEF7">Bolívar</div>' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">Cobertura zona este</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:14px;color:#E8EEF7;font-weight:600">Conocemos los lotes porque andamos en ellos todo el año.</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE;margin-top:8px">HenderSeeds · RED.IN Nidera Semillas</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+// ═══════════════════════════════════════════════
+// HERRAMIENTAS
+// ═══════════════════════════════════════════════
+
+{
+  id: 19,
+  titulo: "Calculadora — mockup app",
+  categoria: "herramientas",
+  tags: ["app", "mockup"],
+  render: function() {
+    return '<div style="background:linear-gradient(170deg,#0A0F1B,#111827);height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#25D366;text-transform:uppercase;letter-spacing:3px">Herramientas Henderseeds</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:17px;color:#E8EEF7;margin-top:8px">Calculadora de Márgenes</div>' +
+      '</div>' +
+      '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;margin:12px 0">' +
+        '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">Alquiler</span>' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:13px;color:#E8EEF7">12 qq soja</span>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">Precio Maíz</span>' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:13px;color:#E8EEF7">190 USD/t</span>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;padding:8px 0">' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:10px;color:#8FA0BE">Rinde</span>' +
+          '<span style="font-family:\'DM Mono\',monospace;font-size:13px;color:#F5A623;font-weight:600">80 qq/ha</span>' +
+        '</div>' +
+        '<div style="margin-top:14px;text-align:center;padding:14px;background:rgba(245,166,35,0.08);border-radius:10px">' +
+          '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;text-transform:uppercase">Margen estimado</div>' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:32px;color:#F5A623">USD 1.530<span style="font-size:14px;color:#8FA0BE">/ha</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="text-align:center">' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#E8EEF7;font-weight:600">Meté TUS números. Decidí con datos.</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#25D366;margin-top:8px">margen.henderseeds.com</div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE;margin-top:8px">HenderSeeds · RED.IN Nidera</div>' +
+      '</div>' +
+    '</div>';
+  }
+},
+
+{
+  id: 20,
+  titulo: "Finanzas — hoy vs. después",
+  categoria: "herramientas",
+  tags: ["comparativa", "finanzas"],
+  render: function() {
+    return '<div style="background:#0A0F1B;height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-family:\'DM Mono\',monospace;font-size:9px;color:#F5A623;text-transform:uppercase;letter-spacing:3px;margin-bottom:10px">Precampaña 26/27</div>' +
+        '<div style="font-family:\'Archivo Black\',sans-serif;font-size:19px;color:#E8EEF7;line-height:1.3">&ldquo;Espero a ver cómo viene&rdquo; es una <span style="color:#F5A623">decisión financiera.</span></div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0">' +
+        '<div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:14px;padding:18px;text-align:center">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:#22c55e;margin-bottom:8px">HOY</div>' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:11px;color:#8FA0BE;line-height:1.5">Fijás condiciones<br>Asegurás precio<br>Asegurás bolsa</div>' +
+        '</div>' +
+        '<div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:14px;padding:18px;text-align:center">' +
+          '<div style="font-family:\'Archivo Black\',sans-serif;font-size:14px;color:#ef4444;margin-bottom:8px">DESPUÉS</div>' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:11px;color:#8FA0BE;line-height:1.5">Devaluación<br>Suba de insumos<br>Sin disponibilidad</div>' +
+        '</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="font-family:\'DM Sans\',sans-serif;font-size:13px;color:#E8EEF7;line-height:1.6;margin-bottom:12px">Tenemos una herramienta que te da el número limpio: cuánto te sale cada opción en USD reales.</div>' +
+        '<div style="background:rgba(245,166,35,0.1);border-radius:10px;padding:12px;text-align:center">' +
+          '<div style="font-family:\'DM Sans\',sans-serif;font-size:12px;color:#F5A623;font-weight:600">📩 Corré el número. Después decidí.</div>' +
+        '</div>' +
+        '<div style="text-align:center;margin-top:10px;font-family:\'DM Mono\',monospace;font-size:9px;color:#8FA0BE">HenderSeeds · RED.IN Nidera</div>' +
+      '</div>' +
+    '</div>';
+  }
+}
+
+];
+
+// ─── Render ──────────────────────────────────
+function renderGrid(filter) {
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  var items = filter === 'all'
+    ? MAQUETAS
+    : MAQUETAS.filter(function(m) { return m.categoria === filter; });
+
+  items.forEach(function(m) {
+    var card = document.createElement('div');
+    card.className = 'maqueta-card';
+    card.setAttribute('data-cat', m.categoria);
+    card.onclick = function() { openModal(m); };
+
+    var tags = m.tags.map(function(t) {
+      return '<span class="tag tag-style">' + t + '</span>';
+    }).join('');
+    var catTag = '<span class="tag tag-' + m.categoria + '">' +
+      ({maiz:'Maíz',girasol:'Girasol',institucional:'Institucional',herramientas:'Herramientas'}[m.categoria] || m.categoria) +
+      '</span>';
+
+    card.innerHTML =
+      '<div class="placa">' + m.render() + '</div>' +
+      '<div class="info">' +
+        '<div class="info-title">#' + m.id + ' — ' + m.titulo + '</div>' +
+        '<div class="info-tags">' + catTag + tags + '</div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+// ─── Modal ───────────────────────────────────
+function openModal(m) {
+  var overlay = document.getElementById('modal');
+  var content = document.getElementById('modal-content');
+  content.innerHTML =
+    '<div style="aspect-ratio:4/5;overflow:hidden;border-radius:14px 14px 0 0">' + m.render() + '</div>' +
+    '<div style="background:rgba(0,0,0,0.6);padding:16px 20px;border-radius:0 0 14px 14px">' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-weight:700;font-size:15px;color:#E8EEF7">#' + m.id + ' — ' + m.titulo + '</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:11px;color:#8FA0BE;margin-top:6px">' + m.categoria + ' · ' + m.tags.join(' · ') + '</div>' +
+    '</div>';
+  overlay.classList.add('open');
+}
+
+document.getElementById('modal').onclick = function(e) {
+  if (e.target === this) this.classList.remove('open');
+};
+document.getElementById('modal-close').onclick = function() {
+  document.getElementById('modal').classList.remove('open');
+};
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('modal').classList.remove('open');
+});
+
+// ─── Filters ─────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.onclick = function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderGrid(btn.getAttribute('data-filter'));
+  };
+});
+
+// ─── Init ────────────────────────────────────
+renderGrid('all');
+</script>
+
+</body>
+</html>
