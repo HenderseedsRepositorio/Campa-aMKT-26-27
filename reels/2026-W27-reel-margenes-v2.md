@@ -3,7 +3,7 @@
 - **Semana:** 2026-W27 · **Pilar:** herramientas
 - **Objetivo:** que el productor entre a margen.henderseeds.com, pruebe la calculadora y termine hablando por WhatsApp.
 - **Duración objetivo:** 20–28 s · **Formato:** 1080×1920 (9:16)
-- **Quién graba:** Santi (screen-recording del celular con la herramienta abierta)
+- **Quién graba:** screen-recording del celular con la herramienta abierta
 - **Referencia:** reel anterior de márgenes (1.3k vistas). Esta v2 corrige el hook.
 
 ## Diferencia con la v1
@@ -27,7 +27,7 @@ La v1 arrancaba con el logo y "Planea tu próxima campaña!" — los primeros 3 
 
 ## Escenas — Storyboard segundo a segundo
 
-| # | Seg | Qué se ve en pantalla (screen-recording) | Texto superpuesto (Santi lo agrega en CapCut/IG) | Nota para Santi |
+| # | Seg | Qué se ve en pantalla (screen-recording) | Texto superpuesto (agregar en Edits/CapCut) | Nota de grabación |
 |---|-----|------------------------------------------|--------------------------------------------------|-----------------|
 | 1 | 0–3 | **RESULTADO de la calculadora:** la zona de INGRESO TOTAL mostrando USD 1.530/ha, el rinde 80.5 qq/ha y la barra de costos de colores. | **¿Sabés tu rinde de indiferencia para el maíz 26/27?** (letra grande, blanca, arriba) | Empezá la grabación YA en la pantalla de resultados, no en la landing. Este es el frame que frena el scroll. |
 | 2 | 3–8 | **Scroll hacia arriba** (en la misma herramienta) para mostrar los inputs: Alquiler 12 qq, Precio Maíz 190 USD/t, Rinde 80.5 qq/ha. Dedo tocando el "+" del rinde para subirlo a 85 o 90 y que el número cambie en vivo. | **Metele TUS números** (letra mediana, abajo) | El gesto de tocar y que el número cambie en vivo es el momento "wow" — el productor piensa "quiero probar con mis datos". |
@@ -70,7 +70,7 @@ Placa final navy (#0A0F1B) con:
 
 ---
 
-## Checklist para Santi
+## Checklist de grabación
 
 - [ ] Abrir margen.henderseeds.com en el celu, elegir Maíz 1ª, cargar datos de ejemplo (12 qq alquiler, 190 USD/t, 80 qq/ha)
 - [ ] Grabar pantalla empezando por el RESULTADO (no por la landing)
