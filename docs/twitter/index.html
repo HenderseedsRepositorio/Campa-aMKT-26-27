@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Contenido para X / Twitter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A0F1B;
+  --orange: #F5A623;
+  --yellow: #F59E0B;
+  --cream: #F6F4EE;
+  --white: #E8EEF7;
+  --white-pure: #FFFFFF;
+  --green-wa: #25D366;
+  --grey: #8FA0BE;
+  --x-blue: #1D9BF0;
+  --x-dark: #15202B;
+  --radius: 14px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(29,155,240,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29,155,240,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Nav ── */
+.topnav {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px;
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: 'DM Mono', monospace; font-size: 12px;
+}
+.topnav a {
+  color: var(--grey); text-decoration: none; transition: color .15s;
+}
+.topnav a:hover { color: var(--orange); }
+.topnav .active { color: var(--x-blue); font-weight: 500; }
+.topnav .sep { color: rgba(255,255,255,0.15); }
+
+/* ── Container ── */
+.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+/* ── Header ── */
+.header { padding: 40px 0 32px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+.header h1 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 26px; color: var(--white-pure); letter-spacing: -0.5px;
+}
+.header h1 span { color: var(--x-blue); }
+.header p {
+  font-size: 14px; color: var(--grey); margin-top: 8px; line-height: 1.6;
+}
+
+/* ── Strategy box ── */
+.strategy-box {
+  background: rgba(29,155,240,0.06);
+  border: 1px solid rgba(29,155,240,0.2);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 30px 0;
+}
+.strategy-box h3 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 15px; color: var(--x-blue); margin-bottom: 12px;
+}
+.strategy-box ul {
+  list-style: none; font-size: 14px; line-height: 1.8;
+}
+.strategy-box li::before {
+  content: '\2022'; color: var(--x-blue); font-weight: bold;
+  display: inline-block; width: 16px;
+}
+
+/* ── Thread card ── */
+.thread-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.thread-card:hover { border-color: rgba(29,155,240,0.3); }
+
+.thread-header {
+  padding: 18px 24px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.thread-number {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  font-weight: 500; color: var(--navy);
+  background: var(--x-blue); border-radius: 6px;
+  padding: 3px 10px; text-transform: uppercase; letter-spacing: 1px;
+}
+.thread-title {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 15px; color: var(--white-pure); flex: 1;
+}
+.thread-meta {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--grey); text-transform: uppercase; letter-spacing: 1px;
+}
+
+.thread-body { padding: 0; }
+
+/* ── Individual tweet ── */
+.tweet {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+}
+.tweet:last-child { border-bottom: none; }
+
+.tweet-connector {
+  position: absolute; left: 38px; top: 0; bottom: 0;
+  width: 2px; background: rgba(29,155,240,0.15);
+}
+.tweet:last-child .tweet-connector { display: none; }
+
+.tweet-top {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.tweet-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--x-dark); border: 2px solid rgba(29,155,240,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Archivo Black', sans-serif; font-size: 12px;
+  color: var(--x-blue); flex-shrink: 0; z-index: 1;
+}
+.tweet-handle {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+}
+.tweet-handle .name { color: var(--white-pure); font-weight: 600; }
+.tweet-handle .at { color: var(--grey); margin-left: 6px; }
+.tweet-label {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  color: var(--x-blue); text-transform: uppercase;
+  letter-spacing: 1px; margin-left: auto;
+  background: rgba(29,155,240,0.1); padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.tweet-text {
+  font-size: 15px; line-height: 1.65; color: var(--white);
+  white-space: pre-wrap; word-wrap: break-word;
+  padding-left: 46px;
+  cursor: text; user-select: text;
+}
+.tweet-text a {
+  color: var(--x-blue); text-decoration: none;
+}
+
+.tweet-actions {
+  display: flex; gap: 8px; margin-top: 12px; padding-left: 46px;
+}
+.btn-copy {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  background: rgba(29,155,240,0.1); color: var(--x-blue);
+  border: 1px solid rgba(29,155,240,0.2); border-radius: 6px;
+  padding: 5px 14px; cursor: pointer; transition: all .15s;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-copy:hover {
+  background: var(--x-blue); color: var(--navy);
+  border-color: var(--x-blue);
+}
+
+/* ── Tips section ── */
+.tips-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin: 24px 0;
+}
+@media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+.tip-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 16px;
+}
+.tip-card h4 {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--x-blue); margin-bottom: 8px;
+}
+.tip-card p {
+  font-size: 13px; color: var(--grey); line-height: 1.5;
+}
+
+/* ── Schedule ── */
+.schedule {
+  background: rgba(245,166,35,0.06);
+  border: 1px dashed rgba(245,166,35,0.3);
+  border-radius: 12px; padding: 24px;
+  margin: 30px 0;
+}
+.schedule h3 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 15px; color: var(--orange); margin-bottom: 14px;
+}
+.schedule-grid {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 8px 16px; font-size: 14px; align-items: start;
+}
+.schedule-day {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--orange);
+}
+.schedule-what { color: var(--white); line-height: 1.5; }
+.schedule-what b { color: var(--white-pure); }
+.schedule-what .dim { color: var(--grey); font-size: 12px; }
+
+/* ── Footer ── */
+.footer {
+  margin-top: 60px; padding: 32px 0;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+  text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--grey);
+}
+.footer a { color: var(--orange); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .header h1 { font-size: 20px; }
+  .tweet { padding: 16px; }
+  .tweet-text { padding-left: 0; font-size: 14px; }
+  .tweet-actions { padding-left: 0; }
+  .tweet-connector { display: none; }
+  .thread-header { padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="topnav">
+  <a href="../">Dashboard</a>
+  <span class="sep">|</span>
+  <a href="../maquetas/">Maquetas</a>
+  <span class="sep">|</span>
+  <a href="./" class="active">X / Twitter</a>
+  <span style="color:rgba(255,255,255,0.3);margin-left:auto">HenderSeeds</span>
+</nav>
+
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>Contenido para <span>X / Twitter</span></h1>
+  <p>Hilos y tweets listos para copiar y publicar desde la cuenta de HenderSeeds. Cada hilo tiene bot&oacute;n de copia por tweet.</p>
+</div>
+
+<!-- Estrategia resumida -->
+<div class="strategy-box">
+  <h3>Estrategia X para agro</h3>
+  <ul>
+    <li>Arrancar aportando valor t&eacute;cnico, no vendiendo. Primero dato, despu&eacute;s herramienta, despu&eacute;s CTA.</li>
+    <li>Hilos cortos (2-3 tweets). El agro en X valora concreci&oacute;n, no relleno.</li>
+    <li>0-2 hashtags m&aacute;ximo. El algoritmo de X premia engagement, no tags.</li>
+    <li>Horarios: 7-9 AM o 12-14 PM (cuando el productor chequea el celu).</li>
+    <li>Citar la fuente siempre: &ldquo;marbete oficial Nidera&rdquo;, &ldquo;dato de ensayo&rdquo;.</li>
+    <li>Interactuar con cuentas del sector: INTA, Bichos de Campo, TodoAgro, asesores.</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HILO 1 — MAÍZ NS 7765
+     ═══════════════════════════════════════════ -->
+<div class="thread-card">
+  <div class="thread-header">
+    <span class="thread-number">Hilo 1</span>
+    <span class="thread-title">Ma&iacute;z NS 7765 VIPTERA3 + calculadora</span>
+    <span class="thread-meta">W27 &middot; Publicar ya</span>
+  </div>
+  <div class="thread-body">
+
+    <div class="tweet">
+      <div class="tweet-connector"></div>
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 1</span>
+      </div>
+      <div class="tweet-text" id="t1-1">+392 kg/ha sobre el promedio en 191 comparaciones.
+En temprana Y en tard&iacute;a. Quebrado 1.
+
+NS 7765 VIPTERA3 &mdash; el dato es de marbete oficial Nidera.
+
+&iquest;Quer&eacute;s saber si te cierra en tu campo?
+&rarr; margen.henderseeds.com</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t1-1', this)">Copiar tweet 1</button>
+      </div>
+    </div>
+
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 2</span>
+      </div>
+      <div class="tweet-text" id="t1-2">Carg&aacute;s tu rinde, tus costos, y en 2 minutos ten&eacute;s el margen en USD/ha.
+
+Gratis. Sin registro. Con tus n&uacute;meros reales.
+
+Somos HenderSeeds, distribuidores RED.IN de Nidera en Henderson, Daireaux y Bol&iacute;var.
+
+Cualquier duda, mandanos DM.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t1-2', this)">Copiar tweet 2</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HILO 2 — GIRASOL
+     ═══════════════════════════════════════════ -->
+<div class="thread-card">
+  <div class="thread-header">
+    <span class="thread-number">Hilo 2</span>
+    <span class="thread-title">Girasol en el oeste &mdash; 3 CL para la 26/27</span>
+    <span class="thread-meta">W28 &middot; Pr&oacute;xima semana</span>
+  </div>
+  <div class="thread-body">
+
+    <div class="tweet">
+      <div class="tweet-connector"></div>
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 1</span>
+      </div>
+      <div class="tweet-text" id="t2-1">En el oeste bonaerense, el girasol nunca se fue.
+
+3 Clearfield de Nidera para la 26/27, dato de marbete oficial:
+
+NS 1113 CL &rarr; +2,11 qq/ha (74% &eacute;xito, 225 comp.)
+NS 1115 CL &rarr; +1,64 qq/ha (mejor sanidad)
+NS 1117 CL &rarr; +1,75 qq/ha (Phomopsis)
+
+&iquest;Cu&aacute;l va en tu lote? Depende del ambiente y la historia sanitaria.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t2-1', this)">Copiar tweet 1</button>
+      </div>
+    </div>
+
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 2</span>
+      </div>
+      <div class="tweet-text" id="t2-2">&iquest;Descartaste el girasol sin hacer el n&uacute;mero?
+
+Armamos una calculadora de m&aacute;rgenes: carg&aacute;s tus datos y compar&aacute;s girasol vs. ma&iacute;z en USD/ha, lado a lado.
+
+&rarr; margen.henderseeds.com
+
+Si quer&eacute;s que lo veamos lote por lote, escribinos por DM.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t2-2', this)">Copiar tweet 2</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HILO 3 — PRECAMPAÑA vs ESPERAR
+     ═══════════════════════════════════════════ -->
+<div class="thread-card">
+  <div class="thread-header">
+    <span class="thread-number">Hilo 3</span>
+    <span class="thread-title">&ldquo;Espero a ver c&oacute;mo viene&rdquo;</span>
+    <span class="thread-meta">W28-W29 &middot; Opini&oacute;n</span>
+  </div>
+  <div class="thread-body">
+
+    <div class="tweet">
+      <div class="tweet-connector"></div>
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 1</span>
+      </div>
+      <div class="tweet-text" id="t3-1">&ldquo;Espero a ver c&oacute;mo viene&rdquo; es una decisi&oacute;n financiera. Y tiene un costo.
+
+La precampa&ntilde;a te fija condiciones hoy. Esperar te expone a devaluaci&oacute;n, suba de insumos y disponibilidad.
+
+A veces conviene esperar. A veces no. El tema es saberlo ANTES de que se te pase.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t3-1', this)">Copiar tweet 1</button>
+      </div>
+    </div>
+
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 2</span>
+      </div>
+      <div class="tweet-text" id="t3-2">Tenemos una herramienta que te da el n&uacute;mero limpio: cu&aacute;nto te sale cada opci&oacute;n en USD reales.
+
+Corr&eacute; el n&uacute;mero. Despu&eacute;s decid&iacute;.
+
+&rarr; margen.henderseeds.com</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t3-2', this)">Copiar tweet 2</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HILO 4 — CALCULADORA DEMO
+     ═══════════════════════════════════════════ -->
+<div class="thread-card">
+  <div class="thread-header">
+    <span class="thread-number">Hilo 4</span>
+    <span class="thread-title">Calculadora de m&aacute;rgenes &mdash; demo</span>
+    <span class="thread-meta">W29 &middot; Con video</span>
+  </div>
+  <div class="thread-body">
+
+    <div class="tweet">
+      <div class="tweet-connector"></div>
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 1 + video</span>
+      </div>
+      <div class="tweet-text" id="t4-1">Armamos una calculadora de m&aacute;rgenes agr&iacute;colas, gratis y sin registro.
+
+Carg&aacute;s alquiler, flete, labores, precio &mdash; y te da el margen en USD/ha para ma&iacute;z y girasol.
+
+As&iacute; funciona &darr;
+
+&rarr; margen.henderseeds.com</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t4-1', this)">Copiar tweet 1</button>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--grey);padding:5px 0">Adjuntar el video del reel</span>
+      </div>
+    </div>
+
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet 2</span>
+      </div>
+      <div class="tweet-text" id="t4-2">La hicimos para que cada productor corra su propio n&uacute;mero, con sus datos reales.
+
+Somos HenderSeeds, distribuidores RED.IN de Nidera Semillas en Henderson, Daireaux y Bol&iacute;var.
+
+Si quer&eacute;s que lo veamos juntos con tu caso, mandanos DM.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t4-2', this)">Copiar tweet 2</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HILO 5 — INSTITUCIONAL
+     ═══════════════════════════════════════════ -->
+<div class="thread-card">
+  <div class="thread-header">
+    <span class="thread-number">Hilo 5</span>
+    <span class="thread-title">Qui&eacute;nes somos &mdash; presentaci&oacute;n</span>
+    <span class="thread-meta">W27-W28 &middot; Pinear</span>
+  </div>
+  <div class="thread-body">
+
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle">
+          <span class="name">HenderSeeds</span><span class="at">@haboraso</span>
+        </div>
+        <span class="tweet-label">Tweet &uacute;nico &mdash; pinear</span>
+      </div>
+      <div class="tweet-text" id="t5-1">Somos HenderSeeds. Distribuidores RED.IN de Nidera Semillas en Henderson, Daireaux y Bol&iacute;var.
+
+No vendemos bolsas: posicionamos h&iacute;bridos lote por lote. Conocemos los lotes de la zona porque andamos en ellos todo el a&ntilde;o.
+
+Herramientas:
+&rarr; margen.henderseeds.com (calculadora de m&aacute;rgenes, gratis)
+
+Precampa&ntilde;a ma&iacute;z y girasol 26/27 abierta. Escribinos por DM.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('t5-1', this)">Copiar tweet</button>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange);padding:5px 0">Pinear este tweet en el perfil</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Tweets sueltos para interacción -->
+<h2 style="font-family:'Archivo Black',sans-serif;font-weight:400;font-size:18px;color:var(--white-pure);margin:40px 0 16px">
+  Tweets sueltos <span style="color:var(--x-blue)">para interacci&oacute;n</span>
+</h2>
+<p style="font-size:13px;color:var(--grey);margin-bottom:20px">
+  Publicar entre los hilos para mantener la cuenta activa. Uno cada 2-3 d&iacute;as.
+</p>
+
+<div class="thread-card">
+  <div class="thread-body">
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle"><span class="name">HenderSeeds</span><span class="at">@haboraso</span></div>
+        <span class="tweet-label">Suelto</span>
+      </div>
+      <div class="tweet-text" id="ts-1">&iquest;Ya hiciste el n&uacute;mero del girasol para esta campa&ntilde;a?
+
+Muchos lo descartan sin correr el margen. Y a veces sorprende &mdash; sobre todo en el oeste, donde es el cultivo que mejor se banca nuestros ambientes.
+
+Corr&eacute; el n&uacute;mero antes de cerrar la rotaci&oacute;n:
+&rarr; margen.henderseeds.com</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('ts-1', this)">Copiar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="thread-card">
+  <div class="thread-body">
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle"><span class="name">HenderSeeds</span><span class="at">@haboraso</span></div>
+        <span class="tweet-label">Suelto</span>
+      </div>
+      <div class="tweet-text" id="ts-2">Dato del d&iacute;a: el NS 7765 VIPTERA3 tiene nota 1 en quebrado.
+
+En el oeste, con los vientos que tenemos, un ma&iacute;z que no se te cae vale oro.
+
++392 kg/ha sobre el promedio, 74% de &eacute;xito en 191 comparaciones.
+Dato de marbete oficial Nidera.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('ts-2', this)">Copiar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="thread-card">
+  <div class="thread-body">
+    <div class="tweet">
+      <div class="tweet-top">
+        <div class="tweet-avatar">HS</div>
+        <div class="tweet-handle"><span class="name">HenderSeeds</span><span class="at">@haboraso</span></div>
+        <span class="tweet-label">Suelto</span>
+      </div>
+      <div class="tweet-text" id="ts-3">La mejor semilla no es la que m&aacute;s rinde en la revista. Es la que mejor se porta en TU lote.
+
+Por eso no vendemos g&oacute;ndola. Posicionamos h&iacute;bridos lote por lote, con datos.
+
+Si todav&iacute;a no cerraste la 26/27, escribinos por DM.</div>
+      <div class="tweet-actions">
+        <button class="btn-copy" onclick="copyTweet('ts-3', this)">Copiar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tips -->
+<h2 style="font-family:'Archivo Black',sans-serif;font-weight:400;font-size:18px;color:var(--white-pure);margin:40px 0 16px">
+  Tips para <span style="color:var(--x-blue)">publicar</span>
+</h2>
+
+<div class="tips-grid">
+  <div class="tip-card">
+    <h4>C&oacute;mo hacer el hilo</h4>
+    <p>Public&aacute; el tweet 1. Despu&eacute;s respond&eacute; a tu propio tweet con el tweet 2. As&iacute; queda como hilo.</p>
+  </div>
+  <div class="tip-card">
+    <h4>Horarios</h4>
+    <p>7-9 AM o 12-14 PM. El productor chequea X en esas ventanas. Evitar fines de semana.</p>
+  </div>
+  <div class="tip-card">
+    <h4>Hashtags</h4>
+    <p>M&aacute;ximo 2. O ninguno. Los hilos que viralizan en agro no usan hashtags.</p>
+  </div>
+  <div class="tip-card">
+    <h4>Video</h4>
+    <p>El reel de la calculadora se puede adjuntar al tweet como video. X reproduce autom&aacute;ticamente.</p>
+  </div>
+  <div class="tip-card">
+    <h4>Tweet pineado</h4>
+    <p>Pin&eacute; el Hilo 5 (qui&eacute;nes somos). Es lo primero que ve alguien que entra al perfil.</p>
+  </div>
+  <div class="tip-card">
+    <h4>Interacci&oacute;n</h4>
+    <p>Respond&eacute; tweets de INTA, Bichos de Campo, TodoAgro. Aport&aacute; dato, no publicidad. Eso trae seguidores.</p>
+  </div>
+</div>
+
+<!-- Calendario X -->
+<div class="schedule">
+  <h3>Calendario sugerido para X &mdash; primeras 3 semanas</h3>
+  <div class="schedule-grid">
+    <span class="schedule-day">W27</span>
+    <span class="schedule-what"><b>Hilo 1:</b> Ma&iacute;z NS 7765 + calculadora <span class="dim">&middot; Publicar esta semana</span></span>
+
+    <span class="schedule-day">W27</span>
+    <span class="schedule-what"><b>Hilo 5:</b> Qui&eacute;nes somos <span class="dim">&middot; Publicar y pinear</span></span>
+
+    <span class="schedule-day">W28</span>
+    <span class="schedule-what"><b>Hilo 2:</b> Girasol 3 CL <span class="dim">&middot; Lunes o martes</span></span>
+
+    <span class="schedule-day">W28</span>
+    <span class="schedule-what"><b>Tweet suelto:</b> girasol &ldquo;&iquest;hiciste el n&uacute;mero?&rdquo; <span class="dim">&middot; Jueves</span></span>
+
+    <span class="schedule-day">W29</span>
+    <span class="schedule-what"><b>Hilo 3:</b> &ldquo;Espero a ver c&oacute;mo viene&rdquo; <span class="dim">&middot; Martes (debate)</span></span>
+
+    <span class="schedule-day">W29</span>
+    <span class="schedule-what"><b>Hilo 4:</b> Calculadora demo + video <span class="dim">&middot; Jueves</span></span>
+
+    <span class="schedule-day">W29</span>
+    <span class="schedule-what"><b>Tweet suelto:</b> dato quebrado NS 7765 <span class="dim">&middot; S&aacute;bado</span></span>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer class="footer">
+  <a href="../">&larr; Dashboard</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../maquetas/">Maquetas</a>
+  <br><br>
+  HenderSeeds &middot; RED.IN Nidera Semillas &middot; Dashboard interno
+</footer>
+
+<script>
+function copyTweet(id, btn) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var text = el.innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copiado!';
+    btn.style.background = 'var(--x-blue)';
+    btn.style.color = 'var(--navy)';
+    setTimeout(function() {
+      btn.textContent = btn.getAttribute('data-label') || 'Copiar';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2000);
+  });
+}
+document.querySelectorAll('.btn-copy').forEach(function(b) {
+  b.setAttribute('data-label', b.textContent);
+});
+</script>
+
+</body>
+</html>
