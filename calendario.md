@@ -19,7 +19,7 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 ## Julio 2026
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|
-| 2026-W27 | 29/06 | ✍️ [Maíz: NS 7765 VIPTERA3, el top](posts/2026-W27/post-01-maiz-ns7765.md) | ✍️ [Precampaña vs. esperar: herramienta financiera](posts/2026-W27/post-02-herramienta-financiera.md) · 🎬 [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | ✍️ [Institucional: el equipo detrás](posts/2026-W27/post-03-institucional-equipo.md) |
+| 2026-W27 | 29/06 | 📤 [Maíz: NS 7765 VIPTERA3, el top](posts/2026-W27/post-01-maiz-ns7765.md) — publicado 25/06 | 📤📣 [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) — publicado 26/06, pautado $15k/día x 7 días (WhatsApp, zona oeste) · ✍️ [Precampaña vs. esperar](posts/2026-W27/post-02-herramienta-financiera.md) | ✍️ [Institucional: el equipo detrás](posts/2026-W27/post-03-institucional-equipo.md) |
 | 2026-W28 | 06/07 | 💡 Girasol: tecnología CL explicada simple | 💡 Finanzas: canje grano por semilla | 💡 Técnico: dato de manejo girasol |
 | 2026-W29 | 13/07 | 💡 Maíz: dato de ensayo citable | 💡 Calculadora: demo en reel paso a paso | 💡 Técnico: densidad/fecha de siembra |
 | 2026-W30 | 20/07 | 💡 Girasol: posicionamiento por lote | 💡 Márgenes: maíz temprano vs. tardío en números | 💡 Institucional: historia con productor de la zona |

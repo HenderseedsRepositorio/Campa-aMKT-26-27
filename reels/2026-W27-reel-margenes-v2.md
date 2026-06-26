@@ -95,6 +95,6 @@ Placa final navy (#0A0F1B) con:
 
 ## Estado
 - [x] ✍️ Guion listo
-- [ ] 🎥 Filmado
-- [ ] 📤 Publicado → link:
-- [ ] 📣 Pautado → brief:
+- [x] 🎥 Filmado — 26/06/2026
+- [x] 📤 Publicado — 26/06/2026, reel + historia
+- [x] 📣 Pautado — 26/06/2026, $15.000/día x 7 días, objetivo Mensajes WhatsApp, zona Henderson/Daireaux/Bolívar/Pehuajó/Urdampilleta/Pirovano
