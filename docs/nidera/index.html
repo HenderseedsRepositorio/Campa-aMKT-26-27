@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio Nidera 26/27 — HenderSeeds · RED.IN</title>
+<meta name="description" content="Portafolio de híbridos Nidera de maíz y girasol 26/27, posicionados para el oeste bonaerense por HenderSeeds, RED.IN de Nidera Semillas. Henderson, Daireaux y Bolívar.">
+
+<!-- ── Open Graph / preview al compartir el link ── -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Portafolio Nidera 26/27 — by HenderSeeds">
+<meta property="og:description" content="13 híbridos de maíz y girasol Nidera, con dato de marbete oficial y posicionamiento lote por lote para el oeste bonaerense.">
+<meta property="og:url" content="https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/nidera/">
+<meta property="og:image" content="https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/assets/logo-henderseeds-navy.png">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="HenderSeeds">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Portafolio Nidera 26/27 — by HenderSeeds">
+<meta name="twitter:description" content="Híbridos Nidera de maíz y girasol, posicionados para tu lote en el oeste bonaerense.">
+<meta name="twitter:image" content="https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/assets/logo-henderseeds-navy.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Variables (idénticas al dashboard) ────────────── */
+:root {
+  --navy: #0A0F1B;
+  --navy-2: #0D2D5E;
+  --navy-mid: #1A4A8A;
+  --orange: #F5A623;
+  --yellow: #F59E0B;
+  --cream: #F6F4EE;
+  --white: #E8EEF7;
+  --white-pure: #FFFFFF;
+  --green-wa: #25D366;
+  --grey: #8FA0BE;
+  --card-border: rgba(255,255,255,0.09);
+  --card-bg: rgba(255,255,255,0.04);
+  --card-bg-hover: rgba(255,255,255,0.07);
+  --radius: 14px;
+  --grid-line: rgba(245,166,35,0.04);
+  --mono: 'DM Mono', monospace;
+  --arch: 'Archivo Black', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: var(--navy);
+  color: var(--white);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+h1, h2, h3 { font-family: var(--arch); font-weight: 400; line-height: 1.12; letter-spacing: -0.5px; }
+.mono { font-family: var(--mono); }
+.container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+/* ── Nav ── */
+.topnav {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px; background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--mono); font-size: 12px; flex-wrap: wrap;
+}
+.topnav a { color: var(--grey); text-decoration: none; transition: color .15s; }
+.topnav a:hover { color: var(--orange); }
+.topnav a.active { color: var(--orange); font-weight: 500; }
+.topnav .sep { color: rgba(255,255,255,0.15); }
+.topnav .right { color: rgba(255,255,255,0.3); margin-left: auto; }
+
+/* ── Hero co-brand ── */
+.hero { padding: 56px 0 44px; border-bottom: 1px dashed rgba(255,255,255,0.1); position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--yellow) 100%);
+}
+.cobrand-lockup { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; flex-wrap: wrap; }
+.cobrand-lockup img.hs { height: 46px; width: auto; }
+.cobrand-lockup img.nid { height: 26px; width: auto; background: #fff; padding: 8px 13px; border-radius: 9px; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+.cobrand-lockup .x { color: rgba(255,255,255,0.25); font-size: 22px; font-weight: 300; }
+.kicker {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 18px;
+}
+.led { width: 9px; height: 9px; border-radius: 50%; background: var(--orange);
+  box-shadow: 0 0 12px var(--orange); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.55 } }
+.hero h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); color: var(--white-pure); margin-bottom: 16px; }
+.hero h1 .accent { color: var(--orange); }
+.hero p.lead { font-size: clamp(1rem, 2.4vw, 1.2rem); color: var(--white); max-width: 680px; line-height: 1.55; }
+.hero p.lead b { color: var(--yellow); font-weight: 700; }
+.hero-cta { display: inline-flex; align-items: center; gap: 9px; margin-top: 28px;
+  font-family: var(--mono); font-size: 14px; color: var(--navy);
+  background: var(--orange); padding: 13px 22px; border-radius: 10px;
+  text-decoration: none; font-weight: 500; transition: transform .15s, box-shadow .15s; }
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,166,35,0.35); }
+
+/* ── Bloque "qué es el co-brand / RED.IN" ── */
+.aval { margin: 44px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.aval .box { border: 1px solid var(--card-border); background: var(--card-bg);
+  border-radius: var(--radius); padding: 24px; }
+.aval .box .tag { font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; display: block; }
+.aval .box h3 { font-size: 17px; color: var(--white-pure); margin-bottom: 8px; }
+.aval .box p { font-size: 14px; color: rgba(232,238,247,0.82); line-height: 1.6; }
+
+/* ── Section titles ── */
+.section-title { font-size: 22px; margin: 52px 0 8px; color: var(--white-pure);
+  display: flex; align-items: center; gap: 12px; }
+.section-title .accent { color: var(--orange); }
+.section-title .count { font-family: var(--mono); font-size: 12px; color: var(--grey);
+  background: rgba(255,255,255,0.06); padding: 4px 11px; border-radius: 5px; letter-spacing: 1px; }
+.section-sub { font-family: var(--mono); font-size: 13px; color: var(--grey);
+  margin-bottom: 26px; line-height: 1.6; }
+
+/* ── Grid de híbridos ── */
+.hib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.hib-card { position: relative; border: 1px solid var(--card-border);
+  border-radius: var(--radius); background: var(--card-bg); padding: 22px;
+  display: flex; flex-direction: column; transition: border-color .2s, transform .15s, background .2s; }
+.hib-card:hover { border-color: rgba(245,166,35,0.4); transform: translateY(-3px);
+  background: var(--card-bg-hover); box-shadow: 0 10px 34px rgba(0,0,0,0.3); }
+.hib-card.crop-maiz { border-top: 3px solid var(--orange); }
+.hib-card.crop-girasol { border-top: 3px solid var(--yellow); }
+.hib-flag { position: absolute; top: -1px; right: 16px; font-family: var(--mono);
+  font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 500;
+  padding: 4px 10px; border-radius: 0 0 6px 6px; color: var(--navy); }
+.flag-top { background: var(--orange); }
+.flag-prioritario { background: var(--green-wa); }
+.flag-lanzamiento { background: #7CB9E8; }
+.flag-refugio { background: var(--navy-mid); color: var(--white-pure); }
+.flag-oleico { background: var(--yellow); }
+
+.hib-name { font-family: var(--arch); font-size: 21px; color: var(--white-pure);
+  letter-spacing: -0.5px; margin-bottom: 4px; margin-top: 6px; }
+.hib-trait { font-family: var(--mono); font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+
+.hib-stat { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.hib-stat .big { font-family: var(--mono); font-weight: 500; font-size: 38px;
+  line-height: 1; letter-spacing: -2px; color: var(--orange); }
+.hib-card.crop-girasol .hib-stat .big { color: var(--yellow); }
+.hib-stat .unit { font-size: 13px; color: var(--white); }
+.hib-stat-detail { font-family: var(--mono); font-size: 12px; color: var(--grey); margin-bottom: 14px; }
+.hib-stat.no-num .big { font-size: 17px; letter-spacing: 0; line-height: 1.3; }
+
+.hib-pos { font-size: 13.5px; color: rgba(232,238,247,0.85); line-height: 1.55;
+  padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.12); margin-bottom: 14px; }
+
+.hib-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.hib-meta .chip { font-family: var(--mono); font-size: 11px; color: var(--white);
+  background: rgba(255,255,255,0.05); border: 1px solid var(--card-border);
+  border-radius: 999px; padding: 4px 11px; }
+.hib-meta .chip b { color: var(--orange); font-weight: 500; }
+
+.hib-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.hib-marbete { font-family: var(--mono); font-size: 12px; color: var(--orange);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  opacity: 0.9; transition: opacity .15s; }
+.hib-marbete:hover { opacity: 1; }
+.hib-mr { font-family: var(--mono); font-size: 11px; color: var(--grey); }
+
+/* ── Galería de fotos (placeholder) ── */
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.media-slot { aspect-ratio: 4/5; border: 1.5px dashed rgba(245,166,35,0.3);
+  border-radius: var(--radius); background: rgba(245,166,35,0.03);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 18px; gap: 8px; }
+.media-slot .ico { font-size: 26px; opacity: 0.6; }
+.media-slot .txt { font-family: var(--mono); font-size: 11px; color: var(--grey); line-height: 1.5; }
+.media-note { font-family: var(--mono); font-size: 12.5px; color: var(--grey);
+  background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+  border-left: 3px solid var(--orange); border-radius: 8px; padding: 14px 18px;
+  margin-bottom: 20px; line-height: 1.65; }
+.media-note b { color: var(--orange); }
+.media-note code { color: var(--yellow); font-size: 12px; }
+
+/* ── Footnote datos ── */
+.datos-nota { font-family: var(--mono); font-size: 11.5px; color: rgba(143,160,190,0.75);
+  line-height: 1.7; margin-top: 22px; padding: 16px 18px; border: 1px solid var(--card-border);
+  border-radius: 10px; background: rgba(0,0,0,0.2); }
+.datos-nota b { color: var(--grey); }
+
+/* ── CTA final ── */
+.cta-final { margin: 56px 0 0; text-align: center; padding: 44px 24px;
+  border: 1px solid rgba(245,166,35,0.25); border-radius: var(--radius);
+  background: rgba(245,166,35,0.05); }
+.cta-final h2 { font-size: clamp(1.4rem, 4vw, 2rem); color: var(--white-pure); margin-bottom: 12px; }
+.cta-final p { color: var(--grey); font-size: 15px; max-width: 520px; margin: 0 auto 26px; line-height: 1.6; }
+.cta-final .wa-btn { display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 15px; color: var(--navy); background: var(--green-wa);
+  padding: 15px 28px; border-radius: 12px; text-decoration: none; font-weight: 500;
+  transition: transform .15s, box-shadow .15s; }
+.cta-final .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.3); }
+
+/* ── Footer ── */
+.footer { margin-top: 60px; padding: 36px 0; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; }
+.footer-logos { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 16px; }
+.footer-logo-hs { height: 36px; width: auto; opacity: 0.9; }
+.footer-logo-nidera { height: 24px; width: auto; background: #fff; padding: 7px 11px; border-radius: 8px; }
+.footer-logo-sep { color: rgba(255,255,255,0.2); font-size: 18px; }
+.footer-brand { font-family: var(--mono); font-size: 12px; color: var(--grey); margin-bottom: 6px; letter-spacing: 0.5px; }
+.footer-note { font-family: var(--mono); font-size: 11px; color: rgba(143,160,190,0.6);
+  text-transform: uppercase; letter-spacing: 1px; }
+
+@media (max-width: 640px) {
+  .aval { grid-template-columns: 1fr; }
+  .hib-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2rem; }
+  .cobrand-lockup img.hs { height: 38px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="topnav">
+  <a href="../">Dashboard</a>
+  <span class="sep">|</span>
+  <a href="./" class="active">Portafolio Nidera</a>
+  <span class="sep">|</span>
+  <a href="../maquetas/">Maquetas</a>
+  <span class="sep">|</span>
+  <a href="../reels/">Reels</a>
+  <span class="sep">|</span>
+  <a href="../twitter/">X / Twitter</a>
+  <span class="right">RED.IN &middot; Nidera Semillas</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO CO-BRAND
+     ═══════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="container">
+    <div class="cobrand-lockup">
+      <img class="hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+      <span class="x">&times;</span>
+      <img class="nid" src="../assets/logo-nidera.png" alt="Nidera Semillas">
+    </div>
+    <div class="kicker"><span class="led"></span> Precampaña 26/27 abierta</div>
+    <h1>Portafolio <span class="accent">Nidera</span> 26/27</h1>
+    <p class="lead">
+      Los híbridos de <b>maíz y girasol</b> de Nidera Semillas, posicionados lote por lote
+      para el oeste bonaerense. Genética Nidera + asesoramiento de acá: somos
+      <b>RED.IN</b> en Henderson, Daireaux y Bolívar.
+    </p>
+    <a class="hero-cta" href="https://wa.me/5492314530691" target="_blank" rel="noopener">
+      Escribinos y lo vemos para tu campo &rarr;
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ── Aval / co-brand explicado ── -->
+  <section class="aval">
+    <div class="box">
+      <span class="tag">La genética</span>
+      <h3>Nidera Semillas</h3>
+      <p>Maíz VIPTERA3 y girasol Clearfield con datos de ensayo de marbete oficial.
+         Tecnología probada, traits de punta y un portafolio que cubre cada ambiente.</p>
+    </div>
+    <div class="box">
+      <span class="tag">El asesoramiento</span>
+      <h3>HenderSeeds &middot; RED.IN</h3>
+      <p>No vendemos bolsas: posicionamos híbridos lote por lote. Conocemos los ambientes
+         del oeste porque andamos en ellos todo el año. Cotización en menos de 24 hs.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       MAÍZ
+       ═══════════════════════════════════════════════════ -->
+  <h2 class="section-title"><span class="accent">Maíz</span> <span class="count" id="count-maiz"></span></h2>
+  <p class="section-sub">9 híbridos VIPTERA3 / VT3P / CL. Verde = los 3 que empujamos para la 26/27.</p>
+  <div class="hib-grid" id="grid-maiz"></div>
+
+  <!-- ═══════════════════════════════════════════════════
+       GIRASOL
+       ═══════════════════════════════════════════════════ -->
+  <h2 class="section-title"><span class="accent">Girasol</span> <span class="count" id="count-girasol"></span></h2>
+  <p class="section-sub">4 híbridos Clearfield, uno de ellos Alto Oleico. Pensados para la siembra de agosto-septiembre.</p>
+  <div class="hib-grid" id="grid-girasol"></div>
+
+  <!-- ── Nota de datos ── -->
+  <div class="datos-nota">
+    <b>Cómo leer los datos:</b> el rinde es diferencial vs. índice ambiental en ensayos.
+    <b>**</b> = diferencia estadísticamente significativa &middot; <b>*</b> = tendencia (no significativa).
+    Sanidad en escala 1 (mejor) a 9 (peor); <b>R</b> = resistente. Todo de marbete oficial Nidera.
+    No prometemos rindes: el resultado en tu lote depende del ambiente y el manejo. Por eso lo vemos juntos.
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       GALERÍA DE FOTOS REALES (placeholder)
+       ═══════════════════════════════════════════════════ -->
+  <h2 class="section-title"><span class="accent">La zona</span> en imágenes</h2>
+  <div class="media-note">
+    <b>Para completar:</b> subí fotos reales de lotes, ensayos, días de campo y el equipo a
+    <code>docs/assets/fotos/</code> y las monto acá. Foto real de la zona &gt; stock, siempre.
+    Web-optimizadas (1600 px de ancho, JPG).
+  </div>
+  <div class="media-grid">
+    <div class="media-slot"><span class="ico">🌽</span><span class="txt">Lote de maíz<br>Henderson / Daireaux</span></div>
+    <div class="media-slot"><span class="ico">🌻</span><span class="txt">Lote de girasol<br>en floración</span></div>
+    <div class="media-slot"><span class="ico">🚜</span><span class="txt">Día de campo<br>/ siembra</span></div>
+    <div class="media-slot"><span class="ico">👥</span><span class="txt">El equipo<br>HenderSeeds</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       VIDEO (placeholder)
+       ═══════════════════════════════════════════════════ -->
+  <h2 class="section-title"><span class="accent">Video</span></h2>
+  <div class="media-note">
+    <b>Para completar:</b> los videos pesados NO van en el repo (GitHub rebota +100 MB).
+    Subí el video a <b>YouTube / Drive / Vimeo</b> y pasame el link: lo embebo acá.
+    Para un clip corto en el sitio, una versión liviana (&lt; 20 MB) también sirve.
+  </div>
+
+  <!-- ── CTA final ── -->
+  <section class="cta-final">
+    <h2>¿Lo vemos para tus lotes?</h2>
+    <p>Te decimos qué híbrido va en cada ambiente de tu campo y cómo arrancar la precampaña.
+       La charla se cierra mejor con un mate de por medio.</p>
+    <a class="wa-btn" href="https://wa.me/5492314530691" target="_blank" rel="noopener">
+      <svg viewBox="0 0 32 32" width="20" height="20" fill="#0A0F1B"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4z"/></svg>
+      WhatsApp · 2314 53-0691
+    </a>
+  </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../assets/logo-henderseeds-white.png" alt="HenderSeeds" class="footer-logo-hs">
+      <span class="footer-logo-sep">&times;</span>
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas" class="footer-logo-nidera">
+    </div>
+    <div class="footer-brand">RED.IN Nidera Semillas &middot; Henderson &middot; Daireaux &middot; Bolívar</div>
+    <div class="footer-note">Precampaña 26/27 &middot; Datos de marbete oficial Nidera</div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════
+     DATA-DRIVEN: los 13 híbridos.
+     Fuente: contexto/productos-26-27.md (marbetes oficiales Nidera).
+     Para editar un híbrido, tocá su objeto. Para sumar uno, agregá
+     un objeto al array. Campos:
+       cultivo: "maiz" | "girasol"
+       nombre, trait, mr (madurez relativa / ciclo)
+       stat: dato hero (string corto). statDetail: la línea de abajo.
+       sinNumero: true si el "stat" no es una cifra grande (refugio, etc.)
+       pos: posicionamiento en una frase
+       sanidad: array de [etiqueta, valor]
+       marbete: nombre del PDF en marbetes/
+       flag: "" | "top" | "prioritario" | "lanzamiento" | "refugio" | "oleico"
+     ═══════════════════════════════════════════════════ -->
+<script>
+  const HIBRIDOS = [
+    // ── MAÍZ ──
+    { cultivo:"maiz", nombre:"NS 7765 VIPTERA3", trait:"Viptera 3 · MR 118", mr:"MR 118",
+      stat:"+392", unit:"kg/ha · temprana", statDetail:"74% éxito · 191 comp. · Tardía +324 kg/ha",
+      pos:"El top del portafolio. Máximo potencial y estabilidad, en temprana Y tardía. Va en tus mejores lotes.",
+      sanidad:[["Quebrado","1"],["Roya","2"],["Tizón","3"]], marbete:"NS7765VIP3.pdf", flag:"top" },
+
+    { cultivo:"maiz", nombre:"NS 7621 VIPTERA3", trait:"Viptera 3 · MR 117", mr:"MR 117",
+      stat:"+290", unit:"kg/ha · temprana", statDetail:"67% éxito · 419 comp.",
+      pos:"Performance pura en temprana, ambientes de medio y alto potencial. Control completo de lepidópteros.",
+      sanidad:[["Roya","2"],["Green Snap","2"],["Tizón","4"]], marbete:"NS7621VIPTERA3.pdf", flag:"prioritario" },
+
+    { cultivo:"maiz", nombre:"NS 7921 VIPTERA3 CL", trait:"Viptera3 CL · MR 118", mr:"MR 118",
+      stat:"+179", unit:"kg/ha · tardía", statDetail:"60% éxito · 364 comp. · Temprana +167 kg/ha",
+      pos:"El más versátil: rinde en toda fecha y ambiente, con 3 herramientas herbicidas (glifo + glufo + imidazolinonas).",
+      sanidad:[["Quebrado","2"],["Roya","3"],["PMS","316 g"]], marbete:"NS7921VIPTERA3CL.pdf", flag:"prioritario" },
+
+    { cultivo:"maiz", nombre:"AX 7761 VT3P", trait:"Viptera Triple Pro · MR 117", mr:"MR 117",
+      stat:"+283", unit:"kg/ha · temprana", statDetail:"67% éxito · 815 comp.",
+      pos:"Combina el mayor potencial en ambientes de alta con máxima estabilidad en baja. Para toda la temprana.",
+      sanidad:[["Roya","1"],["Tizón","2"],["Green Snap","2"]], marbete:"AX7761VT3P.pdf", flag:"" },
+
+    { cultivo:"maiz", nombre:"NS 7852 VIPTERA3", trait:"Viptera 3 · MR 118", mr:"MR 118",
+      stat:"+316", unit:"kg/ha · temprana", statDetail:"69% éxito · 133 comp. · Tardía +194 kg/ha",
+      pos:"Lanzamiento. Rinde top en ambas fechas con perfil agronómico destacado.",
+      sanidad:[["Roya","2"],["Quebrado","3"],["Tizón","4"]], marbete:"NS7852VIPTERA3.pdf", flag:"lanzamiento" },
+
+    { cultivo:"maiz", nombre:"NS 7925 VIPTERA3", trait:"Viptera 3 · MR 119", mr:"MR 119",
+      stat:"+228", unit:"kg/ha · tardía", statDetail:"59% éxito · 120 comp.",
+      pos:"Lanzamiento. Máximo potencial en tardía y el mejor Spiroplasma (3) del portafolio.",
+      sanidad:[["Spiroplasma","3"],["Roya","2"],["Quebrado","2"]], marbete:"NS7925VIPTERA3.pdf", flag:"lanzamiento" },
+
+    { cultivo:"maiz", nombre:"NS 7818 VIP3", trait:"VIP3 · MR 118", mr:"MR 118",
+      stat:"313 g", unit:"PMS · el mayor del portafolio", statDetail:"Performance consistente · 564 comp. en temprana", sinNumero:true,
+      pos:"Tardía pareja en todo el gradiente ambiental, con buena adaptación a temprana. Peso de grano asegurado.",
+      sanidad:[["Roya","1"],["Green Snap","2"],["Tizón","2"]], marbete:"NS7818VIP3.pdf", flag:"" },
+
+    { cultivo:"maiz", nombre:"NS 7624 VIPTERA3 CL", trait:"Viptera3 CL · MR 117", mr:"MR 117",
+      stat:"+163", unit:"kg/ha · tardía", statDetail:"60% éxito · 222 comp. templada",
+      pos:"El mejor combo para tardía: ciclo corto + control de lepidópteros + 3 herramientas herbicidas.",
+      sanidad:[["Quebrado","2"],["Roya","2"],["Tizón","3"]], marbete:"NS7624VIPTERA3CL.pdf", flag:"" },
+
+    { cultivo:"maiz", nombre:"NS 7800 CLTG", trait:"Clearfield + Glufosinato · MR 118", mr:"MR 118",
+      stat:"Refugio", unit:"obligatorio de VIPTERA3", statDetail:"Posicionable en todas las zonas y ambientes", sinNumero:true,
+      pos:"El refugio estructurado que no resigna rendimiento. Indispensable para cuidar la vida útil de VIPTERA3.",
+      sanidad:[["Tizón","2"],["Roya","2"],["Green Snap","3"]], marbete:"NS7800CLTG.pdf", flag:"refugio" },
+
+    // ── GIRASOL ──
+    { cultivo:"girasol", nombre:"NS 1113 CL", trait:"Clearfield · Aceite muy alto", mr:"Ciclo int. largo",
+      stat:"+2,11", unit:"qq/ha · Sur+Oeste", statDetail:"74% éxito · 225 comp.",
+      pos:"El techo de rinde y aceite del mercado CL. Estabilidad en todos los ambientes. El número 1.",
+      sanidad:[["Sclerotinia","2"],["Roya negra","R"],["Downy M.","R"]], marbete:"NS1113CL.pdf", flag:"top" },
+
+    { cultivo:"girasol", nombre:"NS 1115 CL", trait:"Clearfield · Aceite muy alto", mr:"Ciclo int. largo",
+      stat:"+1,64", unit:"qq/ha · Sur+Oeste", statDetail:"69% éxito · 192 comp.",
+      pos:"La mejor sanidad del portafolio: Phomopsis 2 + Sclerotinia 2 + resistencias genéticas. Para lotes con presión de Phomopsis.",
+      sanidad:[["Phomopsis","2"],["Sclerotinia","2"],["Roya negra","R"]], marbete:"NS1115CL.pdf", flag:"prioritario" },
+
+    { cultivo:"girasol", nombre:"NS 1117 CL", trait:"Clearfield · Aceite muy alto", mr:"Ciclo int. largo",
+      stat:"+1,75", unit:"qq/ha · Sur+Oeste", statDetail:"67% éxito · 73 comp.",
+      pos:"Genética de avanzada: máximo rinde con excelente Phomopsis (2) y estabilidad total.",
+      sanidad:[["Phomopsis","2"],["Sclerotinia","2"],["Downy M.","R"]], marbete:"NS1117CL.pdf", flag:"prioritario" },
+
+    { cultivo:"girasol", nombre:"NS 1227 CL HO", trait:"Clearfield + Alto Oleico", mr:"Ciclo int. largo",
+      stat:"+0,61", unit:"qq/ha · Sur+Oeste", statDetail:"52% éxito · 103 comp. (tendencia)",
+      pos:"El alto oleico del portafolio: rendimiento + bonificación por calidad de aceite, donde el comprador la pague.",
+      sanidad:[["Phomopsis","4"],["Downy M.","R"],["Verticilium","3"]], marbete:"NS1227CLHO.pdf", flag:"oleico" },
+  ];
+
+  const FLAG_LABEL = {
+    top:"★ Top portafolio", prioritario:"Lo empujamos",
+    lanzamiento:"Lanzamiento", refugio:"Refugio", oleico:"Alto oleico"
+  };
+
+  function cardHTML(h) {
+    const flag = h.flag
+      ? '<div class="hib-flag flag-' + h.flag + '">' + FLAG_LABEL[h.flag] + '</div>' : '';
+    const statClass = h.sinNumero ? 'hib-stat no-num' : 'hib-stat';
+    const chips = h.sanidad.map(function (s) {
+      return '<span class="chip">' + s[0] + ' <b>' + s[1] + '</b></span>';
+    }).join('');
+    return '' +
+      '<article class="hib-card crop-' + h.cultivo + '">' +
+        flag +
+        '<div class="hib-name">' + h.nombre + '</div>' +
+        '<div class="hib-trait">' + h.trait + '</div>' +
+        '<div class="' + statClass + '"><span class="big">' + h.stat + '</span>' +
+          '<span class="unit">' + h.unit + '</span></div>' +
+        '<div class="hib-stat-detail">' + h.statDetail + '</div>' +
+        '<div class="hib-pos">' + h.pos + '</div>' +
+        '<div class="hib-meta">' + chips + '</div>' +
+        '<div class="hib-foot">' +
+          '<a class="hib-marbete" href="marbetes/' + h.marbete + '" target="_blank" rel="noopener">▦ Marbete oficial PDF</a>' +
+          '<span class="hib-mr">' + h.mr + '</span>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function render() {
+    const maiz = HIBRIDOS.filter(function (h) { return h.cultivo === 'maiz'; });
+    const gira = HIBRIDOS.filter(function (h) { return h.cultivo === 'girasol'; });
+    document.getElementById('grid-maiz').innerHTML = maiz.map(cardHTML).join('');
+    document.getElementById('grid-girasol').innerHTML = gira.map(cardHTML).join('');
+    document.getElementById('count-maiz').textContent = maiz.length + ' híbridos';
+    document.getElementById('count-girasol').textContent = gira.length + ' híbridos';
+  }
+  render();
+</script>
+
+</body>
+</html>
