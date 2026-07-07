@@ -8,7 +8,7 @@
 **Tener la semana W28 completa (3 posts listos para publicar) antes del 10/07.**
 
 ### Criterios de "hecho"
-- [x] Post 1 — Girasol: CL explicado simple (NS 1115) → `posts/2026-W28/post-01-girasol-cl-simple.md` + placa
+- [x] Post 1 — Girasol NS 1113 CL con ensayos CREA (v2, reemplaza al de "CL explicado") → `posts/2026-W28/post-01-girasol-ns1113.md` + placa
 - [ ] Post 2 — Finanzas: canje grano por semilla
 - [ ] Post 3 — Técnico: dato de manejo girasol
 - [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA (DM primario + WA)
