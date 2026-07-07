@@ -57,7 +57,7 @@ atribuibles al post · WA = ídem por WhatsApp.
 |------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
 | [Maíz NS 7765, el top](posts/2026-W27/post-01-maiz-ns7765.md) | maíz | 25/06 | placa | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | |
 | [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | herramientas | 26/06 | reel pautado | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | pauta $15k/día × 7d — anotar tb. costo/mensaje |
-| [Girasol CL explicado simple](posts/2026-W28/post-01-girasol-cl-simple.md) | girasol | pendiente | placa | | | | | | | |
+| [Girasol NS 1113 CL: ensayos CREA](posts/2026-W28/post-01-girasol-ns1113.md) | girasol | pendiente | placa | | | | | | | |
 
 ### Pauta (solo posts 📣)
 
