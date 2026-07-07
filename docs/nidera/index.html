@@ -159,11 +159,16 @@ h1, h2, h3 { font-family: var(--arch); font-weight: 400; line-height: 1.12; lett
   border-radius: 999px; padding: 4px 11px; }
 .hib-meta .chip b { color: var(--orange); font-weight: 500; }
 
-.hib-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.hib-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.hib-links { display: flex; flex-direction: column; gap: 5px; }
 .hib-marbete { font-family: var(--mono); font-size: 12px; color: var(--orange);
   text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
   opacity: 0.9; transition: opacity .15s; }
 .hib-marbete:hover { opacity: 1; }
+.hib-oficial { font-family: var(--mono); font-size: 11.5px; color: var(--grey);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  transition: color .15s; }
+.hib-oficial:hover { color: var(--orange); }
 .hib-mr { font-family: var(--mono); font-size: 11px; color: var(--grey); }
 
 /* ── Galería de fotos (placeholder) ── */
@@ -264,7 +269,9 @@ h1, h2, h3 { font-family: var(--arch); font-weight: 400; line-height: 1.12; lett
       <span class="tag">La genética</span>
       <h3>Nidera Semillas</h3>
       <p>Maíz VIPTERA3 y girasol Clearfield con datos de ensayo de marbete oficial.
-         Tecnología probada, traits de punta y un portafolio que cubre cada ambiente.</p>
+         Tecnología probada, traits de punta y un portafolio que cubre cada ambiente.
+         <a href="https://niderasemillas.com.ar/" target="_blank" rel="noopener"
+            style="color:var(--orange);text-decoration:none;font-family:var(--mono);font-size:12px;display:inline-block;margin-top:8px">↗ niderasemillas.com.ar</a></p>
     </div>
     <div class="box">
       <span class="tag">El asesoramiento</span>
@@ -368,68 +375,68 @@ h1, h2, h3 { font-family: var(--arch); font-weight: 400; line-height: 1.12; lett
     { cultivo:"maiz", nombre:"NS 7765 VIPTERA3", trait:"Viptera 3 · MR 118", mr:"MR 118",
       stat:"+392", unit:"kg/ha · temprana", statDetail:"74% éxito · 191 comp. · Tardía +324 kg/ha",
       pos:"El top del portafolio. Máximo potencial y estabilidad, en temprana Y tardía. Va en tus mejores lotes.",
-      sanidad:[["Quebrado","1"],["Roya","2"],["Tizón","3"]], marbete:"NS7765VIP3.pdf", flag:"top" },
+      sanidad:[["Quebrado","1"],["Roya","2"],["Tizón","3"]], marbete:"NS7765VIP3.pdf", nidera:"https://niderasemillas.com.ar/maiz/ns-7765-viptera3/", flag:"top" },
 
     { cultivo:"maiz", nombre:"NS 7621 VIPTERA3", trait:"Viptera 3 · MR 117", mr:"MR 117",
       stat:"+290", unit:"kg/ha · temprana", statDetail:"67% éxito · 419 comp.",
       pos:"Performance pura en temprana, ambientes de medio y alto potencial. Control completo de lepidópteros.",
-      sanidad:[["Roya","2"],["Green Snap","2"],["Tizón","4"]], marbete:"NS7621VIPTERA3.pdf", flag:"prioritario" },
+      sanidad:[["Roya","2"],["Green Snap","2"],["Tizón","4"]], marbete:"NS7621VIPTERA3.pdf", nidera:"https://niderasemillas.com.ar/maiz/", flag:"prioritario" },
 
     { cultivo:"maiz", nombre:"NS 7921 VIPTERA3 CL", trait:"Viptera3 CL · MR 118", mr:"MR 118",
       stat:"+179", unit:"kg/ha · tardía", statDetail:"60% éxito · 364 comp. · Temprana +167 kg/ha",
       pos:"El más versátil: rinde en toda fecha y ambiente, con 3 herramientas herbicidas (glifo + glufo + imidazolinonas).",
-      sanidad:[["Quebrado","2"],["Roya","3"],["PMS","316 g"]], marbete:"NS7921VIPTERA3CL.pdf", flag:"prioritario" },
+      sanidad:[["Quebrado","2"],["Roya","3"],["PMS","316 g"]], marbete:"NS7921VIPTERA3CL.pdf", nidera:"https://niderasemillas.com.ar/maiz/ns-7921-viptera3-cl/", flag:"prioritario" },
 
     { cultivo:"maiz", nombre:"AX 7761 VT3P", trait:"Viptera Triple Pro · MR 117", mr:"MR 117",
       stat:"+283", unit:"kg/ha · temprana", statDetail:"67% éxito · 815 comp.",
       pos:"Combina el mayor potencial en ambientes de alta con máxima estabilidad en baja. Para toda la temprana.",
-      sanidad:[["Roya","1"],["Tizón","2"],["Green Snap","2"]], marbete:"AX7761VT3P.pdf", flag:"" },
+      sanidad:[["Roya","1"],["Tizón","2"],["Green Snap","2"]], marbete:"AX7761VT3P.pdf", nidera:"https://niderasemillas.com.ar/maiz/", flag:"" },
 
     { cultivo:"maiz", nombre:"NS 7852 VIPTERA3", trait:"Viptera 3 · MR 118", mr:"MR 118",
       stat:"+316", unit:"kg/ha · temprana", statDetail:"69% éxito · 133 comp. · Tardía +194 kg/ha",
       pos:"Lanzamiento. Rinde top en ambas fechas con perfil agronómico destacado.",
-      sanidad:[["Roya","2"],["Quebrado","3"],["Tizón","4"]], marbete:"NS7852VIPTERA3.pdf", flag:"lanzamiento" },
+      sanidad:[["Roya","2"],["Quebrado","3"],["Tizón","4"]], marbete:"NS7852VIPTERA3.pdf", nidera:"https://niderasemillas.com.ar/maiz/", flag:"lanzamiento" },
 
     { cultivo:"maiz", nombre:"NS 7925 VIPTERA3", trait:"Viptera 3 · MR 119", mr:"MR 119",
       stat:"+228", unit:"kg/ha · tardía", statDetail:"59% éxito · 120 comp.",
       pos:"Lanzamiento. Máximo potencial en tardía y el mejor Spiroplasma (3) del portafolio.",
-      sanidad:[["Spiroplasma","3"],["Roya","2"],["Quebrado","2"]], marbete:"NS7925VIPTERA3.pdf", flag:"lanzamiento" },
+      sanidad:[["Spiroplasma","3"],["Roya","2"],["Quebrado","2"]], marbete:"NS7925VIPTERA3.pdf", nidera:"https://niderasemillas.com.ar/maiz/", flag:"lanzamiento" },
 
     { cultivo:"maiz", nombre:"NS 7818 VIP3", trait:"VIP3 · MR 118", mr:"MR 118",
       stat:"313 g", unit:"PMS · el mayor del portafolio", statDetail:"Performance consistente · 564 comp. en temprana", sinNumero:true,
       pos:"Tardía pareja en todo el gradiente ambiental, con buena adaptación a temprana. Peso de grano asegurado.",
-      sanidad:[["Roya","1"],["Green Snap","2"],["Tizón","2"]], marbete:"NS7818VIP3.pdf", flag:"" },
+      sanidad:[["Roya","1"],["Green Snap","2"],["Tizón","2"]], marbete:"NS7818VIP3.pdf", nidera:"https://niderasemillas.com.ar/maiz/", flag:"" },
 
     { cultivo:"maiz", nombre:"NS 7624 VIPTERA3 CL", trait:"Viptera3 CL · MR 117", mr:"MR 117",
       stat:"+163", unit:"kg/ha · tardía", statDetail:"60% éxito · 222 comp. templada",
       pos:"El mejor combo para tardía: ciclo corto + control de lepidópteros + 3 herramientas herbicidas.",
-      sanidad:[["Quebrado","2"],["Roya","2"],["Tizón","3"]], marbete:"NS7624VIPTERA3CL.pdf", flag:"" },
+      sanidad:[["Quebrado","2"],["Roya","2"],["Tizón","3"]], marbete:"NS7624VIPTERA3CL.pdf", nidera:"https://niderasemillas.com.ar/maiz/", flag:"" },
 
     { cultivo:"maiz", nombre:"NS 7800 CLTG", trait:"Clearfield + Glufosinato · MR 118", mr:"MR 118",
       stat:"Refugio", unit:"obligatorio de VIPTERA3", statDetail:"Posicionable en todas las zonas y ambientes", sinNumero:true,
       pos:"El refugio estructurado que no resigna rendimiento. Indispensable para cuidar la vida útil de VIPTERA3.",
-      sanidad:[["Tizón","2"],["Roya","2"],["Green Snap","3"]], marbete:"NS7800CLTG.pdf", flag:"refugio" },
+      sanidad:[["Tizón","2"],["Roya","2"],["Green Snap","3"]], marbete:"NS7800CLTG.pdf", nidera:"https://niderasemillas.com.ar/maiz/ns-7800-cltg/", flag:"refugio" },
 
     // ── GIRASOL ──
     { cultivo:"girasol", nombre:"NS 1113 CL", trait:"Clearfield · Aceite muy alto", mr:"Ciclo int. largo",
       stat:"+2,11", unit:"qq/ha · Sur+Oeste", statDetail:"74% éxito · 225 comp.",
       pos:"El techo de rinde y aceite del mercado CL. Estabilidad en todos los ambientes. El número 1.",
-      sanidad:[["Sclerotinia","2"],["Roya negra","R"],["Downy M.","R"]], marbete:"NS1113CL.pdf", flag:"top" },
+      sanidad:[["Sclerotinia","2"],["Roya negra","R"],["Downy M.","R"]], marbete:"NS1113CL.pdf", nidera:"https://niderasemillas.com.ar/girasol/ns1113cl/", flag:"top" },
 
     { cultivo:"girasol", nombre:"NS 1115 CL", trait:"Clearfield · Aceite muy alto", mr:"Ciclo int. largo",
       stat:"+1,64", unit:"qq/ha · Sur+Oeste", statDetail:"69% éxito · 192 comp.",
       pos:"La mejor sanidad del portafolio: Phomopsis 2 + Sclerotinia 2 + resistencias genéticas. Para lotes con presión de Phomopsis.",
-      sanidad:[["Phomopsis","2"],["Sclerotinia","2"],["Roya negra","R"]], marbete:"NS1115CL.pdf", flag:"prioritario" },
+      sanidad:[["Phomopsis","2"],["Sclerotinia","2"],["Roya negra","R"]], marbete:"NS1115CL.pdf", nidera:"https://niderasemillas.com.ar/girasol/ns1115cl/", flag:"prioritario" },
 
     { cultivo:"girasol", nombre:"NS 1117 CL", trait:"Clearfield · Aceite muy alto", mr:"Ciclo int. largo",
       stat:"+1,75", unit:"qq/ha · Sur+Oeste", statDetail:"67% éxito · 73 comp.",
       pos:"Genética de avanzada: máximo rinde con excelente Phomopsis (2) y estabilidad total.",
-      sanidad:[["Phomopsis","2"],["Sclerotinia","2"],["Downy M.","R"]], marbete:"NS1117CL.pdf", flag:"prioritario" },
+      sanidad:[["Phomopsis","2"],["Sclerotinia","2"],["Downy M.","R"]], marbete:"NS1117CL.pdf", nidera:"https://niderasemillas.com.ar/girasol/", flag:"prioritario" },
 
     { cultivo:"girasol", nombre:"NS 1227 CL HO", trait:"Clearfield + Alto Oleico", mr:"Ciclo int. largo",
       stat:"+0,61", unit:"qq/ha · Sur+Oeste", statDetail:"52% éxito · 103 comp. (tendencia)",
       pos:"El alto oleico del portafolio: rendimiento + bonificación por calidad de aceite, donde el comprador la pague.",
-      sanidad:[["Phomopsis","4"],["Downy M.","R"],["Verticilium","3"]], marbete:"NS1227CLHO.pdf", flag:"oleico" },
+      sanidad:[["Phomopsis","4"],["Downy M.","R"],["Verticilium","3"]], marbete:"NS1227CLHO.pdf", nidera:"https://niderasemillas.com.ar/girasol/", flag:"oleico" },
   ];
 
   const FLAG_LABEL = {
@@ -455,7 +462,10 @@ h1, h2, h3 { font-family: var(--arch); font-weight: 400; line-height: 1.12; lett
         '<div class="hib-pos">' + h.pos + '</div>' +
         '<div class="hib-meta">' + chips + '</div>' +
         '<div class="hib-foot">' +
-          '<a class="hib-marbete" href="marbetes/' + h.marbete + '" target="_blank" rel="noopener">▦ Marbete oficial PDF</a>' +
+          '<div class="hib-links">' +
+            '<a class="hib-marbete" href="marbetes/' + h.marbete + '" target="_blank" rel="noopener">▦ Marbete oficial PDF</a>' +
+            '<a class="hib-oficial" href="' + h.nidera + '" target="_blank" rel="noopener">↗ Ficha en niderasemillas.com.ar</a>' +
+          '</div>' +
           '<span class="hib-mr">' + h.mr + '</span>' +
         '</div>' +
       '</article>';

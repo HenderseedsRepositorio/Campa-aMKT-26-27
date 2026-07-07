@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa W28 · Girasol CL explicado simple</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E;
+  --orange:#F5A623; --yellow:#F59E0B; --white:#FFFFFF; --wa:#25D366;
+  --wf:rgba(255,255,255,0.05); --wb:rgba(255,255,255,0.09);
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --yellow-glow:rgba(245,158,11,0.15); --txt-dim:rgba(255,255,255,0.55); --txt-faint:rgba(255,255,255,0.32);
+}
+body { background:#06080f; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:88px 80px 74px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,158,11,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,158,11,0.05) 1px, transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--yellow); z-index:10; }
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(245,158,11,0.18); border-style:solid; z-index:5; }
+.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+.logo-hs { position:absolute; top:72px; right:80px; height:60px; z-index:6; }
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--yellow); display:flex; align-items:center; gap:12px; z-index:2; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--yellow); box-shadow:0 0 14px var(--yellow); }
+
+.badge { display:inline-block; align-self:flex-start; background:var(--yellow-glow); border:1px solid rgba(245,158,11,0.35); color:var(--yellow); font-family:var(--mono); font-size:22px; letter-spacing:2px; text-transform:uppercase; padding:9px 20px; border-radius:8px; margin:40px 0 20px; z-index:2; }
+.title { font-family:var(--arch); color:var(--white); font-size:66px; line-height:1.02; letter-spacing:-2px; z-index:2; }
+.title .hl { color:var(--yellow); }
+
+/* ── Bloque didáctico: 3 pasos ── */
+.pasos { display:flex; flex-direction:column; gap:18px; margin-top:52px; z-index:2; }
+.paso { display:flex; align-items:center; gap:26px; background:var(--wf); border:1px solid var(--wb); border-radius:16px; padding:22px 28px; }
+.paso .nro { font-family:var(--mono); font-weight:500; font-size:44px; color:var(--yellow); letter-spacing:-2px; flex-shrink:0; width:74px; }
+.paso .txt { font-family:var(--sans); font-size:31px; color:var(--white); line-height:1.3; font-weight:600; }
+.paso .txt small { display:block; font-family:var(--mono); font-size:20px; color:var(--txt-dim); font-weight:400; margin-top:4px; }
+.paso.final { border-color:rgba(245,158,11,0.4); background:var(--yellow-glow); }
+
+/* ── Panel híbrido destacado ── */
+.hib { margin-top:46px; padding-top:34px; border-top:1px dashed rgba(255,255,255,0.18); z-index:2; }
+.hib-head { display:flex; align-items:center; gap:18px; margin-bottom:10px; }
+.hib-chip { font-family:var(--arch); font-size:34px; color:var(--navy); background:var(--yellow); padding:8px 20px; border-radius:10px; letter-spacing:-1px; }
+.hib-label { font-family:var(--sans); font-size:27px; color:var(--white); font-weight:700; line-height:1.25; }
+.stat-row { display:flex; align-items:flex-end; gap:26px; margin-top:18px; }
+.stat-big { font-family:var(--mono); font-weight:500; font-size:110px; line-height:0.85; letter-spacing:-5px; color:var(--yellow); }
+.stat-side { display:flex; flex-direction:column; padding-bottom:8px; }
+.stat-unit { font-family:var(--sans); font-size:27px; color:var(--white); }
+.stat-detail { font-family:var(--mono); font-size:21px; color:var(--txt-faint); margin-top:4px; }
+.tags { display:flex; flex-wrap:wrap; gap:13px; margin-top:26px; }
+.tag { font-family:var(--mono); font-size:21px; color:var(--white); background:var(--wf); border:1px solid var(--wb); border-radius:999px; padding:10px 21px; }
+.tag b { color:var(--yellow); font-weight:500; }
+
+.spacer { flex:1; }
+
+/* ── Contacto: DM primario, WhatsApp como info de última ── */
+.cta-line { font-family:var(--sans); font-weight:700; font-size:32px; color:var(--white); display:flex; align-items:center; gap:16px; z-index:2; margin-bottom:26px; }
+.cta-line svg { flex-shrink:0; }
+.footrow { display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:30px; background:#fff; padding:6px 10px; border-radius:7px; }
+.redin-logo span { font-family:var(--mono); font-size:16px; letter-spacing:1.2px; color:var(--txt-faint); text-transform:uppercase; }
+.wa-min { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--txt-dim); }
+.wa-min svg { flex-shrink:0; }
+.legal { font-family:var(--mono); font-size:13px; color:rgba(255,255,255,0.22); margin-top:16px; z-index:2; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> PRECAMPAÑA 26/27 · GIRASOL</div>
+
+  <span class="badge">Tecnología Clearfield®</span>
+  <div class="title">CL: el girasol que te deja<br><span class="hl">limpiar el lote.</span></div>
+
+  <div class="pasos">
+    <div class="paso">
+      <span class="nro">01</span>
+      <span class="txt">Sembrás un híbrido CL<small>tolerante a imidazolinonas</small></span>
+    </div>
+    <div class="paso">
+      <span class="nro">02</span>
+      <span class="txt">Aplicás el herbicida con el cultivo emergido<small>hoja ancha y gramíneas, en post</small></span>
+    </div>
+    <div class="paso final">
+      <span class="nro">03</span>
+      <span class="txt">La maleza cae. El girasol sigue.<small>ventana que el convencional no tiene</small></span>
+    </div>
+  </div>
+
+  <div class="hib">
+    <div class="hib-head">
+      <span class="hib-chip">NS 1115 CL</span>
+      <span class="hib-label">El CL con mejor sanidad<br>del portafolio</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat-big">+1,64</div>
+      <div class="stat-side">
+        <div class="stat-unit">qq/ha · Sur+Oeste</div>
+        <div class="stat-detail">69% éxito · 192 comp.</div>
+      </div>
+    </div>
+    <div class="tags">
+      <div class="tag">Phomopsis <b>2</b></div>
+      <div class="tag">Sclerotinia <b>2</b></div>
+      <div class="tag">Downy Mildew <b>R</b></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="cta-line">
+    <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    Mandanos un DM y vemos qué CL va para tu lote
+  </div>
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Dato: marbete oficial Nidera</span>
+    </div>
+    <div class="wa-min">
+      <svg viewBox="0 0 32 32" width="24" height="24" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg>
+      WhatsApp · 2314 53-0691
+    </div>
+  </div>
+  <div class="legal">Clearfield® es marca registrada de BASF. Datos de ensayo: marbete oficial Nidera Semillas.</div>
+  <span class="corner corner-br"></span>
+</div>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar feed &middot; 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F59E0B; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,158,11,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,158,11,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: feed 1080×1350 (4:5) + historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = 'w28-post-01-girasol-cl-ns1115';
+  var STORY_BG = '#06080f';
+  var SCALE = 2;
+  if (window.self !== window.top) return;
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      if (fmt === 'feed') {
+        return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 })
+          .then(function (c) { bajar(c, FILE + '-feed-1080x1350'); });
+      }
+      var frame = document.createElement('div');
+      frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+      var clone = slide.cloneNode(true);
+      clone.style.boxShadow = '0 0 0 2px rgba(245,158,11,0.25)';
+      frame.appendChild(clone);
+      document.body.appendChild(frame);
+      return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { document.body.removeChild(frame); bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
