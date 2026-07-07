@@ -5,16 +5,18 @@
 
 ## Goal activo
 
-**Tener la semana W27 completa (3 posts listos para publicar) antes del 27/06.**
+**Tener la semana W28 completa (3 posts listos para publicar) antes del 10/07.**
 
 ### Criterios de "hecho"
-- [ ] 3 posts en `posts/2026-W27/` según plantilla
-- [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA a WhatsApp
+- [x] Post 1 — Girasol: CL explicado simple (NS 1115) → `posts/2026-W28/post-01-girasol-cl-simple.md` + placa
+- [ ] Post 2 — Finanzas: canje grano por semilla
+- [ ] Post 3 — Técnico: dato de manejo girasol
+- [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA (DM primario + WA)
 - [ ] Pasa el checklist de `brand/tono-voz.md`
 - [ ] Ningún dato inventado — los `[COMPLETAR]` están listados
-- [ ] `calendario.md` actualizado (💡 → ✍️ con links)
+- [x] `calendario.md` actualizado (💡 → ✍️ con links)
 - [ ] Brief de pauta creado si algún post lo amerita
-- [ ] Variedad de pilares respetada (cultivo + negocio + comunidad)
+- [x] Variedad de pilares respetada (cultivo + negocio + comunidad)
 
 ---
 
@@ -53,7 +55,7 @@ Cada vez que entro al proyecto, sigo este ciclo:
 
 ## Cola de goals (próximos)
 
-1. **W28 completa** (3 posts para la semana del 06/07)
+1. **Cargar métricas reales en `metricas.md`** — W27 (post maíz + reel pautado): primer registro con datos de Meta Business Suite
 2. **Primer reel** — guion según plantilla para uno de los posts existentes
 3. **Carrusel maíz** — HTML single-file comparando los 3 maíces VIP3
 4. **Brief de pauta consolidado** — al menos 2 posts pautados con brief en `meta-ads/`
@@ -70,6 +72,9 @@ Cada vez que entro al proyecto, sigo este ciclo:
 | GitHub Pages activo | W24 | Dashboard + infografía "cómo funciona" |
 | W25 completa (4 posts) | W25 | 3 rotación + extra Día de la Bandera |
 | W26 completa (3 posts) | W26 | Foco girasol + brief de pauta NS 1113 |
+| W27 completa (3 posts + reel) | W27 | Maíz NS 7765 publicado 25/06 · reel pautado 26/06 |
+| Página Portafolio Nidera co-brand | W28 | `docs/nidera/` — 13 híbridos + marbetes + links oficiales |
+| Sistema de métricas creado | W28 | `metricas.md` — carga semanal, pendiente primer registro |
 
 ---
 
