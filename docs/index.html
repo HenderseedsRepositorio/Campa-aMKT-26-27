@@ -673,7 +673,7 @@ details .details-content {
           <span class="pulse-dot"></span>
           Precampa&ntilde;a abierta
         </div>
-        <div class="last-updated">Actualizado: 8 de julio, 2026 &middot; Nuevo: pesta&ntilde;a Fechas conmemorativas + placa 9 de Julio</div>
+        <div class="last-updated">Actualizado: 8 de julio, 2026 &middot; Nuevo: placas 9 de Julio (formal) + D&iacute;a del Amigo</div>
       </div>
     </div>
   </div>
@@ -758,6 +758,8 @@ details .details-content {
   <div class="cal-row future">
     <div class="cal-week">W30 <small>20/07</small></div>
     <div class="cal-items">
+      <span class="item">&#x1F9C9; Extra: D&iacute;a del Amigo <span class="ic ic-edit"></span></span>
+      <span class="sep">|</span>
       <span class="item"><span class="ic ic-bulb"></span> propuesto</span>
     </div>
   </div>
@@ -1307,6 +1309,7 @@ Feliz D&iacute;a de la Bandera.</div>
      ═══════════════════════════════════════════════════ -->
 <script>
   const PLACAS = [
+    { semana:"W30", fecha:"20/07", pilar:"efemeride",    titulo:"Día del Amigo · etiquetá al amigo", archivo:"placas/2026-07-20-dia-del-amigo.html", nota:"Efeméride · interacción", tipo:"placa" },
     { semana:"W28", fecha:"09/07", pilar:"efemeride",    titulo:"9 de Julio · Independencia", archivo:"placas/2026-07-09-independencia.html", nota:"Efeméride patria · sin pauta", tipo:"placa" },
     { semana:"W28", fecha:"08/07", pilar:"girasol",      titulo:"NS 1113 CL · ensayos CREA", archivo:"placas/w28-post-01-girasol-ns1113.html", nota:"Híbrido bandera girasol", tipo:"placa" },
     { semana:"W27", fecha:"30/06", pilar:"maiz",         titulo:"NS 7765 VIPTERA3",          archivo:"placas/w27-post-01-maiz.html",          nota:"Precampaña maíz",     tipo:"placa" },
@@ -1318,6 +1321,7 @@ Feliz D&iacute;a de la Bandera.</div>
   // Semanas de más nueva a más vieja. Si agregás una semana nueva,
   // ponela arriba de todo. {fecha} es el lunes de esa semana.
   const ORDEN_SEMANAS = [
+    { semana:"W30", fecha:"20/07" },
     { semana:"W28", fecha:"06/07" },
     { semana:"W27", fecha:"29/06" },
     { semana:"W26", fecha:"22/06" }

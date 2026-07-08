@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa 20 de Julio · Día del Amigo</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E;
+  --orange:#F5A623; --celeste:#74ACDF; --verde:#25D366; --amarillo:#F59E0B;
+  --white:#E8EEF7; --grey:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+}
+body { background:#05070d; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:88px 78px 74px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:10; }
+
+/* header */
+.head { display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.logo-hs { height:56px; }
+.kicker { font-family:var(--mono); font-size:19px; letter-spacing:3px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:12px; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px rgba(245,166,35,0.6); }
+
+/* título */
+.title-wrap { position:relative; margin-top:52px; z-index:3; }
+.title { font-family:var(--arch); color:#fff; font-size:84px; line-height:1.02; letter-spacing:-2px; }
+.title .hl { color:var(--orange); }
+.sticker {
+  position:absolute; top:-26px; right:-6px; transform:rotate(4deg);
+  font-family:var(--mono); font-size:20px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--celeste); border:2px dashed rgba(116,172,223,0.65);
+  padding:10px 18px; border-radius:12px; background:rgba(116,172,223,0.08);
+}
+.bajada { font-family:var(--sans); font-size:29px; font-weight:600; color:var(--grey); margin-top:18px; z-index:2; }
+.bajada b { color:var(--white); }
+
+/* tarjetas */
+.cards { display:flex; flex-direction:column; gap:17px; margin-top:40px; z-index:2; }
+.card {
+  display:flex; align-items:center; gap:22px;
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10);
+  border-radius:16px; padding:20px 26px;
+}
+.card .emoji { font-size:40px; line-height:1; flex-shrink:0; }
+.card .txt { font-family:var(--sans); font-size:29px; font-weight:700; color:var(--white); line-height:1.25; }
+.card .txt small { display:block; font-family:var(--mono); font-size:14px; font-weight:400; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+
+.c1 { transform:rotate(-1.1deg); border-left:7px solid var(--orange); }   .c1 small { color:var(--orange); }
+.c2 { transform:rotate(0.9deg);  border-left:7px solid var(--celeste); }  .c2 small { color:var(--celeste); }
+.c3 { transform:rotate(-0.7deg); border-left:7px solid var(--verde); }    .c3 small { color:var(--verde); }
+.c4 { transform:rotate(1.1deg);  border-left:7px solid var(--amarillo); } .c4 small { color:var(--amarillo); }
+.c5 { transform:rotate(-1deg);   border-left:7px solid var(--celeste); }  .c5 small { color:var(--celeste); }
+.c6 { transform:rotate(1.3deg);  border-left:7px solid var(--orange); background:rgba(245,166,35,0.09); border-color:rgba(245,166,35,0.35); }
+.c6 small { color:var(--orange); }
+
+.spacer { flex:1; }
+
+/* cierre */
+.cta-line { font-family:var(--sans); font-size:31px; font-weight:800; color:var(--orange); text-align:center; z-index:2; }
+.footrow { display:flex; justify-content:space-between; align-items:center; margin-top:26px; padding-top:24px; border-top:1px dashed rgba(232,238,247,0.16); z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:30px; background:#fff; padding:6px 10px; border-radius:7px; }
+.redin-logo span { font-family:var(--mono); font-size:16px; letter-spacing:1.5px; color:var(--grey); text-transform:uppercase; }
+.ig-min { font-family:var(--mono); font-size:18px; letter-spacing:1px; color:var(--grey); }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="head">
+    <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+    <div class="kicker"><span class="led"></span> 20 de Julio · Día del Amigo</div>
+  </div>
+
+  <div class="title-wrap">
+    <span class="sticker">edición campo 🧉</span>
+    <div class="title">Etiquetá al<br><span class="hl">amigo</span> que&hellip;</div>
+  </div>
+  <div class="bajada">Todos tenemos <b>uno de cada uno</b>. Repartilos abajo &#x1F447;</div>
+
+  <div class="cards">
+    <div class="card c1"><span class="emoji">&#x1F327;&#xFE0F;</span><span class="txt"><small>01 · el meteorólogo</small>Siempre midió 5 mm más que vos.</span></div>
+    <div class="card c2"><span class="emoji">&#x1F9C9;</span><span class="txt"><small>02 · el cebador</small>Nunca trae yerba, pero ceba como los dioses.</span></div>
+    <div class="card c3"><span class="emoji">&#x1F4F2;</span><span class="txt"><small>03 · el operador</small>Te manda &ldquo;&iquest;viste el precio del maíz?&rdquo; a las 7 AM.</span></div>
+    <div class="card c4"><span class="emoji">&#x1F33B;</span><span class="txt"><small>04 · el visionario</small>Hace tres campañas te repite &ldquo;metele girasol&rdquo;.</span></div>
+    <div class="card c5"><span class="emoji">&#x1F69C;</span><span class="txt"><small>05 · el generoso</small>Te presta la sembradora&hellip; recién cuando termina él.</span></div>
+    <div class="card c6"><span class="emoji">&#x1F3F7;&#xFE0F;</span><span class="txt"><small>06 · el que faltaba</small>Te va a etiquetar en esta placa.</span></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="cta-line">Feliz día a los que hacen más liviana la campaña &#x1F91D;</div>
+
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="ig-min">@henderseeds</div>
+  </div>
+</div>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar feed &middot; 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: feed 1080×1350 (4:5) + historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = '2026-07-20-dia-del-amigo';
+  var STORY_BG = '#05070d';
+  var SCALE = 2;
+  if (window.self !== window.top) return;  // no cargar en miniatura/iframe
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      if (fmt === 'feed') {
+        return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 })
+          .then(function (c) { bajar(c, FILE + '-feed-1080x1350'); });
+      }
+      var frame = document.createElement('div');
+      frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+      var clone = slide.cloneNode(true);
+      clone.style.boxShadow = '0 0 0 2px rgba(245,166,35,0.3)';
+      frame.appendChild(clone);
+      document.body.appendChild(frame);
+      return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { document.body.removeChild(frame); bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>

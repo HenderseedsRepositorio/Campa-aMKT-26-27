@@ -24,11 +24,11 @@
 
 | Opción | Pieza | Esfuerzo | Cuándo elegirla |
 |--------|-------|----------|-----------------|
-| **A (recomendada, lista)** | Placa navy patria con sol de mayo ámbar, franja celeste/blanca, "Feliz Día de la Independencia" + "210 años" → [`docs/placas/2026-07-09-independencia.html`](../../docs/placas/2026-07-09-independencia.html) con botones de descarga feed 4:5 e historia 9:16 | 2 min | Publicación directa, misma línea agro-tech del feed |
+| **A (recomendada, lista)** | Placa navy patria **formal**: composición centrada, sol de mayo entre filetes, franja celeste/blanca, tipografía sobria → [`docs/placas/2026-07-09-independencia.html`](../../docs/placas/2026-07-09-independencia.html) con botones de descarga feed 4:5 e historia 9:16 | 2 min | Publicación directa, tono solemne |
 | B | Variante crema en Canva: duplicar diseño patrio del Día de la Bandera (buscar "Bandera", ID `DAHNHK8XbRE`) y cambiar textos | 15–20 min | Si se prefiere un feed claro para el feriado |
 | C | Historia express: versión 9:16 de la placa A, o foto de campo + bandera + texto en IG | 5 min | Si no se quiere tocar la grilla del feed |
 
-Texto en placa (opción A): kicker *"9 de Julio · 1816—2026"* + **"Feliz Día de la Independencia"** + bajada *"210 años de un país que se construye trabajando la tierra. Feliz día para cada productor que lo sigue empujando, campaña tras campaña."* + zona *"Henderson · Daireaux · Bolívar"* + firma *RED.IN Nidera / @henderseeds*.
+Texto en placa (opción A, versión formal): kicker *"9 de Julio · Día de la Independencia"* + **"Feliz Día de la Independencia"** + *"1816 — 2026 · 210 años"* + lema *"El orgullo de trabajar la tierra argentina, campaña tras campaña."* + zona *"Henderson · Daireaux · Bolívar"* + firma centrada *RED.IN Nidera / @henderseeds*.
 
 ## Método de publicación
 1. **Mié 08/07 (hoy):** elegir opción, descargar placa, dejar copy listo.

@@ -15,97 +15,111 @@
 body { background:#05070d; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
 .slide {
   width:1080px; height:1350px; background:var(--navy);
-  position:relative; overflow:hidden; padding:100px 80px 90px;
-  display:flex; flex-direction:column; flex-shrink:0;
+  position:relative; overflow:hidden; padding:110px 90px 84px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; flex-shrink:0;
 }
+/* resplandor central sobrio, sin grilla: versión formal */
 .slide::after {
-  content:''; position:absolute; inset:0;
-  background-image:
-    linear-gradient(rgba(116,172,223,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(116,172,223,0.05) 1px, transparent 1px);
-  background-size:60px 60px; pointer-events:none;
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 700px 520px at 50% 36%, rgba(116,172,223,0.10), transparent 70%),
+    radial-gradient(ellipse 900px 700px at 50% 110%, rgba(13,45,94,0.35), transparent 75%);
 }
 /* franja bandera arriba */
-.flag { position:absolute; top:0; left:0; right:0; height:14px; display:flex; z-index:10; }
+.flag { position:absolute; top:0; left:0; right:0; height:12px; display:flex; z-index:10; }
 .flag span { flex:1; }
 .flag .c { background:var(--celeste); }
 .flag .b { background:#fff; }
 
-.corner { position:absolute; width:34px; height:34px; border-color:rgba(116,172,223,0.25); border-style:solid; z-index:5; }
-.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
-
-.logo-hs { position:absolute; top:84px; left:80px; height:62px; z-index:6; }
-.kicker {
-  font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase;
-  color:var(--celeste); display:flex; align-items:center; gap:12px; z-index:2; align-self:flex-end;
-}
-.led { width:11px; height:11px; border-radius:50%; background:var(--celeste); box-shadow:0 0 14px rgba(116,172,223,0.7); }
+.logo-hs { height:58px; z-index:2; }
 
 .spacer { flex:1; }
 
-.sol { z-index:2; margin-bottom:44px; filter:drop-shadow(0 0 26px rgba(245,166,35,0.35)); }
+/* sol de mayo flanqueado por filetes */
+.emblema { display:flex; align-items:center; gap:34px; z-index:2; width:100%; justify-content:center; }
+.emblema .linea { flex:1; max-width:250px; height:1px; background:linear-gradient(90deg, transparent, rgba(232,238,247,0.28)); }
+.emblema .linea.der { background:linear-gradient(90deg, rgba(232,238,247,0.28), transparent); }
+.sol { filter:drop-shadow(0 0 30px rgba(245,166,35,0.35)); }
 
-.fecha-line { font-family:var(--mono); font-size:24px; letter-spacing:4px; text-transform:uppercase; color:var(--celeste); z-index:2; margin-bottom:22px; }
-.title { font-family:var(--arch); color:#fff; font-size:92px; line-height:1.04; letter-spacing:-2px; z-index:2; }
+.kicker {
+  font-family:var(--mono); font-size:22px; letter-spacing:5px; text-transform:uppercase;
+  color:var(--celeste); margin-top:52px; z-index:2;
+}
+.title { font-family:var(--arch); color:#fff; font-size:94px; line-height:1.08; letter-spacing:-2px; z-index:2; margin-top:22px; }
 .title .hl { color:var(--celeste); }
-.subtitle { font-family:var(--sans); font-size:34px; font-weight:500; color:var(--white); opacity:.92; line-height:1.45; margin-top:36px; z-index:2; max-width:880px; }
-.subtitle b { color:var(--orange); font-weight:700; }
-.zona { font-family:var(--mono); font-size:21px; letter-spacing:3.5px; text-transform:uppercase; color:var(--grey); margin-top:44px; z-index:2; }
+.years { font-family:var(--mono); font-size:24px; letter-spacing:4px; color:var(--grey); margin-top:34px; z-index:2; }
+.years b { color:var(--white); font-weight:500; }
 
-.footrow { display:flex; justify-content:space-between; align-items:center; margin-top:60px; padding-top:28px; border-top:1px dashed rgba(232,238,247,0.18); z-index:2; }
-.redin-logo { display:flex; align-items:center; gap:14px; }
-.redin-logo img { height:30px; background:#fff; padding:6px 10px; border-radius:7px; }
-.redin-logo span { font-family:var(--mono); font-size:17px; letter-spacing:1.5px; color:var(--grey); text-transform:uppercase; }
-.ig-min { font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--grey); }
+.divisor { width:64px; height:1px; background:rgba(232,238,247,0.3); margin:44px auto 0; z-index:2; }
+
+.lema {
+  font-family:var(--sans); font-size:36px; font-weight:600; color:var(--white);
+  line-height:1.5; margin-top:40px; max-width:800px; z-index:2;
+}
+.zona { font-family:var(--mono); font-size:20px; letter-spacing:4px; text-transform:uppercase; color:var(--grey); margin-top:46px; z-index:2; }
+
+.firma { display:flex; flex-direction:column; align-items:center; gap:16px; z-index:2; width:100%; padding-top:30px; border-top:1px dashed rgba(232,238,247,0.16); }
+.firma-row { display:flex; align-items:center; gap:16px; }
+.firma-row img { height:30px; background:#fff; padding:6px 10px; border-radius:7px; }
+.firma-row span { font-family:var(--mono); font-size:17px; letter-spacing:2px; color:var(--grey); text-transform:uppercase; }
+.ig-min { font-family:var(--mono); font-size:18px; letter-spacing:1.5px; color:rgba(143,160,190,0.75); }
 </style>
 </head>
 <body>
 <div class="slide">
   <div class="flag"><span class="c"></span><span class="b"></span><span class="c"></span></div>
+
   <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
-  <div class="kicker"><span class="led"></span> Efeméride · Argentina</div>
 
   <div class="spacer"></div>
 
-  <!-- Sol de mayo -->
-  <svg class="sol" width="170" height="170" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <g stroke="#F5A623" stroke-width="2.6" stroke-linecap="round">
-      <line x1="50" y1="4"  x2="50" y2="20"/>
-      <line x1="50" y1="80" x2="50" y2="96"/>
-      <line x1="4"  y1="50" x2="20" y2="50"/>
-      <line x1="80" y1="50" x2="96" y2="50"/>
-      <line x1="17.5" y1="17.5" x2="28.8" y2="28.8"/>
-      <line x1="71.2" y1="71.2" x2="82.5" y2="82.5"/>
-      <line x1="17.5" y1="82.5" x2="28.8" y2="71.2"/>
-      <line x1="71.2" y1="28.8" x2="82.5" y2="17.5"/>
-      <line x1="32" y1="7.6" x2="38" y2="21.8" stroke-width="1.8"/>
-      <line x1="62" y1="78.2" x2="68" y2="92.4" stroke-width="1.8"/>
-      <line x1="7.6" y1="68" x2="21.8" y2="62" stroke-width="1.8"/>
-      <line x1="78.2" y1="38" x2="92.4" y2="32" stroke-width="1.8"/>
-      <line x1="7.6" y1="32" x2="21.8" y2="38" stroke-width="1.8"/>
-      <line x1="78.2" y1="62" x2="92.4" y2="68" stroke-width="1.8"/>
-      <line x1="32" y1="92.4" x2="38" y2="78.2" stroke-width="1.8"/>
-      <line x1="62" y1="21.8" x2="68" y2="7.6" stroke-width="1.8"/>
-    </g>
-    <circle cx="50" cy="50" r="21" stroke="#F5A623" stroke-width="3"/>
-    <circle cx="50" cy="50" r="12" fill="#F5A623" opacity="0.9"/>
-  </svg>
+  <!-- Sol de mayo entre filetes -->
+  <div class="emblema">
+    <div class="linea"></div>
+    <svg class="sol" width="128" height="128" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <g stroke="#F5A623" stroke-width="2.4" stroke-linecap="round">
+        <line x1="50" y1="4"  x2="50" y2="19"/>
+        <line x1="50" y1="81" x2="50" y2="96"/>
+        <line x1="4"  y1="50" x2="19" y2="50"/>
+        <line x1="81" y1="50" x2="96" y2="50"/>
+        <line x1="17.5" y1="17.5" x2="28" y2="28"/>
+        <line x1="72" y1="72" x2="82.5" y2="82.5"/>
+        <line x1="17.5" y1="82.5" x2="28" y2="72"/>
+        <line x1="72" y1="28" x2="82.5" y2="17.5"/>
+        <line x1="32" y1="7.6" x2="37.8" y2="21.4" stroke-width="1.7"/>
+        <line x1="62.2" y1="78.6" x2="68" y2="92.4" stroke-width="1.7"/>
+        <line x1="7.6" y1="68" x2="21.4" y2="62.2" stroke-width="1.7"/>
+        <line x1="78.6" y1="37.8" x2="92.4" y2="32" stroke-width="1.7"/>
+        <line x1="7.6" y1="32" x2="21.4" y2="37.8" stroke-width="1.7"/>
+        <line x1="78.6" y1="62.2" x2="92.4" y2="68" stroke-width="1.7"/>
+        <line x1="32" y1="92.4" x2="37.8" y2="78.6" stroke-width="1.7"/>
+        <line x1="62.2" y1="21.4" x2="68" y2="7.6" stroke-width="1.7"/>
+      </g>
+      <circle cx="50" cy="50" r="20" stroke="#F5A623" stroke-width="2.8"/>
+      <circle cx="50" cy="50" r="11" fill="#F5A623" opacity="0.9"/>
+    </svg>
+    <div class="linea der"></div>
+  </div>
 
-  <div class="fecha-line">9 de Julio · 1816 — 2026</div>
+  <div class="kicker">9 de Julio · Día de la Independencia</div>
   <div class="title">Feliz Día de la<br><span class="hl">Independencia</span></div>
-  <div class="subtitle"><b>210 años</b> de un país que se construye trabajando la tierra. Feliz día para cada productor que lo sigue empujando, campaña tras campaña.</div>
+  <div class="years">1816 — 2026 · <b>210 años</b></div>
+
+  <div class="divisor"></div>
+
+  <div class="lema">El orgullo de trabajar la tierra argentina,<br>campaña tras campaña.</div>
 
   <div class="zona">Henderson · Daireaux · Bolívar</div>
 
-  <div class="footrow">
-    <div class="redin-logo">
+  <div class="spacer"></div>
+
+  <div class="firma">
+    <div class="firma-row">
       <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
       <span>RED.IN · Nidera Semillas</span>
     </div>
     <div class="ig-min">@henderseeds</div>
   </div>
-
-  <span class="corner corner-br"></span>
 </div>
 
 <div class="dlbar" style="display:none">

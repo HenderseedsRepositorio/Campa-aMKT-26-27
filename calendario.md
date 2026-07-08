@@ -30,9 +30,15 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 > · [placa descargable](docs/placas/2026-07-09-independencia.html).
 > Publicar **jue 09/07, 8–10 h**, feed + historia, sin pauta, sin CTA comercial.
 >
+> 🧉 **Extra W30 — Día del Amigo (lun 20/07):** placa dinámica "etiquetá al amigo que…"
+> (6 arquetipos de humor de campo). ✍️ Copy + placa listos →
+> [post-04](posts/2026-W30/post-04-dia-del-amigo.md) ·
+> [placa descargable](docs/placas/2026-07-20-dia-del-amigo.html).
+> Publicar **lun 20/07, 8–10 h**, feed + historia con sticker, sin pauta; el CTA es la etiqueta.
+>
 > 🗓️ **Nueva pestaña del dashboard: [Fechas conmemorativas](docs/fechas/index.html)** —
 > calendario anual de efemérides (jul 2026 → jun 2027) con opciones de placa, prioridad y
-> método de publicación. Próxima fecha después del 9/7: **Día del Amigo, lun 20/07 (W30)**.
+> método de publicación.
 
 ## Agosto 2026 — ⚠️ probable tramo final de precampaña: priorizar urgencia real
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
