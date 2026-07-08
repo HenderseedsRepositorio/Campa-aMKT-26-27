@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Fechas Conmemorativas</title>
+<meta name="description" content="Calendario de efemérides 26/27: opciones de placa y método de publicación para cada fecha — HenderSeeds, RED.IN Nidera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A0F1B;
+  --navy-mid: #1A4A8A;
+  --orange: #F5A623;
+  --yellow: #F59E0B;
+  --celeste: #74ACDF;
+  --white: #E8EEF7;
+  --white-pure: #FFFFFF;
+  --green-wa: #25D366;
+  --grey: #8FA0BE;
+  --card-border: rgba(255,255,255,0.09);
+  --card-bg: rgba(255,255,255,0.04);
+  --radius: 14px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+h1, h2, h3 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  line-height: 1.15; letter-spacing: -0.5px;
+}
+.mono { font-family: 'DM Mono', monospace; }
+
+/* ── Nav ── */
+.topnav {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px;
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  flex-wrap: wrap;
+}
+.topnav a { color: var(--grey); text-decoration: none; transition: color .15s; }
+.topnav a:hover { color: var(--orange); }
+.topnav .active { color: var(--celeste); font-weight: 500; }
+.topnav .sep { color: rgba(255,255,255,0.15); }
+
+/* ── Container ── */
+.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+/* ── Header ── */
+.header { padding: 40px 0 32px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+.header h1 { font-size: 26px; color: var(--white-pure); }
+.header h1 span { color: var(--celeste); }
+.header p { font-size: 14px; color: var(--grey); margin-top: 8px; line-height: 1.6; max-width: 720px; }
+
+/* ── Section title ── */
+.section-title {
+  font-size: 18px; margin: 44px 0 16px; color: var(--white-pure);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.section-title .accent { color: var(--orange); }
+.section-title .accent-cel { color: var(--celeste); }
+.section-tag {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--grey); background: rgba(255,255,255,0.06);
+  padding: 3px 10px; border-radius: 4px;
+}
+
+/* ── Hero próxima fecha ── */
+.hero-fecha {
+  background: linear-gradient(135deg, rgba(116,172,223,0.10), rgba(245,166,35,0.06));
+  border: 1px solid rgba(116,172,223,0.35);
+  border-radius: var(--radius); padding: 28px; margin-top: 20px;
+}
+.hero-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.chip-when {
+  font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 2px;
+  background: var(--orange); color: var(--navy);
+  padding: 5px 14px; border-radius: 999px;
+}
+.chip-tipo {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--celeste); border: 1px solid rgba(116,172,223,0.4);
+  padding: 4px 12px; border-radius: 999px;
+}
+.hero-fecha h2 { font-size: 24px; color: var(--white-pure); margin-bottom: 8px; }
+.hero-fecha h2 span { color: var(--celeste); }
+.hero-fecha > p { font-size: 14px; color: var(--white); opacity: .85; max-width: 760px; }
+
+/* ── Cards de opciones ── */
+.opciones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+@media (max-width: 800px) { .opciones { grid-template-columns: 1fr; } }
+.opcion {
+  background: rgba(10,15,27,0.55); border: 1px solid var(--card-border);
+  border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .2s;
+}
+.opcion:hover { border-color: rgba(245,166,35,0.4); }
+.opcion.destacada { border-color: var(--orange); background: rgba(245,166,35,0.06); }
+.opcion-letra {
+  font-family: 'Archivo Black', sans-serif; font-size: 15px; color: var(--orange);
+  display: flex; align-items: center; gap: 10px;
+}
+.opcion-letra .tag-reco {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px;
+  background: var(--orange); color: var(--navy); padding: 2px 8px; border-radius: 4px;
+  text-transform: uppercase;
+}
+.opcion h3 { font-size: 14px; color: var(--white-pure); font-family: 'DM Sans', sans-serif; font-weight: 700; }
+.opcion p { font-size: 13px; color: var(--grey); line-height: 1.55; flex: 1; }
+.opcion-meta { display: flex; flex-direction: column; gap: 5px; border-top: 1px dashed rgba(255,255,255,0.12); padding-top: 10px; }
+.opcion-meta span { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); }
+.opcion-meta b { color: var(--white); font-weight: 500; }
+.opcion a.btn {
+  font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+  background: var(--orange); color: var(--navy); text-decoration: none;
+  padding: 9px 14px; border-radius: 8px; text-align: center; margin-top: 4px;
+}
+.opcion a.btn.sec { background: transparent; border: 1px solid rgba(245,166,35,0.5); color: var(--orange); }
+
+/* ── Copy block ── */
+.copy-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--radius); padding: 22px; margin-top: 16px; position: relative;
+}
+.copy-card .titulo { font-family: 'Archivo Black', sans-serif; font-size: 14px; color: var(--orange); margin-bottom: 10px; }
+.copy-block {
+  background: rgba(0,0,0,0.3); border-radius: 10px; padding: 16px;
+  font-size: 14px; line-height: 1.7; color: rgba(232,238,247,0.92);
+  white-space: pre-wrap; word-wrap: break-word; cursor: pointer;
+}
+.btn-copy {
+  position: absolute; top: 18px; right: 18px;
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  background: var(--orange); color: var(--navy); border: none; border-radius: 6px;
+  padding: 6px 14px; cursor: pointer;
+}
+.hashtags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.hashtag {
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--orange);
+  background: rgba(245,166,35,0.1); padding: 2px 8px; border-radius: 4px;
+}
+
+/* ── Plan de publicación (checklist) ── */
+.plan {
+  margin-top: 16px; background: rgba(37,211,102,0.06);
+  border: 1px solid rgba(37,211,102,0.2); border-radius: 12px; padding: 22px;
+}
+.plan .titulo { font-family: 'Archivo Black', sans-serif; font-size: 15px; color: var(--green-wa); margin-bottom: 14px; }
+.plan-grid { display: grid; grid-template-columns: 110px 1fr; gap: 10px 16px; font-size: 14px; line-height: 1.55; align-items: start; }
+@media (max-width: 640px) { .plan-grid { grid-template-columns: 1fr; gap: 4px; } }
+.plan-grid .cuando { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--green-wa); padding-top: 2px; }
+.plan-grid b { color: var(--white-pure); }
+
+/* ── Reglas ── */
+.reglas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+@media (max-width: 800px) { .reglas { grid-template-columns: 1fr; } }
+.regla {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 12px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+}
+.regla .num {
+  font-family: 'DM Mono', monospace; font-size: 13px; color: var(--orange);
+  background: rgba(245,166,35,0.1); border-radius: 50%;
+  width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.regla p { font-size: 13.5px; color: var(--white); line-height: 1.55; }
+.regla b { color: var(--orange); }
+
+/* ── Matriz de prioridad ── */
+.matriz { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
+.matriz th {
+  font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--grey); text-align: left;
+  padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.matriz td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; color: var(--white); }
+.matriz td:first-child { white-space: nowrap; }
+
+/* ── Badges ── */
+.badge {
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 1.2px;
+  padding: 3px 10px; border-radius: 4px; display: inline-block;
+}
+.badge-alta { background: var(--orange); color: var(--navy); }
+.badge-media { background: var(--celeste); color: var(--navy); }
+.badge-baja { background: rgba(255,255,255,0.08); color: var(--grey); border: 1px solid rgba(255,255,255,0.15); }
+
+/* ── Tabla calendario anual ── */
+.tabla-wrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--card-border); border-radius: var(--radius); }
+.tabla-fechas { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 780px; }
+.tabla-fechas thead th {
+  font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--grey); text-align: left;
+  padding: 12px 14px; background: rgba(0,0,0,0.35);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  position: sticky; top: 0;
+}
+.tabla-fechas tbody td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+.tabla-fechas tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tabla-fechas tbody tr.pasada { opacity: .38; }
+.tabla-fechas tbody tr.proxima { background: rgba(245,166,35,0.07); }
+.tabla-fechas tbody tr.proxima td:first-child { border-left: 3px solid var(--orange); }
+.td-fecha { font-family: 'DM Mono', monospace; color: var(--white-pure); white-space: nowrap; }
+.td-fecha small { display: block; color: var(--grey); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.td-nombre { font-weight: 700; color: var(--white-pure); min-width: 170px; }
+.td-nombre small { display: block; font-weight: 400; color: var(--grey); font-size: 12px; line-height: 1.5; margin-top: 2px; }
+.td-formato, .td-pub { font-size: 12.5px; color: var(--white); opacity: .9; min-width: 130px; }
+.chip-dias {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap; display: inline-block; margin-top: 4px;
+}
+.chip-hoy { background: var(--orange); color: var(--navy); font-weight: 500; }
+.chip-pronto { background: rgba(245,166,35,0.15); color: var(--orange); }
+.chip-lejos { background: rgba(255,255,255,0.07); color: var(--grey); }
+.chip-paso { background: transparent; color: rgba(143,160,190,0.6); border: 1px dashed rgba(143,160,190,0.3); }
+.chip-completar { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px dashed rgba(245,158,11,0.5); }
+.link-placa { color: var(--orange); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; }
+.link-placa:hover { text-decoration: underline; }
+
+/* ── Nota ── */
+.nota {
+  margin-top: 14px; padding: 12px 16px; background: rgba(245,166,35,0.06);
+  border-left: 3px solid var(--orange); border-radius: 0 8px 8px 0;
+  font-size: 13.5px; color: var(--white); line-height: 1.6;
+}
+.nota b { color: var(--orange); }
+.nota.cel { background: rgba(116,172,223,0.07); border-left-color: var(--celeste); }
+.nota.cel b { color: var(--celeste); }
+
+/* ── Caminos (cómo armar la placa) ── */
+.caminos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+@media (max-width: 800px) { .caminos { grid-template-columns: 1fr; } }
+.camino { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; }
+.camino .paso { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+.camino h3 { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; color: var(--white-pure); margin-bottom: 8px; }
+.camino p { font-size: 13px; color: var(--grey); line-height: 1.55; }
+.camino b { color: var(--white); }
+
+/* ── Footer ── */
+.footer {
+  margin-top: 60px; padding: 32px 0;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+  text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey);
+}
+.footer a { color: var(--orange); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .header h1 { font-size: 20px; }
+  .hero-fecha { padding: 20px; }
+  .hero-fecha h2 { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="topnav">
+  <a href="../">Dashboard</a>
+  <span class="sep">|</span>
+  <a href="../nidera/">Portafolio Nidera</a>
+  <span class="sep">|</span>
+  <a href="../maquetas/">Maquetas</a>
+  <span class="sep">|</span>
+  <a href="../reels/">Reels</a>
+  <span class="sep">|</span>
+  <a href="../twitter/">X / Twitter</a>
+  <span class="sep">|</span>
+  <a href="./" class="active">Fechas</a>
+  <span style="color:rgba(255,255,255,0.3);margin-left:auto">HenderSeeds &middot; Precampa&ntilde;a 26/27</span>
+</nav>
+
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>Fechas <span>conmemorativas</span></h1>
+  <p>Efem&eacute;rides del a&ntilde;o con &aacute;ngulo Henderseeds: qu&eacute; placa armar, en qu&eacute; formato y c&oacute;mo publicarla. Las efem&eacute;rides son <b style="color:var(--white-pure)">presencia de marca, no venta</b>: van fuera de la rotaci&oacute;n semanal y sin pauta.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PRÓXIMA FECHA — 9 DE JULIO
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent-cel">Pr&oacute;xima fecha</span> 9 de Julio <span class="section-tag">D&iacute;a de la Independencia</span></h2>
+
+<div class="hero-fecha">
+  <div class="hero-top">
+    <span class="chip-when" id="hero-when">JUE 09/07</span>
+    <span class="chip-tipo">🇦🇷 Efem&eacute;ride patria &middot; prioridad alta</span>
+  </div>
+  <h2>210 a&ntilde;os de un pa&iacute;s que se construye <span>trabajando la tierra</span></h2>
+  <p>El &aacute;ngulo: la independencia como decisi&oacute;n de jugarla sin garant&iacute;as — lo mismo que hace el productor cada campa&ntilde;a. Saludo emotivo, cero venta. Eleg&iacute; una de las tres opciones de placa y segu&iacute; el plan de publicaci&oacute;n de abajo.</p>
+
+  <!-- Opciones de placa -->
+  <div class="opciones">
+
+    <div class="opcion destacada">
+      <div class="opcion-letra">Opci&oacute;n A <span class="tag-reco">Lista &middot; recomendada</span></div>
+      <h3>Placa navy patria — sol de mayo</h3>
+      <p>Fondo navy de marca con franja celeste y blanca, sol de mayo en &aacute;mbar, &ldquo;Feliz D&iacute;a de la Independencia&rdquo; + bajada &ldquo;210 a&ntilde;os&rdquo;. Ya est&aacute; armada en el repo con bot&oacute;n de descarga en feed (4:5) e historia (9:16).</p>
+      <div class="opcion-meta">
+        <span>Esfuerzo: <b>2 min (descargar y publicar)</b></span>
+        <span>Formato: <b>feed 1080&times;1350 + historia</b></span>
+      </div>
+      <a class="btn" href="../placas/2026-07-09-independencia.html" target="_blank">Ver placa y descargar &rarr;</a>
+    </div>
+
+    <div class="opcion">
+      <div class="opcion-letra">Opci&oacute;n B</div>
+      <h3>Variante crema en Canva</h3>
+      <p>Si prefer&iacute;s un feed m&aacute;s claro para el feriado: fondo crema, texto navy, escarapela minimal. En Canva (cuenta henderseeds@gmail.com), duplicar el dise&ntilde;o patrio del D&iacute;a de la Bandera (buscar &ldquo;Bandera&rdquo;, ID <span class="mono">DAHNHK8XbRE</span>) y cambiar los textos por los del 9 de Julio.</p>
+      <div class="opcion-meta">
+        <span>Esfuerzo: <b>15&ndash;20 min en Canva</b></span>
+        <span>Formato: <b>feed 1080&times;1350</b></span>
+      </div>
+    </div>
+
+    <div class="opcion">
+      <div class="opcion-letra">Opci&oacute;n C</div>
+      <h3>Historia express (sin tocar el feed)</h3>
+      <p>Si no quer&eacute;s interrumpir la grilla del feed: us&aacute; el bot&oacute;n &ldquo;historia 9:16&rdquo; de la placa A, o una foto de campo de la zona con la bandera y el texto &ldquo;Feliz 9 de Julio&rdquo; en la tipograf&iacute;a de IG. Publicar y listo.</p>
+      <div class="opcion-meta">
+        <span>Esfuerzo: <b>5 min</b></span>
+        <span>Formato: <b>historia 1080&times;1920</b></span>
+      </div>
+      <a class="btn sec" href="../placas/2026-07-09-independencia.html" target="_blank">Descargar versi&oacute;n historia &rarr;</a>
+    </div>
+
+  </div>
+
+  <!-- Copy IG/FB -->
+  <div class="copy-card">
+    <div class="titulo">Copy Instagram / Facebook &mdash; listo para pegar</div>
+    <div class="copy-block" id="copy-ig" title="Clic para copiar">210 años de decir &ldquo;vamos para adelante&rdquo;. 🇦🇷
+
+Un 9 de julio de 1816, las Provincias Unidas decidieron arreglárselas solas. Algo de esa decisión sigue viva en el campo: cada año se elige sembrar, bancar el clima y jugarla sin garantías.
+
+Feliz Día de la Independencia para cada productor de Henderson, Daireaux y Bolívar que la sigue empujando, campaña tras campaña.
+
+De productor a productor: ¡feliz 9 de Julio!</div>
+    <div class="hashtags">
+      <span class="hashtag">#9DeJulio</span>
+      <span class="hashtag">#DiaDeLaIndependencia</span>
+      <span class="hashtag">#Henderseeds</span>
+      <span class="hashtag">#AgroArgentino</span>
+      <span class="hashtag">#OesteBonaerense</span>
+    </div>
+    <button class="btn-copy" data-target="copy-ig">Copiar copy</button>
+  </div>
+
+  <!-- Copy X -->
+  <div class="copy-card">
+    <div class="titulo">Versi&oacute;n X / Twitter</div>
+    <div class="copy-block" id="copy-x" title="Clic para copiar">210 años de decir &ldquo;vamos para adelante&rdquo;. 🇦🇷
+
+Feliz Día de la Independencia para cada productor que la sigue empujando, campaña tras campaña.</div>
+    <button class="btn-copy" data-target="copy-x">Copiar copy</button>
+  </div>
+
+  <!-- Plan de publicación 9 de julio -->
+  <div class="plan">
+    <div class="titulo">M&eacute;todo de publicaci&oacute;n &mdash; 9 de Julio</div>
+    <div class="plan-grid">
+      <span class="cuando">HOY MI&Eacute; 08/07</span>
+      <span>Elegir opci&oacute;n (A recomendada), <b>descargar la placa</b> y dejar el copy listo en notas del celu. Si va la B, armarla hoy en Canva.</span>
+      <span class="cuando">JUE 09/07 &middot; 8&ndash;10 h</span>
+      <span><b>Publicar en feed IG + FB</b> (mate del feriado: es el mejor horario) y <b>compartir a historia</b> al toque. Si eleg&iacute;s la C, solo historia en ese horario.</span>
+      <span class="cuando">PAUTA</span>
+      <span><b>No se pauta.</b> Org&aacute;nico puro: la pauta queda reservada a piezas de precampa&ntilde;a (reel, placas de h&iacute;bridos).</span>
+      <span class="cuando">CTA</span>
+      <span><b>Sin CTA comercial.</b> Cierre emotivo + firma de marca (precedente aprobado: D&iacute;a de la Bandera, W25).</span>
+      <span class="cuando">OJO</span>
+      <span>No mezclar con la rotaci&oacute;n: si el post de girasol NS 1113 (W28) todav&iacute;a no sali&oacute;, publicarlo <b>viernes 10/07 o lunes 13/07</b>. El jueves es solo para el saludo.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     MÉTODO DE PUBLICACIÓN — REGLAS GENERALES
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent">M&eacute;todo</span> de publicaci&oacute;n <span class="section-tag">reglas para efem&eacute;rides</span></h2>
+
+<div class="reglas">
+  <div class="regla"><span class="num">1</span><p><b>Presencia, no venta.</b> Cero precampa&ntilde;a, precios o h&iacute;bridos en el saludo. La efem&eacute;ride construye cercan&iacute;a; la venta va en los posts de rotaci&oacute;n.</p></div>
+  <div class="regla"><span class="num">2</span><p><b>Sin pauta.</b> Nunca se promociona un saludo. El presupuesto de Meta va a reels y placas de precampa&ntilde;a.</p></div>
+  <div class="regla"><span class="num">3</span><p><b>Fuera de rotaci&oacute;n.</b> Es un extra: no reemplaza los 2&ndash;3 posts semanales ni corre el calendario. Si coincide con un post, el post se corre un d&iacute;a.</p></div>
+  <div class="regla"><span class="num">4</span><p><b>Horario 8&ndash;10 h</b> del d&iacute;a de la fecha (mate + celular). Feriados rinden a la ma&ntilde;ana.</p></div>
+  <div class="regla"><span class="num">5</span><p><b>Sin CTA comercial</b> y con voseo de siempre. M&aacute;ximo <b>5 hashtags</b>. Nada de &ldquo;&iexcl;Feliz d&iacute;a!&rdquo; gen&eacute;rico: siempre un &aacute;ngulo propio (campo, zona, productor).</p></div>
+  <div class="regla"><span class="num">6</span><p><b>Prioridad manda el formato:</b> alta &rarr; placa en feed + historia; media &rarr; historia (placa opcional); baja &rarr; historia simple o nada. <b>No forzar</b>: si no hay &aacute;ngulo genuino, se saltea.</p></div>
+  <div class="regla"><span class="num">7</span><p><b>Preparar 2&ndash;3 d&iacute;as antes</b> (placa + copy aprobado). El d&iacute;a de la fecha solo se publica.</p></div>
+  <div class="regla"><span class="num">8</span><p><b>Fechas sensibles</b> (Malvinas): tono sobrio, sin logo protagonista, sin emojis festivos, sin interacci&oacute;n forzada.</p></div>
+</div>
+
+<table class="matriz">
+  <thead>
+    <tr><th>Prioridad</th><th>Formato de placa</th><th>Publicaci&oacute;n</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge badge-alta">Alta</span></td>
+      <td>Placa feed 1080&times;1350 (navy o crema seg&uacute;n el caso) + versi&oacute;n historia</td>
+      <td>Feed IG + FB a las 8&ndash;10 h del d&iacute;a + compartir a historia. Org&aacute;nico, sin CTA comercial.</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-media">Media</span></td>
+      <td>Historia 1080&times;1920; placa de feed solo si sobra tiempo</td>
+      <td>Historia el d&iacute;a de la fecha; sticker de interacci&oacute;n (encuesta/etiqueta) si suma.</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-baja">Baja</span></td>
+      <td>Historia simple (foto de la zona + texto de IG)</td>
+      <td>Solo si hay tiempo. Se puede saltear sin culpa.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="nota"><b>Regla de oro:</b> la efem&eacute;ride es la &uacute;nica excepci&oacute;n a &ldquo;CTA siempre a WhatsApp&rdquo; (precedente aprobado en el D&iacute;a de la Bandera W25). Todo lo dem&aacute;s de <span class="mono">CLAUDE.md</span> sigue vigente: voseo, sin datos inventados, sin precios ni condiciones.</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CÓMO ARMAR LA PLACA
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent">C&oacute;mo armar</span> la placa <span class="section-tag">3 caminos</span></h2>
+
+<div class="caminos">
+  <div class="camino">
+    <div class="paso">Camino 1 &middot; el m&aacute;s r&aacute;pido</div>
+    <h3>Placa HTML del repo</h3>
+    <p>Si la fecha ya tiene placa en <b>docs/placas/</b> (como el 9 de Julio), abrila y us&aacute; los botones <b>&ldquo;Descargar feed / historia&rdquo;</b>. Sale en PNG retina lista para subir.</p>
+  </div>
+  <div class="camino">
+    <div class="paso">Camino 2 &middot; Canva</div>
+    <h3>Brand Kit Henderseeds</h3>
+    <p>En Canva (henderseeds@gmail.com) con el <b>Brand Kit</b>: duplicar un dise&ntilde;o de efem&eacute;ride anterior (base patria: &ldquo;Bandera&rdquo;, ID <span class="mono">DAHNHK8XbRE</span>) y cambiar textos. Respetar paleta navy + naranja de <b>brand/identidad.md</b>.</p>
+  </div>
+  <div class="camino">
+    <div class="paso">Camino 3 &middot; pedirla</div>
+    <h3>Ped&iacute;rsela a Claude</h3>
+    <p>En una sesi&oacute;n del repo: <b>&ldquo;armame la placa del D&iacute;a del Agricultor seg&uacute;n la pesta&ntilde;a Fechas&rdquo;</b>. Se genera el HTML en docs/placas/, queda linkeada ac&aacute; y en la galer&iacute;a del dashboard.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CALENDARIO ANUAL
+     ═══════════════════════════════════════════════════ -->
+<h2 class="section-title"><span class="accent">Calendario</span> anual 26/27 <span class="section-tag">jul 2026 &rarr; jun 2027</span></h2>
+<p style="font-size:13.5px;color:var(--grey);max-width:760px;line-height:1.6">Fechas con &aacute;ngulo para Henderseeds. La fila resaltada es la pr&oacute;xima. Las de prioridad <span class="badge badge-alta" style="font-size:9px">alta</span> se planifican s&iacute; o s&iacute;; las <span class="badge badge-media" style="font-size:9px">media</span> si hay tiempo; las <span class="badge badge-baja" style="font-size:9px">baja</span> son opcionales.</p>
+
+<div class="tabla-wrap">
+  <table class="tabla-fechas">
+    <thead>
+      <tr>
+        <th style="width:110px">Fecha</th>
+        <th>Fecha conmemorativa &middot; &aacute;ngulo Henderseeds</th>
+        <th style="width:70px">Prioridad</th>
+        <th style="width:170px">Placa sugerida</th>
+        <th style="width:180px">Publicaci&oacute;n</th>
+      </tr>
+    </thead>
+    <tbody id="tbody-fechas"></tbody>
+  </table>
+</div>
+
+<div class="nota cel"><b>Fechas m&oacute;viles:</b> Fiesta Nacional del Girasol (Carlos Casares) y Expoagro cambian de fecha cada edici&oacute;n &mdash; confirmarlas y completarlas ac&aacute;. &iquest;Falta una fecha? Se agrega una l&iacute;nea al array <span class="mono">FECHAS</span> en el c&oacute;digo de esta p&aacute;gina (mismo sistema que la galer&iacute;a de placas del dashboard).</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <a href="../">&larr; Dashboard</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../maquetas/">Maquetas</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../reels/">Reels</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../twitter/">X / Twitter</a>
+  <br><br>
+  HenderSeeds &middot; RED.IN Nidera Semillas &middot; Dashboard interno
+</footer>
+
+</div><!-- /container -->
+
+<script>
+// ── Copiar copys ──────────────────────────────────────
+document.querySelectorAll('.btn-copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var t = document.getElementById(btn.getAttribute('data-target'));
+    navigator.clipboard.writeText(t.innerText);
+    var orig = btn.textContent;
+    btn.textContent = 'Copiado!';
+    setTimeout(function () { btn.textContent = orig; }, 2000);
+  });
+});
+document.querySelectorAll('.copy-block').forEach(function (blk) {
+  blk.addEventListener('click', function () { navigator.clipboard.writeText(blk.innerText); });
+});
+
+// ── Calendario anual ──────────────────────────────────
+// Para agregar una fecha nueva: sumá UN objeto al array FECHAS (orden cronológico).
+// fecha: 'AAAA-MM-DD' o null si está por confirmar (mostrará [COMPLETAR]).
+var FECHAS = [
+  { fecha:'2026-07-09', nombre:'🇦🇷 Día de la Independencia', angulo:'210 años de un país que se construye trabajando la tierra. Placa lista en el repo.', prio:'alta', formato:'Placa navy patria (lista) + historia', pub:'Feed + historia · 8–10 h · sin pauta', link:'../placas/2026-07-09-independencia.html' },
+  { fecha:'2026-07-20', nombre:'Día del Amigo', angulo:'“El amigo que te pasa el dato”: etiquetá al que siempre te avisa. Cercanía pura, cae lunes.', prio:'alta', formato:'Placa liviana o historia con sticker “etiquetá a…”', pub:'Feed liviano o historia · 8–10 h' },
+  { fecha:'2026-08-06', nombre:'Día del Ingeniero Agrónomo', angulo:'Saludo a los agrónomos que recorren lotes con nosotros; guiño al asesoramiento RED.IN.', prio:'media', formato:'Historia (placa opcional)', pub:'Historia en el día' },
+  { fecha:'2026-08-17', nombre:'🇦🇷 Paso a la Inmortalidad del Gral. San Martín', angulo:'Feriado, tono respetuoso y breve. Sin marca protagonista.', prio:'media', formato:'Historia sobria', pub:'Historia a la mañana' },
+  { fecha:'2026-09-08', nombre:'⭐ Día del Agricultor y del Productor Agropecuario', angulo:'LA fecha del rubro: gracias a los que siembran. Coincide con probable tramo final de precampaña — el saludo va limpio; la venta, en otro post de la semana.', prio:'alta', formato:'Placa feed + historia (ideal: fotos reales de productores de la zona)', pub:'Feed + historia · 8–10 h · sin pauta' },
+  { fecha:'2026-09-21', nombre:'Día de la Primavera', angulo:'Guiño liviano: la primavera en el oeste arranca con el girasol yendo al suelo.', prio:'baja', formato:'Historia simple', pub:'Historia, solo si hay tiempo' },
+  { fecha:'2026-10-16', nombre:'Día Mundial de la Alimentación', angulo:'“El campo alimenta”: dato simple de lo que produce la zona.', prio:'baja', formato:'Historia simple', pub:'Historia, opcional' },
+  { fecha:'2026-10-18', nombre:'Día de la Madre (Argentina)', angulo:'Madres del campo: las que sostienen la casa y el lote. Emotivo, sin estereotipos.', prio:'alta', formato:'Placa feed o historia', pub:'Feed u historia · domingo a la mañana' },
+  { fecha:'2026-11-10', nombre:'Día de la Tradición', angulo:'José Hernández y el Martín Fierro: campo, mate y tradición. Foto real de la zona.', prio:'media', formato:'Historia o placa con foto', pub:'Historia en el día' },
+  { fecha:'2026-11-20', nombre:'🇦🇷 Día de la Soberanía Nacional', angulo:'Sobrio y breve.', prio:'baja', formato:'Historia sobria', pub:'Historia, opcional' },
+  { fecha:'2026-11-30', nombre:'Día Nacional del Mate', angulo:'El socio de cada recorrida de lote. Foto real del termo en la camioneta > stock.', prio:'media', formato:'Historia (placa liviana opcional)', pub:'Historia · 8–10 h' },
+  { fecha:'2026-12-05', nombre:'Día Mundial del Suelo', angulo:'Cruce con pilar técnico: un dato de suelo del oeste (con fuente, si no hay → se saltea).', prio:'media', formato:'Placa técnica', pub:'Feed si el dato es bueno' },
+  { fecha:'2026-12-25', nombre:'Navidad', angulo:'Saludo de fin de año del equipo. Foto real del equipo si hay.', prio:'alta', formato:'Placa feed + historia', pub:'Feed + historia · 24/12 a la tarde o 25/12 temprano' },
+  { fecha:'2027-01-01', nombre:'Año Nuevo', angulo:'Balance de campaña + deseo: que el 2027 arranque con el perfil cargado.', prio:'alta', formato:'Placa feed', pub:'Feed · 31/12 tarde o 01/01 mañana' },
+  { fecha:null, fechaTxt:'ene/feb 2027', nombre:'Fiesta Nacional del Girasol — Carlos Casares', angulo:'Es acá nomás y es NUESTRO cultivo. Si el equipo va: cobertura en historias. [COMPLETAR: fecha edición 2027]', prio:'alta', formato:'Historias desde el lugar + placa si participamos', pub:'Historias en vivo' },
+  { fecha:'2027-03-08', nombre:'Día Internacional de la Mujer', angulo:'Mujeres del agro de la zona: reales, con nombre y rol, si dan el ok.', prio:'media', formato:'Placa o historia', pub:'Feed u historia · 8–10 h' },
+  { fecha:null, fechaTxt:'marzo 2027', nombre:'Expoagro', angulo:'Si el equipo asiste: historias desde el predio, encuentros con Nidera. [COMPLETAR: fechas edición 2027 y asistencia]', prio:'media', formato:'Historias + post resumen', pub:'Historias en vivo' },
+  { fecha:'2027-04-02', nombre:'🇦🇷 Día del Veterano y de los Caídos en Malvinas', angulo:'Solo homenaje. Sin logo protagonista, sin tono festivo, sin CTA, sin stickers.', prio:'alta', formato:'Placa sobria o historia sobria', pub:'Feed o historia · a la mañana · sin pauta' },
+  { fecha:'2027-05-01', nombre:'Día del Trabajador', angulo:'El trabajo del campo no para: saludo simple.', prio:'media', formato:'Historia', pub:'Historia a la mañana' },
+  { fecha:'2027-05-25', nombre:'🇦🇷 Revolución de Mayo', angulo:'Patria + producción, mismo molde que el 9 de Julio. Locro de por medio.', prio:'alta', formato:'Placa feed patria + historia', pub:'Feed + historia · 8–10 h' },
+  { fecha:'2027-06-20', nombre:'🇦🇷 Día de la Bandera + Día del Padre', angulo:'Coinciden en 2027: bandera a la mañana (reusar base Canva DAHNHK8XbRE), padres del campo al mediodía o en historia.', prio:'alta', formato:'Placa feed + historia', pub:'Feed + historia · repartir horarios' }
+];
+
+function parseFecha(iso) {
+  var p = iso.split('-');
+  return new Date(+p[0], +p[1] - 1, +p[2]);
+}
+function diasHasta(iso) {
+  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  return Math.round((parseFecha(iso) - hoy) / 86400000);
+}
+function chipCuando(n) {
+  if (n === 0)  return '<span class="chip-dias chip-hoy">HOY</span>';
+  if (n === 1)  return '<span class="chip-dias chip-hoy">MAÑANA</span>';
+  if (n > 1 && n <= 21) return '<span class="chip-dias chip-pronto">en ' + n + ' días</span>';
+  if (n > 21)   return '<span class="chip-dias chip-lejos">en ' + n + ' días</span>';
+  return '<span class="chip-dias chip-paso">pasó</span>';
+}
+function fmtFecha(iso) {
+  var d = parseFecha(iso);
+  var dias = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
+  var dd = ('0' + d.getDate()).slice(-2);
+  var mm = ('0' + (d.getMonth() + 1)).slice(-2);
+  return dd + '/' + mm + '/' + String(d.getFullYear()).slice(-2) + '<small>' + dias[d.getDay()] + '</small>';
+}
+
+(function render() {
+  var tbody = document.getElementById('tbody-fechas');
+  var proximaMarcada = false;
+  var html = FECHAS.map(function (f) {
+    var clase = '', cuando = '', celFecha = '';
+    if (f.fecha) {
+      var n = diasHasta(f.fecha);
+      cuando = chipCuando(n);
+      if (n < 0) clase = 'pasada';
+      else if (!proximaMarcada) { clase = 'proxima'; proximaMarcada = true; }
+      celFecha = fmtFecha(f.fecha);
+    } else {
+      celFecha = '<span style="color:var(--grey)">' + f.fechaTxt + '</span>';
+      cuando = '<span class="chip-dias chip-completar">[COMPLETAR]</span>';
+    }
+    var nombre = f.nombre + (f.link ? ' &nbsp;<a class="link-placa" href="' + f.link + '" target="_blank">ver placa →</a>' : '');
+    return '<tr class="' + clase + '">' +
+      '<td class="td-fecha">' + celFecha + '<br>' + cuando + '</td>' +
+      '<td class="td-nombre">' + nombre + '<small>' + f.angulo + '</small></td>' +
+      '<td><span class="badge badge-' + f.prio + '">' + f.prio + '</span></td>' +
+      '<td class="td-formato">' + f.formato + '</td>' +
+      '<td class="td-pub">' + f.pub + '</td>' +
+      '</tr>';
+  }).join('');
+  tbody.innerHTML = html;
+
+  // Chip dinámico del hero (9 de Julio)
+  var n9 = diasHasta('2026-07-09');
+  var hero = document.getElementById('hero-when');
+  if (n9 === 1) hero.textContent = 'MAÑANA · JUE 09/07';
+  else if (n9 === 0) hero.textContent = 'HOY · JUE 09/07';
+  else if (n9 < 0) hero.textContent = 'JUE 09/07 · publicado?';
+  else hero.textContent = 'JUE 09/07 · en ' + n9 + ' días';
+})();
+</script>
+
+</body>
+</html>
