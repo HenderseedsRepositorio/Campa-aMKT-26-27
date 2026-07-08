@@ -25,6 +25,15 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W30 | 20/07 | 💡 Girasol: posicionamiento por lote | 💡 Márgenes: maíz temprano vs. tardío en números | 💡 Institucional: historia con productor de la zona |
 | 2026-W31 | 27/07 | 💡 Maíz: planteo de punta (VIPTERA3) | 💡 Herramientas financieras (reventa) | 💡 Técnico: tip de pre-siembra |
 
+> 🇦🇷 **Extra W28 — 9 de Julio (Día de la Independencia):** post institucional/emotivo
+> fuera de rotación. ✍️ Copy + placa listos → [post-04](posts/2026-W28/post-04-9-de-julio.md)
+> · [placa descargable](docs/placas/2026-07-09-independencia.html).
+> Publicar **jue 09/07, 8–10 h**, feed + historia, sin pauta, sin CTA comercial.
+>
+> 🗓️ **Nueva pestaña del dashboard: [Fechas conmemorativas](docs/fechas/index.html)** —
+> calendario anual de efemérides (jul 2026 → jun 2027) con opciones de placa, prioridad y
+> método de publicación. Próxima fecha después del 9/7: **Día del Amigo, lun 20/07 (W30)**.
+
 ## Agosto 2026 — ⚠️ probable tramo final de precampaña: priorizar urgencia real
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|
