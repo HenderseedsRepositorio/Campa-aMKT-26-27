@@ -76,6 +76,11 @@ atribuibles al post · WA = ídem por WhatsApp.
 
 ## Línea base y objetivos
 
+**Número norte (provisorio):** `[COMPLETAR: definir con Henderseeds — ej. "5
+conversaciones comerciales nuevas por semana durante precampaña"]`. Sin ese
+número, la tabla semanal no tiene contra qué compararse. Se ajusta con los
+datos reales de W27–W30.
+
 Todavía **no hay línea base**: se construye con las primeras 4 semanas de datos
 reales. Cuando estén cargadas W27–W30, definir acá:
 

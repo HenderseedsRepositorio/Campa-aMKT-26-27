@@ -5,18 +5,24 @@
 
 ## Goal activo
 
-**Tener la semana W28 completa (3 posts listos para publicar) antes del 10/07.**
+**W28: PUBLICAR (no redactar) — 2 piezas en la calle y el sistema de medición arrancado, antes del 12/07.**
+
+> Cambio de doctrina tras la crítica de estrategia (08/07): el cuello de botella
+> no es producir, es publicar. En 5 semanas se redactaron ~12 piezas y se
+> publicaron 3. Regla nueva: **publicado o no existe.**
 
 ### Criterios de "hecho"
-- [x] Post 1 — Girasol NS 1113 CL con ensayos CREA (v2, reemplaza al de "CL explicado") → `posts/2026-W28/post-01-girasol-ns1113.md` + placa
-- [ ] Post 2 — Finanzas: canje grano por semilla
-- [ ] Post 3 — Técnico: dato de manejo girasol
-- [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA (DM primario + WA)
-- [ ] Pasa el checklist de `brand/tono-voz.md`
-- [ ] Ningún dato inventado — los `[COMPLETAR]` están listados
-- [x] `calendario.md` actualizado (💡 → ✍️ con links)
-- [ ] Brief de pauta creado si algún post lo amerita
-- [x] Variedad de pilares respetada (cultivo + negocio + comunidad)
+- [ ] 📤 Publicar NS 1113 CL (post + placa **ya listos**) en feed + Estados de WhatsApp
+- [ ] 📤 Publicar 2ª pieza: "Precampaña vs. esperar" (borrador W27, [placa ya hecha](docs/placas/w27-post-02-finanzas.html))
+- [ ] Cargar métricas reales de W27 en `metricas.md` (post maíz + reel pautado)
+- [ ] Conseguir de Nidera fechas de escalones/cierre → cargar en `contexto/calendario-comercial.md`
+- [ ] Subir las primeras fotos reales a `docs/assets/fotos/` (mínimo 5)
+- [x] Post NS 1113 CL redactado con fuentes independientes (CREA)
+- [x] `calendario.md` sincerado (♻️/🗄️) y pasado al modelo "1 idea semanal"
+
+### Congelamiento de infraestructura (hasta septiembre)
+No crear páginas, sistemas ni artefactos nuevos. La infraestructura ya alcanza:
+las sesiones producen contenido, marcas de publicado y métricas cargadas.
 
 ---
 
@@ -55,12 +61,11 @@ Cada vez que entro al proyecto, sigo este ciclo:
 
 ## Cola de goals (próximos)
 
-1. **Cargar métricas reales en `metricas.md`** — W27 (post maíz + reel pautado): primer registro con datos de Meta Business Suite
-2. **Primer reel** — guion según plantilla para uno de los posts existentes
-3. **Carrusel maíz** — HTML single-file comparando los 3 maíces VIP3
-4. **Brief de pauta consolidado** — al menos 2 posts pautados con brief en `meta-ads/`
-5. **Revisar W25 y W26** — subir calidad de borradores existentes (self-review)
-6. **Actualizar página web** — reflejar el contenido nuevo en `docs/index.html`
+1. **W29 según modelo nuevo** — idea "hacé tus números": placa calculadora (♻️ W25) + pieza humana equipo (♻️ W27-03 con foto real)
+2. **Banco de fotos reales** — 10+ fotos en `docs/assets/fotos/` (lotes, recorridas, equipo)
+3. **Definir el número norte en `metricas.md`** — X conversaciones nuevas/semana (decidirlo con datos de W27–W28)
+4. **Brief de pauta para NS 1113 v2** — si el orgánico funciona, pautarlo (reutilizar base del brief W26)
+5. **Primer caso real con productor** — pedir permiso + foto a un cliente para historia (1/mes)
 
 ---
 

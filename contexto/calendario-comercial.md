@@ -1,5 +1,11 @@
 # Calendario comercial 26/27
 
+> ⚠️ **PENDIENTE CRÍTICO — BLOQUEA TODO EL CONTENIDO DE AGOSTO:**
+> conseguir de Nidera las **fechas de escalones y cierre de precampaña**.
+> Sin hito real no hay posts de urgencia (regla: nada de falsa escasez), y el
+> tramo final de la campaña se comunica en el aire. Es un llamado al RTV de
+> Nidera: la acción de mayor palanca de todo el proyecto. `[COMPLETAR]`
+
 > Las fechas y condiciones de precampaña las define **Nidera**. Henderseeds las
 > carga acá apenas las confirma. Sin fecha confirmada, en los posts se habla de
 > "precampaña abierta" sin prometer vencimientos.
