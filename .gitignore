@@ -3,3 +3,8 @@ Thumbs.db
 node_modules/
 .env
 *.tmp
+
+# Imágenes renderizadas de las placas: son artefactos derivados del HTML
+# (que es la fuente de verdad). Se generan con `npm run placas` y las publica
+# GitHub Actions en gh-pages, así el repo no se llena de binarios.
+docs/placas/img/

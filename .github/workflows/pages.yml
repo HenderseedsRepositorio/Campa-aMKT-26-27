@@ -9,6 +9,8 @@ on:
     branches: [claude/peaceful-sagan-srghou]
     paths:
       - "docs/**"
+      - "scripts/**"
+      - "package.json"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -24,6 +26,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Render de placas: HTML -> JPG (feed 4:5 + historia 9:16).
+      # Las imágenes NO se commitean al repo (ver .gitignore): se generan acá y
+      # se publican junto con docs/, así quedan con URL pública para bajarlas
+      # del celular sin abrir el navegador de escritorio.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci || npm install
+      - run: npx playwright install --with-deps chromium
+      # Las placas usan emojis (🧉 🌻 🚜 …) y el runner no trae fuente de color.
+      - run: sudo apt-get install -y fonts-noto-color-emoji
+      - run: npm run placas
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

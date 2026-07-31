@@ -1,4 +1,10 @@
 {
+  "name": "campana-henderseeds-26-27",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "placas": "node scripts/render-placas.mjs"
+  },
   "dependencies": {
     "playwright": "^1.61.1"
   }
