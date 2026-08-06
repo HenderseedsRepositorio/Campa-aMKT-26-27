@@ -10,7 +10,7 @@
 - **Guía:** pestaña **Fechas** del dashboard → `docs/fechas/index.html`
 
 ## Concepto
-Formato **"dato para tirar en el asado"**: didáctico y entretenido, frases cortas.
+Formato **dato curioso**: didáctico y entretenido, frases cortas.
 El gancho es la curiosidad — agrónomos y veterinarios **cumplen años el mismo día**
 porque las dos carreras nacieron juntas en el **Instituto de Santa Catalina**
 (Llavallol, Buenos Aires, 6/8/1883), primera escuela del país en dictar ambas.
@@ -24,12 +24,12 @@ con botón de descarga historia 9:16 (1080×1920, texto en zona segura central).
 **JPG final listo para subir** →
 [`docs/placas/2026-08-06-dia-veterinario-agronomo-historia-1080x1920.jpg`](../../docs/placas/2026-08-06-dia-veterinario-agronomo-historia-1080x1920.jpg)
 
-Diseño: fondo navy agro-tech con grilla sutil. Sticker naranja inclinado
-*"dato para tirar en el asado 🧉"* → pregunta gancho en Archivo Black
+Diseño: fondo navy agro-tech con grilla sutil. Fecha "6 DE AGOSTO" en mono
+→ pregunta gancho en Archivo Black
 ("¿Sabías que **agrónomos y veterinarios** cumplen años el mismo día?") →
 3 **burbujas tipo chat** que cuentan la historia en frases cortas (🌱 1883 abre
-Santa Catalina · 🎓 primera escuela con las dos carreras · 🎂 hoy soplan velitas
-los dos) → 2 **tarjetas rotadas con humor** (🌾 agrónomo, borde naranja /
+Santa Catalina · 🎓 primera escuela con las dos carreras · 🥂 hoy festejan
+juntos) → 2 **tarjetas rotadas con humor** (🌾 agrónomo, borde naranja /
 🩺 veterinario, borde celeste) → cierre *"¡Feliz día a los dos! 🤝 La campaña
 también se hace con ustedes."* + zona + firma RED.IN Nidera + @henderseeds.
 
@@ -48,7 +48,7 @@ también se hace con ustedes."* + zona + firma RED.IN Nidera + @henderseeds.
 ## Copy opcional (solo si además va al feed / Facebook)
 > Agrónomos y veterinarios cumplen años el mismo día. 🎂
 >
-> El 6 de agosto de 1883 abría Santa Catalina, la primera escuela del país que enseñó las dos carreras juntas. Desde entonces, soplan velitas los dos.
+> El 6 de agosto de 1883 abría Santa Catalina, la primera escuela del país que enseñó las dos carreras juntas. Desde entonces, festejan juntos. 🥂
 >
 > Feliz día al que te canta qué sembrar y al que se levanta a las 3 AM por una vaca. La campaña también se hace con ustedes. 🌾🩺
 
