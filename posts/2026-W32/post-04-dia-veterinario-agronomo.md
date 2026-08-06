@@ -21,6 +21,8 @@ veterinario que se levanta a las 3 AM por una vaca.
 ## Pieza visual (historia)
 Placa lista → [`docs/placas/2026-08-06-dia-veterinario-agronomo.html`](../../docs/placas/2026-08-06-dia-veterinario-agronomo.html)
 con botón de descarga historia 9:16 (1080×1920, texto en zona segura central).
+**JPG final listo para subir** →
+[`docs/placas/2026-08-06-dia-veterinario-agronomo-historia-1080x1920.jpg`](../../docs/placas/2026-08-06-dia-veterinario-agronomo-historia-1080x1920.jpg)
 
 Diseño: fondo navy agro-tech con grilla sutil. Sticker naranja inclinado
 *"dato para tirar en el asado 🧉"* → pregunta gancho en Archivo Black
