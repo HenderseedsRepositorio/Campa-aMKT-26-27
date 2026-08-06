@@ -53,7 +53,8 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 > historia 9:16 didáctica y entretenida (dato curioso: las dos carreras nacieron
 > en Santa Catalina, 1883 → burbujas chat + tarjetas con humor de campo).
 > ✍️ Copy + placa listos → [post-04](posts/2026-W32/post-04-dia-veterinario-agronomo.md) ·
-> [placa descargable](docs/placas/2026-08-06-dia-veterinario-agronomo.html).
+> [placa descargable](docs/placas/2026-08-06-dia-veterinario-agronomo.html) ·
+> [video 10 s](docs/videos/2026-08-06-dia-veterinario-agronomo-historia.mp4).
 > Publicar **jue 06/08 en el día**, historia (feed opcional), sin pauta, sin CTA comercial;
 > sticker de mención para que etiqueten a su agrónomo/veterinario.
 

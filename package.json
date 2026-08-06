@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "placas": "node scripts/render-placas.mjs"
+    "placas": "node scripts/render-placas.mjs",
+    "video": "node scripts/render-video.mjs"
   },
   "dependencies": {
     "playwright": "^1.61.1"

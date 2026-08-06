@@ -24,6 +24,23 @@ con botón de descarga historia 9:16 (1080×1920, texto en zona segura central).
 **JPG final listo para subir** →
 [`docs/placas/2026-08-06-dia-veterinario-agronomo-historia-1080x1920.jpg`](../../docs/placas/2026-08-06-dia-veterinario-agronomo-historia-1080x1920.jpg)
 
+### Variante video (~10 s, animada)
+**MP4 listo para subir** →
+[`docs/videos/2026-08-06-dia-veterinario-agronomo-historia.mp4`](../../docs/videos/2026-08-06-dia-veterinario-agronomo-historia.mp4)
+(1080×1920, 30 fps, H.264, sin audio — al subirlo, agregarle **música desde la
+app de IG** con el sticker de música: suma alcance y el audio queda licenciado).
+
+Guion (4 escenas, mismo copy aprobado de la placa):
+1. **0–2,6 s** · "6 DE AGOSTO" + pregunta gancho ("¿Sabías que agrónomos y
+   veterinarios cumplen años el mismo día?").
+2. **3–6,2 s** · las 3 burbujas aparecen una por una (🌱 1883 · 🎓 escuela · 🥂 festejan juntos).
+3. **6,7–8,5 s** · entran las 2 tarjetas con humor (🌾 agrónomo / 🩺 veterinario).
+4. **8,9–10 s** · cierre "¡Feliz día a los dos! 🤝" + zona. Logo y firma RED.IN
+   quedan fijos todo el video.
+
+Fuente editable → [`docs/videos/2026-08-06-dia-veterinario-agronomo-historia.html`](../../docs/videos/2026-08-06-dia-veterinario-agronomo-historia.html)
+(animación CSS; se regenera con `npm run video -- docs/videos/2026-08-06-dia-veterinario-agronomo-historia.html`).
+
 Diseño: fondo navy agro-tech con grilla sutil. Fecha "6 DE AGOSTO" en mono
 → pregunta gancho en Archivo Black
 ("¿Sabías que **agrónomos y veterinarios** cumplen años el mismo día?") →
