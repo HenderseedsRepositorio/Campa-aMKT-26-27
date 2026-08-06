@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Historia 6 de Agosto · Día del Ingeniero Agrónomo y del Médico Veterinario</title>
+<link href="../assets/fonts/fuentes.css" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --cream:#F6F4EE;
+  --orange:#F5A623; --white:#E8EEF7; --grey:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+}
+body { background:#05070d; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+
+/* Historia nativa 9:16. Texto en zona segura central:
+   padding alto arriba/abajo para esquivar la UI de Instagram. */
+.slide {
+  width:1080px; height:1920px; background:var(--navy);
+  position:relative; overflow:hidden; padding:205px 90px 185px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; flex-shrink:0;
+}
+/* grilla agro-tech sutil */
+.slide::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,  rgba(245,166,35,0.045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(90deg, rgba(245,166,35,0.045) 0 1px, transparent 1px 96px);
+}
+/* resplandor central */
+.slide::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 720px 560px at 50% 34%, rgba(245,166,35,0.07), transparent 70%),
+    radial-gradient(ellipse 900px 720px at 50% 112%, rgba(13,45,94,0.45), transparent 75%);
+}
+
+.logo-hs { height:60px; z-index:2; }
+
+.spacer { flex:1; }
+
+/* espiga + estetoscopio flanqueados por filetes */
+.emblema { display:flex; align-items:center; gap:36px; z-index:2; width:100%; justify-content:center; }
+.emblema .linea { flex:1; max-width:200px; height:1px; background:linear-gradient(90deg, transparent, rgba(232,238,247,0.28)); }
+.emblema .linea.der { background:linear-gradient(90deg, rgba(232,238,247,0.28), transparent); }
+.emblema svg { filter:drop-shadow(0 0 26px rgba(245,166,35,0.30)); }
+.emblema .mas { font-family:var(--mono); font-size:36px; color:var(--grey); }
+
+.kicker {
+  font-family:var(--mono); font-size:22px; letter-spacing:6px; text-transform:uppercase;
+  color:var(--grey); margin-top:50px; z-index:2;
+}
+.saludo { font-family:var(--arch); color:#fff; font-size:56px; letter-spacing:-1px; margin-top:24px; z-index:2; }
+.title  { font-family:var(--arch); color:var(--orange); font-size:86px; line-height:1.08; letter-spacing:-2px; margin-top:10px; z-index:2; }
+.sub {
+  font-family:var(--mono); font-size:21px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--grey); line-height:1.8; margin-top:30px; max-width:860px; z-index:2;
+}
+
+.divisor { width:64px; height:1px; background:rgba(232,238,247,0.3); margin:44px auto 0; z-index:2; }
+
+.historia-linea {
+  font-family:var(--sans); font-size:25px; font-weight:500; color:var(--grey);
+  line-height:1.6; margin-top:36px; max-width:760px; z-index:2;
+}
+.historia-linea b { color:var(--white); font-weight:700; }
+
+.lema {
+  font-family:var(--sans); font-size:34px; font-weight:600; color:var(--white);
+  line-height:1.55; margin-top:28px; max-width:820px; z-index:2;
+}
+.zona { font-family:var(--mono); font-size:20px; letter-spacing:4px; text-transform:uppercase; color:var(--grey); margin-top:46px; z-index:2; }
+
+.firma { display:flex; flex-direction:column; align-items:center; gap:16px; z-index:2; width:100%; padding-top:30px; border-top:1px dashed rgba(232,238,247,0.16); }
+.firma-row { display:flex; align-items:center; gap:16px; }
+.firma-row img { height:30px; background:#fff; padding:6px 10px; border-radius:7px; }
+.firma-row span { font-family:var(--mono); font-size:17px; letter-spacing:2px; color:var(--grey); text-transform:uppercase; }
+.ig-min { font-family:var(--mono); font-size:18px; letter-spacing:1.5px; color:rgba(143,160,190,0.75); }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+
+  <div class="spacer"></div>
+
+  <!-- Espiga (agronomía) + estetoscopio (veterinaria) -->
+  <div class="emblema">
+    <div class="linea"></div>
+    <svg width="112" height="112" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <g stroke="#F5A623" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="50" y1="92" x2="50" y2="16"/>
+        <line x1="50" y1="14" x2="50" y2="3"/>
+        <line x1="50" y1="16" x2="40" y2="5"/>
+        <line x1="50" y1="16" x2="60" y2="5"/>
+        <path d="M50 30 q-15 3 -18 16 q15 -3 18 -14"/>
+        <path d="M50 30 q15 3 18 16 q-15 -3 -18 -14"/>
+        <path d="M50 46 q-15 3 -18 16 q15 -3 18 -14"/>
+        <path d="M50 46 q15 3 18 16 q-15 -3 -18 -14"/>
+        <path d="M50 62 q-15 3 -18 16 q15 -3 18 -14"/>
+        <path d="M50 62 q15 3 18 16 q-15 -3 -18 -14"/>
+      </g>
+    </svg>
+    <span class="mas">+</span>
+    <svg width="112" height="112" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <g stroke="#F5A623" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 12 v22 a18 18 0 0 0 36 0 V12"/>
+        <line x1="32" y1="12" x2="26" y2="5"/>
+        <line x1="68" y1="12" x2="74" y2="5"/>
+        <path d="M50 52 v14 a14 14 0 0 0 14 14 h4"/>
+        <circle cx="78" cy="80" r="10"/>
+      </g>
+      <circle cx="78" cy="80" r="4" fill="#F5A623" opacity="0.9"/>
+    </svg>
+    <div class="linea der"></div>
+  </div>
+
+  <div class="kicker">6 de Agosto</div>
+  <div class="saludo">Feliz día,</div>
+  <div class="title">Agrónomos<br>y Veterinarios</div>
+  <div class="sub">Día del Ingeniero Agrónomo<br>y del Médico Veterinario</div>
+
+  <div class="divisor"></div>
+
+  <div class="historia-linea">Las dos carreras nacieron juntas un 6 de agosto de 1883,<br>en <b>Santa Catalina</b>. Desde entonces comparten el día.</div>
+
+  <div class="lema">A los que recorren los lotes con nosotros.<br>A los que cuidan la hacienda de la zona.<br>La campaña también se hace con ustedes. 🤝</div>
+
+  <div class="zona">Henderson · Daireaux · Bolívar</div>
+
+  <div class="spacer"></div>
+
+  <div class="firma">
+    <div class="firma-row">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="ig-min">@henderseeds</div>
+  </div>
+</div>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = '2026-08-06-dia-veterinario-agronomo';
+  var SCALE = 2;              // 2x retina
+  if (window.self !== window.top) return;  // no cargar en miniatura/iframe
+  if (location.hash === '#export') return; // abrir con #export = sin botones (captura limpia)
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>

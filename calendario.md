@@ -49,6 +49,13 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W35 | 24/08 | 💡 "Último tramo de precampaña" (si aplica) | 💡 Financiación: aprovechar antes del cierre | 💡 Institucional |
 | 2026-W36 | 31/08 | 💡 Cuenta regresiva (si hay fecha de cierre) | 💡 Herramientas | 💡 Técnico |
 
+> 🌾🩺 **Extra W32 — Día del Ingeniero Agrónomo y del Médico Veterinario (jue 06/08):**
+> historia 9:16 con saludo doble (las dos carreras nacieron en Santa Catalina, 1883).
+> ✍️ Copy + placa listos → [post-04](posts/2026-W32/post-04-dia-veterinario-agronomo.md) ·
+> [placa descargable](docs/placas/2026-08-06-dia-veterinario-agronomo.html).
+> Publicar **jue 06/08 en el día**, historia (feed opcional), sin pauta, sin CTA comercial;
+> sticker de mención para que etiqueten a su agrónomo/veterinario.
+
 ## Septiembre 2026 — cierre precampaña / arranque de siembra
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|

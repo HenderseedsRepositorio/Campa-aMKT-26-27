@@ -6,6 +6,10 @@
  *   - feed     1080x1350 (4:5)  -> lo que se sube al feed de Instagram/Facebook
  *   - historia 1080x1920 (9:16) -> la placa centrada sobre lienzo de marca
  *
+ * Si la placa ya es nativa 9:16 (slide de 1080x1920, ej. la historia de una
+ * efemeride), se captura tal cual y solo sale la version historia: no hay
+ * feed que componer.
+ *
  * Por qué existe: hasta ahora las placas se bajaban a mano con el boton
  * "Descargar" de cada HTML, que usa html2canvas. Esa libreria NO soporta
  * filter ni box-shadow, asi que el resplandor del sol de mayo (y cualquier
@@ -69,7 +73,9 @@ async function main() {
   for (const archivo of archivos) {
     const base = archivo.replace(/\.html$/, '');
     const pagina = await navegador.newPage({
-      viewport: { width: FEED.width + 80, height: FEED.height },
+      // Alto de historia: asi un slide 4:5 o 9:16 entra entero en el viewport
+      // y Playwright no tiene que stitchear la captura.
+      viewport: { width: FEED.width + 80, height: HISTORIA.height },
       deviceScaleFactor: 1,
     });
 
@@ -125,14 +131,21 @@ async function main() {
         avisos.push(`${nombre}: el contenido se pasa ${medida.alto - medida.visible}px del alto (se recorta)`);
       }
 
-      const rutaFeed = path.join(DIR_SALIDA, `${nombre}-feed-1080x1350.jpg`);
-      await slide.screenshot({ path: rutaFeed, type: 'jpeg', quality: CALIDAD_JPG });
-
+      // Placa nativa 9:16 (historia): se captura tal cual, sin version feed.
+      const esHistoria = medida.visible >= HISTORIA.height - 2;
       const rutaHistoria = path.join(DIR_SALIDA, `${nombre}-historia-1080x1920.jpg`);
-      await componerHistoria(navegador, rutaFeed, rutaHistoria);
 
-      generados.push(nombre);
-      console.log(`  ${nombre}  ->  feed + historia`);
+      if (esHistoria) {
+        await slide.screenshot({ path: rutaHistoria, type: 'jpeg', quality: CALIDAD_JPG });
+        console.log(`  ${nombre}  ->  historia (nativa 9:16)`);
+      } else {
+        const rutaFeed = path.join(DIR_SALIDA, `${nombre}-feed-1080x1350.jpg`);
+        await slide.screenshot({ path: rutaFeed, type: 'jpeg', quality: CALIDAD_JPG });
+        await componerHistoria(navegador, rutaFeed, rutaHistoria);
+        console.log(`  ${nombre}  ->  feed + historia`);
+      }
+
+      generados.push({ nombre, esHistoria });
     }
 
     await pagina.close();
@@ -187,24 +200,30 @@ async function componerHistoria(navegador, rutaFeed, rutaSalida) {
 }
 
 /** Indice navegable: una sola URL para abrir del celular y guardar todo. */
-async function escribirIndice(nombres) {
+async function escribirIndice(placas) {
   // Ojo: la tarjeta es un <div>, no un <a>. Un <a> con otros <a> adentro es
   // HTML invalido y el navegador lo "repara" duplicando el elemento.
-  const tarjetas = nombres
-    .map(
-      (n) => `  <div class="card">
-    <a class="foto" href="${n}-feed-1080x1350.jpg" target="_blank">
-      <img src="${n}-feed-1080x1350.jpg" alt="${n}" loading="lazy">
+  const tarjetas = placas
+    .map(({ nombre: n, esHistoria }) => {
+      const foto = esHistoria ? `${n}-historia-1080x1920.jpg` : `${n}-feed-1080x1350.jpg`;
+      const links = [
+        esHistoria ? '' : `<a href="${n}-feed-1080x1350.jpg" download>feed 4:5</a>`,
+        `<a href="${n}-historia-1080x1920.jpg" download>historia 9:16</a>`,
+      ]
+        .filter(Boolean)
+        .join('\n        ');
+      return `  <div class="card">
+    <a class="foto" href="${foto}" target="_blank">
+      <img src="${foto}" alt="${n}" loading="lazy">
     </a>
     <div class="pie">
       <span class="nombre">${n}</span>
       <span class="links">
-        <a href="${n}-feed-1080x1350.jpg" download>feed 4:5</a>
-        <a href="${n}-historia-1080x1920.jpg" download>historia 9:16</a>
+        ${links}
       </span>
     </div>
-  </div>`
-    )
+  </div>`;
+    })
     .join('\n');
 
   const html = `<!DOCTYPE html>
