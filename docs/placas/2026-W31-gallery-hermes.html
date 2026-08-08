@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>HenderSeeds — Placas Precampaña 26/27 (Hermes)</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy: #0A0F1B; --navy-2: #0D2D5E; --navy-dark: #091E3E;
+  --orange: #F5A623; --yellow: #F59E0B; --white: #FFFFFF;
+  --wf: rgba(255,255,255,0.05); --wb: rgba(255,255,255,0.09);
+  --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  --arch: 'Archivo Black', sans-serif;
+  --txt-dim: rgba(255,255,255,0.55); --txt-faint: rgba(255,255,255,0.32);
+}
+body { background:#06080f; font-family:var(--sans); padding:50px 30px; display:flex; flex-direction:column; align-items:center; gap:48px; }
+
+/* Plate: 1080x1350 Instagram 4:5 */
+.plate {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; border-radius:4px;
+  box-shadow:0 0 40px rgba(245,166,35,0.08);
+}
+
+/* Grid pattern */
+.plate::before {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+
+/* Top bar */
+.bar { position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); }
+
+/* Labels */
+.label-row { position:absolute; top:40px; left:60px; right:60px; display:flex; justify-content:space-between; align-items:center; }
+.tag { font-family:var(--mono); font-size:14px; color:var(--orange); text-transform:uppercase; letter-spacing:3px; display:flex; align-items:center; gap:8px; }
+.tag .dot { width:8px; height:8px; background:var(--orange); border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.week { font-family:var(--mono); font-size:13px; color:var(--txt-dim); }
+
+/* Hero area */
+.hero { position:absolute; top:180px; left:80px; right:80px; }
+.hero-label { font-family:var(--mono); font-size:16px; color:var(--orange); letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; }
+.hero-title { font-family:var(--arch); font-size:72px; color:var(--white); line-height:1.0; letter-spacing:-1px; }
+.hero-sub { font-family:var(--arch); font-size:38px; color:var(--orange); margin-top:10px; }
+.hero-big { font-family:var(--arch); font-size:140px; color:var(--orange); line-height:1.0; margin-top:20px; }
+.hero-unit { font-family:var(--arch); font-size:40px; color:var(--white); }
+
+/* Data card */
+.data-card { position:absolute; left:80px; top:650px; background:var(--wf); border:1px solid var(--wb); border-radius:14px; padding:28px 36px; }
+.data-card .big { font-family:var(--mono); font-size:28px; color:var(--yellow); }
+.data-card .sub { font-family:var(--sans); font-size:16px; color:var(--txt-dim); margin-top:4px; }
+
+/* Stats row */
+.stats { position:absolute; left:80px; right:80px; bottom:340px; display:flex; gap:24px; }
+.stat { flex:1; background:var(--wf); border:1px solid var(--wb); border-radius:12px; padding:24px; text-align:center; }
+.stat .num { font-family:var(--arch); font-size:42px; color:var(--yellow); }
+.stat .lbl { font-family:var(--sans); font-size:14px; color:var(--txt-dim); margin-top:4px; }
+
+/* Features */
+.features { position:absolute; left:80px; right:80px; bottom:250px; display:flex; gap:16px; flex-wrap:wrap; }
+.feat { font-family:var(--mono); font-size:14px; color:var(--txt-dim); background:var(--wf); border:1px solid var(--wb); border-radius:8px; padding:8px 14px; }
+
+/* Footer */
+.footer { position:absolute; bottom:40px; left:60px; right:60px; display:flex; justify-content:space-between; align-items:flex-end; }
+.cta { font-family:var(--sans); font-size:16px; color:var(--orange); font-weight:600; display:flex; align-items:center; gap:10px; }
+.cta svg { width:24px; height:24px; fill:#25D366; }
+
+/* Logo area */
+.logos { display:flex; align-items:center; gap:20px; }
+.logos img { height:52px; }
+.logos .redin { font-family:var(--mono); font-size:13px; color:var(--txt-dim); letter-spacing:2px; }
+
+/* === Plate 2: Clean Card Style === */
+.p2 .hero { top:120px; }
+.p2 .hero-title { font-size:56px; }
+.p2 .hero-big { font-size:120px; margin-top:8px; }
+.p2 .stripe { position:absolute; top:500px; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--orange),transparent); }
+
+/* === Plate 3: Full Data === */
+.p3 .hero { top:100px; }
+.p3 .hero-title { font-size:52px; }
+.p3 .table { position:absolute; top:500px; left:80px; right:80px; display:flex; flex-direction:column; gap:8px; }
+.p3 .tr { display:flex; justify-content:space-between; padding:16px 24px; background:var(--wf); border:1px solid var(--wb); border-radius:10px; }
+.p3 .tr .col { font-family:var(--mono); font-size:15px; }
+.p3 .tr .col:first-child { color:var(--txt-dim); }
+.p3 .tr .col:last-child { color:var(--yellow); font-weight:500; }
+
+/* === Plate 4: Split === */
+.p4 .hero { top:100px; left:80px; width:500px; }
+.p4 .hero-title { font-size:50px; }
+.p4 .side { position:absolute; right:80px; top:160px; width:380px; }
+.p4 .side .num { font-family:var(--arch); font-size:100px; color:var(--orange); text-align:center; }
+.p4 .side .cap { font-family:var(--sans); font-size:18px; color:var(--txt-dim); text-align:center; margin-top:8px; }
+
+/* === Plate 5: Minimal === */
+.p5 .center-all { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.p5 .center-all .giant { font-family:var(--arch); font-size:160px; color:var(--orange); line-height:1; }
+.p5 .center-all .msg { font-family:var(--sans); font-size:24px; color:var(--txt-dim); margin-top:20px; font-style:italic; }
+
+/* Labels */
+.zone-tag { position:absolute; top:600px; left:80px; font-family:var(--mono); font-size:13px; color:var(--txt-faint); letter-spacing:2px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<!-- ====== PLATE 1: NS 7765 - TOP PRODUCTO ====== -->
+<div class="plate p1">
+  <div class="bar"></div>
+  <div class="label-row">
+    <span class="tag"><span class="dot"></span> PRECAMPAÑA 26/27</span>
+    <span class="week">MAÍZ · TEMPRANA</span>
+  </div>
+  <div class="hero">
+    <div class="hero-label">HÍBRIDO TOP</div>
+    <div class="hero-title">NS 7765</div>
+    <div class="hero-sub">VIPTERA3</div>
+    <div class="hero-big">+392<span class="hero-unit"> kg/ha**</span></div>
+  </div>
+  <div class="zone-tag">ZONA HENDERSON · BOLÍVAR · DAIREAUX</div>
+  <div class="stats" style="bottom:310px;">
+    <div class="stat"><div class="num">74%</div><div class="lbl">éxito</div></div>
+    <div class="stat"><div class="num">191</div><div class="lbl">ensayos</div></div>
+    <div class="stat"><div class="num">AMBAS</div><div class="lbl">fechas</div></div>
+  </div>
+  <div class="features" style="bottom:230px;">
+    <span class="feat">Quebrado 1</span>
+    <span class="feat">Roya 2</span>
+    <span class="feat">Tizón 3</span>
+    <span class="feat">Spiroplasma 3</span>
+  </div>
+  <div class="footer">
+    <div class="cta">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      DM o WhatsApp
+    </div>
+    <div class="logos">
+      <span class="redin">RED.IN</span>
+      <img src="../assets/logo-nidera.png" alt="Nidera" onerror="this.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<!-- ====== PLATE 2: NS 1113 CL GIRASOL ====== -->
+<div class="plate p2">
+  <div class="bar"></div>
+  <div class="label-row">
+    <span class="tag"><span class="dot"></span> PRECAMPAÑA 26/27</span>
+    <span class="week">GIRASOL · SUR+OESTE</span>
+  </div>
+  <div class="hero">
+    <div class="hero-label">TECHO DE RINDE Y ACEITE</div>
+    <div class="hero-title">NS 1113 CL</div>
+    <div class="hero-big">+2,11<span class="hero-unit"> qq/ha**</span></div>
+  </div>
+  <div class="stripe"></div>
+  <div class="zone-tag">ZONA HENDERSON · BOLÍVAR · DAIREAUX</div>
+  <div class="stats" style="bottom:340px;">
+    <div class="stat"><div class="num">74%</div><div class="lbl">éxito</div></div>
+    <div class="stat"><div class="num">225</div><div class="lbl">comparaciones</div></div>
+    <div class="stat"><div class="num">CL</div><div class="lbl">Clearfield</div></div>
+  </div>
+  <div class="features" style="bottom:250px;">
+    <span class="feat">Sclerotinia 2</span>
+    <span class="feat">Roya Negra R</span>
+    <span class="feat">Downy Mildew R</span>
+    <span class="feat">Alto Aceite</span>
+  </div>
+  <div class="footer">
+    <div class="cta">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      DM o WhatsApp
+    </div>
+    <div class="logos">
+      <span class="redin">RED.IN</span>
+      <img src="../assets/logo-nidera.png" alt="Nidera" onerror="this.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<!-- ====== PLATE 3: NS 7621 - DATOS COMPLETOS ====== -->
+<div class="plate p3">
+  <div class="bar"></div>
+  <div class="label-row">
+    <span class="tag"><span class="dot"></span> PRECAMPAÑA 26/27</span>
+    <span class="week">MAÍZ · TEMPRANA</span>
+  </div>
+  <div class="hero">
+    <div class="hero-label">PERFORMANCE PURA</div>
+    <div class="hero-title">NS 7621</div>
+    <div class="hero-sub">VIPTERA3</div>
+    <div class="hero-big">+290<span class="hero-unit"> kg/ha**</span></div>
+  </div>
+  <div class="table">
+    <div class="tr"><span class="col">Éxito</span><span class="col">67% (419 comparaciones)</span></div>
+    <div class="tr"><span class="col">Madurez relativa</span><span class="col">117 · GDU 789</span></div>
+    <div class="tr"><span class="col">Altura</span><span class="col">227 cm · PMS 286 g</span></div>
+    <div class="tr"><span class="col">Green Snap</span><span class="col">2 · Roya 2</span></div>
+  </div>
+  <div class="footer">
+    <div class="cta">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      DM o WhatsApp
+    </div>
+    <div class="logos">
+      <span class="redin">RED.IN</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PLATE 4: LANZAMIENTO NS 7852 ====== -->
+<div class="plate p4">
+  <div class="bar"></div>
+  <div class="label-row">
+    <span class="tag"><span class="dot" style="animation:none;opacity:1"></span> NUEVO LANZAMIENTO</span>
+    <span class="week">MAÍZ · AMBAS FECHAS</span>
+  </div>
+  <div class="hero">
+    <div class="hero-title">NS 7852</div>
+    <div class="hero-sub">VIPTERA3</div>
+  </div>
+  <div class="side">
+    <div class="num">+316</div>
+    <div class="cap">kg/ha** en temprana<br>69% éxito · 133 ensayos</div>
+    <div style="margin-top:30px; font-family:var(--mono); font-size:14px; color:var(--txt-dim); text-align:center;">
+      +194 kg/ha** en tardía<br>62% éxito · 120 ensayos
+    </div>
+  </div>
+  <div class="features" style="bottom:300px; left:80px;">
+    <span class="feat">Lanzamiento 26/27</span>
+    <span class="feat">Quebrado 4</span>
+    <span class="feat">Roya 2</span>
+    <span class="feat">Altura 240 cm</span>
+  </div>
+  <div class="footer">
+    <div class="cta">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      DM o WhatsApp
+    </div>
+    <div class="logos">
+      <span class="redin">RED.IN</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PLATE 5: GIRASOL MINIMAL ====== -->
+<div class="plate p5">
+  <div class="bar"></div>
+  <div class="label-row">
+    <span class="tag">GIRASOL · HENDERSON</span>
+    <span class="week">NS 1115 CL</span>
+  </div>
+  <div class="center-all">
+    <div class="giant">+1,64</div>
+    <div style="font-family:var(--arch);font-size:32px;color:var(--white);margin-top:5px;">qq/ha** · Sur+Oeste</div>
+    <div class="msg">"La mejor sanidad del portafolio"</div>
+    <div style="margin-top:30px;display:flex;gap:16px;">
+      <span class="feat">Phomopsis 2</span>
+      <span class="feat">Sclerotinia 2</span>
+      <span class="feat">69% éxito</span>
+    </div>
+  </div>
+  <div class="footer" style="justify-content:center;">
+    <div class="logos">
+      <span class="redin">RED.IN</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
