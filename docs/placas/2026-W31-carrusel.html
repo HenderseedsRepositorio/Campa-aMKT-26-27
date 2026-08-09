@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=1080">
+<title>HenderSeeds — Comparativa Maíz + Girasol 26/27</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0A0F1B;--orange:#F5A623;--yellow:#F59E0B;--white:#FFFFFF;--wf:rgba(255,255,255,0.05);--wb:rgba(255,255,255,0.09);--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--arch:'Archivo Black',sans-serif;--txt-dim:rgba(255,255,255,0.55)}
+body{background:#06080f;font-family:var(--sans);padding:40px 30px;display:flex;flex-direction:column;align-items:center;gap:48px}
+.plate{width:1080px;height:1350px;background:var(--navy);position:relative;overflow:hidden;border-radius:4px;box-shadow:0 0 40px rgba(245,166,35,0.08)}
+.plate::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,0.03) 1px,transparent 1px);background-size:60px 60px}
+.bar{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}
+.tag-row{position:absolute;top:40px;left:60px;right:60px;display:flex;justify-content:space-between;align-items:center}
+.tag{font-family:var(--mono);font-size:14px;color:var(--orange);text-transform:uppercase;letter-spacing:3px;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;background:var(--orange);border-radius:50%}
+.logo-fixed{position:absolute;top:48px;right:60px;height:56px;z-index:10;filter:brightness(0) invert(1)}
+.logo-footer{height:42px;filter:brightness(0) invert(1)}
+.footer-bar{position:absolute;bottom:40px;left:60px;right:60px;display:flex;justify-content:space-between;align-items:flex-end}
+
+/* Slide indicator */
+.slide-num{position:absolute;top:44px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:16px;color:var(--txt-dim);letter-spacing:4px}
+
+/* Hero title */
+.hero-lab{font-family:var(--mono);font-size:17px;color:var(--orange);letter-spacing:4px;margin-bottom:8px}
+.hero-name{font-family:var(--arch);font-size:72px;color:var(--white);line-height:1.0}
+.hero-tech{font-family:var(--arch);font-size:32px;color:var(--orange)}
+
+/* Stat pills */
+.stat-pill{display:inline-block;font-family:var(--mono);font-size:15px;color:var(--txt-dim);background:var(--wf);border:1px solid var(--wb);border-radius:10px;padding:10px 18px;margin:4px}
+
+/* Data table */
+.data-table{display:flex;flex-direction:column;gap:6px}
+.data-row{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:var(--wf);border:1px solid var(--wb);border-radius:10px}
+.data-row .dl{font-family:var(--sans);font-size:16px;color:var(--txt-dim)}
+.data-row .dr{font-family:var(--arch);font-size:28px;color:var(--yellow)}
+
+/* Comparison badge */
+.badge{position:absolute;top:160px;right:80px;font-family:var(--sans);font-size:16px;color:var(--navy);background:var(--orange);padding:8px 20px;border-radius:20px;font-weight:700}
+
+/* Big number */
+.big{font-family:var(--arch);font-size:130px;color:var(--orange);line-height:1}
+
+/* Institutional */
+.quote{font-family:var(--sans);font-size:42px;color:var(--white);line-height:1.25;font-weight:600;text-align:center}
+.quote-auth{font-family:var(--sans);font-size:22px;color:var(--txt-dim);text-align:center;margin-top:16px;font-style:italic}
+
+/* Timeline */
+.timeline{display:flex;gap:40px;justify-content:center}
+.tm-item{text-align:center}
+.tm-year{font-family:var(--arch);font-size:56px;color:var(--orange)}
+.tm-text{font-family:var(--sans);font-size:16px;color:var(--txt-dim);margin-top:8px}
+.tm-dot{width:12px;height:12px;background:var(--orange);border-radius:50%;margin:0 auto 12px}
+
+/* Centered content */
+.center-box{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px}
+
+/* Slide-specific layouts */
+.carrusel-hero{position:absolute;top:160px;left:80px;right:80px}
+.carrusel-mid{position:absolute;top:480px;left:80px;right:80px}
+.carrusel-data{position:absolute;top:560px;left:80px;right:80px}
+
+.brand-footer{position:absolute;bottom:30px;left:80px;right:80px;display:flex;justify-content:center;align-items:center;gap:12px}
+.brand-footer .pipe{color:var(--txt-dim);opacity:0.3}
+</style>
+</head>
+<body>
+
+<!-- ═══ CARRUSEL MAÍZ: Slide 1 — INTRO - Los 3 Caballos ═══ -->
+<div class="plate">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="slide-num">01 / 06</div>
+  <div class="center-box" style="padding-top:100px">
+    <div class="hero-lab" style="text-align:center">PRECAMPAÑA 26/27</div>
+    <div class="hero-name" style="text-align:center;font-size:56px">LOS 3 CABALLOS</div>
+    <div class="hero-tech" style="text-align:center;margin-top:8px;font-size:40px">DE BATALLA</div>
+    <div style="margin-top:32px;width:12px;height:12px;background:var(--orange);border-radius:50%"></div>
+    <div style="margin-top:36px;font-family:var(--sans);font-size:22px;color:var(--txt-dim);text-align:center;max-width:600px">Tres híbridos Nidera probados en ensayos locales. Uno para cada necesidad. Todos con VIPTERA3.</div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:13px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ Slide 2 — NS 7765: EL TOP ═══ -->
+<div class="plate">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="slide-num">02 / 06</div>
+  <div class="badge">🥇 TOP</div>
+  <div class="carrusel-hero">
+    <div class="hero-lab">MAÍZ · TEMPRANA Y TARDÍA</div>
+    <div class="hero-name">NS 7765</div>
+    <div class="hero-tech">VIPTERA3</div>
+  </div>
+  <div class="carrusel-mid">
+    <div class="big">+392<span style="font-size:32px;color:var(--white)"> kg/ha**</span></div>
+    <div style="font-family:var(--sans);font-size:18px;color:var(--txt-dim);margin-top:8px">74% éxito · 191 ensayos · Ambas fechas</div>
+  </div>
+  <div class="carrusel-data">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="stat-pill">Quebrado 1</span><span class="stat-pill">Roya 2</span><span class="stat-pill">Tizón 3</span><span class="stat-pill">Spiroplasma 3</span>
+    </div>
+    <div class="data-table">
+      <div class="data-row"><span class="dl">Madurez Relativa</span><span class="dr">118</span></div>
+      <div class="data-row"><span class="dl">Altura</span><span class="dr">227 cm</span></div>
+      <div class="data-row"><span class="dl">PMS</span><span class="dr">300 g</span></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:13px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ Slide 3 — NS 7621: PERFORMANCE PURA ═══ -->
+<div class="plate">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="slide-num">03 / 06</div>
+  <div class="badge" style="top:160px">🥈 TEMPRANA</div>
+  <div class="carrusel-hero">
+    <div class="hero-lab">MAÍZ · TEMPRANA</div>
+    <div class="hero-name">NS 7621</div>
+    <div class="hero-tech">VIPTERA3</div>
+  </div>
+  <div class="carrusel-mid">
+    <div class="big">+290<span style="font-size:32px;color:var(--white)"> kg/ha**</span></div>
+    <div style="font-family:var(--sans);font-size:18px;color:var(--txt-dim);margin-top:8px">67% éxito · 419 ensayos · Medio-Alto potencial</div>
+  </div>
+  <div class="carrusel-data">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="stat-pill">Roya 2</span><span class="stat-pill">Green Snap 2</span><span class="stat-pill">Quebrado 4</span>
+    </div>
+    <div class="data-table">
+      <div class="data-row"><span class="dl">Madurez Relativa</span><span class="dr">117</span></div>
+      <div class="data-row"><span class="dl">GDU</span><span class="dr">789</span></div>
+      <div class="data-row"><span class="dl">PMS</span><span class="dr">286 g</span></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:13px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ Slide 4 — NS 7921: EL VERSÁTIL CL ═══ -->
+<div class="plate">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="slide-num">04 / 06</div>
+  <div class="badge">🌿 3 HERBICIDAS</div>
+  <div class="carrusel-hero">
+    <div class="hero-lab">MAÍZ · TODAS LAS FECHAS</div>
+    <div class="hero-name">NS 7921</div>
+    <div class="hero-tech">VIPTERA3 CL</div>
+  </div>
+  <div class="carrusel-mid">
+    <div class="big">+179<span style="font-size:32px;color:var(--white)"> kg/ha**</span></div>
+    <div style="font-family:var(--sans);font-size:18px;color:var(--txt-dim);margin-top:8px">60% éxito · 364 ensayos · Tardía templada</div>
+  </div>
+  <div class="carrusel-data">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="stat-pill" style="color:var(--orange);border-color:var(--orange)">Glifosato</span>
+      <span class="stat-pill" style="color:var(--orange);border-color:var(--orange)">Glufosinato</span>
+      <span class="stat-pill" style="color:var(--orange);border-color:var(--orange)">Imidazolinonas</span>
+    </div>
+    <div class="data-table">
+      <div class="data-row"><span class="dl">Madurez Relativa</span><span class="dr">118</span></div>
+      <div class="data-row"><span class="dl">PMS (mayor CL)</span><span class="dr">316 g</span></div>
+      <div class="data-row"><span class="dl">Quebrado</span><span class="dr">2</span></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:13px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ Slide 5 — GIRASOL TRÍO ═══ -->
+<div class="plate">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="slide-num">05 / 06</div>
+  <div class="carrusel-hero">
+    <div class="hero-lab" style="text-align:center">GIRASOL · SUR+OESTE</div>
+    <div class="hero-name" style="text-align:center;font-size:56px">LOS 3 QUE VAN</div>
+  </div>
+  <div class="carrusel-mid" style="top:420px">
+    <div class="data-table">
+      <div class="data-row" style="border-left:4px solid var(--orange)">
+        <div>
+          <div style="font-family:var(--arch);font-size:24px;color:var(--white)">NS 1113 CL</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--txt-dim)">Techo de rinde y aceite</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--arch);font-size:28px;color:var(--yellow)">+2,11</div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--txt-dim)">qq/ha** · 74% éxito</div>
+        </div>
+      </div>
+      <div class="data-row" style="border-left:4px solid var(--orange);opacity:0.85">
+        <div>
+          <div style="font-family:var(--arch);font-size:24px;color:var(--white)">NS 1115 CL</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--txt-dim)">Mejor sanidad</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--arch);font-size:28px;color:var(--yellow)">+1,64</div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--txt-dim)">qq/ha** · Phomopsis 2</div>
+        </div>
+      </div>
+      <div class="data-row" style="border-left:4px solid var(--orange);opacity:0.7">
+        <div>
+          <div style="font-family:var(--arch);font-size:24px;color:var(--white)">NS 1117 CL</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--txt-dim)">Máximo rinde + Phomopsis</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--arch);font-size:28px;color:var(--yellow)">+1,75</div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--txt-dim)">qq/ha** · 67% éxito</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px;font-family:var(--sans);font-size:16px;color:var(--txt-dim)">Todos CL · Todos alto aceite · Todos probados en la zona</div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:13px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ Slide 6 — CIERRE: DM o WhatsApp ═══ -->
+<div class="plate" style="background:linear-gradient(135deg,var(--navy) 0%,#091E3E 50%,#0D2D5E 100%)">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="slide-num">06 / 06</div>
+  <div class="center-box">
+    <div class="hero-lab" style="text-align:center">PRECAMPAÑA 26/27</div>
+    <div class="hero-name" style="text-align:center;font-size:64px">CONSULTANOS</div>
+    <div style="width:60px;height:4px;background:var(--orange);margin:28px auto"></div>
+    <div style="font-family:var(--sans);font-size:24px;color:var(--txt-dim);text-align:center;line-height:1.6">
+      📩 Mandanos un DM en Instagram<br>
+      📲 O escribinos por WhatsApp<br>
+      <span style="font-size:18px;color:var(--orange)">+54 9 2314 530691</span>
+    </div>
+    <div style="margin-top:40px;font-family:var(--sans);font-size:17px;color:var(--txt-faint);text-align:center">
+      Te ayudamos a elegir el híbrido para tu lote.<br>Datos reales, ensayos locales, sin compromiso.
+    </div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS" style="height:52px">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:14px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ INSTITUCIONAL: 3 AÑOS ═══ -->
+<div class="plate" style="background:linear-gradient(180deg,#091E3E 0%,var(--navy) 50%,#0A0F1B 100%)">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="tag-row"><span class="tag"><span class="dot"></span> INSTITUCIONAL</span></div>
+  <div class="center-box" style="gap:0">
+    <div class="hero-lab" style="text-align:center">20 DE ABRIL · 2023</div>
+    <div class="hero-name" style="text-align:center;font-size:80px">3 AÑOS</div>
+    <div style="width:40px;height:4px;background:var(--orange);margin:24px auto"></div>
+    <div class="quote" style="font-size:36px">
+      "De Henderson<br>para la zona"
+    </div>
+    <div style="font-family:var(--sans);font-size:20px;color:var(--txt-dim);text-align:center;margin-top:20px;max-width:650px;line-height:1.5">
+      Distribuidores exclusivos RED.IN de Nidera Semillas. Semillas, agroquímicos y asesoramiento técnico para productores de Henderson, Bolívar y Daireaux.
+    </div>
+    <div style="margin-top:40px;display:flex;gap:60px">
+      <div class="tm-item">
+        <div class="tm-dot"></div>
+        <div class="tm-year">2023</div>
+        <div class="tm-text">Fundación</div>
+      </div>
+      <div class="tm-item">
+        <div class="tm-dot" style="background:var(--orange);width:16px;height:16px;box-shadow:0 0 20px rgba(245,166,35,0.4)"></div>
+        <div class="tm-year">2026</div>
+        <div class="tm-text">Precampaña<br>26/27 abierta</div>
+      </div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS" style="height:52px">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:14px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+<!-- ═══ PLACA: NS 1117 CL GIRASOL ═══ -->
+<div class="plate">
+  <div class="bar"></div>
+  <img class="logo-fixed" src="../../assets/logo-henderseeds-white.png" alt="HS">
+  <div class="tag-row"><span class="tag"><span class="dot"></span> PRECAMPAÑA 26/27</span><span class="week">GIRASOL</span></div>
+  <div class="carrusel-hero">
+    <div class="hero-lab">GENÉTICA DE AVANZADA</div>
+    <div class="hero-name">NS 1117 CL</div>
+  </div>
+  <div class="carrusel-mid">
+    <div class="big">+1,75<span style="font-size:32px;color:var(--white)"> qq/ha**</span></div>
+    <div style="font-family:var(--sans);font-size:18px;color:var(--txt-dim);margin-top:8px">67% éxito · 73 ensayos · Sur+Oeste</div>
+  </div>
+  <div class="carrusel-data">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="stat-pill">Phomopsis 2</span><span class="stat-pill">Sclerotinia 2</span><span class="stat-pill">Roya Negra R</span><span class="stat-pill">Alto Aceite</span>
+    </div>
+    <div style="font-family:var(--sans);font-size:18px;color:var(--txt-dim);margin-top:12px;font-style:italic">
+      "Máximo rendimiento con la mejor tolerancia a Phomopsis. Para lotes con presión de la enfermedad."
+    </div>
+  </div>
+  <div class="brand-footer">
+    <img class="logo-footer" src="../../assets/logo-henderseeds-white.png" alt="HS">
+    <span class="pipe">|</span>
+    <span style="font-family:var(--mono);font-size:13px;color:var(--txt-dim);letter-spacing:2px">RED.IN NIDERA</span>
+  </div>
+</div>
+
+</body>
+</html>
