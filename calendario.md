@@ -40,22 +40,32 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 > calendario anual de efemérides (jul 2026 → jun 2027) con opciones de placa, prioridad y
 > método de publicación.
 
-## Agosto 2026 — ⚠️ probable tramo final de precampaña: priorizar urgencia real
-| Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
-|--------|-------|------------------|-------------------|---------------------|
-| 2026-W32 | 03/08 | 💡 Girasol: últimas definiciones | 💡 Condiciones de precampaña vigentes | 💡 Técnico |
-| 2026-W33 | 10/08 | 💡 Maíz: repaso portfolio | 💡 Calculadora con números actualizados | 💡 Institucional |
-| 2026-W34 | 17/08 | 💡 Cultivo según hito Nidera | 💡 Márgenes/finanzas | 💡 Técnico |
-| 2026-W35 | 24/08 | 💡 "Último tramo de precampaña" (si aplica) | 💡 Financiación: aprovechar antes del cierre | 💡 Institucional |
-| 2026-W36 | 31/08 | 💡 Cuenta regresiva (si hay fecha de cierre) | 💡 Herramientas | 💡 Técnico |
+## Agosto 2026 — ⛔ sin publicar (hueco de campaña)
+> **No se publicó nada entre W32 y W37** (confirmado 16/09/2026). Seis semanas de silencio.
+> Efecto práctico: la regla de "no repetir pilar de las últimas 2 semanas" no aplica —
+> cualquier tema está fresco para la audiencia. Lo anotamos para no volver a perder el hilo.
 
-## Septiembre 2026 — cierre precampaña / arranque de siembra
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|
-| 2026-W37 | 07/09 | 💡 Cierre precampaña / últimas bolsas | 💡 Márgenes actualizados | 💡 Técnico: preparando la siembra |
-| 2026-W38 | 14/09 | 💡 Maíz temprano: arranca la campaña | 💡 Finanzas de campaña | 💡 Institucional |
-| 2026-W39 | 21/09 | 💡 Girasol: pre-siembra en la zona | 💡 Herramientas | 💡 Técnico: dato de siembra |
-| 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
+| 2026-W32 | 03/08 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
+| 2026-W33 | 10/08 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
+| 2026-W34 | 17/08 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
+| 2026-W35 | 24/08 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
+| 2026-W36 | 31/08 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
+
+## Septiembre 2026 — ventana de siembra encima, precampaña aún abierta
+> ⏰ **El reloj de esta etapa es agronómico, no comercial.** Nidera **no** confirmó fecha
+> de cierre de precampaña (verificado 16/09/2026), así que no se comunica vencimiento,
+> cuenta regresiva ni condiciones. Lo que sí es citable: la **ventana óptima de siembra
+> de girasol en el oeste va de agosto a septiembre, con límite en octubre**
+> (marbete oficial Nidera, los 4 híbridos). Esa es la urgencia real que usamos.
+
+| Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
+|--------|-------|------------------|-------------------|---------------------|
+| 2026-W37 | 07/09 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
+| 2026-W38 | 14/09 | 💡 Girasol: última ventana de siembra (marbete) | ✍️ [Rinde de indiferencia — calculadora](posts/2026-W38/post-01-rinde-indiferencia.md) · [placa](docs/placas/w38-post-01-rinde-indiferencia.html) · + 3 historias | 💡 Institucional: volvimos, así está la zona |
+| 2026-W39 | 21/09 | 💡 Maíz temprano: arranca la siembra | 💡 **Reel** calculadora en acción → **este es el que se pauta** | 💡 Técnico: densidad/fecha |
+| 2026-W40 | 28/09 | 💡 Girasol: pre-siembra, últimas bolsas | 💡 Retargeting a tibios (vieron reel / entraron a la app) | 💡 Institucional |
 
 ## Reglas de mantenimiento
 - Al generar un lote semanal: actualizar el estado (💡 → ✍️) y linkear el archivo del post.

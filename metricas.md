@@ -59,11 +59,27 @@ atribuibles al post · WA = ídem por WhatsApp.
 | [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | herramientas | 26/06 | reel pautado | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | pauta $15k/día × 7d — anotar tb. costo/mensaje |
 | [Girasol NS 1113 CL: ensayos CREA](posts/2026-W28/post-01-girasol-ns1113.md) | girasol | pendiente | placa | | | | | | | |
 
+### Agosto 2026
+
+Sin publicaciones (W32–W37). Ver el hueco anotado en `calendario.md`.
+
+### Septiembre 2026
+
+| Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
+|------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
+| [Rinde de indiferencia](posts/2026-W38/post-01-rinde-indiferencia.md) | herramientas | pendiente (17/09) | placa + 3 historias | | | | | | | orgánico, sin pauta. Anotar además **clics al link de la historia** |
+
 ### Pauta (solo posts 📣)
 
 | Campaña | Período | Inversión | Mensajes iniciados | Costo por mensaje | Notas |
 |---------|---------|-----------|--------------------|--------------------|-------|
-| Reel Márgenes v2 | 26/06–03/07 | $15.000/día × 7 | `[COMPLETAR]` | `[COMPLETAR]` | objetivo: WhatsApp |
+| Reel Márgenes v2 | 26/06–03/07 | $15.000/día × 7 | `[COMPLETAR]` ⚠️ | `[COMPLETAR]` ⚠️ | objetivo: WhatsApp |
+
+> ⚠️ **Bloqueante para la próxima pauta.** Esta campaña ya cerró hace meses y sus
+> resultados nunca se cargaron. Sin el costo por mensaje de esa corrida no hay con qué
+> comparar: la próxima pauta se decidiría a ciegas otra vez. Los números están en
+> **Administrador de anuncios → Campañas → (campaña del 26/06) → Resultados**.
+> Son 5 minutos y desbloquean toda la decisión de inversión de septiembre.
 
 ---
 
