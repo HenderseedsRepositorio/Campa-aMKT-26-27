@@ -64,7 +64,7 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 |--------|-------|------------------|-------------------|---------------------|
 | 2026-W37 | 07/09 | ⛔ no publicado | ⛔ no publicado | ⛔ no publicado |
 | 2026-W38 | 14/09 | 💡 Girasol: última ventana de siembra (marbete) | ✍️ [Rinde de indiferencia — calculadora](posts/2026-W38/post-01-rinde-indiferencia.md) · [placa](docs/placas/w38-post-01-rinde-indiferencia.html) · + 3 historias | 💡 Institucional: volvimos, así está la zona |
-| 2026-W39 | 21/09 | 💡 Maíz temprano: arranca la siembra | 💡 **Reel** calculadora en acción → **este es el que se pauta** | 💡 Técnico: densidad/fecha |
+| 2026-W39 | 21/09 | ✍️📣 [Reel: girasol, la ventana se cierra](reels/2026-W39-reel-girasol-ventana.md) · [brief de pauta](meta-ads/briefs/2026-W39-reel-girasol-ventana.md) | ↖️ el reel cubre cultivo + herramienta | 💡 Técnico: densidad/fecha de siembra girasol |
 | 2026-W40 | 28/09 | 💡 Girasol: pre-siembra, últimas bolsas | 💡 Retargeting a tibios (vieron reel / entraron a la app) | 💡 Institucional |
 
 ## Reglas de mantenimiento

@@ -68,12 +68,15 @@ Sin publicaciones (W32–W37). Ver el hueco anotado en `calendario.md`.
 | Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
 |------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
 | [Rinde de indiferencia](posts/2026-W38/post-01-rinde-indiferencia.md) | herramientas | pendiente (17/09) | placa + 3 historias | | | | | | | orgánico, sin pauta. Anotar además **clics al link de la historia** |
+| [Reel girasol: la ventana se cierra](reels/2026-W39-reel-girasol-ventana.md) 📣 | girasol + herramientas | pendiente (22/09) | reel pautado | | | | | | | anotar tb. costo/mensaje por fase — ver [brief](meta-ads/briefs/2026-W39-reel-girasol-ventana.md) |
 
 ### Pauta (solo posts 📣)
 
 | Campaña | Período | Inversión | Mensajes iniciados | Costo por mensaje | Notas |
 |---------|---------|-----------|--------------------|--------------------|-------|
 | Reel Márgenes v2 | 26/06–03/07 | $15.000/día × 7 | `[COMPLETAR]` ⚠️ | `[COMPLETAR]` ⚠️ | objetivo: WhatsApp |
+| Reel girasol ventana — fase 1 | desde 24-48 h post publicación | ~$15.000/día × 5 | | | test público frío |
+| Reel girasol ventana — fase 2 | solo si fase 1 cierra | +50% + retargeting | | | tibios: vieron reel / app |
 
 > ⚠️ **Bloqueante para la próxima pauta.** Esta campaña ya cerró hace meses y sus
 > resultados nunca se cargaron. Sin el costo por mensaje de esa corrida no hay con qué
