@@ -20,9 +20,7 @@
 
 ## Pieza visual
 Opción elegida en el plan: **Placa feed 4:5** — Versión corregida de la placa W31 (ver 'antes y después' en el diagnóstico). Sistema visual "Siembra 26/27"
-(`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha,
-sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W43-ns7765-dos-fechas.html` y la página
-`docs/propuesta/index.html#p-ns7765-dos-fechas`.
+(`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha, sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W43-ns7765-dos-fechas.html` y la propuesta `docs/propuesta/index.html#p-ns7765-dos-fechas`.
 
 ## Hashtags (máx 8)
 #Henderseeds #Nidera #Maiz2627 #NS7765 #VIPTERA3 #MaizTardio #Henderson #Daireaux

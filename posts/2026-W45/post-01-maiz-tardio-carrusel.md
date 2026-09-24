@@ -21,9 +21,7 @@
 
 ## Pieza visual
 Opción elegida en el plan: **Slide 1 · Portada**. Sistema visual "Siembra 26/27"
-(`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha,
-sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W45-maiz-tardio-carrusel.html` y la página
-`docs/propuesta/index.html#p-maiz-tardio-carrusel`.
+(`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha, sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W45-maiz-tardio-carrusel.html` y la propuesta `docs/propuesta/index.html#p-maiz-tardio-carrusel`.
 
 ## Hashtags (máx 8)
 #Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #Henderson #Daireaux #Bolivar

@@ -13,6 +13,10 @@ precampaña maíz/girasol 26/27: posts, carruseles, reels y pauta de Meta.
 **🌱 Relanzamiento Siembra 26/27 (24/09/2026):** diagnóstico, plan W40–W46 y todas las piezas
 con su texto → `docs/propuesta/index.html` (online en `/propuesta/` cuando se mergea).
 
+**🎬 Reels para arrancar (W40–W41):** los 6 reels con MP4, tapa, texto y audio sugerido →
+`docs/reels-siembra/index.html` (`node scripts/armar-reels.mjs`; `--autocontenida archivo.html` arma
+un solo archivo para mandar).
+
 | Comando | Qué hace |
 |---------|----------|
 | `npm run placas` | Renderiza cada `docs/placas/*.html` a JPG (feed 4:5 + historia 9:16) en `docs/placas/img/` |

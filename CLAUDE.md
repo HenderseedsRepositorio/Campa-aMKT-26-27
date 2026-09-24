@@ -117,6 +117,12 @@ meta-ads/
 - ✅ Segunda vuelta (24/09): hooks de reels visibles desde el cuadro 0 + tapas para la grilla 3:4,
   modo aprobación en la propuesta, grilla del perfil, versiones crema, carrusel de maíz tardío,
   Estados de WhatsApp y generador de placas con foto (`docs/foto/`).
+- ✅ Tercera vuelta (24/09): **arranque con 6 reels** directos y con cierre a WhatsApp →
+  `docs/reels-siembra/index.html` (`node scripts/armar-reels.mjs`). Girasol realista
+  (`scripts/lib/girasol.py`: semillas en filotaxis, pétalos, tallo que se mece, lote a contraluz) y
+  plantas de maíz (`scripts/lib/maiz.py`); se meten en las piezas con `scripts/lib/inyectar-girasol.py`.
+  Afuera por pedido del usuario: almanaque, refugio, "cómo leer un marbete" y teasers ("mirá este número").
+  **Regla:** nada introductorio (el productor ya sabe leer un marbete): dato directo + pedido de contacto.
 - ⚠️ El repo es **público** y `brand/referencias/hibridos-nidera.md` tiene precios y datos que
   contradicen los marbetes: NO usarlo. Pendiente decidir si se borra o si el repo pasa a privado.
 - ✅ Estructura inicial creada (junio 2026, semana W24).

@@ -17,9 +17,7 @@
 
 ## Pieza visual
 Opción elegida en el plan: **Placa feed 4:5** — Dos caminos que terminan en un solo número comparable. Sistema visual "Siembra 26/27"
-(`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha,
-sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W44-finanzas-pesos-dolares.html` y la página
-`docs/propuesta/index.html#p-finanzas-pesos-dolares`.
+(`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha, sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W44-finanzas-pesos-dolares.html` y la propuesta `docs/propuesta/index.html#p-finanzas-pesos-dolares`.
 
 ## Hashtags (máx 8)
 #Henderseeds #FinanzasAgro #Campaña2627 #Herramientas #Henderson #Daireaux #Bolivar #AgroArgentino

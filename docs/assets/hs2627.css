@@ -226,7 +226,7 @@
 /* hsOut va con fill "forwards": si fuera "both", su estado inicial (opacidad 1)
    taparía el fundido de entrada, porque la segunda animación manda. */
 .hs.play .scene { animation: hsFade .6s ease-out var(--in, 0s) both, hsOut .5s ease-in var(--out, 999s) forwards; }
-.hs:not(.play) .scene.only-anim { display: none; }  /* escenas intermedias: solo existen en movimiento */
+.hs:not(.play) .only-anim { display: none; }  /* escenas (y capas) intermedias: solo existen en movimiento */
 
 @media (prefers-reduced-motion: reduce) {
   .hs.play *, .hs.play .scene { animation: none !important; }
@@ -270,3 +270,94 @@
 .hs.tapa .tapa-pie .logo-hs { height: 64px; }
 .hs.tapa .play-chip { display: inline-flex; align-items: center; gap: 14px; font: 500 26px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: #0A0F1B; background: var(--amber); padding: 14px 20px; border-radius: 10px; }
 .hs.tapa .play-chip i { width: 0; height: 0; border-left: 18px solid #0A0F1B; border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+
+/* --- Girasol realista (scripts/lib/girasol.py) ------------------------------
+   Semillas en espiral, pétalos que se despliegan desde la base, la planta que se
+   mece con el viento, el capítulo que cabecea y el resplandor que respira.
+   Sin .play se ve completo (estado final). */
+.hs .gs-s { transform-box: fill-box; transform-origin: center; }
+.hs .gs-p { transform-box: fill-box; transform-origin: 50% 100%; }
+.hs .gs-glow { transform-box: fill-box; transform-origin: center; }
+.hs .gs-cabeza { transform-origin: 0px 160px; }            /* el cuello: arriba del tallo */
+@keyframes gsPetalo { 0% { transform: scale(.25, .04); opacity: 0; } 55% { opacity: 1; } 100% { transform: none; opacity: 1; } }
+@keyframes gsRespira { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.08); opacity: 1; } }
+@keyframes gsMece { 0%, 100% { transform: rotate(-1.1deg); } 50% { transform: rotate(1.3deg); } }
+@keyframes gsCabecea { 0%, 100% { transform: rotate(1.6deg); } 50% { transform: rotate(-1.4deg); } }
+.hs.play .gs-s { animation: hsPop .5s var(--ease) var(--d, 0s) both; }
+.hs.play .gs-p { animation: gsPetalo 1s cubic-bezier(.2, .9, .25, 1) var(--d, 0s) both; }
+.hs.play .gs-glow { animation: gsRespira 4s ease-in-out infinite; }
+.hs.play .gs-mece { animation: gsMece 5.2s ease-in-out -1.3s infinite; }
+.hs.play .gs-cabeza { animation: gsCabecea 3.7s ease-in-out -.6s infinite; }
+
+/* Polen / polvo en el aire, a contraluz */
+.hs .polen { position: absolute; inset: 0; pointer-events: none; }
+.hs .polen i { position: absolute; left: var(--x); top: var(--y); width: var(--s, 9px); height: var(--s, 9px); border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 222, 140, .95), rgba(245, 166, 35, 0) 70%); opacity: .45; }
+@keyframes gsMota { 0% { transform: translate(0, 0); opacity: 0; } 18% { opacity: .95; } 80% { opacity: .55; } 100% { transform: translate(var(--dx, 30px), -340px); opacity: 0; } }
+.hs.play .polen i { animation: gsMota var(--t, 7s) linear var(--d, 0s) infinite; }
+
+/* --- Lote al amanecer: fondo de la serie de reels ---------------------------
+   Cielo, sol que asoma y un lote de girasol a contraluz (girasol.py campo).
+   El horizonte queda en y = 1434 (74,7 %). */
+.hs .amanecer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; will-change: transform; }  /* capa propia: el lote se dibuja una vez y el zoom lo hace la GPU */
+.hs .amanecer .cielo { position: absolute; inset: 0; background: linear-gradient(180deg, #0A0F1B 0%, #0C1830 38%, #2A2236 56%, #6E3A26 66%, #C8742A 72%, #FFB547 74.7%, #2a1a10 74.8%); }
+.hs .amanecer .sol { position: absolute; left: 50%; top: 1434px; width: 1600px; height: 820px; margin: -410px 0 0 -800px; background: radial-gradient(closest-side, rgba(255, 190, 80, .6), rgba(245, 166, 35, .14) 55%, transparent); }
+.hs .amanecer .sol-disco { position: absolute; left: 50%; top: 1434px; width: 250px; height: 250px; margin: -125px 0 0 -125px; border-radius: 50%;
+  background: radial-gradient(circle, #FFF7DC 0 34%, #FFD47E 52%, rgba(255, 178, 58, 0) 71%); }
+.hs .amanecer .campo { position: absolute; left: 0; bottom: 0; width: 1080px; height: 520px; }
+@keyframes hsKen { from { transform: scale(1); } to { transform: scale(1.08); } }
+@keyframes gsSol { from { transform: translateY(80px); } to { transform: none; } }
+.hs.play .amanecer { animation: hsKen 14s linear both; transform-origin: 50% 74.7%; }
+.hs.play .amanecer .sol-disco { animation: gsSol 12s linear both; }
+
+/* Titular que cae con golpe */
+@keyframes hsSlam { 0% { opacity: 0; transform: scale(1.35); } 60% { opacity: 1; transform: scale(.97); } 100% { opacity: 1; transform: none; } }
+.hs.play .a-slam { animation: hsSlam .55s cubic-bezier(.2, .9, .3, 1.2) var(--d, 0s) both; transform-origin: left center; }
+
+/* --- Serie de reels 26/27: piezas comunes -----------------------------------
+   Texto arriba (y 250–700), imagen abajo. Abajo tapa el caption (~420 px) y a la
+   derecha los botones (~130 px, de y 1150 a 1700): ahí solo va decoración. */
+.hs .zona { position: absolute; left: 84px; right: 84px; top: 250px; z-index: 3; }
+.hs .rotulo { display: inline-flex; align-items: center; gap: 12px; font: 500 26px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase;
+  color: #0A0F1B; background: var(--amber); padding: 13px 18px; border-radius: 10px; }
+.hs .rotulo.linea { background: rgba(10, 15, 27, .6); color: var(--amber); box-shadow: inset 0 0 0 2px rgba(245, 166, 35, .7); }
+.hs .tarjeta { background: rgba(10, 15, 27, .84); border: 1.5px solid var(--line-2); border-radius: 28px; padding: 34px 38px; box-shadow: 0 24px 60px rgba(0, 0, 0, .4); }
+.hs .sombra-txt { text-shadow: 0 4px 28px rgba(0, 0, 0, .55); }
+/* Macro del disco (reel NS 1113): gira y se acerca despacio, como una cámara */
+@keyframes gsMacro { from { transform: rotate(-8deg) scale(1); } to { transform: rotate(22deg) scale(1.14); } }
+.hs.play .gs-macro { animation: gsMacro 14s linear both; }
+/* Maíz que sube desde el suelo (reel de tardío) y lo que queda atenuado */
+@keyframes mzSube { from { transform: translateY(760px); } to { transform: none; } }
+@keyframes mzMece { 0%, 100% { transform: rotate(-.9deg); } 50% { transform: rotate(1.1deg); } }
+@keyframes hsDim { to { opacity: .34; } }
+.hs.play .mz-sube { animation: mzSube 1.5s cubic-bezier(.2, .8, .2, 1) var(--d, 0s) both; }
+.hs.play .mz-mece { animation: mzMece 4.6s ease-in-out var(--m, 0s) infinite; }
+.hs.play .a-dim { animation: hsDim .6s ease var(--d, 0s) both; }
+
+/* --- Chat de WhatsApp (reel "3 datos de tu lote") ---------------------------- */
+.hs .chat { position: absolute; left: 84px; right: 140px; top: 590px; border-radius: 34px; overflow: hidden; background: #0B141A; box-shadow: 0 30px 80px rgba(0,0,0,.5); border: 1.5px solid rgba(255,255,255,.08); z-index: 2; }
+.hs .chat-top { display: flex; align-items: center; gap: 18px; padding: 22px 26px; background: #1F2C34; }
+.hs .chat-top .av { width: 66px; height: 66px; border-radius: 50%; background: var(--amber); color: #0A0F1B; display: flex; align-items: center; justify-content: center; font: 400 26px/1 var(--f-arch); letter-spacing: -.02em; flex-shrink: 0; }
+.hs .chat-top b { display: block; font: 700 32px/1.1 var(--f-sans); color: #E9EDEF; }
+.hs .chat-top small { display: block; margin-top: 4px; font: 400 22px/1 var(--f-sans); color: #8696A0; }
+.hs .chat-top .ej { margin-left: auto; font: 500 20px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: #8696A0; border: 1.5px solid rgba(134,150,160,.5); border-radius: 6px; padding: 7px 9px; }
+.hs .chat-body { padding: 26px 24px 30px; display: flex; flex-direction: column; gap: 16px;
+  background-color: #0B141A; background-image: radial-gradient(rgba(255,255,255,.035) 1.5px, transparent 1.5px); background-size: 26px 26px; }
+.hs .burb { max-width: 84%; padding: 16px 22px 12px; border-radius: 22px; font: 400 33px/1.3 var(--f-sans); color: #E9EDEF; }
+.hs .burb.sale { align-self: flex-end; background: #005C4B; border-top-right-radius: 6px; }
+.hs .burb.entra { align-self: flex-start; background: #202C33; border-top-left-radius: 6px; }
+.hs .burb b { font-weight: 700; }
+.hs .burb .h { display: block; text-align: right; font: 400 19px/1 var(--f-sans); color: rgba(233,237,239,.6); margin-top: 6px; }
+.hs .burb.sale .h::after { content: ' ✓✓'; color: #53BDEB; letter-spacing: -.1em; }
+.hs .hueco { position: relative; align-self: flex-start; max-width: 84%; display: flex; }
+.hs .escribiendo { position: absolute; left: 0; top: 0; background: #202C33; border-radius: 22px; border-top-left-radius: 6px; padding: 24px 26px; display: flex; gap: 10px; opacity: 0; }
+.hs .escribiendo i { width: 14px; height: 14px; border-radius: 50%; background: #8696A0; }
+@keyframes waBurb { from { opacity: 0; transform: translateY(24px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes waPunto { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-8px); opacity: 1; } }
+.hs.play .a-burb { animation: waBurb .42s cubic-bezier(.2, .9, .3, 1.1) var(--d, 0s) both; transform-origin: 50% 100%; }
+.hs.play .escribiendo { animation: waBurb .3s ease-out var(--d, 0s) both, hsOut .2s ease-in var(--out, 999s) forwards; }
+.hs.play .escribiendo i { animation: waPunto 1s ease-in-out infinite; }
+.hs.play .escribiendo i:nth-child(2) { animation-delay: .15s; }
+.hs.play .escribiendo i:nth-child(3) { animation-delay: .3s; }
+.hs .boton-wa { display: inline-flex; align-items: center; gap: 20px; background: #25D366; color: #0B141A; border-radius: 999px; padding: 26px 40px 26px 30px; font: 400 58px/1 var(--f-arch); letter-spacing: -.02em; box-shadow: 0 20px 50px rgba(37,211,102,.28); }
+.hs .boton-wa svg { width: 60px; height: 60px; fill: #0B141A; flex-shrink: 0; }

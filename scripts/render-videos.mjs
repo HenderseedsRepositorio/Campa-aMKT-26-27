@@ -35,6 +35,7 @@ const CSS_FUENTES = path.join(RAIZ, 'docs/assets/fonts/fuentes.css');
 const FFMPEG = process.env.FFMPEG || 'ffmpeg';
 const FPS = 30;
 const COLA = 1.5; // segundos quietos al final, para que el cierre se lea
+const CRF = process.env.CRF || '21'; // 21 = sin pérdida visible; las texturas finas (lote, disco) con 18 pesan el doble
 
 const filtro = process.argv.slice(2).filter((a) => !a.startsWith('-'));
 
@@ -44,7 +45,7 @@ function ffmpeg(salida, ancho, alto) {
     '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
     '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
     '-shortest',
-    '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-profile:v', 'high',
+    '-c:v', 'libx264', '-preset', 'medium', '-crf', CRF, '-profile:v', 'high',
     '-pix_fmt', 'yuv420p', '-r', String(FPS), '-s', `${ancho}x${alto}`,
     '-c:a', 'aac', '-b:a', '128k',
     '-movflags', '+faststart',

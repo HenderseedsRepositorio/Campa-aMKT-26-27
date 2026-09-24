@@ -35,74 +35,64 @@ const POSTS = args.includes('--posts');
 const MINIATURAS = args.includes('--miniaturas');
 
 /* ── Orden y grupos de la galería ─────────────────────────────────────── */
+// Primero la serie de reels (lo que arranca), después las placas del plan y al final las alternativas.
+// Afuera (docs/placas/_archivo/): refugio NS 7800 y "cómo leer un marbete" (introductorios).
 const ORDEN = [
-  'girasol-ventana', 'refugio-ns7800', 'somos-de-aca', 'historias-interactivas',
-  'girasol-carrusel', 'calculadora-maiz-girasol', 'maiz-tardio-ranking', 'ns7925-spiroplasma',
-  'rinde-indiferencia', 'dia-de-la-madre', 'ns7765-dos-fechas', 'implantacion',
-  'finanzas-pesos-dolares', 'como-leer-un-marbete', 'maiz-tardio-carrusel', 'ns7624-malezas', 'dia-de-la-tradicion',
+  'reel-girasol-fecha', 'reel-whatsapp-lote', 'reel-ns1113', 'reel-girasol-phomopsis', 'reel-tardio-carrera', 'reel-calculadora',
+  'historias-interactivas', 'girasol-carrusel', 'ns7765-dos-fechas', 'ns7925-spiroplasma', 'finanzas-pesos-dolares',
+  'implantacion', 'somos-de-aca', 'maiz-tardio-carrusel', 'calculadora-maiz-girasol', 'dia-de-la-madre', 'dia-de-la-tradicion',
+  'girasol-ventana', 'maiz-tardio-ranking', 'rinde-indiferencia', 'ns7624-malezas',
 ];
 const GRUPO = {
+  'reel-girasol-fecha': 'reels', 'reel-whatsapp-lote': 'reels', 'reel-ns1113': 'reels', 'reel-girasol-phomopsis': 'reels',
+  'reel-tardio-carrera': 'reels', 'reel-calculadora': 'reels',
   'girasol-ventana': 'girasol', 'girasol-carrusel': 'girasol',
-  'refugio-ns7800': 'maiz', 'maiz-tardio-ranking': 'maiz', 'ns7925-spiroplasma': 'maiz',
-  'ns7765-dos-fechas': 'maiz', 'ns7624-malezas': 'maiz', 'maiz-tardio-carrusel': 'maiz',
+  'maiz-tardio-ranking': 'maiz', 'ns7925-spiroplasma': 'maiz', 'ns7765-dos-fechas': 'maiz', 'ns7624-malezas': 'maiz', 'maiz-tardio-carrusel': 'maiz',
   'calculadora-maiz-girasol': 'herramientas', 'rinde-indiferencia': 'herramientas', 'finanzas-pesos-dolares': 'herramientas',
-  'somos-de-aca': 'institucional', 'implantacion': 'institucional', 'como-leer-un-marbete': 'institucional',
-  'dia-de-la-madre': 'institucional', 'dia-de-la-tradicion': 'institucional',
+  'somos-de-aca': 'institucional', 'implantacion': 'institucional', 'dia-de-la-madre': 'institucional', 'dia-de-la-tradicion': 'institucional',
   'historias-interactivas': 'historias',
 };
 
 /* ── Plan de 7 semanas (W40–W46) ──────────────────────────────────────── */
+// W40–W41: solo reels (directos, con cierre a WhatsApp) + historias. Después, placas con dato útil.
 const PLAN = [
-  { sem: 'W40', rango: '28/09 – 04/10', foco: 'Volver con lo útil', items: [
-    { dia: 'lun 28/09', hora: '7–9 h', pieza: 'girasol-ventana', slide: 'girasol-ventana-A', tipo: 'Placa', nota: 'Pauta liviana 5 días' },
-    { dia: 'mié 30/09', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-1', tipo: 'Historia', nota: 'Encuesta' },
-    { dia: 'jue 01/10', hora: '12–14 h', pieza: 'refugio-ns7800', slide: 'ref-A', tipo: 'Placa' },
-    { dia: 'vie 02/10', hora: '20–22 h', pieza: 'girasol-ventana', slide: 'girasol-ventana-R', tipo: 'Reel',
-      caption: '¿Cuándo va el girasol en el oeste? 🌻\n\nDel 15/10 al 15/11, con fecha límite el 20/11. Lo dice el marbete Nidera para el Oeste de Buenos Aires.\n\nGuardalo para la siembra. ¿Cuál va en tu lote? Mandanos un DM.',
-      pauta: 'No: la pauta de la semana va en la placa del lunes.' },
-    { dia: 'sáb 03/10', hora: '8–10 h', pieza: 'somos-de-aca', slide: 'aca-L', tipo: 'Placa', nota: 'Versión crema · + reel del mapa en historias' },
+  { sem: 'W40', rango: '28/09 – 04/10', foco: 'Arrancar con reels', items: [
+    { dia: 'lun 28/09', hora: '20–22 h', pieza: 'reel-girasol-fecha', slide: 'rgf-R', tipo: 'Reel', nota: 'Pauta 7 días (Mensajes) · cortar el 15/10' },
+    { dia: 'mié 30/09', hora: '20–22 h', pieza: 'reel-whatsapp-lote', slide: 'rwa-R', tipo: 'Reel' },
+    { dia: 'jue 01/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-1', tipo: 'Historia', nota: 'Encuesta' },
+    { dia: 'vie 02/10', hora: '20–22 h', pieza: 'reel-ns1113', slide: 'r13-R', tipo: 'Reel' },
   ] },
-  { sem: 'W41', rango: '05/10 – 11/10', foco: 'Girasol y la decisión del lote', items: [
-    { dia: 'mar 06/10', hora: '20–22 h', pieza: 'girasol-carrusel', slide: 'gc-1', tipo: 'Carrusel' },
-    { dia: 'mié 07/10', hora: '20–22 h', pieza: 'calculadora-maiz-girasol', slide: 'calc-L', tipo: 'Placa', nota: 'Versión crema · + historia con link' },
-    { dia: 'jue 08/10', hora: '12–14 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-A', tipo: 'Placa' },
-    { dia: 'vie 09/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-2', tipo: 'Historia', nota: 'Encuesta tardío' },
-    { dia: 'dom 11/10', hora: '20–22 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-R', tipo: 'Reel', nota: 'Pautado 7 días',
-      caption: '5 marbetes, un mismo criterio: así rinden en siembra tardía. 🌽\n\nKilos por hectárea arriba del promedio de cada sitio de ensayo, según los marbetes Nidera 26/27. Todas diferencias significativas.\n\n¿Cuál va en tu lote tardío? Mandanos un DM y lo vemos.' },
+  { sem: 'W41', rango: '05/10 – 11/10', foco: 'La decisión del lote', items: [
+    { dia: 'lun 05/10', hora: '20–22 h', pieza: 'reel-girasol-phomopsis', slide: 'rph-R', tipo: 'Reel', nota: 'El mismo día: historia con la encuesta real de IG' },
+    { dia: 'mié 07/10', hora: '20–22 h', pieza: 'reel-tardio-carrera', slide: 'rtc-R', tipo: 'Reel', nota: 'Pauta 7 días (Mensajes)' },
+    { dia: 'jue 08/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-2', tipo: 'Historia', nota: 'Encuesta tardío' },
+    { dia: 'vie 09/10', hora: '20–22 h', pieza: 'reel-calculadora', slide: 'rcal-R', tipo: 'Reel', nota: '+ historia con link a la calculadora' },
   ] },
   { sem: 'W42', rango: '12/10 – 18/10', foco: 'Abre la ventana del girasol', items: [
-    { dia: 'lun 12/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-3', tipo: 'Historia', nota: 'Caja de preguntas' },
-    { dia: 'mar 13/10', hora: '7–9 h', pieza: 'ns7925-spiroplasma', slide: 's7925-A', tipo: 'Placa' },
+    { dia: 'lun 12/10', hora: '20–22 h', pieza: 'girasol-carrusel', slide: 'gc-1', tipo: 'Carrusel', nota: 'Techo o sanidad: el carrusel para guardar' },
     { dia: 'mié 14/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-4', tipo: 'Historia', nota: 'Cuenta regresiva al 15/10' },
-    { dia: 'jue 15/10', hora: '20–22 h', pieza: 'rinde-indiferencia', slide: 'rind-L', tipo: 'Placa', nota: 'Versión crema' },
+    { dia: 'jue 15/10', hora: '7–9 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] arranca la siembra: foto del primer lote de girasol sembrado · plantilla Dato (15/10 → 15/11)' },
     { dia: 'dom 18/10', hora: '8–10 h', pieza: 'dia-de-la-madre', slide: 'madre-B', tipo: 'Efeméride', nota: 'Versión crema' },
   ] },
-  { sem: 'W43', rango: '19/10 – 25/10', foco: 'Tardío y servicio', items: [
+  { sem: 'W43', rango: '19/10 – 25/10', foco: 'Tardío con datos', items: [
     { dia: 'lun 19/10', hora: '7–9 h', pieza: 'ns7765-dos-fechas', slide: 'n7765-A', tipo: 'Placa' },
-    { dia: 'mié 21/10', hora: '7–9 h', pieza: 'implantacion', slide: 'impl-L', tipo: 'Placa', nota: 'Versión crema · mejor con 1–3 fotos reales' },
-    { dia: 'jue 22/10', hora: '20–22 h', pieza: 'ns7925-spiroplasma', slide: 's7925-R', tipo: 'Reel',
-      caption: 'Tardío y chicharrita: mirá este número. 🌽\n\nSpiroplasma 3 en la escala del marbete Nidera (1 es excelente, 9 deficiente): el mejor puntaje del portafolio de maíz. Es el NS 7925 VIPTERA3, lanzamiento 26/27.\n\nEl híbrido suma; el manejo integrado sigue siendo la base. ¿Lo vemos para tu lote? Mandanos un DM.',
-      pauta: 'Opcional: segundo reel para pautar si el del ranking dio buen costo por conversación.' },
+    { dia: 'mié 21/10', hora: '20–22 h', pieza: 'ns7925-spiroplasma', slide: 's7925-A', tipo: 'Placa' },
     { dia: 'sáb 24/10', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] el equipo sembrando o recorriendo un lote · plantilla Titular del generador' },
   ] },
-  { sem: 'W44', rango: '26/10 – 01/11', foco: 'Enseñar a leer el dato', items: [
+  { sem: 'W44', rango: '26/10 – 01/11', foco: 'Servicio y números', items: [
     { dia: 'mar 27/10', hora: '12–14 h', pieza: 'finanzas-pesos-dolares', slide: 'fin-A', tipo: 'Placa' },
-    { dia: 'jue 29/10', hora: '20–22 h', pieza: 'como-leer-un-marbete', slide: 'lm-1', tipo: 'Carrusel', nota: 'Fijarlo en el perfil' },
-    { dia: 'sáb 31/10', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] un lote de girasol recién nacido · plantilla Dato (15/10 → 15/11)' },
+    { dia: 'jue 29/10', hora: '7–9 h', pieza: 'implantacion', slide: 'impl-L', tipo: 'Placa', nota: 'Versión crema · mejor con 1–3 fotos reales' },
+    { dia: 'sáb 31/10', hora: '8–10 h', pieza: 'somos-de-aca', slide: 'aca-L', tipo: 'Placa', nota: 'Versión crema · + reel del mapa en historias' },
   ] },
   { sem: 'W45', rango: '02/11 – 08/11', foco: 'Tardío: el lote difícil', items: [
     { dia: 'lun 02/11', hora: '20–22 h', pieza: 'maiz-tardio-carrusel', slide: 'tc-1', tipo: 'Carrusel' },
-    { dia: 'mié 04/11', hora: '20–22 h', pieza: 'refugio-ns7800', slide: 'ref-R', tipo: 'Reel', nota: 'Para quien planifica el tardío',
-      caption: '¿Ya pensaste el refugio del tardío? 🌽\n\n1 de cada 10 plantas: así se ve el refugio en el lote. Es lo que hace que VIPTERA3 siga funcionando campaña tras campaña.\n\nEl refugio del portafolio es el NS 7800 CLTG. ¿Lo planificamos juntos? Mandanos un DM.' },
     { dia: 'vie 06/11', hora: 'historia', pieza: 'calculadora-maiz-girasol', slide: 'calc-S', tipo: 'Historia', nota: 'Con sticker de link' },
     { dia: 'sáb 07/11', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] un productor en su lote, con su frase y su permiso · plantilla Frase del generador' },
   ] },
   { sem: 'W46', rango: '09/11 – 15/11', foco: 'Cierre de ventana', items: [
     { dia: 'mar 10/11', hora: '8–10 h', pieza: 'dia-de-la-tradicion', slide: 'trad-S', tipo: 'Historia' },
-    { dia: 'mié 11/11', hora: '7–9 h', pieza: 'girasol-ventana', slide: 'girasol-ventana-B', tipo: 'Placa', nota: 'Recordatorio: límite 20/11',
-      objetivo: 'Último empujón para el girasol que todavía no se sembró: recordatorio con dato de marbete.', pauta: 'No.',
-      caption: 'Última semana de la ventana óptima del girasol en el oeste. 🌻\n\nSegún el marbete Nidera, la fecha óptima de siembra va hasta el 15/11 y la fecha límite es el 20/11. Si todavía te queda girasol por sembrar, es ahora.\n\nGuardá el almanaque y, si tenés dudas con el híbrido para ese lote, mandanos un DM.\n\n📲 WhatsApp: wa.me/5492314530691' },
-    { dia: 'jue 12/11', hora: '20–22 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-R', tipo: 'Pauta', nota: 'Anuncio, no posteo nuevo: se re-pauta el reel del 11/10',
+    { dia: 'mié 11/11', hora: '7–9 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] girasol: "última semana de fecha óptima (hasta 15/11, límite 20/11)" · foto de lote + plantilla Dato' },
+    { dia: 'jue 12/11', hora: '20–22 h', pieza: 'reel-tardio-carrera', slide: 'rtc-R', tipo: 'Pauta', nota: 'Anuncio, no posteo nuevo: se re-pauta el reel del 07/10',
       objetivo: 'Último empujón del tardío antes de diciembre.', pauta: 'Sí: re-pauta 5 días, excluyendo a quienes ya escribieron.',
       caption: 'Diciembre se define en noviembre. 🌽\n\nSi vas a sembrar maíz tardío, este es el momento de elegir el híbrido para cada lote. Los marbetes Nidera 26/27 dicen esto en siembra tardía templada (kg/ha sobre el promedio de cada sitio):\n\nNS 7765 · +324 · NS 7925 · +228 · NS 7852 · +194 · NS 7921 CL · +179 · NS 7624 CL · +163\n\nEl ambiente y el manejo mandan: por eso lo vemos lote por lote.\n📩 Mandanos un DM con tu lote tardío.' },
   ] },
@@ -110,7 +100,10 @@ const PLAN = [
 
 /* ── grilla del perfil ─────────────────────────────────────────────────── */
 // En la grilla, cada reel se ve con su tapa (pensada para el recorte 3:4).
-const TAPA = { 'girasol-ventana-R': 'girasol-ventana-T', 'tardio-R': 'tardio-T', 's7925-R': 's7925-T', 'ref-R': 'ref-T', 'aca-R': 'aca-T' };
+const TAPA = {
+  'rgf-R': 'rgf-T', 'rwa-R': 'rwa-T', 'r13-R': 'r13-T', 'rph-R': 'rph-T', 'rtc-R': 'rtc-T', 'rcal-R': 'rcal-T',
+  'tardio-R': 'tardio-T', 'aca-R': 'aca-T',
+};
 const EN_FEED = ['Placa', 'Carrusel', 'Reel', 'Efeméride', 'Foto real'];
 const DIR_GRILLA = path.join(DOCS, 'propuesta', 'grilla');
 const itemsGrilla = () => PLAN.flatMap((w) => w.items.filter((it) => EN_FEED.includes(it.tipo))).reverse(); // lo último arriba, como el perfil
@@ -252,28 +245,31 @@ async function escribirPosts(piezas) {
       const s = p.slides[it.slide];
       const op = p.meta.opciones.find((o) => o.slide === it.slide) || p.meta.opciones[0];
       const formato = { Placa: 'placa simple (1080×1350)', Carrusel: 'carrusel (1080×1350 por slide)', Reel: 'reel 9:16 (MP4)', 'Efeméride': 'placa efeméride (1080×1350)' }[it.tipo] || it.tipo;
-      const archivoMd = path.join(carpeta, `post-${String(n).padStart(2, '0')}-${it.pieza}${it.tipo === 'Reel' ? '-reel' : ''}.md`);
+      const esSerieReel = it.pieza.startsWith('reel-');
+      const archivoMd = path.join(carpeta, `post-${String(n).padStart(2, '0')}-${it.pieza}${it.tipo === 'Reel' && !esSerieReel ? '-reel' : ''}.md`);
       const pieza = s.anim
         ? `\`docs/placas/${p.archivo}\` → slide \`${s.id}\` · video: \`docs/placas/video/${s.nombre}.mp4\``
         : `\`docs/placas/${p.archivo}\` → slide \`${s.id}\` · JPG: \`docs/placas/img/${s.nombre}-feed-1080x1350.jpg\` (lo genera \`npm run placas\`)`;
       const caption = it.caption || p.meta.caption;
       const notaOp = (op.nota || '').replace(/\.\s*$/, '');
-      const md = `# Post ${String(n).padStart(2, '0')} — ${p.meta.concepto}${it.tipo === 'Reel' ? ' (reel)' : ''}
+      const tapa = it.tipo === 'Reel' && TAPA[it.slide] && p.slides[TAPA[it.slide]];
+      const md = `# Post ${String(n).padStart(2, '0')} — ${p.meta.concepto}${it.tipo === 'Reel' && !esSerieReel ? ' (reel)' : ''}
 
 - **Semana:** 2026-${w.sem} · publicación tentativa: ${it.dia} · ${it.hora}
 - **Pilar:** ${p.meta.pilar}
 - **Formato:** ${formato} → ${pieza}
 - **Objetivo:** ${it.objetivo || p.meta.porque}
-- **Pauta:** ${it.pauta || p.meta.pauta}${it.nota ? `\n- **Nota del plan:** ${it.nota}` : ''}
+- **Pauta:** ${it.pauta || p.meta.pauta}${it.nota ? `\n- **Nota del plan:** ${it.nota}` : ''}${tapa ? `\n- **Tapa (portada del reel):** \`docs/placas/img/${tapa.nombre}-1080x1920.jpg\`` : ''}${p.meta.audio ? `\n- **Audio sugerido:** ${p.meta.audio}` : ''}
 
 ## Copy (Instagram/Facebook)
 ${caption.split('\n').map((l) => '> ' + l).join('\n')}
 
 ## Pieza visual
 Opción elegida en el plan: **${op.nombre}**${notaOp ? ` — ${notaOp}` : ''}. Sistema visual "Siembra 26/27"
-(\`docs/assets/hs2627.css\`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha,
-sello RED.IN Nidera abajo. Todas las opciones de la pieza: \`docs/placas/${p.archivo}\` y la página
-\`docs/propuesta/index.html#p-${p.meta.id}\`.
+(\`docs/assets/hs2627.css\`): navy + ámbar, Archivo Black / DM Sans / DM Mono, ${esSerieReel
+  ? 'gancho visible desde el cuadro 0 y cierre con logo HenderSeeds, sello RED.IN Nidera y WhatsApp'
+  : 'logo HenderSeeds arriba a la derecha, sello RED.IN Nidera abajo'}. Todas las opciones de la pieza: \`docs/placas/${p.archivo}\`${esSerieReel
+  ? ', la página de reels \`docs/reels-siembra/index.html\`' : ''} y la propuesta \`docs/propuesta/index.html#p-${p.meta.id}\`.
 
 ## Hashtags (máx 8)
 ${p.meta.hashtags || '—'}
@@ -350,6 +346,7 @@ async function main() {
   if (MINIATURAS) await generarMiniaturas(piezas);
   const grilla = await bloqueGrilla(piezas, modo);
   const urlFoto = modo === 'auto' ? PAGES + 'foto/' : '../foto/';
+  const urlReels = modo === 'auto' ? PAGES + 'reels-siembra/' : '../reels-siembra/';
 
   // Símbolos SVG (íconos, tramas) sin repetir ids.
   const simbolos = new Map();
@@ -377,7 +374,8 @@ async function main() {
     .replace('{{COMPARA_NUEVA}}', n7765)
     .replace('{{GRILLA}}', grilla)
     .replace('{{SPRITE}}', sprite)
-    .replaceAll('{{URL_FOTO}}', urlFoto);
+    .replaceAll('{{URL_FOTO}}', urlFoto)
+    .replaceAll('{{URL_REELS}}', urlReels);
 
   if (modo === 'repo') {
     head = `<link rel="stylesheet" href="../assets/fonts/fuentes.css">

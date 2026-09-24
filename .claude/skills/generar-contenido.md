@@ -85,10 +85,21 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 - Si hay MCP de Canva conectado, armar directo en Canva y poner el link.
 
 ### Reel
-- Guion en `reels/` según `reels/_plantilla-reel.md`.
-- Hook en los primeros 3 segundos.
-- Subtítulos siempre (se mira sin audio).
-- Duración ideal: 30-60 segundos.
+- **Reel animado (lo que se usa desde W40):** HTML en `docs/placas/AAAA-Www-reel-tema.html` con el
+  sistema Siembra 26/27 (copiar cualquiera de la serie `*-reel-*.html`). Reglas de la serie:
+  - 11–13 s, 3 o 4 escenas; el gancho ya está escrito en el **cuadro 0** (`a-hook`, escena con `--in:-1s`).
+  - Texto arriba (y 250–700); abajo tapa el caption (~420 px) y a la derecha los botones (~130 px).
+  - Un dato del marbete, una sola idea, cierre a WhatsApp (endcard con logo, sello Nidera y 2314 53-0691).
+  - Entre escena y escena, ~0,5 s de respiro: sale un texto y recién después entra el otro (nunca se pisan).
+    El video sale mudo: el audio se suma en Instagram.
+  - Tapa aparte (`.hs.story.tapa`) con todo dentro del recorte 3:4 de la grilla (y 290–1630).
+  - Girasol realista y plantas de maíz: `<!--@girasol flor-->…<!--/@girasol-->`, `campo`, `disco`,
+    `<!--@maiz defs-->` y `lote`, rellenados con `python3 scripts/lib/inyectar-girasol.py <pieza>`.
+  - `npm run videos -- reel-tema` graba el MP4; `node scripts/armar-reels.mjs` rearma `docs/reels-siembra/`.
+- **Nada introductorio:** el productor ya sabe leer un marbete. Nada de "cómo leer…", almanaques
+  para guardar ni teasers tipo "mirá este número": dato directo + pedido de contacto.
+- Guion de reel filmado (con persona/cámara): en `reels/` según `reels/_plantilla-reel.md`.
+  Hook en los primeros 3 segundos, subtítulos siempre (se mira sin audio).
 
 ### Brief de pauta
 - Si el post va con pauta → crear brief en `meta-ads/briefs/AAAA-Www-tema.md`.
