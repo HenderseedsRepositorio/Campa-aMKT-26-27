@@ -22,6 +22,14 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 #rind-A .body { margin-top: 32px; }
 #rind-A .urlline { margin-top: 26px; font: 500 28px/1.3 var(--f-mono); color: var(--txt-2); }
 #rind-A .urlline b { color: var(--amber); font-weight: 500; }
+/* variante clara */
+#rind-L .h1 { font-size: 88px; margin-top: 40px; }
+#rind-L .formula { margin-top: 44px; }
+#rind-L .body { margin-top: 32px; }
+#rind-L .urlline { margin-top: 26px; font: 500 28px/1.3 var(--f-mono); color: var(--txt-2); }
+#rind-L .urlline b { color: var(--amber); font-weight: 500; }
+.hs.light .oper { color: #D98B00; }
+#rind-L .urlline b { color: #B36F00; }
 </style>
 </head>
 <body>
@@ -43,7 +51,16 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   "hashtags": "#Henderseeds #MargenesAgricolas #RindeDeIndiferencia #Maiz2627 #Girasol2627 #Henderson #Daireaux #Bolivar",
   "fuentes": "Definición estándar de rinde de indiferencia (costos directos totales ÷ precio neto). Herramienta: margen.henderseeds.com.",
   "opciones": [
-    { "slide": "rind-A", "nombre": "Placa feed 4:5", "nota": "La fórmula como protagonista. Sin ejemplos con precios." }
+    {
+      "slide": "rind-A",
+      "nombre": "Placa feed 4:5",
+      "nota": "La fórmula como protagonista. Sin ejemplos con precios."
+    },
+    {
+      "slide": "rind-L",
+      "nombre": "Variante crema",
+      "nota": "Recomendada: en la grilla queda entre dos placas navy."
+    }
   ]
 }
 </script>
@@ -73,6 +90,38 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
       <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos con tus números? Mandanos un DM.</span></div>
       <div class="base">
         <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ═════════ VARIANTE CLARA (crema) ═════════ -->
+<section class="slide hs light" id="rind-L" data-name="2026-W42-rinde-indiferencia-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Márgenes 26/27</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">El número que tenés que saber <span class="hl">antes de sembrar.</span></h1>
+
+    <div class="formula">
+      <div class="term"><span class="n">Costos totales</span><span class="u">USD / ha</span></div>
+      <div class="oper">÷</div>
+      <div class="term"><span class="n">Precio neto del grano</span><span class="u">USD / qq</span></div>
+      <div class="oper">=</div>
+      <div class="term res"><span class="n">Rinde de indiferencia</span><span class="u">qq / ha</span></div>
+    </div>
+
+    <p class="body">Es el rinde que necesitás para cubrir todos los costos. Si tu rinde esperado <b>no lo supera con aire</b>, el planteo no cierra.</p>
+    <p class="urlline">La calculadora lo hace sola → <b>margen.henderseeds.com</b></p>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos con tus números? Mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
         <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
       </div>
     </footer>

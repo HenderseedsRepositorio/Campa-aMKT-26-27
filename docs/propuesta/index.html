@@ -259,6 +259,47 @@ body.pp {
 }
 @media (max-width: 380px) { :root { --pp-z: 0.23; } }
 
+/* ── modo aprobación ─────────────────────────────────────────── */
+.pp-aprob { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 0; }
+.pp-ap { font: 600 14px/1 'DM Sans', sans-serif; border-radius: 999px; cursor: pointer; border: 1.5px solid var(--pp-line-2); background: var(--pp-surface); color: var(--pp-ink-2); padding: 9px 14px; }
+.pp-ap:hover { color: var(--pp-ink); border-color: var(--pp-ink-3); }
+.pp-ap.ap-ok[aria-pressed="true"] { background: var(--pp-ok); border-color: var(--pp-ok); color: var(--pp-bg); }
+.pp-ap.ap-cambiar[aria-pressed="true"] { background: var(--pp-warn); border-color: var(--pp-warn); color: var(--pp-bg); }
+.pp-ap.ap-no[aria-pressed="true"] { background: var(--pp-bad); border-color: var(--pp-bad); color: var(--pp-bg); }
+.pp-nota-ap { flex-basis: 100%; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.pp-nota-ap[hidden], .pp-barra[hidden], .pp-resumen-txt[hidden] { display: none; }  /* el display de arriba pisaba a hidden */
+.pp-nota-ap span { font: 500 12px/1.2 'DM Mono', monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--pp-warn); }
+.pp-nota-ap textarea { font: 400 15px/1.45 'DM Sans', sans-serif; color: var(--pp-ink); background: var(--pp-surface-2); border: 1.5px solid var(--pp-line-2); border-radius: 10px; padding: 10px 12px; resize: vertical; width: 100%; box-sizing: border-box; }
+.pp-pieza[data-estado="ok"] { border-color: var(--pp-ok); box-shadow: inset 4px 0 0 var(--pp-ok); }
+.pp-pieza[data-estado="cambiar"] { border-color: var(--pp-warn); box-shadow: inset 4px 0 0 var(--pp-warn); }
+.pp-pieza[data-estado="no"] { opacity: .62; }
+.pp-sem-items li[data-estado]::after { font: 500 11px/1 'DM Mono', monospace; grid-column: 3; justify-self: start; padding: 4px 6px; border-radius: 5px; margin-top: 2px; }
+.pp-sem-items li[data-estado="ok"]::after { content: '✓ aprobada'; color: var(--pp-ok); background: var(--pp-ok-soft); }
+.pp-sem-items li[data-estado="cambiar"]::after { content: '✎ a cambiar'; color: var(--pp-warn); background: var(--pp-warn-soft); }
+.pp-sem-items li[data-estado="no"]::after { content: '✕ descartada'; color: var(--pp-bad); background: var(--pp-bad-soft); }
+.pp-como { margin: -8px 0 16px; }
+.pp-barra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: color-mix(in srgb, var(--pp-surface) 94%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--pp-line-2); padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: 0 -8px 24px rgba(10,15,27,.10); }
+.pp-barra-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 10px; }
+.pp-cuenta { font: 500 13.5px/1.4 'DM Mono', monospace; color: var(--pp-ink-2); }
+.pp-cuenta .c-ok { color: var(--pp-ok); font-weight: 700; } .pp-cuenta .c-cambiar { color: var(--pp-warn); font-weight: 700; } .pp-cuenta .c-no { color: var(--pp-bad); font-weight: 700; }
+.pp-barra-bt { display: flex; gap: 8px; }
+.pp-limpiar { font: 600 13.5px/1 'DM Sans', sans-serif; border-radius: 999px; cursor: pointer; border: 1.5px solid transparent; background: transparent; color: var(--pp-ink-3); padding: 8px 10px; }
+.pp-resumen-txt { max-width: 1180px; margin: 0 auto 10px; border-radius: 10px; max-height: 40vh; }
+body.pp.con-barra { padding-bottom: 76px; }
+
+/* ── grilla del perfil (recorte 3:4 como Instagram) ─────────── */
+.pp-grilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; max-width: 540px; background: var(--pp-bg); }
+.pp-g { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--pp-stage); text-decoration: none; }
+.pp-g img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pp-g small { position: absolute; left: 6px; bottom: 6px; font: 500 10.5px/1 'DM Mono', monospace; color: #fff; background: rgba(10,15,27,.72); padding: 4px 5px; border-radius: 4px; }
+.pp-g-ico { position: absolute; right: 6px; top: 6px; font: 500 10px/1 'DM Mono', monospace; font-style: normal; color: #fff; background: rgba(10,15,27,.72); padding: 4px 5px; border-radius: 4px; }
+.pp-g > span { position: absolute; inset: 0; display: grid; place-items: center; padding: 10px; text-align: center; color: #fff; font: 600 12px/1.3 'DM Sans', sans-serif; }
+.pp-g-foto { background: repeating-linear-gradient(45deg, var(--pp-surface-2) 0 10px, var(--pp-surface) 10px 20px); border: 1.5px dashed var(--pp-line-2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.pp-g-foto > span { position: static; color: var(--pp-ink); font: 700 14px/1.2 'DM Sans', sans-serif; }
+.pp-g-foto em { font: 500 11px/1.2 'DM Mono', monospace; font-style: normal; color: var(--pp-link); }
+.pp-wa { margin-top: 18px; max-width: 900px; }
+.pp-chip.c-pauta { background: transparent; color: var(--pp-accent-ink); box-shadow: inset 0 0 0 1.5px var(--pp-accent); }
+
 /* ── estilos propios de cada placa ── */
 /* 2026-W40-girasol-ventana.html */
 
@@ -311,6 +352,10 @@ body.pp {
 #girasol-ventana-R .s2 .strip { margin-top: 70px; }
 #girasol-ventana-R .s2 .chips { margin-top: 44px; }
 #girasol-ventana-R .s2 .chip { font-size: 30px; padding: 16px 26px; }
+/* tapa */
+#girasol-ventana-T .capi-tapa { position: absolute; width: 940px; right: -300px; top: 640px; opacity: .18; z-index: 1; }
+#girasol-ventana-T .rango { font-family: var(--f-arch); font-size: 118px; letter-spacing: -.04em; line-height: .95; color: var(--amber); }
+#girasol-ventana-T .rango small { display: block; font: 500 28px/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); margin-top: 16px; }
 
 /* 2026-W40-refugio-ns7800.html */
 
@@ -340,6 +385,8 @@ body.pp {
 #ref-R .inner .lote { margin-top: 44px; }
 #ref-R .inner .body { margin-top: 24px; font-size: 34px; }
 #ref-R .inner .panel { margin-top: 26px; }
+/* tapa */
+#ref-T .h1 { font-size: 124px; }
 
 /* 2026-W40-somos-de-aca.html */
 
@@ -372,6 +419,18 @@ body.pp {
 @keyframes ringGrow { from { opacity: 0; transform: scale(.1); } to { opacity: 1; transform: none; } }
 .hs.play .mapa .a-drop { animation: pinDrop .7s var(--ease) var(--d, 0s) both; }
 .hs.play .mapa .a-ring { animation: ringGrow 1.2s var(--ease) var(--d, 0s) both; }
+/* tapa */
+#aca-T .h1 { font-size: 150px; }
+/* variante clara */
+#aca-L .h1 { font-size: 132px; margin-top: 34px; }
+#aca-L .mapa { margin-top: 30px; }
+#aca-L .stats3 { margin-top: 24px; }
+.hs.light .mapa { background: rgba(13,45,94,.04); }
+.hs.light .mapa .ruta { stroke: rgba(13,45,94,.30); }
+.hs.light .mapa .ring { stroke: rgba(217,139,0,.28); }
+.hs.light .mapa .ring.r2 { stroke: rgba(217,139,0,.14); }
+.hs.light .mapa .pin { stroke: #F6F4EE; }
+.hs.light .mapa .pin.hq { fill: #0D2D5E; stroke: #F5A623; }
 
 /* 2026-W40-historias-interactivas.html */
 
@@ -500,6 +559,18 @@ body.pp {
 #calc-S .slot { position: absolute; left: 84px; right: 140px; top: 1330px; height: 180px; border-radius: 24px; border: 3px dashed rgba(245,166,35,.55); }
 #calc-S .slot span { position: absolute; left: 28px; top: -17px; padding: 0 12px; background: #0A0F1B; font: 500 24px/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
 #calc-S .type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; }
+/* variante clara */
+#calc-L .h1 { font-size: 104px; margin-top: 40px; }
+#calc-L .lede { margin-top: 18px; }
+#calc-L .app { margin-top: 40px; }
+#calc-L .urlrow { margin-top: 36px; display: flex; align-items: center; gap: 20px; }
+/* variante clara: la app queda oscura, como una pantalla sobre la mesa */
+#calc-L .app { box-shadow: 0 30px 70px rgba(13,45,94,.28); }
+#calc-L .app .app-top .t, #calc-L .app .app-col .v { color: #F2F5FA; }
+#calc-L .app .app-col .k, #calc-L .app .app-top .t small { color: #7F8DA6; }
+#calc-L .app .app-col + .app-col, #calc-L .app .app-top { border-color: rgba(255,255,255,.12); }
+#calc-L .url { color: #121826; background: rgba(245,166,35,.16); }
+#calc-L .url b { color: #B36F00; }
 
 /* 2026-W41-maiz-tardio-ranking.html */
 
@@ -525,6 +596,12 @@ body.pp {
 #tardio-R .bar-fill { height: 34px; }
 #tardio-R .bar-val { font-size: 50px; }
 #tardio-R .s2 .src { margin-top: 12px; font-size: 21px; }
+/* tapa */
+#tardio-T .mazo { display: flex; gap: 22px; align-items: flex-end; height: 330px; }
+#tardio-T .mazo div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 12px; height: 100%; }
+#tardio-T .mazo i { width: 100%; background: var(--mute-bar); border-radius: 12px 12px 0 0; }
+#tardio-T .mazo div:first-child i { background: var(--amber); }
+#tardio-T .mazo span { font: 500 24px/1 var(--f-mono); color: var(--txt-2); }
 
 /* 2026-W42-ns7925-spiroplasma.html */
 
@@ -559,6 +636,10 @@ body.pp {
 #s7925-R .s2 .dato { display: flex; align-items: baseline; gap: 16px; margin-top: 20px; }
 #s7925-R .s2 .dato .num { font-size: 104px; color: var(--txt); }
 #s7925-R .s2 .dato span { font: 500 28px/1.3 var(--f-mono); color: var(--txt-3); }
+/* tapa */
+#s7925-T .h1 { font-size: 118px; }
+#s7925-T .tres { font-family: var(--f-arch); font-size: 470px; line-height: .78; color: var(--amber); letter-spacing: -.05em; }
+#s7925-T .tres-lab { font: 500 30px/1.35 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--txt-2); margin-top: -10px; }
 
 /* 2026-W42-rinde-indiferencia.html */
 
@@ -576,6 +657,14 @@ body.pp {
 #rind-A .body { margin-top: 32px; }
 #rind-A .urlline { margin-top: 26px; font: 500 28px/1.3 var(--f-mono); color: var(--txt-2); }
 #rind-A .urlline b { color: var(--amber); font-weight: 500; }
+/* variante clara */
+#rind-L .h1 { font-size: 88px; margin-top: 40px; }
+#rind-L .formula { margin-top: 44px; }
+#rind-L .body { margin-top: 32px; }
+#rind-L .urlline { margin-top: 26px; font: 500 28px/1.3 var(--f-mono); color: var(--txt-2); }
+#rind-L .urlline b { color: var(--amber); font-weight: 500; }
+.hs.light .oper { color: #D98B00; }
+#rind-L .urlline b { color: #B36F00; }
 
 /* 2026-10-18-dia-de-la-madre.html */
 
@@ -629,6 +718,15 @@ body.pp {
 #impl-A .surco { margin-top: 44px; }
 #impl-A .body { margin-top: 30px; }
 #impl-A .metodo { margin-top: 24px; }
+/* variante clara */
+#impl-L .h1 { font-size: 100px; margin-top: 40px; }
+#impl-L .surco { margin-top: 44px; }
+#impl-L .body { margin-top: 30px; }
+#impl-L .metodo { margin-top: 24px; }
+.hs.light .surco .suelo { fill: #6B4F2E; }
+.hs.light .surco .pl { stroke: #1F5B3A; }
+.hs.light .surco .flag { fill: #B36F00; }
+.hs.light .metodo b, .hs.light .metodo svg { color: #B36F00; }
 
 /* 2026-W44-finanzas-pesos-dolares.html */
 
@@ -682,6 +780,72 @@ body.pp {
 #lm-1 .toc .paso { width: 52px; height: 52px; font-size: 26px; flex-shrink: 0; }
 #lm-2 .h1, #lm-3 .h1, #lm-4 .h1, #lm-5 .h1 { font-size: 72px; margin-top: 26px; }
 #lm-2 .top, #lm-3 .top, #lm-4 .top, #lm-5 .top { display: flex; align-items: center; gap: 22px; margin-top: 40px; }
+
+/* 2026-W45-maiz-tardio-carrusel.html */
+
+.hs .pager { font: 500 24px/1 var(--f-mono); letter-spacing: .14em; color: var(--txt-3); }
+.hs .pager b { color: var(--amber); font-weight: 500; }
+.hs .swipe { display: flex; align-items: center; gap: 14px; font: 500 26px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.hs .swipe svg { width: 44px; height: 20px; }
+.hs .foot-min { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1.5px solid var(--line); }
+.hs .problema { font: 500 26px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); margin-top: 44px; }
+.hs .problema b { color: var(--amber); font-weight: 500; }
+.hs .gigante { font-family: var(--f-arch); letter-spacing: -.045em; line-height: .9; color: var(--amber); }
+.hs .kv2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.hs .kv2 div { padding: 22px 22px; border-radius: 18px; background: var(--panel); border: 1.5px solid var(--line); }
+.hs .kv2 b { display: block; font-family: var(--f-arch); font-weight: 400; font-size: 56px; letter-spacing: -.03em; color: var(--txt); line-height: 1; }
+.hs .kv2 span { display: block; font: 500 22px/1.3 var(--f-mono); color: var(--txt-3); margin-top: 10px; }
+.hs .ojo { display: flex; gap: 16px; align-items: flex-start; padding: 22px 26px; border-radius: 18px; border: 1.5px dashed rgba(245,166,35,.6); font: 500 30px/1.35 var(--f-sans); color: var(--txt-2); }
+.hs .ojo b { color: var(--txt); }
+.hs .ojo i { font-style: normal; font: 500 22px/1.6 var(--f-mono); letter-spacing: .12em; color: var(--amber); flex-shrink: 0; }
+
+/* 1 · portada */
+#tc-1 .h1 { font-size: 108px; margin-top: 50px; }
+#tc-1 .lista { list-style: none; margin-top: 50px; display: flex; flex-direction: column; }
+#tc-1 .lista li { display: grid; grid-template-columns: 330px 1fr; gap: 20px; align-items: baseline; padding: 20px 0; border-top: 1.5px solid var(--line); }
+#tc-1 .lista li:last-child { border-bottom: 1.5px solid var(--line); }
+#tc-1 .lista b { font: 500 32px/1 var(--f-mono); color: var(--txt); }
+#tc-1 .lista span { font: 600 32px/1.2 var(--f-sans); color: var(--txt-2); }
+
+/* 2 · techo */
+#tc-2 .h1 { font-size: 120px; margin-top: 18px; }
+#tc-2 .gigante { font-size: 250px; margin-top: 34px; }
+#tc-2 .u { font: 700 42px/1.2 var(--f-sans); color: var(--txt); margin-top: 12px; }
+#tc-2 .u small { display: block; font: 500 25px/1.3 var(--f-mono); color: var(--txt-3); margin-top: 6px; }
+#tc-2 .kv2 { margin-top: 36px; }
+
+/* 3 · chicharrita */
+#tc-3 .h1 { font-size: 120px; margin-top: 18px; }
+#tc-3 .fila { display: flex; align-items: flex-end; gap: 30px; margin-top: 30px; }
+#tc-3 .gigante { font-size: 330px; }
+#tc-3 .fila p { font: 500 30px/1.35 var(--f-sans); color: var(--txt-2); padding-bottom: 30px; }
+#tc-3 .fila p b { color: var(--txt); }
+#tc-3 .kv2 { margin-top: 26px; }
+#tc-3 .ojo { margin-top: 26px; }
+
+/* 4 · malezas */
+#tc-4 .h1 { font-size: 92px; margin-top: 18px; }
+#tc-4 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+#tc-4 .col { padding: 28px 28px 30px; border-radius: 22px; background: var(--panel); border: 1.5px solid var(--line-2); }
+#tc-4 .col h3 { font: 500 30px/1.1 var(--f-mono); color: var(--txt); }
+#tc-4 .col h3 b { color: var(--amber); font-weight: 500; }
+#tc-4 .col .tag { font: 500 22px/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--txt-3); margin-top: 10px; }
+#tc-4 .col .num { font-size: 110px; color: var(--txt); margin-top: 22px; }
+#tc-4 .col .m { font: 500 23px/1.4 var(--f-mono); color: var(--txt-3); margin-top: 8px; }
+#tc-4 .tools { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+#tc-4 .body { margin-top: 26px; }
+
+/* 5 · tabla */
+#tc-5 .h1 { font-size: 84px; margin-top: 30px; }
+#tc-5 table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+#tc-5 th { font: 500 23px/1.15 var(--f-mono); color: var(--txt); text-align: right; padding: 0 0 16px; }
+#tc-5 th:first-child { text-align: left; color: var(--txt-3); font-size: 19px; letter-spacing: .12em; text-transform: uppercase; }
+#tc-5 td { font: 500 28px/1 var(--f-mono); color: var(--txt-2); text-align: right; padding: 14px 0; border-top: 1.5px solid var(--line); }
+#tc-5 td:first-child { text-align: left; font: 500 25px/1.2 var(--f-sans); }
+#tc-5 td.best { color: var(--amber); }
+#tc-5 .esc { margin-top: 14px; }
+#tc-5 .ref { margin-top: 18px; font: 600 28px/1.35 var(--f-sans); color: var(--txt); }
+#tc-5 .ref span { font: 500 20px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: #0A0F1B; background: var(--amber); padding: 8px 12px; border-radius: 8px; margin-right: 12px; vertical-align: 4px; }
 
 /* 2026-W45-ns7624-malezas.html */
 
@@ -743,10 +907,12 @@ body.pp {
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#momento">Momento</a>
       <a href="#plan">Plan</a>
+      <a href="#grilla">Grilla</a>
       <a href="#piezas">Piezas</a>
       <a href="#pauta">Pauta</a>
       <a href="#proceso">Proceso</a>
       <a href="#pendientes">Pendientes</a>
+      <a href="../foto/">Placa con foto ↗</a>
     </div>
   </div>
 </nav>
@@ -759,7 +925,7 @@ body.pp {
     <div class="pp-eyebrow">Propuesta · HenderSeeds · jueves 24/09/2026</div>
     <h1 class="pp-h1">Relanzamiento <span class="pp-acc">Siembra 26/27</span></h1>
     <p class="pp-lede">Tres meses sin publicar, justo en el cierre de la precampaña. Lo bueno: las próximas siete semanas son las de más decisiones en el lote. El maíz temprano se está sembrando, el girasol del oeste tiene su ventana óptima del <b>15/10 al 15/11</b> y el tardío se define ahora para diciembre.</p>
-    <p class="pp-lede">Acá está el diagnóstico del repo, el plan semana por semana y 16 piezas listas (35 placas y 6 animaciones en MP4), cada una con su texto para copiar.</p>
+    <p class="pp-lede">Acá está el diagnóstico del repo, el plan semana por semana y 17 piezas listas (49 placas y 6 animaciones en MP4), cada una con su texto para copiar.</p>
     <div class="pp-stats">
       <div class="pp-stat"><b>90 días</b><span>sin publicar. Último posteo: reel de márgenes, 26/06.</span></div>
       <div class="pp-stat"><b>2 de 14</b><span>posteos armados en el repo llegaron a publicarse.</span></div>
@@ -770,9 +936,9 @@ body.pp {
     <h2 class="pp-h4" id="t-semana">Esta semana, 5 cosas</h2>
     <ol class="pp-todo">
       <li><b>Sacar la lista de precios del repo público.</b> <span class="pp-sev s-alta">Urgente</span><small>El archivo con precios y descuentos se ve en internet. Ver error 1.</small></li>
-      <li><b>Aprobar el paquete W40.</b><small>Girasol (ventana de siembra), refugio, "somos de acá", una encuesta y el reel de girasol.</small></li>
+      <li><b>Aprobar el paquete W40.</b><small>Girasol (ventana de siembra), refugio, "somos de acá", una encuesta y el reel de girasol. Cada pieza tiene botones Aprobar / Cambiar / Descartar; al final copiás el resumen y me lo mandás.</small></li>
       <li><b>Programar 3 semanas de una vez.</b><small>Meta Business Suite → Planificador. 40 minutos una vez, en vez de 15 minutos todos los días.</small></li>
-      <li><b>Sacar 10 fotos en el lote.</b><small>Siembra, bolsas, equipo, capítulos. Con el celular alcanza: la foto real le gana a cualquier placa.</small></li>
+      <li><b>Sacar 10 fotos en el lote.</b><small>Siembra, bolsas, equipo, capítulos. Con el celular alcanza. Después las pasás por el <a href="../foto/">generador de placas con foto</a> y salen con la marca.</small></li>
       <li><b>Anotar el resultado del reel pautado en junio.</b><small>Costo por conversación, en el Administrador de anuncios. Es el dato que decide cuánto pautar ahora.</small></li>
     </ol>
   </aside>
@@ -939,74 +1105,113 @@ body.pp {
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W40</b><span>28/09 – 04/10</span><em>Volver con lo útil</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">lun 28/09<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-girasol-ventana">Girasol · ventana óptima de siembra</a><small>Pauta liviana 5 días</small></span></li>
-        <li><span class="pp-dia">mié 30/09<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H1 · Encuesta girasol</a><small>Encuesta</small></span></li>
-        <li><span class="pp-dia">jue 01/10<small>12–14 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-refugio-ns7800">Refugio · NS 7800 CLTG</a></span></li>
-        <li><span class="pp-dia">vie 02/10<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-girasol-ventana">Girasol · ventana óptima de siembra · reel</a></span></li>
-        <li><span class="pp-dia">sáb 03/10<small>8–10 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-somos-de-aca">Institucional · Somos de acá</a><small>+ reel del mapa en historias</small></span></li>
+        <li data-pieza="girasol-ventana"><span class="pp-dia">lun 28/09<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-girasol-ventana">Girasol · ventana óptima de siembra</a><small>Pauta liviana 5 días</small></span></li>
+        <li data-pieza="historias-interactivas"><span class="pp-dia">mié 30/09<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H1 · Encuesta girasol</a><small>Encuesta</small></span></li>
+        <li data-pieza="refugio-ns7800"><span class="pp-dia">jue 01/10<small>12–14 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-refugio-ns7800">Refugio · NS 7800 CLTG</a></span></li>
+        <li data-pieza="girasol-ventana"><span class="pp-dia">vie 02/10<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-girasol-ventana">Girasol · ventana óptima de siembra · reel</a></span></li>
+        <li data-pieza="somos-de-aca"><span class="pp-dia">sáb 03/10<small>8–10 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-somos-de-aca">Institucional · Somos de acá</a><small>Versión crema · + reel del mapa en historias</small></span></li>
       </ul>
     </div>
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W41</b><span>05/10 – 11/10</span><em>Girasol y la decisión del lote</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">mar 06/10<small>20–22 h</small></span><span class="pp-chip c-carrusel">Carrusel</span><span class="pp-que"><a href="#p-girasol-carrusel">Girasol · ¿cuál va en tu lote? (carrusel)</a></span></li>
-        <li><span class="pp-dia">mié 07/10<small>20–22 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-calculadora-maiz-girasol">Calculadora · ¿maíz o girasol en ese lote?</a><small>+ historia con link</small></span></li>
-        <li><span class="pp-dia">jue 08/10<small>12–14 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-maiz-tardio-ranking">Maíz tardío · el ranking del marbete</a></span></li>
-        <li><span class="pp-dia">vie 09/10<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H2 · Encuesta tardío</a><small>Encuesta tardío</small></span></li>
-        <li><span class="pp-dia">dom 11/10<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-maiz-tardio-ranking">Maíz tardío · el ranking del marbete · reel</a><small>Pautado 7 días</small></span></li>
+        <li data-pieza="girasol-carrusel"><span class="pp-dia">mar 06/10<small>20–22 h</small></span><span class="pp-chip c-carrusel">Carrusel</span><span class="pp-que"><a href="#p-girasol-carrusel">Girasol · ¿cuál va en tu lote? (carrusel)</a></span></li>
+        <li data-pieza="calculadora-maiz-girasol"><span class="pp-dia">mié 07/10<small>20–22 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-calculadora-maiz-girasol">Calculadora · ¿maíz o girasol en ese lote?</a><small>Versión crema · + historia con link</small></span></li>
+        <li data-pieza="maiz-tardio-ranking"><span class="pp-dia">jue 08/10<small>12–14 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-maiz-tardio-ranking">Maíz tardío · el ranking del marbete</a></span></li>
+        <li data-pieza="historias-interactivas"><span class="pp-dia">vie 09/10<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H2 · Encuesta tardío</a><small>Encuesta tardío</small></span></li>
+        <li data-pieza="maiz-tardio-ranking"><span class="pp-dia">dom 11/10<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-maiz-tardio-ranking">Maíz tardío · el ranking del marbete · reel</a><small>Pautado 7 días</small></span></li>
       </ul>
     </div>
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W42</b><span>12/10 – 18/10</span><em>Abre la ventana del girasol</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">lun 12/10<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H3 · Caja de preguntas</a><small>Caja de preguntas</small></span></li>
-        <li><span class="pp-dia">mar 13/10<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-ns7925-spiroplasma">NS 7925 · el tardío con mejor Spiroplasma</a></span></li>
-        <li><span class="pp-dia">mié 14/10<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H4 · Cuenta regresiva</a><small>Cuenta regresiva al 15/10</small></span></li>
-        <li><span class="pp-dia">jue 15/10<small>20–22 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-rinde-indiferencia">Márgenes · el rinde de indiferencia</a></span></li>
-        <li><span class="pp-dia">dom 18/10<small>8–10 h</small></span><span class="pp-chip c-efe">Efeméride</span><span class="pp-que"><a href="#p-dia-de-la-madre">Efeméride · Día de la Madre (dom 18/10)</a></span></li>
+        <li data-pieza="historias-interactivas"><span class="pp-dia">lun 12/10<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H3 · Caja de preguntas</a><small>Caja de preguntas</small></span></li>
+        <li data-pieza="ns7925-spiroplasma"><span class="pp-dia">mar 13/10<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-ns7925-spiroplasma">NS 7925 · el tardío con mejor Spiroplasma</a></span></li>
+        <li data-pieza="historias-interactivas"><span class="pp-dia">mié 14/10<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-historias-interactivas">H4 · Cuenta regresiva</a><small>Cuenta regresiva al 15/10</small></span></li>
+        <li data-pieza="rinde-indiferencia"><span class="pp-dia">jue 15/10<small>20–22 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-rinde-indiferencia">Márgenes · el rinde de indiferencia</a><small>Versión crema</small></span></li>
+        <li data-pieza="dia-de-la-madre"><span class="pp-dia">dom 18/10<small>8–10 h</small></span><span class="pp-chip c-efe">Efeméride</span><span class="pp-que"><a href="#p-dia-de-la-madre">Efeméride · Día de la Madre (dom 18/10)</a><small>Versión crema</small></span></li>
       </ul>
     </div>
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W43</b><span>19/10 – 25/10</span><em>Tardío y servicio</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">lun 19/10<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-ns7765-dos-fechas">NS 7765 · el único arriba de +300 en las dos fechas</a></span></li>
-        <li><span class="pp-dia">mié 21/10<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-implantacion">Servicio · verificación de implantación</a><small>Mejor con 1–3 fotos reales</small></span></li>
-        <li><span class="pp-dia">jue 22/10<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-ns7925-spiroplasma">NS 7925 · el tardío con mejor Spiroplasma · reel</a></span></li>
-        <li><span class="pp-dia">sáb 24/10<small>8–10 h</small></span><span class="pp-chip c-foto">Foto real</span><span class="pp-que"><span class="pp-falta">[COMPLETAR] el equipo sembrando o recorriendo un lote</span></span></li>
+        <li data-pieza="ns7765-dos-fechas"><span class="pp-dia">lun 19/10<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-ns7765-dos-fechas">NS 7765 · el único arriba de +300 en las dos fechas</a></span></li>
+        <li data-pieza="implantacion"><span class="pp-dia">mié 21/10<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-implantacion">Servicio · verificación de implantación</a><small>Versión crema · mejor con 1–3 fotos reales</small></span></li>
+        <li data-pieza="ns7925-spiroplasma"><span class="pp-dia">jue 22/10<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-ns7925-spiroplasma">NS 7925 · el tardío con mejor Spiroplasma · reel</a></span></li>
+        <li><span class="pp-dia">sáb 24/10<small>8–10 h</small></span><span class="pp-chip c-foto">Foto real</span><span class="pp-que"><span class="pp-falta">[COMPLETAR] el equipo sembrando o recorriendo un lote · plantilla Titular del generador · <a href="../foto/">abrir el generador</a></span></span></li>
       </ul>
     </div>
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W44</b><span>26/10 – 01/11</span><em>Enseñar a leer el dato</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">mar 27/10<small>12–14 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-finanzas-pesos-dolares">Finanzas · ¿pesos o dólares?</a></span></li>
-        <li><span class="pp-dia">jue 29/10<small>20–22 h</small></span><span class="pp-chip c-carrusel">Carrusel</span><span class="pp-que"><a href="#p-como-leer-un-marbete">Educativo · cómo leer un marbete (carrusel)</a><small>Fijarlo en el perfil</small></span></li>
-        <li><span class="pp-dia">sáb 31/10<small>8–10 h</small></span><span class="pp-chip c-foto">Foto real</span><span class="pp-que"><span class="pp-falta">[COMPLETAR] un lote de girasol recién nacido</span></span></li>
+        <li data-pieza="finanzas-pesos-dolares"><span class="pp-dia">mar 27/10<small>12–14 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-finanzas-pesos-dolares">Finanzas · ¿pesos o dólares?</a></span></li>
+        <li data-pieza="como-leer-un-marbete"><span class="pp-dia">jue 29/10<small>20–22 h</small></span><span class="pp-chip c-carrusel">Carrusel</span><span class="pp-que"><a href="#p-como-leer-un-marbete">Educativo · cómo leer un marbete (carrusel)</a><small>Fijarlo en el perfil</small></span></li>
+        <li><span class="pp-dia">sáb 31/10<small>8–10 h</small></span><span class="pp-chip c-foto">Foto real</span><span class="pp-que"><span class="pp-falta">[COMPLETAR] un lote de girasol recién nacido · plantilla Dato (15/10 → 15/11) · <a href="../foto/">abrir el generador</a></span></span></li>
       </ul>
     </div>
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W45</b><span>02/11 – 08/11</span><em>Tardío: el lote difícil</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">lun 02/11<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-ns7624-malezas">NS 7624 VIPTERA3 CL · tardío con malezas</a></span></li>
-        <li><span class="pp-dia">mié 04/11<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-refugio-ns7800">Refugio · NS 7800 CLTG · reel</a><small>Para quien planifica el tardío</small></span></li>
-        <li><span class="pp-dia">vie 06/11<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-calculadora-maiz-girasol">Calculadora · ¿maíz o girasol en ese lote?</a><small>Con sticker de link</small></span></li>
+        <li data-pieza="maiz-tardio-carrusel"><span class="pp-dia">lun 02/11<small>20–22 h</small></span><span class="pp-chip c-carrusel">Carrusel</span><span class="pp-que"><a href="#p-maiz-tardio-carrusel">Maíz tardío · ¿cuál va en tu lote? (carrusel)</a></span></li>
+        <li data-pieza="refugio-ns7800"><span class="pp-dia">mié 04/11<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-refugio-ns7800">Refugio · NS 7800 CLTG · reel</a><small>Para quien planifica el tardío</small></span></li>
+        <li data-pieza="calculadora-maiz-girasol"><span class="pp-dia">vie 06/11<small>historia</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-calculadora-maiz-girasol">Calculadora · ¿maíz o girasol en ese lote?</a><small>Con sticker de link</small></span></li>
+        <li><span class="pp-dia">sáb 07/11<small>8–10 h</small></span><span class="pp-chip c-foto">Foto real</span><span class="pp-que"><span class="pp-falta">[COMPLETAR] un productor en su lote, con su frase y su permiso · plantilla Frase del generador · <a href="../foto/">abrir el generador</a></span></span></li>
       </ul>
     </div>
 <div class="pp-sem">
       <div class="pp-sem-hd"><b>W46</b><span>09/11 – 15/11</span><em>Cierre de ventana</em></div>
       <ul class="pp-sem-items">
-        <li><span class="pp-dia">mar 10/11<small>8–10 h</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-dia-de-la-tradicion">Efeméride · Día de la Tradición (mar 10/11)</a></span></li>
-        <li><span class="pp-dia">mié 11/11<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-girasol-ventana">Girasol · ventana óptima de siembra</a><small>Recordatorio: límite 20/11</small></span></li>
-        <li><span class="pp-dia">jue 12/11<small>20–22 h</small></span><span class="pp-chip c-reel">Reel</span><span class="pp-que"><a href="#p-maiz-tardio-ranking">Maíz tardío · el ranking del marbete · reel</a><small>Re-pauta: diciembre se define en noviembre</small></span></li>
+        <li data-pieza="dia-de-la-tradicion"><span class="pp-dia">mar 10/11<small>8–10 h</small></span><span class="pp-chip c-historia">Historia</span><span class="pp-que"><a href="#p-dia-de-la-tradicion">Efeméride · Día de la Tradición (mar 10/11)</a></span></li>
+        <li data-pieza="girasol-ventana"><span class="pp-dia">mié 11/11<small>7–9 h</small></span><span class="pp-chip c-placa">Placa</span><span class="pp-que"><a href="#p-girasol-ventana">Girasol · ventana óptima de siembra</a><small>Recordatorio: límite 20/11</small></span></li>
+        <li data-pieza="maiz-tardio-ranking"><span class="pp-dia">jue 12/11<small>20–22 h</small></span><span class="pp-chip c-pauta">Pauta</span><span class="pp-que"><a href="#p-maiz-tardio-ranking">Maíz tardío · el ranking del marbete</a><small>Anuncio, no posteo nuevo: se re-pauta el reel del 11/10</small></span></li>
       </ul>
     </div>
+  </div>
+  <div class="pp-card pp-wa">
+    <div class="pp-eyebrow">Además, gratis</div>
+    <h3 class="pp-h4">Estados de WhatsApp</h3>
+    <p>Cada posteo de feed sale también como Estado del WhatsApp comercial, el mismo día y con su versión 9:16 (la "historia" de cada pieza o el MP4 del reel). Los ven los clientes que tienen agendado el número, sin pagar pauta. Para que funcione, agendá a cada cliente: el Estado lo ve quien te tiene agendado y a quien vos tenés agendado.</p>
+    <p><b>Regla:</b> un Estado por día como máximo, y nunca listas de difusión masivas que nadie pidió.</p>
+  </div>
+</section>
+
+<!-- ═══════════ GRILLA ═══════════ -->
+<section class="pp-sec" id="grilla" aria-labelledby="t-grilla">
+  <div class="pp-eyebrow">04 · El perfil a mediados de noviembre</div>
+  <h2 class="pp-h2" id="t-grilla">Así se va a ver tu perfil</h2>
+  <p class="pp-intro">La grilla de Instagram recorta cada publicación a 3:4 y muestra lo último arriba. Así queda el perfil con el plan completo: las placas navy se alternan con versiones crema y fotos reales para que no sea una pared oscura. Los reels usan su tapa, pensada para ese recorte.</p>
+  <div class="pp-grilla" role="list">
+<a class="pp-g" href="#p-girasol-ventana"><img src="grilla/girasol-ventana-B.jpg" alt="Girasol · ventana óptima de siembra" loading="lazy"><small>mié 11/11</small></a>
+<a class="pp-g pp-g-foto" href="../foto/"><span>Foto real</span><em>generador de placas</em><small>sáb 07/11</small></a>
+<a class="pp-g" href="#p-refugio-ns7800"><img src="grilla/ref-T.jpg" alt="Refugio · NS 7800 CLTG" loading="lazy"><i class="pp-g-ico">▶ reel</i><small>mié 04/11</small></a>
+<a class="pp-g" href="#p-maiz-tardio-carrusel"><img src="grilla/tc-1.jpg" alt="Maíz tardío · ¿cuál va en tu lote? (carrusel)" loading="lazy"><i class="pp-g-ico">❐ carrusel</i><small>lun 02/11</small></a>
+<a class="pp-g pp-g-foto" href="../foto/"><span>Foto real</span><em>generador de placas</em><small>sáb 31/10</small></a>
+<a class="pp-g" href="#p-como-leer-un-marbete"><img src="grilla/lm-1.jpg" alt="Educativo · cómo leer un marbete (carrusel)" loading="lazy"><i class="pp-g-ico">❐ carrusel</i><small>jue 29/10</small></a>
+<a class="pp-g" href="#p-finanzas-pesos-dolares"><img src="grilla/fin-A.jpg" alt="Finanzas · ¿pesos o dólares?" loading="lazy"><small>mar 27/10</small></a>
+<a class="pp-g pp-g-foto" href="../foto/"><span>Foto real</span><em>generador de placas</em><small>sáb 24/10</small></a>
+<a class="pp-g" href="#p-ns7925-spiroplasma"><img src="grilla/s7925-T.jpg" alt="NS 7925 · el tardío con mejor Spiroplasma" loading="lazy"><i class="pp-g-ico">▶ reel</i><small>jue 22/10</small></a>
+<a class="pp-g" href="#p-implantacion"><img src="grilla/impl-L.jpg" alt="Servicio · verificación de implantación" loading="lazy"><small>mié 21/10</small></a>
+<a class="pp-g" href="#p-ns7765-dos-fechas"><img src="grilla/n7765-A.jpg" alt="NS 7765 · el único arriba de +300 en las dos fechas" loading="lazy"><small>lun 19/10</small></a>
+<a class="pp-g" href="#p-dia-de-la-madre"><img src="grilla/madre-B.jpg" alt="Efeméride · Día de la Madre (dom 18/10)" loading="lazy"><small>dom 18/10</small></a>
+<a class="pp-g" href="#p-rinde-indiferencia"><img src="grilla/rind-L.jpg" alt="Márgenes · el rinde de indiferencia" loading="lazy"><small>jue 15/10</small></a>
+<a class="pp-g" href="#p-ns7925-spiroplasma"><img src="grilla/s7925-A.jpg" alt="NS 7925 · el tardío con mejor Spiroplasma" loading="lazy"><small>mar 13/10</small></a>
+<a class="pp-g" href="#p-maiz-tardio-ranking"><img src="grilla/tardio-T.jpg" alt="Maíz tardío · el ranking del marbete" loading="lazy"><i class="pp-g-ico">▶ reel</i><small>dom 11/10</small></a>
+<a class="pp-g" href="#p-maiz-tardio-ranking"><img src="grilla/tardio-A.jpg" alt="Maíz tardío · el ranking del marbete" loading="lazy"><small>jue 08/10</small></a>
+<a class="pp-g" href="#p-calculadora-maiz-girasol"><img src="grilla/calc-L.jpg" alt="Calculadora · ¿maíz o girasol en ese lote?" loading="lazy"><small>mié 07/10</small></a>
+<a class="pp-g" href="#p-girasol-carrusel"><img src="grilla/gc-1.jpg" alt="Girasol · ¿cuál va en tu lote? (carrusel)" loading="lazy"><i class="pp-g-ico">❐ carrusel</i><small>mar 06/10</small></a>
+<a class="pp-g" href="#p-somos-de-aca"><img src="grilla/aca-L.jpg" alt="Institucional · Somos de acá" loading="lazy"><small>sáb 03/10</small></a>
+<a class="pp-g" href="#p-girasol-ventana"><img src="grilla/girasol-ventana-T.jpg" alt="Girasol · ventana óptima de siembra" loading="lazy"><i class="pp-g-ico">▶ reel</i><small>vie 02/10</small></a>
+<a class="pp-g" href="#p-refugio-ns7800"><img src="grilla/ref-A.jpg" alt="Refugio · NS 7800 CLTG" loading="lazy"><small>jue 01/10</small></a>
+<a class="pp-g" href="#p-girasol-ventana"><img src="grilla/girasol-ventana-A.jpg" alt="Girasol · ventana óptima de siembra" loading="lazy"><small>lun 28/09</small></a>
   </div>
 </section>
 
 <!-- ═══════════ PIEZAS ═══════════ -->
 <section class="pp-sec" id="piezas" aria-labelledby="t-piezas">
-  <div class="pp-eyebrow">04 · Listas para publicar</div>
+  <div class="pp-eyebrow">05 · Listas para publicar</div>
   <h2 class="pp-h2" id="t-piezas">Las piezas</h2>
-  <p class="pp-intro">16 conceptos, 35 placas y 6 animaciones. Las animaciones se mueven acá mismo; el botón "Repetir" las vuelve a arrancar. Cada pieza trae el texto para copiar, el horario, si va con pauta y de dónde sale cada dato.</p>
+  <p class="pp-intro">17 conceptos, 49 placas y 6 animaciones. Las animaciones se mueven acá mismo; el botón "Repetir" las vuelve a arrancar. Cada pieza trae el texto para copiar, el horario, si va con pauta y de dónde sale cada dato.</p>
+  <p class="pp-nota pp-como">Cómo revisar: tocá <b>✓ Aprobar</b>, <b>✎ Cambiar</b> (con una nota) o <b>✕ Descartar</b> en cada pieza. Lo que marcás queda guardado en este navegador. Con <b>Copiar resumen</b> (barra de abajo) te llevás la lista para mandarla por WhatsApp o pegarla en la próxima sesión de Claude.</p>
   <div class="pp-filtros" role="toolbar" aria-label="Filtrar piezas">
     <button class="pp-filtro" type="button" data-f="todos" aria-pressed="true">Todas</button>
     <button class="pp-filtro" type="button" data-f="girasol" aria-pressed="false">Girasol</button>
@@ -1016,7 +1221,7 @@ body.pp {
     <button class="pp-filtro" type="button" data-f="historias" aria-pressed="false">Historias</button>
   </div>
   <div class="pp-galeria">
-<article class="pp-pieza" id="p-girasol-ventana" data-grupo="girasol">
+<article class="pp-pieza" id="p-girasol-ventana" data-grupo="girasol" data-nombre="Girasol · ventana óptima de siembra">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W40 · Precampaña girasol → Técnica</div>
@@ -1024,6 +1229,13 @@ body.pp {
       </div>
       <div class="pp-when">lun 28/09 · 7–9 h</div>
     </header>
+    <div class="pp-aprob" data-id="girasol-ventana" role="group" aria-label="Revisión de Girasol · ventana óptima de siembra">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-girasol-ventana" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-girasol-ventana" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Es la pieza más útil y oportuna para volver: faltan ~3 semanas para que abra la ventana óptima del girasol en el oeste (15/10) y el dato viene directo del marbete. Se guarda y se comparte.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="girasol-ventana-A" data-name="2026-W40-girasol-ventana-A">
@@ -1141,10 +1353,10 @@ body.pp {
   <div class="bg"></div><div class="topbar"></div>
 
   <!-- escena 1 · 0–3,2 s: el capítulo crece + la pregunta -->
-  <div class="scene only-anim" style="--in:0s;--out:3.2s">
+  <div class="scene only-anim" style="--in:-1s;--out:3.2s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Siembra 26/27 · Girasol</div>
-      <h1 class="h1 a-up" style="--d:.35s;margin-top:34px">¿Cuándo va el girasol <span class="hl">en el oeste?</span></h1>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Siembra 26/27 · Girasol</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">¿Cuándo va el girasol <span class="hl">en el oeste?</span></h1>
     </div>
     <svg class="capitulo" viewBox="-324 -324 649 649" fill="currentColor">
 <circle class="a-pop" style="--d:0.10s" cx="-9.7" cy="8.9" r="3.4"/>
@@ -1760,6 +1972,22 @@ body.pp {
           <b>Reel animado 9:16 · 10 s</b><span>El capítulo crece con el ángulo áureo real (137,5°) y aparece la ventana. Sirve para reel e historia.</span>
           <span class="pp-dl"><button class="pp-replay" type="button" data-slide="girasol-ventana-R" aria-label="Repetir animación">↻ Repetir</button><a href="../placas/video/2026-W40-girasol-ventana-reel.mp4">MP4</a><a href="../placas/img/2026-W40-girasol-ventana-reel-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W40-girasol-ventana.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op is-story">
+        <div class="pv"><section class="slide hs story tapa" id="girasol-ventana-T" data-name="2026-W40-girasol-ventana-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="capi-tapa" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Girasol 26/27</div>
+    <h1 class="h1">¿Cuándo va el girasol <span class="hl">en el oeste?</span></h1>
+    <div class="rango">15/10 → 15/11<small>Fecha óptima · marbete Nidera</small></div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Tapa del reel (grilla 3:4)</b><span>Subila como portada del reel: todo el texto queda dentro del recorte de la grilla.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W40-girasol-ventana-reel-tapa-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W40-girasol-ventana.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-girasol-ventana">Copiar texto</button></div>
@@ -1802,7 +2030,7 @@ Guardá el almanaque y, si tenés dudas con el híbrido para ese lote, mandanos 
       <div><dt>Fuentes</dt><dd>Marbetes oficiales Nidera 26/27 de NS 1113 CL, NS 1115 CL y NS 1117 CL · tabla Fechas de siembra, fila Oeste de Buenos Aires: óptima 15/10 → 15/11, límite 20/11.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-refugio-ns7800" data-grupo="maiz">
+<article class="pp-pieza" id="p-refugio-ns7800" data-grupo="maiz" data-nombre="Refugio · NS 7800 CLTG">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W40 · Técnica &amp; tecnología</div>
@@ -1810,6 +2038,13 @@ Guardá el almanaque y, si tenés dudas con el híbrido para ese lote, mandanos 
       </div>
       <div class="pp-when">jue 01/10 · 12–14 h</div>
     </header>
+    <div class="pp-aprob" data-id="refugio-ns7800" role="group" aria-label="Revisión de Refugio · NS 7800 CLTG">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-refugio-ns7800" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-refugio-ns7800" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Arrancó la siembra de maíz temprano: es EL momento del refugio. Es contenido técnico que posiciona como asesor (no como vendedor de bolsas) y a la vez mueve un producto del portafolio que nunca comunicamos: el NS 7800 CLTG.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="ref-A" data-name="2026-W40-refugio-ns7800-A">
@@ -2064,10 +2299,10 @@ Guardá el almanaque y, si tenés dudas con el híbrido para ese lote, mandanos 
         <div class="pv"><section class="slide hs story anim" id="ref-R" data-name="2026-W40-refugio-ns7800-reel" data-dur="9.8" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
 
-  <div class="scene only-anim" style="--in:0s;--out:2.8s">
+  <div class="scene only-anim" style="--in:-1s;--out:2.8s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Maíz 26/27 · Técnica</div>
-      <h1 class="h1 a-up" style="--d:.3s;margin-top:34px">¿Ya pensaste <span class="hl">el refugio?</span></h1>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Maíz 26/27 · Técnica</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">¿Ya pensaste <span class="hl">el refugio?</span></h1>
       <p class="lede a-up" style="--d:.9s;margin-top:30px;font-size:42px">Sembrar VIPTERA3 sin refugio es gastar la tecnología antes de tiempo.</p>
     </div>
   </div>
@@ -2328,6 +2563,236 @@ Guardá el almanaque y, si tenés dudas con el híbrido para ese lote, mandanos 
           <b>Reel animado 9:16 · 9 s</b><span>El lote se siembra planta por planta y se enciende la franja de refugio.</span>
           <span class="pp-dl"><button class="pp-replay" type="button" data-slide="ref-R" aria-label="Repetir animación">↻ Repetir</button><a href="../placas/video/2026-W40-refugio-ns7800-reel.mp4">MP4</a><a href="../placas/img/2026-W40-refugio-ns7800-reel-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W40-refugio-ns7800.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op is-story">
+        <div class="pv"><section class="slide hs story tapa" id="ref-T" data-name="2026-W40-refugio-ns7800-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Maíz 26/27 · Técnica</div>
+    <h1 class="h1">1 de cada 10 plantas: <span class="hl">refugio.</span></h1>
+    <svg class="lote" viewBox="0 0 928 346" width="912" height="340" role="img" aria-label="Lote visto desde arriba: 90% VIPTERA3 y 10% refugio en franja">
+      <text class="lt" x="0" y="22">VIPTERA3 · 90%</text>
+      <path class="br" d="M2 36 V30 H832 V36"/>
+      <text class="lt on" x="928" y="22" text-anchor="end">REFUGIO · 10%</text>
+      <path class="br on" d="M840 36 V30 H926 V36"/>
+      <line class="surco" x1="0" y1="58" x2="928" y2="58"/>
+<line class="surco" x1="0" y1="88" x2="928" y2="88"/>
+<line class="surco" x1="0" y1="118" x2="928" y2="118"/>
+<line class="surco" x1="0" y1="148" x2="928" y2="148"/>
+<line class="surco" x1="0" y1="178" x2="928" y2="178"/>
+<line class="surco" x1="0" y1="208" x2="928" y2="208"/>
+<line class="surco" x1="0" y1="238" x2="928" y2="238"/>
+<line class="surco" x1="0" y1="268" x2="928" y2="268"/>
+<line class="surco" x1="0" y1="298" x2="928" y2="298"/>
+<line class="surco" x1="0" y1="328" x2="928" y2="328"/>
+<circle class="pl" cx="23.2" cy="58" r="8"/>
+<circle class="pl" cx="69.6" cy="58" r="8"/>
+<circle class="pl" cx="116.0" cy="58" r="8"/>
+<circle class="pl" cx="162.4" cy="58" r="8"/>
+<circle class="pl" cx="208.8" cy="58" r="8"/>
+<circle class="pl" cx="255.2" cy="58" r="8"/>
+<circle class="pl" cx="301.6" cy="58" r="8"/>
+<circle class="pl" cx="348.0" cy="58" r="8"/>
+<circle class="pl" cx="394.4" cy="58" r="8"/>
+<circle class="pl" cx="440.8" cy="58" r="8"/>
+<circle class="pl" cx="487.2" cy="58" r="8"/>
+<circle class="pl" cx="533.6" cy="58" r="8"/>
+<circle class="pl" cx="580.0" cy="58" r="8"/>
+<circle class="pl" cx="626.4" cy="58" r="8"/>
+<circle class="pl" cx="672.8" cy="58" r="8"/>
+<circle class="pl" cx="719.2" cy="58" r="8"/>
+<circle class="pl" cx="765.6" cy="58" r="8"/>
+<circle class="pl" cx="812.0" cy="58" r="8"/>
+<circle class="pl ref" cx="858.4" cy="58" r="8"/>
+<circle class="pl ref" cx="904.8" cy="58" r="8"/>
+<circle class="pl" cx="23.2" cy="88" r="8"/>
+<circle class="pl" cx="69.6" cy="88" r="8"/>
+<circle class="pl" cx="116.0" cy="88" r="8"/>
+<circle class="pl" cx="162.4" cy="88" r="8"/>
+<circle class="pl" cx="208.8" cy="88" r="8"/>
+<circle class="pl" cx="255.2" cy="88" r="8"/>
+<circle class="pl" cx="301.6" cy="88" r="8"/>
+<circle class="pl" cx="348.0" cy="88" r="8"/>
+<circle class="pl" cx="394.4" cy="88" r="8"/>
+<circle class="pl" cx="440.8" cy="88" r="8"/>
+<circle class="pl" cx="487.2" cy="88" r="8"/>
+<circle class="pl" cx="533.6" cy="88" r="8"/>
+<circle class="pl" cx="580.0" cy="88" r="8"/>
+<circle class="pl" cx="626.4" cy="88" r="8"/>
+<circle class="pl" cx="672.8" cy="88" r="8"/>
+<circle class="pl" cx="719.2" cy="88" r="8"/>
+<circle class="pl" cx="765.6" cy="88" r="8"/>
+<circle class="pl" cx="812.0" cy="88" r="8"/>
+<circle class="pl ref" cx="858.4" cy="88" r="8"/>
+<circle class="pl ref" cx="904.8" cy="88" r="8"/>
+<circle class="pl" cx="23.2" cy="118" r="8"/>
+<circle class="pl" cx="69.6" cy="118" r="8"/>
+<circle class="pl" cx="116.0" cy="118" r="8"/>
+<circle class="pl" cx="162.4" cy="118" r="8"/>
+<circle class="pl" cx="208.8" cy="118" r="8"/>
+<circle class="pl" cx="255.2" cy="118" r="8"/>
+<circle class="pl" cx="301.6" cy="118" r="8"/>
+<circle class="pl" cx="348.0" cy="118" r="8"/>
+<circle class="pl" cx="394.4" cy="118" r="8"/>
+<circle class="pl" cx="440.8" cy="118" r="8"/>
+<circle class="pl" cx="487.2" cy="118" r="8"/>
+<circle class="pl" cx="533.6" cy="118" r="8"/>
+<circle class="pl" cx="580.0" cy="118" r="8"/>
+<circle class="pl" cx="626.4" cy="118" r="8"/>
+<circle class="pl" cx="672.8" cy="118" r="8"/>
+<circle class="pl" cx="719.2" cy="118" r="8"/>
+<circle class="pl" cx="765.6" cy="118" r="8"/>
+<circle class="pl" cx="812.0" cy="118" r="8"/>
+<circle class="pl ref" cx="858.4" cy="118" r="8"/>
+<circle class="pl ref" cx="904.8" cy="118" r="8"/>
+<circle class="pl" cx="23.2" cy="148" r="8"/>
+<circle class="pl" cx="69.6" cy="148" r="8"/>
+<circle class="pl" cx="116.0" cy="148" r="8"/>
+<circle class="pl" cx="162.4" cy="148" r="8"/>
+<circle class="pl" cx="208.8" cy="148" r="8"/>
+<circle class="pl" cx="255.2" cy="148" r="8"/>
+<circle class="pl" cx="301.6" cy="148" r="8"/>
+<circle class="pl" cx="348.0" cy="148" r="8"/>
+<circle class="pl" cx="394.4" cy="148" r="8"/>
+<circle class="pl" cx="440.8" cy="148" r="8"/>
+<circle class="pl" cx="487.2" cy="148" r="8"/>
+<circle class="pl" cx="533.6" cy="148" r="8"/>
+<circle class="pl" cx="580.0" cy="148" r="8"/>
+<circle class="pl" cx="626.4" cy="148" r="8"/>
+<circle class="pl" cx="672.8" cy="148" r="8"/>
+<circle class="pl" cx="719.2" cy="148" r="8"/>
+<circle class="pl" cx="765.6" cy="148" r="8"/>
+<circle class="pl" cx="812.0" cy="148" r="8"/>
+<circle class="pl ref" cx="858.4" cy="148" r="8"/>
+<circle class="pl ref" cx="904.8" cy="148" r="8"/>
+<circle class="pl" cx="23.2" cy="178" r="8"/>
+<circle class="pl" cx="69.6" cy="178" r="8"/>
+<circle class="pl" cx="116.0" cy="178" r="8"/>
+<circle class="pl" cx="162.4" cy="178" r="8"/>
+<circle class="pl" cx="208.8" cy="178" r="8"/>
+<circle class="pl" cx="255.2" cy="178" r="8"/>
+<circle class="pl" cx="301.6" cy="178" r="8"/>
+<circle class="pl" cx="348.0" cy="178" r="8"/>
+<circle class="pl" cx="394.4" cy="178" r="8"/>
+<circle class="pl" cx="440.8" cy="178" r="8"/>
+<circle class="pl" cx="487.2" cy="178" r="8"/>
+<circle class="pl" cx="533.6" cy="178" r="8"/>
+<circle class="pl" cx="580.0" cy="178" r="8"/>
+<circle class="pl" cx="626.4" cy="178" r="8"/>
+<circle class="pl" cx="672.8" cy="178" r="8"/>
+<circle class="pl" cx="719.2" cy="178" r="8"/>
+<circle class="pl" cx="765.6" cy="178" r="8"/>
+<circle class="pl" cx="812.0" cy="178" r="8"/>
+<circle class="pl ref" cx="858.4" cy="178" r="8"/>
+<circle class="pl ref" cx="904.8" cy="178" r="8"/>
+<circle class="pl" cx="23.2" cy="208" r="8"/>
+<circle class="pl" cx="69.6" cy="208" r="8"/>
+<circle class="pl" cx="116.0" cy="208" r="8"/>
+<circle class="pl" cx="162.4" cy="208" r="8"/>
+<circle class="pl" cx="208.8" cy="208" r="8"/>
+<circle class="pl" cx="255.2" cy="208" r="8"/>
+<circle class="pl" cx="301.6" cy="208" r="8"/>
+<circle class="pl" cx="348.0" cy="208" r="8"/>
+<circle class="pl" cx="394.4" cy="208" r="8"/>
+<circle class="pl" cx="440.8" cy="208" r="8"/>
+<circle class="pl" cx="487.2" cy="208" r="8"/>
+<circle class="pl" cx="533.6" cy="208" r="8"/>
+<circle class="pl" cx="580.0" cy="208" r="8"/>
+<circle class="pl" cx="626.4" cy="208" r="8"/>
+<circle class="pl" cx="672.8" cy="208" r="8"/>
+<circle class="pl" cx="719.2" cy="208" r="8"/>
+<circle class="pl" cx="765.6" cy="208" r="8"/>
+<circle class="pl" cx="812.0" cy="208" r="8"/>
+<circle class="pl ref" cx="858.4" cy="208" r="8"/>
+<circle class="pl ref" cx="904.8" cy="208" r="8"/>
+<circle class="pl" cx="23.2" cy="238" r="8"/>
+<circle class="pl" cx="69.6" cy="238" r="8"/>
+<circle class="pl" cx="116.0" cy="238" r="8"/>
+<circle class="pl" cx="162.4" cy="238" r="8"/>
+<circle class="pl" cx="208.8" cy="238" r="8"/>
+<circle class="pl" cx="255.2" cy="238" r="8"/>
+<circle class="pl" cx="301.6" cy="238" r="8"/>
+<circle class="pl" cx="348.0" cy="238" r="8"/>
+<circle class="pl" cx="394.4" cy="238" r="8"/>
+<circle class="pl" cx="440.8" cy="238" r="8"/>
+<circle class="pl" cx="487.2" cy="238" r="8"/>
+<circle class="pl" cx="533.6" cy="238" r="8"/>
+<circle class="pl" cx="580.0" cy="238" r="8"/>
+<circle class="pl" cx="626.4" cy="238" r="8"/>
+<circle class="pl" cx="672.8" cy="238" r="8"/>
+<circle class="pl" cx="719.2" cy="238" r="8"/>
+<circle class="pl" cx="765.6" cy="238" r="8"/>
+<circle class="pl" cx="812.0" cy="238" r="8"/>
+<circle class="pl ref" cx="858.4" cy="238" r="8"/>
+<circle class="pl ref" cx="904.8" cy="238" r="8"/>
+<circle class="pl" cx="23.2" cy="268" r="8"/>
+<circle class="pl" cx="69.6" cy="268" r="8"/>
+<circle class="pl" cx="116.0" cy="268" r="8"/>
+<circle class="pl" cx="162.4" cy="268" r="8"/>
+<circle class="pl" cx="208.8" cy="268" r="8"/>
+<circle class="pl" cx="255.2" cy="268" r="8"/>
+<circle class="pl" cx="301.6" cy="268" r="8"/>
+<circle class="pl" cx="348.0" cy="268" r="8"/>
+<circle class="pl" cx="394.4" cy="268" r="8"/>
+<circle class="pl" cx="440.8" cy="268" r="8"/>
+<circle class="pl" cx="487.2" cy="268" r="8"/>
+<circle class="pl" cx="533.6" cy="268" r="8"/>
+<circle class="pl" cx="580.0" cy="268" r="8"/>
+<circle class="pl" cx="626.4" cy="268" r="8"/>
+<circle class="pl" cx="672.8" cy="268" r="8"/>
+<circle class="pl" cx="719.2" cy="268" r="8"/>
+<circle class="pl" cx="765.6" cy="268" r="8"/>
+<circle class="pl" cx="812.0" cy="268" r="8"/>
+<circle class="pl ref" cx="858.4" cy="268" r="8"/>
+<circle class="pl ref" cx="904.8" cy="268" r="8"/>
+<circle class="pl" cx="23.2" cy="298" r="8"/>
+<circle class="pl" cx="69.6" cy="298" r="8"/>
+<circle class="pl" cx="116.0" cy="298" r="8"/>
+<circle class="pl" cx="162.4" cy="298" r="8"/>
+<circle class="pl" cx="208.8" cy="298" r="8"/>
+<circle class="pl" cx="255.2" cy="298" r="8"/>
+<circle class="pl" cx="301.6" cy="298" r="8"/>
+<circle class="pl" cx="348.0" cy="298" r="8"/>
+<circle class="pl" cx="394.4" cy="298" r="8"/>
+<circle class="pl" cx="440.8" cy="298" r="8"/>
+<circle class="pl" cx="487.2" cy="298" r="8"/>
+<circle class="pl" cx="533.6" cy="298" r="8"/>
+<circle class="pl" cx="580.0" cy="298" r="8"/>
+<circle class="pl" cx="626.4" cy="298" r="8"/>
+<circle class="pl" cx="672.8" cy="298" r="8"/>
+<circle class="pl" cx="719.2" cy="298" r="8"/>
+<circle class="pl" cx="765.6" cy="298" r="8"/>
+<circle class="pl" cx="812.0" cy="298" r="8"/>
+<circle class="pl ref" cx="858.4" cy="298" r="8"/>
+<circle class="pl ref" cx="904.8" cy="298" r="8"/>
+<circle class="pl" cx="23.2" cy="328" r="8"/>
+<circle class="pl" cx="69.6" cy="328" r="8"/>
+<circle class="pl" cx="116.0" cy="328" r="8"/>
+<circle class="pl" cx="162.4" cy="328" r="8"/>
+<circle class="pl" cx="208.8" cy="328" r="8"/>
+<circle class="pl" cx="255.2" cy="328" r="8"/>
+<circle class="pl" cx="301.6" cy="328" r="8"/>
+<circle class="pl" cx="348.0" cy="328" r="8"/>
+<circle class="pl" cx="394.4" cy="328" r="8"/>
+<circle class="pl" cx="440.8" cy="328" r="8"/>
+<circle class="pl" cx="487.2" cy="328" r="8"/>
+<circle class="pl" cx="533.6" cy="328" r="8"/>
+<circle class="pl" cx="580.0" cy="328" r="8"/>
+<circle class="pl" cx="626.4" cy="328" r="8"/>
+<circle class="pl" cx="672.8" cy="328" r="8"/>
+<circle class="pl" cx="719.2" cy="328" r="8"/>
+<circle class="pl" cx="765.6" cy="328" r="8"/>
+<circle class="pl" cx="812.0" cy="328" r="8"/>
+<circle class="pl ref" cx="858.4" cy="328" r="8"/>
+<circle class="pl ref" cx="904.8" cy="328" r="8"/>
+    </svg>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Tapa del reel (grilla 3:4)</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W40-refugio-ns7800-reel-tapa-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W40-refugio-ns7800.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-refugio-ns7800">Copiar texto</button></div>
@@ -2358,7 +2823,7 @@ El refugio del portafolio es el NS 7800 CLTG. ¿Lo planificamos juntos? Mandanos
       <div><dt>Fuentes</dt><dd>Marbete NS 7800 CLTG (Nidera 26/27): 'práctica indispensable para prolongar la vida útil de la biotecnología VIPTERA3', MR 118, todas las zonas y ambientes. 10% del área: recomendación de manejo de resistencia para maíz Bt (ASA) — [VERIFICAR con Nidera la recomendación vigente antes de publicar].</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-somos-de-aca" data-grupo="institucional">
+<article class="pp-pieza" id="p-somos-de-aca" data-grupo="institucional" data-nombre="Institucional · Somos de acá">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W40 · Institucional / cercanía</div>
@@ -2366,6 +2831,13 @@ El refugio del portafolio es el NS 7800 CLTG. ¿Lo planificamos juntos? Mandanos
       </div>
       <div class="pp-when">sáb 03/10 · 8–10 h (placa) · reel como historia fijada</div>
     </header>
+    <div class="pp-aprob" data-id="somos-de-aca" role="group" aria-label="Revisión de Institucional · Somos de acá">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-somos-de-aca" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-somos-de-aca" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Después de 3 meses sin publicar, conviene recordar quiénes somos y dónde estamos, con cifras que ya están aprobadas para contenido (100+ productores, 30.000+ ha bajo plan 25/26, cotización en menos de 24 h). El mapa usa coordenadas reales: los de la zona lo reconocen enseguida.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="aca-A" data-name="2026-W40-somos-de-aca-A">
@@ -2420,8 +2892,8 @@ El refugio del portafolio es el NS 7800 CLTG. ¿Lo planificamos juntos? Mandanos
         <div class="pv"><section class="slide hs story anim" id="aca-R" data-name="2026-W40-somos-de-aca-reel" data-dur="8.6" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
   <div class="inner">
-    <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Red.in Nidera · Oeste bonaerense</div>
-    <h1 class="h1 a-up" style="--d:.25s">Somos <span class="hl">de acá.</span></h1>
+    <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Red.in Nidera · Oeste bonaerense</div>
+    <h1 class="h1 a-hook" style="--d:0s">Somos <span class="hl">de acá.</span></h1>
 
     <svg class="mapa a-fade" style="--d:.6s" viewBox="0 0 912 560" width="912" height="560">
       <circle class="ring r2 a-ring" style="--d:1.3s" cx="194" cy="151" r="200"/><circle class="ring a-ring" style="--d:1.1s" cx="194" cy="151" r="100"/>
@@ -2463,6 +2935,86 @@ El refugio del portafolio es el NS 7800 CLTG. ¿Lo planificamos juntos? Mandanos
           <b>Reel animado 9:16 · 8 s</b><span>Caen los tres pines, se dibujan las rutas y cuentan las cifras.</span>
           <span class="pp-dl"><button class="pp-replay" type="button" data-slide="aca-R" aria-label="Repetir animación">↻ Repetir</button><a href="../placas/video/2026-W40-somos-de-aca-reel.mp4">MP4</a><a href="../placas/img/2026-W40-somos-de-aca-reel-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W40-somos-de-aca.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op is-story">
+        <div class="pv"><section class="slide hs story tapa" id="aca-T" data-name="2026-W40-somos-de-aca-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Red.in Nidera</div>
+    <h1 class="h1">Somos <span class="hl">de acá.</span></h1>
+    <svg class="mapa" viewBox="0 0 928 520" width="912" height="511" role="img" aria-label="Mapa de la zona: Henderson, Daireaux y Bolívar">
+      <circle class="ring r2" cx="202" cy="133" r="200"/><circle class="ring" cx="202" cy="133" r="100"/>
+      <circle class="ring r2" cx="173" cy="465" r="200"/><circle class="ring" cx="173" cy="465" r="100"/>
+      <circle class="ring r2" cx="755" cy="59" r="200"/><circle class="ring" cx="755" cy="59" r="100"/>
+      <path class="ruta" d="M202 133 L173 465"/>
+      <path class="ruta" d="M202 133 L755 59"/>
+      <circle class="pin hq" cx="202" cy="133" r="20"/>
+      <circle class="pin" cx="173" cy="465" r="17"/>
+      <circle class="pin" cx="755" cy="59" r="17"/>
+      <text class="town" x="236" y="146">Henderson</text>
+      <text class="sub" x="238" y="178">OFICINA · H. YRIGOYEN</text>
+      <text class="town" x="206" y="478">Daireaux</text>
+      <text class="town" x="722" y="116" text-anchor="end">Bolívar</text>
+      <text class="esc" x="40" y="44">N ↑</text>
+      <line class="escl" x1="690" y1="470" x2="890" y2="470"/><line class="escl" x1="690" y1="462" x2="690" y2="478"/><line class="escl" x1="890" y1="462" x2="890" y2="478"/>
+      <text class="esc" x="790" y="500" text-anchor="middle">20 KM</text>
+    </svg>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Tapa del reel (grilla 3:4)</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W40-somos-de-aca-reel-tapa-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W40-somos-de-aca.html">HTML</a></span>
+        </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs light" id="aca-L" data-name="2026-W40-somos-de-aca-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Red.in Nidera · Oeste bonaerense</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Somos <span class="hl">de acá.</span></h1>
+
+    <svg class="mapa" viewBox="0 0 928 520" width="928" height="520" role="img" aria-label="Mapa de la zona: Henderson, Daireaux y Bolívar">
+      <circle class="ring r2" cx="202" cy="133" r="200"/><circle class="ring" cx="202" cy="133" r="100"/>
+      <circle class="ring r2" cx="173" cy="465" r="200"/><circle class="ring" cx="173" cy="465" r="100"/>
+      <circle class="ring r2" cx="755" cy="59" r="200"/><circle class="ring" cx="755" cy="59" r="100"/>
+      <path class="ruta" d="M202 133 L173 465"/>
+      <path class="ruta" d="M202 133 L755 59"/>
+      <circle class="pin hq" cx="202" cy="133" r="20"/>
+      <circle class="pin" cx="173" cy="465" r="17"/>
+      <circle class="pin" cx="755" cy="59" r="17"/>
+      <text class="town" x="236" y="146">Henderson</text>
+      <text class="sub" x="238" y="178">OFICINA · H. YRIGOYEN</text>
+      <text class="town" x="206" y="478">Daireaux</text>
+      <text class="town" x="722" y="116" text-anchor="end">Bolívar</text>
+      <text class="esc" x="40" y="44">N ↑</text>
+      <line class="escl" x1="690" y1="470" x2="890" y2="470"/><line class="escl" x1="690" y1="462" x2="690" y2="478"/><line class="escl" x1="890" y1="462" x2="890" y2="478"/>
+      <text class="esc" x="790" y="500" text-anchor="middle">20 KM</text>
+    </svg>
+
+    <div class="stats3">
+      <div><b>100+</b><span>productores atendidos</span></div>
+      <div><b>30.000+</b><span>ha bajo plan · 25/26</span></div>
+      <div><b>&lt; 24 h</b><span>para cotizar</span></div>
+    </div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Pasá por la oficina o mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Variante crema</b><span>Recomendada para el feed: rompe la seguidilla de placas navy.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W40-somos-de-aca-L-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W40-somos-de-aca-L-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W40-somos-de-aca.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-somos-de-aca">Copiar texto</button></div>
@@ -2481,7 +3033,7 @@ Distribuidor oficial RED.IN de Nidera Semillas. Más de 100 productores y más d
       <div><dt>Fuentes</dt><dd>contexto/empresa.md (cifras destacadas aprobadas para contenido). Mapa: coordenadas reales de Henderson (36°18'S 61°43'O), Daireaux (36°36'S 61°45'O) y Bolívar (36°14'S 61°06'O), 10 px = 1 km.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-historias-interactivas" data-grupo="historias">
+<article class="pp-pieza" id="p-historias-interactivas" data-grupo="historias" data-nombre="Historias interactivas · encuestas, preguntas y cuenta regresiva">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W40 → W42 · Interacción (stories)</div>
@@ -2489,6 +3041,13 @@ Distribuidor oficial RED.IN de Nidera Semillas. Más de 100 productores y más d
       </div>
       <div class="pp-when">una por semana, entre posteos (ver cada una)</div>
     </header>
+    <div class="pp-aprob" data-id="historias-interactivas" role="group" aria-label="Revisión de Historias interactivas · encuestas, preguntas y cuenta regresiva">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-historias-interactivas" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-historias-interactivas" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Las historias con sticker (encuesta, preguntas, cuenta regresiva) son la forma más barata de volver a aparecer sin saturar el feed y le enseñan al algoritmo que la cuenta genera respuesta. Además, cada respuesta es una excusa para abrir una conversación por DM.</p>
     <div class="pp-ops"><figure class="pp-op is-story">
         <div class="pv"><section class="slide hs story" id="hist-1" data-name="2026-W40-historia-encuesta-girasol">
@@ -2570,7 +3129,7 @@ Distribuidor oficial RED.IN de Nidera Semillas. Más de 100 productores y más d
       <div><dt>Fuentes</dt><dd>Fecha óptima del girasol en el oeste: marbetes Nidera 26/27 (15/10 al 15/11, límite 20/11).</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-girasol-carrusel" data-grupo="girasol">
+<article class="pp-pieza" id="p-girasol-carrusel" data-grupo="girasol" data-nombre="Girasol · ¿cuál va en tu lote? (carrusel)">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W41 · Precampaña girasol</div>
@@ -2578,6 +3137,13 @@ Distribuidor oficial RED.IN de Nidera Semillas. Más de 100 productores y más d
       </div>
       <div class="pp-when">mar 06/10 · 20–22 h</div>
     </header>
+    <div class="pp-aprob" data-id="girasol-carrusel" role="group" aria-label="Revisión de Girasol · ¿cuál va en tu lote? (carrusel)">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-girasol-carrusel" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-girasol-carrusel" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Reemplaza al carrusel W26 con un posicionamiento más honesto: 1115 y 1117 tienen el mismo perfil sanitario en el marbete, así que la decisión real es techo (1113) o sanidad (1115/1117). La tabla final es para guardar: los carruseles útiles se guardan y el algoritmo lo premia.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="gc-1" data-name="2026-W41-girasol-carrusel-01">
@@ -2775,7 +3341,7 @@ Deslizá hasta la tabla y guardala para la siembra. Fecha óptima en el oeste: 1
       <div><dt>Fuentes</dt><dd>Marbetes oficiales Nidera 26/27: NS 1113 CL (+2,11** Sur+Oeste, 74%, 225 comp.; Phomopsis 3, Verticilium 4, Sclerotinia 2, DM R, Roya negra R), NS 1115 CL (+1,64**, 69%, 192 comp.; Phomopsis 2, Verticilium 3, Sclerotinia 2, DM R, RN R), NS 1117 CL (+1,75**, 67%, 73 comp.; mismo perfil sanitario que 1115).</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-calculadora-maiz-girasol" data-grupo="herramientas">
+<article class="pp-pieza" id="p-calculadora-maiz-girasol" data-grupo="herramientas" data-nombre="Calculadora · ¿maíz o girasol en ese lote?">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W41 · Herramientas</div>
@@ -2783,6 +3349,13 @@ Deslizá hasta la tabla y guardala para la siembra. Fecha óptima en el oeste: 1
       </div>
       <div class="pp-when">mié 07/10 · 20–22 h (placa) · historia con link el mismo día</div>
     </header>
+    <div class="pp-aprob" data-id="calculadora-maiz-girasol" role="group" aria-label="Revisión de Calculadora · ¿maíz o girasol en ese lote?">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-calculadora-maiz-girasol" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-calculadora-maiz-girasol" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Es la pregunta de estas semanas: el lote que todavía no está definido va a maíz o a girasol. La calculadora es el diferencial que ninguna otra reventa tiene y la comparación lado a lado es justo lo que hace. No mostramos números inventados: los signos de pregunta invitan a poner los propios.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="calc-A" data-name="2026-W41-calculadora-maiz-girasol-A">
@@ -2832,15 +3405,63 @@ Deslizá hasta la tabla y guardala para la siembra. Fecha óptima en el oeste: 1
           <span class="pp-dl"><a href="../placas/img/2026-W41-calculadora-maiz-girasol-A-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W41-calculadora-maiz-girasol-A-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W41-calculadora-maiz-girasol.html">HTML</a></span>
         </figcaption>
       </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs light" id="calc-L" data-name="2026-W41-calculadora-maiz-girasol-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Herramientas Henderseeds</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">¿Maíz o girasol <span class="hl">en ese lote?</span></h1>
+    <p class="lede">Cargá tus números y compará el margen por hectárea de los dos, <b>lado a lado</b>.</p>
+
+    <div class="app">
+      <div class="app-top"><div class="t">Márgenes agrícolas<small>Campaña 26/27</small></div><div class="dots"><i></i><i></i><i></i></div></div>
+      <div class="app-cols">
+        <div class="app-col">
+          <h4>MAÍZ</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q">?</span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q">?</span><span class="un">qq/ha</span></div>
+        </div>
+        <div class="app-col">
+          <h4>GIRASOL</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q">?</span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q">?</span><span class="un">qq/ha</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="urlrow"><span class="url"><b>margen</b>.henderseeds.com</span><small class="label">Sin registro</small></div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos juntos? Mandanos tus números por DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Variante crema</b><span>Recomendada para el feed: la app oscura sobre crema se ve como una pantalla.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W41-calculadora-maiz-girasol-L-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W41-calculadora-maiz-girasol-L-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W41-calculadora-maiz-girasol.html">HTML</a></span>
+        </figcaption>
+      </figure>
 <figure class="pp-op is-story">
         <div class="pv"><section class="slide hs story anim" id="calc-S" data-name="2026-W41-calculadora-maiz-girasol-historia" data-dur="8" data-hold="3">
   <div class="bg"></div><div class="topbar"></div>
   <div class="inner">
-    <div class="hd a-fade" style="--d:0s">
+    <div class="hd a-hook" style="--d:0s">
       <div class="kicker"><span class="led"></span>Herramientas</div>
       <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
     </div>
-    <h1 class="h1 a-up" style="--d:.2s">¿Maíz o <span class="hl">girasol?</span></h1>
+    <h1 class="h1 a-hook" style="--d:0s">¿Maíz o <span class="hl">girasol?</span></h1>
 
     <div class="app a-up" style="--d:.6s">
       <div class="app-top"><div class="t">Márgenes agrícolas<small>Campaña 26/27</small></div><div class="dots"><i></i><i></i><i></i></div></div>
@@ -2890,7 +3511,7 @@ Sin registro, desde el celular, en dos minutos.
       <div><dt>Fuentes</dt><dd>Herramienta propia: margen.henderseeds.com (contexto/herramientas.md). UTM sugerido para el link: ?utm_source=instagram&amp;utm_medium=historia&amp;utm_campaign=siembra2627</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-maiz-tardio-ranking" data-grupo="maiz">
+<article class="pp-pieza" id="p-maiz-tardio-ranking" data-grupo="maiz" data-nombre="Maíz tardío · el ranking del marbete">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W41 · Precampaña maíz</div>
@@ -2898,6 +3519,13 @@ Sin registro, desde el celular, en dos minutos.
       </div>
       <div class="pp-when">jue 08/10 · 12–14 h (placa) · reel dom 11/10 · 20–22 h</div>
     </header>
+    <div class="pp-aprob" data-id="maiz-tardio-ranking" role="group" aria-label="Revisión de Maíz tardío · el ranking del marbete">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-maiz-tardio-ranking" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-maiz-tardio-ranking" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">En el oeste el tardío pesa mucho y la decisión de híbrido se toma en octubre–noviembre para sembrar en diciembre. Es la comparación que el productor quiere ver y nadie le arma: 5 híbridos, un mismo criterio, dato oficial. Se muestran solo los que tienen diferencia significativa en tardía (honestidad técnica).</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="tardio-A" data-name="2026-W41-maiz-tardio-ranking-A">
@@ -2955,11 +3583,11 @@ Sin registro, desde el celular, en dos minutos.
         <div class="pv"><section class="slide hs story anim" id="tardio-R" data-name="2026-W41-maiz-tardio-ranking-reel" data-dur="12" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
 
-  <div class="scene only-anim" style="--in:0s;--out:2.9s">
+  <div class="scene only-anim" style="--in:-1s;--out:2.9s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
-      <h1 class="h1 a-up" style="--d:.3s;margin-top:34px">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
-      <p class="lede a-up" style="--d:.9s">Lo que dicen 5 marbetes Nidera, con el mismo criterio.</p>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
+      <p class="lede a-up" style="--d:.5s">Lo que dicen 5 marbetes Nidera, con el mismo criterio.</p>
       <div class="mazo">
         <i class="a-growy" style="--d:1.2s;height:92%"></i><i class="a-growy" style="--d:1.3s;height:66%"></i><i class="a-growy" style="--d:1.4s;height:58%"></i><i class="a-growy" style="--d:1.5s;height:54%"></i><i class="a-growy" style="--d:1.6s;height:50%"></i>
       </div>
@@ -3014,6 +3642,23 @@ Sin registro, desde el celular, en dos minutos.
           <b>Reel animado 9:16 · 12 s</b><span>Las barras crecen de a una con contador. Es la pieza para pautar.</span>
           <span class="pp-dl"><button class="pp-replay" type="button" data-slide="tardio-R" aria-label="Repetir animación">↻ Repetir</button><a href="../placas/video/2026-W41-maiz-tardio-ranking-reel.mp4">MP4</a><a href="../placas/img/2026-W41-maiz-tardio-ranking-reel-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W41-maiz-tardio-ranking.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op is-story">
+        <div class="pv"><section class="slide hs story tapa" id="tardio-T" data-name="2026-W41-maiz-tardio-ranking-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Maíz tardío</div>
+    <h1 class="h1">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
+    <div class="mazo">
+      <div><i style="height:100%"></i><span>7765</span></div><div><i style="height:70%"></i><span>7925</span></div><div><i style="height:60%"></i><span>7852</span></div><div><i style="height:55%"></i><span>7921</span></div><div><i style="height:50%"></i><span>7624</span></div>
+    </div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Tapa del reel (grilla 3:4)</b><span>Las barras son proporcionales al dato de tardía de cada marbete.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W41-maiz-tardio-ranking-reel-tapa-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W41-maiz-tardio-ranking.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-maiz-tardio-ranking">Copiar texto</button></div>
@@ -3044,7 +3689,7 @@ Kilos por hectárea arriba del promedio de cada sitio de ensayo, según los marb
 #Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #Henderson #Daireaux #Bolivar</pre>
     </div>
     <div class="pp-texto">
-      <div class="pp-texto-hd"><span class="pp-eyebrow">Texto del reel · jue 12/11</span><button class="pp-copy" type="button" data-target="cap-maiz-tardio-ranking-1">Copiar texto</button></div>
+      <div class="pp-texto-hd"><span class="pp-eyebrow">Texto  · jue 12/11</span><button class="pp-copy" type="button" data-target="cap-maiz-tardio-ranking-1">Copiar texto</button></div>
       <pre class="pp-caption" id="cap-maiz-tardio-ranking-1">Diciembre se define en noviembre. 🌽
 
 Si vas a sembrar maíz tardío, este es el momento de elegir el híbrido para cada lote. Los marbetes Nidera 26/27 dicen esto en siembra tardía templada (kg/ha sobre el promedio de cada sitio):
@@ -3061,7 +3706,7 @@ El ambiente y el manejo mandan: por eso lo vemos lote por lote.
       <div><dt>Fuentes</dt><dd>Marbetes oficiales Nidera 26/27, bloque Siembra tardía templada: NS 7765 +324** (71%, 165 comp.), NS 7925 +228** (59%, 120), NS 7852 +194** (62%, 120), NS 7921 CL +179** (60%, 364), NS 7624 CL +163** (60%, 222). Quedan afuera por no tener diferencia significativa en tardía: NS 7818 (−39 DNS), AX 7761 (−49 DNS) y NS 7621 (−102*).</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-ns7925-spiroplasma" data-grupo="maiz">
+<article class="pp-pieza" id="p-ns7925-spiroplasma" data-grupo="maiz" data-nombre="NS 7925 · el tardío con mejor Spiroplasma">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W42 · Precampaña maíz → Técnica</div>
@@ -3069,6 +3714,13 @@ El ambiente y el manejo mandan: por eso lo vemos lote por lote.
       </div>
       <div class="pp-when">mar 13/10 · 7–9 h (placa) · reel jue 22/10</div>
     </header>
+    <div class="pp-aprob" data-id="ns7925-spiroplasma" role="group" aria-label="Revisión de NS 7925 · el tardío con mejor Spiroplasma">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-ns7925-spiroplasma" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-ns7925-spiroplasma" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Después de la campaña de la chicharrita, el Spiroplasma es una de las primeras preguntas del tardío. NS 7925 es lanzamiento y tiene el mejor puntaje del portafolio (3 en la escala 1–9 de Nidera). Lo mostramos contra el resto del portafolio, sin exagerar: el híbrido suma, el manejo manda.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="s7925-A" data-name="2026-W42-ns7925-spiroplasma-A">
@@ -3123,11 +3775,11 @@ El ambiente y el manejo mandan: por eso lo vemos lote por lote.
         <div class="pv"><section class="slide hs story anim" id="s7925-R" data-name="2026-W42-ns7925-spiroplasma-reel" data-dur="10.5" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
 
-  <div class="scene only-anim" style="--in:0s;--out:3.0s">
+  <div class="scene only-anim" style="--in:-1s;--out:3.0s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Maíz tardío · Chicharrita</div>
-      <h1 class="h1 a-up" style="--d:.3s;margin-top:34px">Mirá este <span class="hl">número.</span></h1>
-      <div class="tres a-pop" style="--d:1.0s">3</div>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Maíz tardío · Chicharrita</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">Mirá este <span class="hl">número.</span></h1>
+      <div class="tres a-pop" style="--d:.6s">3</div>
     </div>
   </div>
 
@@ -3177,6 +3829,21 @@ El ambiente y el manejo mandan: por eso lo vemos lote por lote.
           <b>Reel animado 9:16 · 10 s</b><span>Arranca con un 3 gigante: frena el scroll.</span>
           <span class="pp-dl"><button class="pp-replay" type="button" data-slide="s7925-R" aria-label="Repetir animación">↻ Repetir</button><a href="../placas/video/2026-W42-ns7925-spiroplasma-reel.mp4">MP4</a><a href="../placas/img/2026-W42-ns7925-spiroplasma-reel-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W42-ns7925-spiroplasma.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op is-story">
+        <div class="pv"><section class="slide hs story tapa" id="s7925-T" data-name="2026-W42-ns7925-spiroplasma-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Tardío y chicharrita</div>
+    <h1 class="h1">Mirá este <span class="hl">número.</span></h1>
+    <div><div class="tres">3</div><div class="tres-lab">Spiroplasma · NS 7925 VIPTERA3<br>escala Nidera: 1 excelente · 9 deficiente</div></div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Tapa del reel (grilla 3:4)</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W42-ns7925-spiroplasma-reel-tapa-1080x1920.jpg">JPG 9:16</a><a href="../placas/2026-W42-ns7925-spiroplasma.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-ns7925-spiroplasma">Copiar texto</button></div>
@@ -3207,7 +3874,7 @@ El híbrido suma; el manejo integrado sigue siendo la base. ¿Lo vemos para tu l
       <div><dt>Fuentes</dt><dd>Marbetes oficiales Nidera 26/27, Spiroplasma (1 excelente – 9 deficiente): NS 7925 = 3; AX 7761 = 4; NS 7621, NS 7624 CL, NS 7765, NS 7818, NS 7852 = 5; NS 7921 CL = 6 (NS 7800 CLTG sin dato). NS 7925: +228** kg/ha tardía templada, 59% éxito, 120 comp.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-rinde-indiferencia" data-grupo="herramientas">
+<article class="pp-pieza" id="p-rinde-indiferencia" data-grupo="herramientas" data-nombre="Márgenes · el rinde de indiferencia">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W42 · Márgenes &amp; finanzas</div>
@@ -3215,6 +3882,13 @@ El híbrido suma; el manejo integrado sigue siendo la base. ¿Lo vemos para tu l
       </div>
       <div class="pp-when">jue 15/10 · 20–22 h</div>
     </header>
+    <div class="pp-aprob" data-id="rinde-indiferencia" role="group" aria-label="Revisión de Márgenes · el rinde de indiferencia">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-rinde-indiferencia" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-rinde-indiferencia" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Contenido educativo que se guarda y se comparte, sin un solo número comercial. Explica la cuenta que la calculadora hace sola y deja la puerta abierta a 'hagámoslo con tus números'.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="rind-A" data-name="2026-W42-rinde-indiferencia-A">
@@ -3251,6 +3925,42 @@ El híbrido suma; el manejo integrado sigue siendo la base. ¿Lo vemos para tu l
           <b>Placa feed 4:5</b><span>La fórmula como protagonista. Sin ejemplos con precios.</span>
           <span class="pp-dl"><a href="../placas/img/2026-W42-rinde-indiferencia-A-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W42-rinde-indiferencia-A-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W42-rinde-indiferencia.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs light" id="rind-L" data-name="2026-W42-rinde-indiferencia-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Márgenes 26/27</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">El número que tenés que saber <span class="hl">antes de sembrar.</span></h1>
+
+    <div class="formula">
+      <div class="term"><span class="n">Costos totales</span><span class="u">USD / ha</span></div>
+      <div class="oper">÷</div>
+      <div class="term"><span class="n">Precio neto del grano</span><span class="u">USD / qq</span></div>
+      <div class="oper">=</div>
+      <div class="term res"><span class="n">Rinde de indiferencia</span><span class="u">qq / ha</span></div>
+    </div>
+
+    <p class="body">Es el rinde que necesitás para cubrir todos los costos. Si tu rinde esperado <b>no lo supera con aire</b>, el planteo no cierra.</p>
+    <p class="urlline">La calculadora lo hace sola → <b>margen.henderseeds.com</b></p>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos con tus números? Mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Variante crema</b><span>Recomendada: en la grilla queda entre dos placas navy.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W42-rinde-indiferencia-L-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W42-rinde-indiferencia-L-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W42-rinde-indiferencia.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-rinde-indiferencia">Copiar texto</button></div>
@@ -3272,7 +3982,7 @@ La calculadora lo hace sola, sin registro: margen.henderseeds.com (link en la bi
       <div><dt>Fuentes</dt><dd>Definición estándar de rinde de indiferencia (costos directos totales ÷ precio neto). Herramienta: margen.henderseeds.com.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-dia-de-la-madre" data-grupo="institucional">
+<article class="pp-pieza" id="p-dia-de-la-madre" data-grupo="institucional" data-nombre="Efeméride · Día de la Madre (dom 18/10)">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W42 · Institucional / cercanía</div>
@@ -3280,6 +3990,13 @@ La calculadora lo hace sola, sin registro: margen.henderseeds.com (link en la bi
       </div>
       <div class="pp-when">dom 18/10 · 8–10 h · feed + historia</div>
     </header>
+    <div class="pp-aprob" data-id="dia-de-la-madre" role="group" aria-label="Revisión de Efeméride · Día de la Madre (dom 18/10)">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-dia-de-la-madre" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-dia-de-la-madre" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Está marcada como prioridad alta en el calendario de fechas. Es presencia de marca sin venta: el capítulo de girasol funciona como 'flor' y conecta con el cultivo. El texto evita estereotipos (también manejan la sembradora y llevan los números).</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="madre-A" data-name="2026-10-18-dia-de-la-madre-A">
@@ -3344,7 +4061,7 @@ Feliz día. De parte de todo el equipo de HenderSeeds.
       <div><dt>Fuentes</dt><dd>Efeméride: Día de la Madre en Argentina, tercer domingo de octubre (18/10/2026).</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-ns7765-dos-fechas" data-grupo="maiz">
+<article class="pp-pieza" id="p-ns7765-dos-fechas" data-grupo="maiz" data-nombre="NS 7765 · el único arriba de +300 en las dos fechas">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W43 · Precampaña maíz</div>
@@ -3352,6 +4069,13 @@ Feliz día. De parte de todo el equipo de HenderSeeds.
       </div>
       <div class="pp-when">lun 19/10 · 7–9 h</div>
     </header>
+    <div class="pp-aprob" data-id="ns7765-dos-fechas" role="group" aria-label="Revisión de NS 7765 · el único arriba de +300 en las dos fechas">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-ns7765-dos-fechas" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-ns7765-dos-fechas" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Rehace la placa W31 del 7765 corrigiendo sus errores (tenía Spiroplasma 3 cuando el marbete dice 5, hablaba de 'ensayos' en vez de comparaciones y no tenía el logo de Henderseeds). Suma un dato nuevo y verificable: es el único híbrido del portafolio con más de +300 kg/ha en temprana Y en tardía.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="n7765-A" data-name="2026-W43-ns7765-dos-fechas-A">
@@ -3411,7 +4135,7 @@ Por eso va en los mejores lotes, se siembre en septiembre o en diciembre.
       <div><dt>Fuentes</dt><dd>Marbete NS 7765 VIPTERA3 (Nidera 26/27): temprana +392** (74%, 191 comp.), tardía templada +324** (71%, 165 comp.), Quebrado 1, Roya 2, MR 118. Comparación con el resto de los marbetes: ningún otro supera +300 en ambas fechas (NS 7852: +316 temprana / +194 tardía).</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-implantacion" data-grupo="institucional">
+<article class="pp-pieza" id="p-implantacion" data-grupo="institucional" data-nombre="Servicio · verificación de implantación">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W43 · Técnica / institucional</div>
@@ -3419,6 +4143,13 @@ Por eso va en los mejores lotes, se siembre en septiembre o en diciembre.
       </div>
       <div class="pp-when">mié 21/10 · 7–9 h</div>
     </header>
+    <div class="pp-aprob" data-id="implantacion" role="group" aria-label="Revisión de Servicio · verificación de implantación">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-implantacion" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-implantacion" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Con el maíz temprano nacido, es el momento de mostrar el servicio que nos diferencia de 'vender bolsas': volver al lote después de la siembra. Contenido de asesor, no de vendedor, y un CTA concreto (pedir la recorrida).</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="impl-A" data-name="2026-W43-implantacion-A">
@@ -3473,6 +4204,60 @@ Por eso va en los mejores lotes, se siembre en septiembre o en diciembre.
           <b>Placa feed 4:5</b><span>Ideal combinarla con 1–3 fotos reales de una recorrida (carrusel).</span>
           <span class="pp-dl"><a href="../placas/img/2026-W43-implantacion-A-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W43-implantacion-A-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W43-implantacion.html">HTML</a></span>
         </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs light" id="impl-L" data-name="2026-W43-implantacion-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Asesoramiento técnico</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Ya sembraste. <span class="hl">¿Cuántas plantas lograste?</span></h1>
+
+    <svg class="surco" viewBox="0 0 928 340" width="928" height="340" role="img" aria-label="Dos metros de surco con una falla y un doble">
+      <rect class="suelo" x="0" y="210" width="928" height="38" rx="6"/>
+<g class="pl" transform="translate(58.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(174.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<rect class="falla" x="256.0" y="82" width="68" height="124" rx="12"/>
+<text class="flag" x="290.0" y="64" text-anchor="middle">FALLA</text>
+<g class="pl" transform="translate(406.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(522.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(627.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(649.0 210) scale(0.92)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<text class="flag" x="638.0" y="64" text-anchor="middle">DOBLE</text>
+<g class="pl" transform="translate(754.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(870.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<line class="cinta" x1="58" y1="284" x2="870" y2="284"/>
+<line class="cinta" x1="58.0" y1="272" x2="58.0" y2="296"/>
+<line class="cinta" x1="159.5" y1="272" x2="159.5" y2="296"/>
+<line class="cinta" x1="261.0" y1="272" x2="261.0" y2="296"/>
+<line class="cinta" x1="362.5" y1="272" x2="362.5" y2="296"/>
+<line class="cinta" x1="464.0" y1="272" x2="464.0" y2="296"/>
+<line class="cinta" x1="565.5" y1="272" x2="565.5" y2="296"/>
+<line class="cinta" x1="667.0" y1="272" x2="667.0" y2="296"/>
+<line class="cinta" x1="768.5" y1="272" x2="768.5" y2="296"/>
+<line class="cinta" x1="870.0" y1="272" x2="870.0" y2="296"/>
+<text class="med" x="58" y="330">0</text><text class="med" x="464.0" y="330" text-anchor="middle">1 m</text><text class="med" x="870" y="330" text-anchor="end">2 m</text>
+    </svg>
+
+    <p class="body">Después de la siembra recorremos el lote y verificamos la implantación: <b>plantas logradas, fallas y dobles.</b> Es el primer dato real de cómo arrancó tu cultivo.</p>
+    <div class="metodo">Plantas por metro de surco <svg><use href="#hs-arrow"/></svg> <b>plantas por hectárea</b></div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Pedí la recorrida: mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Variante crema</b><span>Recomendada: suelo y plantas con colores de lote real.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W43-implantacion-L-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W43-implantacion-L-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W43-implantacion.html">HTML</a></span>
+        </figcaption>
       </figure></div>
     <div class="pp-texto">
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-implantacion">Copiar texto</button></div>
@@ -3491,7 +4276,7 @@ Es el primer dato real de cómo arrancó tu cultivo, y el que después explica b
       <div><dt>Fuentes</dt><dd>Servicio de verificación de implantación: contexto/empresa.md (asesoramiento técnico). Ilustración esquemática: 2 m de surco, una planta cada 25 cm.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-finanzas-pesos-dolares" data-grupo="herramientas">
+<article class="pp-pieza" id="p-finanzas-pesos-dolares" data-grupo="herramientas" data-nombre="Finanzas · ¿pesos o dólares?">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W44 · Herramientas (suite financiera)</div>
@@ -3499,6 +4284,13 @@ Es el primer dato real de cómo arrancó tu cultivo, y el que después explica b
       </div>
       <div class="pp-when">mar 27/10 · 12–14 h</div>
     </header>
+    <div class="pp-aprob" data-id="finanzas-pesos-dolares" role="group" aria-label="Revisión de Finanzas · ¿pesos o dólares?">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-finanzas-pesos-dolares" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-finanzas-pesos-dolares" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">En siembra se financian insumos y labores. La herramienta de pesos vs. dólares responde una pregunta real y el CTA 'pedinos el link' abre conversaciones (que es la métrica que manda), en vez de mandar a un link largo.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="fin-A" data-name="2026-W44-finanzas-pesos-dolares-A">
@@ -3551,7 +4343,7 @@ Nuestra herramienta compara las dos opciones con la devaluación que vos esperá
       <div><dt>Fuentes</dt><dd>Herramienta propia: 13-finanzas-suite.vercel.app/finanzas (contexto/herramientas.md) — compara financiación en pesos vs. USD ajustando por devaluación esperada y devuelve CFTEA en USD.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-como-leer-un-marbete" data-grupo="institucional">
+<article class="pp-pieza" id="p-como-leer-un-marbete" data-grupo="institucional" data-nombre="Educativo · cómo leer un marbete (carrusel)">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W44 · Técnica &amp; tecnología</div>
@@ -3559,6 +4351,13 @@ Nuestra herramienta compara las dos opciones con la devaluación que vos esperá
       </div>
       <div class="pp-when">jue 29/10 · 20–22 h</div>
     </header>
+    <div class="pp-aprob" data-id="como-leer-un-marbete" role="group" aria-label="Revisión de Educativo · cómo leer un marbete (carrusel)">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-como-leer-un-marbete" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-como-leer-un-marbete" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Todo lo que publicamos sale del marbete, pero casi nadie sabe leerlo. Enseñarlo nos posiciona como el asesor que explica (no el que vende) y hace más creíbles todos los demás posteos. Es el tipo de carrusel que se guarda y se reenvía por WhatsApp.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="lm-1" data-name="2026-W44-como-leer-un-marbete-01">
@@ -3719,15 +4518,208 @@ Guardalo para cuando compares híbridos.
       <div><dt>Fuentes</dt><dd>Estructura de los marbetes oficiales Nidera 26/27 (bloques 'Resultados de ensayo a campo vs. índice ambiental', 'Perfil sanitario y agronómico 1 – excelente / 9 – deficiente, R – resistencia genética'). Ejemplos reales: NS 7765 (+392**, 74%, 191 comp.) y NS 7818 en tardía templada (−39 DNS).</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-ns7624-malezas" data-grupo="maiz">
+<article class="pp-pieza" id="p-maiz-tardio-carrusel" data-grupo="maiz" data-nombre="Maíz tardío · ¿cuál va en tu lote? (carrusel)">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W45 · Precampaña maíz</div>
+        <h3 class="pp-h3">Maíz tardío · ¿cuál va en tu lote? (carrusel)</h3>
+      </div>
+      <div class="pp-when">lun 02/11 · 20–22 h</div>
+    </header>
+    <div class="pp-aprob" data-id="maiz-tardio-carrusel" role="group" aria-label="Revisión de Maíz tardío · ¿cuál va en tu lote? (carrusel)">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-maiz-tardio-carrusel" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-maiz-tardio-carrusel" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
+    <p class="pp-porque">Es la decisión comercial más grande de noviembre y hasta ahora solo tenía placas sueltas. Igual que el carrusel de girasol, ordena la elección por el problema del lote (techo, chicharrita, malezas) y dice las debilidades en voz alta (el 7925 tiene vuelco 5): eso es lo que genera confianza. La tabla final es para guardar.</p>
+    <div class="pp-ops"><figure class="pp-op">
+        <div class="pv"><section class="slide hs" id="tc-1" data-name="2026-W45-maiz-tardio-carrusel-01">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Maíz tardío: <span class="hl">¿cuál va en tu lote?</span></h1>
+    <ul class="lista">
+      <li><b>NS 7765</b><span>Techo en tardía</span></li>
+      <li><b>NS 7925</b><span>Chicharrita (Spiroplasma)</span></li>
+      <li><b>NS 7624 CL</b><span>Malezas + ciclo corto</span></li>
+      <li><b>NS 7921 CL</b><span>Malezas + más datos</span></li>
+    </ul>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>01</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Slide 1 · Portada</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W45-maiz-tardio-carrusel-01-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W45-maiz-tardio-carrusel-01-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W45-maiz-tardio-carrusel.html">HTML</a></span>
+        </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs" id="tc-2" data-name="2026-W45-maiz-tardio-carrusel-02">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Si buscás el techo</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <div class="problema">Tardía templada · <b>el que más rinde</b></div>
+    <h1 class="h1">NS 7765</h1>
+    <div class="gigante">+324</div>
+    <div class="u">kg/ha<small>sobre el promedio de cada sitio de ensayo</small></div>
+    <div class="kv2">
+      <div><b>71%</b><span>de éxito</span></div>
+      <div><b>165</b><span>comparaciones</span></div>
+      <div><b>1</b><span>quebrado (excelente)</span></div>
+    </div>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>02</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Slide 2 · Techo: NS 7765</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W45-maiz-tardio-carrusel-02-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W45-maiz-tardio-carrusel-02-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W45-maiz-tardio-carrusel.html">HTML</a></span>
+        </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs" id="tc-3" data-name="2026-W45-maiz-tardio-carrusel-03">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Si te preocupa la chicharrita</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <div class="problema">Lanzamiento 26/27 · <b>Spiroplasma</b></div>
+    <h1 class="h1">NS 7925</h1>
+    <div class="fila"><span class="gigante">3</span><p>Spiroplasma en la escala del marbete: <b>el mejor del portafolio</b> (el resto, de 4 a 6).</p></div>
+    <div class="kv2">
+      <div><b>+228</b><span>kg/ha tardía</span></div>
+      <div><b>59%</b><span>de éxito</span></div>
+      <div><b>120</b><span>comparaciones</span></div>
+    </div>
+    <div class="ojo"><i>Ojo</i><span>Vuelco <b>5</b>: en lotes con viento, conversémoslo antes.</span></div>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>03</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Slide 3 · Chicharrita: NS 7925</b><span>Dice la debilidad (vuelco 5) a propósito.</span>
+          <span class="pp-dl"><a href="../placas/img/2026-W45-maiz-tardio-carrusel-03-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W45-maiz-tardio-carrusel-03-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W45-maiz-tardio-carrusel.html">HTML</a></span>
+        </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs" id="tc-4" data-name="2026-W45-maiz-tardio-carrusel-04">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Si el lote viene sucio</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Los dos <span class="hl">Clearfield.</span></h1>
+    <div class="cols">
+      <div class="col"><h3>NS 7624 <b>CL</b></h3><div class="tag">Ciclo corto · MR 117</div><div class="num">+163</div><div class="m">kg/ha tardía<br>60% éxito · 222 comp.</div></div>
+      <div class="col"><h3>NS 7921 <b>CL</b></h3><div class="tag">MR 118 · también temprana</div><div class="num">+179</div><div class="m">kg/ha tardía<br>60% éxito · 364 comp.</div></div>
+    </div>
+    <div class="tools"><span class="chip">Glifosato</span><span class="chip">Glufosinato</span><span class="chip">Imidazolinonas</span><span class="chip">Lepidópteros <b>VIPTERA3</b></span></div>
+    <p class="body">Los dos traen tres herramientas para malezas. El 7624 sale antes; el 7921 suma más comparaciones.</p>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>04</b> / 05</span>
+      <span class="src">Solo herbicidas identificados como CLEARFIELD® (marca de BASF)</span>
+    </div>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Slide 4 · Malezas: 7624 CL o 7921 CL</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W45-maiz-tardio-carrusel-04-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W45-maiz-tardio-carrusel-04-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W45-maiz-tardio-carrusel.html">HTML</a></span>
+        </figcaption>
+      </figure>
+<figure class="pp-op">
+        <div class="pv"><section class="slide hs" id="tc-5" data-name="2026-W45-maiz-tardio-carrusel-05">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>La tabla para guardar</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Tardío, <span class="hl">frente a frente.</span></h1>
+    <table>
+      <thead><tr><th>Tardía templada</th><th>7765</th><th>7925</th><th>7852</th><th>7921 CL</th><th>7624 CL</th></tr></thead>
+      <tbody>
+        <tr><td>kg/ha vs. promedio</td><td class="best">+324</td><td>+228</td><td>+194</td><td>+179</td><td>+163</td></tr>
+        <tr><td>Éxito</td><td class="best">71%</td><td>59%</td><td>62%</td><td>60%</td><td>60%</td></tr>
+        <tr><td>Comparaciones</td><td>165</td><td>120</td><td>120</td><td class="best">364</td><td>222</td></tr>
+        <tr><td>Spiroplasma</td><td>5</td><td class="best">3</td><td>5</td><td>6</td><td>5</td></tr>
+        <tr><td>Quebrado</td><td class="best">1</td><td>2</td><td>4</td><td>2</td><td>2</td></tr>
+        <tr><td>Vuelco</td><td class="best">3</td><td>5</td><td class="best">3</td><td>4</td><td class="best">3</td></tr>
+      </tbody>
+    </table>
+    <p class="src esc">Escala Nidera: 1 excelente · 9 deficiente. Todas las diferencias de rinde, significativas (**).</p>
+    <p class="ref"><span>Refugio</span>NS 7800 CLTG, el 10% del lote.</p>
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Mandanos un DM con tu lote tardío.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Marbetes Nidera 26/27</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section></div>
+        <figcaption>
+          <b>Slide 5 · Tabla para guardar</b>
+          <span class="pp-dl"><a href="../placas/img/2026-W45-maiz-tardio-carrusel-05-feed-1080x1350.jpg">JPG feed</a><a href="../placas/img/2026-W45-maiz-tardio-carrusel-05-historia-1080x1920.jpg">JPG historia</a><a href="../placas/2026-W45-maiz-tardio-carrusel.html">HTML</a></span>
+        </figcaption>
+      </figure></div>
+    <div class="pp-texto">
+      <div class="pp-texto-hd"><span class="pp-eyebrow">Texto para publicar</span><button class="pp-copy" type="button" data-target="cap-maiz-tardio-carrusel">Copiar texto</button></div>
+      <pre class="pp-caption" id="cap-maiz-tardio-carrusel">Maíz tardío 26/27: ¿cuál va en tu lote? 🌽
+
+No hay un maíz mejor. Hay uno mejor para cada problema del lote:
+
+→ Si buscás el techo en tardía: NS 7765 VIPTERA3 (+324 kg/ha sobre el promedio de cada sitio, 71% de éxito).
+→ Si te preocupa la chicharrita: NS 7925 VIPTERA3, Spiroplasma 3, el mejor del portafolio. Ojo: vuelco 5.
+→ Si el lote viene sucio: NS 7624 CL (ciclo corto) o NS 7921 CL, con tres herramientas herbicidas.
+
+Deslizá hasta la tabla y guardala. Datos de siembra tardía templada, marbetes Nidera 26/27.
+
+📩 Mandanos un DM con tu lote y lo vemos juntos.
+
+#Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #Henderson #Daireaux #Bolivar</pre>
+    </div>
+    <dl class="pp-kv">
+      <div><dt>Pauta</dt><dd>Opcional: si el reel del ranking dio buen costo por conversación, pautar este carrusel a quienes vieron el reel (retargeting tibio).</dd></div>
+      <div><dt>Fuentes</dt><dd>Marbetes oficiales Nidera 26/27, siembra tardía templada: NS 7765 +324** (71%, 165 comp.; Quebrado 1, Vuelco 3, Spiroplasma 5), NS 7925 +228** (59%, 120; Spiroplasma 3, Vuelco 5, Quebrado 2), NS 7852 +194** (62%, 120; Quebrado 4, Vuelco 3, Spiroplasma 5), NS 7921 CL +179** (60%, 364; Quebrado 2, Vuelco 4, Spiroplasma 6), NS 7624 CL +163** (60%, 222; Quebrado 2, Vuelco 3, Spiroplasma 5; MR 117, GDU 767). Refugio: NS 7800 CLTG.</dd></div>
+    </dl>
+  </article>
+<article class="pp-pieza" id="p-ns7624-malezas" data-grupo="maiz" data-nombre="NS 7624 VIPTERA3 CL · tardío con malezas">
+    <header class="pp-pieza-hd">
+      <div>
+        <div class="pp-eyebrow">2026-W45 · alternativa · Precampaña maíz</div>
         <h3 class="pp-h3">NS 7624 VIPTERA3 CL · tardío con malezas</h3>
       </div>
-      <div class="pp-when">lun 02/11 · 7–9 h</div>
+      <div class="pp-when">Alternativa: el carrusel de tardío (02/11) ya lo incluye en la slide 4</div>
     </header>
-    <p class="pp-porque">Tercer ángulo del tardío (después del ranking y del Spiroplasma): el lote sucio. El 7624 CL es ciclo corto con tres herramientas herbicidas; es un problema concreto con una respuesta concreta.</p>
+    <div class="pp-aprob" data-id="ns7624-malezas" role="group" aria-label="Revisión de NS 7624 VIPTERA3 CL · tardío con malezas">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-ns7624-malezas" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-ns7624-malezas" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
+    <p class="pp-porque">Queda como placa suelta por si preferís no hacer el carrusel de tardío o querés pautar solo el ángulo &quot;lote sucio&quot;. Tercer ángulo del tardío (después del ranking y del Spiroplasma): el lote sucio. El 7624 CL es ciclo corto con tres herramientas herbicidas; es un problema concreto con una respuesta concreta.</p>
     <div class="pp-ops"><figure class="pp-op">
         <div class="pv"><section class="slide hs" id="n7624-A" data-name="2026-W45-ns7624-malezas-A">
   <div class="bg"></div><div class="topbar"></div>
@@ -3787,7 +4779,7 @@ Recordá: con Clearfield, solo herbicidas identificados como CLEARFIELD®.
       <div><dt>Fuentes</dt><dd>Marbete NS 7624 VIPTERA3 CL (Nidera 26/27): 'ciclo corto con excelente performance en siembras tardías', 3 herramientas herbicidas, +163** tardía templada (60%, 222 comp.), MR 117, GDU 767, Quebrado 2, Roya 2. CLEARFIELD® es marca registrada de BASF.</dd></div>
     </dl>
   </article>
-<article class="pp-pieza" id="p-dia-de-la-tradicion" data-grupo="institucional">
+<article class="pp-pieza" id="p-dia-de-la-tradicion" data-grupo="institucional" data-nombre="Efeméride · Día de la Tradición (mar 10/11)">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">2026-W46 · Institucional / cercanía</div>
@@ -3795,6 +4787,13 @@ Recordá: con Clearfield, solo herbicidas identificados como CLEARFIELD®.
       </div>
       <div class="pp-when">mar 10/11 · historia 8–10 h</div>
     </header>
+    <div class="pp-aprob" data-id="dia-de-la-tradicion" role="group" aria-label="Revisión de Efeméride · Día de la Tradición (mar 10/11)">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-dia-de-la-tradicion" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-dia-de-la-tradicion" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">Fecha de campo por definición. Una cita del Martín Fierro (dominio público) que cualquier productor reconoce, sin venta.</p>
     <div class="pp-ops"><figure class="pp-op is-story">
         <div class="pv"><section class="slide hs story" id="trad-S" data-name="2026-11-10-dia-de-la-tradicion-historia">
@@ -3833,7 +4832,7 @@ Feliz Día de la Tradición. 🧉
 
 <!-- ═══════════ PAUTA ═══════════ -->
 <section class="pp-sec" id="pauta" aria-labelledby="t-pauta">
-  <div class="pp-eyebrow">05 · Meta Ads</div>
+  <div class="pp-eyebrow">06 · Meta Ads</div>
   <h2 class="pp-h2" id="t-pauta">Pauta: poca, precisa y medida</h2>
   <p class="pp-intro">Público base para todo: Henderson + Daireaux + Bolívar + Pehuajó, radio 50 km, 25 a 60 años, intereses agro. Botón "Enviar mensaje de WhatsApp". El presupuesto lo definís vos: arrancá con un monto de prueba y escalá solo lo que dé conversaciones a buen costo.</p>
   <div class="pp-grid3">
@@ -3848,12 +4847,12 @@ Feliz Día de la Tradición. 🧉
 
 <!-- ═══════════ PROCESO ═══════════ -->
 <section class="pp-sec" id="proceso" aria-labelledby="t-proc">
-  <div class="pp-eyebrow">06 · Para no volver a frenar</div>
+  <div class="pp-eyebrow">07 · Para no volver a frenar</div>
   <h2 class="pp-h2" id="t-proc">Cómo lo sostenemos</h2>
   <div class="pp-grid3">
     <div class="pp-card"><h3 class="pp-h4">Un lote cada 3 semanas</h3><p>Se aprueban y se programan juntas. La semana que hay mucho trabajo en el campo, el feed sigue solo.</p></div>
     <div class="pp-card"><h3 class="pp-h4">15 minutos de aprobación</h3><p>Una sola persona aprueba, con esta página abierta en el celular. Lo que no se aprueba en la semana, se reemplaza por la opción B.</p></div>
-    <div class="pp-card"><h3 class="pp-h4">Fotos de verdad</h3><p>Diez por semana en temporada: siembra, bolsas, lotes, equipo. Con fotos reales se arma el formato "foto + dato" que hoy falta.</p></div>
+    <div class="pp-card"><h3 class="pp-h4">Fotos de verdad</h3><p>Diez por semana en temporada: siembra, bolsas, lotes, equipo. Con el <a href="../foto/">generador de placas con foto</a> salen con la marca desde el celular, en tres plantillas: titular, dato o frase de un productor.</p></div>
     <div class="pp-card"><h3 class="pp-h4">Viernes, 10 minutos</h3><p>Métricas de la semana en <code class="pp-in">metricas.md</code>. Desde noviembre, el formato que trae más conversaciones gana más lugar.</p></div>
     <div class="pp-card"><h3 class="pp-h4">Menos herramientas internas</h3><p>El dashboard y el laboratorio de maquetas quedan como están. Para este ciclo, todo sale de esta página.</p></div>
     <div class="pp-card"><h3 class="pp-h4">Perfil de Instagram</h3><p>Bio propuesta: <em>"Semilla Nidera de maíz y girasol + asesoramiento de lote 🌽🌻 · Distribuidor RED.IN · Henderson · Daireaux · Bolívar · Calculá tu margen ↓"</em>. Fijados: Somos de acá, Cómo leer un marbete y la calculadora.</p></div>
@@ -3862,7 +4861,7 @@ Feliz Día de la Tradición. 🧉
 
 <!-- ═══════════ PENDIENTES ═══════════ -->
 <section class="pp-sec" id="pendientes" aria-labelledby="t-pend">
-  <div class="pp-eyebrow">07 · Lo que necesito de tu lado</div>
+  <div class="pp-eyebrow">08 · Lo que necesito de tu lado</div>
   <h2 class="pp-h2" id="t-pend">Pendientes</h2>
   <ul class="pp-pend">
     <li><b>Qué hacer con el repo público</b> (error 1): pasarlo a privado (ojo: en el plan gratis de GitHub, un repo privado pierde GitHub Pages) o borrar el archivo de precios y limpiar el historial. Decime cuál y lo hago.</li>
@@ -3870,10 +4869,22 @@ Feliz Día de la Tradición. 🧉
     <li><b>[COMPLETAR] presupuesto de pauta</b> por campaña.</li>
     <li><b>[AJUSTAR] fechas de siembra de maíz</b> temprano y tardío en la zona.</li>
     <li><b>¿Cerró la precampaña?</b> No se publica, pero define el tono de los CTA de las próximas semanas.</li>
-    <li><b>[COMPLETAR] fotos reales</b> para los huecos del 24/10 y el 31/10.</li>
+    <li><b>[COMPLETAR] fotos reales</b> para los huecos del 24/10, 31/10 y 07/11 (el del 07/11 es la frase de un productor: pedile permiso).</li>
+    <li><b>[VERIFICAR] implantación:</b> el posteo dice que se cuentan plantas por metro de surco y se llevan a plantas por hectárea. Confirmá que es así como lo hacen.</li>
     <li><b>[COMPLETAR] link del posteo de lanzamiento</b> de junio (sigue pendiente en el repo).</li>
   </ul>
 </section>
+
+<div class="pp-barra" id="pp-barra" hidden>
+  <div class="pp-wrap pp-barra-in">
+    <div class="pp-cuenta" aria-live="polite"><span class="c-ok" id="n-ok">0</span> aprobadas · <span class="c-cambiar" id="n-cambiar">0</span> a cambiar · <span class="c-no" id="n-no">0</span> descartadas · <span id="n-pend">0</span> sin revisar</div>
+    <div class="pp-barra-bt">
+      <button type="button" class="pp-copy" id="pp-resumen">Copiar resumen</button>
+      <button type="button" class="pp-limpiar" id="pp-limpiar">Borrar marcas</button>
+    </div>
+  </div>
+  <pre class="pp-caption pp-resumen-txt" id="pp-resumen-txt" hidden></pre>
+</div>
 
 <footer class="pp-pie">
   <p><b>Cómo se armó:</b> cada placa es un HTML en <code class="pp-in">docs/placas/</code> (fuente de verdad, con su texto y sus fuentes adentro). <code class="pp-in">npm run placas</code> genera los JPG, <code class="pp-in">npm run videos</code> los MP4 y <code class="pp-in">npm run propuesta</code> esta página.</p>
@@ -3882,14 +4893,16 @@ Feliz Día de la Tradición. 🧉
 </main>
 
 <script src="../assets/hs-anim.js"></script>
-<script>/* Página de propuesta: copiar textos, repetir animaciones y filtrar piezas.
-   Sin JS la página se lee completa: esto solo agrega comodidad. */
+<script>/* Página de propuesta: copiar textos, repetir animaciones, filtrar piezas y
+   revisarlas (aprobar / cambiar / descartar). Sin JS la página se lee completa:
+   esto solo agrega comodidad. Las marcas se guardan en este navegador. */
 (function () {
   'use strict';
 
-  function avisar(boton) {
-    var original = boton.textContent;
-    boton.textContent = 'Copiado ✓';
+  function avisar(boton, texto) {
+    var original = boton.getAttribute('data-original') || boton.textContent;
+    boton.setAttribute('data-original', original);
+    boton.textContent = texto || 'Copiado ✓';
     boton.classList.add('is-ok');
     setTimeout(function () { boton.textContent = original; boton.classList.remove('is-ok'); }, 1800);
   }
@@ -3902,24 +4915,26 @@ Feliz Día de la Tradición. 🧉
     sel.addRange(rango);
   }
 
+  function copiar(texto, boton, elParaSeleccionar) {
+    var alternativa = function () {
+      if (elParaSeleccionar) { elParaSeleccionar.hidden = false; seleccionar(elParaSeleccionar); }
+      try { if (document.execCommand('copy')) avisar(boton); } catch (_) { /* queda seleccionado para copiar a mano */ }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(function () { avisar(boton); }, alternativa);
+    } else {
+      alternativa();
+    }
+  }
+
+  /* ── copiar textos y repetir animaciones ─────────────────────── */
   document.addEventListener('click', function (e) {
-    var copiar = e.target.closest('.pp-copy');
-    if (copiar) {
-      var el = document.getElementById(copiar.getAttribute('data-target'));
-      if (!el) return;
-      var texto = el.textContent;
-      var alternativa = function () {
-        seleccionar(el);
-        try { if (document.execCommand('copy')) avisar(copiar); } catch (_) { /* queda seleccionado para copiar a mano */ }
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(texto).then(function () { avisar(copiar); }, alternativa);
-      } else {
-        alternativa();
-      }
+    var boton = e.target.closest('.pp-copy[data-target]');
+    if (boton) {
+      var el = document.getElementById(boton.getAttribute('data-target'));
+      if (el) copiar(el.textContent, boton, el);
       return;
     }
-
     var repetir = e.target.closest('.pp-replay');
     if (repetir && window.HS) {
       var slide = document.getElementById(repetir.getAttribute('data-slide'));
@@ -3927,6 +4942,7 @@ Feliz Día de la Tradición. 🧉
     }
   });
 
+  /* ── filtros ─────────────────────────────────────────────────── */
   var filtros = document.querySelectorAll('.pp-filtro');
   Array.prototype.forEach.call(filtros, function (boton) {
     boton.addEventListener('click', function () {
@@ -3937,6 +4953,115 @@ Feliz Día de la Tradición. 🧉
       });
     });
   });
+
+  /* ── modo aprobación ─────────────────────────────────────────── */
+  var CLAVE = 'hs-aprobacion-2627';
+  var estado = {};
+  try { estado = JSON.parse(localStorage.getItem(CLAVE) || '{}') || {}; } catch (_) { estado = {}; }
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (_) { /* sin almacenamiento: vale para esta visita */ } }
+
+  var piezas = Array.prototype.slice.call(document.querySelectorAll('.pp-pieza'));
+  var barra = document.getElementById('pp-barra');
+  var preRes = document.getElementById('pp-resumen-txt');
+  var idDe = function (p) { return p.id.replace(/^p-/, ''); };
+
+  function pintar() {
+    var n = { ok: 0, cambiar: 0, no: 0, pend: 0 };
+    piezas.forEach(function (p) {
+      var id = idDe(p);
+      var e = estado[id] && estado[id].estado;
+      if (e) { p.setAttribute('data-estado', e); n[e]++; } else { p.removeAttribute('data-estado'); n.pend++; }
+      Array.prototype.forEach.call(p.querySelectorAll('.pp-ap'), function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-estado') === e ? 'true' : 'false');
+      });
+      var nota = p.querySelector('.pp-nota-ap');
+      if (nota) {
+        nota.hidden = e !== 'cambiar';
+        var ta = nota.querySelector('textarea');
+        if (ta && document.activeElement !== ta) ta.value = (estado[id] && estado[id].nota) || '';
+      }
+      Array.prototype.forEach.call(document.querySelectorAll('.pp-sem-items li[data-pieza="' + id + '"]'), function (li) {
+        if (e) li.setAttribute('data-estado', e); else li.removeAttribute('data-estado');
+      });
+    });
+    ['ok', 'cambiar', 'no', 'pend'].forEach(function (k) {
+      var el = document.getElementById('n-' + k);
+      if (el) el.textContent = n[k];
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.pp-ap');
+    if (!b) return;
+    var id = b.closest('.pp-aprob').getAttribute('data-id');
+    var nuevo = b.getAttribute('data-estado');
+    var actual = estado[id] && estado[id].estado;
+    if (actual === nuevo) delete estado[id];
+    else estado[id] = { estado: nuevo, nota: (estado[id] && estado[id].nota) || '' };
+    guardar();
+    pintar();
+    if (nuevo === 'cambiar' && estado[id]) {
+      var ta = document.getElementById('nota-' + id);
+      if (ta) ta.focus();
+    }
+  });
+
+  document.addEventListener('input', function (e) {
+    if (!e.target.matches || !e.target.matches('.pp-nota-ap textarea')) return;
+    var id = e.target.id.replace(/^nota-/, '');
+    if (!estado[id]) estado[id] = { estado: 'cambiar', nota: '' };
+    estado[id].nota = e.target.value;
+    guardar();
+  });
+
+  function resumen() {
+    var g = { ok: [], cambiar: [], no: [], pend: [] };
+    piezas.forEach(function (p) {
+      var nombre = p.getAttribute('data-nombre');
+      var e = estado[idDe(p)];
+      if (!e) g.pend.push(nombre);
+      else if (e.estado === 'cambiar') g.cambiar.push(nombre + (e.nota && e.nota.trim() ? ' — ' + e.nota.trim() : ''));
+      else g[e.estado].push(nombre);
+    });
+    var t = ['Relanzamiento Siembra 26/27 — revisión del ' + new Date().toLocaleDateString('es-AR'), ''];
+    function bloque(titulo, lista) {
+      t.push(titulo + ' (' + lista.length + ')');
+      lista.forEach(function (x) { t.push('• ' + x); });
+      t.push('');
+    }
+    bloque('✓ Aprobadas', g.ok);
+    bloque('✎ Para cambiar', g.cambiar);
+    bloque('✕ Descartadas', g.no);
+    bloque('○ Sin revisar', g.pend);
+    return t.join('\n').trim();
+  }
+
+  var btnRes = document.getElementById('pp-resumen');
+  if (btnRes) btnRes.addEventListener('click', function () {
+    var txt = resumen();
+    preRes.textContent = txt;
+    copiar(txt, btnRes, preRes);
+  });
+
+  var btnLimpiar = document.getElementById('pp-limpiar');
+  var armado = false;
+  if (btnLimpiar) btnLimpiar.addEventListener('click', function () {
+    if (!armado) {           // doble toque: evita borrar todo por error
+      armado = true;
+      btnLimpiar.textContent = '¿Seguro? Tocá de nuevo';
+      setTimeout(function () { armado = false; btnLimpiar.textContent = 'Borrar marcas'; }, 3000);
+      return;
+    }
+    armado = false;
+    btnLimpiar.textContent = 'Borrar marcas';
+    estado = {};
+    guardar();
+    pintar();
+    preRes.hidden = true;
+  });
+
+  if (barra && piezas.length) { barra.hidden = false; document.body.classList.add('con-barra'); }
+  pintar();
 })();
 </script>
 </body>

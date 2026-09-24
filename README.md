@@ -17,7 +17,10 @@ con su texto → `docs/propuesta/index.html` (online en `/propuesta/` cuando se 
 |---------|----------|
 | `npm run placas` | Renderiza cada `docs/placas/*.html` a JPG (feed 4:5 + historia 9:16) en `docs/placas/img/` |
 | `npm run videos` | Graba las placas animadas a MP4 (1080×1920, H.264) en `docs/placas/video/` — necesita `ffmpeg` |
-| `npm run propuesta` | Rearma `docs/propuesta/index.html` desde las placas (`--posts` también escribe los `.md` del plan) |
+| `npm run propuesta` | Rearma `docs/propuesta/index.html` desde las placas (`--posts` escribe los `.md` del plan, `--miniaturas` regenera la grilla del perfil) |
+
+**📷 Placa con foto:** `docs/foto/index.html` — subís una foto del celular y sale la placa con marca
+(plantillas titular / dato / frase, feed o historia). Funciona sin internet y la foto no sale del teléfono.
 
 ## Cómo se usa (desde la web o el celular)
 

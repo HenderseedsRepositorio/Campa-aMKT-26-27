@@ -37,6 +37,18 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 @keyframes ringGrow { from { opacity: 0; transform: scale(.1); } to { opacity: 1; transform: none; } }
 .hs.play .mapa .a-drop { animation: pinDrop .7s var(--ease) var(--d, 0s) both; }
 .hs.play .mapa .a-ring { animation: ringGrow 1.2s var(--ease) var(--d, 0s) both; }
+/* tapa */
+#aca-T .h1 { font-size: 150px; }
+/* variante clara */
+#aca-L .h1 { font-size: 132px; margin-top: 34px; }
+#aca-L .mapa { margin-top: 30px; }
+#aca-L .stats3 { margin-top: 24px; }
+.hs.light .mapa { background: rgba(13,45,94,.04); }
+.hs.light .mapa .ruta { stroke: rgba(13,45,94,.30); }
+.hs.light .mapa .ring { stroke: rgba(217,139,0,.28); }
+.hs.light .mapa .ring.r2 { stroke: rgba(217,139,0,.14); }
+.hs.light .mapa .pin { stroke: #F6F4EE; }
+.hs.light .mapa .pin.hq { fill: #0D2D5E; stroke: #F5A623; }
 </style>
 </head>
 <body>
@@ -58,8 +70,26 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   "hashtags": "#Henderseeds #Nidera #REDIN #Henderson #Daireaux #Bolivar #OesteBonaerense #Agro",
   "fuentes": "contexto/empresa.md (cifras destacadas aprobadas para contenido). Mapa: coordenadas reales de Henderson (36°18'S 61°43'O), Daireaux (36°36'S 61°45'O) y Bolívar (36°14'S 61°06'O), 10 px = 1 km.",
   "opciones": [
-    { "slide": "aca-A", "nombre": "Placa feed 4:5", "nota": "Mapa a escala real + las 3 cifras." },
-    { "slide": "aca-R", "nombre": "Reel animado 9:16 · 8 s", "nota": "Caen los tres pines, se dibujan las rutas y cuentan las cifras." }
+    {
+      "slide": "aca-A",
+      "nombre": "Placa feed 4:5",
+      "nota": "Mapa a escala real + las 3 cifras."
+    },
+    {
+      "slide": "aca-R",
+      "nombre": "Reel animado 9:16 · 8 s",
+      "nota": "Caen los tres pines, se dibujan las rutas y cuentan las cifras."
+    },
+    {
+      "slide": "aca-T",
+      "nombre": "Tapa del reel (grilla 3:4)",
+      "nota": ""
+    },
+    {
+      "slide": "aca-L",
+      "nombre": "Variante crema",
+      "nota": "Recomendada para el feed: rompe la seguidilla de placas navy."
+    }
   ]
 }
 </script>
@@ -109,12 +139,57 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   </div>
 </section>
 
+<!-- ═════════ VARIANTE CLARA (crema) ═════════ -->
+<section class="slide hs light" id="aca-L" data-name="2026-W40-somos-de-aca-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Red.in Nidera · Oeste bonaerense</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Somos <span class="hl">de acá.</span></h1>
+
+    <svg class="mapa" viewBox="0 0 928 520" width="928" height="520" role="img" aria-label="Mapa de la zona: Henderson, Daireaux y Bolívar">
+      <circle class="ring r2" cx="202" cy="133" r="200"/><circle class="ring" cx="202" cy="133" r="100"/>
+      <circle class="ring r2" cx="173" cy="465" r="200"/><circle class="ring" cx="173" cy="465" r="100"/>
+      <circle class="ring r2" cx="755" cy="59" r="200"/><circle class="ring" cx="755" cy="59" r="100"/>
+      <path class="ruta" d="M202 133 L173 465"/>
+      <path class="ruta" d="M202 133 L755 59"/>
+      <circle class="pin hq" cx="202" cy="133" r="20"/>
+      <circle class="pin" cx="173" cy="465" r="17"/>
+      <circle class="pin" cx="755" cy="59" r="17"/>
+      <text class="town" x="236" y="146">Henderson</text>
+      <text class="sub" x="238" y="178">OFICINA · H. YRIGOYEN</text>
+      <text class="town" x="206" y="478">Daireaux</text>
+      <text class="town" x="722" y="116" text-anchor="end">Bolívar</text>
+      <text class="esc" x="40" y="44">N ↑</text>
+      <line class="escl" x1="690" y1="470" x2="890" y2="470"/><line class="escl" x1="690" y1="462" x2="690" y2="478"/><line class="escl" x1="890" y1="462" x2="890" y2="478"/>
+      <text class="esc" x="790" y="500" text-anchor="middle">20 KM</text>
+    </svg>
+
+    <div class="stats3">
+      <div><b>100+</b><span>productores atendidos</span></div>
+      <div><b>30.000+</b><span>ha bajo plan · 25/26</span></div>
+      <div><b>&lt; 24 h</b><span>para cotizar</span></div>
+    </div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Pasá por la oficina o mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
 <!-- ═════════ R · REEL 9:16 (8 s) ═════════ -->
 <section class="slide hs story anim" id="aca-R" data-name="2026-W40-somos-de-aca-reel" data-dur="8.6" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
   <div class="inner">
-    <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Red.in Nidera · Oeste bonaerense</div>
-    <h1 class="h1 a-up" style="--d:.25s">Somos <span class="hl">de acá.</span></h1>
+    <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Red.in Nidera · Oeste bonaerense</div>
+    <h1 class="h1 a-hook" style="--d:0s">Somos <span class="hl">de acá.</span></h1>
 
     <svg class="mapa a-fade" style="--d:.6s" viewBox="0 0 912 560" width="912" height="560">
       <circle class="ring r2 a-ring" style="--d:1.3s" cx="194" cy="151" r="200"/><circle class="ring a-ring" style="--d:1.1s" cx="194" cy="151" r="100"/>
@@ -150,6 +225,33 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
         <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═════════ T · TAPA DEL REEL (grilla 3:4) ═════════ -->
+<section class="slide hs story tapa" id="aca-T" data-name="2026-W40-somos-de-aca-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Red.in Nidera</div>
+    <h1 class="h1">Somos <span class="hl">de acá.</span></h1>
+    <svg class="mapa" viewBox="0 0 928 520" width="912" height="511" role="img" aria-label="Mapa de la zona: Henderson, Daireaux y Bolívar">
+      <circle class="ring r2" cx="202" cy="133" r="200"/><circle class="ring" cx="202" cy="133" r="100"/>
+      <circle class="ring r2" cx="173" cy="465" r="200"/><circle class="ring" cx="173" cy="465" r="100"/>
+      <circle class="ring r2" cx="755" cy="59" r="200"/><circle class="ring" cx="755" cy="59" r="100"/>
+      <path class="ruta" d="M202 133 L173 465"/>
+      <path class="ruta" d="M202 133 L755 59"/>
+      <circle class="pin hq" cx="202" cy="133" r="20"/>
+      <circle class="pin" cx="173" cy="465" r="17"/>
+      <circle class="pin" cx="755" cy="59" r="17"/>
+      <text class="town" x="236" y="146">Henderson</text>
+      <text class="sub" x="238" y="178">OFICINA · H. YRIGOYEN</text>
+      <text class="town" x="206" y="478">Daireaux</text>
+      <text class="town" x="722" y="116" text-anchor="end">Bolívar</text>
+      <text class="esc" x="40" y="44">N ↑</text>
+      <line class="escl" x1="690" y1="470" x2="890" y2="470"/><line class="escl" x1="690" y1="462" x2="690" y2="478"/><line class="escl" x1="890" y1="462" x2="890" y2="478"/>
+      <text class="esc" x="790" y="500" text-anchor="middle">20 KM</text>
+    </svg>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
   </div>
 </section>
 

@@ -32,18 +32,19 @@ const args = process.argv.slice(2);
 const AUTO = args.includes('--autocontenida') ? args[args.indexOf('--autocontenida') + 1] : null;
 const LIVIANOS = args.includes('--livianos') ? args[args.indexOf('--livianos') + 1] : null;
 const POSTS = args.includes('--posts');
+const MINIATURAS = args.includes('--miniaturas');
 
 /* ── Orden y grupos de la galería ─────────────────────────────────────── */
 const ORDEN = [
   'girasol-ventana', 'refugio-ns7800', 'somos-de-aca', 'historias-interactivas',
   'girasol-carrusel', 'calculadora-maiz-girasol', 'maiz-tardio-ranking', 'ns7925-spiroplasma',
   'rinde-indiferencia', 'dia-de-la-madre', 'ns7765-dos-fechas', 'implantacion',
-  'finanzas-pesos-dolares', 'como-leer-un-marbete', 'ns7624-malezas', 'dia-de-la-tradicion',
+  'finanzas-pesos-dolares', 'como-leer-un-marbete', 'maiz-tardio-carrusel', 'ns7624-malezas', 'dia-de-la-tradicion',
 ];
 const GRUPO = {
   'girasol-ventana': 'girasol', 'girasol-carrusel': 'girasol',
   'refugio-ns7800': 'maiz', 'maiz-tardio-ranking': 'maiz', 'ns7925-spiroplasma': 'maiz',
-  'ns7765-dos-fechas': 'maiz', 'ns7624-malezas': 'maiz',
+  'ns7765-dos-fechas': 'maiz', 'ns7624-malezas': 'maiz', 'maiz-tardio-carrusel': 'maiz',
   'calculadora-maiz-girasol': 'herramientas', 'rinde-indiferencia': 'herramientas', 'finanzas-pesos-dolares': 'herramientas',
   'somos-de-aca': 'institucional', 'implantacion': 'institucional', 'como-leer-un-marbete': 'institucional',
   'dia-de-la-madre': 'institucional', 'dia-de-la-tradicion': 'institucional',
@@ -59,11 +60,11 @@ const PLAN = [
     { dia: 'vie 02/10', hora: '20–22 h', pieza: 'girasol-ventana', slide: 'girasol-ventana-R', tipo: 'Reel',
       caption: '¿Cuándo va el girasol en el oeste? 🌻\n\nDel 15/10 al 15/11, con fecha límite el 20/11. Lo dice el marbete Nidera para el Oeste de Buenos Aires.\n\nGuardalo para la siembra. ¿Cuál va en tu lote? Mandanos un DM.',
       pauta: 'No: la pauta de la semana va en la placa del lunes.' },
-    { dia: 'sáb 03/10', hora: '8–10 h', pieza: 'somos-de-aca', slide: 'aca-A', tipo: 'Placa', nota: '+ reel del mapa en historias' },
+    { dia: 'sáb 03/10', hora: '8–10 h', pieza: 'somos-de-aca', slide: 'aca-L', tipo: 'Placa', nota: 'Versión crema · + reel del mapa en historias' },
   ] },
   { sem: 'W41', rango: '05/10 – 11/10', foco: 'Girasol y la decisión del lote', items: [
     { dia: 'mar 06/10', hora: '20–22 h', pieza: 'girasol-carrusel', slide: 'gc-1', tipo: 'Carrusel' },
-    { dia: 'mié 07/10', hora: '20–22 h', pieza: 'calculadora-maiz-girasol', slide: 'calc-A', tipo: 'Placa', nota: '+ historia con link' },
+    { dia: 'mié 07/10', hora: '20–22 h', pieza: 'calculadora-maiz-girasol', slide: 'calc-L', tipo: 'Placa', nota: 'Versión crema · + historia con link' },
     { dia: 'jue 08/10', hora: '12–14 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-A', tipo: 'Placa' },
     { dia: 'vie 09/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-2', tipo: 'Historia', nota: 'Encuesta tardío' },
     { dia: 'dom 11/10', hora: '20–22 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-R', tipo: 'Reel', nota: 'Pautado 7 días',
@@ -73,38 +74,46 @@ const PLAN = [
     { dia: 'lun 12/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-3', tipo: 'Historia', nota: 'Caja de preguntas' },
     { dia: 'mar 13/10', hora: '7–9 h', pieza: 'ns7925-spiroplasma', slide: 's7925-A', tipo: 'Placa' },
     { dia: 'mié 14/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-4', tipo: 'Historia', nota: 'Cuenta regresiva al 15/10' },
-    { dia: 'jue 15/10', hora: '20–22 h', pieza: 'rinde-indiferencia', slide: 'rind-A', tipo: 'Placa' },
-    { dia: 'dom 18/10', hora: '8–10 h', pieza: 'dia-de-la-madre', slide: 'madre-A', tipo: 'Efeméride' },
+    { dia: 'jue 15/10', hora: '20–22 h', pieza: 'rinde-indiferencia', slide: 'rind-L', tipo: 'Placa', nota: 'Versión crema' },
+    { dia: 'dom 18/10', hora: '8–10 h', pieza: 'dia-de-la-madre', slide: 'madre-B', tipo: 'Efeméride', nota: 'Versión crema' },
   ] },
   { sem: 'W43', rango: '19/10 – 25/10', foco: 'Tardío y servicio', items: [
     { dia: 'lun 19/10', hora: '7–9 h', pieza: 'ns7765-dos-fechas', slide: 'n7765-A', tipo: 'Placa' },
-    { dia: 'mié 21/10', hora: '7–9 h', pieza: 'implantacion', slide: 'impl-A', tipo: 'Placa', nota: 'Mejor con 1–3 fotos reales' },
+    { dia: 'mié 21/10', hora: '7–9 h', pieza: 'implantacion', slide: 'impl-L', tipo: 'Placa', nota: 'Versión crema · mejor con 1–3 fotos reales' },
     { dia: 'jue 22/10', hora: '20–22 h', pieza: 'ns7925-spiroplasma', slide: 's7925-R', tipo: 'Reel',
       caption: 'Tardío y chicharrita: mirá este número. 🌽\n\nSpiroplasma 3 en la escala del marbete Nidera (1 es excelente, 9 deficiente): el mejor puntaje del portafolio de maíz. Es el NS 7925 VIPTERA3, lanzamiento 26/27.\n\nEl híbrido suma; el manejo integrado sigue siendo la base. ¿Lo vemos para tu lote? Mandanos un DM.',
       pauta: 'Opcional: segundo reel para pautar si el del ranking dio buen costo por conversación.' },
-    { dia: 'sáb 24/10', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] el equipo sembrando o recorriendo un lote' },
+    { dia: 'sáb 24/10', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] el equipo sembrando o recorriendo un lote · plantilla Titular del generador' },
   ] },
   { sem: 'W44', rango: '26/10 – 01/11', foco: 'Enseñar a leer el dato', items: [
     { dia: 'mar 27/10', hora: '12–14 h', pieza: 'finanzas-pesos-dolares', slide: 'fin-A', tipo: 'Placa' },
     { dia: 'jue 29/10', hora: '20–22 h', pieza: 'como-leer-un-marbete', slide: 'lm-1', tipo: 'Carrusel', nota: 'Fijarlo en el perfil' },
-    { dia: 'sáb 31/10', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] un lote de girasol recién nacido' },
+    { dia: 'sáb 31/10', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] un lote de girasol recién nacido · plantilla Dato (15/10 → 15/11)' },
   ] },
   { sem: 'W45', rango: '02/11 – 08/11', foco: 'Tardío: el lote difícil', items: [
-    { dia: 'lun 02/11', hora: '7–9 h', pieza: 'ns7624-malezas', slide: 'n7624-A', tipo: 'Placa' },
+    { dia: 'lun 02/11', hora: '20–22 h', pieza: 'maiz-tardio-carrusel', slide: 'tc-1', tipo: 'Carrusel' },
     { dia: 'mié 04/11', hora: '20–22 h', pieza: 'refugio-ns7800', slide: 'ref-R', tipo: 'Reel', nota: 'Para quien planifica el tardío',
       caption: '¿Ya pensaste el refugio del tardío? 🌽\n\n1 de cada 10 plantas: así se ve el refugio en el lote. Es lo que hace que VIPTERA3 siga funcionando campaña tras campaña.\n\nEl refugio del portafolio es el NS 7800 CLTG. ¿Lo planificamos juntos? Mandanos un DM.' },
     { dia: 'vie 06/11', hora: 'historia', pieza: 'calculadora-maiz-girasol', slide: 'calc-S', tipo: 'Historia', nota: 'Con sticker de link' },
+    { dia: 'sáb 07/11', hora: '8–10 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] un productor en su lote, con su frase y su permiso · plantilla Frase del generador' },
   ] },
   { sem: 'W46', rango: '09/11 – 15/11', foco: 'Cierre de ventana', items: [
     { dia: 'mar 10/11', hora: '8–10 h', pieza: 'dia-de-la-tradicion', slide: 'trad-S', tipo: 'Historia' },
     { dia: 'mié 11/11', hora: '7–9 h', pieza: 'girasol-ventana', slide: 'girasol-ventana-B', tipo: 'Placa', nota: 'Recordatorio: límite 20/11',
       objetivo: 'Último empujón para el girasol que todavía no se sembró: recordatorio con dato de marbete.', pauta: 'No.',
       caption: 'Última semana de la ventana óptima del girasol en el oeste. 🌻\n\nSegún el marbete Nidera, la fecha óptima de siembra va hasta el 15/11 y la fecha límite es el 20/11. Si todavía te queda girasol por sembrar, es ahora.\n\nGuardá el almanaque y, si tenés dudas con el híbrido para ese lote, mandanos un DM.\n\n📲 WhatsApp: wa.me/5492314530691' },
-    { dia: 'jue 12/11', hora: '20–22 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-R', tipo: 'Reel', nota: 'Re-pauta: diciembre se define en noviembre',
+    { dia: 'jue 12/11', hora: '20–22 h', pieza: 'maiz-tardio-ranking', slide: 'tardio-R', tipo: 'Pauta', nota: 'Anuncio, no posteo nuevo: se re-pauta el reel del 11/10',
       objetivo: 'Último empujón del tardío antes de diciembre.', pauta: 'Sí: re-pauta 5 días, excluyendo a quienes ya escribieron.',
       caption: 'Diciembre se define en noviembre. 🌽\n\nSi vas a sembrar maíz tardío, este es el momento de elegir el híbrido para cada lote. Los marbetes Nidera 26/27 dicen esto en siembra tardía templada (kg/ha sobre el promedio de cada sitio):\n\nNS 7765 · +324 · NS 7925 · +228 · NS 7852 · +194 · NS 7921 CL · +179 · NS 7624 CL · +163\n\nEl ambiente y el manejo mandan: por eso lo vemos lote por lote.\n📩 Mandanos un DM con tu lote tardío.' },
   ] },
 ];
+
+/* ── grilla del perfil ─────────────────────────────────────────────────── */
+// En la grilla, cada reel se ve con su tapa (pensada para el recorte 3:4).
+const TAPA = { 'girasol-ventana-R': 'girasol-ventana-T', 'tardio-R': 'tardio-T', 's7925-R': 's7925-T', 'ref-R': 'ref-T', 'aca-R': 'aca-T' };
+const EN_FEED = ['Placa', 'Carrusel', 'Reel', 'Efeméride', 'Foto real'];
+const DIR_GRILLA = path.join(DOCS, 'propuesta', 'grilla');
+const itemsGrilla = () => PLAN.flatMap((w) => w.items.filter((it) => EN_FEED.includes(it.tipo))).reverse(); // lo último arriba, como el perfil
 
 /* ── utilidades ───────────────────────────────────────────────────────── */
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -177,7 +186,7 @@ function tarjetaPieza(p, modo) {
       <div class="pp-texto-hd"><span class="pp-eyebrow">Texto ${({ Reel: 'del reel', Placa: 'de la placa', Historia: 'de la historia', Carrusel: 'del carrusel' })[it.tipo] || ''} · ${esc(it.dia)}</span><button class="pp-copy" type="button" data-target="cap-${meta.id}-${i}">Copiar texto</button></div>
       <pre class="pp-caption" id="cap-${meta.id}-${i}">${esc(it.caption + (meta.hashtags ? '\n\n' + meta.hashtags : ''))}</pre>
     </div>`).join('');
-  return `<article class="pp-pieza" id="p-${meta.id}" data-grupo="${grupo}">
+  return `<article class="pp-pieza" id="p-${meta.id}" data-grupo="${grupo}" data-nombre="${esc(meta.concepto)}">
     <header class="pp-pieza-hd">
       <div>
         <div class="pp-eyebrow">${esc(meta.semana)} · ${esc(meta.pilar)}</div>
@@ -185,6 +194,13 @@ function tarjetaPieza(p, modo) {
       </div>
       <div class="pp-when">${esc(meta.fecha)}</div>
     </header>
+    <div class="pp-aprob" data-id="${meta.id}" role="group" aria-label="Revisión de ${esc(meta.concepto)}">
+      <button type="button" class="pp-ap ap-ok" data-estado="ok" aria-pressed="false">✓ Aprobar</button>
+      <button type="button" class="pp-ap ap-cambiar" data-estado="cambiar" aria-pressed="false">✎ Cambiar</button>
+      <button type="button" class="pp-ap ap-no" data-estado="no" aria-pressed="false">✕ Descartar</button>
+      <label class="pp-nota-ap" for="nota-${meta.id}" hidden><span>¿Qué cambiarías?</span>
+        <textarea id="nota-${meta.id}" rows="2" placeholder="Ej: usar la opción B, cambiar el título, otra foto…"></textarea></label>
+    </div>
     <p class="pp-porque">${esc(meta.porque)}</p>
     <div class="pp-ops">${ops}</div>
     <div class="pp-texto">
@@ -199,7 +215,7 @@ function tarjetaPieza(p, modo) {
 }
 
 function bloquePlan(piezas) {
-  const chip = { 'Placa': 'c-placa', 'Carrusel': 'c-carrusel', 'Reel': 'c-reel', 'Historia': 'c-historia', 'Efeméride': 'c-efe', 'Foto real': 'c-foto' };
+  const chip = { 'Placa': 'c-placa', 'Carrusel': 'c-carrusel', 'Reel': 'c-reel', 'Historia': 'c-historia', 'Efeméride': 'c-efe', 'Foto real': 'c-foto', 'Pauta': 'c-pauta' };
   return PLAN.map((w) => `<div class="pp-sem">
       <div class="pp-sem-hd"><b>${w.sem}</b><span>${w.rango}</span><em>${esc(w.foco)}</em></div>
       <ul class="pp-sem-items">
@@ -209,9 +225,10 @@ function bloquePlan(piezas) {
           const op = p && p.meta.opciones.find((o) => o.slide === it.slide);
           const nombre = !p ? '' : it.pieza === 'historias-interactivas' && op ? op.nombre.replace(/\s*\(W\d+\)$/, '')
             : p.meta.concepto + (it.tipo === 'Reel' ? ' · reel' : '');
-          const titulo = p ? `<a href="#p-${it.pieza}">${esc(nombre)}</a>` : `<span class="pp-falta">${esc(it.nota)}</span>`;
+          const titulo = p ? `<a href="#p-${it.pieza}">${esc(nombre)}</a>`
+            : `<span class="pp-falta">${esc(it.nota)} · <a href="{{URL_FOTO}}">abrir el generador</a></span>`;
           const nota = p && it.nota ? `<small>${esc(it.nota)}</small>` : '';
-          return `<li><span class="pp-dia">${esc(it.dia)}<small>${esc(it.hora)}</small></span><span class="pp-chip ${chip[it.tipo] || ''}">${esc(it.tipo)}</span><span class="pp-que">${titulo}${nota}</span></li>`;
+          return `<li${it.pieza ? ` data-pieza="${it.pieza}"` : ''}><span class="pp-dia">${esc(it.dia)}<small>${esc(it.hora)}</small></span><span class="pp-chip ${chip[it.tipo] || ''}">${esc(it.tipo)}</span><span class="pp-que">${titulo}${nota}</span></li>`;
         }).join('\n        ')}
       </ul>
     </div>`).join('\n');
@@ -226,7 +243,7 @@ async function escribirPosts(piezas) {
     let n = 0;
     const vistos = new Set();
     for (const it of w.items) {
-      if (!it.pieza || it.tipo === 'Historia') continue;
+      if (!it.pieza || it.tipo === 'Historia' || it.tipo === 'Pauta') continue;
       const clave = it.pieza + '|' + it.slide;
       if (vistos.has(clave)) continue;
       vistos.add(clave);
@@ -280,6 +297,48 @@ Primario: 📩 Mandanos un DM. · Secundario: WhatsApp wa.me/5492314530691 (va e
   return hechos;
 }
 
+/* ── miniaturas para la grilla (opcional: --miniaturas, necesita Playwright) ── */
+async function generarMiniaturas(piezas) {
+  const { chromium } = await import('playwright');
+  const cssFuentesRuta = path.join(DOCS, 'assets/fonts/fuentes.css');
+  const cssFuentes = (await readFile(cssFuentesRuta, 'utf8')).replace(
+    /url\((?!['"]?(?:data:|file:|https?:))['"]?([^)'"]+)['"]?\)/g,
+    (_, f) => `url("file://${path.join(path.dirname(cssFuentesRuta), f)}")`);
+  const ids = [...new Set(itemsGrilla().filter((it) => it.pieza).map((it) => TAPA[it.slide] || it.slide))];
+  await mkdir(DIR_GRILLA, { recursive: true });
+  const nav = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+  const pag = await nav.newPage({ viewport: { width: 1200, height: 2000 }, deviceScaleFactor: 1 / 3 });
+  for (const id of ids) {
+    const p = Object.values(piezas).find((x) => x.slides[id]);
+    if (!p) throw new Error('No encuentro la slide ' + id);
+    await pag.goto('file://' + path.join(DIR_PLACAS, p.archivo) + '?capture', { waitUntil: 'load' });
+    await pag.addStyleTag({ content: cssFuentes });
+    await pag.evaluate(() => document.fonts.ready);
+    const dur = p.slides[id].dur;
+    if (dur) await pag.evaluate((t) => window.HS && window.HS.seek(t), parseFloat(dur));
+    await pag.locator('#' + id).screenshot({ path: path.join(DIR_GRILLA, id + '.jpg'), type: 'jpeg', quality: 78 });
+  }
+  await nav.close();
+  console.log(`  ${ids.length} miniaturas -> docs/propuesta/grilla/`);
+}
+
+async function bloqueGrilla(piezas, modo) {
+  const tiles = [];
+  for (const it of itemsGrilla()) {
+    if (!it.pieza) {
+      tiles.push(`<a class="pp-g pp-g-foto" href="{{URL_FOTO}}"><span>Foto real</span><em>generador de placas</em><small>${esc(it.dia)}</small></a>`);
+      continue;
+    }
+    const id = TAPA[it.slide] || it.slide;
+    const archivo = path.join(DIR_GRILLA, id + '.jpg');
+    const src = !existsSync(archivo) ? '' : modo === 'auto' ? await dataUri(archivo) : `grilla/${id}.jpg`;
+    const marca = it.tipo === 'Reel' ? '<i class="pp-g-ico">▶ reel</i>' : it.tipo === 'Carrusel' ? '<i class="pp-g-ico">❐ carrusel</i>' : '';
+    const img = src ? `<img src="${src}" alt="${esc(piezas[it.pieza].meta.concepto)}" loading="lazy">` : `<span>${esc(piezas[it.pieza].meta.concepto)}</span>`;
+    tiles.push(`<a class="pp-g" href="#p-${it.pieza}">${img}${marca}<small>${esc(it.dia)}</small></a>`);
+  }
+  return tiles.join('\n');
+}
+
 /* ── armado ───────────────────────────────────────────────────────────── */
 async function main() {
   const piezas = await leerPiezas();
@@ -288,6 +347,9 @@ async function main() {
 
   const modo = AUTO ? 'auto' : 'repo';
   const orden = [...ORDEN, ...Object.keys(piezas).filter((id) => !ORDEN.includes(id))];
+  if (MINIATURAS) await generarMiniaturas(piezas);
+  const grilla = await bloqueGrilla(piezas, modo);
+  const urlFoto = modo === 'auto' ? PAGES + 'foto/' : '../foto/';
 
   // Símbolos SVG (íconos, tramas) sin repetir ids.
   const simbolos = new Map();
@@ -313,7 +375,9 @@ async function main() {
     .replaceAll('{{N_PLACAS}}', String(orden.reduce((a, id) => a + Object.keys(piezas[id].slides).length, 0)))
     .replaceAll('{{N_VIDEOS}}', String(orden.reduce((a, id) => a + Object.values(piezas[id].slides).filter((s) => s.anim).length, 0)))
     .replace('{{COMPARA_NUEVA}}', n7765)
-    .replace('{{SPRITE}}', sprite);
+    .replace('{{GRILLA}}', grilla)
+    .replace('{{SPRITE}}', sprite)
+    .replaceAll('{{URL_FOTO}}', urlFoto);
 
   if (modo === 'repo') {
     head = `<link rel="stylesheet" href="../assets/fonts/fuentes.css">

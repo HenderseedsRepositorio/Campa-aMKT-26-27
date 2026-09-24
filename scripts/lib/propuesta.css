@@ -249,3 +249,44 @@ body.pp {
   .pp-sec { padding-block: 48px 16px; }
 }
 @media (max-width: 380px) { :root { --pp-z: 0.23; } }
+
+/* ── modo aprobación ─────────────────────────────────────────── */
+.pp-aprob { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 0; }
+.pp-ap { font: 600 14px/1 'DM Sans', sans-serif; border-radius: 999px; cursor: pointer; border: 1.5px solid var(--pp-line-2); background: var(--pp-surface); color: var(--pp-ink-2); padding: 9px 14px; }
+.pp-ap:hover { color: var(--pp-ink); border-color: var(--pp-ink-3); }
+.pp-ap.ap-ok[aria-pressed="true"] { background: var(--pp-ok); border-color: var(--pp-ok); color: var(--pp-bg); }
+.pp-ap.ap-cambiar[aria-pressed="true"] { background: var(--pp-warn); border-color: var(--pp-warn); color: var(--pp-bg); }
+.pp-ap.ap-no[aria-pressed="true"] { background: var(--pp-bad); border-color: var(--pp-bad); color: var(--pp-bg); }
+.pp-nota-ap { flex-basis: 100%; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.pp-nota-ap[hidden], .pp-barra[hidden], .pp-resumen-txt[hidden] { display: none; }  /* el display de arriba pisaba a hidden */
+.pp-nota-ap span { font: 500 12px/1.2 'DM Mono', monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--pp-warn); }
+.pp-nota-ap textarea { font: 400 15px/1.45 'DM Sans', sans-serif; color: var(--pp-ink); background: var(--pp-surface-2); border: 1.5px solid var(--pp-line-2); border-radius: 10px; padding: 10px 12px; resize: vertical; width: 100%; box-sizing: border-box; }
+.pp-pieza[data-estado="ok"] { border-color: var(--pp-ok); box-shadow: inset 4px 0 0 var(--pp-ok); }
+.pp-pieza[data-estado="cambiar"] { border-color: var(--pp-warn); box-shadow: inset 4px 0 0 var(--pp-warn); }
+.pp-pieza[data-estado="no"] { opacity: .62; }
+.pp-sem-items li[data-estado]::after { font: 500 11px/1 'DM Mono', monospace; grid-column: 3; justify-self: start; padding: 4px 6px; border-radius: 5px; margin-top: 2px; }
+.pp-sem-items li[data-estado="ok"]::after { content: '✓ aprobada'; color: var(--pp-ok); background: var(--pp-ok-soft); }
+.pp-sem-items li[data-estado="cambiar"]::after { content: '✎ a cambiar'; color: var(--pp-warn); background: var(--pp-warn-soft); }
+.pp-sem-items li[data-estado="no"]::after { content: '✕ descartada'; color: var(--pp-bad); background: var(--pp-bad-soft); }
+.pp-como { margin: -8px 0 16px; }
+.pp-barra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: color-mix(in srgb, var(--pp-surface) 94%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--pp-line-2); padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: 0 -8px 24px rgba(10,15,27,.10); }
+.pp-barra-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 10px; }
+.pp-cuenta { font: 500 13.5px/1.4 'DM Mono', monospace; color: var(--pp-ink-2); }
+.pp-cuenta .c-ok { color: var(--pp-ok); font-weight: 700; } .pp-cuenta .c-cambiar { color: var(--pp-warn); font-weight: 700; } .pp-cuenta .c-no { color: var(--pp-bad); font-weight: 700; }
+.pp-barra-bt { display: flex; gap: 8px; }
+.pp-limpiar { font: 600 13.5px/1 'DM Sans', sans-serif; border-radius: 999px; cursor: pointer; border: 1.5px solid transparent; background: transparent; color: var(--pp-ink-3); padding: 8px 10px; }
+.pp-resumen-txt { max-width: 1180px; margin: 0 auto 10px; border-radius: 10px; max-height: 40vh; }
+body.pp.con-barra { padding-bottom: 76px; }
+
+/* ── grilla del perfil (recorte 3:4 como Instagram) ─────────── */
+.pp-grilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; max-width: 540px; background: var(--pp-bg); }
+.pp-g { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--pp-stage); text-decoration: none; }
+.pp-g img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pp-g small { position: absolute; left: 6px; bottom: 6px; font: 500 10.5px/1 'DM Mono', monospace; color: #fff; background: rgba(10,15,27,.72); padding: 4px 5px; border-radius: 4px; }
+.pp-g-ico { position: absolute; right: 6px; top: 6px; font: 500 10px/1 'DM Mono', monospace; font-style: normal; color: #fff; background: rgba(10,15,27,.72); padding: 4px 5px; border-radius: 4px; }
+.pp-g > span { position: absolute; inset: 0; display: grid; place-items: center; padding: 10px; text-align: center; color: #fff; font: 600 12px/1.3 'DM Sans', sans-serif; }
+.pp-g-foto { background: repeating-linear-gradient(45deg, var(--pp-surface-2) 0 10px, var(--pp-surface) 10px 20px); border: 1.5px dashed var(--pp-line-2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.pp-g-foto > span { position: static; color: var(--pp-ink); font: 700 14px/1.2 'DM Sans', sans-serif; }
+.pp-g-foto em { font: 500 11px/1.2 'DM Mono', monospace; font-style: normal; color: var(--pp-link); }
+.pp-wa { margin-top: 18px; max-width: 900px; }
+.pp-chip.c-pauta { background: transparent; color: var(--pp-accent-ink); box-shadow: inset 0 0 0 1.5px var(--pp-accent); }

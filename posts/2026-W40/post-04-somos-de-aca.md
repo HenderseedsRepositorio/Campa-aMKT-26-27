@@ -2,10 +2,10 @@
 
 - **Semana:** 2026-W40 · publicación tentativa: sáb 03/10 · 8–10 h
 - **Pilar:** Institucional / cercanía
-- **Formato:** placa simple (1080×1350) → `docs/placas/2026-W40-somos-de-aca.html` → slide `aca-A` · JPG: `docs/placas/img/2026-W40-somos-de-aca-A-feed-1080x1350.jpg` (lo genera `npm run placas`)
+- **Formato:** placa simple (1080×1350) → `docs/placas/2026-W40-somos-de-aca.html` → slide `aca-L` · JPG: `docs/placas/img/2026-W40-somos-de-aca-L-feed-1080x1350.jpg` (lo genera `npm run placas`)
 - **Objetivo:** Después de 3 meses sin publicar, conviene recordar quiénes somos y dónde estamos, con cifras que ya están aprobadas para contenido (100+ productores, 30.000+ ha bajo plan 25/26, cotización en menos de 24 h). El mapa usa coordenadas reales: los de la zona lo reconocen enseguida.
 - **Pauta:** Sí, liviana y siempre prendida en la zona (objetivo Alcance, tope 1 c/7 días): es la pieza de 'presentación' para quien no nos conoce.
-- **Nota del plan:** + reel del mapa en historias
+- **Nota del plan:** Versión crema · + reel del mapa en historias
 
 ## Copy (Instagram/Facebook)
 > Somos de acá. 📍
@@ -17,7 +17,7 @@
 > 📩 Pasá por la oficina en Henderson o mandanos un DM.
 
 ## Pieza visual
-Opción elegida en el plan: **Placa feed 4:5** — Mapa a escala real + las 3 cifras. Sistema visual "Siembra 26/27"
+Opción elegida en el plan: **Variante crema** — Recomendada para el feed: rompe la seguidilla de placas navy. Sistema visual "Siembra 26/27"
 (`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha,
 sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W40-somos-de-aca.html` y la página
 `docs/propuesta/index.html#p-somos-de-aca`.

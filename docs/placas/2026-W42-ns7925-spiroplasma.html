@@ -39,6 +39,10 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 #s7925-R .s2 .dato { display: flex; align-items: baseline; gap: 16px; margin-top: 20px; }
 #s7925-R .s2 .dato .num { font-size: 104px; color: var(--txt); }
 #s7925-R .s2 .dato span { font: 500 28px/1.3 var(--f-mono); color: var(--txt-3); }
+/* tapa */
+#s7925-T .h1 { font-size: 118px; }
+#s7925-T .tres { font-family: var(--f-arch); font-size: 470px; line-height: .78; color: var(--amber); letter-spacing: -.05em; }
+#s7925-T .tres-lab { font: 500 30px/1.35 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--txt-2); margin-top: -10px; }
 </style>
 </head>
 <body>
@@ -60,8 +64,21 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   "hashtags": "#Henderseeds #Nidera #Maiz2627 #MaizTardio #NS7925 #Chicharrita #Henderson #Bolivar",
   "fuentes": "Marbetes oficiales Nidera 26/27, Spiroplasma (1 excelente – 9 deficiente): NS 7925 = 3; AX 7761 = 4; NS 7621, NS 7624 CL, NS 7765, NS 7818, NS 7852 = 5; NS 7921 CL = 6 (NS 7800 CLTG sin dato). NS 7925: +228** kg/ha tardía templada, 59% éxito, 120 comp.",
   "opciones": [
-    { "slide": "s7925-A", "nombre": "Placa feed 4:5", "nota": "Cada punto es un maíz del portafolio en la escala del marbete." },
-    { "slide": "s7925-R", "nombre": "Reel animado 9:16 · 10 s", "nota": "Arranca con un 3 gigante: frena el scroll." }
+    {
+      "slide": "s7925-A",
+      "nombre": "Placa feed 4:5",
+      "nota": "Cada punto es un maíz del portafolio en la escala del marbete."
+    },
+    {
+      "slide": "s7925-R",
+      "nombre": "Reel animado 9:16 · 10 s",
+      "nota": "Arranca con un 3 gigante: frena el scroll."
+    },
+    {
+      "slide": "s7925-T",
+      "nombre": "Tapa del reel (grilla 3:4)",
+      "nota": ""
+    }
   ]
 }
 </script>
@@ -115,11 +132,11 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 <section class="slide hs story anim" id="s7925-R" data-name="2026-W42-ns7925-spiroplasma-reel" data-dur="10.5" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
 
-  <div class="scene only-anim" style="--in:0s;--out:3.0s">
+  <div class="scene only-anim" style="--in:-1s;--out:3.0s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Maíz tardío · Chicharrita</div>
-      <h1 class="h1 a-up" style="--d:.3s;margin-top:34px">Mirá este <span class="hl">número.</span></h1>
-      <div class="tres a-pop" style="--d:1.0s">3</div>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Maíz tardío · Chicharrita</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">Mirá este <span class="hl">número.</span></h1>
+      <div class="tres a-pop" style="--d:.6s">3</div>
     </div>
   </div>
 
@@ -163,6 +180,17 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═════════ T · TAPA DEL REEL (grilla 3:4) ═════════ -->
+<section class="slide hs story tapa" id="s7925-T" data-name="2026-W42-ns7925-spiroplasma-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Tardío y chicharrita</div>
+    <h1 class="h1">Mirá este <span class="hl">número.</span></h1>
+    <div><div class="tres">3</div><div class="tres-lab">Spiroplasma · NS 7925 VIPTERA3<br>escala Nidera: 1 excelente · 9 deficiente</div></div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
   </div>
 </section>
 

@@ -2,10 +2,10 @@
 
 - **Semana:** 2026-W41 · publicación tentativa: mié 07/10 · 20–22 h
 - **Pilar:** Herramientas
-- **Formato:** placa simple (1080×1350) → `docs/placas/2026-W41-calculadora-maiz-girasol.html` → slide `calc-A` · JPG: `docs/placas/img/2026-W41-calculadora-maiz-girasol-A-feed-1080x1350.jpg` (lo genera `npm run placas`)
+- **Formato:** placa simple (1080×1350) → `docs/placas/2026-W41-calculadora-maiz-girasol.html` → slide `calc-L` · JPG: `docs/placas/img/2026-W41-calculadora-maiz-girasol-L-feed-1080x1350.jpg` (lo genera `npm run placas`)
 - **Objetivo:** Es la pregunta de estas semanas: el lote que todavía no está definido va a maíz o a girasol. La calculadora es el diferencial que ninguna otra reventa tiene y la comparación lado a lado es justo lo que hace. No mostramos números inventados: los signos de pregunta invitan a poner los propios.
 - **Pauta:** Sí, en la historia con link (objetivo Tráfico a margen.henderseeds.com con UTM), 5 días. Quien entra a la calculadora pasa a ser público tibio para retargeting.
-- **Nota del plan:** + historia con link
+- **Nota del plan:** Versión crema · + historia con link
 
 ## Copy (Instagram/Facebook)
 > ¿Maíz o girasol en ese lote? 🌽🌻
@@ -18,7 +18,7 @@
 > 📩 ¿Preferís que lo hagamos juntos? Mandanos tus números por DM.
 
 ## Pieza visual
-Opción elegida en el plan: **Placa feed 4:5** — La app como protagonista, sin números inventados. Sistema visual "Siembra 26/27"
+Opción elegida en el plan: **Variante crema** — Recomendada para el feed: la app oscura sobre crema se ve como una pantalla. Sistema visual "Siembra 26/27"
 (`docs/assets/hs2627.css`): navy + ámbar, Archivo Black / DM Sans / DM Mono, logo HenderSeeds arriba a la derecha,
 sello RED.IN Nidera abajo. Todas las opciones de la pieza: `docs/placas/2026-W41-calculadora-maiz-girasol.html` y la página
 `docs/propuesta/index.html#p-calculadora-maiz-girasol`.

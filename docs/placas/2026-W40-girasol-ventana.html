@@ -57,6 +57,10 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 #girasol-ventana-R .s2 .strip { margin-top: 70px; }
 #girasol-ventana-R .s2 .chips { margin-top: 44px; }
 #girasol-ventana-R .s2 .chip { font-size: 30px; padding: 16px 26px; }
+/* tapa */
+#girasol-ventana-T .capi-tapa { position: absolute; width: 940px; right: -300px; top: 640px; opacity: .18; z-index: 1; }
+#girasol-ventana-T .rango { font-family: var(--f-arch); font-size: 118px; letter-spacing: -.04em; line-height: .95; color: var(--amber); }
+#girasol-ventana-T .rango small { display: block; font: 500 28px/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); margin-top: 16px; }
 </style>
 </head>
 <body>
@@ -79,9 +83,26 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   "hashtags": "#Henderseeds #Nidera #Girasol2627 #Girasol #Henderson #Daireaux #Bolivar #OesteBonaerense",
   "fuentes": "Marbetes oficiales Nidera 26/27 de NS 1113 CL, NS 1115 CL y NS 1117 CL · tabla Fechas de siembra, fila Oeste de Buenos Aires: óptima 15/10 → 15/11, límite 20/11.",
   "opciones": [
-    { "slide": "girasol-ventana-A", "nombre": "A · Franja de calendario (navy)", "nota": "La recomendada para feed. Dato enorme, se lee en 1 segundo." },
-    { "slide": "girasol-ventana-B", "nombre": "B · Almanaque (crema)", "nota": "Pensada para que la guarden. Rompe el feed oscuro." },
-    { "slide": "girasol-ventana-R", "nombre": "Reel animado 9:16 · 10 s", "nota": "El capítulo crece con el ángulo áureo real (137,5°) y aparece la ventana. Sirve para reel e historia." }
+    {
+      "slide": "girasol-ventana-A",
+      "nombre": "A · Franja de calendario (navy)",
+      "nota": "La recomendada para feed. Dato enorme, se lee en 1 segundo."
+    },
+    {
+      "slide": "girasol-ventana-B",
+      "nombre": "B · Almanaque (crema)",
+      "nota": "Pensada para que la guarden. Rompe el feed oscuro."
+    },
+    {
+      "slide": "girasol-ventana-R",
+      "nombre": "Reel animado 9:16 · 10 s",
+      "nota": "El capítulo crece con el ángulo áureo real (137,5°) y aparece la ventana. Sirve para reel e historia."
+    },
+    {
+      "slide": "girasol-ventana-T",
+      "nombre": "Tapa del reel (grilla 3:4)",
+      "nota": "Subila como portada del reel: todo el texto queda dentro del recorte de la grilla."
+    }
   ]
 }
 </script>
@@ -194,10 +215,10 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   <div class="bg"></div><div class="topbar"></div>
 
   <!-- escena 1 · 0–3,2 s: el capítulo crece + la pregunta -->
-  <div class="scene only-anim" style="--in:0s;--out:3.2s">
+  <div class="scene only-anim" style="--in:-1s;--out:3.2s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Siembra 26/27 · Girasol</div>
-      <h1 class="h1 a-up" style="--d:.35s;margin-top:34px">¿Cuándo va el girasol <span class="hl">en el oeste?</span></h1>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Siembra 26/27 · Girasol</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">¿Cuándo va el girasol <span class="hl">en el oeste?</span></h1>
     </div>
     <svg class="capitulo" viewBox="-324 -324 649 649" fill="currentColor">
 <circle class="a-pop" style="--d:0.10s" cx="-9.7" cy="8.9" r="3.4"/>
@@ -807,6 +828,18 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
           </div>
         </div>
     </div>
+  </div>
+</section>
+
+<!-- ═════════ T · TAPA DEL REEL (grilla 3:4) ═════════ -->
+<section class="slide hs story tapa" id="girasol-ventana-T" data-name="2026-W40-girasol-ventana-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="capi-tapa" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Girasol 26/27</div>
+    <h1 class="h1">¿Cuándo va el girasol <span class="hl">en el oeste?</span></h1>
+    <div class="rango">15/10 → 15/11<small>Fecha óptima · marbete Nidera</small></div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
   </div>
 </section>
 

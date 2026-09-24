@@ -30,6 +30,12 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 #tardio-R .bar-fill { height: 34px; }
 #tardio-R .bar-val { font-size: 50px; }
 #tardio-R .s2 .src { margin-top: 12px; font-size: 21px; }
+/* tapa */
+#tardio-T .mazo { display: flex; gap: 22px; align-items: flex-end; height: 330px; }
+#tardio-T .mazo div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 12px; height: 100%; }
+#tardio-T .mazo i { width: 100%; background: var(--mute-bar); border-radius: 12px 12px 0 0; }
+#tardio-T .mazo div:first-child i { background: var(--amber); }
+#tardio-T .mazo span { font: 500 24px/1 var(--f-mono); color: var(--txt-2); }
 </style>
 </head>
 <body>
@@ -51,8 +57,21 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   "hashtags": "#Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #Henderson #Daireaux #Bolivar",
   "fuentes": "Marbetes oficiales Nidera 26/27, bloque Siembra tardía templada: NS 7765 +324** (71%, 165 comp.), NS 7925 +228** (59%, 120), NS 7852 +194** (62%, 120), NS 7921 CL +179** (60%, 364), NS 7624 CL +163** (60%, 222). Quedan afuera por no tener diferencia significativa en tardía: NS 7818 (−39 DNS), AX 7761 (−49 DNS) y NS 7621 (−102*).",
   "opciones": [
-    { "slide": "tardio-A", "nombre": "Placa feed 4:5", "nota": "Ranking con una sola barra destacada (la historia es el 7765)." },
-    { "slide": "tardio-R", "nombre": "Reel animado 9:16 · 12 s", "nota": "Las barras crecen de a una con contador. Es la pieza para pautar." }
+    {
+      "slide": "tardio-A",
+      "nombre": "Placa feed 4:5",
+      "nota": "Ranking con una sola barra destacada (la historia es el 7765)."
+    },
+    {
+      "slide": "tardio-R",
+      "nombre": "Reel animado 9:16 · 12 s",
+      "nota": "Las barras crecen de a una con contador. Es la pieza para pautar."
+    },
+    {
+      "slide": "tardio-T",
+      "nombre": "Tapa del reel (grilla 3:4)",
+      "nota": "Las barras son proporcionales al dato de tardía de cada marbete."
+    }
   ]
 }
 </script>
@@ -109,11 +128,11 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 <section class="slide hs story anim" id="tardio-R" data-name="2026-W41-maiz-tardio-ranking-reel" data-dur="12" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
 
-  <div class="scene only-anim" style="--in:0s;--out:2.9s">
+  <div class="scene only-anim" style="--in:-1s;--out:2.9s">
     <div class="hook">
-      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
-      <h1 class="h1 a-up" style="--d:.3s;margin-top:34px">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
-      <p class="lede a-up" style="--d:.9s">Lo que dicen 5 marbetes Nidera, con el mismo criterio.</p>
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
+      <p class="lede a-up" style="--d:.5s">Lo que dicen 5 marbetes Nidera, con el mismo criterio.</p>
       <div class="mazo">
         <i class="a-growy" style="--d:1.2s;height:92%"></i><i class="a-growy" style="--d:1.3s;height:66%"></i><i class="a-growy" style="--d:1.4s;height:58%"></i><i class="a-growy" style="--d:1.5s;height:54%"></i><i class="a-growy" style="--d:1.6s;height:50%"></i>
       </div>
@@ -162,6 +181,19 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═════════ T · TAPA DEL REEL (grilla 3:4) ═════════ -->
+<section class="slide hs story tapa" id="tardio-T" data-name="2026-W41-maiz-tardio-ranking-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Maíz tardío</div>
+    <h1 class="h1">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
+    <div class="mazo">
+      <div><i style="height:100%"></i><span>7765</span></div><div><i style="height:70%"></i><span>7925</span></div><div><i style="height:60%"></i><span>7852</span></div><div><i style="height:55%"></i><span>7921</span></div><div><i style="height:50%"></i><span>7624</span></div>
+    </div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
   </div>
 </section>
 

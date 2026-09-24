@@ -114,6 +114,9 @@ meta-ads/
 - ✅ 24/09/2026: revisión completa + **relanzamiento W40–W46** → `docs/propuesta/index.html`
   (16 conceptos, 35 placas, 6 animaciones MP4 en `docs/placas/video/`). Posts en `posts/2026-W40…W46/`.
 - ✅ Fecha de siembra del girasol en el oeste corregida según marbete: **15/10 → 15/11, límite 20/11**.
+- ✅ Segunda vuelta (24/09): hooks de reels visibles desde el cuadro 0 + tapas para la grilla 3:4,
+  modo aprobación en la propuesta, grilla del perfil, versiones crema, carrusel de maíz tardío,
+  Estados de WhatsApp y generador de placas con foto (`docs/foto/`).
 - ⚠️ El repo es **público** y `brand/referencias/hibridos-nidera.md` tiene precios y datos que
   contradicen los marbetes: NO usarlo. Pendiente decidir si se borra o si el repo pasa a privado.
 - ✅ Estructura inicial creada (junio 2026, semana W24).

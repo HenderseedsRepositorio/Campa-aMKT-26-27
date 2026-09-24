@@ -13,10 +13,12 @@
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#momento">Momento</a>
       <a href="#plan">Plan</a>
+      <a href="#grilla">Grilla</a>
       <a href="#piezas">Piezas</a>
       <a href="#pauta">Pauta</a>
       <a href="#proceso">Proceso</a>
       <a href="#pendientes">Pendientes</a>
+      <a href="{{URL_FOTO}}">Placa con foto ↗</a>
     </div>
   </div>
 </nav>
@@ -40,9 +42,9 @@
     <h2 class="pp-h4" id="t-semana">Esta semana, 5 cosas</h2>
     <ol class="pp-todo">
       <li><b>Sacar la lista de precios del repo público.</b> <span class="pp-sev s-alta">Urgente</span><small>El archivo con precios y descuentos se ve en internet. Ver error 1.</small></li>
-      <li><b>Aprobar el paquete W40.</b><small>Girasol (ventana de siembra), refugio, "somos de acá", una encuesta y el reel de girasol.</small></li>
+      <li><b>Aprobar el paquete W40.</b><small>Girasol (ventana de siembra), refugio, "somos de acá", una encuesta y el reel de girasol. Cada pieza tiene botones Aprobar / Cambiar / Descartar; al final copiás el resumen y me lo mandás.</small></li>
       <li><b>Programar 3 semanas de una vez.</b><small>Meta Business Suite → Planificador. 40 minutos una vez, en vez de 15 minutos todos los días.</small></li>
-      <li><b>Sacar 10 fotos en el lote.</b><small>Siembra, bolsas, equipo, capítulos. Con el celular alcanza: la foto real le gana a cualquier placa.</small></li>
+      <li><b>Sacar 10 fotos en el lote.</b><small>Siembra, bolsas, equipo, capítulos. Con el celular alcanza. Después las pasás por el <a href="{{URL_FOTO}}">generador de placas con foto</a> y salen con la marca.</small></li>
       <li><b>Anotar el resultado del reel pautado en junio.</b><small>Costo por conversación, en el Administrador de anuncios. Es el dato que decide cuánto pautar ahora.</small></li>
     </ol>
   </aside>
@@ -177,13 +179,30 @@
   <div class="pp-plan">
 {{PLAN}}
   </div>
+  <div class="pp-card pp-wa">
+    <div class="pp-eyebrow">Además, gratis</div>
+    <h3 class="pp-h4">Estados de WhatsApp</h3>
+    <p>Cada posteo de feed sale también como Estado del WhatsApp comercial, el mismo día y con su versión 9:16 (la "historia" de cada pieza o el MP4 del reel). Los ven los clientes que tienen agendado el número, sin pagar pauta. Para que funcione, agendá a cada cliente: el Estado lo ve quien te tiene agendado y a quien vos tenés agendado.</p>
+    <p><b>Regla:</b> un Estado por día como máximo, y nunca listas de difusión masivas que nadie pidió.</p>
+  </div>
+</section>
+
+<!-- ═══════════ GRILLA ═══════════ -->
+<section class="pp-sec" id="grilla" aria-labelledby="t-grilla">
+  <div class="pp-eyebrow">04 · El perfil a mediados de noviembre</div>
+  <h2 class="pp-h2" id="t-grilla">Así se va a ver tu perfil</h2>
+  <p class="pp-intro">La grilla de Instagram recorta cada publicación a 3:4 y muestra lo último arriba. Así queda el perfil con el plan completo: las placas navy se alternan con versiones crema y fotos reales para que no sea una pared oscura. Los reels usan su tapa, pensada para ese recorte.</p>
+  <div class="pp-grilla" role="list">
+{{GRILLA}}
+  </div>
 </section>
 
 <!-- ═══════════ PIEZAS ═══════════ -->
 <section class="pp-sec" id="piezas" aria-labelledby="t-piezas">
-  <div class="pp-eyebrow">04 · Listas para publicar</div>
+  <div class="pp-eyebrow">05 · Listas para publicar</div>
   <h2 class="pp-h2" id="t-piezas">Las piezas</h2>
   <p class="pp-intro">{{N_PIEZAS}} conceptos, {{N_PLACAS}} placas y {{N_VIDEOS}} animaciones. Las animaciones se mueven acá mismo; el botón "Repetir" las vuelve a arrancar. Cada pieza trae el texto para copiar, el horario, si va con pauta y de dónde sale cada dato.</p>
+  <p class="pp-nota pp-como">Cómo revisar: tocá <b>✓ Aprobar</b>, <b>✎ Cambiar</b> (con una nota) o <b>✕ Descartar</b> en cada pieza. Lo que marcás queda guardado en este navegador. Con <b>Copiar resumen</b> (barra de abajo) te llevás la lista para mandarla por WhatsApp o pegarla en la próxima sesión de Claude.</p>
   <div class="pp-filtros" role="toolbar" aria-label="Filtrar piezas">
     <button class="pp-filtro" type="button" data-f="todos" aria-pressed="true">Todas</button>
     <button class="pp-filtro" type="button" data-f="girasol" aria-pressed="false">Girasol</button>
@@ -199,7 +218,7 @@
 
 <!-- ═══════════ PAUTA ═══════════ -->
 <section class="pp-sec" id="pauta" aria-labelledby="t-pauta">
-  <div class="pp-eyebrow">05 · Meta Ads</div>
+  <div class="pp-eyebrow">06 · Meta Ads</div>
   <h2 class="pp-h2" id="t-pauta">Pauta: poca, precisa y medida</h2>
   <p class="pp-intro">Público base para todo: Henderson + Daireaux + Bolívar + Pehuajó, radio 50 km, 25 a 60 años, intereses agro. Botón "Enviar mensaje de WhatsApp". El presupuesto lo definís vos: arrancá con un monto de prueba y escalá solo lo que dé conversaciones a buen costo.</p>
   <div class="pp-grid3">
@@ -214,12 +233,12 @@
 
 <!-- ═══════════ PROCESO ═══════════ -->
 <section class="pp-sec" id="proceso" aria-labelledby="t-proc">
-  <div class="pp-eyebrow">06 · Para no volver a frenar</div>
+  <div class="pp-eyebrow">07 · Para no volver a frenar</div>
   <h2 class="pp-h2" id="t-proc">Cómo lo sostenemos</h2>
   <div class="pp-grid3">
     <div class="pp-card"><h3 class="pp-h4">Un lote cada 3 semanas</h3><p>Se aprueban y se programan juntas. La semana que hay mucho trabajo en el campo, el feed sigue solo.</p></div>
     <div class="pp-card"><h3 class="pp-h4">15 minutos de aprobación</h3><p>Una sola persona aprueba, con esta página abierta en el celular. Lo que no se aprueba en la semana, se reemplaza por la opción B.</p></div>
-    <div class="pp-card"><h3 class="pp-h4">Fotos de verdad</h3><p>Diez por semana en temporada: siembra, bolsas, lotes, equipo. Con fotos reales se arma el formato "foto + dato" que hoy falta.</p></div>
+    <div class="pp-card"><h3 class="pp-h4">Fotos de verdad</h3><p>Diez por semana en temporada: siembra, bolsas, lotes, equipo. Con el <a href="{{URL_FOTO}}">generador de placas con foto</a> salen con la marca desde el celular, en tres plantillas: titular, dato o frase de un productor.</p></div>
     <div class="pp-card"><h3 class="pp-h4">Viernes, 10 minutos</h3><p>Métricas de la semana en <code class="pp-in">metricas.md</code>. Desde noviembre, el formato que trae más conversaciones gana más lugar.</p></div>
     <div class="pp-card"><h3 class="pp-h4">Menos herramientas internas</h3><p>El dashboard y el laboratorio de maquetas quedan como están. Para este ciclo, todo sale de esta página.</p></div>
     <div class="pp-card"><h3 class="pp-h4">Perfil de Instagram</h3><p>Bio propuesta: <em>"Semilla Nidera de maíz y girasol + asesoramiento de lote 🌽🌻 · Distribuidor RED.IN · Henderson · Daireaux · Bolívar · Calculá tu margen ↓"</em>. Fijados: Somos de acá, Cómo leer un marbete y la calculadora.</p></div>
@@ -228,7 +247,7 @@
 
 <!-- ═══════════ PENDIENTES ═══════════ -->
 <section class="pp-sec" id="pendientes" aria-labelledby="t-pend">
-  <div class="pp-eyebrow">07 · Lo que necesito de tu lado</div>
+  <div class="pp-eyebrow">08 · Lo que necesito de tu lado</div>
   <h2 class="pp-h2" id="t-pend">Pendientes</h2>
   <ul class="pp-pend">
     <li><b>Qué hacer con el repo público</b> (error 1): pasarlo a privado (ojo: en el plan gratis de GitHub, un repo privado pierde GitHub Pages) o borrar el archivo de precios y limpiar el historial. Decime cuál y lo hago.</li>
@@ -236,10 +255,22 @@
     <li><b>[COMPLETAR] presupuesto de pauta</b> por campaña.</li>
     <li><b>[AJUSTAR] fechas de siembra de maíz</b> temprano y tardío en la zona.</li>
     <li><b>¿Cerró la precampaña?</b> No se publica, pero define el tono de los CTA de las próximas semanas.</li>
-    <li><b>[COMPLETAR] fotos reales</b> para los huecos del 24/10 y el 31/10.</li>
+    <li><b>[COMPLETAR] fotos reales</b> para los huecos del 24/10, 31/10 y 07/11 (el del 07/11 es la frase de un productor: pedile permiso).</li>
+    <li><b>[VERIFICAR] implantación:</b> el posteo dice que se cuentan plantas por metro de surco y se llevan a plantas por hectárea. Confirmá que es así como lo hacen.</li>
     <li><b>[COMPLETAR] link del posteo de lanzamiento</b> de junio (sigue pendiente en el repo).</li>
   </ul>
 </section>
+
+<div class="pp-barra" id="pp-barra" hidden>
+  <div class="pp-wrap pp-barra-in">
+    <div class="pp-cuenta" aria-live="polite"><span class="c-ok" id="n-ok">0</span> aprobadas · <span class="c-cambiar" id="n-cambiar">0</span> a cambiar · <span class="c-no" id="n-no">0</span> descartadas · <span id="n-pend">0</span> sin revisar</div>
+    <div class="pp-barra-bt">
+      <button type="button" class="pp-copy" id="pp-resumen">Copiar resumen</button>
+      <button type="button" class="pp-limpiar" id="pp-limpiar">Borrar marcas</button>
+    </div>
+  </div>
+  <pre class="pp-caption pp-resumen-txt" id="pp-resumen-txt" hidden></pre>
+</div>
 
 <footer class="pp-pie">
   <p><b>Cómo se armó:</b> cada placa es un HTML en <code class="pp-in">docs/placas/</code> (fuente de verdad, con su texto y sus fuentes adentro). <code class="pp-in">npm run placas</code> genera los JPG, <code class="pp-in">npm run videos</code> los MP4 y <code class="pp-in">npm run propuesta</code> esta página.</p>
