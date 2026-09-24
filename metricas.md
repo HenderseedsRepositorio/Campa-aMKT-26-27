@@ -59,6 +59,19 @@ atribuibles al post · WA = ídem por WhatsApp.
 | [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | herramientas | 26/06 | reel pautado | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | pauta $15k/día × 7d — anotar tb. costo/mensaje |
 | [Girasol NS 1113 CL: ensayos CREA](posts/2026-W28/post-01-girasol-ns1113.md) | girasol | pendiente | placa | | | | | | | |
 
+### Octubre–noviembre 2026 (relanzamiento W40–W46)
+
+| Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
+|------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
+| [Girasol: ventana de siembra](posts/2026-W40/post-01-girasol-ventana.md) | girasol | 28/09 plan | placa 📣 | | | | | | | |
+| [Refugio NS 7800](posts/2026-W40/post-02-refugio-ns7800.md) | técnica | 01/10 plan | placa | | | | | | | |
+| [Reel girasol](posts/2026-W40/post-03-girasol-ventana-reel.md) | girasol | 02/10 plan | reel | | | | | | | |
+| [Somos de acá](posts/2026-W40/post-04-somos-de-aca.md) | institucional | 03/10 plan | placa 📣 | | | | | | | |
+| [Carrusel girasol](posts/2026-W41/post-01-girasol-carrusel.md) | girasol | 06/10 plan | carrusel | | | | | | | |
+| [Calculadora ¿maíz o girasol?](posts/2026-W41/post-02-calculadora-maiz-girasol.md) | herramientas | 07/10 plan | placa + historia | | | | | | | anotar clics al link |
+| [Tardío: ranking](posts/2026-W41/post-03-maiz-tardio-ranking.md) | maíz | 08/10 plan | placa | | | | | | | |
+| [Reel ranking tardío](posts/2026-W41/post-04-maiz-tardio-ranking-reel.md) | maíz | 11/10 plan | reel 📣 | | | | | | | costo/conversación |
+
 ### Pauta (solo posts 📣)
 
 | Campaña | Período | Inversión | Mensajes iniciados | Costo por mensaje | Notas |
@@ -91,5 +104,6 @@ nada en 4 intentos se replantea (ángulo, visual u horario), no se repite igual.
 
 - Cada lote semanal nuevo agrega su fila acá (con celdas vacías) al crearse el post.
 - Nunca borrar filas: si un post no se publicó, anotarlo en Notas.
-- Los datos son privados: **este archivo no se publica** ni se citan números
-  de alcance/resultados en redes.
+- Los datos son privados: **no se citan números de alcance/resultados en redes.**
+  ⚠️ Ojo: el repo es **público**, así que este archivo también se ve en internet. Si se cargan
+  inversiones y costos reales, conviene pasar el repo a privado o llevar la planilla a otro lado.

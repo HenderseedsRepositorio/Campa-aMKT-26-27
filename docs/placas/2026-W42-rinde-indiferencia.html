@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Rinde de indiferencia</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .formula { display: flex; flex-direction: column; gap: 14px; }
+.hs .term { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 26px 32px; border-radius: 20px; background: var(--panel); border: 1.5px solid var(--line-2); }
+.hs .term .n { font: 700 40px/1.1 var(--f-sans); color: var(--txt); letter-spacing: -.01em; }
+.hs .term .u { font: 500 26px/1 var(--f-mono); color: var(--txt-3); white-space: nowrap; }
+.hs .term.res { background: var(--amber); border-color: var(--amber); }
+.hs .term.res .n { font-family: var(--f-arch); font-weight: 400; font-size: 46px; color: #0A0F1B; letter-spacing: -.02em; }
+.hs .term.res .u { color: rgba(10,15,27,.72); }
+.hs .oper { font-family: var(--f-arch); font-size: 56px; line-height: .8; color: var(--amber); padding-left: 32px; }
+
+#rind-A .h1 { font-size: 88px; margin-top: 40px; }
+#rind-A .formula { margin-top: 44px; }
+#rind-A .body { margin-top: 32px; }
+#rind-A .urlline { margin-top: 26px; font: 500 28px/1.3 var(--f-mono); color: var(--txt-2); }
+#rind-A .urlline b { color: var(--amber); font-weight: 500; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "rinde-indiferencia",
+  "concepto": "Márgenes · el rinde de indiferencia",
+  "pilar": "Márgenes & finanzas",
+  "semana": "2026-W42",
+  "fecha": "jue 15/10 · 20–22 h",
+  "porque": "Contenido educativo que se guarda y se comparte, sin un solo número comercial. Explica la cuenta que la calculadora hace sola y deja la puerta abierta a 'hagámoslo con tus números'.",
+  "pauta": "No.",
+  "caption": "El número que tenés que saber antes de sembrar: tu rinde de indiferencia. 📈\n\nEs el rinde que necesitás para cubrir todos los costos del planteo. La cuenta es simple:\n\nCostos totales (USD/ha) ÷ precio neto del grano (USD/qq) = rinde de indiferencia (qq/ha)\n\nSi tu rinde esperado no lo supera con aire, el planteo no cierra. Y ese número cambia con cada lote: alquiler, flete y labores no son iguales en todos lados.\n\nLa calculadora lo hace sola, sin registro: margen.henderseeds.com (link en la bio).\n📩 ¿Lo hacemos con tus números? Mandanos un DM.",
+  "hashtags": "#Henderseeds #MargenesAgricolas #RindeDeIndiferencia #Maiz2627 #Girasol2627 #Henderson #Daireaux #Bolivar",
+  "fuentes": "Definición estándar de rinde de indiferencia (costos directos totales ÷ precio neto). Herramienta: margen.henderseeds.com.",
+  "opciones": [
+    { "slide": "rind-A", "nombre": "Placa feed 4:5", "nota": "La fórmula como protagonista. Sin ejemplos con precios." }
+  ]
+}
+</script>
+
+<section class="slide hs" id="rind-A" data-name="2026-W42-rinde-indiferencia-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Márgenes 26/27</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">El número que tenés que saber <span class="hl">antes de sembrar.</span></h1>
+
+    <div class="formula">
+      <div class="term"><span class="n">Costos totales</span><span class="u">USD / ha</span></div>
+      <div class="oper">÷</div>
+      <div class="term"><span class="n">Precio neto del grano</span><span class="u">USD / qq</span></div>
+      <div class="oper">=</div>
+      <div class="term res"><span class="n">Rinde de indiferencia</span><span class="u">qq / ha</span></div>
+    </div>
+
+    <p class="body">Es el rinde que necesitás para cubrir todos los costos. Si tu rinde esperado <b>no lo supera con aire</b>, el planteo no cierra.</p>
+    <p class="urlline">La calculadora lo hace sola → <b>margen.henderseeds.com</b></p>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos con tus números? Mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

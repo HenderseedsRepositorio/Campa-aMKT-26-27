@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Historias interactivas</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs.story .inner { position: absolute; left: 84px; right: 84px; top: 170px; }
+.hs.story .h1 { font-size: 124px; margin-top: 40px; }
+.hs.story .lede { margin-top: 30px; font-size: 40px; }
+.hs .slot { position: absolute; left: 84px; right: 84px; border-radius: 28px; border: 3px dashed rgba(245,166,35,.6); }
+.hs .slot span { position: absolute; left: 30px; top: -18px; padding: 0 14px; background: #0A0F1B; font: 500 24px/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+.hs .pie { position: absolute; left: 84px; right: 84px; bottom: 250px; display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1.5px solid var(--line); }
+.hs .pie .logo-hs { height: 64px; }
+.hs .pie .t { font: 500 24px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--txt-2); text-align: right; }
+.hs .capi { position: absolute; width: 760px; right: -240px; bottom: 330px; opacity: .14; }
+.hs .cuenta { display: flex; align-items: baseline; gap: 20px; margin-top: 40px; }
+.hs .cuenta .num { font-size: 220px; color: var(--amber); }
+.hs .cuenta span { font: 600 40px/1.2 var(--f-sans); color: var(--txt); }
+</style>
+</head>
+<body>
+<script type="application/json" class="hs-meta">
+{
+  "id": "historias-interactivas",
+  "concepto": "Historias interactivas · encuestas, preguntas y cuenta regresiva",
+  "pilar": "Interacción (stories)",
+  "semana": "2026-W40 → W42",
+  "fecha": "una por semana, entre posteos (ver cada una)",
+  "porque": "Las historias con sticker (encuesta, preguntas, cuenta regresiva) son la forma más barata de volver a aparecer sin saturar el feed y le enseñan al algoritmo que la cuenta genera respuesta. Además, cada respuesta es una excusa para abrir una conversación por DM.",
+  "pauta": "No.",
+  "caption": "Historias (sin caption). Poné el sticker de Instagram en el recuadro punteado:\n• H1 · Encuesta — '¿Cuándo arrancás con el girasol?' → opciones: 'Antes del 15/10' / 'En la ventana'.\n• H2 · Encuesta — '¿Ya definiste el maíz para el tardío?' → 'Sí, ya está' / 'Todavía no'. A los que respondan 'Todavía no', escribiles por DM.\n• H3 · Preguntas — 'Preguntanos lo que quieras del girasol 26/27'. Respondé las mejores en otra historia.\n• H4 · Cuenta regresiva — 'Ventana óptima del girasol' → fecha 15/10 00:00. La gente se suscribe y le llega el aviso.",
+  "hashtags": "",
+  "fuentes": "Fecha óptima del girasol en el oeste: marbetes Nidera 26/27 (15/10 al 15/11, límite 20/11).",
+  "opciones": [
+    { "slide": "hist-1", "nombre": "H1 · Encuesta girasol (W40)", "nota": "Sticker de encuesta en el recuadro." },
+    { "slide": "hist-2", "nombre": "H2 · Encuesta tardío (W41)", "nota": "Escribí por DM a los que respondan 'Todavía no'." },
+    { "slide": "hist-3", "nombre": "H3 · Caja de preguntas (W41)", "nota": "Sticker de preguntas en el recuadro." },
+    { "slide": "hist-4", "nombre": "H4 · Cuenta regresiva (W42)", "nota": "Sticker de cuenta regresiva al 15/10." }
+  ]
+}
+</script>
+
+<section class="slide hs story" id="hist-1" data-name="2026-W40-historia-encuesta-girasol">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="capi" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="inner">
+    <div class="kicker"><span class="led"></span>Encuesta · Girasol 26/27</div>
+    <h1 class="h1">¿Cuándo arrancás <span class="hl">con el girasol?</span></h1>
+    <p class="lede">En el oeste, la fecha óptima va del <b>15/10 al 15/11</b>.</p>
+  </div>
+  <div class="slot" style="top:1000px;height:300px"><span>Encuesta</span></div>
+  <div class="pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="t">Red.in<br>Nidera</span></div>
+</section>
+
+<section class="slide hs story" id="hist-2" data-name="2026-W41-historia-encuesta-tardio">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="inner">
+    <div class="kicker"><span class="led"></span>Encuesta · Maíz tardío</div>
+    <h1 class="h1">¿Ya definiste el maíz <span class="hl">para el tardío?</span></h1>
+    <p class="lede">Si todavía no, te ayudamos a elegirlo lote por lote.</p>
+  </div>
+  <div class="slot" style="top:1030px;height:300px"><span>Encuesta</span></div>
+  <div class="pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="t">Red.in<br>Nidera</span></div>
+</section>
+
+<section class="slide hs story" id="hist-3" data-name="2026-W41-historia-preguntas-girasol">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="capi" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="inner">
+    <div class="kicker"><span class="led"></span>Preguntas · Girasol 26/27</div>
+    <h1 class="h1">Preguntanos lo que quieras <span class="hl">del girasol.</span></h1>
+    <p class="lede">Híbridos, fecha, densidad, sanidad. Respondemos las mejores acá.</p>
+  </div>
+  <div class="slot" style="top:1080px;height:330px"><span>Caja de preguntas</span></div>
+  <div class="pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="t">Red.in<br>Nidera</span></div>
+</section>
+
+<section class="slide hs story" id="hist-4" data-name="2026-W42-historia-cuenta-regresiva">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="capi" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="inner">
+    <div class="kicker"><span class="led"></span>Girasol · Oeste de Buenos Aires</div>
+    <h1 class="h1">Se abre la <span class="hl">ventana.</span></h1>
+    <div class="cuenta"><span class="num">15/10</span><span>arranca la fecha<br>óptima de siembra</span></div>
+  </div>
+  <div class="slot" style="top:1060px;height:300px"><span>Cuenta regresiva</span></div>
+  <div class="pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="t">Marbetes<br>Nidera 26/27</span></div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

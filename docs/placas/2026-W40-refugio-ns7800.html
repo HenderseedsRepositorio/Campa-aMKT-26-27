@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Refugio: NS 7800 CLTG</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .lote .surco { stroke: rgba(255,255,255,.07); stroke-width: 2; }
+.hs .lote .pl { fill: #4E6186; transform-box: fill-box; transform-origin: center; }
+.hs .lote .pl.ref { fill: var(--amber); }
+.hs .lote text { font-family: var(--f-mono); }
+.hs .lote .lt { font-size: 24px; letter-spacing: .12em; fill: var(--txt-2); }
+.hs .lote .lt.on { fill: var(--amber); }
+.hs .lote .br { stroke: var(--line-2); stroke-width: 2; fill: none; }
+.hs .lote .br.on { stroke: var(--amber); }
+.hs .prod { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.hs .prod .n { font-family: var(--f-arch); font-size: 50px; letter-spacing: -.02em; color: var(--txt); line-height: 1; }
+.hs .prod .n small { display: block; font: 500 22px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.hs .prod .d { font: 500 24px/1.45 var(--f-mono); color: var(--txt-2); text-align: right; }
+
+#ref-A .h1 { font-size: 96px; margin-top: 40px; }
+#ref-A .lote { margin-top: 34px; }
+#ref-A .body { margin-top: 20px; font-size: 32px; }
+#ref-A .panel { margin-top: 26px; padding: 26px 32px; }
+#ref-A .src { margin-top: 14px; }
+
+#ref-R .hook { position: absolute; left: 84px; right: 84px; top: 300px; }
+#ref-R .hook .h1 { font-size: 128px; }
+#ref-R .inner { position: absolute; left: 84px; right: 84px; top: 190px; }
+#ref-R .inner .h1 { font-size: 96px; }
+#ref-R .inner .lote { margin-top: 44px; }
+#ref-R .inner .body { margin-top: 24px; font-size: 34px; }
+#ref-R .inner .panel { margin-top: 26px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "refugio-ns7800",
+  "concepto": "Refugio · NS 7800 CLTG",
+  "pilar": "Técnica & tecnología",
+  "semana": "2026-W40",
+  "fecha": "jue 01/10 · 12–14 h",
+  "porque": "Arrancó la siembra de maíz temprano: es EL momento del refugio. Es contenido técnico que posiciona como asesor (no como vendedor de bolsas) y a la vez mueve un producto del portafolio que nunca comunicamos: el NS 7800 CLTG.",
+  "pauta": "No. Orgánico; es contenido de autoridad técnica.",
+  "caption": "Sin refugio, el VIPTERA3 dura menos. 🌽\n\nEl refugio es la parte del lote que se siembra con un maíz sin la tecnología Bt. Sirve para que las plagas no se vuelvan resistentes y la tecnología siga funcionando campaña tras campaña. Nidera lo define como una práctica indispensable para prolongar la vida útil de VIPTERA3.\n\nLa recomendación es sembrar el 10% del área con refugio, en bloque o en franjas.\n\nEl refugio del portafolio es el NS 7800 CLTG: madurez relativa 118, se posiciona en todas las zonas y ambientes.\n\n📩 ¿Lo planificamos juntos? Mandanos un DM.",
+  "hashtags": "#Henderseeds #Nidera #Maiz2627 #Refugio #VIPTERA3 #BuenasPracticas #Henderson #Daireaux",
+  "fuentes": "Marbete NS 7800 CLTG (Nidera 26/27): 'práctica indispensable para prolongar la vida útil de la biotecnología VIPTERA3', MR 118, todas las zonas y ambientes. 10% del área: recomendación de manejo de resistencia para maíz Bt (ASA) — [VERIFICAR con Nidera la recomendación vigente antes de publicar].",
+  "opciones": [
+    { "slide": "ref-A", "nombre": "Placa feed 4:5", "nota": "El lote visto desde arriba: 1 de cada 10 plantas es refugio." },
+    { "slide": "ref-R", "nombre": "Reel animado 9:16 · 9 s", "nota": "El lote se siembra planta por planta y se enciende la franja de refugio." }
+  ]
+}
+</script>
+
+<!-- ═════════ A · FEED 4:5 ═════════ -->
+<section class="slide hs" id="ref-A" data-name="2026-W40-refugio-ns7800-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Maíz 26/27 · Técnica</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Sin refugio, el VIPTERA3 <span class="hl">dura menos.</span></h1>
+
+    <svg class="lote" viewBox="0 0 928 346" width="928" height="346" role="img" aria-label="Lote visto desde arriba: 90% VIPTERA3 y 10% refugio en franja">
+      <text class="lt" x="0" y="22">VIPTERA3 · 90%</text>
+      <path class="br" d="M2 36 V30 H832 V36"/>
+      <text class="lt on" x="928" y="22" text-anchor="end">REFUGIO · 10%</text>
+      <path class="br on" d="M840 36 V30 H926 V36"/>
+      <line class="surco" x1="0" y1="58" x2="928" y2="58"/>
+<line class="surco" x1="0" y1="88" x2="928" y2="88"/>
+<line class="surco" x1="0" y1="118" x2="928" y2="118"/>
+<line class="surco" x1="0" y1="148" x2="928" y2="148"/>
+<line class="surco" x1="0" y1="178" x2="928" y2="178"/>
+<line class="surco" x1="0" y1="208" x2="928" y2="208"/>
+<line class="surco" x1="0" y1="238" x2="928" y2="238"/>
+<line class="surco" x1="0" y1="268" x2="928" y2="268"/>
+<line class="surco" x1="0" y1="298" x2="928" y2="298"/>
+<line class="surco" x1="0" y1="328" x2="928" y2="328"/>
+<circle class="pl" cx="23.2" cy="58" r="8"/>
+<circle class="pl" cx="69.6" cy="58" r="8"/>
+<circle class="pl" cx="116.0" cy="58" r="8"/>
+<circle class="pl" cx="162.4" cy="58" r="8"/>
+<circle class="pl" cx="208.8" cy="58" r="8"/>
+<circle class="pl" cx="255.2" cy="58" r="8"/>
+<circle class="pl" cx="301.6" cy="58" r="8"/>
+<circle class="pl" cx="348.0" cy="58" r="8"/>
+<circle class="pl" cx="394.4" cy="58" r="8"/>
+<circle class="pl" cx="440.8" cy="58" r="8"/>
+<circle class="pl" cx="487.2" cy="58" r="8"/>
+<circle class="pl" cx="533.6" cy="58" r="8"/>
+<circle class="pl" cx="580.0" cy="58" r="8"/>
+<circle class="pl" cx="626.4" cy="58" r="8"/>
+<circle class="pl" cx="672.8" cy="58" r="8"/>
+<circle class="pl" cx="719.2" cy="58" r="8"/>
+<circle class="pl" cx="765.6" cy="58" r="8"/>
+<circle class="pl" cx="812.0" cy="58" r="8"/>
+<circle class="pl ref" cx="858.4" cy="58" r="8"/>
+<circle class="pl ref" cx="904.8" cy="58" r="8"/>
+<circle class="pl" cx="23.2" cy="88" r="8"/>
+<circle class="pl" cx="69.6" cy="88" r="8"/>
+<circle class="pl" cx="116.0" cy="88" r="8"/>
+<circle class="pl" cx="162.4" cy="88" r="8"/>
+<circle class="pl" cx="208.8" cy="88" r="8"/>
+<circle class="pl" cx="255.2" cy="88" r="8"/>
+<circle class="pl" cx="301.6" cy="88" r="8"/>
+<circle class="pl" cx="348.0" cy="88" r="8"/>
+<circle class="pl" cx="394.4" cy="88" r="8"/>
+<circle class="pl" cx="440.8" cy="88" r="8"/>
+<circle class="pl" cx="487.2" cy="88" r="8"/>
+<circle class="pl" cx="533.6" cy="88" r="8"/>
+<circle class="pl" cx="580.0" cy="88" r="8"/>
+<circle class="pl" cx="626.4" cy="88" r="8"/>
+<circle class="pl" cx="672.8" cy="88" r="8"/>
+<circle class="pl" cx="719.2" cy="88" r="8"/>
+<circle class="pl" cx="765.6" cy="88" r="8"/>
+<circle class="pl" cx="812.0" cy="88" r="8"/>
+<circle class="pl ref" cx="858.4" cy="88" r="8"/>
+<circle class="pl ref" cx="904.8" cy="88" r="8"/>
+<circle class="pl" cx="23.2" cy="118" r="8"/>
+<circle class="pl" cx="69.6" cy="118" r="8"/>
+<circle class="pl" cx="116.0" cy="118" r="8"/>
+<circle class="pl" cx="162.4" cy="118" r="8"/>
+<circle class="pl" cx="208.8" cy="118" r="8"/>
+<circle class="pl" cx="255.2" cy="118" r="8"/>
+<circle class="pl" cx="301.6" cy="118" r="8"/>
+<circle class="pl" cx="348.0" cy="118" r="8"/>
+<circle class="pl" cx="394.4" cy="118" r="8"/>
+<circle class="pl" cx="440.8" cy="118" r="8"/>
+<circle class="pl" cx="487.2" cy="118" r="8"/>
+<circle class="pl" cx="533.6" cy="118" r="8"/>
+<circle class="pl" cx="580.0" cy="118" r="8"/>
+<circle class="pl" cx="626.4" cy="118" r="8"/>
+<circle class="pl" cx="672.8" cy="118" r="8"/>
+<circle class="pl" cx="719.2" cy="118" r="8"/>
+<circle class="pl" cx="765.6" cy="118" r="8"/>
+<circle class="pl" cx="812.0" cy="118" r="8"/>
+<circle class="pl ref" cx="858.4" cy="118" r="8"/>
+<circle class="pl ref" cx="904.8" cy="118" r="8"/>
+<circle class="pl" cx="23.2" cy="148" r="8"/>
+<circle class="pl" cx="69.6" cy="148" r="8"/>
+<circle class="pl" cx="116.0" cy="148" r="8"/>
+<circle class="pl" cx="162.4" cy="148" r="8"/>
+<circle class="pl" cx="208.8" cy="148" r="8"/>
+<circle class="pl" cx="255.2" cy="148" r="8"/>
+<circle class="pl" cx="301.6" cy="148" r="8"/>
+<circle class="pl" cx="348.0" cy="148" r="8"/>
+<circle class="pl" cx="394.4" cy="148" r="8"/>
+<circle class="pl" cx="440.8" cy="148" r="8"/>
+<circle class="pl" cx="487.2" cy="148" r="8"/>
+<circle class="pl" cx="533.6" cy="148" r="8"/>
+<circle class="pl" cx="580.0" cy="148" r="8"/>
+<circle class="pl" cx="626.4" cy="148" r="8"/>
+<circle class="pl" cx="672.8" cy="148" r="8"/>
+<circle class="pl" cx="719.2" cy="148" r="8"/>
+<circle class="pl" cx="765.6" cy="148" r="8"/>
+<circle class="pl" cx="812.0" cy="148" r="8"/>
+<circle class="pl ref" cx="858.4" cy="148" r="8"/>
+<circle class="pl ref" cx="904.8" cy="148" r="8"/>
+<circle class="pl" cx="23.2" cy="178" r="8"/>
+<circle class="pl" cx="69.6" cy="178" r="8"/>
+<circle class="pl" cx="116.0" cy="178" r="8"/>
+<circle class="pl" cx="162.4" cy="178" r="8"/>
+<circle class="pl" cx="208.8" cy="178" r="8"/>
+<circle class="pl" cx="255.2" cy="178" r="8"/>
+<circle class="pl" cx="301.6" cy="178" r="8"/>
+<circle class="pl" cx="348.0" cy="178" r="8"/>
+<circle class="pl" cx="394.4" cy="178" r="8"/>
+<circle class="pl" cx="440.8" cy="178" r="8"/>
+<circle class="pl" cx="487.2" cy="178" r="8"/>
+<circle class="pl" cx="533.6" cy="178" r="8"/>
+<circle class="pl" cx="580.0" cy="178" r="8"/>
+<circle class="pl" cx="626.4" cy="178" r="8"/>
+<circle class="pl" cx="672.8" cy="178" r="8"/>
+<circle class="pl" cx="719.2" cy="178" r="8"/>
+<circle class="pl" cx="765.6" cy="178" r="8"/>
+<circle class="pl" cx="812.0" cy="178" r="8"/>
+<circle class="pl ref" cx="858.4" cy="178" r="8"/>
+<circle class="pl ref" cx="904.8" cy="178" r="8"/>
+<circle class="pl" cx="23.2" cy="208" r="8"/>
+<circle class="pl" cx="69.6" cy="208" r="8"/>
+<circle class="pl" cx="116.0" cy="208" r="8"/>
+<circle class="pl" cx="162.4" cy="208" r="8"/>
+<circle class="pl" cx="208.8" cy="208" r="8"/>
+<circle class="pl" cx="255.2" cy="208" r="8"/>
+<circle class="pl" cx="301.6" cy="208" r="8"/>
+<circle class="pl" cx="348.0" cy="208" r="8"/>
+<circle class="pl" cx="394.4" cy="208" r="8"/>
+<circle class="pl" cx="440.8" cy="208" r="8"/>
+<circle class="pl" cx="487.2" cy="208" r="8"/>
+<circle class="pl" cx="533.6" cy="208" r="8"/>
+<circle class="pl" cx="580.0" cy="208" r="8"/>
+<circle class="pl" cx="626.4" cy="208" r="8"/>
+<circle class="pl" cx="672.8" cy="208" r="8"/>
+<circle class="pl" cx="719.2" cy="208" r="8"/>
+<circle class="pl" cx="765.6" cy="208" r="8"/>
+<circle class="pl" cx="812.0" cy="208" r="8"/>
+<circle class="pl ref" cx="858.4" cy="208" r="8"/>
+<circle class="pl ref" cx="904.8" cy="208" r="8"/>
+<circle class="pl" cx="23.2" cy="238" r="8"/>
+<circle class="pl" cx="69.6" cy="238" r="8"/>
+<circle class="pl" cx="116.0" cy="238" r="8"/>
+<circle class="pl" cx="162.4" cy="238" r="8"/>
+<circle class="pl" cx="208.8" cy="238" r="8"/>
+<circle class="pl" cx="255.2" cy="238" r="8"/>
+<circle class="pl" cx="301.6" cy="238" r="8"/>
+<circle class="pl" cx="348.0" cy="238" r="8"/>
+<circle class="pl" cx="394.4" cy="238" r="8"/>
+<circle class="pl" cx="440.8" cy="238" r="8"/>
+<circle class="pl" cx="487.2" cy="238" r="8"/>
+<circle class="pl" cx="533.6" cy="238" r="8"/>
+<circle class="pl" cx="580.0" cy="238" r="8"/>
+<circle class="pl" cx="626.4" cy="238" r="8"/>
+<circle class="pl" cx="672.8" cy="238" r="8"/>
+<circle class="pl" cx="719.2" cy="238" r="8"/>
+<circle class="pl" cx="765.6" cy="238" r="8"/>
+<circle class="pl" cx="812.0" cy="238" r="8"/>
+<circle class="pl ref" cx="858.4" cy="238" r="8"/>
+<circle class="pl ref" cx="904.8" cy="238" r="8"/>
+<circle class="pl" cx="23.2" cy="268" r="8"/>
+<circle class="pl" cx="69.6" cy="268" r="8"/>
+<circle class="pl" cx="116.0" cy="268" r="8"/>
+<circle class="pl" cx="162.4" cy="268" r="8"/>
+<circle class="pl" cx="208.8" cy="268" r="8"/>
+<circle class="pl" cx="255.2" cy="268" r="8"/>
+<circle class="pl" cx="301.6" cy="268" r="8"/>
+<circle class="pl" cx="348.0" cy="268" r="8"/>
+<circle class="pl" cx="394.4" cy="268" r="8"/>
+<circle class="pl" cx="440.8" cy="268" r="8"/>
+<circle class="pl" cx="487.2" cy="268" r="8"/>
+<circle class="pl" cx="533.6" cy="268" r="8"/>
+<circle class="pl" cx="580.0" cy="268" r="8"/>
+<circle class="pl" cx="626.4" cy="268" r="8"/>
+<circle class="pl" cx="672.8" cy="268" r="8"/>
+<circle class="pl" cx="719.2" cy="268" r="8"/>
+<circle class="pl" cx="765.6" cy="268" r="8"/>
+<circle class="pl" cx="812.0" cy="268" r="8"/>
+<circle class="pl ref" cx="858.4" cy="268" r="8"/>
+<circle class="pl ref" cx="904.8" cy="268" r="8"/>
+<circle class="pl" cx="23.2" cy="298" r="8"/>
+<circle class="pl" cx="69.6" cy="298" r="8"/>
+<circle class="pl" cx="116.0" cy="298" r="8"/>
+<circle class="pl" cx="162.4" cy="298" r="8"/>
+<circle class="pl" cx="208.8" cy="298" r="8"/>
+<circle class="pl" cx="255.2" cy="298" r="8"/>
+<circle class="pl" cx="301.6" cy="298" r="8"/>
+<circle class="pl" cx="348.0" cy="298" r="8"/>
+<circle class="pl" cx="394.4" cy="298" r="8"/>
+<circle class="pl" cx="440.8" cy="298" r="8"/>
+<circle class="pl" cx="487.2" cy="298" r="8"/>
+<circle class="pl" cx="533.6" cy="298" r="8"/>
+<circle class="pl" cx="580.0" cy="298" r="8"/>
+<circle class="pl" cx="626.4" cy="298" r="8"/>
+<circle class="pl" cx="672.8" cy="298" r="8"/>
+<circle class="pl" cx="719.2" cy="298" r="8"/>
+<circle class="pl" cx="765.6" cy="298" r="8"/>
+<circle class="pl" cx="812.0" cy="298" r="8"/>
+<circle class="pl ref" cx="858.4" cy="298" r="8"/>
+<circle class="pl ref" cx="904.8" cy="298" r="8"/>
+<circle class="pl" cx="23.2" cy="328" r="8"/>
+<circle class="pl" cx="69.6" cy="328" r="8"/>
+<circle class="pl" cx="116.0" cy="328" r="8"/>
+<circle class="pl" cx="162.4" cy="328" r="8"/>
+<circle class="pl" cx="208.8" cy="328" r="8"/>
+<circle class="pl" cx="255.2" cy="328" r="8"/>
+<circle class="pl" cx="301.6" cy="328" r="8"/>
+<circle class="pl" cx="348.0" cy="328" r="8"/>
+<circle class="pl" cx="394.4" cy="328" r="8"/>
+<circle class="pl" cx="440.8" cy="328" r="8"/>
+<circle class="pl" cx="487.2" cy="328" r="8"/>
+<circle class="pl" cx="533.6" cy="328" r="8"/>
+<circle class="pl" cx="580.0" cy="328" r="8"/>
+<circle class="pl" cx="626.4" cy="328" r="8"/>
+<circle class="pl" cx="672.8" cy="328" r="8"/>
+<circle class="pl" cx="719.2" cy="328" r="8"/>
+<circle class="pl" cx="765.6" cy="328" r="8"/>
+<circle class="pl" cx="812.0" cy="328" r="8"/>
+<circle class="pl ref" cx="858.4" cy="328" r="8"/>
+<circle class="pl ref" cx="904.8" cy="328" r="8"/>
+    </svg>
+
+    <p class="body">Es lo que evita que las plagas se vuelvan resistentes. Nidera lo define como <b>práctica indispensable</b> para prolongar la vida útil de VIPTERA3.</p>
+    <div class="panel prod">
+      <div class="n"><small>El refugio del portafolio</small>NS 7800 CLTG</div>
+      <div class="d">MR 118<br>todas las zonas<br>y ambientes</div>
+    </div>
+    <p class="src">Marbete NS 7800 CLTG · Nidera 26/27 · 10% del área, en bloque o en franjas.</p>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo planificamos juntos? Mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ═════════ R · REEL 9:16 (9 s) ═════════ -->
+<section class="slide hs story anim" id="ref-R" data-name="2026-W40-refugio-ns7800-reel" data-dur="9.8" data-hold="2.5">
+  <div class="bg"></div><div class="topbar"></div>
+
+  <div class="scene only-anim" style="--in:0s;--out:2.8s">
+    <div class="hook">
+      <div class="kicker a-fade" style="--d:.1s"><span class="led"></span>Maíz 26/27 · Técnica</div>
+      <h1 class="h1 a-up" style="--d:.3s;margin-top:34px">¿Ya pensaste <span class="hl">el refugio?</span></h1>
+      <p class="lede a-up" style="--d:.9s;margin-top:30px;font-size:42px">Sembrar VIPTERA3 sin refugio es gastar la tecnología antes de tiempo.</p>
+    </div>
+  </div>
+
+  <div class="scene" style="--in:2.8s">
+    <div class="inner">
+      <div class="kicker a-fade" style="--d:2.9s"><span class="led"></span>Tu lote, visto desde arriba</div>
+      <h1 class="h1 a-up" style="--d:3.0s;margin-top:26px">1 de cada 10 plantas: <span class="hl">refugio.</span></h1>
+      <svg class="lote" viewBox="0 0 912 346" width="912" height="346">
+        <g class="a-fade" style="--d:3.2s"><text class="lt" x="0" y="22">VIPTERA3 · 90%</text><path class="br" d="M2 36 V30 H818 V36"/></g>
+        <g class="a-fade" style="--d:5.4s"><text class="lt on" x="912" y="22" text-anchor="end">REFUGIO · 10%</text><path class="br on" d="M826 36 V30 H910 V36"/></g>
+        <line class="surco" x1="0" y1="58" x2="912" y2="58"/>
+<line class="surco" x1="0" y1="88" x2="912" y2="88"/>
+<line class="surco" x1="0" y1="118" x2="912" y2="118"/>
+<line class="surco" x1="0" y1="148" x2="912" y2="148"/>
+<line class="surco" x1="0" y1="178" x2="912" y2="178"/>
+<line class="surco" x1="0" y1="208" x2="912" y2="208"/>
+<line class="surco" x1="0" y1="238" x2="912" y2="238"/>
+<line class="surco" x1="0" y1="268" x2="912" y2="268"/>
+<line class="surco" x1="0" y1="298" x2="912" y2="298"/>
+<line class="surco" x1="0" y1="328" x2="912" y2="328"/>
+<circle class="pl a-pop" style="--d:3.20s" cx="22.8" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.25s" cx="68.4" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.30s" cx="114.0" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.35s" cx="159.6" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.40s" cx="205.2" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.45s" cx="250.8" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.50s" cx="296.4" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.55s" cx="342.0" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.60s" cx="387.6" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.65s" cx="433.2" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.70s" cx="478.8" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.75s" cx="524.4" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.80s" cx="570.0" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.85s" cx="615.6" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.90s" cx="661.2" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.95s" cx="706.8" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:4.00s" cx="752.4" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:4.05s" cx="798.0" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:4.10s" cx="843.6" cy="58" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.20s" cx="843.6" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:4.15s" cx="889.2" cy="58" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.20s" cx="889.2" cy="58" r="8"/>
+<circle class="pl a-pop" style="--d:3.24s" cx="22.8" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.29s" cx="68.4" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.34s" cx="114.0" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.39s" cx="159.6" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.44s" cx="205.2" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.49s" cx="250.8" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.54s" cx="296.4" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.59s" cx="342.0" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.64s" cx="387.6" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.69s" cx="433.2" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.74s" cx="478.8" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.79s" cx="524.4" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.84s" cx="570.0" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.89s" cx="615.6" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.94s" cx="661.2" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.99s" cx="706.8" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:4.04s" cx="752.4" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:4.09s" cx="798.0" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:4.14s" cx="843.6" cy="88" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.25s" cx="843.6" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:4.19s" cx="889.2" cy="88" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.25s" cx="889.2" cy="88" r="8"/>
+<circle class="pl a-pop" style="--d:3.27s" cx="22.8" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.32s" cx="68.4" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.37s" cx="114.0" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.42s" cx="159.6" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.47s" cx="205.2" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.52s" cx="250.8" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.57s" cx="296.4" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.62s" cx="342.0" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.67s" cx="387.6" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.72s" cx="433.2" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.77s" cx="478.8" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.82s" cx="524.4" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.87s" cx="570.0" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.92s" cx="615.6" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.97s" cx="661.2" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:4.02s" cx="706.8" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:4.07s" cx="752.4" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:4.12s" cx="798.0" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:4.17s" cx="843.6" cy="118" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.30s" cx="843.6" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:4.22s" cx="889.2" cy="118" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.30s" cx="889.2" cy="118" r="8"/>
+<circle class="pl a-pop" style="--d:3.31s" cx="22.8" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.35s" cx="68.4" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.41s" cx="114.0" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.46s" cx="159.6" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.51s" cx="205.2" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.56s" cx="250.8" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.60s" cx="296.4" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.66s" cx="342.0" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.71s" cx="387.6" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.76s" cx="433.2" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.81s" cx="478.8" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.85s" cx="524.4" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.91s" cx="570.0" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.96s" cx="615.6" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:4.01s" cx="661.2" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:4.06s" cx="706.8" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:4.11s" cx="752.4" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:4.16s" cx="798.0" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:4.21s" cx="843.6" cy="148" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.35s" cx="843.6" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:4.26s" cx="889.2" cy="148" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.35s" cx="889.2" cy="148" r="8"/>
+<circle class="pl a-pop" style="--d:3.34s" cx="22.8" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.39s" cx="68.4" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.44s" cx="114.0" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.49s" cx="159.6" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.54s" cx="205.2" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.59s" cx="250.8" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.64s" cx="296.4" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.69s" cx="342.0" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.74s" cx="387.6" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.79s" cx="433.2" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.84s" cx="478.8" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.89s" cx="524.4" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.94s" cx="570.0" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.99s" cx="615.6" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:4.04s" cx="661.2" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:4.09s" cx="706.8" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:4.14s" cx="752.4" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:4.19s" cx="798.0" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:4.24s" cx="843.6" cy="178" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.40s" cx="843.6" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:4.29s" cx="889.2" cy="178" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.40s" cx="889.2" cy="178" r="8"/>
+<circle class="pl a-pop" style="--d:3.38s" cx="22.8" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.42s" cx="68.4" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.48s" cx="114.0" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.52s" cx="159.6" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.58s" cx="205.2" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.62s" cx="250.8" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.67s" cx="296.4" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.73s" cx="342.0" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.77s" cx="387.6" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.83s" cx="433.2" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.88s" cx="478.8" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.92s" cx="524.4" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.98s" cx="570.0" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.03s" cx="615.6" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.08s" cx="661.2" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.12s" cx="706.8" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.17s" cx="752.4" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.23s" cx="798.0" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.28s" cx="843.6" cy="208" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.45s" cx="843.6" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:4.33s" cx="889.2" cy="208" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.45s" cx="889.2" cy="208" r="8"/>
+<circle class="pl a-pop" style="--d:3.41s" cx="22.8" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.46s" cx="68.4" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.51s" cx="114.0" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.56s" cx="159.6" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.61s" cx="205.2" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.66s" cx="250.8" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.71s" cx="296.4" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.76s" cx="342.0" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.81s" cx="387.6" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.86s" cx="433.2" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.91s" cx="478.8" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.96s" cx="524.4" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.01s" cx="570.0" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.06s" cx="615.6" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.11s" cx="661.2" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.16s" cx="706.8" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.21s" cx="752.4" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.26s" cx="798.0" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.31s" cx="843.6" cy="238" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.50s" cx="843.6" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:4.36s" cx="889.2" cy="238" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.50s" cx="889.2" cy="238" r="8"/>
+<circle class="pl a-pop" style="--d:3.45s" cx="22.8" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.50s" cx="68.4" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.55s" cx="114.0" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.60s" cx="159.6" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.65s" cx="205.2" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.70s" cx="250.8" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.75s" cx="296.4" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.80s" cx="342.0" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.85s" cx="387.6" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.90s" cx="433.2" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.95s" cx="478.8" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.00s" cx="524.4" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.04s" cx="570.0" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.09s" cx="615.6" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.15s" cx="661.2" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.20s" cx="706.8" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.25s" cx="752.4" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.30s" cx="798.0" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.35s" cx="843.6" cy="268" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.55s" cx="843.6" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:4.40s" cx="889.2" cy="268" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.55s" cx="889.2" cy="268" r="8"/>
+<circle class="pl a-pop" style="--d:3.48s" cx="22.8" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.53s" cx="68.4" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.58s" cx="114.0" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.63s" cx="159.6" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.68s" cx="205.2" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.73s" cx="250.8" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.78s" cx="296.4" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.83s" cx="342.0" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.88s" cx="387.6" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.93s" cx="433.2" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.98s" cx="478.8" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.03s" cx="524.4" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.08s" cx="570.0" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.13s" cx="615.6" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.18s" cx="661.2" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.23s" cx="706.8" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.28s" cx="752.4" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.33s" cx="798.0" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.38s" cx="843.6" cy="298" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.60s" cx="843.6" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:4.43s" cx="889.2" cy="298" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.60s" cx="889.2" cy="298" r="8"/>
+<circle class="pl a-pop" style="--d:3.52s" cx="22.8" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.56s" cx="68.4" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.62s" cx="114.0" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.67s" cx="159.6" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.72s" cx="205.2" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.77s" cx="250.8" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.81s" cx="296.4" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.87s" cx="342.0" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.92s" cx="387.6" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:3.97s" cx="433.2" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.02s" cx="478.8" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.07s" cx="524.4" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.12s" cx="570.0" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.17s" cx="615.6" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.22s" cx="661.2" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.27s" cx="706.8" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.32s" cx="752.4" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.37s" cx="798.0" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.42s" cx="843.6" cy="328" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.65s" cx="843.6" cy="328" r="8"/>
+<circle class="pl a-pop" style="--d:4.47s" cx="889.2" cy="328" r="8"/>
+<circle class="pl ref a-pop" style="--d:5.65s" cx="889.2" cy="328" r="8"/>
+      </svg>
+      <p class="body a-up" style="--d:6.0s">Para eso está el <b>NS 7800 CLTG</b>: el refugio del portafolio, MR 118, todas las zonas y ambientes.</p>
+    </div>
+    <div class="end-wrap" style="top:1180px">
+      <div class="endcard a-up" style="--d:7.0s">
+        <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+        <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo planificamos juntos? Mandanos un DM.</span></div>
+        <div class="base">
+          <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+          <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

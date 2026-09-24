@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Verificación de implantación</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .surco .suelo { fill: #1B2A45; }
+.hs .surco .pl { fill: none; stroke: #DCE6F4; stroke-width: 7; stroke-linecap: round; }
+.hs .surco .falla { fill: rgba(245,166,35,.10); stroke: var(--amber); stroke-width: 3; stroke-dasharray: 10 8; }
+.hs .surco text { font-family: var(--f-mono); }
+.hs .surco .flag { font-size: 24px; letter-spacing: .14em; fill: var(--amber); font-weight: 500; }
+.hs .surco .cinta { stroke: var(--txt-3); stroke-width: 2.5; }
+.hs .surco .med { font-size: 22px; fill: var(--txt-3); letter-spacing: .06em; }
+.hs .metodo { display: flex; align-items: center; gap: 18px; font: 500 28px/1.3 var(--f-mono); color: var(--txt-2); }
+.hs .metodo b { color: var(--amber); font-weight: 500; }
+.hs .metodo svg { width: 46px; height: 22px; color: var(--amber); flex-shrink: 0; }
+
+#impl-A .h1 { font-size: 100px; margin-top: 40px; }
+#impl-A .surco { margin-top: 44px; }
+#impl-A .body { margin-top: 30px; }
+#impl-A .metodo { margin-top: 24px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+  <symbol id="hs-arrow" viewBox="0 0 48 24"><path d="M2 12h40M32 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "implantacion",
+  "concepto": "Servicio · verificación de implantación",
+  "pilar": "Técnica / institucional",
+  "semana": "2026-W43",
+  "fecha": "mié 21/10 · 7–9 h",
+  "porque": "Con el maíz temprano nacido, es el momento de mostrar el servicio que nos diferencia de 'vender bolsas': volver al lote después de la siembra. Contenido de asesor, no de vendedor, y un CTA concreto (pedir la recorrida).",
+  "pauta": "No. Si hay fotos reales de una recorrida, sumar una segunda imagen al posteo (carrusel foto + placa).",
+  "caption": "Ya sembraste. ¿Cuántas plantas lograste? 🌱\n\nDespués de la siembra recorremos el lote y verificamos la implantación: plantas logradas, fallas y dobles. Contamos plantas por metro de surco y lo llevamos a plantas por hectárea.\n\nEs el primer dato real de cómo arrancó tu cultivo, y el que después explica buena parte del rinde.\n\n📩 Pedí la recorrida: mandanos un DM con tu zona.",
+  "hashtags": "#Henderseeds #Nidera #Maiz2627 #Siembra2627 #Agronomia #Henderson #Daireaux #Bolivar",
+  "fuentes": "Servicio de verificación de implantación: contexto/empresa.md (asesoramiento técnico). Ilustración esquemática: 2 m de surco, una planta cada 25 cm.",
+  "opciones": [
+    { "slide": "impl-A", "nombre": "Placa feed 4:5", "nota": "Ideal combinarla con 1–3 fotos reales de una recorrida (carrusel)." }
+  ]
+}
+</script>
+
+<section class="slide hs" id="impl-A" data-name="2026-W43-implantacion-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Asesoramiento técnico</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Ya sembraste. <span class="hl">¿Cuántas plantas lograste?</span></h1>
+
+    <svg class="surco" viewBox="0 0 928 340" width="928" height="340" role="img" aria-label="Dos metros de surco con una falla y un doble">
+      <rect class="suelo" x="0" y="210" width="928" height="38" rx="6"/>
+<g class="pl" transform="translate(58.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(174.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<rect class="falla" x="256.0" y="82" width="68" height="124" rx="12"/>
+<text class="flag" x="290.0" y="64" text-anchor="middle">FALLA</text>
+<g class="pl" transform="translate(406.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(522.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(627.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(649.0 210) scale(0.92)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<text class="flag" x="638.0" y="64" text-anchor="middle">DOBLE</text>
+<g class="pl" transform="translate(754.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<g class="pl" transform="translate(870.0 210) scale(1.0)"><path d="M0 0 V-96"/><path d="M0 -34 Q-34 -44 -52 -80"/><path d="M0 -52 Q36 -62 50 -100"/><path d="M0 -70 Q-22 -86 -26 -118"/></g>
+<line class="cinta" x1="58" y1="284" x2="870" y2="284"/>
+<line class="cinta" x1="58.0" y1="272" x2="58.0" y2="296"/>
+<line class="cinta" x1="159.5" y1="272" x2="159.5" y2="296"/>
+<line class="cinta" x1="261.0" y1="272" x2="261.0" y2="296"/>
+<line class="cinta" x1="362.5" y1="272" x2="362.5" y2="296"/>
+<line class="cinta" x1="464.0" y1="272" x2="464.0" y2="296"/>
+<line class="cinta" x1="565.5" y1="272" x2="565.5" y2="296"/>
+<line class="cinta" x1="667.0" y1="272" x2="667.0" y2="296"/>
+<line class="cinta" x1="768.5" y1="272" x2="768.5" y2="296"/>
+<line class="cinta" x1="870.0" y1="272" x2="870.0" y2="296"/>
+<text class="med" x="58" y="330">0</text><text class="med" x="464.0" y="330" text-anchor="middle">1 m</text><text class="med" x="870" y="330" text-anchor="end">2 m</text>
+    </svg>
+
+    <p class="body">Después de la siembra recorremos el lote y verificamos la implantación: <b>plantas logradas, fallas y dobles.</b> Es el primer dato real de cómo arrancó tu cultivo.</p>
+    <div class="metodo">Plantas por metro de surco <svg><use href="#hs-arrow"/></svg> <b>plantas por hectárea</b></div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Pedí la recorrida: mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

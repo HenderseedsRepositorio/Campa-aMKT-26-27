@@ -1,0 +1,252 @@
+/* ==========================================================================
+   HenderSeeds · Sistema visual "Siembra 26/27"
+   Placas 1080×1350 (feed 4:5) y 1080×1920 (historia / reel 9:16).
+
+   Reglas del sistema (ver brand/identidad.md):
+   - Todo vive bajo .hs para no chocar con la página que lo contenga.
+   - Pensado para leerse en el celular: la placa se ve a ~390 px de ancho,
+     o sea al 36 %. Nada de texto de lectura por debajo de 30 px en el canvas.
+   - Un acento ámbar por pieza. Blanco para titulares. Gris azulado para apoyo.
+   - Animaciones: el estado final es el estilo por defecto (la placa se ve
+     completa sin JS). La clase .play dispara la animación; el runtime
+     hs-anim.js la reinicia en loop o la congela cuadro a cuadro para el video.
+   ========================================================================== */
+
+.hs {
+  --navy: #0A0F1B;
+  --navy-2: #0D2D5E;
+  --navy-3: #091E3E;
+  --navy-mid: #1A4A8A;
+  --amber: #F5A623;
+  --amber-2: #F59E0B;
+  --amber-soft: rgba(245, 166, 35, 0.14);
+  --cream: #F6F4EE;
+  --sand: #EFEAE0;
+  --ink: #15181E;
+  --ink-2: #4A5264;
+  --txt: #F2F5FA;
+  --txt-2: #B4C1D6;
+  --txt-3: #7F8DA6;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-2: rgba(255, 255, 255, 0.22);
+  --panel: rgba(255, 255, 255, 0.045);
+  --mute-bar: #2A3A57;
+  --wa: #25D366;
+
+  --f-arch: 'Archivo Black', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --f-sans: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  --f-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --pad-x: 76px;
+  --ease: cubic-bezier(.2, .75, .25, 1);
+
+  position: relative;
+  overflow: hidden;
+  width: 1080px;
+  height: 1350px;
+  flex-shrink: 0;
+  background: var(--navy);
+  color: var(--txt);
+  font-family: var(--f-sans);
+  /* Reset de lo que se hereda: la placa se ve igual suelta o dentro de otra página */
+  font-size: 16px; font-weight: 400; font-style: normal; line-height: normal;
+  letter-spacing: normal; word-spacing: normal; text-align: left; text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+.hs *, .hs *::before, .hs *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.hs.story { height: 1920px; }
+
+/* --- Variante clara ---------------------------------------------------- */
+.hs.light {
+  --txt: #121826;
+  --txt-2: #3E4A60;
+  --txt-3: #6B7488;
+  --line: rgba(13, 45, 94, 0.14);
+  --line-2: rgba(13, 45, 94, 0.26);
+  --panel: rgba(13, 45, 94, 0.05);
+  --mute-bar: #CBD3E0;
+  background: var(--cream);
+}
+
+/* --- Fondo: grilla de marca + profundidad -------------------------------- */
+.hs .bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(1100px 800px at 100% -10%, rgba(26, 74, 138, 0.34), transparent 62%),
+    radial-gradient(900px 700px at -10% 110%, rgba(13, 45, 94, 0.55), transparent 60%);
+}
+.hs .bg::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(245, 166, 35, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 166, 35, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.25) 100%);
+          mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.25) 100%);
+}
+.hs.light .bg {
+  background: radial-gradient(1000px 700px at 100% -10%, rgba(245, 166, 35, 0.10), transparent 60%);
+}
+.hs.light .bg::after {
+  background-image:
+    linear-gradient(rgba(13, 45, 94, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 45, 94, 0.06) 1px, transparent 1px);
+}
+.hs .topbar { position: absolute; top: 0; left: 0; right: 0; height: 10px; background: var(--amber); z-index: 6; }
+
+/* --- Marco --------------------------------------------------------------- */
+.hs .frame {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  padding: 66px var(--pad-x) 54px;
+}
+.hs.story .frame { padding: 150px 84px 240px; }  /* zona segura de historias/reels */
+.hs .grow { flex: 1 1 auto; min-height: 0; }
+
+.hs .hd { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
+.hs .logo-hs { height: 70px; width: auto; display: block; }
+.hs.story .logo-hs { height: 78px; }
+
+.hs .kicker {
+  font: 500 26px/1.1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); display: flex; align-items: center; gap: 14px;
+}
+.hs.light .kicker { color: #B36F00; }
+.hs .led { width: 14px; height: 14px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 6px rgba(245,166,35,.16), 0 0 18px rgba(245,166,35,.7); flex-shrink: 0; }
+
+/* --- Tipografía ------------------------------------------------------------ */
+.hs .h1 {
+  font-family: var(--f-arch); font-weight: 400;
+  font-size: 104px; line-height: 0.97; letter-spacing: -0.035em;
+  color: var(--txt); text-wrap: balance;
+}
+.hs .h1.xl { font-size: 128px; }
+.hs .h1.md { font-size: 88px; }
+.hs .h1.sm { font-size: 74px; }
+.hs .h2 { font-family: var(--f-arch); font-size: 60px; line-height: 1.02; letter-spacing: -0.025em; color: var(--txt); text-wrap: balance; }
+.hs .h3 { font-family: var(--f-arch); font-size: 44px; line-height: 1.05; letter-spacing: -0.02em; color: var(--txt); }
+.hs .hl { color: var(--amber); }
+.hs.light .hl { color: #D98B00; }
+.hs .lede { font: 500 38px/1.32 var(--f-sans); color: var(--txt-2); text-wrap: pretty; }
+.hs .lede b, .hs .body b { color: var(--txt); font-weight: 700; }
+.hs .body { font: 400 34px/1.38 var(--f-sans); color: var(--txt-2); text-wrap: pretty; }
+.hs .mono { font-family: var(--f-mono); }
+.hs .label { font: 500 24px/1.2 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--txt-3); }
+.hs .num { font-family: var(--f-arch); letter-spacing: -0.04em; line-height: 0.9; }
+
+/* --- Chips (etiquetas de dato) --------------------------------------------- */
+.hs .chips { display: flex; flex-wrap: wrap; gap: 14px; }
+.hs .chip {
+  font: 500 26px/1 var(--f-mono); color: var(--txt);
+  border: 1.5px solid var(--line-2); border-radius: 999px; padding: 13px 22px;
+  display: inline-flex; align-items: center; gap: 10px; background: var(--panel);
+}
+.hs .chip b { color: var(--amber); font-weight: 500; }
+.hs.light .chip b { color: #B36F00; }
+
+/* --- Panel ---------------------------------------------------------------- */
+.hs .panel { background: var(--panel); border: 1.5px solid var(--line); border-radius: 22px; padding: 34px 38px; }
+
+/* --- Pie: CTA + sello RED.IN + WhatsApp ------------------------------------- */
+.hs .ft { display: flex; flex-direction: column; gap: 22px; }
+.hs .cta { display: flex; align-items: center; gap: 18px; font: 700 36px/1.2 var(--f-sans); color: var(--txt); letter-spacing: -0.01em; text-wrap: balance; }
+.hs .cta svg { width: 44px; height: 44px; flex-shrink: 0; color: var(--amber); }
+.hs.light .cta svg { color: #D98B00; }
+.hs .base { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 22px; border-top: 1.5px solid var(--line); }
+.hs .sello { display: flex; align-items: center; gap: 16px; }
+.hs .sello img { height: 60px; width: auto; display: block; }
+.hs .sello span { font: 500 20px/1.2 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt-3); }
+.hs .wa { display: flex; align-items: center; gap: 12px; font: 500 24px/1 var(--f-mono); color: var(--txt-2); letter-spacing: 0.04em; }
+.hs .wa svg { width: 30px; height: 30px; flex-shrink: 0; fill: var(--wa); }
+.hs .src { font: 400 19px/1.45 var(--f-mono); color: var(--txt-3); letter-spacing: 0.01em; }
+
+/* --- Barras horizontales (ranking) ---------------------------------------- */
+.hs .bars { display: flex; flex-direction: column; gap: 30px; }
+.hs .bar-row { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.hs .bar-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.hs .bar-name { font: 500 30px/1 var(--f-mono); color: var(--txt); letter-spacing: 0.02em; }
+.hs .bar-name small { font-size: 22px; color: var(--txt-3); margin-left: 10px; letter-spacing: 0.06em; }
+.hs .bar-meta { font: 400 22px/1 var(--f-mono); color: var(--txt-3); white-space: nowrap; }
+.hs .bar-track { display: flex; align-items: center; gap: 20px; height: 44px; }
+.hs .bar-fill {
+  height: 30px; border-radius: 0 10px 10px 0; background: var(--mute-bar);
+  width: var(--w); transform-origin: left center;
+}
+.hs .bar-row.is-hero .bar-fill { background: var(--amber); box-shadow: 0 0 34px rgba(245, 166, 35, .28); }
+.hs .bar-val { font-family: var(--f-arch); font-size: 46px; letter-spacing: -0.03em; color: var(--txt); line-height: 1; white-space: nowrap; }
+.hs .bar-val small { font-family: var(--f-sans); font-weight: 600; font-size: 24px; color: var(--txt-3); letter-spacing: 0; margin-left: 6px; }
+
+/* --- Escala sanitaria 1–9 del marbete -------------------------------------- */
+.hs .scale { position: relative; }
+.hs .scale-track { position: relative; height: 18px; border-radius: 99px; background: linear-gradient(90deg, rgba(245,166,35,.95), rgba(245,166,35,.28) 45%, rgba(143,160,190,.25) 100%); }
+.hs .scale-ticks { display: grid; grid-template-columns: repeat(9, 1fr); margin-top: 16px; }
+.hs .scale-ticks span { font: 500 28px/1 var(--f-mono); color: var(--txt-3); text-align: center; }
+.hs .scale-ends { display: flex; justify-content: space-between; margin-top: 12px; font: 500 22px/1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--txt-3); }
+
+/* --- Íconos utilitarios ----------------------------------------------------- */
+.hs .ico { width: 1em; height: 1em; display: inline-block; vertical-align: -0.12em; }
+
+/* ==========================================================================
+   Animación
+   Cada elemento animable declara su retardo con --d (segundos).
+   Estado por defecto = final. Con .play corre la animación (fill: both).
+   ========================================================================== */
+@keyframes hsUp     { from { opacity: 0; transform: translateY(46px); } to { opacity: 1; transform: none; } }
+@keyframes hsFade   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hsIn     { from { opacity: 0; transform: scale(.86); } to { opacity: 1; transform: none; } }
+@keyframes hsPop    { 0% { opacity: 0; transform: scale(.2); } 70% { opacity: 1; transform: scale(1.12); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes hsGrowX  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes hsGrowY  { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes hsWipe   { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hsWipeUp { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hsDraw   { from { stroke-dashoffset: var(--len, 1000); } to { stroke-dashoffset: 0; } }
+@keyframes hsPulse  { 0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,.55); } 50% { box-shadow: 0 0 0 26px rgba(245,166,35,0); } }
+@keyframes hsBlink  { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+@keyframes hsOut    { from { opacity: 1; } to { opacity: 0; } }
+@keyframes hsType   { from { width: 0; } to { width: var(--chars); } }
+
+.hs.play .a-up    { animation: hsUp .8s var(--ease) var(--d, 0s) both; }
+.hs.play .a-fade  { animation: hsFade .7s ease-out var(--d, 0s) both; }
+.hs.play .a-in    { animation: hsIn .7s var(--ease) var(--d, 0s) both; }
+.hs.play .a-pop   { animation: hsPop .55s var(--ease) var(--d, 0s) both; }
+.hs.play .a-growx { animation: hsGrowX 1.1s var(--ease) var(--d, 0s) both; }
+.hs.play .a-growy { animation: hsGrowY 1.1s var(--ease) var(--d, 0s) both; transform-origin: bottom center; }
+.hs.play .a-wipe  { animation: hsWipe 1.2s var(--ease) var(--d, 0s) both; }
+.hs.play .a-wipeup{ animation: hsWipeUp .9s var(--ease) var(--d, 0s) both; }
+.hs.play .a-draw  { stroke-dasharray: var(--len, 1000); animation: hsDraw 1.6s var(--ease) var(--d, 0s) both; }
+.hs.play .a-type  { animation: hsType var(--dur, 1.2s) steps(var(--steps, 20)) var(--d, 0s) both; }
+.hs.play .a-out   { animation: hsOut .5s ease-in var(--d, 0s) both; }
+.hs.play .a-pulse { animation: hsPulse 1.6s ease-out var(--d, 0s) infinite; }
+.hs.play .led     { animation: hsBlink 1.6s ease-in-out infinite; }
+
+/* Escenas de reel: capas que entran y salen (misma caja, distinto tiempo) */
+.hs .scene { position: absolute; inset: 0; }
+/* hsOut va con fill "forwards": si fuera "both", su estado inicial (opacidad 1)
+   taparía el fundido de entrada, porque la segunda animación manda. */
+.hs.play .scene { animation: hsFade .6s ease-out var(--in, 0s) both, hsOut .5s ease-in var(--out, 999s) forwards; }
+.hs:not(.play) .scene.only-anim { display: none; }  /* escenas intermedias: solo existen en movimiento */
+
+@media (prefers-reduced-motion: reduce) {
+  .hs.play *, .hs.play .scene { animation: none !important; }
+  .hs .scene.only-anim { display: none; }
+}
+
+/* Capítulo de girasol animado (reels): cada semilla escala desde su centro */
+.hs .capitulo circle { transform-box: fill-box; transform-origin: center; }
+
+/* Las imágenes nunca se estiran dentro de un flex */
+.hs img { max-width: none; flex-shrink: 0; object-fit: contain; }
+
+/* --- Cierre de reels / historias ---------------------------------------- */
+.hs .endcard {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 34px;
+  padding: 44px; border-radius: 28px;
+  background: rgba(10, 15, 27, 0.86); border: 1.5px solid var(--line-2);
+}
+.hs .endcard .logo-hs { height: 92px; }
+.hs .endcard .cta { font-size: 46px; }
+.hs .endcard .cta svg { width: 54px; height: 54px; }
+.hs .endcard .base { align-self: stretch; flex-direction: column; align-items: flex-start; gap: 18px; }
+/* Zona segura de reels: abajo tapa el caption (~420 px) y a la derecha los botones (~130 px) */
+.hs .end-wrap { position: absolute; left: 84px; right: 140px; top: 1080px; }

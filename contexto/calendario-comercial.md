@@ -4,10 +4,12 @@
 > carga acá apenas las confirma. Sin fecha confirmada, en los posts se habla de
 > "precampaña abierta" sin prometer vencimientos.
 
-## Estado actual (junio 2026)
-- ✅ **Precampaña maíz y girasol 26/27: ABIERTA.**
-- Cierre estimado: **agosto/septiembre 2026** `[COMPLETAR: fecha exacta cuando Nidera la confirme]`.
+## Estado actual (actualizado 24/09/2026)
+- ⏳ **Precampaña maíz y girasol 26/27:** el cierre estaba estimado para ago/sep.
+  `[COMPLETAR: ¿cerró? ¿queda alguna condición vigente?]` — no se publica, pero define el tono de los CTA.
+- 🌱 **Campaña en siembra:** desde W40 el contenido se rotula "Siembra 26/27" (ver `docs/propuesta/`).
 - Primer post de lanzamiento: ya publicado `[COMPLETAR: fecha y link]`.
+- Último posteo publicado: reel de márgenes, 26/06/2026. Relanzamiento: plan W40–W46.
 
 ## Condiciones comerciales
 > ⚠️ **REGLA DURA: NUNCA publicar % de descuento, precios ni condiciones comerciales
@@ -22,7 +24,7 @@
 | Precampaña abierta | en curso | Condiciones, híbridos, calculadora de margen |
 | Escalones de descuento Nidera | `[COMPLETAR]` | Posts de urgencia real ("último tramo con X%") |
 | Cierre de precampaña | ago/sep 2026 `[COMPLETAR]` | Cuenta regresiva, últimas bolsas |
-| Siembra de girasol en la zona | oct/nov 2026 `[AJUSTAR]` | Técnico: fecha de siembra, densidad |
+| Siembra de girasol en la zona | **óptima 15/10 → 15/11, límite 20/11** (marbetes Nidera, fila Oeste de Buenos Aires) | Técnico: ventana de siembra, cuál híbrido por lote |
 | Siembra de maíz temprano | sep/oct 2026 `[AJUSTAR]` | Técnico: arranque de campaña |
 | Maíz tardío | nov/dic 2026 `[AJUSTAR]` | Posicionamiento tardío |
 

@@ -8,3 +8,5 @@ node_modules/
 # (que es la fuente de verdad). Se generan con `npm run placas` y las publica
 # GitHub Actions en gh-pages, así el repo no se llena de binarios.
 docs/placas/img/
+# Los videos (docs/placas/video/*.mp4) SÍ se commitean: necesitan ffmpeg y ~5 minutos de
+# render (`npm run videos`), y así se bajan directo desde GitHub sin correr nada.

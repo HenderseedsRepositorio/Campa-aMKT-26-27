@@ -143,7 +143,7 @@
   - 73% de éxito en Norte (+1,99 qq/ha**, 153 comparaciones)
   - Excelente Sclerotinia (2), resistente a Downy Mildew y Roya negra
 - Dato de ensayo citable: +2,11 qq/ha** en Sur+Oeste (225 comp., 74% éxito). Fuente: marbete oficial Nidera.
-- Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
+- Fechas de siembra Oeste de Buenos Aires (marbete, tabla "Fechas de siembra"): óptima 15/10 → 15/11, límite 20/11. (Ago–sep es la fila de la región Norte; antes estaba mal cargado.)
 - Para qué ambiente de la zona: todos (B a A). Ideal para Henderson/Daireaux/Bolívar.
 - Perfil sanitario: Verticilium 4 · Sclerotinia 2 · Roya negra R · Phomopsis 3 · Downy Mildew R
 - Estado: ✅ listo para comunicar
@@ -158,7 +158,7 @@
   - Phomopsis 2 (el mejor del portafolio junto con NS 1117)
   - Rendimiento bonificado (alto aceite)
 - Dato de ensayo citable: +1,64 qq/ha** en Sur+Oeste (192 comp., 69% éxito). Fuente: marbete oficial Nidera.
-- Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
+- Fechas de siembra Oeste de Buenos Aires (marbete, tabla "Fechas de siembra"): óptima 15/10 → 15/11, límite 20/11. (Ago–sep es la fila de la región Norte; antes estaba mal cargado.)
 - Para qué ambiente de la zona: todos (B a A). Especialmente lotes con presión de Phomopsis.
 - Perfil sanitario: Verticilium 3 · Sclerotinia 2 · Roya negra R · Phomopsis 2 · Downy Mildew R
 - Estado: ✅ listo para comunicar
@@ -173,7 +173,7 @@
   - Phomopsis 2 + Sclerotinia 2
   - Resistente a Roya negra y Downy Mildew
 - Dato de ensayo citable: +1,75 qq/ha** en Sur+Oeste (73 comp., 67% éxito). Fuente: marbete oficial Nidera.
-- Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
+- Fechas de siembra Oeste de Buenos Aires (marbete, tabla "Fechas de siembra"): óptima 15/10 → 15/11, límite 20/11. (Ago–sep es la fila de la región Norte; antes estaba mal cargado.)
 - Para qué ambiente de la zona: todos (B a A). Ideal donde Phomopsis es problema recurrente.
 - Perfil sanitario: Verticilium 3 · Sclerotinia 2 · Roya negra R · Phomopsis 2 · Downy Mildew R
 - Estado: ✅ listo para comunicar
@@ -188,7 +188,7 @@
   - Resistente a Downy Mildew
   - Buen Phomopsis (4) para alto oleico
 - Dato de ensayo citable: +0,61 qq/ha* en Sur+Oeste (103 comp., 52% éxito). Fuente: marbete oficial Nidera.
-- Fechas de siembra zona Oeste BA: óptima ago-sep, límite oct
+- Fechas de siembra Oeste de Buenos Aires (marbete, tabla "Fechas de siembra"): óptima 15/10 → 15/11, límite 20/11. (Ago–sep es la fila de la región Norte; antes estaba mal cargado.)
 - Para qué ambiente de la zona: todos (B a A). Donde el comprador pague diferencial alto oleico.
 - Perfil sanitario: Verticilium 3 · Sclerotinia 4 · Roya negra S/D · Phomopsis 4 · Downy Mildew R
 - Estado: ✅ listo para comunicar

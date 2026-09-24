@@ -73,7 +73,9 @@ async function main() {
       deviceScaleFactor: 1,
     });
 
-    await pagina.goto('file://' + path.join(DIR_PLACAS, archivo), { waitUntil: 'load' });
+    // ?capture: las placas animadas (hs-anim.js) no corren solas y se pueden
+    // congelar en su cuadro final con HS.seek(). Las placas viejas lo ignoran.
+    await pagina.goto('file://' + path.join(DIR_PLACAS, archivo) + '?capture', { waitUntil: 'load' });
 
     // 1. Tipografias de marca desde el repo, no desde internet: el render es
     //    hermetico (no depende de que fonts.googleapis.com este accesible desde
@@ -112,7 +114,12 @@ async function main() {
     for (let i = 0; i < total; i++) {
       const slide = slides.nth(i);
       const sufijo = total > 1 ? `-slide-${String(i + 1).padStart(2, '0')}` : '';
-      const nombre = base + sufijo;
+      // Las placas del sistema 26/27 traen su propio nombre (data-name).
+      const nombre = (await slide.getAttribute('data-name')) || base + sufijo;
+
+      // Placa animada: se fotografía el último cuadro (el que queda quieto).
+      const dur = await slide.getAttribute('data-dur');
+      if (dur) await pagina.evaluate((t) => window.HS && window.HS.seek(t), parseFloat(dur));
 
       // 3. Las placas tienen overflow:hidden. Si el contenido no entra, se
       //    recorta en silencio: avisamos con cuanto se pasa.
@@ -125,13 +132,23 @@ async function main() {
         avisos.push(`${nombre}: el contenido se pasa ${medida.alto - medida.visible}px del alto (se recorta)`);
       }
 
+      // Placa 9:16 (historia / tapa de reel): se guarda tal cual, sin feed.
+      if (medida.visible >= HISTORIA.height - 2) {
+        // Sin sufijo "-historia": el nombre ya dice si es historia o tapa de reel.
+        const rutaHistoria = path.join(DIR_SALIDA, `${nombre}-1080x1920.jpg`);
+        await slide.screenshot({ path: rutaHistoria, type: 'jpeg', quality: CALIDAD_JPG });
+        generados.push({ nombre, soloHistoria: true });
+        console.log(`  ${nombre}  ->  historia`);
+        continue;
+      }
+
       const rutaFeed = path.join(DIR_SALIDA, `${nombre}-feed-1080x1350.jpg`);
       await slide.screenshot({ path: rutaFeed, type: 'jpeg', quality: CALIDAD_JPG });
 
       const rutaHistoria = path.join(DIR_SALIDA, `${nombre}-historia-1080x1920.jpg`);
       await componerHistoria(navegador, rutaFeed, rutaHistoria);
 
-      generados.push(nombre);
+      generados.push({ nombre, soloHistoria: false });
       console.log(`  ${nombre}  ->  feed + historia`);
     }
 
@@ -187,25 +204,45 @@ async function componerHistoria(navegador, rutaFeed, rutaSalida) {
 }
 
 /** Indice navegable: una sola URL para abrir del celular y guardar todo. */
-async function escribirIndice(nombres) {
+async function escribirIndice(piezas) {
   // Ojo: la tarjeta es un <div>, no un <a>. Un <a> con otros <a> adentro es
   // HTML invalido y el navegador lo "repara" duplicando el elemento.
-  const tarjetas = nombres
-    .map(
-      (n) => `  <div class="card">
-    <a class="foto" href="${n}-feed-1080x1350.jpg" target="_blank">
-      <img src="${n}-feed-1080x1350.jpg" alt="${n}" loading="lazy">
+  // Lo más nuevo primero: las placas 26/27 empiezan con la fecha/semana.
+  const clave = (n) => (n.startsWith('20') ? n : '0000-' + n); // las viejas (w27-…) al final
+  const orden = [...piezas].sort((a, b) => clave(b.nombre).localeCompare(clave(a.nombre)));
+  const tarjetas = orden
+    .map(({ nombre: n, soloHistoria }) => {
+      const img = soloHistoria ? `${n}-1080x1920.jpg` : `${n}-feed-1080x1350.jpg`;
+      const links = soloHistoria
+        ? `<a href="${n}-1080x1920.jpg" download>9:16</a>`
+        : `<a href="${n}-feed-1080x1350.jpg" download>feed 4:5</a>
+        <a href="${n}-historia-1080x1920.jpg" download>historia 9:16</a>`;
+      return `  <div class="card">
+    <a class="foto" href="${img}" target="_blank">
+      <img src="${img}" alt="${n}" loading="lazy">
     </a>
     <div class="pie">
       <span class="nombre">${n}</span>
       <span class="links">
-        <a href="${n}-feed-1080x1350.jpg" download>feed 4:5</a>
-        <a href="${n}-historia-1080x1920.jpg" download>historia 9:16</a>
+        ${links}
       </span>
     </div>
-  </div>`
-    )
+  </div>`;
+    })
     .join('\n');
+
+  // Videos (los genera scripts/render-videos.mjs y se commitean en docs/placas/video/).
+  let videos = [];
+  try {
+    videos = (await readdir(path.join(DIR_PLACAS, 'video'))).filter((f) => f.endsWith('.mp4')).sort().reverse();
+  } catch { /* todavía no hay videos */ }
+  const bloqueVideos = videos.length
+    ? `<h2>Videos (reels e historias animadas)</h2>
+<div class="grid">
+${videos.map((v) => `  <div class="card"><video src="../video/${v}" controls muted playsinline preload="metadata"></video>
+    <div class="pie"><span class="nombre">${v}</span><span class="links"><a href="../video/${v}" download>bajar MP4</a></span></div></div>`).join('\n')}
+</div>`
+    : '';
 
   const html = `<!DOCTYPE html>
 <html lang="es"><head><meta charset="UTF-8">
@@ -225,10 +262,14 @@ a{color:#F5A623}
 .pie{padding:10px 12px}
 .nombre{display:block;font-size:12px;font-family:ui-monospace,monospace;color:#E8EEF7;word-break:break-all}
 .links{display:flex;gap:12px;margin-top:6px;font-size:12px}
+h2{font-size:16px;margin:26px 0 12px}
+video{width:100%;display:block;background:#000}
 </style></head><body>
 <h1>Placas listas para publicar</h1>
 <p>Tocá una imagen para abrirla en grande y guardarla, o usá los links de descarga.
 Generado automáticamente desde <code>docs/placas/*.html</code>.</p>
+${bloqueVideos}
+<h2>Placas</h2>
 <div class="grid">
 ${tarjetas}
 </div>

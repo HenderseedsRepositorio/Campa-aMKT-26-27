@@ -47,7 +47,14 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 - **Hashtags:** máximo 8, al final. Mezclar marca + cultivo + zona.
   Base: #Henderseeds #Nidera + cultivo + zona (Henderson/Daireaux/Bolivar).
 
-### B) Pieza visual (descripción precisa)
+### B) Pieza visual (descripción precisa + HTML)
+- Desde W40 la pieza se construye en HTML con el sistema **Siembra 26/27**:
+  `docs/assets/hs2627.css` + `docs/assets/hs-anim.js`. Copiar la estructura de cualquier
+  `docs/placas/2026-W4*.html` (header con logo HD, pie con sello Nidera negativo + WhatsApp) y
+  cargar el texto, hashtags, horario, pauta y fuentes en `<script type="application/json" class="hs-meta">`.
+- Legibilidad en el celular: nada por debajo de 19 px en el canvas de 1080; lectura desde 30 px.
+- Animación (reels/historias 9:16): clases `a-up`, `a-fade`, `a-pop`, `a-growx`… con `--d` (segundos)
+  y `data-dur` en la slide; `npm run videos` la graba a MP4.
 - Describir composición, textos que van EN la pieza, dato destacado,
   foto de referencia, colores exactos de `brand/identidad.md`.
 - Fondo navy oscuro (`#0A0F1B`) por defecto, estilo agro-tech.
@@ -58,6 +65,11 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 ### C) Validación de datos
 - Todo dato numérico (rinde, kg/ha, qq/ha, % éxito) DEBE venir de
   `contexto/productos-26-27.md` con fuente "marbete oficial Nidera".
+- Ante la duda, abrir el PDF del marbete (`contexto/marbetes/`): el 24/09 se encontró la fecha de
+  siembra del girasol mal cargada (era la fila Norte) y un "Spiroplasma 3" que el marbete no dice.
+- Decir "comparaciones", no "ensayos". Traducir "vs. índice ambiental" como "sobre el promedio de
+  cada sitio de ensayo". Escala sanitaria: 1 = excelente, 9 = deficiente, R = resistencia genética.
+- **Nunca usar `brand/referencias/hibridos-nidera.md`** (tiene precios y datos que contradicen los marbetes).
 - Si falta un dato: poner `[COMPLETAR: qué falta]` y listarlo al final.
 - **NUNCA inventar rindes, precios, descuentos ni condiciones comerciales.**
 - **NUNCA publicar % de descuento ni precios.** Hablar de "precampaña" en general.
@@ -122,7 +134,7 @@ Al terminar, dar un resumen con:
 4. **Nunca marketing genérico.** Prohibido: "imperdible", "no te lo pierdas", "calidad premium", "líder", "revolucionario".
 5. **Máximo 8 hashtags.**
 6. **Paleta navy + naranja.** Fondo oscuro por defecto. Naranja para UN acento por pieza.
-7. **CTA siempre a WhatsApp** (wa.me/5492314530691).
+7. **CTA siempre a la conversación privada:** en orgánico "Mandanos un DM" + WhatsApp (wa.me/5492314530691) visible; en pauta, botón "Enviar mensaje de WhatsApp".
 8. **Datos > adjetivos.** "+392 kg/ha en 191 comparaciones" vence a "excelente rendimiento".
 
 ---

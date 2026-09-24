@@ -80,9 +80,11 @@ meta-ads/
    precisa de la pieza visual, hashtags (máx 8), CTA y nota de pauta.
 3. Si un post va con pauta → crear brief en `meta-ads/briefs/AAAA-Www-tema.md`
    según la plantilla.
-4. Carruseles → HTML single-file 1080×1350 en `carruseles/`, una sección por slide,
-   screenshoteable sin scroll. Si la sesión tiene conectado el MCP de Canva,
-   también se puede armar la pieza directo en Canva (avisar en el resumen con el link).
+4. Placas, carruseles e historias → HTML en `docs/placas/AAAA-Www-tema.html` con el sistema
+   visual **Siembra 26/27** (`docs/assets/hs2627.css` + `hs-anim.js`). Cada archivo lleva su texto,
+   hashtags, horario, pauta y fuentes en `<script type="application/json" class="hs-meta">`.
+   `npm run placas` → JPG · `npm run videos` → MP4 de las animadas · `npm run propuesta` → página
+   `docs/propuesta/`. Mínimo legible: nada por debajo de 19 px en el canvas; lectura desde 30 px.
 5. Reels → guion en `reels/` según plantilla.
 6. **Siempre actualizá `calendario.md`** con lo generado (tema + estado).
 
@@ -92,7 +94,8 @@ meta-ads/
 - **NUNCA publicar % de descuento, precios ni condiciones comerciales específicas
   en redes ni en la web.** Hablamos de "precampaña" en general. La venta se cierra
   cara a cara o por WhatsApp. El CTA siempre lleva a la conversación privada.
-- CTA siempre a WhatsApp comercial: wa.me/5492314530691
+- CTA siempre a la conversación privada. En orgánico: primario "Mandanos un DM" + WhatsApp
+  wa.me/5492314530691 visible en la placa y en la bio. En pauta: botón "Enviar mensaje de WhatsApp".
 - Máximo 8 hashtags por post.
 - Prohibido el marketing genérico: "¡imperdible!", "¡no te lo pierdas!", "¡calidad premium!".
 - Paleta y tipografías según `brand/identidad.md`.
@@ -107,6 +110,12 @@ meta-ads/
 - [ ] ¿Pasa el checklist de `brand/tono-voz.md`?
 
 ## Estado del proyecto (mantener al día)
+- ⏸️ Jul–sep 2026 (W29–W39): no se publicó nada. Último posteo: reel de márgenes (26/06).
+- ✅ 24/09/2026: revisión completa + **relanzamiento W40–W46** → `docs/propuesta/index.html`
+  (16 conceptos, 35 placas, 6 animaciones MP4 en `docs/placas/video/`). Posts en `posts/2026-W40…W46/`.
+- ✅ Fecha de siembra del girasol en el oeste corregida según marbete: **15/10 → 15/11, límite 20/11**.
+- ⚠️ El repo es **público** y `brand/referencias/hibridos-nidera.md` tiene precios y datos que
+  contradicen los marbetes: NO usarlo. Pendiente decidir si se borra o si el repo pasa a privado.
 - ✅ Estructura inicial creada (junio 2026, semana W24).
 - ✅ Primer post de lanzamiento de precampaña 26/27 ya publicado por Henderseeds,
   previo a este repo. `[COMPLETAR: link o texto del post para mantener coherencia]`

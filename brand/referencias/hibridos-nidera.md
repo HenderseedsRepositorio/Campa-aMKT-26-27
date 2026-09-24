@@ -1,3 +1,10 @@
+> ⚠️ **NO USAR PARA CONTENIDO — revisado el 24/09/2026.**
+> 1. Tiene **precios y descuentos**: por la regla dura de `CLAUDE.md` nada de esto se publica,
+>    y este repo es **público** (este archivo se ve en internet). Decidir si se borra o si el repo pasa a privado.
+> 2. **Contradice a los marbetes oficiales**: NS 1113 CL figura como "alto oleico" (no lo es; el alto oleico
+>    es NS 1227 CL HO) y madurez, GDU, tipo de grano y posicionamientos no coinciden.
+> La única fuente de producto válida es `contexto/productos-26-27.md` + `contexto/marbetes/`.
+
 # Catálogo Híbridos Nidera — Campaña 26/27
 
 Fuente: Catálogo Nidera + cotizador Henderseeds. Datos técnicos verificados.  

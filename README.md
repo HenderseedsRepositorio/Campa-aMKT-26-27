@@ -10,6 +10,15 @@ precampaña maíz/girasol 26/27: posts, carruseles, reels y pauta de Meta.
 **🌐 Página demo online:** <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/>
 (se publica sola desde `docs/` con cada push, vía GitHub Pages + Actions).
 
+**🌱 Relanzamiento Siembra 26/27 (24/09/2026):** diagnóstico, plan W40–W46 y todas las piezas
+con su texto → `docs/propuesta/index.html` (online en `/propuesta/` cuando se mergea).
+
+| Comando | Qué hace |
+|---------|----------|
+| `npm run placas` | Renderiza cada `docs/placas/*.html` a JPG (feed 4:5 + historia 9:16) en `docs/placas/img/` |
+| `npm run videos` | Graba las placas animadas a MP4 (1080×1920, H.264) en `docs/placas/video/` — necesita `ffmpeg` |
+| `npm run propuesta` | Rearma `docs/propuesta/index.html` desde las placas (`--posts` también escribe los `.md` del plan) |
+
 ## Cómo se usa (desde la web o el celular)
 
 Abrí una sesión de Claude Code sobre este repo y tirá uno de estos prompts:

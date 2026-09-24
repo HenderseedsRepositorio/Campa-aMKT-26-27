@@ -5,7 +5,14 @@
 
 ## Goal activo
 
-**Tener la semana W28 completa (3 posts listos para publicar) antes del 10/07.**
+**Relanzamiento Siembra 26/27: publicar el plan W40–W46 sin cortes** (propuesta del 24/09/2026 en
+`docs/propuesta/index.html`). Criterio de hecho: cada semana con sus 3 posteos de feed programados
+en Meta Business Suite y la fila cargada en `metricas.md` el viernes.
+
+> El goal anterior (W28 completa antes del 10/07) quedó sin cerrar: no se publicó nada entre el
+> 26/06 y el 24/09. Se deja abajo como historial.
+
+### Goal anterior (sin cerrar) — W28
 
 ### Criterios de "hecho"
 - [x] Post 1 — Girasol NS 1113 CL con ensayos CREA (v2, reemplaza al de "CL explicado") → `posts/2026-W28/post-01-girasol-ns1113.md` + placa
@@ -96,6 +103,11 @@ Las piezas se hacen en **HTML single-file**, NO en Canva (Canva no respeta logo 
 **Regla de contacto (Instagram):** el CTA primario es **"Mandanos un DM"** (ícono
 avioncito) — es la acción nativa sin fricción. El **WhatsApp va como info de última**,
 chico y abajo, con el ícono SVG real verde (`#25D366`). Nunca el número grande/protagonista.
+En la **pauta**, el botón del anuncio es "Enviar mensaje de WhatsApp" (unificado con CLAUDE.md).
+
+**Sistema nuevo (desde W40):** las placas se arman con `docs/assets/hs2627.css` y los logos HD
+`logo-hs-blanco-hd.png` / `logo-hs-navy-hd.png` / `logo-nidera-negativo.png` (Nidera con letras
+blancas para fondo navy). Ver cualquier `docs/placas/2026-W4*.html` como ejemplo.
 
 ## Cómo usar esto
 
