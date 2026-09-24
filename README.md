@@ -11,11 +11,12 @@ precampaña maíz/girasol 26/27: posts, carruseles, reels y pauta de Meta.
 (se publica sola desde `docs/` con cada push, vía GitHub Pages + Actions).
 
 **🌱 Relanzamiento Siembra 26/27 (24/09/2026):** diagnóstico, plan W40–W46 y todas las piezas
-con su texto → `docs/propuesta/index.html` (online en `/propuesta/` cuando se mergea).
+con su texto → `docs/propuesta/index.html` (online: <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/propuesta/>).
 
 **🎬 Reels para arrancar (W40–W41):** los 6 reels con MP4, tapa, texto y audio sugerido →
-`docs/reels-siembra/index.html` (`node scripts/armar-reels.mjs`; `--autocontenida archivo.html` arma
-un solo archivo para mandar).
+`docs/reels-siembra/index.html` (online: <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/reels-siembra/>).
+Se rearma con `node scripts/armar-reels.mjs`; `--autocontenida archivo.html` arma un solo archivo para mandar.
+La página se publica sola con cada push a `claude/peaceful-sagan-srghou` o `claude/gallant-hawking-qbdjlf`.
 
 | Comando | Qué hace |
 |---------|----------|
