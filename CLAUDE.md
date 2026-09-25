@@ -70,6 +70,7 @@ reels/
   _plantilla-reel.md       ← guion: hook, escenas, texto en pantalla, audio
 meta-ads/
   _plantilla-brief.md      ← formato de brief de pauta
+  como-promocionar.md      ← cómo promocionar un reel ya publicado (sin republicarlo)
   briefs/                  ← un brief por campaña pautada
 ```
 
