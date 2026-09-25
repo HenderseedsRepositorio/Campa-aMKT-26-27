@@ -95,6 +95,12 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
   - Tapa aparte (`.hs.story.tapa`) con todo dentro del recorte 3:4 de la grilla (y 290–1630).
   - Girasol realista y plantas de maíz: `<!--@girasol flor-->…<!--/@girasol-->`, `campo`, `disco`,
     `<!--@maiz defs-->` y `lote`, rellenados con `python3 scripts/lib/inyectar-girasol.py <pieza>`.
+  - **Marca fija:** `<div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>`
+    justo después de `<div class="topbar"></div>`, DENTRO de la sección R (no de la T): logo chico y
+    discreto arriba a la derecha, visible todo el video (no está dentro de una `.scene`, así no se
+    apaga con las transiciones). Zona segura para reel, historia y Estado de WhatsApp.
+  - Para un dato "fuerte" en una tarjeta: clase `.tarjeta.acento` (borde ámbar arriba) + `.icono-linea`
+    (ícono + texto) con los símbolos `hs-top` (techo/ventaja) o `hs-shield` (sanidad/garantía) si aplican.
   - `npm run videos -- reel-tema` graba el MP4; `node scripts/armar-reels.mjs` rearma `docs/reels-siembra/`.
 - **Nada introductorio:** el productor ya sabe leer un marbete. Nada de "cómo leer…", almanaques
   para guardar ni teasers tipo "mirá este número": dato directo + pedido de contacto.
