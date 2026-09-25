@@ -17,8 +17,10 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 #r13-R .num { display: flex; align-items: baseline; gap: 18px; margin-top: 26px; }
 #r13-R .num b { font: 400 236px/.86 var(--f-arch); letter-spacing: -.055em; color: var(--amber); }
 #r13-R .num small { font: 700 60px/1 var(--f-sans); color: var(--txt); }
-#r13-R .s1 .h1 { font-size: 112px; margin-top: 40px; }
-#r13-R .s2 .h1 { font-size: 96px; }
+#r13-R .s1 .h1 { font-size: 104px; margin-top: 34px; }
+:is(#r13-R, #r13-T) .sub { margin-top: 18px; font: 500 34px/1.25 var(--f-mono); color: var(--txt); letter-spacing: .01em; }
+#r13-R .s2 .h1 { font-size: 110px; }
+#r13-R .s2 .lede { margin-top: 22px; font-size: 38px; color: var(--txt); }
 #r13-R .stats { position: absolute; left: 84px; right: 84px; top: 790px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; z-index: 3; }
 #r13-R .stats .tarjeta { padding: 30px 26px; }
 #r13-R .stats b { display: block; font: 400 96px/.9 var(--f-arch); letter-spacing: -.04em; color: var(--amber); }
@@ -36,7 +38,7 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
 #r13-T .num { display: flex; align-items: baseline; gap: 16px; margin-top: 40px; }
 #r13-T .num b { font: 400 220px/.86 var(--f-arch); letter-spacing: -.055em; color: var(--amber); }
 #r13-T .num small { font: 700 56px/1 var(--f-sans); color: var(--txt); }
-#r13-T .h1 { font-size: 112px; margin-top: 44px; }
+#r13-T .h1 { font-size: 108px; margin-top: 38px; }
 #r13-T .tapa-pie { position: absolute; left: 0; right: 0; bottom: 0; border-top-color: rgba(255,255,255,.22); }
 </style>
 </head>
@@ -60,13 +62,21 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   "fecha": "vie 02/10 · 20–22 h",
   "porque": "El número más fuerte del girasol del portafolio, llevado a la cuenta que hace el productor: hectáreas por quintales. Directo al producto y a la reserva. El disco gigante con las semillas en espiral es imagen de girasol real, no un ícono.",
   "pauta": "Sí, después del reel de la fecha: a quienes vieron más del 50% de ese reel (público personalizado) + 50 km. Objetivo Mensajes (WhatsApp), 7 días.",
-  "caption": "+2,11 qq/ha. ¿Cuánto es en tu campo? 🌻\n\nEs la diferencia de NS 1113 CL sobre el promedio de cada sitio de ensayo en el Sur+Oeste: 225 comparaciones, 74% de éxito, diferencia significativa (marbete Nidera 26/27).\n\nHacé la cuenta: en 100 ha son 211 qq, si se repite el promedio de los ensayos. No es promesa de rinde: el ambiente y el manejo mandan.\n\n📩 Reservá tu NS 1113 CL: escribinos por DM o al WhatsApp 2314 53-0691. Cotización en menos de 24 h.",
+  "caption": "NS 1113 CL: +2,11 qq/ha por encima del promedio de cada ensayo. ¿Cuánto es en tu campo? 🌻\n\nEs la diferencia de rinde contra el promedio de cada sitio de ensayo en la región Sur+Oeste: 225 comparaciones, 74% de éxito, diferencia significativa (marbete Nidera 26/27).\n\nHacé la cuenta: en 100 ha son 211 qq más, si se repite el promedio de los ensayos. No es promesa de rinde: el ambiente y el manejo mandan.\n\n📩 Reservá tu NS 1113 CL: escribinos por DM o al WhatsApp 2314 53-0691. Cotización en menos de 24 h.",
   "hashtags": "#Henderseeds #Nidera #NS1113CL #Girasol2627 #GirasolCL #Henderson #Daireaux #Bolivar",
   "fuentes": "Marbete oficial Nidera 26/27 NS 1113 CL: +2,11 qq/ha** vs. índice ambiental, 74% de éxito, 225 comparaciones, región Sur+Oeste. La cuenta (100 ha × 2,11 qq/ha = 211 qq) es aritmética sobre ese promedio. Cotización en menos de 24 h: contexto/empresa.md.",
   "audio": "Algo que suba de a poco hasta el golpe del número (el contador arranca a los 4 s).",
   "opciones": [
-    { "slide": "r13-R", "nombre": "Reel 9:16 · 14 s", "nota": "El número y la pregunta en el cuadro 0; el disco gigante gira y se acerca; la cuenta con contador y la advertencia honesta." },
-    { "slide": "r13-T", "nombre": "Tapa del reel (grilla 3:4)", "nota": "El número solo ya para el dedo en la grilla." }
+    {
+      "slide": "r13-R",
+      "nombre": "Reel 9:16 · 14 s",
+      "nota": "El número y la pregunta en el cuadro 0; el disco gigante gira y se acerca; la cuenta con contador y la advertencia honesta."
+    },
+    {
+      "slide": "r13-T",
+      "nombre": "Tapa del reel (grilla 3:4)",
+      "nota": "El número solo ya para el dedo en la grilla."
+    }
   ]
 }
 </script>
@@ -985,6 +995,7 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
     <div class="zona sombra-txt">
       <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Girasol NS 1113 CL · Sur+Oeste</div>
       <div class="num a-hook" style="--d:0s"><b>+2,11</b><small>qq/ha</small></div>
+      <p class="sub a-hook" style="--d:0s">por encima del promedio de cada ensayo</p>
       <h1 class="h1 a-hook" style="--d:0s">¿Cuánto es en <span class="hl">tu campo?</span></h1>
     </div>
   </div>
@@ -993,12 +1004,13 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   <div class="scene only-anim s2" style="--in:3.35s;--out:6.75s">
     <div class="zona sombra-txt">
       <div class="kicker a-fade" style="--d:3.4s"><span class="led"></span>Marbete Nidera 26/27</div>
-      <h1 class="h1 a-slam" style="--d:3.55s;margin-top:26px">Sobre el promedio de <span class="hl">cada sitio de ensayo.</span></h1>
+      <h1 class="h1 a-slam" style="--d:3.55s;margin-top:26px">Un dato con <span class="hl">respaldo.</span></h1>
+      <p class="lede a-up" style="--d:3.9s">Diferencia contra el promedio de cada sitio de ensayo, región Sur+Oeste.</p>
     </div>
     <div class="stats">
       <div class="tarjeta a-pop" style="--d:4.15s"><b data-count="225" data-t0="4.15" data-d=".9">225</b><span>comparaciones</span></div>
       <div class="tarjeta a-pop" style="--d:4.65s"><b data-count="74" data-t0="4.65" data-d=".9" data-post="%">74%</b><span>de éxito</span></div>
-      <div class="tarjeta a-pop" style="--d:5.15s"><b>**</b><span>diferencia significativa</span></div>
+      <div class="tarjeta a-pop" style="--d:5.15s"><b>**</b><span>diferencia estadísticamente significativa</span></div>
     </div>
   </div>
 
@@ -1007,7 +1019,7 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
     <div class="zona sombra-txt">
       <div class="kicker a-fade" style="--d:7.25s"><span class="led"></span>Hacé la cuenta</div>
       <p class="cuenta a-up" style="--d:7.4s">100 ha × 2,11 qq/ha</p>
-      <div class="igual a-slam" style="--d:7.9s"><b data-count="211" data-t0="7.9" data-d="1" data-pre="= ">= 211</b><small>qq</small></div>
+      <div class="igual a-slam" style="--d:7.9s"><b data-count="211" data-t0="7.9" data-d="1" data-pre="= ">= 211</b><small>qq más</small></div>
       <p class="lede a-up" style="--d:8.7s">si se repite el promedio de los ensayos.</p>
       <p class="src a-fade" style="--d:9.2s">No es promesa de rinde: el ambiente y el manejo mandan.</p>
     </div>
@@ -1939,6 +1951,7 @@ body { margin: 0; background: #05070d; display: flex; flex-direction: column; al
   <div class="tapa-in sombra-txt">
     <div class="kicker"><span class="led"></span>Reel · Girasol NS 1113 CL</div>
     <div class="num"><b>+2,11</b><small>qq/ha</small></div>
+    <p class="sub">por encima del promedio de cada ensayo</p>
     <h1 class="h1">¿Cuánto es en <span class="hl">tu campo?</span></h1>
     <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
   </div>
