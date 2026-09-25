@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Día de la Madre 2026</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .flor { position: absolute; z-index: 1; }
+.hs .lineas { list-style: none; display: flex; flex-direction: column; gap: 22px; }
+.hs .lineas li { display: flex; align-items: baseline; gap: 22px; font: 500 42px/1.25 var(--f-sans); color: var(--txt); }
+.hs .lineas li::before { content: ''; width: 34px; height: 4px; border-radius: 2px; background: var(--amber); flex-shrink: 0; transform: translateY(-12px); }
+.hs .firma { font: 500 26px/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); }
+.hs .base-min { display: flex; align-items: center; justify-content: space-between; padding-top: 22px; border-top: 1.5px solid var(--line); }
+.hs .base-min .logo-hs { height: 64px; }
+
+#madre-A .flor { width: 880px; right: -300px; top: -160px; opacity: .22; }
+#madre-A .h1 { font-size: 132px; margin-top: 150px; }
+#madre-A .lineas { margin-top: 56px; }
+#madre-A .firma { margin-top: 48px; }
+
+#madre-B .flor { width: 600px; left: 50%; margin-left: -300px; top: 170px; opacity: 1; }
+#madre-B .centro { position: absolute; left: 76px; right: 76px; top: 820px; text-align: center; z-index: 2; }
+#madre-B .h1 { font-size: 112px; }
+#madre-B .sub { font: 500 38px/1.35 var(--f-sans); color: var(--txt-2); margin: 26px auto 0; max-width: 860px; text-wrap: balance; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "dia-de-la-madre",
+  "concepto": "Efeméride · Día de la Madre (dom 18/10)",
+  "pilar": "Institucional / cercanía",
+  "semana": "2026-W42",
+  "fecha": "dom 18/10 · 8–10 h · feed + historia",
+  "porque": "Está marcada como prioridad alta en el calendario de fechas. Es presencia de marca sin venta: el capítulo de girasol funciona como 'flor' y conecta con el cultivo. El texto evita estereotipos (también manejan la sembradora y llevan los números).",
+  "pauta": "No. Sin CTA comercial.",
+  "caption": "A las madres del campo. 🌻\n\nA las que madrugan antes que el sol, a las que llevan los números, a las que manejan la sembradora y a las que siempre tienen el mate listo.\n\nFeliz día. De parte de todo el equipo de HenderSeeds.",
+  "hashtags": "#Henderseeds #DiaDeLaMadre #MujeresRurales #Campo #Henderson #Daireaux #Bolivar",
+  "fuentes": "Efeméride: Día de la Madre en Argentina, tercer domingo de octubre (18/10/2026).",
+  "opciones": [
+    { "slide": "madre-A", "nombre": "A · Navy, texto largo", "nota": "Recomendada: se lee como una carta." },
+    { "slide": "madre-B", "nombre": "B · Crema, capítulo como flor", "nota": "Más visual, menos texto." }
+  ]
+}
+</script>
+
+<section class="slide hs" id="madre-A" data-name="2026-10-18-dia-de-la-madre-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="flor" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>18 de octubre · Día de la Madre</div>
+    </header>
+    <h1 class="h1">A las madres <span class="hl">del campo.</span></h1>
+    <ul class="lineas">
+      <li>Las que madrugan antes que el sol.</li>
+      <li>Las que llevan los números.</li>
+      <li>Las que manejan la sembradora.</li>
+      <li>Las que siempre tienen el mate listo.</li>
+    </ul>
+    <div class="firma">Feliz día · Equipo HenderSeeds</div>
+    <div class="grow"></div>
+    <div class="base-min">
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+      <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide hs light" id="madre-B" data-name="2026-10-18-dia-de-la-madre-B">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="flor" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>18 de octubre</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+  </div>
+  <div class="centro">
+    <h1 class="h1">Feliz día, <span class="hl">mamás del campo.</span></h1>
+    <p class="sub">Las que madrugan, llevan los números, manejan la sembradora y tienen el mate listo.</p>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

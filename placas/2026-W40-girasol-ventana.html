@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Girasol: ventana de siembra en el oeste</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+
+/* ── A · franja de calendario ─────────────────────────────── */
+#girasol-ventana-A .capitulo-bg { position: absolute; width: 760px; right: -330px; top: 150px; opacity: .10; z-index: 1; }
+#girasol-ventana-A .q { font: 500 26px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); margin-top: 58px; }
+#girasol-ventana-A .h1 { margin-top: 22px; font-size: 150px; letter-spacing: -0.045em; line-height: .9; }
+#girasol-ventana-A .h1 .al { display: block; font-size: 64px; letter-spacing: -0.02em; color: var(--txt-3); margin: 10px 0 8px; }
+#girasol-ventana-A .strip { margin-top: 64px; }
+#girasol-ventana-A .chips { margin-top: 40px; }
+#girasol-ventana-A .src { margin-top: 22px; }
+
+.hs .cal text { font-family: var(--f-mono); }
+.hs .cal .mes { font-size: 24px; letter-spacing: .14em; fill: var(--txt-3); }
+.hs .cal .tick { font-size: 22px; fill: var(--txt-3); }
+.hs .cal .tick.on { fill: var(--txt); font-weight: 500; font-size: 26px; }
+.hs .cal .in { font-size: 24px; letter-spacing: .12em; fill: #0A0F1B; font-weight: 500; }
+.hs .cal .lim { font-size: 22px; letter-spacing: .08em; fill: var(--amber); }
+.hs .cal .track { fill: rgba(255,255,255,.06); }
+.hs.light .cal .track { fill: rgba(13,45,94,.08); }
+.hs .cal .rule { stroke: var(--line-2); stroke-width: 1.5; }
+
+/* ── B · almanaque (variante clara) ───────────────────────── */
+
+/* ── R · reel 9:16 ────────────────────────────────────────── */
+/* tapa */
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+  <pattern id="hs-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="rgba(245,166,35,.16)"/><rect width="5" height="12" fill="#F5A623"/></pattern>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "girasol-ventana",
+  "concepto": "Girasol · ventana óptima de siembra",
+  "pilar": "Precampaña girasol → Técnica",
+  "semana": "2026-W40",
+  "fecha": "lun 28/09 · 7–9 h",
+  "porque": "Es la pieza más útil y oportuna para volver: faltan ~3 semanas para que abra la ventana óptima del girasol en el oeste (15/10) y el dato viene directo del marbete. Se guarda y se comparte.",
+  "pauta": "No: la pauta de la fecha del girasol va en el reel nuevo (2026-W40-reel-girasol-fecha.html). Esta placa queda como alternativa estática.",
+  "caption": "¿Cuándo va el girasol en el oeste? 🌻\n\nSegún el marbete Nidera, la fecha óptima de siembra para el Oeste de Buenos Aires va del 15 de octubre al 15 de noviembre. Fecha límite: 20 de noviembre.\n\nVale para los tres Clearfield que posicionamos en la zona: NS 1113, NS 1115 y NS 1117.\n\nFaltan pocas semanas. Si todavía no definiste cuál va en cada lote, es el momento: mandanos un DM con tu zona y lo vemos.\n\n📲 WhatsApp: wa.me/5492314530691",
+  "hashtags": "#Henderseeds #Nidera #Girasol2627 #Girasol #Henderson #Daireaux #Bolivar #OesteBonaerense",
+  "fuentes": "Marbetes oficiales Nidera 26/27 de NS 1113 CL, NS 1115 CL y NS 1117 CL · tabla Fechas de siembra, fila Oeste de Buenos Aires: óptima 15/10 → 15/11, límite 20/11.",
+  "opciones": [
+    {
+      "slide": "girasol-ventana-A",
+      "nombre": "A · Franja de calendario (navy)",
+      "nota": "La recomendada para feed. Dato enorme, se lee en 1 segundo."
+    }
+  ]
+}
+</script>
+
+<!-- ═════════ A · FEED 4:5 · franja de calendario ═════════ -->
+<section class="slide hs" id="girasol-ventana-A" data-name="2026-W40-girasol-ventana-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <img class="capitulo-bg" src="../assets/girasol-capitulo.svg" alt="">
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Siembra 26/27 · Girasol</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+
+    <div class="q">Fecha óptima · Oeste de Buenos Aires</div>
+    <h1 class="h1">15/10 <span class="al">al</span><span class="hl">15/11</span></h1>
+
+    <svg class="cal strip" viewBox="0 0 928 170" width="928" height="170" role="img" aria-label="Octubre y noviembre: ventana óptima del 15/10 al 15/11, límite 20/11">
+      <!-- 61 días: 1/10 = x0, 15.21 px por día -->
+      <text class="mes" x="0" y="22">OCTUBRE</text>
+      <text class="mes" x="473" y="22">NOVIEMBRE</text>
+      <rect class="track" x="0" y="40" width="469" height="72" rx="10"/>
+      <rect class="track" x="473" y="40" width="455" height="72" rx="10"/>
+      <rect x="212" y="40" width="257" height="72" fill="#F5A623"/>
+      <rect x="473" y="40" width="212" height="72" fill="#F5A623"/>
+      <rect x="685" y="40" width="76" height="72" fill="url(#hs-hatch)"/>
+      <text class="in" x="232" y="85">FECHA ÓPTIMA</text>
+      <line class="rule" x1="761" y1="30" x2="761" y2="122"/>
+      <text class="tick on" x="212" y="152" text-anchor="middle">15/10</text>
+      <text class="tick" x="61" y="152" text-anchor="middle">5</text>
+      <text class="tick" x="137" y="152" text-anchor="middle">10</text>
+      <text class="tick" x="288" y="152" text-anchor="middle">20</text>
+      <text class="tick" x="363" y="152" text-anchor="middle">25</text>
+      <text class="tick" x="534" y="152" text-anchor="middle">5</text>
+      <text class="tick" x="610" y="152" text-anchor="middle">10</text>
+      <text class="tick on" x="685" y="152" text-anchor="middle">15/11</text>
+      <text class="lim" x="761" y="22" text-anchor="middle">LÍMITE 20/11</text>
+      <text class="tick" x="837" y="152" text-anchor="middle">25</text>
+    </svg>
+
+    <div class="chips">
+      <span class="chip">NS 1113 <b>CL</b></span>
+      <span class="chip">NS 1115 <b>CL</b></span>
+      <span class="chip">NS 1117 <b>CL</b></span>
+    </div>
+    <p class="src">Fuente: marbetes oficiales Nidera 26/27 · región Oeste de Buenos Aires.</p>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Cuál va en tu lote? Mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+
+
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

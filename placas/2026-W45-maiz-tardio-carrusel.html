@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Carrusel maíz tardío: cuál va en tu lote</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .pager { font: 500 24px/1 var(--f-mono); letter-spacing: .14em; color: var(--txt-3); }
+.hs .pager b { color: var(--amber); font-weight: 500; }
+.hs .swipe { display: flex; align-items: center; gap: 14px; font: 500 26px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.hs .swipe svg { width: 44px; height: 20px; }
+.hs .foot-min { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1.5px solid var(--line); }
+.hs .problema { font: 500 26px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); margin-top: 44px; }
+.hs .problema b { color: var(--amber); font-weight: 500; }
+.hs .gigante { font-family: var(--f-arch); letter-spacing: -.045em; line-height: .9; color: var(--amber); }
+.hs .kv2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.hs .kv2 div { padding: 22px 22px; border-radius: 18px; background: var(--panel); border: 1.5px solid var(--line); }
+.hs .kv2 b { display: block; font-family: var(--f-arch); font-weight: 400; font-size: 56px; letter-spacing: -.03em; color: var(--txt); line-height: 1; }
+.hs .kv2 span { display: block; font: 500 22px/1.3 var(--f-mono); color: var(--txt-3); margin-top: 10px; }
+.hs .ojo { display: flex; gap: 16px; align-items: flex-start; padding: 22px 26px; border-radius: 18px; border: 1.5px dashed rgba(245,166,35,.6); font: 500 30px/1.35 var(--f-sans); color: var(--txt-2); }
+.hs .ojo b { color: var(--txt); }
+.hs .ojo i { font-style: normal; font: 500 22px/1.6 var(--f-mono); letter-spacing: .12em; color: var(--amber); flex-shrink: 0; }
+
+/* 1 · portada */
+#tc-1 .h1 { font-size: 108px; margin-top: 50px; }
+#tc-1 .lista { list-style: none; margin-top: 50px; display: flex; flex-direction: column; }
+#tc-1 .lista li { display: grid; grid-template-columns: 330px 1fr; gap: 20px; align-items: baseline; padding: 20px 0; border-top: 1.5px solid var(--line); }
+#tc-1 .lista li:last-child { border-bottom: 1.5px solid var(--line); }
+#tc-1 .lista b { font: 500 32px/1 var(--f-mono); color: var(--txt); }
+#tc-1 .lista span { font: 600 32px/1.2 var(--f-sans); color: var(--txt-2); }
+
+/* 2 · techo */
+#tc-2 .h1 { font-size: 120px; margin-top: 18px; }
+#tc-2 .gigante { font-size: 250px; margin-top: 34px; }
+#tc-2 .u { font: 700 42px/1.2 var(--f-sans); color: var(--txt); margin-top: 12px; }
+#tc-2 .u small { display: block; font: 500 25px/1.3 var(--f-mono); color: var(--txt-3); margin-top: 6px; }
+#tc-2 .kv2 { margin-top: 36px; }
+
+/* 3 · chicharrita */
+#tc-3 .h1 { font-size: 120px; margin-top: 18px; }
+#tc-3 .fila { display: flex; align-items: flex-end; gap: 30px; margin-top: 30px; }
+#tc-3 .gigante { font-size: 330px; }
+#tc-3 .fila p { font: 500 30px/1.35 var(--f-sans); color: var(--txt-2); padding-bottom: 30px; }
+#tc-3 .fila p b { color: var(--txt); }
+#tc-3 .kv2 { margin-top: 26px; }
+#tc-3 .ojo { margin-top: 26px; }
+
+/* 4 · malezas */
+#tc-4 .h1 { font-size: 92px; margin-top: 18px; }
+#tc-4 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+#tc-4 .col { padding: 28px 28px 30px; border-radius: 22px; background: var(--panel); border: 1.5px solid var(--line-2); }
+#tc-4 .col h3 { font: 500 30px/1.1 var(--f-mono); color: var(--txt); }
+#tc-4 .col h3 b { color: var(--amber); font-weight: 500; }
+#tc-4 .col .tag { font: 500 22px/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--txt-3); margin-top: 10px; }
+#tc-4 .col .num { font-size: 110px; color: var(--txt); margin-top: 22px; }
+#tc-4 .col .m { font: 500 23px/1.4 var(--f-mono); color: var(--txt-3); margin-top: 8px; }
+#tc-4 .tools { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+#tc-4 .body { margin-top: 26px; }
+
+/* 5 · tabla */
+#tc-5 .h1 { font-size: 84px; margin-top: 30px; }
+#tc-5 table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+#tc-5 th { font: 500 23px/1.15 var(--f-mono); color: var(--txt); text-align: right; padding: 0 0 16px; }
+#tc-5 th:first-child { text-align: left; color: var(--txt-3); font-size: 19px; letter-spacing: .12em; text-transform: uppercase; }
+#tc-5 td { font: 500 28px/1 var(--f-mono); color: var(--txt-2); text-align: right; padding: 14px 0; border-top: 1.5px solid var(--line); }
+#tc-5 td:first-child { text-align: left; font: 500 25px/1.2 var(--f-sans); }
+#tc-5 td.best { color: var(--amber); }
+#tc-5 .esc { margin-top: 14px; }
+#tc-5 .ref { margin-top: 18px; font: 600 28px/1.35 var(--f-sans); color: var(--txt); }
+#tc-5 .ref span { font: 500 20px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: #0A0F1B; background: var(--amber); padding: 8px 12px; border-radius: 8px; margin-right: 12px; vertical-align: 4px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+  <symbol id="hs-arrow" viewBox="0 0 48 24"><path d="M2 12h40M32 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "maiz-tardio-carrusel",
+  "concepto": "Maíz tardío · ¿cuál va en tu lote? (carrusel)",
+  "pilar": "Precampaña maíz",
+  "semana": "2026-W45",
+  "fecha": "lun 02/11 · 20–22 h",
+  "porque": "Es la decisión comercial más grande de noviembre y hasta ahora solo tenía placas sueltas. Igual que el carrusel de girasol, ordena la elección por el problema del lote (techo, chicharrita, malezas) y dice las debilidades en voz alta (el 7925 tiene vuelco 5): eso es lo que genera confianza. La tabla final es para guardar.",
+  "pauta": "Opcional: si el reel del ranking dio buen costo por conversación, pautar este carrusel a quienes vieron el reel (retargeting tibio).",
+  "caption": "Maíz tardío 26/27: ¿cuál va en tu lote? 🌽\n\nNo hay un maíz mejor. Hay uno mejor para cada problema del lote:\n\n→ Si buscás el techo en tardía: NS 7765 VIPTERA3 (+324 kg/ha sobre el promedio de cada sitio, 71% de éxito).\n→ Si te preocupa la chicharrita: NS 7925 VIPTERA3, Spiroplasma 3, el mejor del portafolio. Ojo: vuelco 5.\n→ Si el lote viene sucio: NS 7624 CL (ciclo corto) o NS 7921 CL, con tres herramientas herbicidas.\n\nDeslizá hasta la tabla y guardala. Datos de siembra tardía templada, marbetes Nidera 26/27.\n\n📩 Mandanos un DM con tu lote y lo vemos juntos.",
+  "hashtags": "#Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #Henderson #Daireaux #Bolivar",
+  "fuentes": "Marbetes oficiales Nidera 26/27, siembra tardía templada: NS 7765 +324** (71%, 165 comp.; Quebrado 1, Vuelco 3, Spiroplasma 5), NS 7925 +228** (59%, 120; Spiroplasma 3, Vuelco 5, Quebrado 2), NS 7852 +194** (62%, 120; Quebrado 4, Vuelco 3, Spiroplasma 5), NS 7921 CL +179** (60%, 364; Quebrado 2, Vuelco 4, Spiroplasma 6), NS 7624 CL +163** (60%, 222; Quebrado 2, Vuelco 3, Spiroplasma 5; MR 117, GDU 767). Refugio: NS 7800 CLTG.",
+  "opciones": [
+    { "slide": "tc-1", "nombre": "Slide 1 · Portada", "nota": "" },
+    { "slide": "tc-2", "nombre": "Slide 2 · Techo: NS 7765", "nota": "" },
+    { "slide": "tc-3", "nombre": "Slide 3 · Chicharrita: NS 7925", "nota": "Dice la debilidad (vuelco 5) a propósito." },
+    { "slide": "tc-4", "nombre": "Slide 4 · Malezas: 7624 CL o 7921 CL", "nota": "" },
+    { "slide": "tc-5", "nombre": "Slide 5 · Tabla para guardar", "nota": "" }
+  ]
+}
+</script>
+
+<!-- 1 · PORTADA -->
+<section class="slide hs" id="tc-1" data-name="2026-W45-maiz-tardio-carrusel-01">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Maíz tardío: <span class="hl">¿cuál va en tu lote?</span></h1>
+    <ul class="lista">
+      <li><b>NS 7765</b><span>Techo en tardía</span></li>
+      <li><b>NS 7925</b><span>Chicharrita (Spiroplasma)</span></li>
+      <li><b>NS 7624 CL</b><span>Malezas + ciclo corto</span></li>
+      <li><b>NS 7921 CL</b><span>Malezas + más datos</span></li>
+    </ul>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>01</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · TECHO -->
+<section class="slide hs" id="tc-2" data-name="2026-W45-maiz-tardio-carrusel-02">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Si buscás el techo</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <div class="problema">Tardía templada · <b>el que más rinde</b></div>
+    <h1 class="h1">NS 7765</h1>
+    <div class="gigante">+324</div>
+    <div class="u">kg/ha<small>sobre el promedio de cada sitio de ensayo</small></div>
+    <div class="kv2">
+      <div><b>71%</b><span>de éxito</span></div>
+      <div><b>165</b><span>comparaciones</span></div>
+      <div><b>1</b><span>quebrado (excelente)</span></div>
+    </div>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>02</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CHICHARRITA -->
+<section class="slide hs" id="tc-3" data-name="2026-W45-maiz-tardio-carrusel-03">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Si te preocupa la chicharrita</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <div class="problema">Lanzamiento 26/27 · <b>Spiroplasma</b></div>
+    <h1 class="h1">NS 7925</h1>
+    <div class="fila"><span class="gigante">3</span><p>Spiroplasma en la escala del marbete: <b>el mejor del portafolio</b> (el resto, de 4 a 6).</p></div>
+    <div class="kv2">
+      <div><b>+228</b><span>kg/ha tardía</span></div>
+      <div><b>59%</b><span>de éxito</span></div>
+      <div><b>120</b><span>comparaciones</span></div>
+    </div>
+    <div class="ojo"><i>Ojo</i><span>Vuelco <b>5</b>: en lotes con viento, conversémoslo antes.</span></div>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>03</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · MALEZAS -->
+<section class="slide hs" id="tc-4" data-name="2026-W45-maiz-tardio-carrusel-04">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Si el lote viene sucio</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Los dos <span class="hl">Clearfield.</span></h1>
+    <div class="cols">
+      <div class="col"><h3>NS 7624 <b>CL</b></h3><div class="tag">Ciclo corto · MR 117</div><div class="num">+163</div><div class="m">kg/ha tardía<br>60% éxito · 222 comp.</div></div>
+      <div class="col"><h3>NS 7921 <b>CL</b></h3><div class="tag">MR 118 · también temprana</div><div class="num">+179</div><div class="m">kg/ha tardía<br>60% éxito · 364 comp.</div></div>
+    </div>
+    <div class="tools"><span class="chip">Glifosato</span><span class="chip">Glufosinato</span><span class="chip">Imidazolinonas</span><span class="chip">Lepidópteros <b>VIPTERA3</b></span></div>
+    <p class="body">Los dos traen tres herramientas para malezas. El 7624 sale antes; el 7921 suma más comparaciones.</p>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>04</b> / 05</span>
+      <span class="src">Solo herbicidas identificados como CLEARFIELD® (marca de BASF)</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · TABLA + CTA -->
+<section class="slide hs" id="tc-5" data-name="2026-W45-maiz-tardio-carrusel-05">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>La tabla para guardar</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Tardío, <span class="hl">frente a frente.</span></h1>
+    <table>
+      <thead><tr><th>Tardía templada</th><th>7765</th><th>7925</th><th>7852</th><th>7921 CL</th><th>7624 CL</th></tr></thead>
+      <tbody>
+        <tr><td>kg/ha vs. promedio</td><td class="best">+324</td><td>+228</td><td>+194</td><td>+179</td><td>+163</td></tr>
+        <tr><td>Éxito</td><td class="best">71%</td><td>59%</td><td>62%</td><td>60%</td><td>60%</td></tr>
+        <tr><td>Comparaciones</td><td>165</td><td>120</td><td>120</td><td class="best">364</td><td>222</td></tr>
+        <tr><td>Spiroplasma</td><td>5</td><td class="best">3</td><td>5</td><td>6</td><td>5</td></tr>
+        <tr><td>Quebrado</td><td class="best">1</td><td>2</td><td>4</td><td>2</td><td>2</td></tr>
+        <tr><td>Vuelco</td><td class="best">3</td><td>5</td><td class="best">3</td><td>4</td><td class="best">3</td></tr>
+      </tbody>
+    </table>
+    <p class="src esc">Escala Nidera: 1 excelente · 9 deficiente. Todas las diferencias de rinde, significativas (**).</p>
+    <p class="ref"><span>Refugio</span>NS 7800 CLTG, el 10% del lote.</p>
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Mandanos un DM con tu lote tardío.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Marbetes Nidera 26/27</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

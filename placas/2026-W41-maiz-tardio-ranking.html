@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Maíz tardío: ranking del marbete</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .tag { font: 500 18px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); border: 1.5px solid rgba(245,166,35,.5); border-radius: 6px; padding: 6px 9px; margin-left: 12px; vertical-align: 4px; }
+
+#tardio-A .h1 { font-size: 84px; margin-top: 40px; }
+#tardio-A .lede { margin-top: 18px; font-size: 32px; }
+#tardio-A .bars-wrap { margin-top: 36px; }
+#tardio-A .bars { gap: 16px; }
+#tardio-A .src { margin-top: 16px; margin-bottom: 26px; }
+
+#tardio-R .hook { position: absolute; left: 84px; right: 84px; top: 330px; }
+#tardio-R .hook .h1 { font-size: 132px; }
+#tardio-R .hook .lede { margin-top: 30px; font-size: 40px; }
+#tardio-R .hook .mazo { position: absolute; left: 0; right: 0; top: 760px; display: flex; gap: 22px; align-items: flex-end; height: 420px; }
+#tardio-R .hook .mazo i { flex: 1; background: var(--mute-bar); border-radius: 12px 12px 0 0; }
+#tardio-R .s2 > .inner { position: absolute; left: 84px; right: 84px; top: 200px; }
+#tardio-R .s2 .h1 { font-size: 86px; }
+#tardio-R .s2 .lede { font-size: 32px; margin-top: 14px; }
+#tardio-R .bars-wrap { margin-top: 50px; }
+#tardio-R .bars { gap: 26px; }
+#tardio-R .bar-name { font-size: 32px; }
+#tardio-R .bar-fill { height: 34px; }
+#tardio-R .bar-val { font-size: 50px; }
+#tardio-R .s2 .src { margin-top: 12px; font-size: 21px; }
+/* tapa */
+#tardio-T .mazo { display: flex; gap: 22px; align-items: flex-end; height: 330px; }
+#tardio-T .mazo div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 12px; height: 100%; }
+#tardio-T .mazo i { width: 100%; background: var(--mute-bar); border-radius: 12px 12px 0 0; }
+#tardio-T .mazo div:first-child i { background: var(--amber); }
+#tardio-T .mazo span { font: 500 24px/1 var(--f-mono); color: var(--txt-2); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "maiz-tardio-ranking",
+  "concepto": "Maíz tardío · el ranking del marbete",
+  "pilar": "Precampaña maíz",
+  "semana": "2026-W41",
+  "fecha": "jue 08/10 · 12–14 h (placa) · reel dom 11/10 · 20–22 h",
+  "porque": "En el oeste el tardío pesa mucho y la decisión de híbrido se toma en octubre–noviembre para sembrar en diciembre. Es la comparación que el productor quiere ver y nadie le arma: 5 híbridos, un mismo criterio, dato oficial. Se muestran solo los que tienen diferencia significativa en tardía (honestidad técnica).",
+  "pauta": "Sí: el REEL es la mejor pieza para pautar del lote. 7 días, objetivo Mensajes (WhatsApp), zona 50 km, tope 1 c/3 días. Arrancar con presupuesto de prueba y escalar solo si el costo por mensaje cierra.",
+  "caption": "¿Qué maíz sembrás en diciembre? 🌽\n\nJuntamos los datos de siembra tardía templada de los marbetes Nidera 26/27. Es la diferencia de rinde contra el promedio de cada sitio de ensayo:\n\nNS 7765 VIPTERA3 · +324 kg/ha (71% de éxito)\nNS 7925 VIPTERA3 · +228 kg/ha (lanzamiento)\nNS 7852 VIPTERA3 · +194 kg/ha (lanzamiento)\nNS 7921 VIPTERA3 CL · +179 kg/ha\nNS 7624 VIPTERA3 CL · +163 kg/ha\n\nTodas diferencias significativas. No es promesa de rinde: el ambiente y el manejo mandan. Por eso el híbrido se elige lote por lote.\n\n📩 Mandanos un DM con tu lote tardío y lo vemos.",
+  "hashtags": "#Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #Henderson #Daireaux #Bolivar",
+  "fuentes": "Marbetes oficiales Nidera 26/27, bloque Siembra tardía templada: NS 7765 +324** (71%, 165 comp.), NS 7925 +228** (59%, 120), NS 7852 +194** (62%, 120), NS 7921 CL +179** (60%, 364), NS 7624 CL +163** (60%, 222). Quedan afuera por no tener diferencia significativa en tardía: NS 7818 (−39 DNS), AX 7761 (−49 DNS) y NS 7621 (−102*).",
+  "opciones": [
+    {
+      "slide": "tardio-A",
+      "nombre": "Placa feed 4:5",
+      "nota": "Ranking con una sola barra destacada (la historia es el 7765)."
+    },
+    {
+      "slide": "tardio-R",
+      "nombre": "Reel animado 9:16 · 12 s",
+      "nota": "Las barras crecen de a una con contador. Es la pieza para pautar."
+    },
+    {
+      "slide": "tardio-T",
+      "nombre": "Tapa del reel (grilla 3:4)",
+      "nota": "Las barras son proporcionales al dato de tardía de cada marbete."
+    }
+  ]
+}
+</script>
+
+<!-- ═════════ A · FEED 4:5 ═════════ -->
+<section class="slide hs" id="tardio-A" data-name="2026-W41-maiz-tardio-ranking-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Maíz tardío: <span class="hl">lo que dicen los marbetes.</span></h1>
+    <p class="lede">Kilos por hectárea arriba del promedio de cada sitio de ensayo · siembra tardía templada.</p>
+
+    <div class="bars-wrap">
+      <div class="bars">
+        <div class="bar-row is-hero">
+          <div class="bar-top"><span class="bar-name">NS 7765 VIPTERA3</span><span class="bar-meta">71% éxito · 165 comp.</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--w:620px"></div><span class="bar-val">+324<small>kg/ha</small></span></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-top"><span class="bar-name">NS 7925 VIPTERA3<span class="tag">Nuevo</span></span><span class="bar-meta">59% · 120 comp.</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--w:436px"></div><span class="bar-val">+228</span></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-top"><span class="bar-name">NS 7852 VIPTERA3<span class="tag">Nuevo</span></span><span class="bar-meta">62% · 120 comp.</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--w:371px"></div><span class="bar-val">+194</span></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-top"><span class="bar-name">NS 7921 VIPTERA3 CL</span><span class="bar-meta">60% · 364 comp.</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--w:343px"></div><span class="bar-val">+179</span></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-top"><span class="bar-name">NS 7624 VIPTERA3 CL</span><span class="bar-meta">60% · 222 comp.</span></div>
+          <div class="bar-track"><div class="bar-fill" style="--w:312px"></div><span class="bar-val">+163</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="src">Todas con diferencia significativa (**). Marbetes oficiales Nidera 26/27. No es promesa de rinde: manda el ambiente y el manejo.</p>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Cuál va en tu lote tardío? Mandanos un DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ═════════ R · REEL 9:16 (12 s) ═════════ -->
+<section class="slide hs story anim" id="tardio-R" data-name="2026-W41-maiz-tardio-ranking-reel" data-dur="12" data-hold="2.5">
+  <div class="bg"></div><div class="topbar"></div>
+
+  <div class="scene only-anim" style="--in:-1s;--out:2.9s">
+    <div class="hook">
+      <div class="kicker a-hook" style="--d:0s"><span class="led"></span>Siembra 26/27 · Maíz tardío</div>
+      <h1 class="h1 a-hook" style="--d:0s;margin-top:34px">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
+      <p class="lede a-up" style="--d:.5s">Lo que dicen 5 marbetes Nidera, con el mismo criterio.</p>
+      <div class="mazo">
+        <i class="a-growy" style="--d:1.2s;height:92%"></i><i class="a-growy" style="--d:1.3s;height:66%"></i><i class="a-growy" style="--d:1.4s;height:58%"></i><i class="a-growy" style="--d:1.5s;height:54%"></i><i class="a-growy" style="--d:1.6s;height:50%"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene s2" style="--in:2.9s">
+    <div class="inner">
+      <div class="kicker a-fade" style="--d:3.0s"><span class="led"></span>Siembra tardía templada</div>
+      <h1 class="h1 a-up" style="--d:3.1s;margin-top:26px">Kilos arriba <span class="hl">del promedio.</span></h1>
+      <p class="lede a-fade" style="--d:3.4s">Diferencia contra el promedio de cada sitio de ensayo.</p>
+      <div class="bars-wrap">
+        <div class="bars">
+          <div class="bar-row is-hero a-fade" style="--d:3.7s">
+            <div class="bar-top"><span class="bar-name">NS 7765</span><span class="bar-meta">71% éxito</span></div>
+            <div class="bar-track"><div class="bar-fill a-growx" style="--w:600px;--d:3.8s"></div><span class="bar-val" data-count="324" data-t0="3.8" data-d="1.1" data-pre="+">+324</span></div>
+          </div>
+          <div class="bar-row a-fade" style="--d:4.3s">
+            <div class="bar-top"><span class="bar-name">NS 7925<span class="tag">Nuevo</span></span><span class="bar-meta">59% éxito</span></div>
+            <div class="bar-track"><div class="bar-fill a-growx" style="--w:422px;--d:4.4s"></div><span class="bar-val" data-count="228" data-t0="4.4" data-d="1.1" data-pre="+">+228</span></div>
+          </div>
+          <div class="bar-row a-fade" style="--d:4.9s">
+            <div class="bar-top"><span class="bar-name">NS 7852<span class="tag">Nuevo</span></span><span class="bar-meta">62% éxito</span></div>
+            <div class="bar-track"><div class="bar-fill a-growx" style="--w:359px;--d:5.0s"></div><span class="bar-val" data-count="194" data-t0="5.0" data-d="1.1" data-pre="+">+194</span></div>
+          </div>
+          <div class="bar-row a-fade" style="--d:5.5s">
+            <div class="bar-top"><span class="bar-name">NS 7921 CL</span><span class="bar-meta">60% éxito</span></div>
+            <div class="bar-track"><div class="bar-fill a-growx" style="--w:331px;--d:5.6s"></div><span class="bar-val" data-count="179" data-t0="5.6" data-d="1.1" data-pre="+">+179</span></div>
+          </div>
+          <div class="bar-row a-fade" style="--d:6.1s">
+            <div class="bar-top"><span class="bar-name">NS 7624 CL</span><span class="bar-meta">60% éxito</span></div>
+            <div class="bar-track"><div class="bar-fill a-growx" style="--w:302px;--d:6.2s"></div><span class="bar-val" data-count="163" data-t0="6.2" data-d="1.1" data-pre="+">+163</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="src a-fade" style="--d:7.2s">kg/ha · todas significativas (**) · marbetes Nidera 26/27</p>
+    </div>
+
+    <div class="end-wrap" style="top:1210px">
+      <div class="endcard a-up" style="--d:8.6s">
+        <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+        <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Cuál va en tu lote tardío? Mandanos un DM.</span></div>
+        <div class="base">
+          <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+          <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ T · TAPA DEL REEL (grilla 3:4) ═════════ -->
+<section class="slide hs story tapa" id="tardio-T" data-name="2026-W41-maiz-tardio-ranking-reel-tapa">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="tapa-in">
+    <div class="kicker"><span class="led"></span>Reel · Maíz tardío</div>
+    <h1 class="h1">¿Qué maíz sembrás en <span class="hl">diciembre?</span></h1>
+    <div class="mazo">
+      <div><i style="height:100%"></i><span>7765</span></div><div><i style="height:70%"></i><span>7925</span></div><div><i style="height:60%"></i><span>7852</span></div><div><i style="height:55%"></i><span>7921</span></div><div><i style="height:50%"></i><span>7624</span></div>
+    </div>
+    <div class="tapa-pie"><img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"><span class="play-chip"><i></i>Ver reel</span></div>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>
