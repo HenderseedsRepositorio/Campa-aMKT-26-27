@@ -405,9 +405,13 @@ body.pp.con-barra { padding-bottom: 76px; }
 #rph-R .hib .dato b { font: 400 190px/.9 var(--f-arch); letter-spacing: -.05em; color: var(--amber); }
 #rph-R .hib .dato small { font: 700 44px/1 var(--f-sans); color: var(--txt-2); }
 #rph-R .hib .meta { margin-top: 22px; font: 500 25px/1.35 var(--f-mono); color: var(--txt-2); letter-spacing: .02em; }
+#rph-R .hib .icono-linea { margin-bottom: 20px; }
+#rph-R .hib .icono-linea .label { color: var(--amber); }
 #rph-R .par { position: absolute; left: 84px; right: 140px; top: 720px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; z-index: 3; }
 #rph-R .par .tarjeta { padding: 30px 32px; }
 #rph-R .par .nombre { font: 400 46px/1 var(--f-arch); letter-spacing: -.02em; }
+#rph-R .par .icono-linea { gap: 14px; }
+#rph-R .par .icono-linea svg { width: 38px; height: 38px; }
 #rph-R .par .k { margin-top: 22px; font: 500 24px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); }
 #rph-R .par .v { font: 400 170px/.9 var(--f-arch); color: var(--amber); letter-spacing: -.04em; margin-top: 8px; }
 #rph-R .par .esc { display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; margin-top: 18px; }
@@ -417,7 +421,9 @@ body.pp.con-barra { padding-bottom: 76px; }
 #rph-R .nota { position: absolute; left: 84px; right: 140px; top: 1150px; font: 500 26px/1.4 var(--f-mono); color: var(--txt); z-index: 3; }
 #rph-R .nota b { color: var(--amber); font-weight: 500; }
 #rph-R .resumen .fila + .fila { margin-top: 34px; }
-#rph-R .resumen .h2 { font-size: 72px; margin-top: 14px; }
+#rph-R .resumen .h2 { font-size: 72px; }
+#rph-R .resumen .icono-linea { gap: 24px; margin-top: 12px; align-items: flex-start; }
+#rph-R .resumen .icono-linea svg { width: 64px; height: 64px; margin-top: 6px; }
 #rph-R .end-wrap { top: 700px; }
 
 /* tapa */
@@ -485,6 +491,8 @@ body.pp.con-barra { padding-bottom: 76px; }
 
 
 #rcal-T .app-col .v .q { font-size: 110px; }
+:is(#rcal-R, #rcal-T) .app { border-top: 3px solid var(--amber); box-shadow: 0 30px 80px rgba(0,0,0,.45), 0 0 40px rgba(245,166,35,.12); }
+:is(#rcal-R, #rcal-T) .app-top .dots i:first-child { background: var(--amber); }
 #rcal-R .appw { position: absolute; left: 84px; right: 84px; top: 800px; z-index: 2; }
 #rcal-R .app-col .v .q { font-size: 112px; }
 :is(#rcal-R, #rcal-T) .app-col .v .q { position: relative; display: inline-flex; min-width: 2.2em; }
@@ -994,6 +1002,8 @@ body.pp.con-barra { padding-bottom: 76px; }
 <body class="pp">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+<symbol id="hs-top" viewBox="0 0 24 24"><path d="M3 5h18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 20V9M7 13l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="hs-shield" viewBox="0 0 24 24"><path d="M12 3l7 3.2v5.3c0 4.9-3 8.3-7 9.5-4-1.2-7-4.6-7-9.5V6.2L12 3z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M8.6 12.4l2.3 2.3 4.4-4.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="hs-arrow" viewBox="0 0 48 24"><path d="M2 12h40M32 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <pattern id="hs-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="rgba(245,166,35,.16)"/><rect width="5" height="12" fill="#F5A623"/></pattern></svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1833,7 +1843,7 @@ body.pp.con-barra { padding-bottom: 76px; }
 <!--/@girasol--></svg>
   </div>
   <div class="topbar"></div>
-
+  <div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>
   <svg class="gs-heroe" viewBox="-470 -470 940 1340" aria-hidden="true"><!--@girasol flor --t0 0.05 --t1 0.3 --tsem 1.4-->
 <g class="gs-mece" style="transform-origin:0px 840px">
 <circle class="gs-glow" r="540" fill="url(#gs-glow)"/>
@@ -4080,7 +4090,7 @@ La siembra arranca el 15/10. La semilla se asegura antes.
     <div class="pp-ops"><figure class="pp-op is-story">
         <div class="pv"><section class="slide hs story anim" id="rwa-R" data-name="2026-W40-reel-whatsapp-lote" data-dur="12.45" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
-
+  <div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>
   <div class="only-anim a-out" style="--d:7s">
     <div class="chat">
       <div class="chat-top"><div class="av">HS</div><div><b>Henderseeds</b><small>Semillas Nidera · Henderson</small></div><span class="ej">Ejemplo</span></div>
@@ -5098,7 +5108,7 @@ Te respondemos con qué híbrido va y por qué, con el marbete Nidera en la mano
 <!--/@girasol--></svg>
   <div class="velo-macro"></div>
   <div class="topbar"></div>
-
+  <div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>
   <!-- 1 · el número y la pregunta (cuadro 0) -->
   <div class="scene only-anim s1" style="--in:-1s;--out:2.9s">
     <div class="zona sombra-txt">
@@ -6608,7 +6618,7 @@ Hacé la cuenta: en 100 ha son 211 qq, si se repite el promedio de los ensayos. 
 <!--/@girasol--></svg>
   </div>
   <div class="topbar"></div>
-
+  <div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>
   <!-- 1 · la pregunta (cuadro 0) -->
   <div class="scene only-anim s1" style="--in:-1s;--out:2.9s">
     <div class="zona">
@@ -6624,7 +6634,8 @@ Hacé la cuenta: en 100 ha son 211 qq, si se repite el promedio de los ensayos. 
       <span class="rotulo linea a-fade" style="--d:3.4s">Si no tuvo</span>
       <h1 class="h1 a-slam" style="--d:3.55s">Andá por el <span class="hl">techo de rinde.</span></h1>
     </div>
-    <div class="hib tarjeta a-up" style="--d:3.95s">
+    <div class="hib tarjeta acento a-up" style="--d:3.95s">
+      <div class="icono-linea"><svg><use href="#hs-top"/></svg><span class="label">Techo del portafolio</span></div>
       <div class="nombre">NS 1113 CL</div>
       <div class="dato"><b data-count="2.11" data-dec="2" data-pre="+" data-t0="4.15" data-d="1.1">+2,11</b><small>qq/ha</small></div>
       <p class="meta">sobre el promedio de cada sitio de ensayo · 74% de éxito · 225 comparaciones · Sur+Oeste</p>
@@ -6639,11 +6650,13 @@ Hacé la cuenta: en 100 ha son 211 qq, si se repite el promedio de los ensayos. 
     </div>
     <div class="par">
       <div class="tarjeta a-up" style="--d:7.8s">
-        <div class="nombre">NS 1115 CL</div><div class="k">Phomopsis</div><div class="v">2</div>
+        <div class="icono-linea"><svg><use href="#hs-shield"/></svg><div class="nombre">NS 1115 CL</div></div>
+        <div class="k">Phomopsis</div><div class="v">2</div>
         <div class="esc"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="esc-f"><span>1</span><span>9</span></div>
       </div>
       <div class="tarjeta a-up" style="--d:8.1s">
-        <div class="nombre">NS 1117 CL</div><div class="k">Phomopsis</div><div class="v">2</div>
+        <div class="icono-linea"><svg><use href="#hs-shield"/></svg><div class="nombre">NS 1117 CL</div></div>
+        <div class="k">Phomopsis</div><div class="v">2</div>
         <div class="esc"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="esc-f"><span>1</span><span>9</span></div>
       </div>
     </div>
@@ -6653,8 +6666,8 @@ Hacé la cuenta: en 100 ha son 211 qq, si se repite el promedio de los ensayos. 
   <!-- 4 · resumen + cierre -->
   <div class="scene s4" style="--in:11.05s">
     <div class="zona resumen">
-      <div class="fila a-up" style="--d:11.15s"><span class="rotulo linea">No tuvo</span><div class="h2">NS 1113 CL</div></div>
-      <div class="fila a-up" style="--d:11.45s"><span class="rotulo">Tuvo</span><div class="h2">NS 1115 CL<br>NS 1117 CL</div></div>
+      <div class="fila a-up" style="--d:11.15s"><span class="rotulo linea">No tuvo</span><div class="icono-linea"><svg><use href="#hs-top"/></svg><div class="h2">NS 1113 CL</div></div></div>
+      <div class="fila a-up" style="--d:11.45s"><span class="rotulo">Tuvo</span><div class="icono-linea"><svg><use href="#hs-shield"/></svg><div class="h2">NS 1115 CL<br>NS 1117 CL</div></div></div>
     </div>
     <div class="end-wrap">
       <div class="endcard a-up" style="--d:11.95s">
@@ -7338,7 +7351,7 @@ Si tuvo: priorizá sanidad. NS 1115 CL y NS 1117 CL tienen Phomopsis 2 en el mar
   <div class="a-dim" style="--d:5.35s"><div class="nom" style="left:625px">NS 7921 CL</div></div>
   <div class="a-dim" style="--d:5.35s"><div class="nom" style="left:820px">NS 7624 CL</div></div>
   <div class="topbar"></div>
-
+  <div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>
   <!-- 1 · la pregunta (cuadro 0) -->
   <div class="scene only-anim s1" style="--in:-1s;--out:4.7s">
     <div class="zona sombra-txt">
@@ -7555,7 +7568,7 @@ El ambiente y el manejo mandan: por eso lo vemos lote por lote.
     <div class="pp-ops"><figure class="pp-op is-story">
         <div class="pv"><section class="slide hs story anim" id="rcal-R" data-name="2026-W41-reel-calculadora" data-dur="13.35" data-hold="2.5">
   <div class="bg"></div><div class="topbar"></div>
-
+  <div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>
   <div class="appw only-anim a-out" style="--d:9.8s">
     <div class="app">
       <div class="app-top"><div class="t">Calculadora de márgenes<small>Henderseeds · Campaña 26/27</small></div><div class="dots"><i></i><i></i><i></i></div></div>

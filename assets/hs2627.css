@@ -361,3 +361,18 @@
 .hs.play .escribiendo i:nth-child(3) { animation-delay: .3s; }
 .hs .boton-wa { display: inline-flex; align-items: center; gap: 20px; background: #25D366; color: #0B141A; border-radius: 999px; padding: 26px 40px 26px 30px; font: 400 58px/1 var(--f-arch); letter-spacing: -.02em; box-shadow: 0 20px 50px rgba(37,211,102,.28); }
 .hs .boton-wa svg { width: 60px; height: 60px; fill: #0B141A; flex-shrink: 0; }
+
+/* --- Marca fija (reels): logo visible todo el video, no se apaga con la escena ---
+   Zona segura para reel, historia y Estado de WhatsApp: arriba a la derecha, entre el
+   filo superior y donde arranca el contenido (y 250px). Es hijo directo del .slide
+   (no de una .scene), así no se apaga con las transiciones. */
+.hs .marca-fija { position: absolute; right: 84px; top: 52px; z-index: 6; }
+.hs .marca-fija img { height: 42px; width: auto; display: block; opacity: .94; filter: drop-shadow(0 3px 12px rgba(0, 0, 0, .55)); }
+
+/* --- Acento ámbar arriba de una tarjeta: la marca del dato "fuerte" ------------- */
+.hs .tarjeta.acento { border-top: 3px solid var(--amber); box-shadow: 0 24px 60px rgba(0, 0, 0, .4), 0 0 40px rgba(245, 166, 35, .1); }
+
+/* --- Fila ícono + texto (usada en tarjetas y resúmenes) ------------------------- */
+.hs .icono-linea { display: flex; align-items: center; gap: 18px; }
+.hs .icono-linea svg { width: 46px; height: 46px; flex-shrink: 0; color: var(--amber); }
+.hs .icono-linea .tope { display: block; }
