@@ -10,3 +10,4 @@ node_modules/
 docs/placas/img/
 # Los videos (docs/placas/video/*.mp4) SÍ se commitean: necesitan ffmpeg y ~5 minutos de
 # render (`npm run videos`), y así se bajan directo desde GitHub sin correr nada.
+__pycache__/

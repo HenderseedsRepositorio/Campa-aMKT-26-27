@@ -1,15 +1,15 @@
-# Post 02 — Reel · ¿Qué girasol va en tu lote? Te lo decimos por WhatsApp
+# Post 02 — Reel · ¿Qué híbrido va en tu lote? Te lo decimos por WhatsApp
 
 - **Semana:** 2026-W40 · publicación tentativa: mié 30/09 · 20–22 h
 - **Pilar:** Precampaña girasol
 - **Formato:** reel 9:16 (MP4) → `docs/placas/2026-W40-reel-whatsapp-lote.html` → slide `rwa-R` · video: `docs/placas/video/2026-W40-reel-whatsapp-lote.mp4`
-- **Objetivo:** Es el pedido de acción más directo: muestra en 6 segundos cómo es hablar con nosotros (un chat de ejemplo, con la respuesta basada en el marbete) y deja claro qué mandar: 3 datos del lote. Baja la barrera para escribir.
+- **Objetivo:** Es el pedido de acción más directo: muestra en pocos segundos cómo es hablar con nosotros (un chat de ejemplo, con la respuesta basada en el marbete) sobre un lote de girasol al amanecer, y deja claro qué mandar: 3 datos del lote.
 - **Pauta:** Sí, es el mejor candidato a anuncio de Mensajes: botón Enviar mensaje de WhatsApp, 50 km, 7 días. En el anuncio, el mensaje de bienvenida puede pedir los 3 datos.
 - **Tapa (portada del reel):** `docs/placas/img/2026-W40-reel-whatsapp-lote-tapa-1080x1920.jpg`
 - **Audio sugerido:** Algo liviano y actual; si Instagram lo permite, sumar el sonido de notificación de mensaje en cada burbuja.
 
 ## Copy (Instagram/Facebook)
-> ¿Qué girasol va en tu lote? 🌻 Te lo decimos por WhatsApp.
+> ¿Qué híbrido de girasol va en tu lote? 🌻 Te lo decimos por WhatsApp.
 > 
 > Mandanos 3 datos:
 > 1. Dónde está el lote

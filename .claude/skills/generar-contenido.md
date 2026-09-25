@@ -104,6 +104,14 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
   - `npm run videos -- reel-tema` graba el MP4; `node scripts/armar-reels.mjs` rearma `docs/reels-siembra/`.
 - **Nada introductorio:** el productor ya sabe leer un marbete. Nada de "cómo leer…", almanaques
   para guardar ni teasers tipo "mirá este número": dato directo + pedido de contacto.
+- **Maíz: producto, no ranking.** En maíz no somos líderes: no armar piezas que comparen híbridos por
+  su ventaja en ensayos. Mostrar un híbrido nuestro con su tecnología (VIPTERA3, CL) y lo que dice su
+  marbete (sanidad, madurez, posicionamiento). Referencia: `docs/placas/2026-W41-reel-ns7925.html`.
+- **Fechas en su momento:** no preguntar por lo que todavía no pasó (ej.: "¿tu lote tuvo Phomopsis?"
+  antes de la siembra). Antes de sembrar, la decisión es qué híbrido va en cada lote.
+- **Márgenes sin números inventados:** para explicar el margen, la barra de cómo se compone la hectárea
+  (alquiler, semilla e insumos, labores, cosecha, flete, margen) como ejemplo ilustrativo, y el link
+  a margen.henderseeds.com para que cada uno ponga sus números.
 - Guion de reel filmado (con persona/cámara): en `reels/` según `reels/_plantilla-reel.md`.
   Hook en los primeros 3 segundos, subtítulos siempre (se mira sin audio).
 

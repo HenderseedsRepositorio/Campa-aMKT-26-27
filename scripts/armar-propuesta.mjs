@@ -38,14 +38,14 @@ const MINIATURAS = args.includes('--miniaturas');
 // Primero la serie de reels (lo que arranca), después las placas del plan y al final las alternativas.
 // Afuera (docs/placas/_archivo/): refugio NS 7800 y "cómo leer un marbete" (introductorios).
 const ORDEN = [
-  'reel-girasol-fecha', 'reel-whatsapp-lote', 'reel-ns1113', 'reel-girasol-phomopsis', 'reel-tardio-carrera', 'reel-calculadora',
+  'reel-girasol-fecha', 'reel-whatsapp-lote', 'reel-ns1113', 'reel-girasol-phomopsis', 'reel-ns7925', 'reel-calculadora',
   'historias-interactivas', 'girasol-carrusel', 'ns7765-dos-fechas', 'ns7925-spiroplasma', 'finanzas-pesos-dolares',
   'implantacion', 'somos-de-aca', 'maiz-tardio-carrusel', 'calculadora-maiz-girasol', 'dia-de-la-madre', 'dia-de-la-tradicion',
   'girasol-ventana', 'maiz-tardio-ranking', 'rinde-indiferencia', 'ns7624-malezas',
 ];
 const GRUPO = {
   'reel-girasol-fecha': 'reels', 'reel-whatsapp-lote': 'reels', 'reel-ns1113': 'reels', 'reel-girasol-phomopsis': 'reels',
-  'reel-tardio-carrera': 'reels', 'reel-calculadora': 'reels',
+  'reel-ns7925': 'reels', 'reel-calculadora': 'reels',
   'girasol-ventana': 'girasol', 'girasol-carrusel': 'girasol',
   'maiz-tardio-ranking': 'maiz', 'ns7925-spiroplasma': 'maiz', 'ns7765-dos-fechas': 'maiz', 'ns7624-malezas': 'maiz', 'maiz-tardio-carrusel': 'maiz',
   'calculadora-maiz-girasol': 'herramientas', 'rinde-indiferencia': 'herramientas', 'finanzas-pesos-dolares': 'herramientas',
@@ -64,7 +64,7 @@ const PLAN = [
   ] },
   { sem: 'W41', rango: '05/10 – 11/10', foco: 'La decisión del lote', items: [
     { dia: 'lun 05/10', hora: '20–22 h', pieza: 'reel-girasol-phomopsis', slide: 'rph-R', tipo: 'Reel', nota: 'El mismo día: historia con la encuesta real de IG' },
-    { dia: 'mié 07/10', hora: '20–22 h', pieza: 'reel-tardio-carrera', slide: 'rtc-R', tipo: 'Reel', nota: 'Pauta 7 días (Mensajes)' },
+    { dia: 'mié 07/10', hora: '20–22 h', pieza: 'reel-ns7925', slide: 'r79-R', tipo: 'Reel', nota: 'Pauta 7 días (Mensajes)' },
     { dia: 'jue 08/10', hora: 'historia', pieza: 'historias-interactivas', slide: 'hist-2', tipo: 'Historia', nota: 'Encuesta tardío' },
     { dia: 'vie 09/10', hora: '20–22 h', pieza: 'reel-calculadora', slide: 'rcal-R', tipo: 'Reel', nota: '+ historia con link a la calculadora' },
   ] },
@@ -92,16 +92,16 @@ const PLAN = [
   { sem: 'W46', rango: '09/11 – 15/11', foco: 'Cierre de ventana', items: [
     { dia: 'mar 10/11', hora: '8–10 h', pieza: 'dia-de-la-tradicion', slide: 'trad-S', tipo: 'Historia' },
     { dia: 'mié 11/11', hora: '7–9 h', pieza: null, tipo: 'Foto real', nota: '[COMPLETAR] girasol: "última semana de fecha óptima (hasta 15/11, límite 20/11)" · foto de lote + plantilla Dato' },
-    { dia: 'jue 12/11', hora: '20–22 h', pieza: 'reel-tardio-carrera', slide: 'rtc-R', tipo: 'Pauta', nota: 'Anuncio, no posteo nuevo: se re-pauta el reel del 07/10',
+    { dia: 'jue 12/11', hora: '20–22 h', pieza: 'reel-ns7925', slide: 'r79-R', tipo: 'Pauta', nota: 'Anuncio, no posteo nuevo: se re-pauta el reel del 07/10',
       objetivo: 'Último empujón del tardío antes de diciembre.', pauta: 'Sí: re-pauta 5 días, excluyendo a quienes ya escribieron.',
-      caption: 'Diciembre se define en noviembre. 🌽\n\nSi vas a sembrar maíz tardío, este es el momento de elegir el híbrido para cada lote. Los marbetes Nidera 26/27 dicen esto en siembra tardía templada (kg/ha sobre el promedio de cada sitio):\n\nNS 7765 · +324 · NS 7925 · +228 · NS 7852 · +194 · NS 7921 CL · +179 · NS 7624 CL · +163\n\nEl ambiente y el manejo mandan: por eso lo vemos lote por lote.\n📩 Mandanos un DM con tu lote tardío.' },
+      caption: 'Diciembre se define en noviembre. 🌽\n\nSi vas a sembrar maíz tardío, este es el momento de elegir el híbrido para cada lote. NS 7925 VIPTERA3, lanzamiento Nidera 26/27 posicionado para siembras tardías:\n• Viptera 3: control de lepidópteros.\n• Spiroplasma 3: el mejor puntaje del portafolio de maíz (escala del marbete: 1 excelente, 9 deficiente).\n\nEl ambiente y el manejo mandan: por eso lo vemos lote por lote.\n📩 Mandanos un DM con tu lote tardío o escribinos al 2314 53-0691.' },
   ] },
 ];
 
 /* ── grilla del perfil ─────────────────────────────────────────────────── */
 // En la grilla, cada reel se ve con su tapa (pensada para el recorte 3:4).
 const TAPA = {
-  'rgf-R': 'rgf-T', 'rwa-R': 'rwa-T', 'r13-R': 'r13-T', 'rph-R': 'rph-T', 'rtc-R': 'rtc-T', 'rcal-R': 'rcal-T',
+  'rgf-R': 'rgf-T', 'rwa-R': 'rwa-T', 'r13-R': 'r13-T', 'rph-R': 'rph-T', 'r79-R': 'r79-T', 'rcal-R': 'rcal-T',
   'tardio-R': 'tardio-T', 'aca-R': 'aca-T',
 };
 const EN_FEED = ['Placa', 'Carrusel', 'Reel', 'Efeméride', 'Foto real'];

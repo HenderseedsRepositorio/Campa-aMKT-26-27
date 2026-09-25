@@ -63,6 +63,14 @@ def defs():
             '<stop offset=".5" stop-color="#4E8A34"/><stop offset="1" stop-color="#2A4F1D"/></linearGradient>'
             '<linearGradient id="gs-hoja" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5C9A3C"/>'
             '<stop offset="1" stop-color="#2C5520"/></linearGradient>'
+            '<linearGradient id="gs-pf2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#B8760C"/>'
+            '<stop offset=".25" stop-color="#E0A018"/><stop offset=".7" stop-color="#F2B92E"/><stop offset="1" stop-color="#F7CB55"/></linearGradient>'
+            '<linearGradient id="gs-pb2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#8E5808"/>'
+            '<stop offset=".5" stop-color="#C98C14"/><stop offset="1" stop-color="#E3AE35"/></linearGradient>'
+            '<linearGradient id="gs-hoja2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#557F35"/>'
+            '<stop offset=".55" stop-color="#3D6526"/><stop offset="1" stop-color="#27461A"/></linearGradient>'
+            '<linearGradient id="gs-tallo2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2E4F1E"/>'
+            '<stop offset=".45" stop-color="#5B8A3A"/><stop offset="1" stop-color="#284519"/></linearGradient>'
             '<linearGradient id="gs-cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1a10"/>'
             '<stop offset="1" stop-color="#0d0906"/></linearGradient>'
             + simbolos_lote() +
@@ -178,6 +186,123 @@ def flor(N=720, petalos=34, t0=0.0, t_sem=1.5, t1=1.0, tallo=True, semilla=7, an
     return '\n'.join(o)
 
 
+def _hoja_real(L, W, rnd, n=32):
+    """Hoja de girasol: acorazonada (dos lóbulos detrás de la inserción del pecíolo), más ancha
+    en el primer tercio, punta aguda, borde aserrado, nervadura central y 5 pares de laterales.
+    Coordenadas locales: inserción del pecíolo en 0,0 y la punta en (L*0.88, 0)."""
+    def ancho(t):
+        if t < 0.36:
+            return W * (0.3 + 0.7 * math.sin(math.pi / 2 * t / 0.36))
+        return W * (math.cos(math.pi / 2 * (t - 0.36) / 0.64) ** 0.85)
+    arriba, abajo = [], []
+    for i in range(n + 1):
+        t = i / n
+        x = L * (t - 0.12)
+        hw = ancho(t) * (1 + (0.04 if i % 2 else -0.02) * (0.4 + t))
+        arriba.append((x, -hw))
+        abajo.append((x, hw))
+    contorno = [(0, 0), (-L * 0.05, -W * 0.13)] + arriba + abajo[::-1] + [(-L * 0.05, W * 0.13)]
+    d = 'M ' + ' L '.join(f'{x:.1f} {y:.1f}' for x, y in contorno) + ' Z'
+    venas = [f'M 0 0 Q {L*0.42:.1f} {W*0.04:.1f} {L*0.84:.1f} 0']
+    for k in range(1, 6):
+        t = 0.1 + k * 0.12
+        x0 = L * (t - 0.12)
+        hw = ancho(t) * 0.8
+        venas.append(f'M {x0:.1f} 0 Q {x0 + hw*0.3:.1f} {-hw*0.6:.1f} {x0 + hw*0.75:.1f} {-hw:.1f}')
+        venas.append(f'M {x0:.1f} 0 Q {x0 + hw*0.3:.1f} {hw*0.6:.1f} {x0 + hw*0.75:.1f} {hw:.1f}')
+    return d, ' '.join(venas)
+
+
+def flor2(N=1100, petalos=46, t0=0.0, t_sem=1.5, t1=0.3, tallo=True, semilla=11, anim=True, mece=True):
+    """Girasol 'serio': proporciones de un girasol de lote (disco grande, pétalos cortos y finos),
+    brácteas verdes, capítulo apenas inclinado, tallo grueso con cuello y hojas acorazonadas
+    aserradas con nervaduras. Mismas coordenadas que flor(): centro del capítulo en 0,0 y pie
+    del tallo en y = 840 (viewBox="-470 -470 940 1340")."""
+    rnd = random.Random(semilla)
+    o = []
+    cls = lambda c: f' class="{c}"' if anim else ''
+    Rd = 232
+    if anim and mece:
+        o.append(f'<g class="gs-mece" style="transform-origin:0px {BASE:.0f}px">')
+    o.append(f'<circle{cls("gs-glow")} r="{Rd*2.2:.0f}" fill="url(#gs-glow)" opacity=".7"/>')
+    if tallo:
+        L = BASE
+        # tallo grueso, con el cuello que se curva bajo el capítulo
+        o.append('<g>'
+                 f'<path d="M -36 {Rd*0.62:.0f} C -48 {Rd*1.4:.0f} -12 {Rd*2.3:.0f} -24 {L:.0f} L 28 {L:.0f} '
+                 f'C 34 {Rd*2.3:.0f} 22 {Rd*1.4:.0f} 38 {Rd*0.62:.0f} Z" fill="url(#gs-tallo2)"/>'
+                 f'<path d="M -6 {Rd*0.7:.0f} C -14 {Rd*1.5:.0f} 6 {Rd*2.4:.0f} 0 {L:.0f}" stroke="#7FA85A" stroke-opacity=".35" stroke-width="4" fill="none"/>')
+        for (y, lado, Lh, Wh, ang) in [(Rd*1.75, 1, 330, 104, 38), (Rd*2.5, -1, 350, 110, 44), (Rd*3.2, 1, 300, 96, 50)]:
+            d, venas = _hoja_real(Lh, Wh, rnd)
+            px = lado * 78
+            o.append(f'<path d="M {lado*16:.0f} {y:.0f} Q {lado*46:.0f} {y - 34:.0f} {px:.0f} {y - 20:.0f}" stroke="#3D6526" stroke-width="11" stroke-linecap="round" fill="none"/>')
+            o.append(f'<g transform="translate({px:.0f} {y - 20:.0f}) scale({lado} 1) rotate({ang})">'
+                     f'<path d="{d}" fill="url(#gs-hoja2)"/>'
+                     f'<path d="{venas}" stroke="#86B060" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/></g>')
+        o.append('</g>')
+    o.append(f'<g{cls("gs-cabeza")}>')
+    o.append('<g transform="rotate(-7) scale(1 .94)">')
+    # brácteas: puntas verdes entre los pétalos
+    for k in range(34):
+        ang = 360 * (k + 0.5) / 34 + rnd.uniform(-3, 3)
+        Lb = Rd * rnd.uniform(0.2, 0.3)
+        w = Rd * 0.07
+        y0 = -Rd * 0.96
+        o.append(f'<path transform="rotate({ang:.1f})" d="M {-w:.1f} {y0:.1f} Q {-w*0.4:.1f} {y0 - Lb*0.7:.1f} 0 {y0 - Lb:.1f} '
+                 f'Q {w*0.4:.1f} {y0 - Lb*0.7:.1f} {w:.1f} {y0:.1f} Z" fill="#3B5F24"/>')
+
+    def corona(n, r0, largo, ancho, grad, desf, tb, capa):
+        for k in range(n):
+            ang = 360 * (k + desf) / n + rnd.uniform(-2.5, 2.5)
+            Lp = largo * rnd.uniform(0.82, 1.12)
+            w = ancho * rnd.uniform(0.85, 1.15)
+            dx = rnd.uniform(-6, 6)
+            y0, y1 = -r0, -r0 - Lp
+            d = (f'M 0 {y0:.1f} C {w:.1f} {y0 - Lp*0.22:.1f} {w*0.8:.1f} {y0 - Lp*0.78:.1f} {dx:.1f} {y1:.1f} '
+                 f'C {-w*0.8:.1f} {y0 - Lp*0.78:.1f} {-w:.1f} {y0 - Lp*0.22:.1f} 0 {y0:.1f} Z')
+            rib = (f'M {-w*0.3:.1f} {y0 - 4:.1f} Q {dx*0.2 - w*0.25:.1f} {y0 - Lp*0.5:.1f} {dx*0.6 - w*0.1:.1f} {y0 - Lp*0.85:.1f} '
+                   f'M {w*0.3:.1f} {y0 - 4:.1f} Q {dx*0.2 + w*0.25:.1f} {y0 - Lp*0.5:.1f} {dx*0.6 + w*0.1:.1f} {y0 - Lp*0.85:.1f}')
+            dd = tb + rnd.uniform(0, 0.5)
+            st = f' style="--d:{dd:.2f}s"' if anim else ''
+            o.append(f'<g transform="rotate({ang:.1f})"><g{cls("gs-p")}{st}>'
+                     f'<path d="{d}" fill="url(#{grad})"/>'
+                     f'<path d="{rib}" stroke="#9C6408" stroke-width="2" fill="none" opacity="{.3 if capa else .22}"/></g></g>')
+    corona(petalos, Rd*0.95, Rd*0.66, Rd*0.085, 'gs-pb2', 0.5, t1, 0)
+    corona(petalos, Rd*0.97, Rd*0.58, Rd*0.08, 'gs-pf2', 0.0, t1 + 0.12, 1)
+
+    # disco
+    o.append(f'<circle r="{Rd*1.0:.0f}" fill="url(#gs-disco)"/>')
+    c = (Rd * 0.97) / math.sqrt(N)
+    for n in range(1, N + 1):
+        r = c * math.sqrt(n)
+        a = n * GOLD
+        x, y = r * math.cos(a), r * math.sin(a)
+        t = r / (Rd * 0.97)
+        sz = c * (0.82 + 0.3 * t)
+        ux, uy = (math.cos(a), math.sin(a))
+        vx, vy = -uy, ux
+        Lh, Wh = sz * 0.95, sz * 0.62
+        pts = [(x + ux*Lh, y + uy*Lh), (x + vx*Wh, y + vy*Wh), (x - ux*Lh, y - uy*Lh), (x - vx*Wh, y - vy*Wh)]
+        path = 'M ' + ' L '.join(f'{px:.1f} {py:.1f}' for px, py in pts) + ' Z'
+        st = f' style="--d:{t0 + t_sem * math.sqrt(n / N):.2f}s"' if anim else ''
+        col = color_semilla(t)
+        v = rnd.uniform(-0.18, 0.08)
+        col = mezcla(col, '#000000', -v) if v < 0 else mezcla(col, '#ffe9a8', v)
+        o.append(f'<path{cls("gs-s")}{st} d="{path}" fill="{col}"/>')
+    pol = []
+    for k in range(220):
+        a = rnd.uniform(0, 2 * math.pi)
+        r = Rd * math.sqrt(rnd.uniform(0.8, 0.96))
+        pol.append(f'<circle cx="{r*math.cos(a):.1f}" cy="{r*math.sin(a):.1f}" r="{rnd.uniform(1.6, 3.0):.1f}"/>')
+    st = f' style="--d:{t0 + t_sem*0.9:.2f}s"' if anim else ''
+    o.append(f'<g{cls("a-fade")}{st} fill="#E9C25A" opacity=".7">{"".join(pol)}</g>')
+    o.append(f'<circle r="{Rd*0.99:.0f}" fill="url(#gs-brillo)"/>')
+    o.append('</g></g>')
+    if anim and mece:
+        o.append('</g>')
+    return '\n'.join(o)
+
+
 def disco(N=900, t0=0.0, t_sem=2.0, semilla=8):
     """Solo el disco (macro): semillas en filotaxis y florcitas con polen, sin pétalos.
     Radio 200 centrado en 0,0: se agranda con el viewBox para llenar la pantalla."""
@@ -247,7 +372,7 @@ def campo(ancho=1080, alto=520, horizonte=34, semilla=3):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('que', nargs='?', default='flor', choices=('defs', 'flor', 'campo', 'disco'))
+    ap.add_argument('que', nargs='?', default='flor', choices=('defs', 'flor', 'flor2', 'campo', 'disco'))
     ap.add_argument('--n', type=int, default=900)
     ap.add_argument('--sin-tallo', action='store_true')
     ap.add_argument('--estatico', action='store_true')
@@ -261,6 +386,8 @@ if __name__ == '__main__':
         print(defs())
     elif a.que == 'campo':
         print(campo(semilla=a.semilla))
+    elif a.que == 'flor2':
+        print(flor2(t0=a.t0, t1=a.t1, t_sem=a.tsem, tallo=not a.sin_tallo, anim=not a.estatico, mece=not a.quieto))
     elif a.que == 'disco':
         print(disco(N=a.n, t0=a.t0, t_sem=a.tsem, semilla=a.semilla))
     else:

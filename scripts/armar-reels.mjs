@@ -23,7 +23,7 @@ const args = process.argv.slice(2);
 const AUTO = args.includes('--autocontenida') ? args[args.indexOf('--autocontenida') + 1] : null;
 
 /* Orden de publicación (el mismo del plan W40–W41). */
-const REELS = ['reel-girasol-fecha', 'reel-whatsapp-lote', 'reel-ns1113', 'reel-girasol-phomopsis', 'reel-tardio-carrera', 'reel-calculadora'];
+const REELS = ['reel-girasol-fecha', 'reel-whatsapp-lote', 'reel-ns1113', 'reel-girasol-phomopsis', 'reel-ns7925', 'reel-calculadora'];
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
@@ -135,7 +135,7 @@ async function main() {
 <header class="rp-hero"><div class="rp-w">
   <div class="rp-eyebrow">HenderSeeds · Siembra 26/27</div>
   <h1>Reels para <span>arrancar.</span></h1>
-  <p>Seis reels directos: un dato del marbete, una sola idea y el cierre a WhatsApp. Nada de explicarle al productor lo que ya sabe. El girasol ahora florece de verdad: semillas en espiral, pétalos, tallo que se mece y un lote a contraluz.</p>
+  <p>Seis reels directos: un dato del marbete, una sola idea y el cierre a WhatsApp. Nada de explicarle al productor lo que ya sabe. Girasol dibujado en serio (capítulo, hojas y lote a contraluz), un híbrido nuestro de maíz con su tecnología y la barra que muestra cómo se reparte la hectárea.</p>
   <div class="rp-stats"><span><b>${reels.length}</b> reels</span><span><b>${Math.min(...durs).toLocaleString('es-AR')}–${Math.max(...durs).toLocaleString('es-AR')} s</b> cada uno</span><span>gancho en el <b>primer cuadro</b></span><span>cierre a <b>WhatsApp</b></span><span>sin precios ni descuentos</span></div>
   <div class="rp-guia">
     <div class="rp-paso"><b>1 · Subí el MP4</b><p>Como reel. En "Editar portada" elegí la tapa (JPG) para que la grilla quede prolija.</p></div>
@@ -151,7 +151,8 @@ ${reels.map((p, i) => tarjeta(p, i, modo)).join('\n')}
   <h3>Lo que sacamos y lo que viene</h3>
   <ul>
     <li>Afuera: el almanaque, el reel del refugio, "cómo leer un marbete" y el teaser del "3". El productor ya sabe leer un marbete: le damos el dato y el pedido de contacto.</li>
-    <li>Estos reels reemplazan al del girasol con puntos y al de barras del tardío (quedan como alternativa).</li>
+    <li>El reel de maíz muestra un híbrido nuestro (NS 7925 VIPTERA3) con los datos del marbete, sin comparar ensayos.</li>
+    <li>El de márgenes muestra cómo se reparte la hectárea (ejemplo ilustrativo, sin números) y lleva a la calculadora: los números los pone cada uno.</li>
     <li>Próxima tanda: placas de girasol directas (dato útil + pedido de contacto), para intercalar desde la semana del 12/10.</li>
     <li>Sin música con derechos fuera de la biblioteca de Instagram. Sin precios, descuentos ni condiciones comerciales: la venta sigue en privado.</li>
   </ul>

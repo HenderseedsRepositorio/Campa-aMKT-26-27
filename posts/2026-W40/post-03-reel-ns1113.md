@@ -9,11 +9,11 @@
 - **Audio sugerido:** Algo que suba de a poco hasta el golpe del número (el contador arranca a los 4 s).
 
 ## Copy (Instagram/Facebook)
-> +2,11 qq/ha. ¿Cuánto es en tu campo? 🌻
+> NS 1113 CL: +2,11 qq/ha por encima del promedio de cada ensayo. ¿Cuánto es en tu campo? 🌻
 > 
-> Es la diferencia de NS 1113 CL sobre el promedio de cada sitio de ensayo en el Sur+Oeste: 225 comparaciones, 74% de éxito, diferencia significativa (marbete Nidera 26/27).
+> Es la diferencia de rinde contra el promedio de cada sitio de ensayo en la región Sur+Oeste: 225 comparaciones, 74% de éxito, diferencia significativa (marbete Nidera 26/27).
 > 
-> Hacé la cuenta: en 100 ha son 211 qq, si se repite el promedio de los ensayos. No es promesa de rinde: el ambiente y el manejo mandan.
+> Hacé la cuenta: en 100 ha son 211 qq más, si se repite el promedio de los ensayos. No es promesa de rinde: el ambiente y el manejo mandan.
 > 
 > 📩 Reservá tu NS 1113 CL: escribinos por DM o al WhatsApp 2314 53-0691. Cotización en menos de 24 h.
 

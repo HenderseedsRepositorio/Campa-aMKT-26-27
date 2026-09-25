@@ -123,6 +123,10 @@ meta-ads/
   plantas de maíz (`scripts/lib/maiz.py`); se meten en las piezas con `scripts/lib/inyectar-girasol.py`.
   Afuera por pedido del usuario: almanaque, refugio, "cómo leer un marbete" y teasers ("mirá este número").
   **Regla:** nada introductorio (el productor ya sabe leer un marbete): dato directo + pedido de contacto.
+- ✅ Cuarta vuelta (25/09): girasol dibujado en serio (`flor2` en `scripts/lib/girasol.py`), R1 "la siembra
+  arranca el 15/10", R2 "¿qué híbrido va en tu lote?", R4 "¿rinde o sanidad?" (el girasol todavía no se
+  sembró), R5 nuevo `2026-W41-reel-ns7925.html` y R6 con la barra de cómo se compone el margen.
+  **Regla:** en maíz no comparamos ensayos (no somos líderes): mostramos el híbrido y su tecnología.
 - ⚠️ El repo es **público** y `brand/referencias/hibridos-nidera.md` tiene precios y datos que
   contradicen los marbetes: NO usarlo. Pendiente decidir si se borra o si el repo pasa a privado.
 - ✅ Estructura inicial creada (junio 2026, semana W24).

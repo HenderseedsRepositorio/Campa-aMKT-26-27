@@ -38,7 +38,7 @@
   });
 
   /* ── marcas ─────────────────────────────────────────────────────── */
-  var CLAVE = 'hs-reels-2627';
+  var CLAVE = 'hs-reels-2627-v2';
   var estado = {};
   try { estado = JSON.parse(localStorage.getItem(CLAVE) || '{}') || {}; } catch (_) { estado = {}; }
   function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (_) { /* vale para esta visita */ } }
