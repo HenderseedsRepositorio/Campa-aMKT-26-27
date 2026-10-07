@@ -73,11 +73,27 @@ ninguna repetida, todas empujando al mismo lado: la app → la consulta.
 | **Instagram feed** | Cara visible, marca, producto | 2–3/semana | Vender duro en cada post |
 | **Instagram reels** | Enganche, herramienta en acción | 1 cada 1–2 semanas | Reel largo o sin hook en los primeros 3s |
 | **Instagram stories** | Cercanía diaria liviana, encuestas, link a app | Suelto, sin presión | Forzar 10 stories seguidas de venta |
-| **X / Twitter** | Conversación del sector, hilos con dato, viralidad | 2–3 posteos + interacción | Copiar el copy de IG tal cual |
-| **WhatsApp** | Cierre, trato persona a persona | Siempre disponible | Mandar difusión masiva no pedida |
+| **WhatsApp Estados** | **El canal más preciso que tenemos:** la lista que ya nos dio el número ve cada pieza, sin algoritmo de por medio | **Cada pieza publicada va también a Estados** + 1 estado propio semanal (foto de recorrida, dato suelto) | Cadenas de venta dura; difusión masiva no pedida |
+| **X / Twitter** | Reciclaje de bajo esfuerzo: hilo derivado de la idea semanal, para presencia en el sector | Solo si sobra tiempo — sin producción original dedicada | Dedicarle horas de producción propias; copiar el copy de IG tal cual |
+| **WhatsApp (1 a 1)** | Cierre, trato persona a persona | Siempre disponible | Mandar difusión masiva no pedida |
 | **App (margen.henderseeds.com)** | Imán: da motivo para frenar, clickear y escribir | Permanente | Mostrarla como "software", mostrarla como respuesta |
 
 Cada canal NO repite lo mismo: se **complementan**. Eso es lo que evita el efecto cansancio.
+
+### Regla de contenido humano (mínimo semanal)
+
+Mínimo **1 pieza real por semana**: foto de lote/recorrida/equipo, o video de 30
+segundos con una cara diciendo UNA cosa. Las placas de datos no pueden ser el 100%
+del feed: en Henderson, Daireaux y Bolívar la confianza la construyen caras y lotes
+— el productor le compra al que conoce. Una foto de celular de una recorrida vale
+más que la mejor placa diseñada. Banco de fotos: `docs/assets/fotos/`.
+
+### Regla de publicación (contra el borrador eterno)
+
+**Publicado o no existe.** El piso semanal son **2 publicaciones que salen**
+(1 placa de datos + 1 pieza humana), no 3 que quedan en borrador. Si un borrador
+cumple 2 semanas sin publicarse, se recicla o se archiva en `calendario.md` —
+el tablero siempre refleja la realidad.
 
 ---
 
