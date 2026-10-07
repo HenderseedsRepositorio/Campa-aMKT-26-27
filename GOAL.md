@@ -5,14 +5,17 @@
 
 ## Goal activo
 
-**Plan del 07/10 al 06/12/2026 (cierre del tardío)** — semana por semana en
-`docs/estrategia/plan.html` (publicado en .../estrategia/plan.html). Lo central:
-- [ ] Sacar los precios del repo público (decisión de Alvaro: repo privado + GitHub Pro, o limpiar historial)
-- [ ] Tardío y girasol: contacto uno a uno con los que siembran (tardío fuerte hasta el 05/12)
-- [ ] Decidir quién ejecuta el contenido (creador/CM de la zona u horas fijas de Santi)
-- [ ] Mapa de cuentas v1 en Salesforce: clientes + 50 prospectos (31/10)
-- [ ] 1 publicación por semana desde el 12/10, con piezas que ya están hechas
-- [ ] Primera reunión mensual con el tablero: lunes 02/11
+**Guía de 10 pasos (`docs/estrategia/guia.html`)** — primero los cimientos, después la rutina:
+- [ ] 1 · La casa en orden (Instagram, Google Maps, WhatsApp Business, clientes agendados) — 07 al 11/10
+- [ ] 2 · Los números de la 25/26 (línea de base + tamaño del mercado) — hasta el 16/10
+- [ ] 3 · El mapa de cuentas (clientes + 50 prospectos, A/B/C, competencia) — hasta el 31/10
+- [ ] 4 · Las metas de la 27/28 — reunión del lunes 02/11
+- [ ] 5 · La oferta con nombre (Plan de Campaña: hoja de visita + modelo de informe de cierre) — noviembre
+- [ ] 6 · La rutina de publicación (Alvaro publica, Santi revisa) — desde el 12/10
+- [ ] 7 · La pauta A y B — desde el 12/10 y el 19/10
+- [ ] 8 · La venta directa del tardío — hasta el 05/12
+- [ ] 9 · El ensayo y la jornada a campo — octubre a febrero
+- [ ] 10 · La reunión mensual — primer lunes de cada mes
 
 ---
 

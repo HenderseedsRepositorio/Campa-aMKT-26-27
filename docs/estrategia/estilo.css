@@ -241,3 +241,80 @@ pre.txt { white-space:pre-wrap; font-family:var(--f-sans); font-size:14.5px; lin
 .cfg .card dl { display:grid; grid-template-columns:110px 1fr; gap:6px 12px; margin-top:8px; font-size:14.5px; }
 .cfg .card dt { font-family:var(--f-mono); font-size:11.5px; letter-spacing:1px; text-transform:uppercase; color:var(--txt-3); padding-top:2px; }
 .cfg .card dd { color:var(--txt-2); }
+
+/* ── v3: estructura de la estrategia ───────────────────────────── */
+.howto { margin-top:22px; display:grid; gap:8px; }
+@media (min-width:720px){ .howto { grid-template-columns:repeat(3,1fr); } }
+.howto a { display:block; text-decoration:none; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; color:var(--txt); }
+.howto a:hover { border-color:var(--amber-line); }
+.howto a small { display:block; font-family:var(--f-mono); font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--amber); margin-bottom:4px; }
+.howto a b { font-size:17px; }
+.howto a span { display:block; font-size:14px; color:var(--txt-2); margin-top:4px; }
+
+.summary { list-style:none; margin-top:16px; display:grid; gap:10px; }
+.summary li { display:grid; grid-template-columns:118px 1fr; gap:12px; padding:12px 14px; background:var(--panel); border:1px solid var(--line); border-radius:10px; font-size:15.5px; color:var(--txt-2); }
+.summary li b.k { font-family:var(--f-mono); font-weight:400; font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--amber); padding-top:2px; }
+@media (max-width:480px){ .summary li { grid-template-columns:1fr; gap:4px; } }
+
+.swot { display:grid; gap:10px; margin-top:16px; }
+@media (min-width:720px){ .swot { grid-template-columns:1fr 1fr; } }
+.swot .card ul { list-style:none; padding:0; display:grid; gap:6px; margin-top:8px; }
+.swot .card li { position:relative; padding-left:16px; font-size:15px; margin:0; }
+.swot .card li::before { content:''; position:absolute; left:0; top:9px; width:7px; height:7px; border-radius:2px; background:var(--amber); }
+.swot .card.neg li::before { background:var(--red); }
+
+.obj { margin-top:16px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.obj .r { display:grid; grid-template-columns:1fr; gap:4px; padding:12px 14px; border-top:1px solid var(--line); }
+.obj .r:first-child { border-top:none; }
+.obj .r.h { display:none; }
+@media (min-width:760px){
+  .obj .r { grid-template-columns:1.3fr 1.6fr 1fr 1fr; gap:14px; align-items:baseline; }
+  .obj .r.h { display:grid; background:rgba(255,255,255,0.03); font-family:var(--f-mono); font-size:11.5px; letter-spacing:1px; text-transform:uppercase; color:var(--txt-3); }
+}
+.obj .o { font-weight:700; }
+.obj .m { color:var(--txt-2); font-size:15px; }
+.obj .b, .obj .g { font-family:var(--f-mono); font-size:13px; color:var(--txt-2); }
+.obj .g { color:var(--amber); }
+@media (max-width:759px){ .obj .b::before { content:'Hoy: '; color:var(--txt-3); } .obj .g::before { content:'Meta: '; color:var(--txt-3); } }
+
+.journey { margin-top:16px; display:grid; gap:10px; }
+.stage { display:grid; grid-template-columns:44px 1fr; gap:14px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.stage .n { width:36px; height:36px; border-radius:50%; background:var(--amber); color:#0a0a0a; font-family:var(--f-arch); font-size:17px; display:flex; align-items:center; justify-content:center; }
+.stage .tt { font-weight:700; font-size:17.5px; }
+.stage .tt small { font-family:var(--f-mono); font-weight:400; font-size:11.5px; color:var(--txt-3); letter-spacing:1px; text-transform:uppercase; margin-left:8px; }
+.stage dl { display:grid; grid-template-columns:76px 1fr; gap:4px 10px; margin-top:8px; font-size:14.5px; }
+.stage dt { font-family:var(--f-mono); font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--txt-3); padding-top:2px; }
+.stage dd { color:var(--txt-2); }
+
+.risks { margin-top:16px; display:grid; gap:10px; }
+.risk { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.risk .rt { font-weight:700; font-size:16.5px; }
+.risk .rs { font-size:14.5px; color:var(--txt-2); margin-top:6px; }
+.risk .rs b { font-family:var(--f-mono); font-weight:400; font-size:11.5px; letter-spacing:1px; text-transform:uppercase; color:var(--txt-3); margin-right:6px; }
+
+.dec .card.ok::before { content:'✓'; border-color:var(--green); color:var(--green); font-size:15px; }
+.dec .card.ok .ct { color:var(--txt-2); }
+
+/* ── Guía: pasos ───────────────────────────────────────────────── */
+.progress { margin-top:20px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.progress .bar2 { height:10px; border-radius:6px; background:var(--line); overflow:hidden; margin-top:8px; }
+.progress .bar2 i { display:block; height:100%; width:0; background:var(--amber); border-radius:6px; transition:width .3s; }
+.progress .pl { font-family:var(--f-mono); font-size:13px; color:var(--txt-2); }
+.step { margin-top:14px; background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+.step.done { border-color:rgba(91,201,139,0.45); }
+.step > header { display:grid; grid-template-columns:48px 1fr auto; gap:12px; align-items:center; padding:14px 16px; border-bottom:1px solid var(--line); }
+.step > header .n { width:40px; height:40px; border-radius:10px; background:var(--amber); color:#0a0a0a; font-family:var(--f-arch); font-size:18px; display:flex; align-items:center; justify-content:center; }
+.step.done > header .n { background:var(--green); }
+.step > header .tt { font-weight:700; font-size:18px; line-height:1.25; }
+.step > header .tt small { display:block; font-family:var(--f-mono); font-weight:400; font-size:12px; color:var(--txt-3); margin-top:3px; }
+.step > header label { font-family:var(--f-mono); font-size:12px; color:var(--txt-2); display:flex; align-items:center; gap:6px; cursor:pointer; white-space:nowrap; }
+.step > header input { width:18px; height:18px; accent-color:var(--green); cursor:pointer; }
+.step .body { padding:12px 16px 16px; }
+.step .why { color:var(--txt-2); font-size:15.5px; }
+.step ul.how { margin:10px 0 0 18px; display:grid; gap:6px; color:var(--txt); font-size:15.5px; }
+.step .meta2 { display:grid; grid-template-columns:1fr; gap:6px; margin-top:12px; font-size:14px; }
+@media (min-width:720px){ .step .meta2 { grid-template-columns:1fr 1fr; } }
+.step .meta2 div { background:var(--navy-2); border:1px solid var(--line); border-radius:8px; padding:8px 10px; color:var(--txt-2); }
+.step .meta2 b { font-family:var(--f-mono); font-weight:400; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--txt-3); display:block; margin-bottom:2px; }
+.step .meta2 .done-when { grid-column:1 / -1; border-color:rgba(91,201,139,0.35); }
+.step .meta2 .done-when b { color:var(--green); }

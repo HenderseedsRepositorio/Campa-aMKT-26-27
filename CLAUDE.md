@@ -12,10 +12,18 @@ este archivo. Idea central: el motor es la venta directa planificada (mapa de cu
 Salesforce, visitas con algo de valor, referidos, jornada a campo); la marca digital es chica pero
 constante (1 publicación por semana, Estados de WhatsApp, pauta solo por zona y concentrada en la
 precampaña). **No comunicar el drone** (Alvaro no le ve valor post-siembra). Nadie aparece en cámara.
-El plan operativo (07/10 → 06/12) está en `docs/estrategia/plan.html`: 1 publicación por semana con
-piezas ya hechas del relanzamiento de septiembre, mensajes de WhatsApp, pauta A (alcance) + B (tardío)
-y las planillas `mapa-de-cuentas.csv` y `tablero-mensual.csv`. GitHub: Alvaro decidió no pagar Pro
-(07/10); el repo sigue público.
+Tres páginas, en este orden: **estrategia** (`docs/estrategia/index.html`, v3: situación, objetivos,
+segmentos, oferta, recorrido del productor, canales, presupuesto, medición, roles, reglas, riesgos),
+**guía de 10 pasos** (`guia.html`) y **plan de 9 semanas** (`plan.html`: publicaciones listas,
+mensajes, pauta A + B, checklist de Santi). Planillas: `mapa-de-cuentas.csv`, `tablero-mensual.csv`.
+Piezas nuevas en `docs/estrategia/piezas/` (HTML + JPG; usan `../../assets/hs2627.css` del sitio).
+**Roles (07/10):** Alvaro publica; Santi revisa cada pieza antes con la checklist.
+**Oferta:** "Plan de Campaña HenderSeeds" (recomendado, falta confirmación de Alvaro).
+**Regla del equipo (25/09): en maíz NO se muestran números de ensayo** (kg/ha vs. promedio): se
+muestra el híbrido y su tecnología. En girasol sí.
+**Nunca subir información comercial interna al repo (es público).** El archivo con precios
+(`brand/referencias/hibridos-nidera.md`) se borró de las 8 ramas el 07/10; sigue en el historial.
+GitHub: Alvaro decidió no pagar Pro (07/10).
 
 **Ramas (leer antes de trabajar):** la versión más completa del contenido está en
 `claude/gallant-hawking-qbdjlf` (relanzamiento de septiembre, la que publica el sitio). Esta rama
