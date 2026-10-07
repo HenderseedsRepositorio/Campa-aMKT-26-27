@@ -1,0 +1,4 @@
+﻿Productor;Contacto;WhatsApp;Localidad;Hectáreas agrícolas (aprox.);Cultivos;Siembra tardío (Sí/No);Estado (Cliente / Prospecto / Ex cliente);Le compra a;Segmento (A / B / C);Responsable;Último contacto (dd/mm/aaaa);Próxima acción;Fecha próxima acción;Origen, si es cliente nuevo (Referido / Visita / Instagram / Pauta / Google / Jornada / Otro);Notas
+(ejemplo) Productor 1;(nombre);(número);Henderson;800;Maíz, girasol, soja;Sí;Cliente;—;A;Alvaro;05/10/2026;Pasarle los números del tardío;12/10/2026;;Borrar esta fila
+(ejemplo) Productor 2;(nombre);(número);Daireaux;1500;Maíz, soja, trigo;Sí;Prospecto;(competidor);A;Alvaro;;Visita con números de tardío;19/10/2026;;Lo presentó (cliente)
+(ejemplo) Productor 3;(nombre);(número);Bolívar;300;Soja, girasol;No;Prospecto;(competidor);C;Santi;;Que le lleguen los Estados;;;Borrar esta fila
