@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa W38 · Rinde de indiferencia</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B;
+  --orange:#F5A623; --yellow:#F59E0B; --white:#FFFFFF; --wa:#25D366;
+  --wf:rgba(255,255,255,0.05); --wb:rgba(255,255,255,0.09);
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --yellow-glow:rgba(245,158,11,0.14); --txt-dim:rgba(255,255,255,0.58); --txt-faint:rgba(255,255,255,0.34);
+}
+body { background:#06080f; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:86px 80px 70px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,158,11,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,158,11,0.05) 1px, transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--yellow); z-index:10; }
+
+/* Motivo: ejes con línea de umbral (break-even). El tema de la placa, dibujado. */
+.chart-motif { position:absolute; top:-70px; right:-110px; width:460px; height:460px; opacity:0.07; z-index:1; }
+
+.corner { position:absolute; width:34px; height:34px; border-color:rgba(245,166,35,0.18); border-style:solid; z-index:5; }
+.corner-br { bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+.logo-hs { position:absolute; top:70px; right:80px; height:58px; z-index:6; }
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--yellow); display:flex; align-items:center; gap:12px; z-index:2; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--yellow); box-shadow:0 0 14px var(--yellow); }
+
+.title { font-family:var(--arch); color:var(--white); font-size:112px; line-height:0.94; letter-spacing:-4px; margin-top:34px; z-index:2; }
+.title .cl { color:var(--yellow); }
+.subtitle { font-family:var(--sans); font-size:30px; font-weight:600; color:var(--txt-dim); margin-top:16px; z-index:2; line-height:1.3; }
+
+/* ── Panel de la fórmula: el héroe ── */
+.panel { margin-top:44px; background:rgba(0,0,0,0.28); border:1px solid var(--wb); border-radius:20px; padding:34px 42px 38px; z-index:2; }
+.panel-tag { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:19px; letter-spacing:2px; text-transform:uppercase; color:var(--yellow); background:var(--yellow-glow); border:1px solid rgba(245,158,11,0.35); border-radius:8px; padding:8px 18px; }
+
+.eq { margin-top:28px; }
+.eq-row { display:flex; align-items:baseline; justify-content:space-between; gap:20px; }
+.eq-term { font-family:var(--mono); font-size:38px; letter-spacing:-0.5px; color:var(--white); line-height:1.25; }
+.eq-unit { font-family:var(--mono); font-size:22px; color:var(--txt-faint); flex-shrink:0; }
+.eq-bar { height:3px; background:var(--yellow); border-radius:2px; margin:14px 0; opacity:0.85; }
+.eq-eq { font-family:var(--mono); font-size:34px; color:var(--yellow); text-align:center; margin:18px 0 16px; }
+.eq-row.out .eq-term { color:var(--yellow); font-weight:500; font-size:40px; }
+
+/* ── Inputs que pide la calculadora ── */
+.inputs-label { font-family:var(--mono); font-size:18px; letter-spacing:2px; text-transform:uppercase; color:var(--txt-faint); margin-top:36px; z-index:2; }
+.tags { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; z-index:2; }
+.tag { font-family:var(--mono); font-size:21px; color:var(--white); background:var(--wf); border:1px solid var(--wb); border-radius:999px; padding:10px 21px; }
+.tag.crop { color:var(--yellow); border-color:rgba(245,158,11,0.3); }
+
+.spacer { flex:1; }
+
+.url-line { font-family:var(--mono); font-size:38px; font-weight:500; color:var(--yellow); letter-spacing:-1px; z-index:2; margin-bottom:10px; }
+.cta-line { font-family:var(--sans); font-weight:700; font-size:30px; color:var(--white); display:flex; align-items:center; gap:16px; z-index:2; margin-bottom:24px; }
+.cta-line svg { flex-shrink:0; }
+.footrow { display:flex; justify-content:space-between; align-items:center; z-index:2; }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+.redin-logo img { height:30px; background:#fff; padding:6px 10px; border-radius:7px; }
+.redin-logo span { font-family:var(--mono); font-size:16px; letter-spacing:1.2px; color:var(--txt-faint); text-transform:uppercase; }
+.wa-min { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--txt-dim); }
+.wa-min svg { flex-shrink:0; }
+.legal { font-family:var(--mono); font-size:13px; color:rgba(255,255,255,0.24); margin-top:14px; z-index:2; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <!-- ejes + curva de ingreso cruzando la línea de costos: el break-even dibujado -->
+  <svg class="chart-motif" viewBox="0 0 100 100" fill="none" stroke="#F59E0B" stroke-width="1.2">
+    <path d="M12 12 L12 84 L92 84"/>
+    <path d="M12 58 L92 58" stroke-dasharray="4 4"/>
+    <path d="M12 80 L34 72 L52 58 L70 38 L90 20"/>
+    <circle cx="52" cy="58" r="4.5"/>
+  </svg>
+
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> PRECAMPAÑA 26/27 · MÁRGENES</div>
+
+  <div class="title">RINDE DE<br><span class="cl">INDIFERENCIA</span></div>
+  <div class="subtitle">El rinde donde no ganás ni perdés.<br>Arriba de ahí, todo es tuyo.</div>
+
+  <div class="panel">
+    <span class="panel-tag">La cuenta que hay que tener antes de sembrar</span>
+
+    <div class="eq">
+      <div class="eq-row">
+        <span class="eq-term">Costos totales</span>
+        <span class="eq-unit">USD/ha</span>
+      </div>
+      <div class="eq-bar"></div>
+      <div class="eq-row">
+        <span class="eq-term">Precio del grano</span>
+        <span class="eq-unit">USD/t</span>
+      </div>
+      <div class="eq-eq">=</div>
+      <div class="eq-row out">
+        <span class="eq-term">Rinde de indiferencia</span>
+        <span class="eq-unit">t/ha</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="inputs-label">Con tus números: alquiler · labores · ferti · flete · precio</div>
+  <div class="tags">
+    <div class="tag crop">Maíz</div>
+    <div class="tag crop">Girasol</div>
+    <div class="tag">Trigo</div>
+    <div class="tag">Soja</div>
+    <div class="tag">6 cultivos</div>
+    <div class="tag">2 minutos</div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="url-line">margen.henderseeds.com</div>
+  <div class="cta-line">
+    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    Sacá el tuyo, o escribinos y lo hacemos juntos
+  </div>
+  <div class="footrow">
+    <div class="redin-logo">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="wa-min">
+      <svg viewBox="0 0 32 32" width="24" height="24" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg>
+      WhatsApp · 2314 53-0691
+    </div>
+  </div>
+  <div class="legal">Calculadora de márgenes HenderSeeds · margen.henderseeds.com. El resultado depende de los costos y precios que cargue cada productor: no constituye una proyección de rendimiento ni una cotización.</div>
+  <span class="corner corner-br"></span>
+</div>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar feed &middot; 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F59E0B; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,158,11,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,158,11,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: feed 1080×1350 (4:5) + historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = 'w38-post-01-rinde-indiferencia';
+  var STORY_BG = '#06080f';
+  var SCALE = 2;
+  if (window.self !== window.top) return;
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      if (fmt === 'feed') {
+        return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 })
+          .then(function (c) { bajar(c, FILE + '-feed-1080x1350'); });
+      }
+      var frame = document.createElement('div');
+      frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+      var clone = slide.cloneNode(true);
+      clone.style.boxShadow = '0 0 0 2px rgba(245,166,35,0.25)';
+      frame.appendChild(clone);
+      document.body.appendChild(frame);
+      return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { document.body.removeChild(frame); bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
