@@ -6,9 +6,8 @@ name: Publicar página en GitHub Pages
 
 on:
   push:
-    # claude/gallant-hawking-qbdjlf: relanzamiento Siembra 26/27 (propuesta, reels, placas con foto).
-    # Parte de claude/peaceful-sagan-srghou y lo contiene entero, así que publicar desde acá no pierde nada.
-    branches: [claude/peaceful-sagan-srghou, claude/gallant-hawking-qbdjlf]
+    # Desde el 07/10/2026 todo vive en main (se juntaron las 8 ramas). Solo main publica.
+    branches: [main]
     paths:
       - "docs/**"
       - "scripts/**"

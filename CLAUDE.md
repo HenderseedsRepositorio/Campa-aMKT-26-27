@@ -6,10 +6,36 @@ Centro de producción de contenido y marketing digital de **HenderSeeds**
 **RED.IN de Nidera Semillas** para **Henderson, Daireaux y Bolívar**
 (oeste de la provincia de Buenos Aires, Argentina).
 
-**Foco actual:** precampaña de **maíz y girasol 26/27**. La precampaña sigue abierta
-hasta agosto/septiembre 2026 aproximadamente (las fechas y condiciones las define Nidera).
-También difundimos las **herramientas Henderseeds**: calculadora de márgenes para el
-productor y herramientas financieras para la reventa.
+**Estrategia vigente (07/10/2026): `docs/estrategia/index.html`** — publicada en
+https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/estrategia/ . Manda sobre el resto de
+este archivo. Idea central: el motor es la venta directa planificada (mapa de cuentas en
+Salesforce, visitas con algo de valor, referidos, jornada a campo); la marca digital es chica pero
+constante (1 publicación por semana, Estados de WhatsApp, pauta solo por zona y concentrada en la
+precampaña). El drone va solo dentro de la oferta (paso 5), nunca como pieza suelta. Nadie aparece en cámara.
+Tres páginas, en este orden: **estrategia** (`docs/estrategia/index.html`, v3: situación, objetivos,
+segmentos, oferta, recorrido del productor, canales, presupuesto, medición, roles, reglas, riesgos),
+**guía de 10 pasos** (`guia.html`) y **plan de 9 semanas** (`plan.html`: publicaciones listas,
+mensajes, pauta A + B, checklist de Santi). Planillas: `mapa-de-cuentas.csv`, `tablero-mensual.csv`.
+Piezas nuevas en `docs/estrategia/piezas/` (HTML + JPG; usan `../../assets/hs2627.css` del sitio).
+Galería de descarga: `docs/estrategia/piezas/index.html` (4 opciones por placa; recomendadas: Plan C y Clearfield D).
+Los JPG de `docs/estrategia/piezas/` se renderizan local con Playwright y se commitean (el robot solo renderiza `docs/placas/`).
+**Roles (07/10):** Alvaro publica; Santi revisa cada pieza antes con la checklist.
+**Oferta (definida por Alvaro el 07/10): "Plan de Campaña HenderSeeds"**, seis pasos:
+1. Diagnóstico · 2. Recomendación Asista (híbrido por ambiente; siembra variable incluida, opcional) ·
+3. Financiación (en público solo "a cosecha y con tarjetas agro, en pesos o dólares"; el plazo
+exacto va solo en privado) · 4. Seguro de resiembra · 5. Vuelo de drone (calidad de siembra) ·
+6. Informe de visita. El drone aparece solo como paso 5 de la oferta, nunca como pieza suelta.
+La hoja de visita y el modelo de informe (PDF) NO se suben al repo: tienen condiciones comerciales.
+**Regla del equipo (25/09): en maíz NO se muestran números de ensayo** (kg/ha vs. promedio): se
+muestra el híbrido y su tecnología. En girasol sí.
+**Nunca subir información comercial interna al repo (es público).** El archivo con precios
+(`brand/referencias/hibridos-nidera.md`) se borró de las 8 ramas el 07/10; sigue en el historial.
+GitHub: Alvaro decidió no pagar Pro (07/10).
+
+**Rama única: `main` (desde el 07/10/2026).** Se juntaron las 8 ramas de trabajo (septiembre como base,
+más la estrategia y lo útil de julio/agosto). Cada sesión nueva trabaja sobre `main` y vuelve a `main`.
+El sitio lo publica solo `.github/workflows/pages.yml` desde `main` (renderiza `docs/placas/` y copia `docs/`
+entero a gh-pages con `keep_files`). Las ramas viejas `claude/*` quedan como historial: no trabajar en ellas.
 
 Acá se generan: posteos para Instagram/Facebook, carruseles, guiones de reels y briefs
 de pauta para Meta Business Suite. Ritmo objetivo: **2–3 posteos por semana**.

@@ -62,6 +62,10 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
 
+> ⚠️ **Desde el 07/10/2026 manda el plan de 9 semanas: [`docs/estrategia/plan.html`](docs/estrategia/plan.html)**
+> (1 publicación por semana, Estados de WhatsApp, pauta A + B). La grilla de abajo queda como
+> referencia de las piezas hechas en septiembre; el plan elige cuáles salen y cuándo.
+
 ## 🌱 Relanzamiento Siembra 26/27 — W40 → W46 (propuesta 24/09/2026, ajustada el mismo día)
 Plan completo, piezas y textos: [`docs/propuesta/index.html`](docs/propuesta/index.html).
 **Arranque con reels (W40–W41):** los 6 reels juntos, con MP4, tapa y texto: [`docs/reels-siembra/index.html`](docs/reels-siembra/index.html).

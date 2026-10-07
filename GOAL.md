@@ -5,25 +5,17 @@
 
 ## Goal activo
 
-**Relanzamiento Siembra 26/27: publicar el plan W40–W46 sin cortes** (propuesta del 24/09/2026 en
-`docs/propuesta/index.html`). Criterio de hecho: cada semana con sus 3 posteos de feed programados
-en Meta Business Suite y la fila cargada en `metricas.md` el viernes.
-
-> El goal anterior (W28 completa antes del 10/07) quedó sin cerrar: no se publicó nada entre el
-> 26/06 y el 24/09. Se deja abajo como historial.
-
-### Goal anterior (sin cerrar) — W28
-
-### Criterios de "hecho"
-- [x] Post 1 — Girasol NS 1113 CL con ensayos CREA (v2, reemplaza al de "CL explicado") → `posts/2026-W28/post-01-girasol-ns1113.md` + placa
-- [ ] Post 2 — Finanzas: canje grano por semilla
-- [ ] Post 3 — Técnico: dato de manejo girasol
-- [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA (DM primario + WA)
-- [ ] Pasa el checklist de `brand/tono-voz.md`
-- [ ] Ningún dato inventado — los `[COMPLETAR]` están listados
-- [x] `calendario.md` actualizado (💡 → ✍️ con links)
-- [ ] Brief de pauta creado si algún post lo amerita
-- [x] Variedad de pilares respetada (cultivo + negocio + comunidad)
+**Guía de 10 pasos (`docs/estrategia/guia.html`)** — primero los cimientos, después la rutina:
+- [ ] 1 · La casa en orden (Instagram, Google Maps, WhatsApp Business, clientes agendados) — 07 al 11/10
+- [ ] 2 · Los números de la 25/26 (línea de base + tamaño del mercado) — hasta el 16/10
+- [ ] 3 · El mapa de cuentas (clientes + 50 prospectos, A/B/C, competencia) — hasta el 31/10
+- [ ] 4 · Las metas de la 27/28 — reunión del lunes 02/11
+- [ ] 5 · La oferta con nombre (Plan de Campaña: hoja de visita + modelo de informe de cierre) — noviembre
+- [ ] 6 · La rutina de publicación (Alvaro publica, Santi revisa) — desde el 12/10
+- [ ] 7 · La pauta A y B — desde el 12/10 y el 19/10
+- [ ] 8 · La venta directa del tardío — hasta el 05/12
+- [ ] 9 · El ensayo y la jornada a campo — octubre a febrero
+- [ ] 10 · La reunión mensual — primer lunes de cada mes
 
 ---
 
@@ -103,11 +95,6 @@ Las piezas se hacen en **HTML single-file**, NO en Canva (Canva no respeta logo 
 **Regla de contacto (Instagram):** el CTA primario es **"Mandanos un DM"** (ícono
 avioncito) — es la acción nativa sin fricción. El **WhatsApp va como info de última**,
 chico y abajo, con el ícono SVG real verde (`#25D366`). Nunca el número grande/protagonista.
-En la **pauta**, el botón del anuncio es "Enviar mensaje de WhatsApp" (unificado con CLAUDE.md).
-
-**Sistema nuevo (desde W40):** las placas se arman con `docs/assets/hs2627.css` y los logos HD
-`logo-hs-blanco-hd.png` / `logo-hs-navy-hd.png` / `logo-nidera-negativo.png` (Nidera con letras
-blancas para fondo navy). Ver cualquier `docs/placas/2026-W4*.html` como ejemplo.
 
 ## Cómo usar esto
 
