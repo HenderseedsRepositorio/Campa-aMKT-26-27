@@ -12,6 +12,10 @@ este archivo. Idea central: el motor es la venta directa planificada (mapa de cu
 Salesforce, visitas con algo de valor, referidos, jornada a campo); la marca digital es chica pero
 constante (1 publicación por semana, Estados de WhatsApp, pauta solo por zona y concentrada en la
 precampaña). **No comunicar el drone** (Alvaro no le ve valor post-siembra). Nadie aparece en cámara.
+El plan operativo (07/10 → 06/12) está en `docs/estrategia/plan.html`: 1 publicación por semana con
+piezas ya hechas del relanzamiento de septiembre, mensajes de WhatsApp, pauta A (alcance) + B (tardío)
+y las planillas `mapa-de-cuentas.csv` y `tablero-mensual.csv`. GitHub: Alvaro decidió no pagar Pro
+(07/10); el repo sigue público.
 
 **Ramas (leer antes de trabajar):** la versión más completa del contenido está en
 `claude/gallant-hawking-qbdjlf` (relanzamiento de septiembre, la que publica el sitio). Esta rama

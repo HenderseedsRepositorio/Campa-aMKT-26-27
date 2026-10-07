@@ -5,8 +5,8 @@
 
 ## Goal activo
 
-**Próximos 30 días de la estrategia (07/10 → 06/11/2026)** — lista completa en la sección 11 de
-`docs/estrategia/index.html`. Lo central:
+**Plan del 07/10 al 06/12/2026 (cierre del tardío)** — semana por semana en
+`docs/estrategia/plan.html` (publicado en .../estrategia/plan.html). Lo central:
 - [ ] Sacar los precios del repo público (decisión de Alvaro: repo privado + GitHub Pro, o limpiar historial)
 - [ ] Tardío y girasol: contacto uno a uno con los que siembran (tardío fuerte hasta el 05/12)
 - [ ] Decidir quién ejecuta el contenido (creador/CM de la zona u horas fijas de Santi)
