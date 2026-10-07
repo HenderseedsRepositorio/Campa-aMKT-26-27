@@ -17,13 +17,15 @@ segmentos, oferta, recorrido del productor, canales, presupuesto, medición, rol
 **guía de 10 pasos** (`guia.html`) y **plan de 9 semanas** (`plan.html`: publicaciones listas,
 mensajes, pauta A + B, checklist de Santi). Planillas: `mapa-de-cuentas.csv`, `tablero-mensual.csv`.
 Piezas nuevas en `docs/estrategia/piezas/` (HTML + JPG; usan `../../assets/hs2627.css` del sitio).
-Galería de descarga: `docs/estrategia/piezas/index.html` (4 opciones por placa; recomendadas: Plan C y Clearfield D).
-Los JPG de `docs/estrategia/piezas/` se renderizan local con Playwright y se commitean (el robot solo renderiza `docs/placas/`).
+Galería de descarga: `docs/estrategia/piezas/index.html` (Plan de Campaña: 8 diseños × colores = 16; Clearfield: 7 diseños = 14;
+cada una en feed 4:5 e historia 9:16 propia). Recomendadas: Plan C navy (2ª vuelta: F ámbar) y Clearfield D navy.
+Textos y diseños en UN archivo: `python3 scripts/armar-piezas-estrategia.py` → HTML; `node scripts/render-piezas-estrategia.mjs`
+→ JPG (se commitean; el robot del sitio solo renderiza `docs/placas/`).
 **Roles (07/10):** Alvaro publica; Santi revisa cada pieza antes con la checklist.
 **Oferta (definida por Alvaro el 07/10): "Plan de Campaña HenderSeeds"**, seis pasos:
 1. Diagnóstico · 2. Recomendación Asista (híbrido por ambiente; siembra variable incluida, opcional) ·
-3. Financiación (en público solo "a cosecha y con tarjetas agro, en pesos o dólares"; el plazo
-exacto va solo en privado) · 4. Seguro de resiembra · 5. Vuelo de drone (calidad de siembra) ·
+3. Financiación (en público solo "a cosecha o de contado, con tarjetas agro en pesos o dólares"; el plazo
+exacto va solo en privado, NUNCA en el repo) · 4. Seguro de resiembra (de Nidera, ante granizo o encharcamiento) · 5. Vuelo de drone (calidad de siembra) ·
 6. Informe de visita. El drone aparece solo como paso 5 de la oferta, nunca como pieza suelta.
 La hoja de visita y el modelo de informe (PDF) NO se suben al repo: tienen condiciones comerciales.
 **Regla del equipo (25/09): en maíz NO se muestran números de ensayo** (kg/ha vs. promedio): se
@@ -154,8 +156,8 @@ meta-ads/
   arranca el 15/10", R2 "¿qué híbrido va en tu lote?", R4 "¿rinde o sanidad?" (el girasol todavía no se
   sembró), R5 nuevo `2026-W41-reel-ns7925.html` y R6 con la barra de cómo se compone el margen.
   **Regla:** en maíz no comparamos ensayos (no somos líderes): mostramos el híbrido y su tecnología.
-- ⚠️ El repo es **público** y `brand/referencias/hibridos-nidera.md` tiene precios y datos que
-  contradicen los marbetes: NO usarlo. Pendiente decidir si se borra o si el repo pasa a privado.
+- ✅ 07/10/2026: `brand/referencias/hibridos-nidera.md` (precios) borrado; el repo sigue público.
+- ✅ 07/10/2026: estrategia v3 + plan de 9 semanas + galería de placas; las 8 ramas juntas en `main`.
 - ✅ Estructura inicial creada (junio 2026, semana W24).
 - ✅ Primer post de lanzamiento de precampaña 26/27 ya publicado por Henderseeds,
   previo a este repo. `[COMPLETAR: link o texto del post para mantener coherencia]`
