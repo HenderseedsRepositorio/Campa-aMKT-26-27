@@ -8,15 +8,25 @@
 <link rel="stylesheet" href="../../assets/fonts/fuentes.css">
 <link rel="stylesheet" href="../estilo.css">
 <style>
+.bar { position:sticky; top:0; z-index:5; background:var(--navy, #0a0f1b); padding:10px 0; display:flex; flex-wrap:wrap; gap:8px; align-items:center; border-bottom:1px solid var(--line); }
+.bar span { font-family:var(--f-mono); font-size:12px; color:var(--txt-3); margin-right:4px; }
+.bar button { font-family:var(--f-mono); font-size:12px; color:var(--txt); background:transparent; border:1px solid var(--line-2); border-radius:999px; padding:6px 12px; cursor:pointer; }
+.bar button.on { background:var(--amber); color:#0a0a0a; border-color:var(--amber); }
 .gal { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
 @media (min-width:900px) { .gal { grid-template-columns:repeat(4,1fr); } }
-.op { margin:0; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:8px; position:relative; display:flex; flex-direction:column; }
+.op { margin:0; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:8px; display:flex; flex-direction:column; }
 .op.rec { border-color:var(--amber); box-shadow:0 0 0 1px var(--amber); }
-.op img { width:100%; aspect-ratio:4/5; display:block; border-radius:8px; }
+.op .ph img { width:100%; aspect-ratio:4/5; object-fit:cover; display:block; border-radius:8px; background:#05070d; }
+body.hist .op .ph img { aspect-ratio:9/16; }
 .op figcaption { display:flex; flex-direction:column; gap:4px; padding:8px 4px 4px; font-size:13.5px; color:var(--txt-2); flex:1; }
 .op figcaption b { color:var(--txt); font-size:14.5px; }
-.op .dl { margin-top:auto; padding-top:8px; font-family:var(--f-mono); font-size:12px; color:var(--amber); text-decoration:none; }
+.tema { font-style:normal; font-family:var(--f-mono); font-size:11px; font-weight:400; padding:2px 6px; border-radius:4px; margin-left:4px; vertical-align:1px; }
+.t-navy { background:#0D2D5E; color:#fff; } .t-crema { background:#F6F4EE; color:#121826; } .t-ambar { background:#F5A623; color:#0A0F1B; }
+.dls { margin-top:auto; padding-top:8px; display:flex; gap:12px; flex-wrap:wrap; }
+.dls a { font-family:var(--f-mono); font-size:12px; color:var(--amber); text-decoration:none; }
 .badge { align-self:flex-start; background:var(--amber); color:#0a0a0a; font-family:var(--f-mono); font-size:11px; font-weight:500; padding:4px 8px; border-radius:6px; }
+.badge.b2 { background:transparent; color:var(--amber); border:1px solid var(--amber); }
+.op.hide { display:none; }
 .links-row { margin-top:12px; }
 .copy { font-family:var(--f-mono); font-size:12px; border-radius:6px; padding:7px 11px; cursor:pointer; border:1px solid var(--amber); }
 </style>
@@ -37,20 +47,96 @@
 <header class="hero">
   <div class="kicker"><span class="led"></span>Piezas · listas para subir</div>
   <h1>Placas para<br><em>descargar.</em></h1>
-  <p class="lead">Cuatro opciones de cada placa. Tocá <b>Descargar JPG</b> desde el celular y subila tal cual a Instagram y Facebook (formato 4:5, 1080×1350). La marcada en amarillo es la que conviene publicar y promocionar. Antes de subir, Santi la revisa con la checklist del plan.</p>
+  <p class="lead">Varias opciones de cada placa, en colores distintos y en dos formatos: <b>feed 4:5</b> (Instagram y Facebook) e <b>historia 9:16</b> (historias y Estados de WhatsApp, con diseño propio). La marcada en amarillo es la que conviene publicar y promocionar. Santi revisa la elegida con la checklist del plan antes de subirla.</p>
 </header>
+<div class="bar" role="toolbar" aria-label="Filtros">
+  <span>Ver</span><button data-f="feed" class="on">Feed 4:5</button><button data-f="hist">Historia 9:16</button>
+  <span style="margin-left:10px">Color</span><button data-t="todos" class="on">Todos</button><button data-t="navy">Navy</button><button data-t="crema">Crema</button><button data-t="ambar">Ámbar</button>
+</div>
 <section id="plan">
-  <div class="sec-k">lun 09/11 · 8–10 h</div>
+  <div class="sec-k">jue 22/10 · 8–10 h (y segunda vuelta lun 09/11 con otra opción)</div>
   <h2>Plan de Campaña HenderSeeds</h2>
   <div class="gal">
-    <figure class="op"><a href="img/2026-W46-plan-de-campana-A-feed-1080x1350.jpg"><img src="img/2026-W46-plan-de-campana-A-feed-1080x1350.jpg" alt="Plan de Campaña HenderSeeds, opción A" loading="lazy"></a>
-      <figcaption><b>Opción A · Lista navy</b><span>Los 6 pasos con su explicación. La más completa; se lee mejor abierta que en el scroll.</span><a class="dl" href="img/2026-W46-plan-de-campana-A-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
-    <figure class="op"><a href="img/2026-W46-plan-de-campana-B-feed-1080x1350.jpg"><img src="img/2026-W46-plan-de-campana-B-feed-1080x1350.jpg" alt="Plan de Campaña HenderSeeds, opción B" loading="lazy"></a>
-      <figcaption><b>Opción B · Crema, grilla</b><span>Cambia el fondo: sirve para cortar la grilla oscura del perfil.</span><a class="dl" href="img/2026-W46-plan-de-campana-B-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
-    <figure class="op rec"><a href="img/2026-W46-plan-de-campana-C-feed-1080x1350.jpg"><img src="img/2026-W46-plan-de-campana-C-feed-1080x1350.jpg" alt="Plan de Campaña HenderSeeds, opción C" loading="lazy"></a>
-      <figcaption><span class="badge">★ Recomendada para promocionar</span><b>Opción C · El número grande</b><span>Un “6” que se ve desde lejos y pocas palabras. Es la que mejor funciona chica, en el scroll y como anuncio.</span><a class="dl" href="img/2026-W46-plan-de-campana-C-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
-    <figure class="op"><a href="img/2026-W46-plan-de-campana-D-feed-1080x1350.jpg"><img src="img/2026-W46-plan-de-campana-D-feed-1080x1350.jpg" alt="Plan de Campaña HenderSeeds, opción D" loading="lazy"></a>
-      <figcaption><b>Opción D · Recorrido</b><span>La línea de la visita a la cosecha. Buena para fijar en el perfil.</span><a class="dl" href="img/2026-W46-plan-de-campana-D-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
+    <figure class="op" data-k="A" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-A-feed-1080x1350.jpg" data-feed="img/plan-de-campana-A-feed-1080x1350.jpg" data-hist="img/plan-de-campana-A-historia-1080x1920.jpg"><img src="img/plan-de-campana-A-feed-1080x1350.jpg" data-feed="img/plan-de-campana-A-feed-1080x1350.jpg" data-hist="img/plan-de-campana-A-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción A Navy" loading="lazy"></a>
+      <figcaption><b>Opción A · Lista <i class="tema t-navy">Navy</i></b><span>Los 6 pasos con su explicación. La más completa; se lee mejor abierta que en el scroll.</span>
+        <span class="dls"><a href="img/plan-de-campana-A-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-A-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="A" data-tema="crema">
+      <a class="ph" href="img/plan-de-campana-A-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-A-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-A-crema-historia-1080x1920.jpg"><img src="img/plan-de-campana-A-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-A-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-A-crema-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción A Crema" loading="lazy"></a>
+      <figcaption><b>Opción A · Lista <i class="tema t-crema">Crema</i></b><span>Los 6 pasos con su explicación. La más completa; se lee mejor abierta que en el scroll.</span>
+        <span class="dls"><a href="img/plan-de-campana-A-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-A-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="B" data-tema="crema">
+      <a class="ph" href="img/plan-de-campana-B-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-B-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-B-crema-historia-1080x1920.jpg"><img src="img/plan-de-campana-B-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-B-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-B-crema-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción B Crema" loading="lazy"></a>
+      <figcaption><b>Opción B · Grilla <i class="tema t-crema">Crema</i></b><span>Seis tarjetas. En crema corta la grilla oscura del perfil.</span>
+        <span class="dls"><a href="img/plan-de-campana-B-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-B-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="B" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-B-feed-1080x1350.jpg" data-feed="img/plan-de-campana-B-feed-1080x1350.jpg" data-hist="img/plan-de-campana-B-historia-1080x1920.jpg"><img src="img/plan-de-campana-B-feed-1080x1350.jpg" data-feed="img/plan-de-campana-B-feed-1080x1350.jpg" data-hist="img/plan-de-campana-B-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción B Navy" loading="lazy"></a>
+      <figcaption><b>Opción B · Grilla <i class="tema t-navy">Navy</i></b><span>Seis tarjetas. En crema corta la grilla oscura del perfil.</span>
+        <span class="dls"><a href="img/plan-de-campana-B-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-B-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op rec" data-k="C" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-C-feed-1080x1350.jpg" data-feed="img/plan-de-campana-C-feed-1080x1350.jpg" data-hist="img/plan-de-campana-C-historia-1080x1920.jpg"><img src="img/plan-de-campana-C-feed-1080x1350.jpg" data-feed="img/plan-de-campana-C-feed-1080x1350.jpg" data-hist="img/plan-de-campana-C-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción C Navy" loading="lazy"></a>
+      <figcaption><span class="badge">★ Recomendada para promocionar</span><b>Opción C · El número grande <i class="tema t-navy">Navy</i></b><span>Un “6” que se ve desde lejos y pocas palabras. La que mejor funciona chica, en el scroll y como anuncio.</span>
+        <span class="dls"><a href="img/plan-de-campana-C-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-C-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="C" data-tema="crema">
+      <a class="ph" href="img/plan-de-campana-C-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-C-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-C-crema-historia-1080x1920.jpg"><img src="img/plan-de-campana-C-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-C-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-C-crema-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción C Crema" loading="lazy"></a>
+      <figcaption><b>Opción C · El número grande <i class="tema t-crema">Crema</i></b><span>Un “6” que se ve desde lejos y pocas palabras. La que mejor funciona chica, en el scroll y como anuncio.</span>
+        <span class="dls"><a href="img/plan-de-campana-C-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-C-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="C" data-tema="ambar">
+      <a class="ph" href="img/plan-de-campana-C-ambar-feed-1080x1350.jpg" data-feed="img/plan-de-campana-C-ambar-feed-1080x1350.jpg" data-hist="img/plan-de-campana-C-ambar-historia-1080x1920.jpg"><img src="img/plan-de-campana-C-ambar-feed-1080x1350.jpg" data-feed="img/plan-de-campana-C-ambar-feed-1080x1350.jpg" data-hist="img/plan-de-campana-C-ambar-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción C Ámbar" loading="lazy"></a>
+      <figcaption><b>Opción C · El número grande <i class="tema t-ambar">Ámbar</i></b><span>Un “6” que se ve desde lejos y pocas palabras. La que mejor funciona chica, en el scroll y como anuncio.</span>
+        <span class="dls"><a href="img/plan-de-campana-C-ambar-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-C-ambar-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="D" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-D-feed-1080x1350.jpg" data-feed="img/plan-de-campana-D-feed-1080x1350.jpg" data-hist="img/plan-de-campana-D-historia-1080x1920.jpg"><img src="img/plan-de-campana-D-feed-1080x1350.jpg" data-feed="img/plan-de-campana-D-feed-1080x1350.jpg" data-hist="img/plan-de-campana-D-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción D Navy" loading="lazy"></a>
+      <figcaption><b>Opción D · Recorrido <i class="tema t-navy">Navy</i></b><span>La línea de la visita a la cosecha. Buena para fijar en el perfil.</span>
+        <span class="dls"><a href="img/plan-de-campana-D-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-D-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="D" data-tema="crema">
+      <a class="ph" href="img/plan-de-campana-D-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-D-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-D-crema-historia-1080x1920.jpg"><img src="img/plan-de-campana-D-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-D-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-D-crema-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción D Crema" loading="lazy"></a>
+      <figcaption><b>Opción D · Recorrido <i class="tema t-crema">Crema</i></b><span>La línea de la visita a la cosecha. Buena para fijar en el perfil.</span>
+        <span class="dls"><a href="img/plan-de-campana-D-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-D-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="E" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-E-feed-1080x1350.jpg" data-feed="img/plan-de-campana-E-feed-1080x1350.jpg" data-hist="img/plan-de-campana-E-historia-1080x1920.jpg"><img src="img/plan-de-campana-E-feed-1080x1350.jpg" data-feed="img/plan-de-campana-E-feed-1080x1350.jpg" data-hist="img/plan-de-campana-E-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción E Navy" loading="lazy"></a>
+      <figcaption><b>Opción E · Antes, durante y después <i class="tema t-navy">Navy</i></b><span>Agrupa los pasos en tres momentos: se entiende que acompañás toda la campaña.</span>
+        <span class="dls"><a href="img/plan-de-campana-E-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-E-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="E" data-tema="crema">
+      <a class="ph" href="img/plan-de-campana-E-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-E-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-E-crema-historia-1080x1920.jpg"><img src="img/plan-de-campana-E-crema-feed-1080x1350.jpg" data-feed="img/plan-de-campana-E-crema-feed-1080x1350.jpg" data-hist="img/plan-de-campana-E-crema-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción E Crema" loading="lazy"></a>
+      <figcaption><b>Opción E · Antes, durante y después <i class="tema t-crema">Crema</i></b><span>Agrupa los pasos en tres momentos: se entiende que acompañás toda la campaña.</span>
+        <span class="dls"><a href="img/plan-de-campana-E-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-E-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="F" data-tema="ambar">
+      <a class="ph" href="img/plan-de-campana-F-ambar-feed-1080x1350.jpg" data-feed="img/plan-de-campana-F-ambar-feed-1080x1350.jpg" data-hist="img/plan-de-campana-F-ambar-historia-1080x1920.jpg"><img src="img/plan-de-campana-F-ambar-feed-1080x1350.jpg" data-feed="img/plan-de-campana-F-ambar-feed-1080x1350.jpg" data-hist="img/plan-de-campana-F-ambar-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción F Ámbar" loading="lazy"></a>
+      <figcaption><span class="badge b2">Segunda opción</span><b>Opción F · Lista grande <i class="tema t-ambar">Ámbar</i></b><span>Solo los nombres, bien grandes. En ámbar es la que más resalta en el feed.</span>
+        <span class="dls"><a href="img/plan-de-campana-F-ambar-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-F-ambar-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="F" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-F-feed-1080x1350.jpg" data-feed="img/plan-de-campana-F-feed-1080x1350.jpg" data-hist="img/plan-de-campana-F-historia-1080x1920.jpg"><img src="img/plan-de-campana-F-feed-1080x1350.jpg" data-feed="img/plan-de-campana-F-feed-1080x1350.jpg" data-hist="img/plan-de-campana-F-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción F Navy" loading="lazy"></a>
+      <figcaption><b>Opción F · Lista grande <i class="tema t-navy">Navy</i></b><span>Solo los nombres, bien grandes. En ámbar es la que más resalta en el feed.</span>
+        <span class="dls"><a href="img/plan-de-campana-F-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-F-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="G" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-G-feed-1080x1350.jpg" data-feed="img/plan-de-campana-G-feed-1080x1350.jpg" data-hist="img/plan-de-campana-G-historia-1080x1920.jpg"><img src="img/plan-de-campana-G-feed-1080x1350.jpg" data-feed="img/plan-de-campana-G-feed-1080x1350.jpg" data-hist="img/plan-de-campana-G-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción G Navy" loading="lazy"></a>
+      <figcaption><b>Opción G · Tipográfica <i class="tema t-navy">Navy</i></b><span>“Un plan. Seis pasos. Un solo equipo.” Tres frases y los pasos abajo. Para anuncio.</span>
+        <span class="dls"><a href="img/plan-de-campana-G-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-G-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="G" data-tema="ambar">
+      <a class="ph" href="img/plan-de-campana-G-ambar-feed-1080x1350.jpg" data-feed="img/plan-de-campana-G-ambar-feed-1080x1350.jpg" data-hist="img/plan-de-campana-G-ambar-historia-1080x1920.jpg"><img src="img/plan-de-campana-G-ambar-feed-1080x1350.jpg" data-feed="img/plan-de-campana-G-ambar-feed-1080x1350.jpg" data-hist="img/plan-de-campana-G-ambar-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción G Ámbar" loading="lazy"></a>
+      <figcaption><b>Opción G · Tipográfica <i class="tema t-ambar">Ámbar</i></b><span>“Un plan. Seis pasos. Un solo equipo.” Tres frases y los pasos abajo. Para anuncio.</span>
+        <span class="dls"><a href="img/plan-de-campana-G-ambar-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-G-ambar-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="H" data-tema="navy">
+      <a class="ph" href="img/plan-de-campana-H-feed-1080x1350.jpg" data-feed="img/plan-de-campana-H-feed-1080x1350.jpg" data-hist="img/plan-de-campana-H-historia-1080x1920.jpg"><img src="img/plan-de-campana-H-feed-1080x1350.jpg" data-feed="img/plan-de-campana-H-feed-1080x1350.jpg" data-hist="img/plan-de-campana-H-historia-1080x1920.jpg" alt="Plan de Campaña HenderSeeds, opción H Navy" loading="lazy"></a>
+      <figcaption><b>Opción H · Sobre foto de lote <i class="tema t-navy">Navy</i></b><span>Checklist de lo que incluye, con una foto de lote propia de fondo.</span>
+        <span class="dls"><a href="img/plan-de-campana-H-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/plan-de-campana-H-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
   </div>
   <div class="links-row"><button class="copy" data-c="t-plan">Copiar texto del posteo</button></div>
   <details class="cap"><summary>Ver texto</summary><pre class="txt" id="t-plan">Tu campaña, con un plan. 📋
@@ -59,8 +145,8 @@ Así trabajamos cada campaña con los productores de Henderson, Daireaux y Bolí
 
 1. Diagnóstico de tu lote y tu planteo.
 2. Recomendación Asista: híbrido Nidera por ambiente y, si querés, siembra variable.
-3. Financiación a cosecha y tarjetas agro, en pesos o en dólares.
-4. Seguro de resiembra.
+3. Financiación a cosecha o de contado, con tarjetas agro en pesos o en dólares.
+4. Seguro de resiembra de Nidera, ante granizo o encharcamiento.
 5. Vuelo de drone para ver la calidad de siembra.
 6. Informe de visita: lo que vimos y lo que recomendamos, por escrito.
 
@@ -73,14 +159,76 @@ Es el Plan de Campaña HenderSeeds.
   <div class="sec-k">lun 02/11 · 20–22 h</div>
   <h2>Tardío con malezas: los dos Clearfield</h2>
   <div class="gal">
-    <figure class="op"><a href="img/2026-W45-clearfield-A-feed-1080x1350.jpg"><img src="img/2026-W45-clearfield-A-feed-1080x1350.jpg" alt="Tardío con malezas: los dos Clearfield, opción A" loading="lazy"></a>
-      <figcaption><b>Opción A · Lista navy</b><span>Los dos híbridos y las tres herramientas, ordenado.</span><a class="dl" href="img/2026-W45-clearfield-A-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
-    <figure class="op"><a href="img/2026-W45-clearfield-B-feed-1080x1350.jpg"><img src="img/2026-W45-clearfield-B-feed-1080x1350.jpg" alt="Tardío con malezas: los dos Clearfield, opción B" loading="lazy"></a>
-      <figcaption><b>Opción B · Crema</b><span>La misma información, fondo claro.</span><a class="dl" href="img/2026-W45-clearfield-B-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
-    <figure class="op"><a href="img/2026-W45-clearfield-C-feed-1080x1350.jpg"><img src="img/2026-W45-clearfield-C-feed-1080x1350.jpg" alt="Tardío con malezas: los dos Clearfield, opción C" loading="lazy"></a>
-      <figcaption><b>Opción C · El número grande</b><span>Un “3” con los tres herbicidas. Muy legible, pero repite la pregunta sin ayudar a elegir.</span><a class="dl" href="img/2026-W45-clearfield-C-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
-    <figure class="op rec"><a href="img/2026-W45-clearfield-D-feed-1080x1350.jpg"><img src="img/2026-W45-clearfield-D-feed-1080x1350.jpg" alt="Tardío con malezas: los dos Clearfield, opción D" loading="lazy"></a>
-      <figcaption><span class="badge">★ Recomendada para promocionar</span><b>Opción D · ¿Cuál va?</b><span>Cara a cara NS 7624 vs. NS 7921. Ayuda a decidir y abre la conversación: “¿cuál va en mi lote?”.</span><a class="dl" href="img/2026-W45-clearfield-D-feed-1080x1350.jpg" download>Descargar JPG 1080×1350</a></figcaption></figure>
+    <figure class="op" data-k="A" data-tema="navy">
+      <a class="ph" href="img/clearfield-A-feed-1080x1350.jpg" data-feed="img/clearfield-A-feed-1080x1350.jpg" data-hist="img/clearfield-A-historia-1080x1920.jpg"><img src="img/clearfield-A-feed-1080x1350.jpg" data-feed="img/clearfield-A-feed-1080x1350.jpg" data-hist="img/clearfield-A-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción A Navy" loading="lazy"></a>
+      <figcaption><b>Opción A · Lista <i class="tema t-navy">Navy</i></b><span>Los dos híbridos y las tres herramientas, ordenado.</span>
+        <span class="dls"><a href="img/clearfield-A-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-A-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="A" data-tema="crema">
+      <a class="ph" href="img/clearfield-A-crema-feed-1080x1350.jpg" data-feed="img/clearfield-A-crema-feed-1080x1350.jpg" data-hist="img/clearfield-A-crema-historia-1080x1920.jpg"><img src="img/clearfield-A-crema-feed-1080x1350.jpg" data-feed="img/clearfield-A-crema-feed-1080x1350.jpg" data-hist="img/clearfield-A-crema-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción A Crema" loading="lazy"></a>
+      <figcaption><b>Opción A · Lista <i class="tema t-crema">Crema</i></b><span>Los dos híbridos y las tres herramientas, ordenado.</span>
+        <span class="dls"><a href="img/clearfield-A-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-A-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="C" data-tema="navy">
+      <a class="ph" href="img/clearfield-C-feed-1080x1350.jpg" data-feed="img/clearfield-C-feed-1080x1350.jpg" data-hist="img/clearfield-C-historia-1080x1920.jpg"><img src="img/clearfield-C-feed-1080x1350.jpg" data-feed="img/clearfield-C-feed-1080x1350.jpg" data-hist="img/clearfield-C-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción C Navy" loading="lazy"></a>
+      <figcaption><b>Opción C · El número grande <i class="tema t-navy">Navy</i></b><span>Un “3” con los tres herbicidas. Muy legible, pero repite la pregunta sin ayudar a elegir.</span>
+        <span class="dls"><a href="img/clearfield-C-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-C-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="C" data-tema="crema">
+      <a class="ph" href="img/clearfield-C-crema-feed-1080x1350.jpg" data-feed="img/clearfield-C-crema-feed-1080x1350.jpg" data-hist="img/clearfield-C-crema-historia-1080x1920.jpg"><img src="img/clearfield-C-crema-feed-1080x1350.jpg" data-feed="img/clearfield-C-crema-feed-1080x1350.jpg" data-hist="img/clearfield-C-crema-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción C Crema" loading="lazy"></a>
+      <figcaption><b>Opción C · El número grande <i class="tema t-crema">Crema</i></b><span>Un “3” con los tres herbicidas. Muy legible, pero repite la pregunta sin ayudar a elegir.</span>
+        <span class="dls"><a href="img/clearfield-C-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-C-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op rec" data-k="D" data-tema="navy">
+      <a class="ph" href="img/clearfield-D-feed-1080x1350.jpg" data-feed="img/clearfield-D-feed-1080x1350.jpg" data-hist="img/clearfield-D-historia-1080x1920.jpg"><img src="img/clearfield-D-feed-1080x1350.jpg" data-feed="img/clearfield-D-feed-1080x1350.jpg" data-hist="img/clearfield-D-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción D Navy" loading="lazy"></a>
+      <figcaption><span class="badge">★ Recomendada para promocionar</span><b>Opción D · ¿Cuál va? <i class="tema t-navy">Navy</i></b><span>Cara a cara NS 7624 vs. NS 7921. Ayuda a decidir y abre la conversación: “¿cuál va en mi lote?”.</span>
+        <span class="dls"><a href="img/clearfield-D-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-D-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="D" data-tema="crema">
+      <a class="ph" href="img/clearfield-D-crema-feed-1080x1350.jpg" data-feed="img/clearfield-D-crema-feed-1080x1350.jpg" data-hist="img/clearfield-D-crema-historia-1080x1920.jpg"><img src="img/clearfield-D-crema-feed-1080x1350.jpg" data-feed="img/clearfield-D-crema-feed-1080x1350.jpg" data-hist="img/clearfield-D-crema-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción D Crema" loading="lazy"></a>
+      <figcaption><b>Opción D · ¿Cuál va? <i class="tema t-crema">Crema</i></b><span>Cara a cara NS 7624 vs. NS 7921. Ayuda a decidir y abre la conversación: “¿cuál va en mi lote?”.</span>
+        <span class="dls"><a href="img/clearfield-D-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-D-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="D" data-tema="ambar">
+      <a class="ph" href="img/clearfield-D-ambar-feed-1080x1350.jpg" data-feed="img/clearfield-D-ambar-feed-1080x1350.jpg" data-hist="img/clearfield-D-ambar-historia-1080x1920.jpg"><img src="img/clearfield-D-ambar-feed-1080x1350.jpg" data-feed="img/clearfield-D-ambar-feed-1080x1350.jpg" data-hist="img/clearfield-D-ambar-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción D Ámbar" loading="lazy"></a>
+      <figcaption><b>Opción D · ¿Cuál va? <i class="tema t-ambar">Ámbar</i></b><span>Cara a cara NS 7624 vs. NS 7921. Ayuda a decidir y abre la conversación: “¿cuál va en mi lote?”.</span>
+        <span class="dls"><a href="img/clearfield-D-ambar-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-D-ambar-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="E" data-tema="ambar">
+      <a class="ph" href="img/clearfield-E-ambar-feed-1080x1350.jpg" data-feed="img/clearfield-E-ambar-feed-1080x1350.jpg" data-hist="img/clearfield-E-ambar-historia-1080x1920.jpg"><img src="img/clearfield-E-ambar-feed-1080x1350.jpg" data-feed="img/clearfield-E-ambar-feed-1080x1350.jpg" data-hist="img/clearfield-E-ambar-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción E Ámbar" loading="lazy"></a>
+      <figcaption><b>Opción E · Pregunta y respuesta <i class="tema t-ambar">Ámbar</i></b><span>“¿Lote sucio para el tardío? Hay dos Clearfield.” Directa, para anuncio.</span>
+        <span class="dls"><a href="img/clearfield-E-ambar-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-E-ambar-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="E" data-tema="navy">
+      <a class="ph" href="img/clearfield-E-feed-1080x1350.jpg" data-feed="img/clearfield-E-feed-1080x1350.jpg" data-hist="img/clearfield-E-historia-1080x1920.jpg"><img src="img/clearfield-E-feed-1080x1350.jpg" data-feed="img/clearfield-E-feed-1080x1350.jpg" data-hist="img/clearfield-E-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción E Navy" loading="lazy"></a>
+      <figcaption><b>Opción E · Pregunta y respuesta <i class="tema t-navy">Navy</i></b><span>“¿Lote sucio para el tardío? Hay dos Clearfield.” Directa, para anuncio.</span>
+        <span class="dls"><a href="img/clearfield-E-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-E-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="F" data-tema="navy">
+      <a class="ph" href="img/clearfield-F-feed-1080x1350.jpg" data-feed="img/clearfield-F-feed-1080x1350.jpg" data-hist="img/clearfield-F-historia-1080x1920.jpg"><img src="img/clearfield-F-feed-1080x1350.jpg" data-feed="img/clearfield-F-feed-1080x1350.jpg" data-hist="img/clearfield-F-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción F Navy" loading="lazy"></a>
+      <figcaption><b>Opción F · Qué pedirle al híbrido <i class="tema t-navy">Navy</i></b><span>Tres condiciones y la respuesta. Educa antes de vender.</span>
+        <span class="dls"><a href="img/clearfield-F-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-F-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="F" data-tema="crema">
+      <a class="ph" href="img/clearfield-F-crema-feed-1080x1350.jpg" data-feed="img/clearfield-F-crema-feed-1080x1350.jpg" data-hist="img/clearfield-F-crema-historia-1080x1920.jpg"><img src="img/clearfield-F-crema-feed-1080x1350.jpg" data-feed="img/clearfield-F-crema-feed-1080x1350.jpg" data-hist="img/clearfield-F-crema-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción F Crema" loading="lazy"></a>
+      <figcaption><b>Opción F · Qué pedirle al híbrido <i class="tema t-crema">Crema</i></b><span>Tres condiciones y la respuesta. Educa antes de vender.</span>
+        <span class="dls"><a href="img/clearfield-F-crema-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-F-crema-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="G" data-tema="navy">
+      <a class="ph" href="img/clearfield-G-feed-1080x1350.jpg" data-feed="img/clearfield-G-feed-1080x1350.jpg" data-hist="img/clearfield-G-historia-1080x1920.jpg"><img src="img/clearfield-G-feed-1080x1350.jpg" data-feed="img/clearfield-G-feed-1080x1350.jpg" data-hist="img/clearfield-G-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción G Navy" loading="lazy"></a>
+      <figcaption><b>Opción G · CL gigante <i class="tema t-navy">Navy</i></b><span>Las letras CL como imagen. La más llamativa, la que menos explica.</span>
+        <span class="dls"><a href="img/clearfield-G-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-G-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="G" data-tema="ambar">
+      <a class="ph" href="img/clearfield-G-ambar-feed-1080x1350.jpg" data-feed="img/clearfield-G-ambar-feed-1080x1350.jpg" data-hist="img/clearfield-G-ambar-historia-1080x1920.jpg"><img src="img/clearfield-G-ambar-feed-1080x1350.jpg" data-feed="img/clearfield-G-ambar-feed-1080x1350.jpg" data-hist="img/clearfield-G-ambar-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción G Ámbar" loading="lazy"></a>
+      <figcaption><b>Opción G · CL gigante <i class="tema t-ambar">Ámbar</i></b><span>Las letras CL como imagen. La más llamativa, la que menos explica.</span>
+        <span class="dls"><a href="img/clearfield-G-ambar-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-G-ambar-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
+    <figure class="op" data-k="H" data-tema="navy">
+      <a class="ph" href="img/clearfield-H-feed-1080x1350.jpg" data-feed="img/clearfield-H-feed-1080x1350.jpg" data-hist="img/clearfield-H-historia-1080x1920.jpg"><img src="img/clearfield-H-feed-1080x1350.jpg" data-feed="img/clearfield-H-feed-1080x1350.jpg" data-hist="img/clearfield-H-historia-1080x1920.jpg" alt="Tardío con malezas: los dos Clearfield, opción H Navy" loading="lazy"></a>
+      <figcaption><span class="badge b2">Segunda opción</span><b>Opción H · Dato técnico sobre foto <i class="tema t-navy">Navy</i></b><span>“En lote sucio, primero el híbrido”: un dato útil que se guarda y se comparte.</span>
+        <span class="dls"><a href="img/clearfield-H-feed-1080x1350.jpg" download>Feed 4:5</a><a href="img/clearfield-H-historia-1080x1920.jpg" download>Historia 9:16</a></span></figcaption>
+    </figure>
   </div>
   <div class="links-row"><button class="copy" data-c="t-clearfield">Copiar texto del posteo</button></div>
   <details class="cap"><summary>Ver texto</summary><pre class="txt" id="t-clearfield">¿Tu lote tardío viene con malezas complicadas? 🌽
@@ -102,6 +250,19 @@ Recordá: con Clearfield, solo herbicidas identificados como CLEARFIELD®.
 </div>
 <script>
 (function () {
+  var bar = document.querySelector('.bar');
+  bar.addEventListener('click', function (ev) {
+    var b = ev.target.closest('button'); if (!b) return;
+    if (b.dataset.f) {
+      bar.querySelectorAll('[data-f]').forEach(function (x) { x.classList.toggle('on', x === b); });
+      var h = b.dataset.f === 'hist'; document.body.classList.toggle('hist', h);
+      document.querySelectorAll('.op .ph').forEach(function (a) { var u = h ? a.dataset.hist : a.dataset.feed; a.href = u; a.querySelector('img').src = u; });
+    }
+    if (b.dataset.t) {
+      bar.querySelectorAll('[data-t]').forEach(function (x) { x.classList.toggle('on', x === b); });
+      document.querySelectorAll('.op').forEach(function (o) { o.classList.toggle('hide', b.dataset.t !== 'todos' && o.dataset.tema !== b.dataset.t); });
+    }
+  });
   function respaldo(t) { var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); }
   document.querySelectorAll('button.copy').forEach(function (b) {
     b.addEventListener('click', function () {

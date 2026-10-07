@@ -64,34 +64,23 @@
 
 <section id="ramas">
   <div class="sec-k">03 · Las ramas</div>
-  <h2>Nueve ramas, hoy.</h2>
+  <h2>Una sola rama: <code>main</code>.</h2>
+  <p class="body">El 07/10/2026 se juntaron las 8 ramas de trabajo en <code>main</code>: el relanzamiento de septiembre como base, la estrategia, la placa de rinde de indiferencia y el guion del reel de girasol (septiembre), la historia del Día del Agrónomo y del Veterinario (agosto) y los ajustes de julio. Donde dos ramas decían cosas distintas del calendario, quedó la versión más nueva.</p>
   <div class="branches">
-    <div class="b"><div class="bn"><span class="tag base">principal</span>claude/peaceful-sagan-srghou<small>08/08/2026</small></div><div class="bd">La rama "por defecto": cada sesión nueva de Claude arranca desde acá. Quedó en agosto.</div></div>
-    <div class="b"><div class="bn"><span class="tag live">online</span>claude/gallant-hawking-qbdjlf<small>25/09 y 07/10/2026</small></div><div class="bd">El relanzamiento de septiembre: propuesta, reels y placas. Publica el sitio.</div></div>
-    <div class="b"><div class="bn"><span class="tag live">online</span>claude/loving-edison-byfwnx<small>07/10/2026</small></div><div class="bd">Esta sesión. Publica solo la carpeta <code>estrategia/</code>, con un robot aparte que no toca el resto del sitio.</div></div>
-    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/friendly-euler-ryr4lj<small>16/09/2026</small></div><div class="bd">Placa e historias de "rinde de indiferencia" y el guion del reel de girasol.</div></div>
-    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/instagram-template-veterinarian…<small>06/08/2026</small></div><div class="bd">Historia del Día del Ingeniero Agrónomo y del Veterinario, y un primer generador de videos.</div></div>
-    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/nidera-hithub-marketing-page-j1m2yt<small>08/07/2026</small></div><div class="bd">Ajustes de estrategia de julio.</div></div>
-    <div class="b"><div class="bn"><span class="tag old">vacía</span>claude/github-pages-repo-check-m5etlg<small>26/06/2026</small></div><div class="bd">Sin trabajo propio.</div></div>
-    <div class="b"><div class="bn"><span class="tag old">vacía</span>claude/dashboard-commemorative-dates-ou6c6h<small>31/07/2026</small></div><div class="bd">Sin trabajo propio.</div></div>
-    <div class="b"><div class="bn"><span class="tag old">automática</span>gh-pages<small>la generan los robots</small></div><div class="bd">Es el sitio publicado. No se edita a mano.</div></div>
+    <div class="b"><div class="bn"><span class="tag live">online</span>main<small>desde 07/10/2026</small></div><div class="bd">Todo el trabajo. Es la única rama que publica el sitio.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">historial</span>claude/*<small>8 ramas</small></div><div class="bd">Ya están dentro de <code>main</code>. Quedan como respaldo; se pueden borrar cuando quieras.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">automática</span>gh-pages<small>la genera el robot</small></div><div class="bd">Es el sitio publicado. No se edita a mano.</div></div>
   </div>
-  <div class="card ok" style="margin-top:12px"><div class="ct"><small>07/10/2026</small>El archivo con precios se borró de las 8 ramas de trabajo</div><p>Sigue en el historial de commits viejos: alguien que busque versiones anteriores lo puede encontrar. Sacarlo de ahí implica reescribir la historia de todas las ramas. Se puede hacer, pero es delicado y lo hago solo con tu autorización.</p></div>
-  <h3>El problema</h3>
-  <p class="body">Cada sesión de Claude crea su propia rama a partir de la principal, que quedó en agosto. Lo que se hace en una sesión no llega a las siguientes, y el sitio muestra lo que publicó la última rama. Por eso hay trabajo de julio, agosto y septiembre que nunca se juntó, y por eso esta sesión empezó sobre una versión vieja.</p>
+  <div class="card ok" style="margin-top:12px"><div class="ct"><small>07/10/2026</small>El archivo con precios se borró de todas las ramas</div><p>Sigue en el historial de commits viejos. Sacarlo de ahí implica reescribir la historia; se hace solo con tu autorización.</p></div>
 </section>
 
 <section id="objetivo">
-  <div class="sec-k">04 · Cómo debería quedar</div>
-  <h2>Una sola rama.</h2>
+  <div class="sec-k">04 · Lo que falta (lo hace Alvaro)</div>
+  <h2>Un clic en GitHub.</h2>
   <ol class="steps">
-    <li><b>Una rama <code>main</code></b> con todo integrado: septiembre como base, lo útil de las ramas sin integrar y la estrategia.</li>
-    <li><b><code>main</code> como rama por defecto</b> (se cambia en Settings del repo). Cada sesión nueva arranca desde ahí y vuelve ahí.</li>
-    <li><b>El sitio se publica solo desde <code>main</code></b>, con un único robot.</li>
-    <li><b>Se borran las ramas viejas</b> una vez integradas.</li>
-    <li><b>Lo que no se usa pasa a archivo:</b> el laboratorio de maquetas, la página de X y la parte del dashboard congelada en W28.</li>
+    <li><b>Poner <code>main</code> como rama por defecto:</b> en GitHub, Settings → General → Default branch → elegir <code>main</code>. Así cada sesión nueva de Claude arranca desde ahí.</li>
+    <li><b>Borrar las ramas viejas</b> (opcional, cuando quieras): ya están integradas.</li>
   </ol>
-  <p class="body">Lo hago yo en una sesión, pero necesito tu autorización explícita porque toca ramas de otras sesiones.</p>
 </section>
 
 <footer>
