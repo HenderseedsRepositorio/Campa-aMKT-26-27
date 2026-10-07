@@ -1,3 +1,5 @@
+> ⚠️ **Reemplazado el 07/10/2026 por `docs/estrategia/index.html`.** Se deja como historial.
+
 # Diagnóstico de marketing — octubre 2026
 
 > Revisión crítica del repo, la web (copia en `brand/referencias/`) y las capturas de IG.

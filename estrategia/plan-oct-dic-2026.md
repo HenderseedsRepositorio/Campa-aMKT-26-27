@@ -1,3 +1,5 @@
+> ⚠️ **Reemplazado el 07/10/2026 por `docs/estrategia/index.html`.** Se deja como historial.
+
 # Plan octubre–diciembre 2026 — "Del escritorio al lote"
 
 > Reemplaza el foco de precampaña. Escrito el 07/10/2026 a partir de `diagnostico-2026-10.md`.

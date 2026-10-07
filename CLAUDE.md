@@ -6,11 +6,17 @@ Centro de producción de contenido y marketing digital de **HenderSeeds**
 **RED.IN de Nidera Semillas** para **Henderson, Daireaux y Bolívar**
 (oeste de la provincia de Buenos Aires, Argentina).
 
-**Foco actual (octubre–diciembre 2026):** **maíz tardío 26/27** (decisión hasta el 05/12),
-el girasol que queda (siembra 14/10 → 30/11, poca semilla) y armar la base de la 27/28.
-**Leer primero `estrategia/plan-oct-dic-2026.md`** (manda sobre el resto de este archivo) y
-`estrategia/diagnostico-2026-10.md`. Canal principal: WhatsApp (estados + lista de difusión);
-Instagram/Facebook con contenido real de campo; pauta de alcance solo por geografía.
+**Estrategia vigente (07/10/2026): `docs/estrategia/index.html`** — publicada en
+https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/estrategia/ . Manda sobre el resto de
+este archivo. Idea central: el motor es la venta directa planificada (mapa de cuentas en
+Salesforce, visitas con algo de valor, referidos, jornada a campo); la marca digital es chica pero
+constante (1 publicación por semana, Estados de WhatsApp, pauta solo por zona y concentrada en la
+precampaña). **No comunicar el drone** (Alvaro no le ve valor post-siembra). Nadie aparece en cámara.
+
+**Ramas (leer antes de trabajar):** la versión más completa del contenido está en
+`claude/gallant-hawking-qbdjlf` (relanzamiento de septiembre, la que publica el sitio). Esta rama
+(`claude/loving-edison-byfwnx`) arrancó de la de agosto y solo publica `docs/estrategia/`. Falta
+consolidar todo en una rama `main` (pendiente de autorización de Alvaro).
 
 Acá se generan: posteos para Instagram/Facebook, carruseles, guiones de reels y briefs
 de pauta para Meta Business Suite. Ritmo objetivo: **2–3 posteos por semana**.

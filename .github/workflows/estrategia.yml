@@ -1,0 +1,35 @@
+name: Publicar página de estrategia
+
+# Publica SOLO docs/estrategia/ en gh-pages (carpeta estrategia/), sin tocar el resto del sitio.
+# Existe porque esta rama (claude/loving-edison-byfwnx) arrancó de la rama de agosto: publicar
+# su docs/ entero pisaría lo del relanzamiento de septiembre (claude/gallant-hawking-qbdjlf).
+# Cuando el repo pase a una sola rama main, este workflow se borra y la estrategia se publica
+# junto con el resto desde pages.yml.
+
+on:
+  push:
+    branches: [claude/loving-edison-byfwnx]
+    paths:
+      - "docs/estrategia/**"
+      - ".github/workflows/estrategia.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/estrategia
+          destination_dir: estrategia
+          publish_branch: gh-pages
+          keep_files: true

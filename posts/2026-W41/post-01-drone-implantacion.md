@@ -46,6 +46,7 @@ Primario: 📩 DM por Instagram con la zona. · Secundario: WhatsApp wa.me/54923
 
 ## Estado
 - [x] ✍️ Borrador (carrusel renderizado)
+- [x] ❌ **Descartado el 07/10/2026:** Alvaro no cree en el valor del drone post-siembra. No publicar.
 - [ ] ✅ Aprobado
 - [ ] 📤 Publicado → link:
 - [ ] 📣 Pautado → campaña A

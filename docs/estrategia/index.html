@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia HenderSeeds 26/27</title>
+<meta name="description" content="Estrategia comercial y de marketing de HenderSeeds: de la siembra 26/27 a la precampaña 27/28.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<style>
+:root {
+  --navy:#0A0F1B; --navy-2:#0F1626; --navy-3:#131C30;
+  --amber:#F5A623; --amber-soft:rgba(245,166,35,0.13); --amber-line:rgba(245,166,35,0.35);
+  --txt:#F2F5FA; --txt-2:#B4C1D6; --txt-3:#8796AF;
+  --line:rgba(255,255,255,0.10); --line-2:rgba(255,255,255,0.18);
+  --panel:rgba(255,255,255,0.045);
+  --red:#F2766B; --green:#5BC98B;
+  --f-arch:'Archivo Black','Arial Black',sans-serif;
+  --f-sans:'DM Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'DM Mono',ui-monospace,Menlo,monospace;
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; scroll-padding-top:64px; }
+body {
+  background:var(--navy); color:var(--txt); font-family:var(--f-sans); font-size:17px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(rgba(245,166,35,0.035) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(245,166,35,0.035) 1px, transparent 1px);
+  background-size:56px 56px;
+}
+a { color:var(--amber); }
+.wrap { max-width:860px; margin:0 auto; padding:0 16px; }
+
+/* Barra superior */
+.topbar { position:sticky; top:0; z-index:20; background:rgba(10,15,27,0.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+.topbar .wrap { display:flex; align-items:center; gap:14px; height:56px; }
+.topbar img { height:30px; width:auto; flex-shrink:0; }
+.toc { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; flex:1; }
+.toc::-webkit-scrollbar { display:none; }
+.toc a { font-family:var(--f-mono); font-size:13px; letter-spacing:.5px; color:var(--txt-2); text-decoration:none; white-space:nowrap; padding:6px 10px; border-radius:6px; border:1px solid transparent; }
+.toc a:hover, .toc a:focus-visible { color:var(--txt); border-color:var(--line-2); }
+
+/* Encabezado */
+header.hero { padding:44px 0 30px; border-bottom:1px solid var(--line); }
+.kicker { font-family:var(--f-mono); font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:var(--amber); display:flex; align-items:center; gap:10px; }
+.kicker .led { width:9px; height:9px; border-radius:50%; background:var(--amber); box-shadow:0 0 12px var(--amber); }
+h1 { font-family:var(--f-arch); font-size:clamp(40px, 9vw, 72px); line-height:.98; letter-spacing:-2px; margin-top:18px; }
+h1 em { font-style:normal; color:var(--amber); }
+.lead { font-size:clamp(18px, 2.6vw, 21px); color:var(--txt-2); margin-top:18px; max-width:700px; }
+.lead b { color:var(--txt); }
+.meta { font-family:var(--f-mono); font-size:12.5px; color:var(--txt-3); margin-top:20px; letter-spacing:.4px; }
+
+/* La idea central */
+.core { margin-top:28px; background:var(--amber-soft); border:1px solid var(--amber-line); border-radius:14px; padding:20px 20px 22px; }
+.core .lbl { font-family:var(--f-mono); font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); }
+.core p { font-size:clamp(19px, 2.8vw, 23px); font-weight:600; line-height:1.4; margin-top:8px; }
+
+/* Secciones */
+section { padding:46px 0 10px; }
+.sec-k { font-family:var(--f-mono); font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:var(--amber); }
+h2 { font-family:var(--f-arch); font-size:clamp(28px, 5.4vw, 40px); line-height:1.04; letter-spacing:-1px; margin-top:10px; }
+h3 { font-size:19px; font-weight:700; margin:26px 0 8px; }
+p.body { color:var(--txt-2); margin-top:12px; max-width:740px; }
+p.body b, li b { color:var(--txt); }
+
+/* Números del diagnóstico */
+.stats { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-top:22px; }
+@media (min-width:720px){ .stats { grid-template-columns:repeat(3, minmax(0,1fr)); } }
+.stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 16px 14px; }
+.stat .n { font-family:var(--f-arch); font-size:clamp(30px, 6vw, 40px); line-height:1; letter-spacing:-1px; }
+.stat .n.alert { color:var(--amber); }
+.stat .t { font-size:14.5px; color:var(--txt-2); margin-top:8px; line-height:1.4; }
+
+/* Tarjetas y listas */
+.cards { display:grid; gap:10px; margin-top:18px; }
+@media (min-width:720px){ .cards.two { grid-template-columns:1fr 1fr; } }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+.card .ct { font-weight:700; font-size:17.5px; }
+.card .ct small { font-family:var(--f-mono); font-weight:400; font-size:12px; letter-spacing:1px; color:var(--amber); text-transform:uppercase; display:block; margin-bottom:4px; }
+.card p, .card li { color:var(--txt-2); font-size:15.5px; margin-top:6px; }
+.card ul { padding-left:18px; margin-top:4px; }
+.card.hl { border-color:var(--amber-line); background:linear-gradient(180deg, rgba(245,166,35,0.07), rgba(245,166,35,0.02)); }
+.card.warn { border-color:rgba(242,118,107,0.45); background:rgba(242,118,107,0.06); }
+.card.warn .ct small { color:var(--red); }
+
+ul.clean { list-style:none; margin-top:14px; display:grid; gap:10px; }
+ul.clean li { padding-left:30px; position:relative; color:var(--txt-2); }
+ul.clean li::before { content:''; position:absolute; left:4px; top:9px; width:12px; height:12px; border-radius:3px; border:2px solid var(--amber); }
+ul.clean.x li::before { content:'×'; border:none; color:var(--red); font-family:var(--f-mono); font-size:20px; line-height:1; top:2px; left:5px; width:auto; height:auto; }
+
+/* Posicionamiento */
+.promise { font-family:var(--f-arch); font-size:clamp(24px, 4.6vw, 34px); line-height:1.12; letter-spacing:-.5px; margin-top:18px; }
+.promise span { color:var(--amber); }
+.pillars { display:grid; grid-template-columns:1fr; gap:10px; margin-top:18px; }
+@media (min-width:720px){ .pillars { grid-template-columns:1fr 1fr; } }
+.pillar { border-left:3px solid var(--amber); background:var(--panel); border-radius:0 12px 12px 0; padding:14px 16px; }
+.pillar b { display:block; font-size:17px; }
+.pillar span { color:var(--txt-2); font-size:15px; display:block; margin-top:4px; }
+
+/* Segmentos */
+.seg { display:grid; gap:10px; margin-top:18px; }
+.seg .card { display:grid; gap:8px; }
+.seg .row { display:grid; grid-template-columns:96px 1fr; gap:10px; font-size:15px; }
+.seg .row .k { font-family:var(--f-mono); font-size:11.5px; letter-spacing:1px; text-transform:uppercase; color:var(--txt-3); padding-top:3px; }
+.seg .row .v { color:var(--txt-2); }
+
+/* Pasos numerados */
+ol.steps { list-style:none; counter-reset:s; margin-top:16px; display:grid; gap:12px; }
+ol.steps > li { counter-increment:s; position:relative; padding-left:48px; color:var(--txt-2); }
+ol.steps > li::before { content:counter(s, decimal-leading-zero); position:absolute; left:0; top:0; font-family:var(--f-mono); font-size:13px; color:var(--navy); background:var(--amber); border-radius:6px; padding:3px 7px; font-weight:500; }
+ol.steps > li b { color:var(--txt); }
+
+/* Tabla de canales */
+.chan { margin-top:16px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.chan .r { display:grid; grid-template-columns:1fr; gap:4px; padding:14px 16px; border-top:1px solid var(--line); }
+.chan .r:first-child { border-top:none; }
+@media (min-width:720px){ .chan .r { grid-template-columns:190px 1fr 150px; gap:16px; align-items:baseline; } }
+.chan .c1 { font-weight:700; }
+.chan .c2 { color:var(--txt-2); font-size:15.5px; }
+.chan .c3 { font-family:var(--f-mono); font-size:12.5px; color:var(--amber); letter-spacing:.3px; }
+.chan .r.off .c1, .chan .r.off .c3 { color:var(--txt-3); }
+.chan .r.off .c1 { text-decoration:line-through; text-decoration-color:var(--red); }
+
+/* Línea de tiempo */
+.timeline { margin-top:20px; display:grid; gap:10px; }
+.phase { display:grid; grid-template-columns:92px 1fr; gap:14px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.phase .when { font-family:var(--f-mono); font-size:12.5px; color:var(--txt-2); line-height:1.35; }
+.phase .when b { display:block; color:var(--txt); font-family:var(--f-sans); font-size:15px; margin-bottom:6px; }
+.phase .what { font-size:15.5px; color:var(--txt-2); }
+.phase .what .goal { color:var(--txt); font-weight:700; font-size:16.5px; display:block; margin-bottom:4px; }
+.inten { display:flex; gap:3px; margin-top:8px; }
+.inten i { width:22px; height:6px; border-radius:2px; background:var(--line-2); }
+.inten.l1 i:nth-child(-n+1), .inten.l2 i:nth-child(-n+2), .inten.l3 i:nth-child(-n+3), .inten.l4 i:nth-child(-n+4) { background:var(--amber); }
+.phase.peak { border-color:var(--amber-line); background:linear-gradient(180deg, rgba(245,166,35,0.08), rgba(245,166,35,0.02)); }
+
+/* Presupuesto (barras) */
+.chart { margin-top:20px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 14px 12px; }
+.chart .ttl { font-weight:700; font-size:16px; }
+.chart .sub { font-size:13.5px; color:var(--txt-3); margin-top:2px; }
+.bars { position:relative; display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:4px; align-items:end; height:190px; margin-top:16px; border-bottom:1px solid var(--line-2); }
+.bars .gl { position:absolute; left:0; right:0; border-top:1px dashed rgba(255,255,255,0.45); pointer-events:none; z-index:2; }
+.bars .gl span { position:absolute; left:0; top:-19px; font-family:var(--f-mono); font-size:11px; color:var(--txt-2); background:#141B2B; padding:1px 5px; border-radius:4px; }
+.bar { position:relative; height:100%; display:flex; align-items:flex-end; cursor:default; outline:none; }
+.bar .f { width:100%; background:var(--amber); border-radius:4px 4px 0 0; }
+.bar.lo .f { background:#A9752A; }
+.bar .tip { position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#1B2438; border:1px solid var(--line-2); color:var(--txt); font-size:12.5px; white-space:nowrap; padding:6px 9px; border-radius:7px; opacity:0; pointer-events:none; transition:opacity .12s; z-index:3; }
+.bar:hover .tip, .bar:focus .tip { opacity:1; }
+.bar:first-child .tip { left:0; transform:none; }
+.bar:last-child .tip { left:auto; right:0; transform:none; }
+.months { display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:4px; margin-top:6px; }
+.months span { font-family:var(--f-mono); font-size:10.5px; color:var(--txt-3); text-align:center; }
+.legend-data { display:grid; gap:6px; margin-top:14px; font-size:14px; color:var(--txt-2); }
+.legend-data div { display:flex; justify-content:space-between; gap:12px; border-top:1px solid var(--line); padding-top:6px; }
+.legend-data b { color:var(--txt); font-family:var(--f-mono); font-weight:500; white-space:nowrap; }
+
+/* Tablero */
+.board { display:grid; gap:10px; margin-top:18px; }
+@media (min-width:720px){ .board { grid-template-columns:repeat(3, 1fr); } }
+.board .card ul { list-style:none; padding:0; display:grid; gap:7px; margin-top:8px; }
+.board .card li { font-size:15px; padding-left:14px; position:relative; margin:0; }
+.board .card li::before { content:''; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--amber); }
+
+/* Checklist 30 días */
+.todo { list-style:none; margin-top:16px; display:grid; gap:8px; }
+.todo li { display:grid; grid-template-columns:28px 1fr; gap:10px; align-items:start; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+.todo input { width:20px; height:20px; accent-color:var(--amber); margin-top:2px; cursor:pointer; }
+.todo .tx { color:var(--txt); font-size:15.5px; }
+.todo .tx small { display:block; font-family:var(--f-mono); font-size:12px; color:var(--txt-3); margin-top:4px; letter-spacing:.3px; }
+.todo li.done .tx { color:var(--txt-3); text-decoration:line-through; }
+
+/* Decisiones */
+.dec { counter-reset:d; display:grid; gap:10px; margin-top:16px; }
+.dec .card { position:relative; padding-left:58px; }
+.dec .card::before { counter-increment:d; content:counter(d); position:absolute; left:16px; top:15px; width:28px; height:28px; border-radius:50%; border:2px solid var(--amber); color:var(--amber); font-family:var(--f-mono); font-size:14px; display:flex; align-items:center; justify-content:center; }
+
+/* Arquitectura */
+.flow { display:grid; gap:8px; margin-top:16px; }
+.node { background:var(--navy-3); border:1px solid var(--line-2); border-radius:10px; padding:12px 14px; }
+.node .nt { font-family:var(--f-mono); font-size:13px; color:var(--amber); }
+.node .nd { font-size:14.5px; color:var(--txt-2); margin-top:4px; }
+.arrow { text-align:center; font-family:var(--f-mono); color:var(--txt-3); font-size:13px; }
+.branches { margin-top:16px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.branches .b { display:grid; grid-template-columns:1fr; gap:3px; padding:12px 14px; border-top:1px solid var(--line); }
+.branches .b:first-child { border-top:none; }
+@media (min-width:720px){ .branches .b { grid-template-columns:270px 1fr; gap:14px; } }
+.branches .bn { font-family:var(--f-mono); font-size:13px; color:var(--txt); word-break:break-all; }
+.branches .bn small { display:block; color:var(--txt-3); font-size:11.5px; margin-top:2px; }
+.branches .bd { font-size:14.5px; color:var(--txt-2); }
+.tag { display:inline-block; font-family:var(--f-mono); font-size:11px; letter-spacing:.5px; text-transform:uppercase; padding:2px 7px; border-radius:5px; margin-right:6px; vertical-align:1px; }
+.tag.live { background:rgba(91,201,139,0.15); color:var(--green); }
+.tag.old { background:rgba(255,255,255,0.08); color:var(--txt-3); }
+.tag.lost { background:rgba(242,118,107,0.14); color:var(--red); }
+.tag.base { background:var(--amber-soft); color:var(--amber); }
+.tree { margin-top:16px; background:var(--navy-2); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-family:var(--f-mono); font-size:13px; line-height:1.75; color:var(--txt-2); overflow-x:auto; white-space:pre; }
+.tree b { color:var(--txt); font-weight:500; }
+.tree i { color:var(--txt-3); font-style:normal; }
+
+footer { margin-top:56px; padding:26px 0 48px; border-top:1px solid var(--line); font-size:13.5px; color:var(--txt-3); }
+footer a { color:var(--txt-2); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <img src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+    <nav class="toc" aria-label="Secciones">
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#posicionamiento">Posicionamiento</a>
+      <a href="#a-quien">A quién</a>
+      <a href="#motor">Venta directa</a>
+      <a href="#marca">Marca digital</a>
+      <a href="#ano">El año</a>
+      <a href="#presupuesto">Presupuesto</a>
+      <a href="#tablero">Tablero</a>
+      <a href="#equipo">Quién hace qué</a>
+      <a href="#dejar">Dejar de hacer</a>
+      <a href="#30-dias">30 días</a>
+      <a href="#decisiones">Decisiones</a>
+      <a href="#repo">El repo</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker"><span class="led"></span>Estrategia · Siembra 26/27 → Precampaña 27/28</div>
+  <h1>Menos piezas.<br><em>Más productores.</em></h1>
+  <p class="lead">La estrategia comercial y de marketing de HenderSeeds para lo que queda de la campaña 26/27 y para la precampaña 27/28. <b>Reemplaza a la propuesta de septiembre como documento de estrategia;</b> las piezas que ya están hechas se siguen usando.</p>
+  <div class="core">
+    <div class="lbl">La idea en una frase</div>
+    <p>HenderSeeds crece por relación y servicio. El marketing tiene que multiplicar eso: saber quién es cada productor de la zona, ir a buscarlo con un plan, y tener una marca digital chica pero constante para que, cuando llegás, ya te conozcan.</p>
+  </div>
+  <div class="meta">Versión 1 · miércoles 07/10/2026 · propuesta de Claude para Alvaro y Santi</div>
+</header>
+
+<!-- 01 -->
+<section id="diagnostico">
+  <div class="sec-k">01 · Diagnóstico</div>
+  <h2>El problema no es la estrategia: es la ejecución.</h2>
+  <p class="body">Revisé las 9 ramas del repo, la web y el perfil de Instagram al 07/10. Desde junio hubo tres planes (el plan de canales de junio, los ajustes de julio y el relanzamiento de septiembre) y los tres dijeron más o menos lo mismo. Después del 26/06 no salió nada más.</p>
+  <div class="stats">
+    <div class="stat"><div class="n alert">103</div><div class="t">días sin publicar en el feed. El último posteo es del 26/06.</div></div>
+    <div class="stat"><div class="n alert">2 de 27</div><div class="t">posteos escritos en el repo que se publicaron. Hay además 28 placas y 10 videos listos.</div></div>
+    <div class="stat"><div class="n">0</div><div class="t">métricas cargadas. Del único reel pautado (unos $105.000) no hay resultado anotado.</div></div>
+    <div class="stat"><div class="n">9</div><div class="t">ramas en el repo. El sitio publica desde una y el resto trabaja sobre versiones viejas.</div></div>
+    <div class="stat"><div class="n">100+</div><div class="t">productores atendidos y 30.000+ ha bajo plan en la 25/26, según la web.</div></div>
+    <div class="stat"><div class="n">↑</div><div class="t">ventas y clientes en crecimiento en dos campañas malas, sin depender de Instagram.</div></div>
+  </div>
+  <div class="cards two">
+    <div class="card hl"><div class="ct"><small>Lo que dice esto</small>El motor es la relación, no el feed</div><p>El negocio crece por recomendación, por servicio y por estar en el lote. La estrategia tiene que poner tiempo y plata ahí, y usar lo digital para amplificarlo, no para reemplazarlo.</p></div>
+    <div class="card hl"><div class="ct"><small>Lo que falló</small>El marketing no es el trabajo de nadie</div><p>Alvaro hace estrategia y vende, Santi hace administración. Se producen piezas pero nadie tiene horas asignadas para aprobar, publicar y medir. Cada plan nuevo agregó más piezas a una cola que no sale.</p></div>
+  </div>
+  <div class="cards">
+    <div class="card warn"><div class="ct"><small>Riesgo urgente</small>Hay precios y descuentos públicos en internet</div><p>El repo es público y <code>brand/referencias/hibridos-nidera.md</code> tiene la lista de precios por banda y los descuentos. Además, la página de propuesta de septiembre menciona en público el tope de descuento. Se detectó el 24/09 y sigue igual. Está en las decisiones del punto 12.</p></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="posicionamiento">
+  <div class="sec-k">02 · Posicionamiento</div>
+  <h2>Qué somos para el productor.</h2>
+  <p class="promise">Semilla Nidera, <span>números claros</span> y gente de acá.</p>
+  <p class="body">Para el productor del oeste bonaerense que decide con números, HenderSeeds es el distribuidor de Nidera de la zona que le arma la campaña completa (semilla, insumos y financiación) con los números a la vista y alguien que responde.</p>
+  <div class="pillars">
+    <div class="pillar"><b>Genética bien posicionada</b><span>Nidera por ambiente, con datos de marbete y, desde esta campaña, con un ensayo propio en la zona.</span></div>
+    <div class="pillar"><b>Insumos multimarca</b><span>No nos casamos con nadie: recomendamos lo que va en el lote, no la marca que nos conviene.</span></div>
+    <div class="pillar"><b>Números claros</b><span>Margen, financiación, canje y pesos contra dólares, con herramientas propias que nadie más tiene en la zona.</span></div>
+    <div class="pillar"><b>Respuesta y cercanía</b><span>Cotización en menos de 24 horas y un solo interlocutor durante toda la campaña.</span></div>
+  </div>
+  <h3>Lo que nunca hacemos</h3>
+  <ul class="clean x">
+    <li>Publicar precios, porcentajes de descuento o condiciones comerciales. La venta se cierra cara a cara o por WhatsApp.</li>
+    <li>Prometer rindes sin fuente (marbete, ensayo, dato de red).</li>
+    <li>Comunicar servicios en los que no creemos. Si no lo defenderías en una mesa con un productor, no va en redes.</li>
+  </ul>
+</section>
+
+<!-- 03 -->
+<section id="a-quien">
+  <div class="sec-k">03 · A quién</div>
+  <h2>Cuatro grupos, un objetivo para cada uno.</h2>
+  <p class="body">En esta zona los productores se pueden contar. No hace falta "llegar a todos": hace falta saber quién es cada uno y qué queremos con él.</p>
+  <div class="seg">
+    <div class="card"><div class="ct"><small>1 · El más importante</small>Clientes actuales</div>
+      <div class="row"><span class="k">Quiénes</span><span class="v">Los 100+ productores que ya trabajan con nosotros.</span></div>
+      <div class="row"><span class="k">Objetivo</span><span class="v">Que vuelvan todos y que compren más líneas: semilla, insumos, financiación. Que nos recomienden.</span></div>
+      <div class="row"><span class="k">Cómo</span><span class="v">Contacto uno a uno planificado, resultados de cosecha, Estados de WhatsApp y pedido de referidos en cada cierre.</span></div>
+    </div>
+    <div class="card"><div class="ct"><small>2 · El crecimiento</small>Prospectos de la zona</div>
+      <div class="row"><span class="k">Quiénes</span><span class="v">Productores de Henderson, Daireaux, Bolívar y Pehuajó que le compran a otro (incluida la competencia directa: El Paye, Tierras de Henderson).</span></div>
+      <div class="row"><span class="k">Objetivo</span><span class="v">Una reunión y una cotización en la precampaña 27/28.</span></div>
+      <div class="row"><span class="k">Cómo</span><span class="v">Lista con nombre y apellido, visita con algo de valor en la mano, invitación a la jornada y pauta en la zona para que ya nos conozcan.</span></div>
+    </div>
+    <div class="card"><div class="ct"><small>3 · Los que recomiendan</small>Ingenieros asesores y contratistas</div>
+      <div class="row"><span class="k">Quiénes</span><span class="v">Asesores independientes, grupos CREA, contratistas de siembra y acopios.</span></div>
+      <div class="row"><span class="k">Objetivo</span><span class="v">Que piensen en nosotros cuando el productor les pregunta.</span></div>
+      <div class="row"><span class="k">Cómo</span><span class="v">Datos del ensayo propio, charla técnica con Nidera e invitación a la jornada.</span></div>
+    </div>
+    <div class="card"><div class="ct"><small>4 · A decidir</small>Zonas nuevas</div>
+      <div class="row"><span class="k">Quiénes</span><span class="v">Las que ya estaban en duda: Casbas, Salazar o Urdampilleta.</span></div>
+      <div class="row"><span class="k">Objetivo</span><span class="v">Solo si hay capacidad comercial para atenderlas. Si no, ninguno.</span></div>
+      <div class="row"><span class="k">Cómo</span><span class="v">Pauta en esa zona y alguien de allá que nos presente.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="motor">
+  <div class="sec-k">04 · El motor</div>
+  <h2>Venta directa, con un plan para cada productor.</h2>
+  <p class="body">Es la forma "más directa" de llegar al productor que pediste. Nada de esto es nuevo para ustedes: la diferencia es hacerlo con una lista y un calendario, no de memoria.</p>
+  <ol class="steps">
+    <li><b>Mapa de cuentas en Salesforce.</b> Todos los productores de la zona en un solo lugar: hectáreas aproximadas, cultivos, a quién le compran, si es cliente, prospecto o ex cliente, quién lo atiende y cuál es la próxima acción. Se arma con lo que saben ustedes, contratistas y acopios.</li>
+    <li><b>Clasificar A, B y C</b> por potencial (hectáreas por probabilidad de trabajar juntos). Los A reciben visita; los B, llamado y WhatsApp; los C, la marca digital.</li>
+    <li><b>Ir siempre con algo en la mano.</b> Los números de su campaña hechos con la calculadora, el resultado del ensayo o de un lote vecino, una opción de financiación o una invitación. Nunca "pasaba a ofrecerte semilla".</li>
+    <li><b>Pedir referidos en cada cierre y cada entrega:</b> "¿a qué vecino le serviría trabajar así?". Se anota en Salesforce. Si hay un reconocimiento para el que refiere, se habla en privado.</li>
+    <li><b>Dos encuentros al año.</b> Una jornada a campo en el ensayo propio (enero o febrero) y una charla técnica de precampaña con Nidera (mayo o junio). Pedirle a Nidera el apoyo que da a la red RED.IN.</li>
+    <li><b>Presencia física.</b> Cartel en los lotes de clientes que dan a la ruta (con permiso), camioneta identificada, ropa con la marca. En el campo eso se ve más que un posteo.</li>
+  </ol>
+</section>
+
+<!-- 05 -->
+<section id="marca">
+  <div class="sec-k">05 · El amplificador</div>
+  <h2>Marca digital chica, pero que no se corte.</h2>
+  <p class="body">El trabajo de Instagram no es vender: es que cuando el productor escuche "HenderSeeds" y entre al perfil, vea una empresa seria, activa y de la zona. Por eso importa más la constancia que el volumen. <b>Una publicación por semana que sale siempre vale más que tres que quedan en borrador.</b></p>
+  <div class="chan">
+    <div class="r"><span class="c1">Instagram y Facebook</span><span class="c2">La vidriera. Números de la campaña, genética con datos de la zona y la empresa por dentro, sin caras: entregas, carga, lotes, el ensayo.</span><span class="c3">1 por semana, fijo</span></div>
+    <div class="r"><span class="c1">Estados de WhatsApp</span><span class="c2">El canal más directo y gratis: lo ven los que tienen agendado el número. Foto real del día.</span><span class="c3">2 o 3 por semana</span></div>
+    <div class="r"><span class="c1">Lista de difusión</span><span class="c2">Solo con permiso y solo cuando hay algo útil: resultados de cosecha, invitación a la jornada, apertura de precampaña.</span><span class="c3">1 o 2 por mes, máximo</span></div>
+    <div class="r"><span class="c1">Pauta en Meta</span><span class="c2">Que el productor de la zona nos conozca. Segmentada solo por zona, con tope de frecuencia. Fuerte en precampaña.</span><span class="c3">Siempre prendida</span></div>
+    <div class="r"><span class="c1">Web henderseeds.com</span><span class="c2">Se mira antes de llamar. Tiene que estar al día con la campaña.</span><span class="c3">Revisar cada fase</span></div>
+    <div class="r"><span class="c1">Calculadora y suite financiera</span><span class="c2">Son herramientas de venta: se usan en la mesa con el productor. No son contenido para el feed.</span><span class="c3">En cada visita</span></div>
+    <div class="r off"><span class="c1">X / Twitter</span><span class="c2">El productor de la zona no está ahí.</span><span class="c3">Se deja</span></div>
+    <div class="r off"><span class="c1">Al Grano</span><span class="c2">Es otro proyecto (newsletter financiero), no marketing de la semilla. Se puede usar su dato de lluvia o de precios.</span><span class="c3">Aparte</span></div>
+  </div>
+  <h3>Reglas para que no se corte de nuevo</h3>
+  <ul class="clean">
+    <li><b>Publicado o no existe.</b> Lo que no sale en su semana se descarta, no se acumula.</li>
+    <li><b>Se programa de a tres semanas</b> en Meta Business Suite. La semana que hay mucho campo, el perfil sigue solo.</li>
+    <li><b>Primero se usa lo que ya está hecho.</b> Las placas y los videos del relanzamiento de septiembre alcanzan para octubre y noviembre sin producir nada nuevo.</li>
+    <li><b>Sin caras, por ahora.</b> Manos, máquinas, bolsas, lotes y texto. Funciona, pero tiene techo: revisarlo para la jornada de verano.</li>
+  </ul>
+</section>
+
+<!-- 06 -->
+<section id="ano">
+  <div class="sec-k">06 · El año de la campaña</div>
+  <h2>Cada época tiene un trabajo distinto.</h2>
+  <p class="body">La semilla se decide en la precampaña. Ahí va el mayor esfuerzo. El resto del año se usa para cerrar lo que queda, cuidar al cliente y juntar las pruebas que se van a mostrar en mayo.</p>
+  <div class="timeline">
+    <div class="phase"><div class="when"><b>Siembra</b>oct – dic 2026</div><div class="what"><span class="goal">Cerrar el tardío y el girasol. Ordenar la casa.</span>Contacto uno a uno con los que siembran tardío (fuerte hasta el 05/12) y aviso a los de girasol, que queda poca semilla. Sembrar el ensayo, armar el mapa de cuentas y decidir quién publica.<div class="inten l2" title="Intensidad de marketing: media-baja"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="phase"><div class="when"><b>Manejo</b>ene – feb 2027</div><div class="what"><span class="goal">Jornada a campo en el ensayo.</span>El evento del año para clientes, prospectos A y asesores. Insumos multimarca para el manejo del cultivo. Lista de prospectos lista para la precampaña.<div class="inten l2" title="Intensidad de marketing: media-baja"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="phase"><div class="when"><b>Cosecha</b>mar – abr 2027</div><div class="what"><span class="goal">Juntar las pruebas.</span>Resultados del ensayo y de lotes de clientes (con permiso), frases de productores (pueden ser solo voz o texto), canje y liquidación. Pedir referidos.<div class="inten l3" title="Intensidad de marketing: media"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="phase peak"><div class="when"><b>Precampaña 27/28</b>may – ago 2027</div><div class="what"><span class="goal">La campaña del año.</span>Lanzamiento con resultados propios de la zona, charla técnica con Nidera, visita a toda la lista A y llamado a la B, y la pauta más fuerte del año. Las fechas las define Nidera.<div class="inten l4" title="Intensidad de marketing: máxima"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="phase"><div class="when"><b>Cierre</b>sep 2027</div><div class="what"><span class="goal">Entregar bien y medir.</span>Entregas y postventa, una pregunta corta a cada cliente sobre cómo lo atendimos y el balance de la campaña con el tablero.<div class="inten l1" title="Intensidad de marketing: baja"><i></i><i></i><i></i><i></i></div></div></div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section id="presupuesto">
+  <div class="sec-k">07 · Presupuesto</div>
+  <h2>La misma plata, puesta cuando se decide la compra.</h2>
+  <p class="body">Hoy hay $200.000 por mes para pauta: unos $2.400.000 al año. Pautar parejo todo el año es pagar lo mismo en enero que en junio, cuando el productor está eligiendo la semilla. La propuesta mantiene el total y lo concentra en la precampaña.</p>
+  <div class="chart" role="img" aria-label="Pauta mensual propuesta, de octubre 2026 a septiembre 2027">
+    <div class="ttl">Pauta mensual propuesta</div>
+    <div class="sub">Pesos por mes · total anual igual al actual</div>
+    <div class="bars">
+      <div class="gl" style="bottom:50%"><span>hoy: $200 mil por mes</span></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:50%"></div><div class="tip">oct 2026 · $200.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:50%"></div><div class="tip">nov 2026 · $200.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:25%"></div><div class="tip">dic 2026 · $100.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:25%"></div><div class="tip">ene 2027 · $100.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:25%"></div><div class="tip">feb 2027 · $100.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:25%"></div><div class="tip">mar 2027 · $100.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:37.5%"></div><div class="tip">abr 2027 · $150.000</div></div>
+      <div class="bar" tabindex="0"><div class="f" style="height:87.5%"></div><div class="tip">may 2027 · $350.000</div></div>
+      <div class="bar" tabindex="0"><div class="f" style="height:87.5%"></div><div class="tip">jun 2027 · $350.000</div></div>
+      <div class="bar" tabindex="0"><div class="f" style="height:87.5%"></div><div class="tip">jul 2027 · $350.000</div></div>
+      <div class="bar" tabindex="0"><div class="f" style="height:87.5%"></div><div class="tip">ago 2027 · $350.000</div></div>
+      <div class="bar lo" tabindex="0"><div class="f" style="height:12.5%"></div><div class="tip">sep 2027 · $50.000</div></div>
+    </div>
+    <div class="months"><span>O</span><span>N</span><span>D</span><span>E</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span></div>
+    <div class="legend-data">
+      <div><span>Siembra (oct – nov)</span><b>$200.000 / mes</b></div>
+      <div><span>Manejo (dic – mar)</span><b>$100.000 / mes</b></div>
+      <div><span>Cosecha (abr)</span><b>$150.000</b></div>
+      <div><span>Precampaña 27/28 (may – ago)</span><b>$350.000 / mes</b></div>
+      <div><span>Cierre (sep)</span><b>$50.000</b></div>
+      <div><span>Total del año</span><b>$2.400.000</b></div>
+    </div>
+  </div>
+  <h3>Fuera de la pauta (a cotizar)</h3>
+  <div class="cards two">
+    <div class="card hl"><div class="ct"><small>La que más mueve la aguja</small>Alguien que ejecute el contenido</div><p>Un creador o community manager de la zona, part-time. Los tres planes anteriores fallaron en la ejecución: esta es la plata mejor invertida de la lista. Pedir dos presupuestos.</p></div>
+    <div class="card"><div class="ct"><small>Una vez al año</small>Jornada a campo y charla técnica</div><p>Con apoyo de Nidera. Es el contenido de todo el año y el mejor momento para conocer prospectos.</p></div>
+    <div class="card"><div class="ct"><small>Presencia física</small>Carteles, camioneta y ropa</div><p>Pedir primero lo que Nidera da a la red RED.IN.</p></div>
+    <div class="card"><div class="ct"><small>Lo que no</small>Herramientas nuevas</div><p>No se gasta en desarrollar nada nuevo hasta septiembre de 2027. Las que hay alcanzan.</p></div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="tablero">
+  <div class="sec-k">08 · Cómo lo medimos</div>
+  <h2>Un tablero de una página, una vez por mes.</h2>
+  <p class="body">Diez números. Los "me gusta" no están. Lo carga Santi el primer lunes de cada mes desde Salesforce y Meta (unos 20 minutos). Las metas se ponen en la primera reunión, con los números reales de la 25/26.</p>
+  <div class="board">
+    <div class="card"><div class="ct"><small>Negocio</small>Lo que importa</div><ul><li>Hectáreas y bolsas vendidas contra la 25/26</li><li>Clientes activos y clientes nuevos</li><li>Retención: cuántos clientes del año pasado volvieron</li><li>Líneas por cliente: semilla, insumos, financiación</li></ul></div>
+    <div class="card"><div class="ct"><small>Comercial</small>El motor</div><ul><li>Prospectos A contactados en el mes</li><li>Cotizaciones enviadas y cerradas</li><li>De dónde vino cada cliente nuevo</li></ul></div>
+    <div class="card"><div class="ct"><small>Marca</small>El amplificador</div><ul><li>Publicaciones hechas contra el plan</li><li>Alcance de la pauta en la zona</li><li>Contactos con el WhatsApp agendado</li></ul></div>
+  </div>
+  <p class="body">El número de "publicaciones hechas contra el plan" está a propósito: es el que se cayó tres veces.</p>
+</section>
+
+<!-- 09 -->
+<section id="equipo">
+  <div class="sec-k">09 · Quién hace qué</div>
+  <h2>Roles y rutina.</h2>
+  <div class="cards two">
+    <div class="card"><div class="ct"><small>Alvaro</small>Estrategia y cuentas A</div><p>Visita a los productores A, aprueba el contenido (15 minutos por semana) y lleva el tablero a la reunión mensual.</p></div>
+    <div class="card"><div class="ct"><small>Santi</small>Mapa de cuentas y tablero</div><p>Mantiene Salesforce al día, carga el tablero el primer lunes del mes y programa las publicaciones si no hay alguien externo.</p></div>
+    <div class="card hl"><div class="ct"><small>A sumar</small>Creador o community manager</div><p>Saca fotos y video del día a día (sin caras), edita, programa en Meta Business Suite y sube los Estados.</p></div>
+    <div class="card"><div class="ct"><small>Claude</small>Textos, planes y análisis</div><p>Escribe los textos, arma el plan de cada mes desde el repo y analiza el tablero antes de la reunión.</p></div>
+  </div>
+  <h3>Rutina</h3>
+  <ul class="clean">
+    <li><b>Lunes, 15 minutos:</b> qué sale esta semana y qué productores se visitan.</li>
+    <li><b>Viernes, 10 minutos:</b> ¿salió lo que tenía que salir? Si no, se descarta y se sigue.</li>
+    <li><b>Primer lunes del mes, 1 hora:</b> tablero, qué funcionó y el plan del mes siguiente.</li>
+  </ul>
+</section>
+
+<!-- 10 -->
+<section id="dejar">
+  <div class="sec-k">10 · Qué dejamos de hacer</div>
+  <h2>Lo que sale de la agenda.</h2>
+  <ul class="clean x">
+    <li>Construir herramientas, páginas y tableros de marketing hasta septiembre de 2027.</li>
+    <li>Producir piezas que nadie tiene tiempo de publicar. El límite de producción es lo que se puede publicar.</li>
+    <li>Comunicar lo que no creemos, como el drone después de la siembra.</li>
+    <li>X / Twitter.</li>
+    <li>Pautar parejo todo el año.</li>
+    <li>Trabajar en 9 ramas a la vez (ver punto 13).</li>
+    <li>Usar Al Grano como marketing de la semilla.</li>
+  </ul>
+</section>
+
+<!-- 11 -->
+<section id="30-dias">
+  <div class="sec-k">11 · Próximos 30 días</div>
+  <h2>Del 07/10 al 06/11.</h2>
+  <p class="body">Podés tildar lo que se va haciendo: queda guardado en este navegador.</p>
+  <ul class="todo" id="todo">
+    <li data-k="t1"><input type="checkbox" aria-label="Hecho"><span class="tx">Sacar los precios del repo público y la mención de descuentos de la página de propuesta<small>Alvaro decide cómo (punto 12) · esta semana</small></span></li>
+    <li data-k="t2"><input type="checkbox" aria-label="Hecho"><span class="tx">Girasol: aviso uno a uno a los clientes de girasol, queda poca semilla<small>Alvaro · esta semana</small></span></li>
+    <li data-k="t3"><input type="checkbox" aria-label="Hecho"><span class="tx">Tardío: lista de los que siembran tardío (clientes y prospectos) y contacto uno a uno con sus números<small>Alvaro · antes del 15/11 (fuerte hasta el 05/12)</small></span></li>
+    <li data-k="t4"><input type="checkbox" aria-label="Hecho"><span class="tx">Decidir quién ejecuta el contenido: pedir dos presupuestos a creadores de la zona<small>Alvaro · 15/10</small></span></li>
+    <li data-k="t5"><input type="checkbox" aria-label="Hecho"><span class="tx">Ensayo: qué se siembra, dónde, y fotos de cada etapa para la jornada<small>Alvaro · siembra cerca del 17/10</small></span></li>
+    <li data-k="t6"><input type="checkbox" aria-label="Hecho"><span class="tx">Perfil de Instagram: bio nueva, destacadas al día y archivar los posteos viejos (sorteos, Syngenta, fotos de stock)<small>Santi · esta semana</small></span></li>
+    <li data-k="t7"><input type="checkbox" aria-label="Hecho"><span class="tx">Una publicación por semana, programada de a tres, con piezas que ya están hechas (tardío, NS 7925, pesos contra dólares)<small>Santi o quien se sume · desde el 12/10</small></span></li>
+    <li data-k="t8"><input type="checkbox" aria-label="Hecho"><span class="tx">Pauta de alcance segmentada por zona con la mejor pieza publicada<small>Santi · desde la primera publicación</small></span></li>
+    <li data-k="t9"><input type="checkbox" aria-label="Hecho"><span class="tx">Mapa de cuentas, primera versión: todos los clientes y 50 prospectos con hectáreas y a quién le compran<small>Santi con Alvaro · 31/10</small></span></li>
+    <li data-k="t10"><input type="checkbox" aria-label="Hecho"><span class="tx">Primera reunión mensual con el tablero y las metas<small>Todos · lunes 02/11</small></span></li>
+  </ul>
+</section>
+
+<!-- 12 -->
+<section id="decisiones">
+  <div class="sec-k">12 · Decisiones</div>
+  <h2>Lo que necesito que decidas.</h2>
+  <div class="dec">
+    <div class="card"><div class="ct">Los precios públicos</div><p>Opción A: pasar el repo a privado y contratar GitHub Pro para que el sitio siga online (el código queda privado, el sitio sigue público). Opción B: borrar el archivo y limpiar el historial de todas las ramas. Recomiendo la A: es más simple y protege todo lo demás que hay en el repo. Lo que estuvo público hasta ahora pudo haber sido copiado.</p></div>
+    <div class="card"><div class="ct">Quién ejecuta el contenido</div><p>Un creador o community manager de la zona (recomendado) u horas fijas de Santi escritas en su semana. Sin esto, este plan termina igual que los tres anteriores.</p></div>
+    <div class="card"><div class="ct">Ordenar el repo en una sola rama</div><p>Integrar las ramas de trabajo en una rama <code>main</code> y publicar el sitio solo desde ahí (punto 13). Lo hago yo, pero necesito tu autorización explícita porque implica tocar ramas que no son de esta sesión.</p></div>
+    <div class="card"><div class="ct">¿Zonas nuevas en la 27/28?</div><p>Sí o no, y cuáles. Cambia la pauta y la lista de prospectos.</p></div>
+    <div class="card"><div class="ct">Las metas del tablero</div><p>Hectáreas, clientes nuevos y retención para la 27/28. Se ponen en la reunión del 02/11 con los números de la 25/26.</p></div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section id="repo">
+  <div class="sec-k">13 · El repo</div>
+  <h2>Cómo está armado y cómo debería quedar.</h2>
+  <p class="body">El repo <code>Campa-aMKT-26-27</code> es la carpeta de trabajo de marketing en GitHub. Tiene dos partes: los documentos que usamos para pensar y producir, y una carpeta <code>docs/</code> que se publica sola como sitio web.</p>
+
+  <h3>Qué hay en cada carpeta</h3>
+  <div class="tree"><b>CLAUDE.md, GOAL.md</b>      <i>instrucciones para cada sesión de Claude</i>
+<b>estrategia/</b>              <i>documentos de estrategia (plan de canales)</i>
+<b>brand/</b>                   <i>marca: colores, tipografías, tono, logos</i>
+<b>contexto/</b>                <i>datos del negocio: empresa, zona, productos, marbetes</i>
+<b>posts/ reels/ meta-ads/</b>  <i>textos de cada posteo, guiones y briefs de pauta</i>
+<b>calendario.md metricas.md</b> <i>qué sale cuándo y cómo funcionó</i>
+<b>scripts/</b>                 <i>programas: placas HTML → JPG y MP4, arma la propuesta</i>
+<b>docs/</b>                    <i>EL SITIO: dashboard, estrategia, propuesta, placas, reels</i>
+<b>.github/workflows/</b>       <i>el robot que publica el sitio</i></div>
+
+  <h3>Cómo se publica el sitio</h3>
+  <div class="flow">
+    <div class="node"><div class="nt">1 · Se sube un cambio a una rama</div><div class="nd">Desde una sesión de Claude o desde la web de GitHub.</div></div>
+    <div class="arrow">↓</div>
+    <div class="node"><div class="nt">2 · GitHub Actions corre el robot</div><div class="nd">Solo si la rama está en su lista. Convierte las placas HTML en JPG listos para bajar.</div></div>
+    <div class="arrow">↓</div>
+    <div class="node"><div class="nt">3 · Copia docs/ a la rama gh-pages</div><div class="nd">Agrega y reemplaza archivos; no borra los que ya estaban.</div></div>
+    <div class="arrow">↓</div>
+    <div class="node"><div class="nt">4 · GitHub Pages lo sirve en internet</div><div class="nd">henderseedsrepositorio.github.io/Campa-aMKT-26-27/</div></div>
+  </div>
+
+  <h3>Las 9 ramas, hoy</h3>
+  <div class="branches">
+    <div class="b"><div class="bn"><span class="tag base">principal</span>claude/peaceful-sagan-srghou<small>08/08/2026</small></div><div class="bd">Es la rama "por defecto": cada sesión nueva de Claude arranca desde acá. Quedó en agosto.</div></div>
+    <div class="b"><div class="bn"><span class="tag live">online</span>claude/gallant-hawking-qbdjlf<small>25/09/2026</small></div><div class="bd">El relanzamiento de septiembre: propuesta, reels y placas W40 a W46. Es la versión más completa y la que se ve en el sitio.</div></div>
+    <div class="b"><div class="bn"><span class="tag live">online</span>claude/loving-edison-byfwnx<small>07/10/2026</small></div><div class="bd">Esta sesión. Arrancó desde la principal de agosto, por eso no tenía lo de septiembre. Publica solo esta página de estrategia.</div></div>
+    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/friendly-euler-ryr4lj<small>16/09/2026</small></div><div class="bd">Placa e historias de "rinde de indiferencia" y el guion del reel de girasol.</div></div>
+    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/instagram-template-veterinarian…<small>06/08/2026</small></div><div class="bd">Historia del Día del Ingeniero Agrónomo y del Veterinario, y un primer generador de videos.</div></div>
+    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/nidera-hithub-marketing-page-j1m2yt<small>08/07/2026</small></div><div class="bd">Ajustes de estrategia de julio ("publicar antes que redactar", Estados de WhatsApp).</div></div>
+    <div class="b"><div class="bn"><span class="tag old">vacía</span>claude/github-pages-repo-check-m5etlg<small>26/06/2026</small></div><div class="bd">Sin trabajo propio: todo lo suyo ya está en las otras.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">vacía</span>claude/dashboard-commemorative-dates-ou6c6h<small>31/07/2026</small></div><div class="bd">Sin trabajo propio: todo lo suyo ya está en las otras.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">automática</span>gh-pages<small>la genera el robot</small></div><div class="bd">Es el sitio publicado. No se edita a mano.</div></div>
+  </div>
+
+  <h3>El problema</h3>
+  <p class="body">Cada sesión de Claude crea su propia rama a partir de la principal, que quedó en agosto. Lo que se hace en una sesión no llega a las siguientes y el sitio muestra la última rama que publicó. Por eso hay trabajo de julio, agosto y septiembre que nunca se juntó, y por eso esta misma sesión empezó sobre una versión vieja.</p>
+
+  <h3>Cómo debería quedar</h3>
+  <ol class="steps">
+    <li><b>Una sola rama <code>main</code></b> con todo integrado: septiembre como base, más lo útil de las ramas sin integrar y esta estrategia.</li>
+    <li><b><code>main</code> como rama por defecto</b> (se cambia en Settings del repo). Cada sesión nueva arranca desde ahí y vuelve ahí con un pull request.</li>
+    <li><b>El sitio se publica solo desde <code>main</code>.</b></li>
+    <li><b>Se borran las ramas viejas</b> una vez integradas.</li>
+    <li><b>Repo privado con GitHub Pro</b> (decisión 1).</li>
+    <li><b>Lo que no se usa pasa a archivo:</b> el laboratorio de maquetas, la página de X y la parte del dashboard congelada en W28.</li>
+  </ol>
+</section>
+
+<footer>
+  Fuentes: repo Campa-aMKT-26-27 (las 9 ramas), copia de henderseeds.com y perfil de Instagram al 07/10/2026. Esta página no tiene precios, descuentos ni condiciones comerciales.<br>
+  <a href="../index.html">Dashboard</a> · <a href="../propuesta/">Propuesta de septiembre (piezas listas)</a> · <a href="../reels-siembra/">Reels</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'hs-estrategia-30dias';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  document.querySelectorAll('#todo li').forEach(function (li) {
+    var k = li.getAttribute('data-k');
+    var cb = li.querySelector('input');
+    if (state[k]) { cb.checked = true; li.classList.add('done'); }
+    cb.addEventListener('change', function () {
+      li.classList.toggle('done', cb.checked);
+      state[k] = cb.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>

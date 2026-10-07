@@ -17,9 +17,9 @@
    (no mencionarla en contenido).
 3. **Asesoramiento técnico** — recorrido de lote, prescripción variable (NDVI),
    posicionamiento de híbridos por ambiente.
-4. **Drone:** hoy se usa sobre todo para **control de siembra y densidad** (plantas logradas,
-   fallas, malezas). Se ofrece **sin costo** al productor interesado, dentro del plan de experiencia
-   Nidera `[CONFIRMAR: nombre oficial del programa]`.
+4. **Drone:** se usa para control de siembra y densidad en 7–8 clientes, por pedido del programa
+   de experiencia de Nidera. **No es argumento de marketing:** Alvaro no le ve valor (el control llega
+   cuando el lote ya está sembrado y no se puede volver atrás). No comunicarlo.
 5. **Herramientas digitales** — calculadora de márgenes, suite financiera pesos/USD,
    calculadora de cuotas/cheques (ver `herramientas.md`).
 6. **Acompañamiento financiero** — SGR, dólar futuro, canje.

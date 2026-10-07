@@ -5,19 +5,14 @@
 
 ## Goal activo
 
-**Semana W41–W42 (05/10 → 18/10): arrancar el plan `estrategia/plan-oct-dic-2026.md`.**
-
-### Criterios de "hecho"
-- [ ] Perfil de Instagram arreglado (nombre, bio, links) y posts viejos archivados
-- [ ] WhatsApp Business configurado (perfil, etiquetas, bienvenida) y mensaje de alta enviado a los clientes
-- [ ] Carrusel del drone (W41) validado y publicado → `posts/2026-W41/post-01-drone-implantacion.md`
-- [ ] Primer "El viernes de Henderseeds" enviado (09/10)
-- [ ] Reel 1 "3 cosas que miramos en la siembra" grabado y publicado
-- [ ] Campaña de pauta A (alcance, solo geografía) prendida con el reel 1
-- [ ] Planilla o campo de Salesforce "¿por dónde nos conociste?" en uso
-- [ ] `calendario.md` actualizado con lo publicado
-
-> El goal W28 quedó incompleto (posts 2 y 3 nunca se hicieron) y se descarta.
+**Próximos 30 días de la estrategia (07/10 → 06/11/2026)** — lista completa en la sección 11 de
+`docs/estrategia/index.html`. Lo central:
+- [ ] Sacar los precios del repo público (decisión de Alvaro: repo privado + GitHub Pro, o limpiar historial)
+- [ ] Tardío y girasol: contacto uno a uno con los que siembran (tardío fuerte hasta el 05/12)
+- [ ] Decidir quién ejecuta el contenido (creador/CM de la zona u horas fijas de Santi)
+- [ ] Mapa de cuentas v1 en Salesforce: clientes + 50 prospectos (31/10)
+- [ ] 1 publicación por semana desde el 12/10, con piezas que ya están hechas
+- [ ] Primera reunión mensual con el tablero: lunes 02/11
 
 ---
 

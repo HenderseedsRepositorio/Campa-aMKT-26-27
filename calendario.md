@@ -61,6 +61,10 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 > Desde W41 manda `estrategia/plan-oct-dic-2026.md`.
 
 ## Octubre–diciembre 2026 — campaña: maíz tardío + girasol que queda + base 27/28
+
+> ⚠️ **07/10: esta grilla quedó reemplazada por la estrategia (`docs/estrategia/index.html`)**:
+> 1 publicación por semana con piezas que ya están hechas en `claude/gallant-hawking-qbdjlf`.
+> El carrusel del drone se descartó.
 Ritmo: 1 reel "Desde el lote" + 1 post de producto por semana · "El viernes de Henderseeds" por
 lista de WhatsApp · 1 estado por día hábil. Pauta siempre prendida con el mejor reel.
 
