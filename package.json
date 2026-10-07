@@ -5,7 +5,8 @@
   "scripts": {
     "placas": "node scripts/render-placas.mjs",
     "videos": "node scripts/render-videos.mjs",
-    "propuesta": "node scripts/armar-propuesta.mjs"
+    "propuesta": "node scripts/armar-propuesta.mjs",
+    "video": "node scripts/render-video.mjs"
   },
   "dependencies": {
     "playwright": "^1.61.1"

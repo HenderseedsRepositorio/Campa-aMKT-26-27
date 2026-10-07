@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Video historia 6 de Agosto · Día del Ingeniero Agrónomo y del Médico Veterinario</title>
+<link href="../assets/fonts/fuentes.css" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --cream:#F6F4EE;
+  --orange:#F5A623; --celeste:#74ACDF; --white:#E8EEF7; --grey:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+}
+body { background:#05070d; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+
+/* Historia animada 9:16, ~10 s. La linea de tiempo son los animation-delay:
+   el script scripts/render-video.mjs la recorre cuadro a cuadro y arma el MP4. */
+.slide {
+  width:1080px; height:1920px; background:var(--navy);
+  position:relative; overflow:hidden; flex-shrink:0;
+}
+.slide::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,  rgba(245,166,35,0.045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(90deg, rgba(245,166,35,0.045) 0 1px, transparent 1px 96px);
+}
+.slide::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 720px 540px at 50% 32%, rgba(245,166,35,0.07), transparent 70%),
+    radial-gradient(ellipse 900px 720px at 50% 112%, rgba(13,45,94,0.45), transparent 75%);
+}
+
+/* ── animaciones base ── */
+@keyframes subir    { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pop      { from { opacity:0; transform:scale(.9); } 70% { transform:scale(1.03); } to { opacity:1; transform:scale(1); } }
+@keyframes desdeIzq { from { opacity:0; transform:translateX(-64px) rotate(-1.2deg); } to { opacity:1; transform:translateX(0) rotate(-1.2deg); } }
+@keyframes desdeDer { from { opacity:0; transform:translateX(64px) rotate(1deg); } to { opacity:1; transform:translateX(0) rotate(1deg); } }
+@keyframes esfumar  { to { opacity:0; } }
+
+/* ── persistentes ── */
+.logo-zona { position:absolute; top:185px; left:0; right:0; display:flex; justify-content:center; z-index:3; }
+.logo-zona img { height:52px; animation:subir .5s ease-out 200ms both; }
+
+.firma {
+  position:absolute; bottom:170px; left:84px; right:84px; z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  padding-top:26px; border-top:1px dashed rgba(232,238,247,0.16);
+  animation:subir .5s ease-out 500ms both;
+}
+.firma-row { display:flex; align-items:center; gap:16px; }
+.firma-row img { height:28px; background:#fff; padding:6px 10px; border-radius:7px; }
+.firma-row span { font-family:var(--mono); font-size:16px; letter-spacing:2px; color:var(--grey); text-transform:uppercase; }
+.ig-min { font-family:var(--mono); font-size:17px; letter-spacing:1.5px; color:rgba(143,160,190,0.75); }
+
+/* ── escenas (capas absolutas en la franja central) ── */
+.escena {
+  position:absolute; left:84px; right:84px; top:320px; bottom:340px; z-index:2;
+  display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+}
+
+/* Escena A — pregunta gancho (0.3 s → 2.6 s) */
+.esc-a { animation:esfumar .35s ease 2600ms both; }
+.esc-a .kicker { font-family:var(--mono); font-size:24px; letter-spacing:6px; text-transform:uppercase; color:var(--grey); animation:subir .4s ease-out 300ms both; }
+.esc-a .q1 { font-family:var(--arch); font-size:44px; color:var(--white); letter-spacing:-0.5px; margin-top:40px; animation:subir .4s ease-out 650ms both; }
+.esc-a .q2 { font-family:var(--arch); font-size:84px; color:var(--orange); line-height:1.06; letter-spacing:-2px; margin-top:16px; animation:pop .5s cubic-bezier(.2,.9,.3,1.15) 950ms both; }
+.esc-a .q3 { font-family:var(--arch); font-size:44px; color:var(--white); letter-spacing:-0.5px; margin-top:18px; animation:subir .4s ease-out 1350ms both; }
+
+/* Escena B — la historia en burbujas (3.0 s → 6.2 s) */
+.esc-b { justify-content:center; gap:24px; animation:esfumar .35s ease 6250ms both; }
+.bur {
+  max-width:86%; text-align:left;
+  background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.10);
+  border-radius:20px; padding:26px 34px;
+  font-family:var(--sans); font-size:31px; font-weight:500; color:var(--white); line-height:1.45;
+}
+.bur b { font-weight:700; }
+.bur.izq { align-self:flex-start; border-bottom-left-radius:6px; }
+.bur.der { align-self:flex-end;   border-bottom-right-radius:6px; }
+.esc-b .b1 { animation:pop .45s cubic-bezier(.2,.9,.3,1.15) 3000ms both; }
+.esc-b .b2 { animation:pop .45s cubic-bezier(.2,.9,.3,1.15) 4050ms both; }
+.esc-b .b3 { animation:pop .45s cubic-bezier(.2,.9,.3,1.15) 5100ms both; }
+
+/* Escena C — tarjetas con humor (6.7 s → 8.5 s) */
+.esc-c { justify-content:center; gap:26px; animation:esfumar .3s ease 8500ms both; }
+.tar {
+  width:100%; text-align:left; border-radius:16px; padding:30px 36px;
+  background:rgba(255,255,255,0.04);
+}
+.tar .tag { display:block; font-family:var(--mono); font-size:20px; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+.tar .fr  { font-family:var(--sans); font-size:31px; font-weight:600; color:var(--white); line-height:1.4; }
+.tar.agro { border:1.5px solid rgba(245,166,35,0.55);  animation:desdeIzq .5s cubic-bezier(.2,.9,.3,1.1) 6700ms both; }
+.tar.agro .tag { color:var(--orange); }
+.tar.vete { border:1.5px solid rgba(116,172,223,0.55); animation:desdeDer .5s cubic-bezier(.2,.9,.3,1.1) 7400ms both; }
+.tar.vete .tag { color:var(--celeste); }
+
+/* Escena D — cierre (8.9 s → fin, queda) */
+.esc-d .cierre { font-family:var(--arch); font-size:72px; color:var(--white); letter-spacing:-1.5px; line-height:1.12; animation:pop .55s cubic-bezier(.2,.9,.3,1.15) 8900ms both; }
+.esc-d .cierre-sub { font-family:var(--sans); font-size:30px; font-weight:600; color:var(--grey); margin-top:26px; animation:subir .45s ease-out 9250ms both; }
+.esc-d .zona { font-family:var(--mono); font-size:20px; letter-spacing:4px; text-transform:uppercase; color:var(--grey); margin-top:40px; animation:subir .45s ease-out 9450ms both; }
+</style>
+</head>
+<body>
+<div class="slide" data-duracion="10000">
+
+  <div class="logo-zona"><img src="../assets/logo-henderseeds-white.png" alt="HenderSeeds"></div>
+
+  <!-- A: pregunta -->
+  <div class="escena esc-a">
+    <div class="kicker">6 de Agosto</div>
+    <div class="q1">¿Sabías que</div>
+    <div class="q2">agrónomos<br>y veterinarios</div>
+    <div class="q3">cumplen años el mismo día?</div>
+  </div>
+
+  <!-- B: la historia, cortita -->
+  <div class="escena esc-b">
+    <div class="bur izq b1">🌱 <b>6 de agosto de 1883:</b> abre Santa Catalina, en Buenos Aires.</div>
+    <div class="bur der b2">🎓 La primera escuela del país que enseñó <b>las dos carreras juntas</b>.</div>
+    <div class="bur izq b3">🥂 Por eso hoy <b>festejan juntos</b>.</div>
+  </div>
+
+  <!-- C: los homenajeados -->
+  <div class="escena esc-c">
+    <div class="tar agro">
+      <span class="tag">🌾 el ingeniero agrónomo</span>
+      <span class="fr">El que pisa el lote y te canta qué, cuándo y cuánto sembrar.</span>
+    </div>
+    <div class="tar vete">
+      <span class="tag">🩺 el médico veterinario</span>
+      <span class="fr">El que se levanta a las 3 AM porque la vaca no sabe de horarios.</span>
+    </div>
+  </div>
+
+  <!-- D: cierre -->
+  <div class="escena esc-d">
+    <div class="cierre">¡Feliz día<br>a los dos! 🤝</div>
+    <div class="cierre-sub">La campaña también se hace con ustedes.</div>
+    <div class="zona">Henderson · Daireaux · Bolívar</div>
+  </div>
+
+  <div class="firma">
+    <div class="firma-row">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="ig-min">@henderseeds</div>
+  </div>
+</div>
+
+<script>
+// Vista previa: click/tap reinicia la animación desde cero.
+document.addEventListener('click', function () {
+  document.getAnimations().forEach(function (a) { a.cancel(); a.play(); });
+});
+</script>
+</body>
+</html>
