@@ -17,9 +17,11 @@ segmentos, oferta, recorrido del productor, canales, presupuesto, medición, rol
 **guía de 10 pasos** (`guia.html`) y **plan de 9 semanas** (`plan.html`: publicaciones listas,
 mensajes, pauta A + B, checklist de Santi). Planillas: `mapa-de-cuentas.csv`, `tablero-mensual.csv`.
 Piezas nuevas en `docs/estrategia/piezas/` (HTML + JPG; usan `../../assets/hs2627.css` del sitio).
+Galería de descarga: `docs/estrategia/piezas/index.html` (4 opciones por placa; recomendadas: Plan C y Clearfield D).
+Los JPG se renderizan local con Playwright y se commitean (el robot de esta rama no renderiza).
 **Roles (07/10):** Alvaro publica; Santi revisa cada pieza antes con la checklist.
 **Oferta (definida por Alvaro el 07/10): "Plan de Campaña HenderSeeds"**, seis pasos:
-1. Diagnóstico · 2. Recomendación asistida (híbrido por ambiente; siembra variable incluida, opcional) ·
+1. Diagnóstico · 2. Recomendación Asista (híbrido por ambiente; siembra variable incluida, opcional) ·
 3. Financiación (en público solo "a cosecha y con tarjetas agro, en pesos o dólares"; el plazo
 exacto va solo en privado) · 4. Seguro de resiembra · 5. Vuelo de drone (calidad de siembra) ·
 6. Informe de visita. El drone aparece solo como paso 5 de la oferta, nunca como pieza suelta.
