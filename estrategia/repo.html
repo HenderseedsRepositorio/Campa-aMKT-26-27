@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repo HenderSeeds: cómo está armado</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="./" aria-label="Volver a la estrategia"><img src="../assets/logo-henderseeds-white.png" alt="HenderSeeds"></a>
+    <nav class="toc" aria-label="Secciones">
+      <a href="./">← Estrategia</a>
+      <a href="#carpetas">Carpetas</a>
+      <a href="#publicacion">Cómo se publica</a>
+      <a href="#ramas">Ramas</a>
+      <a href="#objetivo">Cómo debería quedar</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker"><span class="led"></span>Anexo · El repo</div>
+  <h1>Cómo está armado<br><em>el repo.</em></h1>
+  <p class="lead">El repo <code>Campa-aMKT-26-27</code> es la carpeta de trabajo de marketing en GitHub. Tiene dos partes: los documentos para pensar y producir, y la carpeta <code>docs/</code>, que se publica sola como sitio web. <b>Es público:</b> cualquiera puede leerlo, así que nada comercial interno se sube acá.</p>
+</header>
+
+<section id="carpetas">
+  <div class="sec-k">01 · Carpetas</div>
+  <h2>Qué hay en cada una.</h2>
+  <div class="tree"><b>CLAUDE.md, GOAL.md</b>        <i>instrucciones para cada sesión de Claude</i>
+<b>estrategia/</b>                <i>documentos de estrategia anteriores (historial)</i>
+<b>brand/</b>                     <i>marca: colores, tipografías, tono, logos</i>
+<b>contexto/</b>                  <i>datos del negocio: empresa, zona, productos, marbetes</i>
+<b>posts/ reels/ meta-ads/</b>    <i>textos de cada posteo, guiones y briefs de pauta</i>
+<b>calendario.md metricas.md</b>  <i>qué sale cuándo y cómo funcionó</i>
+<b>scripts/</b>                   <i>programas: placas HTML → JPG y MP4</i>
+<b>docs/</b>                      <i>EL SITIO</i>
+<b>  docs/estrategia/</b>        <i>estrategia, guía, plan, planillas y piezas nuevas</i>
+<b>  docs/propuesta/</b>         <i>relanzamiento de septiembre (piezas listas)</i>
+<b>  docs/placas/</b>            <i>cada pieza en HTML (fuente de las imágenes)</i>
+<b>.github/workflows/</b>         <i>los robots que publican el sitio</i></div>
+</section>
+
+<section id="publicacion">
+  <div class="sec-k">02 · Cómo se publica</div>
+  <h2>Del repo al sitio.</h2>
+  <div class="flow">
+    <div class="node"><div class="nt">1 · Se sube un cambio a una rama</div><div class="nd">Desde una sesión de Claude o desde la web de GitHub.</div></div>
+    <div class="arrow">↓</div>
+    <div class="node"><div class="nt">2 · GitHub Actions corre el robot</div><div class="nd">Solo si la rama está en su lista. El de septiembre convierte las placas en JPG y MP4; el de la estrategia solo copia la carpeta <code>estrategia/</code>.</div></div>
+    <div class="arrow">↓</div>
+    <div class="node"><div class="nt">3 · Copia los archivos a la rama gh-pages</div><div class="nd">Agrega y reemplaza; no borra lo que ya estaba.</div></div>
+    <div class="arrow">↓</div>
+    <div class="node"><div class="nt">4 · GitHub Pages lo sirve en internet</div><div class="nd">henderseedsrepositorio.github.io/Campa-aMKT-26-27/</div></div>
+  </div>
+</section>
+
+<section id="ramas">
+  <div class="sec-k">03 · Las ramas</div>
+  <h2>Nueve ramas, hoy.</h2>
+  <div class="branches">
+    <div class="b"><div class="bn"><span class="tag base">principal</span>claude/peaceful-sagan-srghou<small>08/08/2026</small></div><div class="bd">La rama "por defecto": cada sesión nueva de Claude arranca desde acá. Quedó en agosto.</div></div>
+    <div class="b"><div class="bn"><span class="tag live">online</span>claude/gallant-hawking-qbdjlf<small>25/09 y 07/10/2026</small></div><div class="bd">El relanzamiento de septiembre: propuesta, reels y placas. Publica el sitio.</div></div>
+    <div class="b"><div class="bn"><span class="tag live">online</span>claude/loving-edison-byfwnx<small>07/10/2026</small></div><div class="bd">Esta sesión. Publica solo la carpeta <code>estrategia/</code>, con un robot aparte que no toca el resto del sitio.</div></div>
+    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/friendly-euler-ryr4lj<small>16/09/2026</small></div><div class="bd">Placa e historias de "rinde de indiferencia" y el guion del reel de girasol.</div></div>
+    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/instagram-template-veterinarian…<small>06/08/2026</small></div><div class="bd">Historia del Día del Ingeniero Agrónomo y del Veterinario, y un primer generador de videos.</div></div>
+    <div class="b"><div class="bn"><span class="tag lost">sin integrar</span>claude/nidera-hithub-marketing-page-j1m2yt<small>08/07/2026</small></div><div class="bd">Ajustes de estrategia de julio.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">vacía</span>claude/github-pages-repo-check-m5etlg<small>26/06/2026</small></div><div class="bd">Sin trabajo propio.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">vacía</span>claude/dashboard-commemorative-dates-ou6c6h<small>31/07/2026</small></div><div class="bd">Sin trabajo propio.</div></div>
+    <div class="b"><div class="bn"><span class="tag old">automática</span>gh-pages<small>la generan los robots</small></div><div class="bd">Es el sitio publicado. No se edita a mano.</div></div>
+  </div>
+  <div class="card ok" style="margin-top:12px"><div class="ct"><small>07/10/2026</small>El archivo con precios se borró de las 8 ramas de trabajo</div><p>Sigue en el historial de commits viejos: alguien que busque versiones anteriores lo puede encontrar. Sacarlo de ahí implica reescribir la historia de todas las ramas. Se puede hacer, pero es delicado y lo hago solo con tu autorización.</p></div>
+  <h3>El problema</h3>
+  <p class="body">Cada sesión de Claude crea su propia rama a partir de la principal, que quedó en agosto. Lo que se hace en una sesión no llega a las siguientes, y el sitio muestra lo que publicó la última rama. Por eso hay trabajo de julio, agosto y septiembre que nunca se juntó, y por eso esta sesión empezó sobre una versión vieja.</p>
+</section>
+
+<section id="objetivo">
+  <div class="sec-k">04 · Cómo debería quedar</div>
+  <h2>Una sola rama.</h2>
+  <ol class="steps">
+    <li><b>Una rama <code>main</code></b> con todo integrado: septiembre como base, lo útil de las ramas sin integrar y la estrategia.</li>
+    <li><b><code>main</code> como rama por defecto</b> (se cambia en Settings del repo). Cada sesión nueva arranca desde ahí y vuelve ahí.</li>
+    <li><b>El sitio se publica solo desde <code>main</code></b>, con un único robot.</li>
+    <li><b>Se borran las ramas viejas</b> una vez integradas.</li>
+    <li><b>Lo que no se usa pasa a archivo:</b> el laboratorio de maquetas, la página de X y la parte del dashboard congelada en W28.</li>
+  </ol>
+  <p class="body">Lo hago yo en una sesión, pero necesito tu autorización explícita porque toca ramas de otras sesiones.</p>
+</section>
+
+<footer>
+  <a href="./">Estrategia</a> · <a href="guia.html">Guía</a> · <a href="plan.html">Plan</a>
+</footer>
+
+</div>
+</body>
+</html>
