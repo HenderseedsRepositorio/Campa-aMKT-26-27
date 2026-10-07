@@ -12,13 +12,23 @@
 - `[COMPLETAR: breve historia / trayectoria de los fundadores si se quiere sumar]`
 
 ## Qué ofrecemos
-1. **Semilla Nidera de maíz y girasol** — precampaña 26/27 en curso
-   (ver `productos-26-27.md` y `calendario-comercial.md`).
-2. **Asesoramiento técnico** — recorrido de lote, prescripción variable (NDVI),
-   drones, verificación de implantación, posicionamiento de híbridos por ambiente.
-3. **Herramientas digitales** — calculadora de márgenes, suite financiera pesos/USD,
+1. **Semilla Nidera de maíz y girasol** (exclusivo RED.IN). Ver `productos-26-27.md`.
+2. **Agroquímicos multimarca:** no trabajamos con una sola marca. **Ya no trabajamos con Syngenta**
+   (no mencionarla en contenido).
+3. **Asesoramiento técnico** — recorrido de lote, prescripción variable (NDVI),
+   posicionamiento de híbridos por ambiente.
+4. **Drone:** hoy se usa sobre todo para **control de siembra y densidad** (plantas logradas,
+   fallas, malezas). Se ofrece **sin costo** al productor interesado, dentro del plan de experiencia
+   Nidera `[CONFIRMAR: nombre oficial del programa]`.
+5. **Herramientas digitales** — calculadora de márgenes, suite financiera pesos/USD,
    calculadora de cuotas/cheques (ver `herramientas.md`).
-4. **Acompañamiento financiero** — SGR, dólar futuro, canje.
+6. **Acompañamiento financiero** — SGR, dólar futuro, canje.
+
+## Equipo y producción de contenido
+- **Alvaro:** estrategia. **Alvaro o Santi** publican, siempre consensuado entre los dos.
+- **Por ahora nadie del equipo aparece en cámara.** El contenido se hace con fotos y video del drone,
+  manos, máquinas, bolsas y texto en pantalla.
+- Ensayo propio 26/27: se siembra alrededor del 17/10/2026 `[COMPLETAR: lote, cultivo, híbridos]`.
 
 ## Contacto (usar en CTAs)
 - WhatsApp comercial: **+54 9 2314 53-0691**

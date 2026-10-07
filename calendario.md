@@ -66,8 +66,8 @@ lista de WhatsApp · 1 estado por día hábil. Pauta siempre prendida con el mej
 
 | Semana | Lunes | Reel (servicio) | Post (producto) | WhatsApp viernes / directo |
 |--------|-------|-----------------|-----------------|----------------------------|
-| 2026-W41 | 05/10 | 💡 3 cosas que miramos en la siembra de maíz | — (arreglar perfil + archivar) | 💡 Alta a la lista (de a uno) · 1er viernes 09/10 |
-| 2026-W42 | 12/10 | 💡 Arranca el girasol en la zona | 💡 Girasol: quedan pocas bolsas (sin precios) | 💡 Viernes 16/10 · últimos días de maíz temprano (20/10) |
+| 2026-W41 | 05/10 | 💡 3 cosas que miramos en la siembra de maíz (sin caras) | ✍️ [Carrusel: lo que no se ve desde la camioneta (drone)](posts/2026-W41/post-01-drone-implantacion.md) · [placa](docs/placas/2026-W41-drone-implantacion.html) + arreglar perfil y archivar | 💡 Alta a la lista (de a uno) · 1er viernes 09/10 · mensaje drone a prospectos |
+| 2026-W42 | 12/10 | 💡 Arranca el girasol en la zona | 💡 Girasol: quedan pocas bolsas (sin precios) | 💡 Viernes 16/10 · últimos días de maíz temprano (20/10) · 🎥 Diario del ensayo #1: la siembra (~17/10) |
 | 2026-W43 | 19/10 | 💡 Drone: así controlamos la implantación | 💡 Carrusel: maíz tardío, qué híbrido para qué lote | 💡 Viernes 23/10 · lista de 50 prospectos lista |
 | 2026-W44 | 26/10 | 💡 Desde el lote: emergencia del temprano | 💡 NS 7925: tardío con Spiroplasma 3 (lanzamiento) | 💡 Viernes 30/10 · elegir lote de la jornada de verano |
 | 2026-W45 | 02/11 | 💡 Calculadora: el rinde de indiferencia del tardío (con persona, no solo pantalla) | 💡 NS 7765 en tardía (+324 kg/ha, marbete) | 💡 Viernes 06/11 · 📣 arranca la campaña B (tardío) |

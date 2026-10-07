@@ -10,6 +10,7 @@
 ### Criterios de "hecho"
 - [ ] Perfil de Instagram arreglado (nombre, bio, links) y posts viejos archivados
 - [ ] WhatsApp Business configurado (perfil, etiquetas, bienvenida) y mensaje de alta enviado a los clientes
+- [ ] Carrusel del drone (W41) validado y publicado → `posts/2026-W41/post-01-drone-implantacion.md`
 - [ ] Primer "El viernes de Henderseeds" enviado (09/10)
 - [ ] Reel 1 "3 cosas que miramos en la siembra" grabado y publicado
 - [ ] Campaña de pauta A (alcance, solo geografía) prendida con el reel 1

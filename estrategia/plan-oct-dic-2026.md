@@ -52,21 +52,25 @@
 
 ## 5. Contenido: mostrar el servicio, no la bolsa
 
-Cuatro series fijas, fáciles de repetir:
+Cinco series fijas, fáciles de repetir:
 
-1. **"Desde el lote"** (reel de 30–45 s). Alguien del equipo en un lote explica **una** cosa:
-   profundidad de siembra, plantas logradas, uniformidad de emergencia, humedad. Con la cara del
-   equipo; el cliente no necesita aparecer ni hablar.
-2. **"Drone de implantación"**: qué detecta el vuelo, el mapa, las fallas. Ideal para fines de
-   octubre y noviembre.
+1. **"Desde el lote"** (reel de 20–40 s). **Sin caras** (decisión del 07/10): manos, máquinas,
+   semilla en el surco y texto en pantalla explican **una** cosa: profundidad de siembra, plantas
+   logradas, uniformidad de emergencia, humedad.
+2. **"Drone de implantación"**: qué detecta el vuelo (plantas logradas, zonas desparejas, malezas).
+   Es el formato estrella mientras nadie aparezca en cámara. Primera pieza: el carrusel de W41.
 3. **"Maíz tardío 26/27"**: qué híbrido para qué lote, con dato de marbete. Los datos ya están en
    `contexto/productos-26-27.md` (NS 7765, NS 7925, NS 7852, NS 7624 CL, NS 7921 CL, NS 7818).
 4. **"El viernes de Henderseeds"** (lista de difusión + estado): lluvia de la semana en Henderson,
    maíz a cosecha en Rosario (dato de Al Grano), un consejo del lote y una novedad de la casa.
+5. **"Diario del ensayo"**: el ensayo propio se siembra alrededor del 17/10. Mismo encuadre de
+   drone en cada etapa (siembra, emergencia, V6, floración, cosecha). Es el material del
+   lanzamiento de la 27/28 y de la jornada a campo.
 
-**Clientes en cámara:** todavía no hace falta. Primero el equipo (ustedes son la marca). El
-cliente entra de a poco: su lote o su máquina, con permiso. El testimonio filmado se pide en
-**cosecha** (marzo–mayo), cuando hay un resultado para contar.
+**Caras en cámara:** por ahora nadie del equipo ni clientes (decisión del 07/10). Funciona, pero
+tiene un techo: en este rubro la confianza se construye con personas. Revisarlo en la jornada a
+campo del verano. El testimonio de cliente se pide en **cosecha** (marzo–mayo), y puede ser solo
+voz o texto.
 
 **Visual:** un solo sistema, el navy y el amarillo del logo. Foto o video real con el logo chico.
 Placas con **máximo 12 palabras** y un solo número grande: las placas tipo "terminal" con letra
@@ -77,17 +81,20 @@ chica no se leen en el celular.
 1. **Lista de 50 prospectos prioritarios.** Productores de la zona que no son clientes, con
    hectáreas aproximadas, qué siembran y quién les vende. Cada uno recibe una visita o un llamado
    antes del 05/12, **con una excusa de valor**: los números del tardío o el vuelo de drone.
-2. **El drone como puerta de entrada** *(a decidir)*: ofrecer, por ejemplo, 10 vuelos de control
-   de implantación sin costo a prospectos. Te mete en su lote, muestra el servicio y además da
-   contenido (con permiso).
+2. **El drone como puerta de entrada** *(confirmado: sin costo al interesado)*. Te mete en su lote,
+   muestra el servicio y además da contenido (con permiso). Mensaje para prospectos, de a uno:
+   > Hola [nombre], ¿cómo va? Soy [tu nombre] de Henderseeds. Estos días estamos volando el drone
+   > sobre los maíces tempranos de la zona para ver cómo nacieron: plantas logradas, fallas y
+   > malezas. Si querés, pasamos por tu lote sin costo y te contamos lo que vemos. ¿Te sirve esta
+   > semana o la que viene?
 3. **Referidos:** pedirle a cada cliente *"¿a qué vecino le serviría lo que hacemos?"*. Si hay un
    reconocimiento, que sea un servicio (un vuelo de drone, una recorrida) y que se hable en privado,
    nunca publicado.
 4. **Cartel de lote** en los lotes de clientes que dan a rutas o caminos transitados, con su
    permiso. Preguntarle a Nidera qué cartelería da RED.IN.
-5. **Jornada a campo en verano** (enero/febrero, maíz en floración o llenado). Hay que **elegir el
-   lote ahora**, mientras se siembra, para filmarlo de la siembra a la cosecha: ese material es el
-   lanzamiento de la 27/28. Invitación personal a clientes y a la lista de prospectos.
+5. **Jornada a campo en verano** (enero/febrero) **en el ensayo propio**, que se siembra alrededor
+   del 17/10. Filmarlo con el drone desde la siembra: ese material es el lanzamiento de la 27/28.
+   Invitación personal a clientes y a la lista de prospectos.
 6. **Radio local** *(opcional)*: un micro de 1 minuto con el dato del viernes en una FM de la zona.
 
 ## 7. WhatsApp: cómo arrancar
@@ -110,8 +117,8 @@ chica no se leen en el celular.
 |--------|-----|-------|
 | Lunes (15') | Plan de la semana: textos, guion del reel, lista de tomas, mensaje del viernes | Claude → lo revisan |
 | Mar–Jue | 4 a 6 clips de 10–20 s y fotos para estados, desde el campo, al grupo "Contenido HS" | quien sale al campo |
-| Miércoles (45') | Editar el reel en CapCut con plantilla fija y publicarlo | `[a definir]` |
-| Viernes (30') | Mensaje de difusión + post de producto + cargar las métricas | `[a definir]` |
+| Miércoles (45') | Editar el reel en CapCut con plantilla fija y publicarlo | Alvaro o Santi (consensuado) |
+| Viernes (30') | Mensaje de difusión + post de producto + cargar las métricas | Alvaro o Santi (consensuado) |
 | Todos los días (2') | 1 estado desde el lote | quien esté en el campo |
 
 **Compra recomendada:** un micrófono corbatero inalámbrico para el celular. Es la mejora de calidad
@@ -135,8 +142,8 @@ Primero recorremos tu campo, después recomendamos 👇
 
 **Instagram — archivar (no borrar; se puede deshacer):** sorteos de camisetas (2), "¿Qué pasó? ¿Te
 asustaste?", "Conocé los márgenes proyectados gruesa 2024", "No te duermas con el maíz", la foto de
-stock del chico con la tablet y el cuadro negro. A confirmar: "Representantes de Nidera y Syngenta"
-y "En HenderSeeds somos familia". Destacadas: reemplazar "Syngenta" y "Gruesa/24" a medida que haya
+stock del chico con la tablet, el cuadro negro y **"Representantes de Nidera y Syngenta"** (ya no
+trabajan con Syngenta; borrar también la destacada "Syngenta"). A confirmar: "En HenderSeeds somos familia". Destacadas: reemplazar "Syngenta" y "Gruesa/24" a medida que haya
 material por *Maíz 26/27 · Girasol · A campo · Drone · Herramientas*.
 
 **WhatsApp Business — descripción:**
@@ -169,14 +176,16 @@ material por *Maíz 26/27 · Girasol · A campo · Drone · Herramientas*.
 drone despegando · girasol: *"Arrancamos la siembra la semana que viene. Quedan pocas bolsas: si te
 falta, escribinos."*
 
-**Reel 1 — "3 cosas que miramos cuando arranca la siembra de maíz" (lista de tomas, vertical):**
+**Reel 1 — "3 cosas que miramos cuando arranca la siembra de maíz" (sin caras, vertical):**
 1. Gancho (0–3 s): primer plano, una mano saca la semilla del surco y la mide con una regla.
    Texto: *"¿A qué profundidad quedó tu maíz?"*
-2. La sembradora trabajando en el lote (5 s).
-3. La persona del equipo a cámara: *"Cuando arranca la siembra miramos tres cosas."*
-4. Profundidad: la regla en el surco (5 s).
-5. Distancia entre semillas: una cinta métrica sobre la línea (5 s).
-6. Humedad: un puñado de tierra en la mano (5 s).
-7. Cierre: logo + *"¿Querés que miremos tu siembra? Escribinos."*
+2. La sembradora trabajando en el lote (5 s). Texto: *"Cuando arranca la siembra, miramos 3 cosas."*
+3. Profundidad: la regla en el surco (5 s).
+4. Distancia entre semillas: una cinta métrica sobre la línea (5 s).
+5. Humedad: un puñado de tierra en la mano (5 s).
+6. Cierre: el drone despegando o una toma aérea + logo + *"¿Querés que miremos tu siembra? Escribinos."*
+
+**Reel 2 — drone (cuando haya video):** 20–30 s de video del drone (despegue + pasada sobre el lote)
+alcanzan para un reel con el mismo texto del carrusel de W41.
 
 El criterio técnico de cada punto lo dice el ingeniero con sus palabras: no ponemos números sin fuente.
