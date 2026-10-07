@@ -6,10 +6,11 @@ Centro de producción de contenido y marketing digital de **HenderSeeds**
 **RED.IN de Nidera Semillas** para **Henderson, Daireaux y Bolívar**
 (oeste de la provincia de Buenos Aires, Argentina).
 
-**Foco actual:** precampaña de **maíz y girasol 26/27**. La precampaña sigue abierta
-hasta agosto/septiembre 2026 aproximadamente (las fechas y condiciones las define Nidera).
-También difundimos las **herramientas Henderseeds**: calculadora de márgenes para el
-productor y herramientas financieras para la reventa.
+**Foco actual (octubre–diciembre 2026):** **maíz tardío 26/27** (decisión hasta el 05/12),
+el girasol que queda (siembra 14/10 → 30/11, poca semilla) y armar la base de la 27/28.
+**Leer primero `estrategia/plan-oct-dic-2026.md`** (manda sobre el resto de este archivo) y
+`estrategia/diagnostico-2026-10.md`. Canal principal: WhatsApp (estados + lista de difusión);
+Instagram/Facebook con contenido real de campo; pauta de alcance solo por geografía.
 
 Acá se generan: posteos para Instagram/Facebook, carruseles, guiones de reels y briefs
 de pauta para Meta Business Suite. Ritmo objetivo: **2–3 posteos por semana**.

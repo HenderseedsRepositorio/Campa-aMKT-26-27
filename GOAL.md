@@ -5,18 +5,18 @@
 
 ## Goal activo
 
-**Tener la semana W28 completa (3 posts listos para publicar) antes del 10/07.**
+**Semana W41–W42 (05/10 → 18/10): arrancar el plan `estrategia/plan-oct-dic-2026.md`.**
 
 ### Criterios de "hecho"
-- [x] Post 1 — Girasol NS 1113 CL con ensayos CREA (v2, reemplaza al de "CL explicado") → `posts/2026-W28/post-01-girasol-ns1113.md` + placa
-- [ ] Post 2 — Finanzas: canje grano por semilla
-- [ ] Post 3 — Técnico: dato de manejo girasol
-- [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA (DM primario + WA)
-- [ ] Pasa el checklist de `brand/tono-voz.md`
-- [ ] Ningún dato inventado — los `[COMPLETAR]` están listados
-- [x] `calendario.md` actualizado (💡 → ✍️ con links)
-- [ ] Brief de pauta creado si algún post lo amerita
-- [x] Variedad de pilares respetada (cultivo + negocio + comunidad)
+- [ ] Perfil de Instagram arreglado (nombre, bio, links) y posts viejos archivados
+- [ ] WhatsApp Business configurado (perfil, etiquetas, bienvenida) y mensaje de alta enviado a los clientes
+- [ ] Primer "El viernes de Henderseeds" enviado (09/10)
+- [ ] Reel 1 "3 cosas que miramos en la siembra" grabado y publicado
+- [ ] Campaña de pauta A (alcance, solo geografía) prendida con el reel 1
+- [ ] Planilla o campo de Salesforce "¿por dónde nos conociste?" en uso
+- [ ] `calendario.md` actualizado con lo publicado
+
+> El goal W28 quedó incompleto (posts 2 y 3 nunca se hicieron) y se descarta.
 
 ---
 

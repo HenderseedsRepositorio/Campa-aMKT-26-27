@@ -57,6 +57,27 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W39 | 21/09 | 💡 Girasol: pre-siembra en la zona | 💡 Herramientas | 💡 Técnico: dato de siembra |
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
+> ⚠️ **Registro honesto:** de W29 a W40 no se publicó nada nuevo en el feed (último post: 26/06).
+> Desde W41 manda `estrategia/plan-oct-dic-2026.md`.
+
+## Octubre–diciembre 2026 — campaña: maíz tardío + girasol que queda + base 27/28
+Ritmo: 1 reel "Desde el lote" + 1 post de producto por semana · "El viernes de Henderseeds" por
+lista de WhatsApp · 1 estado por día hábil. Pauta siempre prendida con el mejor reel.
+
+| Semana | Lunes | Reel (servicio) | Post (producto) | WhatsApp viernes / directo |
+|--------|-------|-----------------|-----------------|----------------------------|
+| 2026-W41 | 05/10 | 💡 3 cosas que miramos en la siembra de maíz | — (arreglar perfil + archivar) | 💡 Alta a la lista (de a uno) · 1er viernes 09/10 |
+| 2026-W42 | 12/10 | 💡 Arranca el girasol en la zona | 💡 Girasol: quedan pocas bolsas (sin precios) | 💡 Viernes 16/10 · últimos días de maíz temprano (20/10) |
+| 2026-W43 | 19/10 | 💡 Drone: así controlamos la implantación | 💡 Carrusel: maíz tardío, qué híbrido para qué lote | 💡 Viernes 23/10 · lista de 50 prospectos lista |
+| 2026-W44 | 26/10 | 💡 Desde el lote: emergencia del temprano | 💡 NS 7925: tardío con Spiroplasma 3 (lanzamiento) | 💡 Viernes 30/10 · elegir lote de la jornada de verano |
+| 2026-W45 | 02/11 | 💡 Calculadora: el rinde de indiferencia del tardío (con persona, no solo pantalla) | 💡 NS 7765 en tardía (+324 kg/ha, marbete) | 💡 Viernes 06/11 · 📣 arranca la campaña B (tardío) |
+| 2026-W46 | 09/11 | 💡 Desde el lote | 💡 Tardío CL: NS 7624 / NS 7921 | 💡 Viernes 13/11 · referidos |
+| 2026-W47 | 16/11 | 💡 Drone o recorrida en un lote de cliente (con permiso) | 💡 Girasol: cierre de siembra | 💡 Viernes 20/11 |
+| 2026-W48 | 23/11 | 💡 Desde el lote | 💡 Tardío: última semana fuerte | 💡 Viernes 27/11 |
+| 2026-W49 | 30/11 | 💡 Desde el lote | 💡 Tardío: se cierra el 05/12 | 💡 Viernes 04/12 |
+| 2026-W50 | 07/12 | 💡 Así quedó sembrada la zona | 💡 Gracias campaña 26/27 | 💡 Viernes 11/12 · invitación a la jornada de verano |
+| 2026-W51 | 14/12 | — | 💡 Fiestas (placa simple) | 💡 Viernes 18/12 · último del año |
+
 ## Reglas de mantenimiento
 - Al generar un lote semanal: actualizar el estado (💡 → ✍️) y linkear el archivo del post.
 - Al publicar: marcar 📤 con fecha real; si se pauta, 📣 + link al brief.
