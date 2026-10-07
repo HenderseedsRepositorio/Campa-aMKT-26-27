@@ -11,14 +11,19 @@ https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/estrategia/ . Manda so
 este archivo. Idea central: el motor es la venta directa planificada (mapa de cuentas en
 Salesforce, visitas con algo de valor, referidos, jornada a campo); la marca digital es chica pero
 constante (1 publicación por semana, Estados de WhatsApp, pauta solo por zona y concentrada en la
-precampaña). **No comunicar el drone** (Alvaro no le ve valor post-siembra). Nadie aparece en cámara.
+precampaña). El drone va solo dentro de la oferta (paso 5), nunca como pieza suelta. Nadie aparece en cámara.
 Tres páginas, en este orden: **estrategia** (`docs/estrategia/index.html`, v3: situación, objetivos,
 segmentos, oferta, recorrido del productor, canales, presupuesto, medición, roles, reglas, riesgos),
 **guía de 10 pasos** (`guia.html`) y **plan de 9 semanas** (`plan.html`: publicaciones listas,
 mensajes, pauta A + B, checklist de Santi). Planillas: `mapa-de-cuentas.csv`, `tablero-mensual.csv`.
 Piezas nuevas en `docs/estrategia/piezas/` (HTML + JPG; usan `../../assets/hs2627.css` del sitio).
 **Roles (07/10):** Alvaro publica; Santi revisa cada pieza antes con la checklist.
-**Oferta:** "Plan de Campaña HenderSeeds" (recomendado, falta confirmación de Alvaro).
+**Oferta (definida por Alvaro el 07/10): "Plan de Campaña HenderSeeds"**, seis pasos:
+1. Diagnóstico · 2. Recomendación asistida (híbrido por ambiente; siembra variable incluida, opcional) ·
+3. Financiación (en público solo "a cosecha y con tarjetas agro, en pesos o dólares"; el plazo
+exacto va solo en privado) · 4. Seguro de resiembra · 5. Vuelo de drone (calidad de siembra) ·
+6. Informe de visita. El drone aparece solo como paso 5 de la oferta, nunca como pieza suelta.
+La hoja de visita y el modelo de informe (PDF) NO se suben al repo: tienen condiciones comerciales.
 **Regla del equipo (25/09): en maíz NO se muestran números de ensayo** (kg/ha vs. promedio): se
 muestra el híbrido y su tecnología. En girasol sí.
 **Nunca subir información comercial interna al repo (es público).** El archivo con precios
