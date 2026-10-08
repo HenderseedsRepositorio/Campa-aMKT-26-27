@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de gusto</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../../assets/fonts/extra/fuentes-extra.css">
+<link rel="stylesheet" href="../estilo.css">
+<style>
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
+@media (min-width:900px) { .grid { grid-template-columns:repeat(4,1fr); } .grid.wide { grid-template-columns:repeat(2,1fr); } }
+.grid > * { min-width:0; }
+.toc { min-width:0; }
+.q { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:8px; display:flex; flex-direction:column; gap:8px; transition:border-color .15s; }
+.q.v2 { border-color:var(--amber); box-shadow:0 0 0 1px var(--amber); } .q.v1 { border-color:#4f8a5b; } .q.vn { opacity:.45; }
+.q .img img { width:100%; aspect-ratio:4/5; display:block; border-radius:8px; object-fit:cover; background:#05070d; }
+.qt { display:flex; flex-direction:column; gap:3px; padding:0 4px; } .qt b { font-size:14.5px; color:var(--txt); } .qt span { font-size:13px; color:var(--txt-2); line-height:1.4; }
+.vote { display:flex; gap:6px; padding:0 4px; margin-top:auto; }
+.vote button { flex:1; font-size:18px; padding:7px 0; border-radius:8px; border:1px solid var(--line-2); background:transparent; cursor:pointer; }
+.vote button.on { background:rgba(245,166,35,.18); border-color:var(--amber); }
+.nota { min-width:0; width:auto; margin:0 4px 4px; padding:7px 9px; border-radius:7px; border:1px solid var(--line); background:rgba(0,0,0,.25); color:var(--txt); font:14px var(--f-sans); }
+.sw { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; height:110px; border-radius:8px; overflow:hidden; } .sw i { display:block; }
+.ty { background:#F6F4EE; color:#121826; border-radius:8px; padding:18px 14px; min-height:150px; } .ty { overflow:hidden; } .ty div { font-size:25px; line-height:1.05; overflow-wrap:anywhere; } .ty p { font-size:14px; margin-top:10px; color:#3E4A60; }
+.hl2 { overflow-wrap:anywhere; hyphens:auto; font-family:'Archivo Black'; font-size:19px; line-height:1.1; color:var(--txt); padding:18px 12px; min-height:110px; background:var(--navy-2, #0d2d5e); border-radius:8px; }
+.tn { font-size:15px; line-height:1.5; color:var(--txt); padding:14px 12px; background:rgba(255,255,255,.03); border-radius:8px; border:1px dashed var(--line-2); }
+.res { margin-top:16px; } .res textarea { width:100%; min-height:200px; border-radius:10px; padding:12px; background:var(--navy-2,#0d2d5e); color:var(--txt); border:1px solid var(--line); font:14px/1.5 var(--f-mono); }
+.who { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; align-items:center; } .who input { padding:8px 10px; border-radius:8px; border:1px solid var(--line-2); background:transparent; color:var(--txt); font:15px var(--f-sans); }
+.btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.btns button, .btns a { font-family:var(--f-mono); font-size:13px; border-radius:8px; padding:9px 13px; cursor:pointer; border:1px solid var(--amber); background:var(--amber); color:#0a0a0a; text-decoration:none; }
+.btns .sec { background:transparent; color:var(--txt); border-color:var(--line-2); }
+.count { font-family:var(--f-mono); font-size:12px; color:var(--amber); }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a href="../" aria-label="Volver a la estrategia"><img src="../../assets/logo-henderseeds-white.png" alt="HenderSeeds"></a>
+    <nav class="toc" aria-label="Secciones">
+      <a href="../">← Estrategia</a><a href="../piezas/">Piezas</a>
+      <a href="#estilos">Estilos</a><a href="#paletas">Colores</a><a href="#tipos">Letras</a><a href="#titulares">Titulares</a><a href="#tono">Tono</a><a href="#enviar">Enviar</a>
+    </nav>
+  </div>
+</div>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker"><span class="led"></span>Panel de gusto · 08/10</div>
+  <h1>¿Qué te<br><em>gusta?</em></h1>
+  <p class="lead">Trece estilos de placa con <b>el mismo mensaje</b>, para que compares solo el estilo. Después, colores, letras, titulares y tono. Votá con <b>❤️ me encanta</b>, <b>👍 va</b> o <b>👎 no</b>, y si querés dejá una nota ("me gusta la letra pero no el color"). Al final tocá <b>Copiar</b> y pegámelo en el chat: con eso armo el estilo de HenderSeeds para todo lo que viene. Santi puede votar en su celular y mandar el suyo.</p>
+  <p class="count" id="cnt"></p>
+</header>
+
+<section id="estilos"><div class="sec-k">01 · Estilos de placa</div><h2>El mismo mensaje, trece maneras.</h2>
+  <p class="body">Tocá la imagen para verla grande. No hace falta que te guste toda: anotá qué parte sí.</p>
+  <div class="grid"><article class="q" data-id="estilo-01">
+  <a class="img" href="../piezas/img/plan-de-campana-C-feed-1080x1350.jpg"><img src="../piezas/img/plan-de-campana-C-feed-1080x1350.jpg" alt="Estilo actual" loading="lazy"></a>
+  <div class="qt"><b>01 · Siembra 26/27 (la actual)</b><span>Navy, grilla y ámbar. Es la base de todo lo que hicimos hasta ahora.</span></div>
+  <div class="vote" role="group" aria-label="Votar 01 · Siembra 26/27 (la actual)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-02">
+  <a class="img" href="estilos/img/estilo-02-feed-1080x1350.jpg"><img src="estilos/img/estilo-02-feed-1080x1350.jpg" alt="Estilo Editorial" loading="lazy"></a>
+  <div class="qt"><b>02 · Editorial</b><span>Papel crema, serif grande, filetes finos. Como una nota de revista agropecuaria.</span></div>
+  <div class="vote" role="group" aria-label="Votar 02 · Editorial">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-03">
+  <a class="img" href="estilos/img/estilo-03-feed-1080x1350.jpg"><img src="estilos/img/estilo-03-feed-1080x1350.jpg" alt="Estilo Minimal" loading="lazy"></a>
+  <div class="qt"><b>03 · Minimal</b><span>Blanco, negro y un solo punto ámbar. Mucho aire, tipografía grande y prolija.</span></div>
+  <div class="vote" role="group" aria-label="Votar 03 · Minimal">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-04">
+  <a class="img" href="estilos/img/estilo-04-feed-1080x1350.jpg"><img src="estilos/img/estilo-04-feed-1080x1350.jpg" alt="Estilo Afiche" loading="lazy"></a>
+  <div class="qt"><b>04 · Afiche</b><span>Letra condensada gigante en mayúsculas, como un cartel de ruta. Se lee a 50 metros.</span></div>
+  <div class="vote" role="group" aria-label="Votar 04 · Afiche">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-05">
+  <a class="img" href="estilos/img/estilo-05-feed-1080x1350.jpg"><img src="estilos/img/estilo-05-feed-1080x1350.jpg" alt="Estilo Etiqueta de bolsa" loading="lazy"></a>
+  <div class="qt"><b>05 · Etiqueta de bolsa</b><span>Papel kraft, marco doble y sello, como la etiqueta de una bolsa de semilla. Rural y con oficio.</span></div>
+  <div class="vote" role="group" aria-label="Votar 05 · Etiqueta de bolsa">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-06">
+  <a class="img" href="estilos/img/estilo-06-feed-1080x1350.jpg"><img src="estilos/img/estilo-06-feed-1080x1350.jpg" alt="Estilo Pizarra de campo" loading="lazy"></a>
+  <div class="qt"><b>06 · Pizarra de campo</b><span>Pizarra verde con letra a mano en tiza. Humano y cercano, como lo que se anota en el galpón.</span></div>
+  <div class="vote" role="group" aria-label="Votar 06 · Pizarra de campo">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-07">
+  <a class="img" href="estilos/img/estilo-07-feed-1080x1350.jpg"><img src="estilos/img/estilo-07-feed-1080x1350.jpg" alt="Estilo Informe técnico" loading="lazy"></a>
+  <div class="qt"><b>07 · Informe técnico</b><span>Hoja blanca, máquina de escribir, casilleros y sello. Serio, profesional, de agrónomo.</span></div>
+  <div class="vote" role="group" aria-label="Votar 07 · Informe técnico">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-08">
+  <a class="img" href="estilos/img/estilo-08-feed-1080x1350.jpg"><img src="estilos/img/estilo-08-feed-1080x1350.jpg" alt="Estilo Amanecer en el lote" loading="lazy"></a>
+  <div class="qt"><b>08 · Amanecer en el lote</b><span>Cielo al amanecer y un maíz dibujado en el horizonte. Emoción y campo, sin fotos ni caras.</span></div>
+  <div class="vote" role="group" aria-label="Votar 08 · Amanecer en el lote">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-09">
+  <a class="img" href="estilos/img/estilo-09-feed-1080x1350.jpg"><img src="estilos/img/estilo-09-feed-1080x1350.jpg" alt="Estilo Chat de WhatsApp" loading="lazy"></a>
+  <div class="qt"><b>09 · Chat de WhatsApp</b><span>La placa es una conversación: el productor pregunta y HenderSeeds responde. Nativo del celular.</span></div>
+  <div class="vote" role="group" aria-label="Votar 09 · Chat de WhatsApp">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-10">
+  <a class="img" href="estilos/img/estilo-10-feed-1080x1350.jpg"><img src="estilos/img/estilo-10-feed-1080x1350.jpg" alt="Estilo Bloques de color" loading="lazy"></a>
+  <div class="qt"><b>10 · Bloques de color</b><span>Cada paso es un bloque de color con su número. Moderno, alegre, muy de Instagram.</span></div>
+  <div class="vote" role="group" aria-label="Votar 10 · Bloques de color">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-11">
+  <a class="img" href="estilos/img/estilo-11-feed-1080x1350.jpg"><img src="estilos/img/estilo-11-feed-1080x1350.jpg" alt="Estilo Foto protagonista" loading="lazy"></a>
+  <div class="qt"><b>11 · Foto protagonista</b><span>La foto del lote ocupa todo, con una frase y un sticker. Poco texto: ideal para anuncio.</span></div>
+  <div class="vote" role="group" aria-label="Votar 11 · Foto protagonista">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-12">
+  <a class="img" href="estilos/img/estilo-12-feed-1080x1350.jpg"><img src="estilos/img/estilo-12-feed-1080x1350.jpg" alt="Estilo Línea de tiempo" loading="lazy"></a>
+  <div class="qt"><b>12 · Línea de tiempo</b><span>Los pasos ubicados en el calendario real de la campaña, de la visita a la cosecha.</span></div>
+  <div class="vote" role="group" aria-label="Votar 12 · Línea de tiempo">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="estilo-13">
+  <a class="img" href="estilos/img/estilo-13-feed-1080x1350.jpg"><img src="estilos/img/estilo-13-feed-1080x1350.jpg" alt="Estilo Tarjeta de producto" loading="lazy"></a>
+  <div class="qt"><b>13 · Tarjeta de producto</b><span>Como la ficha de un producto premium: la oferta es el producto, con nombre, versión y lo que trae.</span></div>
+  <div class="vote" role="group" aria-label="Votar 13 · Tarjeta de producto">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article></div></section>
+
+<section id="paletas"><div class="sec-k">02 · Colores</div><h2>¿Con qué colores?</h2><div class="grid"><article class="q" data-id="p1">
+  <div class="sw"><i style="background:#0A0F1B"></i><i style="background:#0D2D5E"></i><i style="background:#F5A623"></i><i style="background:#F2F5FA"></i></div>
+  <div class="qt"><b>Navy + ámbar (la actual)</b></div>
+  <div class="vote" role="group" aria-label="Votar Navy + ámbar (la actual)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p2">
+  <div class="sw"><i style="background:#F6F4EE"></i><i style="background:#0D2D5E"></i><i style="background:#D98B00"></i><i style="background:#121826"></i></div>
+  <div class="qt"><b>Crema + navy</b></div>
+  <div class="vote" role="group" aria-label="Votar Crema + navy">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p3">
+  <div class="sw"><i style="background:#F5A623"></i><i style="background:#0A0F1B"></i><i style="background:#FFFFFF"></i><i style="background:#FFD27A"></i></div>
+  <div class="qt"><b>Ámbar pleno</b></div>
+  <div class="vote" role="group" aria-label="Votar Ámbar pleno">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p4">
+  <div class="sw"><i style="background:#1E3A2F"></i><i style="background:#2F6B3A"></i><i style="background:#F5C451"></i><i style="background:#F4F1E6"></i></div>
+  <div class="qt"><b>Verde campo</b></div>
+  <div class="vote" role="group" aria-label="Votar Verde campo">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p5">
+  <div class="sw"><i style="background:#CDAA78"></i><i style="background:#2B1D10"></i><i style="background:#8A2E12"></i><i style="background:#F3EEE3"></i></div>
+  <div class="qt"><b>Tierra y kraft</b></div>
+  <div class="vote" role="group" aria-label="Votar Tierra y kraft">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p6">
+  <div class="sw"><i style="background:#FFFFFF"></i><i style="background:#0B0B0C"></i><i style="background:#9A9CA1"></i><i style="background:#F5A623"></i></div>
+  <div class="qt"><b>Blanco minimal</b></div>
+  <div class="vote" role="group" aria-label="Votar Blanco minimal">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p7">
+  <div class="sw"><i style="background:#9CC3E6"></i><i style="background:#0D2D5E"></i><i style="background:#C65A2E"></i><i style="background:#F6F4EE"></i></div>
+  <div class="qt"><b>Cielo y tierra</b></div>
+  <div class="vote" role="group" aria-label="Votar Cielo y tierra">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="p8">
+  <div class="sw"><i style="background:#12223F"></i><i style="background:#A4502A"></i><i style="background:#FFC45A"></i><i style="background:#FFF6E8"></i></div>
+  <div class="qt"><b>Amanecer</b></div>
+  <div class="vote" role="group" aria-label="Votar Amanecer">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article></div></section>
+<section id="tipos"><div class="sec-k">03 · Letras</div><h2>¿Con qué letra?</h2><div class="grid"><article class="q" data-id="t1">
+  <div class="ty"><div style="font-family:'Archivo Black';font-weight:400">Tu campaña, con un plan.</div><p style="font-family:'DM Sans'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Archivo Black + DM Sans (la actual)</b></div>
+  <div class="vote" role="group" aria-label="Votar Archivo Black + DM Sans (la actual)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t2">
+  <div class="ty"><div style="font-family:'Fraunces';font-weight:800">Tu campaña, con un plan.</div><p style="font-family:'DM Sans'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Fraunces (serif de revista)</b></div>
+  <div class="vote" role="group" aria-label="Votar Fraunces (serif de revista)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t3">
+  <div class="ty"><div style="font-family:'Instrument Serif';font-weight:400">Tu campaña, con un plan.</div><p style="font-family:'DM Sans'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Instrument Serif (elegante)</b></div>
+  <div class="vote" role="group" aria-label="Votar Instrument Serif (elegante)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t4">
+  <div class="ty"><div style="font-family:'Bebas Neue';font-weight:400">Tu campaña, con un plan.</div><p style="font-family:'DM Sans'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Bebas Neue (afiche)</b></div>
+  <div class="vote" role="group" aria-label="Votar Bebas Neue (afiche)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t5">
+  <div class="ty"><div style="font-family:'Oswald';font-weight:700">Tu campaña, con un plan.</div><p style="font-family:'Courier Prime'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Oswald (etiqueta rural)</b></div>
+  <div class="vote" role="group" aria-label="Votar Oswald (etiqueta rural)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t6">
+  <div class="ty"><div style="font-family:'Inter Tight';font-weight:800">Tu campaña, con un plan.</div><p style="font-family:'Inter Tight'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Inter Tight (moderna y limpia)</b></div>
+  <div class="vote" role="group" aria-label="Votar Inter Tight (moderna y limpia)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t7">
+  <div class="ty"><div style="font-family:'Space Grotesk';font-weight:700">Tu campaña, con un plan.</div><p style="font-family:'DM Sans'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Space Grotesk (técnica, joven)</b></div>
+  <div class="vote" role="group" aria-label="Votar Space Grotesk (técnica, joven)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="t8">
+  <div class="ty"><div style="font-family:'Caveat';font-weight:700">Tu campaña, con un plan.</div><p style="font-family:'DM Sans'">Seis pasos, de la visita a la cosecha.</p></div>
+  <div class="qt"><b>Caveat (a mano)</b></div>
+  <div class="vote" role="group" aria-label="Votar Caveat (a mano)">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article></div></section>
+<section id="titulares"><div class="sec-k">04 · Titulares</div><h2>¿Cómo lo decimos?</h2><div class="grid"><article class="q" data-id="h1">
+  <div class="hl2">Tu campaña, con un plan.</div>
+  <div class="qt"><b>Tu campaña, con un plan.</b></div>
+  <div class="vote" role="group" aria-label="Votar Tu campaña, con un plan.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h2">
+  <div class="hl2">6 pasos para tu campaña.</div>
+  <div class="qt"><b>6 pasos para tu campaña.</b></div>
+  <div class="vote" role="group" aria-label="Votar 6 pasos para tu campaña.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h3">
+  <div class="hl2">De la visita a la cosecha.</div>
+  <div class="qt"><b>De la visita a la cosecha.</b></div>
+  <div class="vote" role="group" aria-label="Votar De la visita a la cosecha.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h4">
+  <div class="hl2">Un plan. Seis pasos. Un solo equipo.</div>
+  <div class="qt"><b>Un plan. Seis pasos. Un solo equipo.</b></div>
+  <div class="vote" role="group" aria-label="Votar Un plan. Seis pasos. Un solo equipo.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h5">
+  <div class="hl2">Tu lote tiene un plan.</div>
+  <div class="qt"><b>Tu lote tiene un plan.</b></div>
+  <div class="vote" role="group" aria-label="Votar Tu lote tiene un plan.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h6">
+  <div class="hl2">No te vendemos la bolsa y desaparecemos.</div>
+  <div class="qt"><b>No te vendemos la bolsa y desaparecemos.</b></div>
+  <div class="vote" role="group" aria-label="Votar No te vendemos la bolsa y desaparecemos.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h7">
+  <div class="hl2">¿Quién te acompaña después de la siembra?</div>
+  <div class="qt"><b>¿Quién te acompaña después de la siembra?</b></div>
+  <div class="vote" role="group" aria-label="Votar ¿Quién te acompaña después de la siembra?">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="h8">
+  <div class="hl2">Sembrá con plan, no a ojo.</div>
+  <div class="qt"><b>Sembrá con plan, no a ojo.</b></div>
+  <div class="vote" role="group" aria-label="Votar Sembrá con plan, no a ojo.">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article></div></section>
+<section id="tono"><div class="sec-k">05 · Tono</div><h2>¿Con qué voz?</h2><div class="grid wide"><article class="q" data-id="o1">
+  <div class="tn">“Recomendación Asista: posicionamos el híbrido según el ambiente de cada lote, con prescripción de siembra variable si la querés.”</div>
+  <div class="qt"><b>Técnico</b></div>
+  <div class="vote" role="group" aria-label="Votar Técnico">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="o2">
+  <div class="tn">“Pasamos por tu campo, vemos el lote con vos y armamos juntos la campaña. Después volvemos a ver cómo quedó.”</div>
+  <div class="qt"><b>Cercano</b></div>
+  <div class="vote" role="group" aria-label="Votar Cercano">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="o3">
+  <div class="tn">“Plan de Campaña HenderSeeds: híbrido, financiación a cosecha y seguro de resiembra en una sola propuesta. Pedí la tuya.”</div>
+  <div class="qt"><b>Directo comercial</b></div>
+  <div class="vote" role="group" aria-label="Votar Directo comercial">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article><article class="q" data-id="o4">
+  <div class="tn">“El pronóstico no lo manejamos. Todo lo demás, sí: híbrido, financiación, seguro y un drone que no se olvida de nada.”</div>
+  <div class="qt"><b>Con humor de campo</b></div>
+  <div class="vote" role="group" aria-label="Votar Con humor de campo">
+    <button data-v="2" title="Me encanta">❤️</button><button data-v="1" title="Va">👍</button><button data-v="-1" title="No">👎</button>
+  </div>
+  <input class="nota" type="text" placeholder="Nota (opcional)">
+</article></div></section>
+
+<section id="enviar"><div class="sec-k">06 · Enviar</div><h2>Mandame tu elección.</h2>
+  <div class="who"><label for="quien">¿Quién vota?</label><input id="quien" placeholder="Alvaro, Santi…"></div>
+  <div class="res"><textarea id="res" readonly></textarea></div>
+  <div class="btns"><button id="copiar">Copiar para Claude</button><a id="wa" class="sec" href="#" target="_blank" rel="noopener">Mandar por WhatsApp</a><button id="borrar" class="sec">Borrar mis votos</button></div>
+</section>
+
+<footer><a href="../">Estrategia</a> · <a href="../piezas/">Piezas</a> · <a href="../plan.html">Plan</a></footer>
+</div>
+<script>
+(function () {
+  var KEY = 'hs-gusto-0810', st = {};
+  try { st = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { st = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} resumen(); }
+  var qs = document.querySelectorAll('.q');
+  function pinta(q) {
+    var r = st[q.dataset.id] || {};
+    q.classList.toggle('v2', r.v === 2); q.classList.toggle('v1', r.v === 1); q.classList.toggle('vn', r.v === -1);
+    q.querySelectorAll('.vote button').forEach(function (b) { b.classList.toggle('on', +b.dataset.v === r.v); });
+    q.querySelector('.nota').value = r.n || '';
+  }
+  qs.forEach(function (q) {
+    pinta(q);
+    q.querySelector('.vote').addEventListener('click', function (ev) {
+      var b = ev.target.closest('button'); if (!b) return;
+      var r = st[q.dataset.id] || {}; var v = +b.dataset.v; r.v = (r.v === v) ? undefined : v; st[q.dataset.id] = r; pinta(q); save();
+    });
+    q.querySelector('.nota').addEventListener('input', function (ev) { var r = st[q.dataset.id] || {}; r.n = ev.target.value; st[q.dataset.id] = r; save(); });
+  });
+  var quien = document.getElementById('quien'); quien.value = st._quien || '';
+  quien.addEventListener('input', function () { st._quien = quien.value; save(); });
+  function nombre(id) { var q = document.querySelector('.q[data-id="' + id + '"] .qt b'); return q ? q.textContent : id; }
+  function resumen() {
+    var lin = ['Panel de gusto HenderSeeds · vota: ' + (st._quien || '(sin nombre)')], sec = { '❤️': [], '👍': [], '👎': [], '📝': [] }, n = 0;
+    qs.forEach(function (q) {
+      var r = st[q.dataset.id]; if (!r || (r.v === undefined && !r.n)) return; n++;
+      var k = r.v === 2 ? '❤️' : r.v === 1 ? '👍' : r.v === -1 ? '👎' : '📝';
+      sec[k].push('- [' + q.dataset.id + '] ' + nombre(q.dataset.id) + (r.n ? ' — ' + r.n : ''));
+    });
+    ['❤️', '👍', '👎', '📝'].forEach(function (k) { if (sec[k].length) { lin.push('', k); lin = lin.concat(sec[k]); } });
+    var t = lin.join('\n'); document.getElementById('res').value = t;
+    document.getElementById('wa').href = 'https://wa.me/?text=' + encodeURIComponent(t);
+    document.getElementById('cnt').textContent = n ? n + ' de ' + qs.length + ' votadas' : '';
+  }
+  resumen();
+  document.getElementById('copiar').addEventListener('click', function () {
+    var b = this, t = document.getElementById('res').value;
+    var ok = function () { b.textContent = 'Copiado ✓'; setTimeout(function () { b.textContent = 'Copiar para Claude'; }, 1600); };
+    try { navigator.clipboard.writeText(t).then(ok, function () { document.getElementById('res').select(); document.execCommand('copy'); ok(); }); }
+    catch (e) { document.getElementById('res').select(); document.execCommand('copy'); ok(); }
+  });
+  document.getElementById('borrar').addEventListener('click', function () { if (confirm('¿Borrar tus votos?')) { st = {}; qs.forEach(pinta); quien.value = ''; save(); } });
+})();
+</script>
+</body>
+</html>
