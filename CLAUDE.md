@@ -21,6 +21,9 @@ Galería de descarga: `docs/estrategia/piezas/index.html` (Plan de Campaña: 8 d
 cada una en feed 4:5 e historia 9:16 propia). Recomendadas: Plan C navy (2ª vuelta: F ámbar) y Clearfield D navy.
 Textos y diseños en UN archivo: `python3 scripts/armar-piezas-estrategia.py` → HTML; `node scripts/render-piezas-estrategia.mjs`
 → JPG (se commitean; el robot del sitio solo renderiza `docs/placas/`).
+Panel de gusto (08/10): `docs/estrategia/gusto/` — 13 estilos de placa con el mismo mensaje + colores, letras,
+titulares y tono para votar (`python3 scripts/armar-panel-gusto.py` + `PIEZAS_DIR=docs/estrategia/gusto/estilos node
+scripts/render-piezas-estrategia.mjs`). Tipografías extra en `docs/assets/fonts/extra/`. Lo que Alvaro elija define el estilo nuevo.
 **Roles (07/10):** Alvaro publica; Santi revisa cada pieza antes con la checklist.
 **Oferta (definida por Alvaro el 07/10): "Plan de Campaña HenderSeeds"**, seis pasos:
 1. Diagnóstico · 2. Recomendación Asista (híbrido por ambiente; siembra variable incluida, opcional) ·

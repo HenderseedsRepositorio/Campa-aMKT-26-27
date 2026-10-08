@@ -16,9 +16,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const DIR = path.join(RAIZ, 'docs/estrategia/piezas');
+const DIR = path.join(RAIZ, process.env.PIEZAS_DIR || 'docs/estrategia/piezas'); // PIEZAS_DIR=docs/estrategia/gusto/estilos para el panel
 const OUT = path.join(DIR, 'img');
-const FUENTES = ['Archivo Black', 'DM Sans', 'DM Mono'];
+// Las placas de marca usan las tres; los estilos del panel pueden usar otras (se controla que ninguna falle).
+const FUENTES = process.env.PIEZAS_DIR ? [] : ['Archivo Black', 'DM Sans', 'DM Mono'];
 const filtro = process.argv.slice(2);
 
 const archivos = (await readdir(DIR))
@@ -45,7 +46,8 @@ for (const f of archivos) {
     document.fonts.forEach((x) => x.status === 'loaded' && s.add(x.family.replace(/["']/g, '')));
     return [...s];
   });
-  const faltan = FUENTES.filter((x) => !cargadas.includes(x));
+  const rotas = await p.evaluate(() => { const r = []; document.fonts.forEach((x) => x.status === 'error' && r.push(x.family)); return r; });
+  const faltan = FUENTES.filter((x) => !cargadas.includes(x)).concat(rotas);
   if (faltan.length) { console.error(`ABORTADO en ${f}: no cargaron ${faltan.join(', ')}`); process.exit(1); }
   if (fallas.length) avisos.push(`${f}: no cargó ${fallas.join(', ')}`);
 
