@@ -51,3 +51,13 @@ y financiación, pero hablamos como en una reunión a campo, no como un manual.
 - [ ] ¿CTA concreto a WhatsApp?
 - [ ] ¿Máx 8 hashtags, incluyendo zona?
 - [ ] ¿La pieza visual respeta brand/identidad.md?
+
+---
+
+## Tono elegido (08/10/2026, panel de gusto)
+
+**Técnico en el cuerpo, una sola línea humana en el cierre.** Alvaro eligió el tono técnico (❤️) y el directo
+comercial (👍); descartó el cercano y el humor. Como nadie aparece en cámara, la calidez sale de una sola frase
+de cierre que ofrece ir al lote: "Pasamos por tu lote. Mandanos un DM." / "¿Lote así? Pasamos a verlo."
+Sin humor, sin chistes de campo. Titulares: **"¿Quién te acompaña después de la siembra?"** para anuncio
+(nombra el diferencial) y **"Tu campaña, con un plan."** para el feed.

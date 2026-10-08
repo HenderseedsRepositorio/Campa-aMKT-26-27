@@ -18,7 +18,9 @@ segmentos, oferta, recorrido del productor, canales, presupuesto, medición, rol
 mensajes, pauta A + B, checklist de Santi). Planillas: `mapa-de-cuentas.csv`, `tablero-mensual.csv`.
 Piezas nuevas en `docs/estrategia/piezas/` (HTML + JPG; usan `../../assets/hs2627.css` del sitio).
 Galería de descarga: `docs/estrategia/piezas/index.html` (Plan de Campaña: 8 diseños × colores = 16; Clearfield: 7 diseños = 14;
-cada una en feed 4:5 e historia 9:16 propia). Recomendadas: Plan C navy (2ª vuelta: F ámbar) y Clearfield D navy.
+cada una en feed 4:5 e historia 9:16 propia). **Estilo v2 (08/10): cuatro registros — ver `brand/identidad.md`.**
+Recomendadas v2: Plan I navy (feed), K crema (2ª vuelta), J navy (anuncio), M (Estados); Clearfield I crema (feed), J navy (anuncio), M (Estados).
+Tono: técnico + una línea humana de cierre (`brand/tono-voz.md`).
 Textos y diseños en UN archivo: `python3 scripts/armar-piezas-estrategia.py` → HTML; `node scripts/render-piezas-estrategia.mjs`
 → JPG (se commitean; el robot del sitio solo renderiza `docs/placas/`).
 Panel de gusto (08/10): `docs/estrategia/gusto/` — 13 estilos de placa con el mismo mensaje + colores, letras,

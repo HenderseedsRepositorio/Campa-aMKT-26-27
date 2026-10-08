@@ -19,7 +19,7 @@ const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = path.join(RAIZ, process.env.PIEZAS_DIR || 'docs/estrategia/piezas'); // PIEZAS_DIR=docs/estrategia/gusto/estilos para el panel
 const OUT = path.join(DIR, 'img');
 // Las placas de marca usan las tres; los estilos del panel pueden usar otras (se controla que ninguna falle).
-const FUENTES = process.env.PIEZAS_DIR ? [] : ['Archivo Black', 'DM Sans', 'DM Mono'];
+const FUENTES = process.env.PIEZAS_DIR ? [] : ['DM Sans']; // toda placa de marca usa DM Sans; las otras se controlan por error de carga
 const filtro = process.argv.slice(2);
 
 const archivos = (await readdir(DIR))

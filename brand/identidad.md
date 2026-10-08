@@ -76,3 +76,21 @@ Reglas:
 - Gráficos simples: barras horizontales con gradiente naranja, nunca tortas con 6 categorías.
 - Botones primarios: fondo naranja `#F5A623`, texto negro `#0a0a0a`, border-radius 8px.
 - Bordes con líneas dashed `var(--border-strong)` para separar secciones.
+
+---
+
+## Siembra 26/27 v2 — cuatro registros (08/10/2026, elegido por Alvaro en el panel de gusto)
+
+Misma marca de siempre (navy + ámbar, Archivo Black + DM Sans + DM Mono). No se reemplaza: se usa en
+**cuatro registros** según lo que diga la pieza. Votos y razones: `docs/estrategia/gusto/`.
+
+| Registro | Para qué | Cómo se ve | Ejemplo |
+|---|---|---|---|
+| **Oferta** | Plan de Campaña, condiciones generales | Tarjeta blanca de producto sobre navy o crema, chips, lista con ✓ | `plan-de-campana-I` |
+| **Técnico** | Datos, manejo, comparar híbridos | Hoja de informe: casilleros, tabla, DM Mono, marcador ámbar, sello "INCLUIDO" | `plan-de-campana-K`, `clearfield-I` |
+| **Producto** | Presentar cada híbrido | La etiqueta de su bolsa: papel kraft, marco doble, **Oswald** (única tipografía extra permitida) | `clearfield-J` |
+| **Temporada** | Inicio de siembra, fechas, jornada a campo, fin de año | Amanecer + maíz dibujado (`scripts/lib/maiz.py`) y línea de tiempo. Poco: si se usa siempre pierde fuerza | `plan-de-campana-L` |
+
+Aparte: **chat de WhatsApp** solo para Estados y anuncios, nunca en el feed (`plan-de-campana-M`, `clearfield-M`).
+Afuera por elección (08/10): pizarra a mano, afiche, bloques de color, minimal, foto protagonista con la foto de drone actual.
+Generador: `scripts/armar-piezas-estrategia.py` (diseños I–M).
