@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Espiga 3D interactiva de NS 7765 VIPTERA3: girala, desgranala y seguí el grano de R3 a cosecha con los datos del marbete oficial Nidera.">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<title>NS 7765 VIPTERA3 en 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+/* Layout: visor 3D como tarjeta grande a la izquierda + ficha técnica a la derecha; en celular se apilan (visor arriba). Estética agro-tech HenderSeeds: navy profundo, grilla ámbar tenue, datos en mono. */
+:root{
+  --bg:#0A0F1B;
+  --bg-viewer:#0B1322;
+  --panel:rgba(255,255,255,0.035);
+  --panel-strong:rgba(10,15,27,0.78);
+  --line:rgba(255,255,255,0.09);
+  --line-strong:rgba(255,255,255,0.18);
+  --fg:#E8EEF7;
+  --muted:#8FA0BE;
+  --accent:#F5A623;
+  --accent-ink:#0A0A0A;
+  --navy-mid:#1A4A8A;
+  --wa:#25D366;
+  --grid:rgba(245,166,35,0.045);
+  --display:'Archivo Black','Arial Black',Impact,sans-serif;
+  --body:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{
+  background-color:var(--bg);color:var(--fg);
+  font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+*,*::before,*::after{box-sizing:border-box}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.app{
+  height:100%;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(330px,410px);
+  grid-template-rows:auto minmax(0,1fr);
+  gap:14px 16px;padding:12px 16px 16px;
+}
+
+/* ── Barra superior ── */
+.top{grid-column:1/-1;display:flex;align-items:center;gap:14px 18px;flex-wrap:wrap}
+.top img{height:34px;width:auto;display:block}
+.top-meta{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.led{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(245,166,35,.55);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,166,35,.55)}70%{box-shadow:0 0 0 9px rgba(245,166,35,0)}100%{box-shadow:0 0 0 0 rgba(245,166,35,0)}}
+.wa-top{margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--wa);color:#06210f;font-weight:700;font-size:13px;text-decoration:none}
+.wa-top svg{width:16px;height:16px}
+
+/* ── Visor 3D ── */
+.viewer{
+  position:relative;min-height:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:radial-gradient(ellipse 58% 52% at 50% 44%,rgba(26,74,138,.38),rgba(26,74,138,0) 72%),var(--bg-viewer);
+}
+.gl{position:absolute;inset:0}
+.gl canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
+.gl canvas:active{cursor:grabbing}
+.viewer.mode-shell .gl canvas{cursor:crosshair}
+.hud{position:absolute;left:14px;right:14px;display:flex;gap:10px;flex-wrap:wrap;pointer-events:none}
+.hud>*{pointer-events:auto}
+.hud-top{top:14px;justify-content:space-between;align-items:flex-start}
+.hud-bottom{bottom:14px;flex-direction:column;align-items:stretch;gap:10px}
+.chip{
+  display:inline-flex;flex-direction:column;gap:2px;padding:9px 13px;border-radius:12px;
+  background:var(--panel-strong);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+}
+.chip .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chip .v{font-family:var(--body);font-weight:700;font-size:14px;line-height:1.25}
+.chip .v b{font-family:var(--mono);font-weight:500;color:var(--accent)}
+.counter{min-width:170px;text-align:right}
+.counter .v{font-variant-numeric:tabular-nums}
+.counter .bar{height:3px;border-radius:2px;background:rgba(255,255,255,.12);margin-top:6px;overflow:hidden}
+.counter .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#F59E0B,var(--accent));transition:width .2s}
+.hint{align-self:center;margin:0;padding:6px 12px;border-radius:999px;background:var(--panel-strong);font-size:12.5px;color:var(--muted);text-align:center}
+.hud-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.seg{display:inline-flex;padding:4px;border-radius:12px;background:var(--panel-strong);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.seg button{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;padding:8px 13px;border-radius:9px;font-weight:600;font-size:13.5px;color:var(--muted);cursor:pointer}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{background:rgba(255,255,255,.1);color:var(--fg)}
+.actions{display:inline-flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line-strong);border-radius:8px;padding:10px 15px;font-weight:700;font-size:13.5px;cursor:pointer;background:var(--panel-strong);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn:hover{border-color:rgba(255,255,255,.35)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:#ffb83f;border-color:#ffb83f}
+.btn:disabled{opacity:.45;cursor:default}
+.gl-error{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+
+/* ── Panel ficha ── */
+.panel{min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:2px;scrollbar-width:thin}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px}
+.eyebrow{margin:0 0 6px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(28px,3.1vw,36px);line-height:1.04;letter-spacing:-1px;text-wrap:balance}
+h2{margin:0 0 12px;font-family:var(--display);font-weight:400;font-size:18px;line-height:1.2;letter-spacing:-.4px;text-wrap:balance}
+.lead{margin:10px 0 0;color:#C9D4E6;font-size:14.5px}
+.fine{margin:12px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+
+.stepper{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;padding:4px;border-radius:11px;background:rgba(0,0,0,.25);border:1px solid var(--line)}
+.stepper button{border:0;background:transparent;border-radius:8px;padding:8px 2px 7px;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px}
+.stepper button b{font-family:var(--mono);font-weight:500;font-size:12.5px;color:inherit}
+.stepper button span{font-size:10px;letter-spacing:.02em;white-space:nowrap}
+.stepper button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.stepper button:not([aria-pressed="true"]):hover{background:rgba(255,255,255,.06);color:var(--fg)}
+.ksec{display:block;width:100%;max-width:340px;height:auto;margin:14px auto 4px}
+.ksec .lab{font-family:var(--mono);font-size:11px;fill:var(--fg)}
+.ksec .lead-line{stroke:var(--muted);stroke-width:1;fill:none;opacity:.7}
+.stage-name{margin:6px 0 10px;font-weight:700;font-size:16px}
+.kvs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv{border-top:1px dashed var(--line-strong);padding-top:8px;min-width:0}
+.kv span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kv strong{display:block;font-family:var(--mono);font-weight:500;font-size:20px;line-height:1.25;font-variant-numeric:tabular-nums}
+.kv strong.sm{font-family:var(--body);font-weight:700;font-size:14px;line-height:1.35;padding-top:3px}
+.stage-desc{margin:12px 0 0;font-size:14px;color:#C9D4E6}
+
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin:4px 0 0}
+.specs div{border-top:1px dashed var(--line-strong);padding-top:9px;min-width:0}
+.specs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.specs dd{margin:2px 0 0;font-family:var(--display);font-size:28px;line-height:1.05;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.specs dd small{font-family:var(--mono);font-size:13px;letter-spacing:0;color:var(--muted)}
+.specs dd.txt{font-family:var(--body);font-weight:700;font-size:17px;letter-spacing:0;padding-top:6px}
+.specs .sub{display:block;margin-top:3px;font-size:12px;color:var(--muted)}
+
+.legend{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px 104px}
+.health{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.health li{display:grid;grid-template-columns:96px minmax(0,1fr) 18px;align-items:center;gap:8px;font-size:13.5px}
+.health .track{position:relative;height:12px;border-radius:6px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.1) 0 calc(100%/9 - 2px),transparent calc(100%/9 - 2px) calc(100%/9))}
+.health .track i{position:absolute;top:50%;left:calc((var(--v) - .5) / 9 * 100%);width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(245,166,35,.22)}
+.health b{font-family:var(--mono);font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+
+.trials{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.trials li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:end}
+.trials .tn{font-weight:700;font-size:14px}
+.trials .tn small{display:block;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.trials .big{font-family:var(--display);font-size:26px;line-height:1;letter-spacing:-.5px;text-align:right;font-variant-numeric:tabular-nums}
+.trials .big small{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--muted)}
+.trials .tb{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;margin-top:6px}
+.trials .tb span{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.trials .bar{height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.trials .bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#F59E0B,var(--accent))}
+.trials li.off{opacity:.55}
+.tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;border:1px solid var(--line-strong);font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);vertical-align:2px}
+
+.cta h2{margin-bottom:6px}
+.cta p{margin:0 0 14px;color:#C9D4E6;font-size:14px}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:9px;padding:13px 16px;border-radius:10px;background:var(--wa);color:#06210f;font-weight:700;text-decoration:none}
+.wa-btn svg{width:18px;height:18px}
+.wa-num{margin-top:9px;text-align:center;font-family:var(--mono);font-size:13px;color:var(--muted);user-select:all}
+.foot{margin:2px 4px 6px;font-size:11.5px;line-height:1.5;color:var(--muted)}
+
+@media (max-width:900px){
+  html,body{height:auto}
+  .app{height:auto;display:flex;flex-direction:column}
+  .viewer{height:68vh;height:68svh;min-height:420px;max-height:760px}
+  .panel{overflow:visible;padding-right:0}
+  .top img{height:28px}
+}
+@media (max-width:600px){
+  .hud{left:10px;right:10px}
+  .hud-top{flex-wrap:nowrap;gap:8px;top:10px}
+  .hud-top .chip{flex:1 1 0;min-width:0;padding:7px 10px}
+  .chip .v{font-size:13px}
+  .counter{min-width:0}
+  .hint{display:none}
+  .hud-bottom{bottom:10px}
+}
+@media (max-width:420px){
+  .top-meta{display:none}
+  .seg button{padding:8px 10px}
+  .btn{padding:9px 12px}
+  .counter{min-width:0}
+}
+@media (prefers-reduced-motion:reduce){.led{animation:none}}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <img src="data:image/png;base64,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" alt="HenderSeeds" width="85" height="34">
+    <div class="top-meta"><span class="led" aria-hidden="true"></span><span>RED.IN · Nidera Semillas</span></div>
+    <a class="wa-top" href="https://wa.me/5492314530691?text=Hola%20HenderSeeds%2C%20quiero%20consultar%20por%20NS%207765%20VIPTERA3%20para%20mis%20lotes." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3Z"/></svg>
+      Consultar
+    </a>
+  </header>
+
+  <section class="viewer" id="viewer" aria-label="Espiga 3D interactiva de NS 7765 VIPTERA3">
+    <div class="gl" id="gl"></div>
+
+    <div class="hud hud-top">
+      <div class="chip" id="stageChip">
+        <span class="k">Estado del grano</span>
+        <span class="v"><b id="chipKey">R6</b> <span id="chipName">Madurez fisiológica</span></span>
+      </div>
+      <div class="chip counter" aria-live="polite">
+        <span class="k">Granos desgranados</span>
+        <span class="v" id="countTxt">0 de 0</span>
+        <span class="k" id="weightTxt">≈ 0,0 g de grano</span>
+        <span class="bar"><i id="countBar"></i></span>
+      </div>
+    </div>
+
+    <div class="hud hud-bottom">
+      <p class="hint" id="hint">Arrastrá para girar · tocá un grano para sacarlo</p>
+      <div class="hud-row">
+        <div class="seg" role="group" aria-label="Herramienta">
+          <button type="button" id="toolRotate" aria-pressed="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>Girar
+          </button>
+          <button type="button" id="toolShell" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-4 0v1"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.4L3.3 16.8a2 2 0 0 1 2.8-2.8L8 16"/></svg>Desgranar
+          </button>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btnAll">Desgranar todo</button>
+          <button type="button" class="btn" id="btnReset">Rearmar espiga</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gl-error" id="glError" hidden>
+      <p>Tu navegador no pudo abrir el visor 3D.<br>La ficha del híbrido sigue disponible al costado.</p>
+    </div>
+  </section>
+
+  <aside class="panel" aria-label="Ficha técnica NS 7765 VIPTERA3">
+    <div class="card">
+      <p class="eyebrow">Maíz · Viptera3 · MR 118</p>
+      <h1>NS 7765 VIPTERA3</h1>
+      <p class="lead">Máximo potencial de rendimiento y estabilidad en siembra temprana, con excelente adaptación a siembra tardía. Girá la espiga, sacale granos y seguí el grano desde lechoso hasta cosecha.</p>
+    </div>
+
+    <section class="card" aria-labelledby="hEstado">
+      <p class="eyebrow">Estado del grano</p>
+      <h2 id="hEstado">Del lechoso a la cosecha</h2>
+      <div class="stepper" role="group" aria-label="Elegí el estado del grano">
+        <button type="button" data-i="0" aria-pressed="false"><b>R3</b><span>Lechoso</span></button>
+        <button type="button" data-i="1" aria-pressed="false"><b>R4</b><span>Pastoso</span></button>
+        <button type="button" data-i="2" aria-pressed="false"><b>R5</b><span>Dentado</span></button>
+        <button type="button" data-i="3" aria-pressed="false"><b>R5.5</b><span>½ L. leche</span></button>
+        <button type="button" data-i="4" aria-pressed="true"><b>R6</b><span>Mad. fisiol.</span></button>
+        <button type="button" data-i="5" aria-pressed="false"><b>Cos.</b><span>Seco</span></button>
+      </div>
+
+      <svg class="ksec" id="ksec" viewBox="0 0 320 226" role="img" aria-labelledby="ksecTitle">
+        <title id="ksecTitle">Esquema del grano visto de frente según el estado elegido</title>
+        <defs><clipPath id="kclip"><path id="kclipPath" d=""/></clipPath></defs>
+        <g clip-path="url(#kclip)">
+          <rect id="kBody" x="0" y="0" width="160" height="226" fill="#E39A16"/>
+          <ellipse id="kFloury" cx="80" cy="74" rx="34" ry="44" fill="#F6E6BC"/>
+          <rect id="kMilk" x="0" y="226" width="160" height="0" fill="#FBF7EA"/>
+          <ellipse id="kGerm" cx="80" cy="146" rx="18" ry="35" fill="#F2E4C0" stroke="#C9A866" stroke-width="1"/>
+          <rect id="kBlack" x="0" y="194" width="160" height="0" fill="#24180F"/>
+        </g>
+        <path id="kOutline" d="" fill="none" stroke="#FFF4DA" stroke-opacity=".55" stroke-width="1.5"/>
+        <line id="kMilkLine" x1="18" x2="142" y1="0" y2="0" stroke="#F5A623" stroke-width="2" stroke-dasharray="5 4" opacity="0"/>
+        <g id="kLabels"></g>
+      </svg>
+
+      <p class="stage-name" id="stName">R6 · Madurez fisiológica</p>
+      <div class="kvs">
+        <div class="kv"><span>Humedad del grano</span><strong id="stMoist">30–35 %</strong></div>
+        <div class="kv"><span>Peso seco del grano</span><strong class="sm" id="stDry">Máximo: PMS 300 g</strong></div>
+      </div>
+      <p class="stage-desc" id="stDesc"></p>
+      <p class="fine">Humedad y peso seco por estado son referencias generales del cultivo de maíz (Ritchie, Hanway y Benson; Iowa State University), no datos propios del híbrido. La velocidad de secado a campo de NS 7765 no figura en el marbete.</p>
+    </section>
+
+    <section class="card" aria-labelledby="hCar">
+      <p class="eyebrow">Marbete oficial Nidera</p>
+      <h2 id="hCar">Caracterización</h2>
+      <dl class="specs">
+        <div><dt>Madurez relativa</dt><dd>118</dd></div>
+        <div><dt>GDU</dt><dd>783</dd></div>
+        <div><dt>Tipo de grano</dt><dd class="txt">Semi-dentado</dd></div>
+        <div><dt>P.M.S.</dt><dd>300<small> g</small></dd><span class="sub">≈ 0,30 g por grano</span></div>
+        <div><dt>Altura de planta</dt><dd>227<small> cm</small></dd></div>
+        <div><dt>Biotecnología</dt><dd class="txt">Viptera 3</dd><span class="sub">Control de lepidópteros</span></div>
+      </dl>
+    </section>
+
+    <section class="card" aria-labelledby="hSan">
+      <p class="eyebrow">Marbete oficial Nidera</p>
+      <h2 id="hSan">Perfil sanitario y agronómico</h2>
+      <div class="legend" aria-hidden="true"><span>1 Excelente</span><span>Deficiente 9</span></div>
+      <ul class="health">
+        <li style="--v:1"><span>Quebrado</span><span class="track"><i></i></span><b>1</b></li>
+        <li style="--v:2"><span>Roya</span><span class="track"><i></i></span><b>2</b></li>
+        <li style="--v:3"><span>Tizón</span><span class="track"><i></i></span><b>3</b></li>
+        <li style="--v:3"><span>MRCV</span><span class="track"><i></i></span><b>3</b></li>
+        <li style="--v:3"><span>Vuelco</span><span class="track"><i></i></span><b>3</b></li>
+        <li style="--v:4"><span>Green Snap</span><span class="track"><i></i></span><b>4</b></li>
+        <li style="--v:5"><span>Spiroplasma</span><span class="track"><i></i></span><b>5</b></li>
+      </ul>
+      <p class="fine">Escala 1 a 9: cuanto más bajo, mejor comportamiento.</p>
+    </section>
+
+    <section class="card" aria-labelledby="hEns">
+      <p class="eyebrow">Ensayos a campo vs. índice ambiental</p>
+      <h2 id="hEns">Diferencia de rinde</h2>
+      <ul class="trials">
+        <li>
+          <span class="tn">Siembra temprana<small>191 comparaciones</small></span>
+          <span class="big">+392<small> kg/ha**</small></span>
+          <div class="tb"><span class="bar"><i style="width:74%"></i></span><span>74 % éxito</span></div>
+        </li>
+        <li>
+          <span class="tn">Siembra tardía templada<small>165 comparaciones</small></span>
+          <span class="big">+324<small> kg/ha**</small></span>
+          <div class="tb"><span class="bar"><i style="width:71%"></i></span><span>71 % éxito</span></div>
+        </li>
+        <li class="off">
+          <span class="tn">Siembra tardía norte <span class="tag">Fuera de la zona</span><small>61 comparaciones</small></span>
+          <span class="big">+180<small> kg/ha*</small></span>
+          <div class="tb"><span class="bar"><i style="width:66%"></i></span><span>66 % éxito</span></div>
+        </li>
+      </ul>
+      <p class="fine">En Henderson, Daireaux y Bolívar juegan la siembra temprana y la tardía templada. Diferencias y asteriscos tal como figuran en el marbete oficial Nidera.</p>
+    </section>
+
+    <section class="card" aria-labelledby="hRef">
+      <p class="eyebrow">Buenas prácticas</p>
+      <h2 id="hRef">Va con refugio</h2>
+      <p class="fine" style="margin-top:0;font-size:13.5px;color:#C9D4E6">Viptera3 es la tecnología para el control de lepidópteros. Para cuidarla, se siembra siempre con refugio estructurado: en el portafolio Nidera, el refugio es NS 7800 CLTG.</p>
+    </section>
+
+    <section class="card cta" aria-labelledby="hCta">
+      <h2 id="hCta">¿Va en tus mejores lotes?</h2>
+      <p>Lo charlamos lote por lote: ambiente, fecha de siembra y densidad.</p>
+      <a class="wa-btn" href="https://wa.me/5492314530691?text=Hola%20HenderSeeds%2C%20quiero%20consultar%20por%20NS%207765%20VIPTERA3%20para%20mis%20lotes." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3Z"/></svg>
+        Escribinos por WhatsApp
+      </a>
+      <div class="wa-num">+54 9 2314 53-0691</div>
+    </section>
+
+    <p class="foot">Modelo 3D ilustrativo: cantidad de hileras, granos por hilera, color del marlo y forma de la espiga son una representación. Caracterización, sanidad y ensayos: marbete oficial Nidera NS 7765 VIPTERA3. HenderSeeds · Henderson, Daireaux y Bolívar.</p>
+  </aside>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const nf1 = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const nf0 = new Intl.NumberFormat('es-AR');
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  const PMS_G = 300; // marbete: P.M.S. 300 g
+
+  /* Estados del grano. Humedad y peso seco: referencias generales del cultivo (no del híbrido). */
+  const STAGES = [
+    { key: 'R3', name: 'Grano lechoso', moist: '≈ 80 %', dry: 'En pleno llenado',
+      desc: 'Grano amarillo claro, lleno de un líquido blanco lechoso. Si lo apretás con la uña, revienta.',
+      svg: { dent: -6, body: '#F3DE8E', milk: 0, milkFill: '#FBF7EA', milkOp: .82, floury: 0, black: 0, line: false, mlabel: 'Leche' } },
+    { key: 'R4', name: 'Grano pastoso', moist: '≈ 70 %', dry: '≈ ½ del peso final',
+      desc: 'El interior pasa a una pasta firme. Ya acumuló cerca de la mitad de su peso seco final.',
+      svg: { dent: -3, body: '#F1C957', milk: 0, milkFill: '#F5E3A8', milkOp: .9, floury: 0, black: 0, line: false, mlabel: 'Pasta' } },
+    { key: 'R5', name: 'Grano dentado', moist: '≈ 55 %', dry: 'Más de la mitad',
+      desc: 'Aparece el diente en la corona, típico del grano semi-dentado. Arranca la línea de leche: arriba almidón sólido, abajo todavía leche.',
+      svg: { dent: 5, body: '#EEB02F', milk: .24, milkFill: '#FBF7EA', milkOp: .85, floury: .9, black: 0, line: true, mlabel: 'Leche' } },
+    { key: 'R5.5', name: '½ línea de leche', moist: '≈ 40 %', dry: '≈ 90 % del peso final',
+      desc: 'La línea de leche llegó a la mitad del grano. Es el momento que se mira para estimar cuánto falta para madurez.',
+      svg: { dent: 7, body: '#EAA424', milk: .5, milkFill: '#FBF7EA', milkOp: .85, floury: 1, black: 0, line: true, mlabel: 'Leche' } },
+    { key: 'R6', name: 'Madurez fisiológica', moist: '30–35 %', dry: 'Máximo: PMS 300 g',
+      desc: 'Se forma la capa negra en la base del grano: no entra más materia seca. Desde acá el grano solo pierde agua.',
+      svg: { dent: 8, body: '#E39A16', milk: 1, milkFill: '#FBF7EA', milkOp: 0, floury: 1, black: 1, line: false, mlabel: '' } },
+    { key: 'Cos.', name: 'Grano seco, a cosecha', moist: '14,5 %', dry: 'PMS 300 g (marbete)',
+      desc: 'Secado a campo hasta la humedad base de comercialización del maíz (14,5 %). El grano queda duro y suelta fácil del marlo.',
+      svg: { dent: 9, body: '#DD910F', milk: 1, milkFill: '#FBF7EA', milkOp: 0, floury: 1, black: 1, line: false, mlabel: '' } }
+  ];
+
+  /* ───────── Esquema 2D del grano ───────── */
+  const KTOP = 24, KTIP = 196;
+  function kPath(d) {
+    const t = KTOP, c = KTOP + d;
+    return `M22 52 C22 33 33 ${t} 52 ${t} C64 ${t} 68 ${c} 80 ${c} C92 ${c} 96 ${t} 108 ${t} C127 ${t} 138 33 138 52 C138 112 110 166 101 ${KTIP} C97 207 63 207 59 ${KTIP} C50 166 22 112 22 52 Z`;
+  }
+  function renderSection(i) {
+    const s = STAGES[i], g = s.svg;
+    const d = kPath(g.dent);
+    $('kclipPath').setAttribute('d', d);
+    $('kOutline').setAttribute('d', d);
+    $('kBody').setAttribute('fill', g.body);
+    $('kFloury').setAttribute('opacity', (g.floury * 0.85).toFixed(2));
+    const my = g.milk === 0 ? 0 : KTOP + g.dent + g.milk * (KTIP - KTOP - g.dent);
+    const milkEl = $('kMilk');
+    if (g.milkOp > 0) { milkEl.setAttribute('y', my); milkEl.setAttribute('height', 226 - my); milkEl.setAttribute('fill', g.milkFill); milkEl.setAttribute('opacity', g.milkOp); }
+    else { milkEl.setAttribute('height', 0); }
+    $('kBlack').setAttribute('height', g.black ? 30 : 0);
+    const ml = $('kMilkLine');
+    ml.setAttribute('y1', my); ml.setAttribute('y2', my); ml.setAttribute('opacity', g.line ? 1 : 0);
+
+    const labs = [];
+    labs.push({ t: g.dent > 0 ? 'Diente (corona)' : 'Corona llena', x: 80, y: KTOP + g.dent + 3 });
+    if (g.floury > 0) labs.push({ t: 'Almidón sólido', x: 112, y: g.line ? Math.max(48, my - 22) : 70 });
+    if (g.line) labs.push({ t: 'Línea de leche', x: 136, y: my });
+    if (g.milkOp > 0) labs.push({ t: g.mlabel, x: 112, y: g.milk === 0 ? 92 : Math.min(176, my + (KTIP - my) * 0.4) });
+    labs.push({ t: 'Germen', x: 92, y: 140 });
+    if (g.black) labs.push({ t: 'Capa negra', x: 80, y: 200 });
+    labs.sort((a, b) => a.y - b.y);
+    let prev = -99;
+    let html = '';
+    labs.forEach((l) => {
+      const ly = Math.max(l.y, prev + 17); prev = ly;
+      html += `<path class="lead-line" d="M${l.x} ${l.y} L150 ${ly} L162 ${ly}"/><circle cx="${l.x}" cy="${l.y}" r="2.2" fill="#F5A623"/><text class="lab" x="167" y="${ly + 4}">${l.t}</text>`;
+    });
+    $('kLabels').innerHTML = html;
+
+    $('stName').textContent = s.key.replace('Cos.', 'Cosecha') + ' · ' + s.name;
+    $('stMoist').textContent = s.moist;
+    $('stDry').textContent = s.dry;
+    $('stDesc').textContent = s.desc;
+    $('chipKey').textContent = s.key.replace('Cos.', 'Cosecha');
+    $('chipName').textContent = s.name;
+  }
+
+  let api = null;
+  let stageIdx = 4;
+  const stepBtns = Array.from(document.querySelectorAll('.stepper button'));
+  function setStage(i) {
+    stageIdx = i;
+    stepBtns.forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+    renderSection(i);
+    if (api) api.setStage(i);
+  }
+  stepBtns.forEach((b) => b.addEventListener('click', () => setStage(+b.dataset.i)));
+  renderSection(stageIdx);
+
+  /* ───────── Visor 3D ───────── */
+  function webglOK() {
+    try { const c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl'))); }
+    catch (e) { return false; }
+  }
+  if (typeof THREE === 'undefined' || !THREE.OrbitControls || !webglOK()) {
+    $('glError').hidden = false;
+    ['btnAll', 'btnReset', 'toolRotate', 'toolShell'].forEach((id) => { $(id).disabled = true; });
+    return;
+  }
+
+  api = init3D();
+  api.setStage(stageIdx, true);
+
+  function init3D() {
+    const V3 = THREE.Vector3, Q = THREE.Quaternion, M4 = THREE.Matrix4;
+    const lin = (hex) => new THREE.Color(hex).convertSRGBToLinear();
+    function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+    const rnd = mulberry32(7765);
+    const rand = (a, b) => a + (b - a) * rnd();
+
+    const wrap = $('gl');
+    const viewer = $('viewer');
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 0.95;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setClearColor(0x000000, 0);
+    wrap.appendChild(renderer.domElement);
+    const maxAniso = renderer.capabilities.getMaxAnisotropy();
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.05, 60);
+    const TARGET = new V3(0, -0.5, 0);
+    camera.position.set(3.3, 0.85, 4.5);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.target.copy(TARGET);
+    controls.enableDamping = true; controls.dampingFactor = 0.08;
+    controls.enablePan = false;
+    controls.minDistance = 1.4; controls.maxDistance = 7.5;
+    controls.minPolarAngle = 0.15; controls.maxPolarAngle = 1.6;
+    controls.rotateSpeed = 0.8; controls.zoomSpeed = 0.8;
+    controls.autoRotate = !reduceMotion; controls.autoRotateSpeed = 0.9;
+    controls.update();
+
+    /* Ambiente para reflejos del pericarpio: "estudio" con softboxes */
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envScene = new THREE.Scene();
+    envScene.background = new THREE.Color(0x070a12);
+    const boxG = new THREE.BoxGeometry(1, 1, 1);
+    const softbox = (hex, k, p, s) => { const m = new THREE.Mesh(boxG, new THREE.MeshBasicMaterial({ color: new THREE.Color(hex).multiplyScalar(k) })); m.position.set(p[0], p[1], p[2]); m.scale.set(s[0], s[1], s[2]); envScene.add(m); };
+    softbox(0xfff1dc, 7, [3, 4.5, 3], [3, 0.2, 3]);
+    softbox(0xcfdcff, 2.4, [-5, 1, -1], [0.2, 3.5, 4]);
+    softbox(0xffcf8a, 2.0, [1.5, 0.5, -5], [4, 2, 0.2]);
+    softbox(0x24345a, 0.8, [0, -4, 0], [12, 0.2, 12]);
+    scene.environment = pmrem.fromScene(envScene, 0.04).texture;
+
+    scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x1a1408, 0.35));
+    const key = new THREE.DirectionalLight(0xfff0d8, 1.45);
+    key.position.set(2.2, 4.4, 2.8);
+    key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048);
+    Object.assign(key.shadow.camera, { left: -2, right: 2, top: 2, bottom: -2, near: 1, far: 14 });
+    key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02; key.shadow.radius = 4;
+    key.target.position.set(0, -0.6, 0);
+    scene.add(key, key.target);
+    const rim = new THREE.DirectionalLight(0xF5A623, 0.85); rim.position.set(-2.6, 1.6, -3.2); scene.add(rim);
+    const fill = new THREE.DirectionalLight(0x9db8ff, 0.32); fill.position.set(-3.2, 0.4, 2.2); scene.add(fill);
+
+    /* Piso: halo + grilla polar + sombra */
+    const FLOOR_Y = -1.5;
+    (function floor() {
+      const c = document.createElement('canvas'); c.width = c.height = 256;
+      const x = c.getContext('2d');
+      const gr = x.createRadialGradient(128, 128, 0, 128, 128, 128);
+      gr.addColorStop(0, 'rgba(245,166,35,0.20)'); gr.addColorStop(0.45, 'rgba(245,166,35,0.07)'); gr.addColorStop(1, 'rgba(245,166,35,0)');
+      x.fillStyle = gr; x.fillRect(0, 0, 256, 256);
+      const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding;
+      const glow = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 4.6), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false }));
+      glow.rotation.x = -Math.PI / 2; glow.position.y = FLOOR_Y - 0.002; scene.add(glow);
+      const grid = new THREE.PolarGridHelper(2.2, 16, 6, 96, 0xF5A623, 0xF5A623);
+      grid.material.transparent = true; grid.material.opacity = 0.13; grid.material.depthWrite = false;
+      grid.position.y = FLOOR_Y - 0.001; scene.add(grid);
+      const sh = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), new THREE.ShadowMaterial({ opacity: 0.5 }));
+      sh.rotation.x = -Math.PI / 2; sh.position.y = FLOOR_Y; sh.receiveShadow = true; scene.add(sh);
+    })();
+
+    /* ── Perfil de la espiga (1 unidad = 10 cm) ── */
+    const YB = -0.9, YT = 0.9, LEN = YT - YB, Y_END = 0.8;
+    const tOf = (y) => (y - YB) / LEN;
+    const cobR = (y) => { const t = tOf(y); return 0.138 * (1 - 0.55 * Math.pow(ss(0.42, 1, t), 1.3)) * (1 - 0.22 * (1 - ss(0, 0.06, t))); };
+    const kerD = (y) => { const t = tOf(y); return 0.118 * (1 - 0.5 * ss(0.55, 1, t)) * (1 - 0.18 * (1 - ss(0, 0.05, t))); };
+    const sizeF = (y) => { const t = tOf(y); return (1 - 0.42 * ss(0.55, 1, t)) * (1 - 0.12 * (1 - ss(0, 0.05, t))); };
+    const outerR = (y) => cobR(y) + kerD(y);
+
+    /* ── Marlo ── */
+    function cobTextures() {
+      const W = 576, H = 1024, COLS = 18, CELLS = 38, cw = W / COLS, ch = H / CELLS;
+      const a = document.createElement('canvas'); a.width = W; a.height = H;
+      const b = document.createElement('canvas'); b.width = W; b.height = H;
+      const x = a.getContext('2d'), y = b.getContext('2d');
+      x.fillStyle = '#7E5038'; x.fillRect(0, 0, W, H);
+      y.fillStyle = '#3a3a3a'; y.fillRect(0, 0, W, H);
+      for (let c = 0; c < COLS; c++) {
+        for (let j = -1; j <= CELLS; j++) {
+          const px = c * cw, py = j * ch + (c % 2) * ch * 0.5;
+          x.fillStyle = '#D2AE8C'; y.fillStyle = '#d8d8d8';
+          [x, y].forEach((g) => { g.beginPath(); if (g.roundRect) g.roundRect(px + 1.5, py + 1.5, cw - 3, ch - 3, 7); else g.rect(px + 1.5, py + 1.5, cw - 3, ch - 3); g.fill(); });
+          x.fillStyle = '#9A6646'; y.fillStyle = '#5a5a5a';
+          [x, y].forEach((g) => { g.beginPath(); g.ellipse(px + cw / 2, py + ch * 0.55, cw * 0.26, ch * 0.26, 0, 0, Math.PI * 2); g.fill(); });
+          x.strokeStyle = 'rgba(255,248,235,0.55)'; x.lineWidth = 1;
+          x.beginPath(); x.moveTo(px + cw * 0.22, py + ch * 0.2); x.quadraticCurveTo(px + cw * 0.5, py + ch * 0.05, px + cw * 0.78, py + ch * 0.2); x.stroke();
+        }
+      }
+      for (let i = 0; i < 2600; i++) { x.fillStyle = `rgba(${rnd() < .5 ? '255,245,230' : '120,80,55'},${rand(0.05, 0.16)})`; x.fillRect(rnd() * W, rnd() * H, 1.5, 1.5); }
+      const map = new THREE.CanvasTexture(a); map.encoding = THREE.sRGBEncoding; map.anisotropy = maxAniso;
+      const bump = new THREE.CanvasTexture(b); bump.anisotropy = maxAniso;
+      return { map, bump };
+    }
+    const cobProfile = [];
+    for (let i = 0; i <= 110; i++) {
+      const y = (YB - 0.045) + i / 110 * (LEN + 0.09);
+      let r = cobR(Math.min(YT, Math.max(YB, y)));
+      if (y < YB) r *= Math.sqrt(Math.max(0, 1 - Math.pow((YB - y) / 0.045, 2)));
+      if (y > YT) r *= Math.sqrt(Math.max(0, 1 - Math.pow((y - YT) / 0.045, 2)));
+      cobProfile.push(new THREE.Vector2(Math.max(0.0005, r), y));
+    }
+    const cobTex = cobTextures();
+    const cob = new THREE.Mesh(new THREE.LatheGeometry(cobProfile, 72),
+      new THREE.MeshStandardMaterial({ map: cobTex.map, bumpMap: cobTex.bump, bumpScale: 0.006, roughness: 0.9, metalness: 0, envMapIntensity: 0.5 }));
+    cob.castShadow = true; cob.receiveShadow = true;
+    scene.add(cob);
+
+    /* Pedúnculo */
+    const shankMat = new THREE.MeshStandardMaterial({ color: lin('#9C8A5E'), roughness: 0.85, envMapIntensity: 0.5 });
+    const shank = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.082, 0.34, 28), shankMat);
+    shank.position.y = YB - 0.2; shank.castShadow = true; scene.add(shank);
+
+    /* Chalas abiertas hacia abajo */
+    const huskTex = (function () {
+      const c = document.createElement('canvas'); c.width = 128; c.height = 512;
+      const x = c.getContext('2d'); x.fillStyle = '#ffffff'; x.fillRect(0, 0, 128, 512);
+      for (let i = 0; i < 90; i++) { const px = rnd() * 128; x.strokeStyle = `rgba(70,60,35,${rand(0.08, 0.28)})`; x.lineWidth = rand(0.6, 1.8); x.beginPath(); x.moveTo(px, 0); x.lineTo(px + rand(-6, 6), 512); x.stroke(); }
+      const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = maxAniso; return t;
+    })();
+    const huskMat = new THREE.MeshStandardMaterial({ color: lin('#A8956A'), map: huskTex, side: THREE.DoubleSide, roughness: 0.9, envMapIntensity: 0.45 });
+    const bez = (p0, p1, p2, p3, t) => { const u = 1 - t; return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3; };
+    for (let h = 0; h < 5; h++) {
+      const phi = h / 5 * Math.PI * 2 + rand(-0.35, 0.35);
+      const o = new V3(Math.cos(phi), 0, Math.sin(phi)), tg = new V3(-Math.sin(phi), 0, Math.cos(phi));
+      const reach = rand(0.5, 0.7), drop = rand(0.46, 0.56), wid = rand(0.34, 0.42);
+      const g = new THREE.PlaneGeometry(1, 1, 8, 32);
+      const p = g.attributes.position;
+      for (let i = 0; i < p.count; i++) {
+        const u = p.getX(i), v = p.getY(i) + 0.5;
+        const r = bez(0.1, 0.33, 0.5, reach, v);
+        const y = bez(YB + 0.02, YB + 0.02, YB - 0.22, YB - drop, v);
+        const w = wid * (0.62 + 0.38 * Math.sin(Math.PI * Math.min(1, v * 1.15 + 0.2))) * (1 - Math.pow(v, 2.2) * 0.72);
+        const a = u * w;
+        const cup = -a * a * 1.6 + Math.sin(v * Math.PI) * 0.03;
+        p.setXYZ(i, o.x * (r + cup) + tg.x * a, y + Math.abs(a) * 0.05, o.z * (r + cup) + tg.z * a);
+      }
+      g.computeVertexNormals();
+      const m = new THREE.Mesh(g, huskMat); m.castShadow = true; m.receiveShadow = true; scene.add(m);
+    }
+
+    /* Barba seca en la punta */
+    const silkMat = new THREE.LineBasicMaterial({ color: lin('#503724'), transparent: true, opacity: 0.9 });
+    (function silk() {
+      const pts = [];
+      for (let s = 0; s < 150; s++) {
+        const a0 = rand(0, Math.PI * 2), r0 = rand(0, 0.035);
+        let p = new V3(Math.cos(a0) * r0, YT + 0.02, Math.sin(a0) * r0);
+        const dir = new V3(rand(-0.9, 0.9), rand(0.5, 1.3), rand(-0.9, 0.9)).normalize();
+        const len = rand(0.08, 0.26), n = 8;
+        for (let k = 1; k <= n; k++) {
+          const f = k / n;
+          const q = new V3(Math.cos(a0) * r0, YT + 0.02, Math.sin(a0) * r0).addScaledVector(dir, len * f);
+          q.y -= f * f * len * rand(0.3, 0.9);
+          q.x += rand(-0.012, 0.012); q.z += rand(-0.012, 0.012);
+          pts.push(p.x, p.y, p.z, q.x, q.y, q.z); p = q;
+        }
+      }
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+      scene.add(new THREE.LineSegments(g, silkMat));
+    })();
+
+    /* ── Grano (geometría compartida, se deforma según el estado) ── */
+    const W0 = 0.088, H0 = 0.0535, D0 = 0.118;
+    const kGeo = new THREE.SphereGeometry(1, 20, 14);
+    kGeo.rotateX(Math.PI / 2);
+    const unit = kGeo.attributes.position.array.slice();
+    kGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(unit.length), 3));
+    const C_BLACK = lin('#24180F'), C_GERM = lin('#F1E2B8');
+    const tmpC = new THREE.Color();
+    function shapeKernel(P) {
+      const pos = kGeo.attributes.position.array, col = kGeo.attributes.color.array;
+      for (let i = 0; i < pos.length; i += 3) {
+        const nx = unit[i], ny = unit[i + 1], nz = unit[i + 2];
+        let x = Math.sign(nx) * Math.pow(Math.abs(nx), 0.55);
+        let y = Math.sign(ny) * Math.pow(Math.abs(ny), 0.5);
+        const z = Math.sign(nz) * Math.pow(Math.abs(nz), 0.5);
+        const t = (z + 1) / 2;
+        x *= 0.46 + 0.54 * Math.pow(ss(0, 1, t), 0.75);
+        y *= 0.66 + 0.34 * Math.pow(t, 0.6);
+        const rr = Math.min(1, (x * x) / 0.64 + (y * y) / 0.72);
+        let zz = t + 0.05 * ss(0.6, 1, t) * (1 - rr);
+        if (t > 0.68) zz -= P.dent * 0.12 * ss(0.68, 1, t) * Math.pow(1 - rr, 1.4);
+        pos[i] = x * W0 * 0.5 * P.shrink;
+        pos[i + 1] = y * H0 * 0.5 * P.shrink;
+        pos[i + 2] = zz * D0 * P.shrink;
+        tmpC.copy(P.body);
+        if (t > 0.78) tmpC.lerp(P.crown, ss(0.78, 1, t) * Math.max(0, 1 - rr * 1.6) * P.crownAmt);
+        tmpC.lerp(P.tip, (1 - ss(0.0, 0.38, t)) * 0.8);
+        const germ = ss(0.55, 0.85, ny) * Math.max(0, 1 - (x * x) / 0.2 - Math.pow((t - 0.42) / 0.26, 2));
+        if (germ > 0) tmpC.lerp(C_GERM, Math.min(1, germ * 1.6) * 0.75);
+        if (P.black > 0) tmpC.lerp(C_BLACK, (1 - ss(0.0, 0.09, t)) * P.black);
+        col[i] = tmpC.r; col[i + 1] = tmpC.g; col[i + 2] = tmpC.b;
+      }
+      kGeo.attributes.position.needsUpdate = true;
+      kGeo.attributes.color.needsUpdate = true;
+      kGeo.computeVertexNormals();
+    }
+    const S3D = [
+      { body: '#F3DE8E', crown: '#F8EDC6', tip: '#EBDDB4', crownAmt: .35, dent: -0.55, black: 0, rough: .2, shrink: 1.02, husk: '#6E9A4C', silk: '#B48455', shank: '#7FA05A' },
+      { body: '#F1C957', crown: '#F7E3A6', tip: '#E7D4A2', crownAmt: .45, dent: -0.25, black: 0, rough: .25, shrink: 1.01, husk: '#8DA556', silk: '#956A44', shank: '#93A562' },
+      { body: '#EEAD2A', crown: '#F7D98C', tip: '#E3CD99', crownAmt: .5, dent: .6, black: 0, rough: .3, shrink: 1.0, husk: '#959A55', silk: '#74502F', shank: '#ADA56C' },
+      { body: '#EBA01C', crown: '#F5D07A', tip: '#DEC594', crownAmt: .55, dent: .85, black: 0, rough: .32, shrink: .995, husk: '#A39A60', silk: '#614229', shank: '#9E9264' },
+      { body: '#E5930A', crown: '#F3C75E', tip: '#D6BD8C', crownAmt: .55, dent: 1.0, black: 1, rough: .36, shrink: .99, husk: '#A8956A', silk: '#503724', shank: '#9C8A5E' },
+      { body: '#DE8A08', crown: '#EFC05A', tip: '#D0B686', crownAmt: .6, dent: 1.1, black: 1, rough: .42, shrink: .975, husk: '#AE9F7C', silk: '#4A3322', shank: '#A39270' }
+    ];
+    const toP = (s) => ({ body: lin(s.body), crown: lin(s.crown), tip: lin(s.tip), crownAmt: s.crownAmt, dent: s.dent, black: s.black, rough: s.rough, shrink: s.shrink, husk: lin(s.husk), silk: lin(s.silk), shank: lin(s.shank) });
+    const cur = toP(S3D[4]);
+    let fromP = null, toPar = null, tStage = 1;
+
+    const kMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.36, metalness: 0, clearcoat: 0.55, clearcoatRoughness: 0.2, envMapIntensity: 0.7 });
+    shapeKernel(cur);
+
+    /* ── Ubicación de cada grano en la espiga ── */
+    const ROWS = 18, P0 = 0.052;
+    const K = [];
+    const up = new V3(0, 1, 0);
+    for (let r = 0; r < ROWS; r++) {
+      const th = r / ROWS * Math.PI * 2 + (r % 2 ? 0.014 : -0.014);
+      let y = YB + 0.028 + (r % 2) * P0 * 0.5;
+      for (;;) {
+        const pitch = P0 * sizeF(y + P0 * 0.5);
+        const yc = y + pitch * 0.5;
+        if (yc > Y_END) break;
+        y += pitch;
+        const t = tOf(yc);
+        if (t > 0.88 && rnd() < (t - 0.88) * 6) continue; // granos abortados en la punta
+        K.push({ row: r, th, y: yc, s: pitch / P0 });
+      }
+    }
+    const N = K.length;
+    const kMesh = new THREE.InstancedMesh(kGeo, kMat, N);
+    kMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    kMesh.castShadow = true; kMesh.frustumCulled = false;
+    scene.add(kMesh);
+
+    const m4 = new M4(), basis = new M4(), qj = new Q(), eul = new THREE.Euler();
+    const ic = new THREE.Color();
+    K.forEach((k, i) => {
+      const rc = cobR(k.y), d = kerD(k.y);
+      const dR = (outerR(k.y + 0.01) - outerR(k.y - 0.01)) / 0.02;
+      const radial = new V3(Math.cos(k.th), 0, Math.sin(k.th));
+      const Z = radial.clone().addScaledVector(up, -dR).normalize();
+      const X = new V3().crossVectors(up, Z).normalize();
+      const Y = new V3().crossVectors(Z, X).normalize();
+      basis.makeBasis(X, Y, Z);
+      k.homeQ = new Q().setFromRotationMatrix(basis);
+      eul.set(rand(-0.05, 0.05), rand(-0.05, 0.05), rand(-0.04, 0.04)); qj.setFromEuler(eul);
+      k.homeQ.multiply(qj);
+      k.homeP = new V3(radial.x * (rc - 0.005), k.y, radial.z * (rc - 0.005));
+      k.scale = new V3((2 * Math.PI * (rc + d) / ROWS * 0.985) / W0 * rand(0.96, 1.03), k.s * rand(0.95, 1.01), d / D0 * rand(0.96, 1.02));
+      k.normal = Z.clone();
+      k.crown = k.homeP.clone().addScaledVector(Z, D0 * k.scale.z * 0.85);
+      k.pos = k.homeP.clone(); k.q = k.homeQ.clone(); k.vel = new V3(); k.axis = new V3(1, 0, 0);
+      k.spin = 0; k.st = 0; k.t = 0; k.bounces = 0;
+      k.fromP = new V3(); k.fromQ = new Q(); k.restQ = new Q(); k.restY = 0; k.fromY = 0; k.dur = 0.6; k.mid = new V3();
+      m4.compose(k.pos, k.q, k.scale); kMesh.setMatrixAt(i, m4);
+      const v = rand(0.9, 1.06), warm = rand(-0.025, 0.025);
+      ic.setRGB(v * (1 + warm), v, v * (1 - warm * 2)); kMesh.setColorAt(i, ic);
+    });
+    kMesh.instanceMatrix.needsUpdate = true;
+    if (kMesh.instanceColor) kMesh.instanceColor.needsUpdate = true;
+
+    /* Volumen invisible para apuntar con el mouse o el dedo */
+    const proxyPts = [];
+    for (let i = 0; i <= 60; i++) { const y = YB + i / 60 * (Y_END - YB + 0.02); proxyPts.push(new THREE.Vector2(outerR(Math.min(y, YT)) + 0.004, y)); }
+    const proxy = new THREE.Mesh(new THREE.LatheGeometry(proxyPts, 48), new THREE.MeshBasicMaterial({ visible: false, side: THREE.DoubleSide }));
+    scene.add(proxy);
+
+    /* Anillo que marca dónde desgrana el pincel */
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.062, 0.074, 48), new THREE.MeshBasicMaterial({ color: lin('#F5A623'), transparent: true, opacity: 0.95, depthTest: false, side: THREE.DoubleSide }));
+    ring.renderOrder = 10; ring.visible = false; scene.add(ring);
+
+    /* ── Física simple de caída y montoncito en el piso ── */
+    const G = 7.2;
+    const pile = new Map();
+    const CELL = 0.075;
+    const cellKey = (p) => Math.round(p.x / CELL) + ',' + Math.round(p.z / CELL);
+    const halfOf = (k) => H0 * 0.5 * k.scale.y * cur.shrink;
+    let detached = 0;
+    const tq = new Q(), tv = new V3();
+
+    function updateCounter() {
+      $('countTxt').textContent = nf0.format(detached) + ' de ' + nf0.format(N);
+      $('weightTxt').textContent = '≈ ' + nf1.format(detached * PMS_G / 1000) + ' g de grano';
+      $('countBar').style.width = (detached / N * 100).toFixed(1) + '%';
+    }
+
+    function shell(i, power) {
+      const k = K[i];
+      if (k.st !== 0) return false;
+      k.st = 1; k.bounces = 0;
+      k.vel.copy(k.normal).multiplyScalar(rand(0.55, 1.15) * power);
+      k.vel.x += rand(-0.3, 0.3); k.vel.z += rand(-0.3, 0.3); k.vel.y += rand(0.25, 0.85);
+      k.axis.set(rand(-1, 1), rand(-1, 1), rand(-1, 1)).normalize();
+      k.spin = rand(5, 13);
+      detached++;
+      return true;
+    }
+
+    function restFor(k) {
+      tv.set(0, 1, 0).applyQuaternion(k.q);
+      tq.setFromUnitVectors(tv, tv.y >= 0 ? up : new V3(0, -1, 0));
+      k.restQ.copy(k.q).premultiply(tq);
+    }
+
+    function stepKernel(k, dt) {
+      if (k.st === 1) {
+        k.vel.y -= G * dt;
+        k.pos.addScaledVector(k.vel, dt);
+        tq.setFromAxisAngle(k.axis, k.spin * dt); k.q.premultiply(tq);
+        const h = halfOf(k);
+        const ground = FLOOR_Y + h + (pile.get(cellKey(k.pos)) || 0) * h * 1.25;
+        if (k.pos.y <= ground) {
+          k.pos.y = ground;
+          if (k.vel.y < -0.9 && k.bounces < 2) {
+            k.vel.y *= -0.28; k.vel.x *= 0.45; k.vel.z *= 0.45; k.spin *= 0.45; k.bounces++;
+          } else {
+            const key2 = cellKey(k.pos); const n = pile.get(key2) || 0; pile.set(key2, n + 1);
+            k.restY = FLOOR_Y + h + n * h * 1.25; k.fromY = k.pos.y;
+            k.fromQ.copy(k.q); restFor(k); k.st = 2; k.t = 0; k.vel.set(0, 0, 0);
+          }
+        }
+        return true;
+      }
+      if (k.st === 2) {
+        k.t = Math.min(1, k.t + dt / 0.22);
+        const e = 1 - Math.pow(1 - k.t, 3);
+        k.q.slerpQuaternions(k.fromQ, k.restQ, e);
+        k.pos.y = lerp(k.fromY, k.restY, e);
+        if (k.t >= 1) k.st = 3;
+        return true;
+      }
+      if (k.st === 4) {
+        k.t += dt / k.dur;
+        if (k.t < 0) return false;
+        const t = Math.min(1, k.t), e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        const u = 1 - e;
+        k.pos.set(
+          u * u * k.fromP.x + 2 * u * e * k.mid.x + e * e * k.homeP.x,
+          u * u * k.fromP.y + 2 * u * e * k.mid.y + e * e * k.homeP.y,
+          u * u * k.fromP.z + 2 * u * e * k.mid.z + e * e * k.homeP.z);
+        k.q.slerpQuaternions(k.fromQ, k.homeQ, e);
+        if (t >= 1) { k.st = 0; k.pos.copy(k.homeP); k.q.copy(k.homeQ); }
+        return true;
+      }
+      return false;
+    }
+
+    /* Arranca con un costado ya desgranado para mostrar el marlo */
+    (function preShell() {
+      const camAng = Math.atan2(camera.position.z, camera.position.x);
+      K.forEach((k, i) => {
+        const da = Math.abs(((k.th - camAng + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
+        const half = 0.3 * Math.sqrt(Math.max(0, 1 - Math.pow(da / 0.8, 2)));
+        if (Math.abs(k.y - 0.12 - Math.sin(k.th * 3) * 0.04) < half) {
+          k.st = 3; detached++;
+          const a = camAng + rand(-0.75, 0.75), r = rand(0.42, 1.05);
+          k.pos.set(Math.cos(a) * r, 0, Math.sin(a) * r);
+          k.q.setFromAxisAngle(up, rand(0, Math.PI * 2));
+          if (rnd() < 0.5) k.q.multiply(new Q().setFromAxisAngle(new V3(0, 0, 1), Math.PI));
+          const h = halfOf(k), key2 = cellKey(k.pos), n = pile.get(key2) || 0; pile.set(key2, n + 1);
+          k.pos.y = FLOOR_Y + h + n * h * 1.25;
+          m4.compose(k.pos, k.q, k.scale); kMesh.setMatrixAt(i, m4);
+        }
+      });
+      kMesh.instanceMatrix.needsUpdate = true;
+      updateCounter();
+    })();
+
+    /* ── Desgranar todo / rearmar ── */
+    let queue = [], qAcc = 0;
+    function shellAll() {
+      queue = K.map((k, i) => i).filter((i) => K[i].st === 0)
+        .sort((a, b) => (K[b].y + rand(-0.06, 0.06)) - (K[a].y + rand(-0.06, 0.06)));
+      qAcc = 0;
+    }
+    function rebuild() {
+      queue = [];
+      pile.clear();
+      K.forEach((k) => {
+        if (k.st === 0) return;
+        k.st = 4; k.fromP.copy(k.pos); k.fromQ.copy(k.q);
+        k.dur = rand(0.55, 0.8);
+        k.t = -((tOf(k.y)) * 0.55 + rand(0, 0.3)) / k.dur;
+        k.mid.copy(k.fromP).lerp(k.homeP, 0.5).addScaledVector(k.normal, 0.35); k.mid.y += 0.35;
+      });
+      detached = 0; updateCounter();
+    }
+
+    /* ── Herramientas y puntero ── */
+    let tool = 'rotate';
+    const hint = $('hint');
+    function setTool(t) {
+      tool = t;
+      $('toolRotate').setAttribute('aria-pressed', String(t === 'rotate'));
+      $('toolShell').setAttribute('aria-pressed', String(t === 'shell'));
+      controls.enableRotate = t === 'rotate';
+      viewer.classList.toggle('mode-shell', t === 'shell');
+      hint.textContent = t === 'rotate' ? 'Arrastrá para girar · tocá un grano para sacarlo' : 'Pasá el dedo o el mouse por la espiga para desgranar';
+      if (t === 'shell') { controls.autoRotate = false; } else { ring.visible = false; }
+    }
+    $('toolRotate').addEventListener('click', () => setTool('rotate'));
+    $('toolShell').addEventListener('click', () => setTool('shell'));
+    $('btnAll').addEventListener('click', () => { pauseAuto(); shellAll(); });
+    $('btnReset').addEventListener('click', () => { rebuild(); });
+
+    let idleT = 0;
+    function pauseAuto() { controls.autoRotate = false; idleT = 0; }
+    controls.addEventListener('start', pauseAuto);
+
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+    const dom = renderer.domElement;
+    function hitAt(ev) {
+      const r = dom.getBoundingClientRect();
+      ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+      ray.setFromCamera(ndc, camera);
+      const h = ray.intersectObject(proxy, false);
+      return h.length ? h[0] : null;
+    }
+    function nearest(p, radius) {
+      let best = -1, bd = radius * radius;
+      for (let i = 0; i < N; i++) { if (K[i].st !== 0) continue; const d = K[i].crown.distanceToSquared(p); if (d < bd) { bd = d; best = i; } }
+      return best;
+    }
+    function brush(p, radius) {
+      const r2 = radius * radius;
+      for (let i = 0; i < N; i++) { if (K[i].st === 0 && K[i].crown.distanceToSquared(p) < r2) shell(i, 1.1); }
+    }
+    function placeRing(h) {
+      if (!h) { ring.visible = false; return; }
+      const n = new V3(h.point.x, 0, h.point.z).normalize();
+      ring.position.copy(h.point).addScaledVector(n, 0.004);
+      ring.lookAt(ring.position.clone().add(n));
+      ring.visible = true;
+    }
+    let down = null, lastP = null, dragging = false;
+    dom.addEventListener('pointerdown', (e) => {
+      pauseAuto();
+      down = { x: e.clientX, y: e.clientY, t: performance.now() };
+      if (tool === 'shell' && e.isPrimary && e.button === 0) {
+        dragging = true;
+        const h = hitAt(e); placeRing(h);
+        if (h) { brush(h.point, 0.075); lastP = h.point.clone(); }
+      }
+    });
+    dom.addEventListener('pointermove', (e) => {
+      if (tool !== 'shell') return;
+      const h = hitAt(e); placeRing(h);
+      if (dragging && h) {
+        const p = h.point;
+        if (lastP) {
+          const dist = lastP.distanceTo(p), steps = Math.min(12, Math.ceil(dist / 0.03));
+          for (let s = 1; s <= steps; s++) brush(tv.copy(lastP).lerp(p, s / steps), 0.075);
+        } else brush(p, 0.075);
+        lastP = p.clone();
+      }
+    });
+    dom.addEventListener('pointerleave', () => { if (!dragging) ring.visible = false; });
+    window.addEventListener('pointerup', (e) => {
+      if (down && tool === 'rotate' && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7 && performance.now() - down.t < 400 && e.target === dom) {
+        const h = hitAt(e);
+        if (h) { const i = nearest(h.point, 0.06); if (i >= 0) shell(i, 1.25); }
+      }
+      down = null; dragging = false; lastP = null;
+      if (e.pointerType !== 'mouse') ring.visible = false;
+    });
+
+    /* ── Estado del grano ── */
+    function setStage3D(i, instant) {
+      fromP = {
+        body: cur.body.clone(), crown: cur.crown.clone(), tip: cur.tip.clone(), husk: cur.husk.clone(), silk: cur.silk.clone(), shank: cur.shank.clone(),
+        crownAmt: cur.crownAmt, dent: cur.dent, black: cur.black, rough: cur.rough, shrink: cur.shrink
+      };
+      toPar = toP(S3D[i]);
+      tStage = instant ? 1 : 0;
+      if (instant) applyStage(1);
+    }
+    function applyStage(e) {
+      ['body', 'crown', 'tip', 'husk', 'silk', 'shank'].forEach((c) => cur[c].copy(fromP[c]).lerp(toPar[c], e));
+      ['crownAmt', 'dent', 'black', 'rough', 'shrink'].forEach((n) => { cur[n] = lerp(fromP[n], toPar[n], e); });
+      shapeKernel(cur);
+      kMat.roughness = cur.rough;
+      kMat.clearcoat = lerp(0.7, 0.4, (cur.rough - 0.2) / 0.22);
+      huskMat.color.copy(cur.husk);
+      silkMat.color.copy(cur.silk);
+      shankMat.color.copy(cur.shank);
+    }
+
+    /* ── Tamaño ── */
+    function resize() {
+      const w = wrap.clientWidth, h = wrap.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.fov = camera.aspect < 0.8 ? 42 : 34;
+      camera.updateProjectionMatrix();
+    }
+    if (window.ResizeObserver) new ResizeObserver(resize).observe(wrap); else window.addEventListener('resize', resize);
+    resize();
+
+    /* ── Loop ── */
+    const clock = new THREE.Clock();
+    function frame() {
+      const rawDt = Math.min(0.25, clock.getDelta()), dt = Math.min(0.033, rawDt);
+      if (!controls.autoRotate && tool === 'rotate' && !reduceMotion && !dragging && !down) {
+        idleT += dt; if (idleT > 9) controls.autoRotate = true;
+      }
+      if (queue.length) {
+        qAcc += rawDt * 300;
+        let c = 0;
+        while (qAcc >= 1 && queue.length) { qAcc -= 1; if (shell(queue.shift(), 0.9)) c++; }
+      }
+      if (tStage < 1) { tStage = Math.min(1, tStage + dt / 0.45); applyStage(1 - Math.pow(1 - tStage, 3)); }
+      let moved = false;
+      for (let i = 0; i < N; i++) {
+        const k = K[i];
+        if (k.st === 1 || k.st === 2 || k.st === 4) {
+          if (stepKernel(k, dt)) { m4.compose(k.pos, k.q, k.scale); kMesh.setMatrixAt(i, m4); moved = true; }
+        }
+      }
+      if (moved) kMesh.instanceMatrix.needsUpdate = true;
+      updateCounterThrottled();
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(frame);
+    }
+    let lastShown = -1;
+    function updateCounterThrottled() { if (detached !== lastShown) { lastShown = detached; updateCounter(); } }
+    requestAnimationFrame(frame);
+
+    return { setStage: setStage3D };
+  }
+})();
+</script>
+
+</body>
+</html>
