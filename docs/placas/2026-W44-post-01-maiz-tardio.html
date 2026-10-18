@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Placa W44 · Maíz tardío: los tres que van</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-mid:#1A4A8A;
+  --orange:#F5A623; --white:#FFFFFF; --wa:#25D366;
+  --wf:rgba(255,255,255,0.05); --wb:rgba(255,255,255,0.09);
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --txt-dim:rgba(255,255,255,0.62); --txt-faint:rgba(255,255,255,0.34);
+}
+body { background:#06080f; display:flex; flex-direction:column; align-items:center; gap:40px; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:86px 80px 64px;
+  display:flex; flex-direction:column; flex-shrink:0;
+}
+.slide::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:10; }
+.slide > * { position:relative; z-index:2; }
+.corner { position:absolute !important; width:34px; height:34px; border-color:rgba(245,166,35,0.18); border-style:solid; z-index:5; bottom:34px; right:34px; border-width:0 2px 2px 0; }
+
+.logo-hs { position:absolute !important; top:70px; right:80px; height:58px; z-index:6; }
+.kicker { font-family:var(--mono); font-size:20px; letter-spacing:3px; text-transform:uppercase; color:var(--txt-dim); display:flex; align-items:center; gap:12px; }
+.led { width:11px; height:11px; border-radius:50%; background:var(--white); box-shadow:0 0 12px rgba(255,255,255,0.5); }
+.led.on { background:var(--orange); box-shadow:0 0 14px var(--orange); }
+.title { font-family:var(--arch); color:var(--white); line-height:0.97; letter-spacing:-3px; margin-top:40px; }
+.title .hl { color:var(--orange); }
+.subtitle { font-family:var(--sans); font-size:31px; font-weight:600; color:var(--txt-dim); line-height:1.4; margin-top:26px; max-width:880px; }
+.spacer { flex:1; }
+
+.cta-line { font-family:var(--sans); font-weight:700; font-size:32px; color:var(--white); display:flex; align-items:center; gap:16px; margin-bottom:22px; }
+.cta-line svg { flex-shrink:0; }
+.footrow { display:flex; justify-content:space-between; align-items:center; padding-top:22px; border-top:1px dashed rgba(255,255,255,0.14); }
+.redin-logo { display:flex; align-items:center; gap:14px; }
+/* logo-nidera.png es 512x512 con el logo en la caja (75,157)-(437,356): se recorta a esa caja */
+.nid { position:relative; width:100px; height:56px; overflow:hidden; background:#fff; border-radius:8px; flex-shrink:0; }
+.nid img { position:absolute; width:113px; left:-6.6px; top:-28.7px; }
+.redin-logo span { font-family:var(--mono); font-size:16px; letter-spacing:1.2px; color:var(--txt-faint); text-transform:uppercase; }
+.wa-min { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--txt-dim); }
+.wa-min svg { flex-shrink:0; }
+.legal { font-family:var(--mono); font-size:14px; color:rgba(255,255,255,0.30); margin-top:14px; line-height:1.5; }
+.slide-num { font-family:var(--mono); font-size:20px; letter-spacing:2px; color:var(--txt-faint); }
+
+.title { font-size:88px; letter-spacing:-3px; }
+.subtitle { font-size:29px; }
+.list { display:flex; flex-direction:column; gap:18px; margin-top:44px; }
+.hy { display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px 24px; background:rgba(0,0,0,0.28); border:1px solid var(--wb); border-radius:18px; padding:24px 34px; }
+.hy .nm { font-family:var(--arch); font-size:46px; letter-spacing:-1px; color:var(--white); line-height:1; }
+.hy .nm small { font-family:var(--mono); font-size:22px; letter-spacing:1.5px; color:var(--txt-dim); margin-left:10px; vertical-align:middle; }
+.hy .tg { font-family:var(--sans); font-size:24px; font-weight:600; color:var(--txt-dim); margin-top:10px; }
+.hy .val { text-align:right; }
+.hy .v { font-family:var(--mono); font-weight:500; font-size:76px; letter-spacing:-4px; color:var(--orange); line-height:1; }
+.hy .v small { font-size:26px; letter-spacing:0; color:var(--white); margin-left:6px; }
+.hy .ok { font-family:var(--mono); font-size:19px; color:var(--txt-faint); margin-top:8px; }
+.axis { font-family:var(--mono); font-size:18px; letter-spacing:2px; text-transform:uppercase; color:var(--txt-faint); margin-top:20px; margin-bottom:40px; display:flex; justify-content:space-between; gap:20px; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="kicker"><span class="led"></span> SIEMBRA 26/27 · MAÍZ TARDÍO</div>
+  <div class="title">¿Te queda maíz<br>tardío por definir?</div>
+  <div class="subtitle">Tres híbridos con datos en siembra tardía. Toda la provincia de Buenos Aires es zona óptima tardía para los tres.</div>
+  <div class="list">
+    <div class="hy">
+      <div><div class="nm">NS 7765<small>VIPTERA3</small></div><div class="tg">El más completo · Quebrado 1</div></div>
+      <div class="val"><div class="v">+324<small>kg/ha</small></div><div class="ok">71% de éxito · 165 comparaciones</div></div>
+    </div>
+    <div class="hy">
+      <div><div class="nm">NS 7925<small>VIPTERA3</small></div><div class="tg">Lanzamiento · mejor Spiroplasma del portafolio (3)</div></div>
+      <div class="val"><div class="v">+228<small>kg/ha</small></div><div class="ok">59% de éxito · 120 comparaciones</div></div>
+    </div>
+    <div class="hy">
+      <div><div class="nm">NS 7921<small>VIPTERA3 CL</small></div><div class="tg">Versátil · 3 herramientas herbicidas</div></div>
+      <div class="val"><div class="v">+179<small>kg/ha</small></div><div class="ok">60% de éxito · 364 comparaciones</div></div>
+    </div>
+  </div>
+  <div class="axis"><span>Siembra tardía templada</span><span>Diferencia vs. índice ambiental</span></div>
+  <div class="spacer"></div>
+  
+  <div class="cta-line"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> ¿Cuál va en tu lote? Mandanos un DM</div>
+  <div class="footrow">
+    <div class="redin-logo">
+      <span class="nid"><img src="../assets/logo-nidera.png" alt="Nidera Semillas"></span>
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="wa-min">
+      <svg viewBox="0 0 32 32" width="24" height="24" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg>
+      WhatsApp · 2314 53-0691
+    </div>
+  </div>
+  <div class="legal">Fuente: marbetes oficiales Nidera 26/27 (resultados de ensayo a campo, siembra tardía templada).</div>
+  <span class="corner"></span>
+</div>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar feed &middot; 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: feed 1080×1350 (4:5) + historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = '2026-W44-post-01-maiz-tardio';
+  var STORY_BG = '#05070d';
+  var SCALE = 2;              // 2x retina
+  if (window.self !== window.top) return;  // no cargar en miniatura/iframe
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      if (fmt === 'feed') {
+        return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 })
+          .then(function (c) { bajar(c, FILE + '-feed-1080x1350'); });
+      }
+      // Historia: la placa 4:5 centrada sobre un lienzo 9:16 de marca
+      var frame = document.createElement('div');
+      frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+      var clone = slide.cloneNode(true);
+      clone.style.boxShadow = '0 0 0 2px rgba(245,166,35,0.25)';
+      frame.appendChild(clone);
+      document.body.appendChild(frame);
+      return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { document.body.removeChild(frame); bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -5,20 +5,21 @@
 
 ## Goal activo
 
-**Tener la semana W28 completa (3 posts listos para publicar) antes del 10/07.**
+**Campaña "Siembra 26/27": W43 y W44 publicadas, con fotos/videos reales del lote.**
+(Se retomó el 18/10/2026 después de la pausa jul–oct. La precampaña ya cerró; el foco es siembra
+de maíz y girasol y el acompañamiento a campo.)
 
 ### Criterios de "hecho"
-- [x] Post 1 — Girasol NS 1113 CL con ensayos CREA (v2, reemplaza al de "CL explicado") → `posts/2026-W28/post-01-girasol-ns1113.md` + placa
-- [ ] Post 2 — Finanzas: canje grano por semilla
-- [ ] Post 3 — Técnico: dato de manejo girasol
-- [ ] Cada post tiene: copy final, visual descripta, hashtags (max 8), CTA (DM primario + WA)
-- [ ] Pasa el checklist de `brand/tono-voz.md`
-- [ ] Ningún dato inventado — los `[COMPLETAR]` están listados
-- [x] `calendario.md` actualizado (💡 → ✍️ con links)
-- [ ] Brief de pauta creado si algún post lo amerita
-- [x] Variedad de pilares respetada (cultivo + negocio + comunidad)
-
----
+- [x] Guía de tomas para el campo → `produccion/guia-foto-video-siembra.md` (+ versión checklist para el celular)
+- [x] W43 post 1 — La 26/27 ya se está sembrando (mar 20/10) + placa
+- [x] W43 post 2 — Girasol: la ventana está abierta (jue 22/10) + placa
+- [x] W43 post 3 — Maíz: sembraste, ahora contá (sáb 24/10) + carrusel 5 slides + brief de pauta
+- [x] W44 post 1 — Maíz tardío (mar 27/10) + placa
+- [x] W44 post 2 — Parte de siembra: plantilla + copy base (⏳ falta foto real)
+- [x] W44 reel — Un día de siembra: guion (⏳ faltan tomas)
+- [ ] Recibir fotos/videos de la guía (mínimo A1, A6, A7, A8) y armar parte de siembra + reel
+- [ ] Publicar W43 (📤 con fecha real) y cargar métricas a las 72 h en `metricas.md`
+- [ ] Definir presupuesto de la pauta del carrusel de conteo (brief W43)
 
 ## Loop de auto-mejora (correr en cada sesión)
 
@@ -68,6 +69,7 @@ Cada vez que entro al proyecto, sigo este ciclo:
 
 | Goal | Fecha | Notas |
 |------|-------|-------|
+| ~~W28 completa antes del 10/07~~ | — | Quedó a medias (solo post 1, sin publicar). Pausa de redes jul–oct. Reemplazado por el goal Siembra 26/27 |
 | Estructura del repo creada | W24 (junio 2026) | CLAUDE.md, plantillas, carpetas |
 | GitHub Pages activo | W24 | Dashboard + infografía "cómo funciona" |
 | W25 completa (4 posts) | W25 | 3 rotación + extra Día de la Bandera |

@@ -3,7 +3,9 @@
 - **Semana:** 2026-W43 · publicación: **martes 2026-10-20, 7–9 h** (mate + celular, antes de salir al lote)
 - **Pilar:** institucional / cercanía — "vuelta" a redes tras la pausa de julio–octubre
 - **Formato:** placa simple → [docs/placas/2026-W43-post-01-campana-en-marcha.html](../../docs/placas/2026-W43-post-01-campana-en-marcha.html)
-  · **recomendado:** sumar como slide 2 una **foto real de esta semana** (sembradora, bolsa en el lote, alguien del equipo a campo) → carrusel placa + foto.
+  · **recomendado:** sumar como slide 2 una **foto real de esta semana** → carrusel placa + foto.
+    Tomas que sirven: **A1** (sembradora, plano general) o **A8** (equipo a campo) de la
+    [guía de tomas](../../produccion/guia-foto-video-siembra.md).
 - **Objetivo:** reactivar la cuenta con un mensaje real del momento (siembra en marcha) y abrir conversaciones de girasol: dudas de densidad, híbrido por lote, recorrida/implantación.
 - **Pauta:** no. Es un post de reactivación orgánica; la pauta conviene guardarla para el técnico de implantación (ver sugerencias).
 

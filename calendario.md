@@ -57,15 +57,19 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W39 | 21/09 | 💡 Girasol: pre-siembra en la zona | 💡 Herramientas | 💡 Técnico: dato de siembra |
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
-## Octubre 2026 — campaña en marcha (maíz sembrándose, arranca girasol)
+## Octubre–noviembre 2026 — campaña Siembra 26/27 (maíz sembrándose, arranca girasol)
 > Pausa de publicaciones entre fines de junio y mediados de octubre: lo propuesto para
 > jul–sep (💡) quedó sin publicar. Se retoma en W43 con foco **siembra / acompañamiento a campo**
 > (la precampaña ya cerró: no hablar más de "asegurá tu bolsa").
+> Ventana de girasol Oeste BA (marbete): **óptima 15/10–15/11, límite 20/11**.
+> 📷 Fotos y videos: [guía de tomas](produccion/guia-foto-video-siembra.md) (códigos A1–A8, B1–B6).
 
-| Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
-|--------|-------|------------------|-------------------|---------------------|
-| 2026-W43 | 19/10 | ✍️ [La 26/27 ya se está sembrando](posts/2026-W43/post-01-campana-en-marcha.md) · [placa](docs/placas/2026-W43-post-01-campana-en-marcha.html) — **mar 20/10, 7–9 h** | 💡 Calculadora: ¿cuánto te tiene que rendir el girasol? (rinde de indiferencia) | 💡 Técnico: sembraste, ahora contá plantas (verificación de implantación) |
-| 2026-W44 | 26/10 | 💡 Girasol: qué mirar en emergencia | 💡 Finanzas de campaña | 💡 Institucional: foto real de siembra con productor (con permiso) |
+| Semana | Lunes | Post 1 — cultivo | Post 2 — negocio / técnico | Post 3 — comunidad |
+|--------|-------|------------------|-----------------------------|---------------------|
+| 2026-W43 | 19/10 | ✍️ **mar 20/10** [La 26/27 ya se está sembrando](posts/2026-W43/post-01-campana-en-marcha.md) · [placa](docs/placas/2026-W43-post-01-campana-en-marcha.html) (+ foto A1/A8 opcional) | ✍️ **jue 22/10** [Girasol: la ventana está abierta](posts/2026-W43/post-02-girasol-ventana.md) · [placa](docs/placas/2026-W43-post-02-girasol-ventana.html) | ✍️ **sáb 24/10** [Maíz: sembraste, ahora contá](posts/2026-W43/post-03-maiz-conta-plantas.md) · [carrusel](docs/placas/2026-W43-post-03-carrusel-maiz-conta-plantas.html) · 📣 [brief](meta-ads/briefs/2026-W43-maiz-conta-plantas.md) desde lun 26/10 |
+| 2026-W44 | 26/10 | ✍️ **mar 27/10** [¿Te queda maíz tardío por definir?](posts/2026-W44/post-01-maiz-tardio.md) · [placa](docs/placas/2026-W44-post-01-maiz-tardio.html) | ✍️ **jue 29/10** [Parte de siembra (foto real)](posts/2026-W44/post-02-parte-de-siembra.md) · [plantilla](docs/placas/plantilla-parte-de-siembra.html) — ⏳ falta foto A1/A6/A8 | ✍️ **sáb 31/10** [Reel: un día de siembra](reels/2026-W44-reel-un-dia-de-siembra.md) — ⏳ faltan tomas |
+| 2026-W45 | 02/11 | 💡 Girasol: emergencia y conteo (cotiledones, 7–12 días post siembra) | 💡 Calculadora de márgenes: ¿cuánto tiene que rendir el girasol? (rinde de indiferencia) | 💡 Parte de siembra #2 (foto real) |
+| 2026-W46 | 09/11 | 💡 Girasol: última semana de ventana óptima (cierra 15/11) | 💡 Herramienta financiera: tasa real de cuotas/cheques de la campaña | 💡 Testimonio corto de productor (toma B5, con OK) |
 
 ## Reglas de mantenimiento
 - Al generar un lote semanal: actualizar el estado (💡 → ✍️) y linkear el archivo del post.

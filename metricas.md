@@ -59,11 +59,21 @@ atribuibles al post · WA = ídem por WhatsApp.
 | [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | herramientas | 26/06 | reel pautado | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | pauta $15k/día × 7d — anotar tb. costo/mensaje |
 | [Girasol NS 1113 CL: ensayos CREA](posts/2026-W28/post-01-girasol-ns1113.md) | girasol | pendiente | placa | | | | | | | |
 
+### Octubre 2026 — campaña Siembra 26/27
+
+| Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
+|------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
+| [La 26/27 ya se está sembrando](posts/2026-W43/post-01-campana-en-marcha.md) | institucional | 20/10 | placa (+ foto) | | | | | | | vuelta a redes tras 4 meses |
+| [Girasol: la ventana está abierta](posts/2026-W43/post-02-girasol-ventana.md) | girasol | 22/10 | placa | | | | | | | |
+| [Maíz: sembraste, ahora contá](posts/2026-W43/post-03-maiz-conta-plantas.md) 📣 | técnico | 24/10 | carrusel | | | | | | | anotar tb. recorridas pedidas |
+| [Maíz tardío](posts/2026-W44/post-01-maiz-tardio.md) | maíz | 27/10 | placa | | | | | | | |
+
 ### Pauta (solo posts 📣)
 
 | Campaña | Período | Inversión | Mensajes iniciados | Costo por mensaje | Notas |
 |---------|---------|-----------|--------------------|--------------------|-------|
 | Reel Márgenes v2 | 26/06–03/07 | $15.000/día × 7 | `[COMPLETAR]` | `[COMPLETAR]` | objetivo: WhatsApp |
+| [Maíz: ahora contá](meta-ads/briefs/2026-W43-maiz-conta-plantas.md) | 26/10–01/11 | `[COMPLETAR]` | | | objetivo: Mensajes (DM + WA) |
 
 ---
 

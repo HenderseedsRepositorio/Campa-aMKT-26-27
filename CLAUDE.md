@@ -47,6 +47,8 @@ Mix semanal sugerido: 1 post de cultivo (maíz o girasol, alternando) +
 CLAUDE.md                  ← este archivo (leerlo siempre primero)
 prompt-opus-master.md      ← prompt para copiar/pegar en sesión con Opus
 calendario.md              ← grilla semanal: qué sale, cuándo, estado
+produccion/
+  guia-foto-video-siembra.md ← qué fotos/videos sacar en el lote (códigos A1–A8, B1–B6)
 .claude/
   skills/
     generar-contenido.md   ← SKILL MAESTRA: flujo paso a paso para generar contenido
@@ -111,3 +113,8 @@ meta-ads/
 - ✅ Primer post de lanzamiento de precampaña 26/27 ya publicado por Henderseeds,
   previo a este repo. `[COMPLETAR: link o texto del post para mantener coherencia]`
 - ⏳ Datos pendientes de carga: ver los `[COMPLETAR]` en `contexto/` y `brand/`.
+- ⏸️ Pausa de publicaciones de fines de junio a mediados de octubre 2026.
+- 🚜 **Desde W43 (19/10/2026): campaña "Siembra 26/27".** La precampaña cerró; el foco es siembra de
+  maíz y girasol y el acompañamiento a campo. Ventana girasol Oeste BA (marbete): óptima 15/10–15/11,
+  límite 20/11 (corregido en `contexto/productos-26-27.md`, antes decía ago-sep por error).
+  Fotos/videos: pedir según `produccion/guia-foto-video-siembra.md`.

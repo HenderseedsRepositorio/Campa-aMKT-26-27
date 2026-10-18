@@ -4,7 +4,11 @@
 > carga acá apenas las confirma. Sin fecha confirmada, en los posts se habla de
 > "precampaña abierta" sin prometer vencimientos.
 
-## Estado actual (junio 2026)
+## Estado actual (actualizado 18/10/2026)
+- 🚜 **Campaña 26/27 en siembra:** maíz temprano sembrándose, girasol arranca la semana del 19/10.
+- La precampaña ya cerró: en el contenido no se habla más de "asegurá tu bolsa en precampaña".
+
+### Histórico (junio 2026)
 - ✅ **Precampaña maíz y girasol 26/27: ABIERTA.**
 - Cierre estimado: **agosto/septiembre 2026** `[COMPLETAR: fecha exacta cuando Nidera la confirme]`.
 - Primer post de lanzamiento: ya publicado `[COMPLETAR: fecha y link]`.
@@ -22,9 +26,9 @@
 | Precampaña abierta | en curso | Condiciones, híbridos, calculadora de margen |
 | Escalones de descuento Nidera | `[COMPLETAR]` | Posts de urgencia real ("último tramo con X%") |
 | Cierre de precampaña | ago/sep 2026 `[COMPLETAR]` | Cuenta regresiva, últimas bolsas |
-| Siembra de girasol en la zona | oct/nov 2026 `[AJUSTAR]` | Técnico: fecha de siembra, densidad |
-| Siembra de maíz temprano | sep/oct 2026 `[AJUSTAR]` | Técnico: arranque de campaña |
-| Maíz tardío | nov/dic 2026 `[AJUSTAR]` | Posicionamiento tardío |
+| Siembra de girasol en la zona | **óptima 15/10–15/11, límite 20/11** (marbete Nidera, Oeste BA) · arrancó en la zona la semana del 19/10 | Técnico: ventana de siembra, conteo de plantas, emergencia |
+| Siembra de maíz temprano | en curso a mediados de octubre 2026 (confirmado por Henderseeds 18/10) | Técnico: arranque de campaña, conteo de plantas / uniformidad |
+| Maíz tardío | nov/dic 2026 `[AJUSTAR: fechas que manejan en la zona]` | Posicionamiento tardío: NS 7765, NS 7921 CL, NS 7925 (datos de tardía templada del marbete) |
 
 ## Reglas
 - La urgencia se comunica SOLO con hito real cargado acá (nada de falsa escasez).
