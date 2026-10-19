@@ -7,18 +7,18 @@
 | # | Video | Estilo | Mensaje | Duración | Publicar |
 |---|-------|--------|---------|----------|----------|
 | 1 | [`reel-experiencia-v5.html?v=3`](../produccion/sintetico/reel-experiencia-v5.html) | Agro-tech oscuro, línea de tiempo + 4 etapas | Acompañamiento Experiencia Nidera (institucional) | 36 s | **mar 20/10** |
-| 2 | [`reel-girasol-ventana.html`](../produccion/sintetico/reel-girasol-ventana.html) | Claro/editorial (crema), calendario real, marcador | Ventana de siembra de girasol (dato de marbete) | 22 s | **jue 22/10** |
+| 2 | [`reel-girasol-tolva.html`](../produccion/sintetico/reel-girasol-tolva.html) | Claro/editorial (crema): tolva que se llena, calendario real, 4 girasoles | Arranca el girasol: ventana del oeste + qué girasol va en cada lote | 24 s | **jue 22/10** |
 | 3 | [`reel-conteo-plantas.html`](../produccion/sintetico/reel-conteo-plantas.html) | Tutorial con números gigantes, 3 pasos | Cómo contar plantas de maíz (educativo + servicio) | 24 s | **sáb 24/10** (+ pauta) |
 | 4 | [`reel-maiz-tardio.html`](../produccion/sintetico/reel-maiz-tardio.html) | Fichas de producto que se deslizan | 3 híbridos para tardío (producto) | 22 s | **mar 27/10** |
 
-## Video 1 — ¿Quién recorre tu lote con vos?
-**Títulos alternativos** (mismo estilo; se cambian con `?g=línea1|línea2`): ¿Quién se embarra en tu
-lote con vos? · ¿Quién camina tu lote con vos? · ¿Con quién recorrés tu lote? · ¿Quién sigue tu lote
-de cerca? · ¿Quién está en tu lote cuando lo necesitás? · ¿Quién conoce cada metro de tu lote? ·
-¿Quién mira tu lote con vos?
+## Video 1 — ¿Quién sigue tu lote de cerca?
+Elegido por Henderseeds (19/10). Cierre: "Lo seguimos de cerca. Equipo HenderSeeds · etapa por etapa."
+**Variantes del mismo título** (`?g=línea1|línea2`): ¿Quién sigue de cerca tu lote? · ¿Quién le sigue
+el pulso a tu lote? · ¿Quién está encima de tu lote? · ¿Quién no le saca los ojos a tu lote? ·
+¿Quién sigue tu lote de la siembra a la cosecha?
 
 **Caption:**
-> ¿Quién recorre tu lote con vos? 🌽🌻
+> ¿Quién sigue tu lote de cerca? 🌽🌻
 > Con Experiencia Nidera, el equipo HenderSeeds te acompaña en cada etapa:
 > — Antes de sembrar: híbrido y densidad para cada zona del lote, con la base de ensayos de Nidera.
 > — Al sembrar: mapa de siembra variable para tu sembradora, con la recomendación Nidera o a medida.
@@ -28,9 +28,20 @@ de cerca? · ¿Quién está en tu lote cuando lo necesitás? · ¿Quién conoce 
 >
 > #Henderseeds #Nidera #ExperienciaNidera #Maiz #Girasol #Henderson #Daireaux #Bolivar
 
-## Video 2 — ¿Cuándo se siembra el girasol?
-Usa el copy de [posts/2026-W43/post-02-girasol-ventana.md](../posts/2026-W43/post-02-girasol-ventana.md)
-(el reel reemplaza a la placa en el feed; la placa sirve para historia).
+## Video 2 — ¿Ya tenés el girasol en la tolva?
+Reemplaza a la versión "¿Cuándo se siembra el girasol?" (`reel-girasol-ventana.html`, queda de archivo).
+Arco: tolva que se llena de semilla (arranca el girasol, sin decirlo) → ventana óptima en el calendario →
+¿cuál va en tu lote? (NS 1113 CL techo de rinde y aceite · NS 1115 CL la sanidad más completa ·
+NS 1117 CL máximo rinde con Phomopsis 2 · NS 1227 CL HO alto oleico) → 20/11 + consejo → contacto.
+**Títulos alternativos** (`?g=`): El girasol ya está en la tolva. · ¿Ya cargaste la tolva? · Se viene el
+amarillo. · ¿Llegás con el girasol?
+**Caption:**
+> ¿Ya tenés el girasol en la tolva? 🌻
+> En el oeste bonaerense la ventana óptima va del 15/10 al 15/11 (fecha límite 20/11), según los marbetes Nidera. Igual para los cuatro: NS 1113 CL, NS 1115 CL, NS 1117 CL y NS 1227 CL HO.
+> Cada uno tiene su lugar: techo de rinde y aceite, la sanidad más completa, máximo rinde con Phomopsis 2 o alto oleico.
+> Hay tiempo para sembrar bien. ¿Dudas de densidad o de qué girasol va en tu lote? Mandanos un DM o escribinos 📲 wa.me/5492314530691
+>
+> #Henderseeds #Nidera #Girasol #NS1113CL #Siembra2627 #Henderson #Daireaux #Bolivar
 Fuente: marbetes Nidera 26/27, Oeste de Buenos Aires: óptima 15/10–15/11, límite 20/11.
 ⚠️ El calendario marca "hoy" el 22/10 (variable `HOY` del HTML): cambiarlo si se publica otro día.
 
