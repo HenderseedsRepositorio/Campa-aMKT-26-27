@@ -31,14 +31,20 @@ así que se ajusta exacto) y se mezcla con música baja. En Instagram se sube ig
 
 ## 2. Clip real en el cierre (3–8 s de video)
 
-**La toma:** alguien del equipo caminando por el entresurco del maíz (V2–V4), filmado de atrás a
-la altura de la cintura, que se agacha y toca o cuenta las plantas. Detalle en
-[produccion/guia-foto-video-siembra.md](../produccion/guia-foto-video-siembra.md) (toma **A8**).
-Celular **vertical**, 30 cuadros por segundo, sol a la espalda de quien filma. Sin caras de clientes
-sin su OK ni marcas de la competencia.
+**Ojo, regla del equipo (07/10): "nadie aparece en cámara".** Por eso las tomas van sin caras ni
+personas de cuerpo entero. Si esa regla cambió, la mejor toma sigue siendo alguien del equipo
+caminando el surco de espaldas (toma A8).
+
+**Tomas que respetan la regla (con 1 alcanza):**
+1. **Manos contando plantas** con la cinta estirada en el surco, celular al ras del suelo (toma A7).
+2. **El dron despegando** en la cabecera del lote, o una pasada en vuelo (B2).
+3. **La sembradora trabajando**, de costado, cruzando el cuadro (A1).
+
+Detalle de cada toma en [produccion/guia-foto-video-siembra.md](../produccion/guia-foto-video-siembra.md).
+Celular **vertical**, 30 cuadros por segundo, sol a la espalda de quien filma. Sin marcas de la competencia.
 
 **Qué hace el video con el clip:** al terminar la etapa 04, la toma real ocupa toda la pantalla
-2,4 s con el rótulo "Equipo HenderSeeds · a campo"; después el cierre (logos, "Lo seguimos de
+2,4 s con el rótulo "Equipo HenderSeeds · a campo" (se puede cambiar según la toma); después el cierre (logos, "Lo seguimos de
 cerca.", botón de DM) aparece encima del clip oscurecido. El video pasa de 31 a 33 s.
 
 **Pasos (cuando llegue el archivo):**
@@ -53,5 +59,5 @@ Probado con un clip de prueba armado con la foto de dron (no se publica).
 
 ## Estado
 - [ ] Voz en off grabada → `[COMPLETAR: quién la graba]`
-- [ ] Clip A8 filmado → `[COMPLETAR: quién lo filma y en qué lote]`
+- [ ] Clip filmado (A7, B2 o A1) → `[COMPLETAR: quién lo filma y en qué lote]`
 - [ ] Versión con voz y clip renderizada

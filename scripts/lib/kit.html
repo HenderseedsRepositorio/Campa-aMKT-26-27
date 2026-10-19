@@ -1,0 +1,157 @@
+{{CABEZA}}<title>Kit de publicación W43</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<style>
+/* Layout: una columna de "fichas de lote" en orden de publicación; cada ficha = un posteo listo para copiar */
+:root {
+  --bg: #F6F4EE; --card: #FFFFFF; --ink: #0A0F1B; --navy: #0D2D5E; --muted: #5A6273; --line: #DCD8CC;
+  --amber: #F5A623; --amber-ink: #0A0F1B; --chip: #EFEAE0; --ok: #2F7D4F; --ok-bg: #E3F1E8;
+  --display: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+  --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0A0F1B; --card: #111A2C; --ink: #EEF2F8; --navy: #9DB8E8; --muted: #93A0B8; --line: #22304A;
+  --amber: #F5A623; --amber-ink: #0A0F1B; --chip: #18233A; --ok: #7FD3A0; --ok-bg: #133024; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0A0F1B; --card: #111A2C; --ink: #EEF2F8; --navy: #9DB8E8; --muted: #93A0B8; --line: #22304A;
+  --amber: #F5A623; --amber-ink: #0A0F1B; --chip: #18233A; --ok: #7FD3A0; --ok-bg: #133024; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.45; }
+.wrap { max-width: 720px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+.kick { font-family: var(--mono); font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.kick i { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); display: block; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(32px, 8vw, 46px); line-height: 1; letter-spacing: -1px; color: var(--navy); margin: 10px 0 0; text-wrap: balance; }
+h1 span { color: var(--ink); background: linear-gradient(transparent 58%, var(--amber) 58%); padding: 0 4px; }
+.lead { color: var(--muted); margin: 10px 0 0; max-width: 60ch; }
+.progreso { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.barra { flex: 1; height: 8px; border-radius: 99px; background: var(--chip); overflow: hidden; }
+.barra b { display: block; height: 100%; width: 0; background: var(--amber); transition: width .3s; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--navy); margin: 18px 0 0; letter-spacing: -0.3px; }
+.ficha { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 14px; }
+.ficha.hecha { border-color: var(--ok); }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.chip { font-family: var(--mono); font-size: 12px; letter-spacing: .5px; padding: 5px 10px; border-radius: 99px; background: var(--chip); color: var(--ink); }
+.chip.dia { background: var(--amber); color: var(--amber-ink); font-weight: 500; }
+.hecho { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--muted); cursor: pointer; user-select: none; }
+.hecho input { width: 20px; height: 20px; accent-color: var(--ok); }
+.ficha.hecha .hecho { color: var(--ok); }
+.cab { display: grid; gap: 14px; align-items: start; }
+.cab { grid-template-columns: 124px minmax(0, 1fr); }
+.media img, .media video { display: block; width: 124px; max-width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); background: #000; }
+a.btn { text-decoration: none; }
+h3.grupo { font-family: var(--display); font-weight: 400; font-size: 18px; color: var(--ink); margin: 14px 0 0; }
+p.grupo-d { margin: 4px 0 0; color: var(--muted); font-size: 14.5px; max-width: 62ch; }
+.ficha + h3.grupo { margin-top: 26px; }
+.cab h3 { font-family: var(--display); font-weight: 400; font-size: 20px; line-height: 1.1; color: var(--ink); margin: 0; text-wrap: balance; }
+.cab p { margin: 6px 0 0; color: var(--muted); font-size: 14.5px; }
+ul.pasos { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; font-size: 14.5px; }
+ul.pasos li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; }
+ul.pasos li b { font-family: var(--mono); font-weight: 500; font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.cap { position: relative; }
+.cap pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; font-family: var(--body); font-size: 14.5px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 14px; max-height: 260px; overflow: auto; }
+.btn { appearance: none; border: 0; cursor: pointer; font-family: var(--body); font-weight: 700; font-size: 15px; padding: 11px 16px; border-radius: 8px; background: var(--amber); color: var(--amber-ink); display: inline-flex; align-items: center; gap: 8px; }
+.btn.sec { background: var(--chip); color: var(--ink); font-weight: 500; font-size: 14px; padding: 8px 12px; }
+.btn.copiado { box-shadow: 0 0 0 2px var(--ok); }
+.btn:focus-visible, .hecho input:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+.acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+.ok { font-family: var(--mono); font-size: 12.5px; color: var(--ok); }
+.nota { font-size: 14px; color: var(--muted); background: var(--chip); border-radius: 10px; padding: 12px 14px; }
+.nota b { color: var(--ink); }
+.planilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.planilla img { width: 100%; max-width: 420px; border-radius: 8px; border: 1px solid var(--line); }
+.resp { display: flex; flex-wrap: wrap; gap: 8px; }
+ol.pend { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; }
+footer { font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .barra b { transition: none; } }
+</style>
+{{CIERRE_HEAD}}
+
+<div class="wrap">
+  <header>
+    <div class="kick"><i></i>HenderSeeds · Siembra 26/27</div>
+    <h1>Kit de <span>publicación</span></h1>
+    <p class="lead">Semana del 20 al 31 de octubre. Arriba, los 4 reels elegidos en orden. Abajo, más videos listos para sumar o reemplazar. En cada uno: el video, cómo dejarlo listo y el texto para copiar.</p>
+    <!--SITIO-->
+    <div class="progreso"><div class="barra"><b id="barra"></b></div><span id="cuenta">0 de 4 publicados</span></div>
+  </header>
+
+  <section>
+    <h2>Los 4 de la semana</h2>
+    <!--SEMANA-->
+  </section>
+
+  <section>
+    <h2>Más videos para subir</h2>
+    <p class="lead">Listos para usar cuando quieras sumar un posteo, reemplazar uno o armar historias. No se tildan como publicados: si subís alguno, anotalo en el calendario.</p>
+    <!--BANCO-->
+  </section>
+
+  <section>
+    <h2>Cuando comenten PLANILLA</h2>
+    <div class="ficha planilla">
+      <p class="cab" style="display:block;margin:0;color:var(--muted);font-size:14.5px">Responder en el día, mejor en la primera hora. Primero el comentario (rotá las frases para que no parezca automático), después el mensaje directo con la imagen.</p>
+      <div>
+        <ul class="pasos"><li><b>Comentario</b><div class="resp">
+          <button class="btn sec" data-copiar="¡Te la mandamos por DM! 📩">¡Te la mandamos por DM! 📩</button>
+          <button class="btn sec" data-copiar="¡Listo, revisá tus mensajes!">¡Listo, revisá tus mensajes!</button>
+          <button class="btn sec" data-copiar="¡Va por privado! 🌽">¡Va por privado! 🌽</button>
+        </div></li></ul>
+      </div>
+      <div class="cap">
+        <pre id="dm-planilla">¡Hola! Acá va la planilla de conteo 📋 Si la querés en PDF para imprimir, escribinos al WhatsApp 2314 53-0691 y te la pasamos. ¿Qué sembraste y a qué distancia entre surcos?</pre>
+        <div class="acciones"><button class="btn" data-copiar-de="dm-planilla">Copiar mensaje</button><span class="ok" aria-live="polite"></span></div>
+      </div>
+      <img src="{{PLANILLA}}" alt="Planilla de conteo de plantas HenderSeeds: metros a contar, tabla de 6 puntos, cálculo de logro, dobles, fallas y plantas atrasadas">
+      <div class="acciones"><!--BAJAR_PLANILLA--></div>
+      <p class="nota">La imagen es la que se manda por DM (Instagram no acepta PDF). El PDF, por WhatsApp.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pendientes</h2>
+    <div class="ficha">
+      <ol class="pend">
+        <li>Quién graba la voz en off y quién filma el clip del video 1 (guion en <span style="font-family:var(--mono);font-size:13px">reels/2026-W43-video1-voz-y-clip.md</span>). Regla del equipo: nadie aparece en cámara, así que el clip va sin caras (manos contando, dron o sembradora).</li>
+        <li>Automatizar los DM de PLANILLA (ManyChat): lo vemos después.</li>
+        <li>Fotos del lote para el parte de siembra (jueves 29/10): tomas A1, A6, A7 de la guía.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>RED.IN · Nidera Semillas · Henderson · Daireaux · Bolívar</footer>
+</div>
+
+<script>
+(function () {
+  function guardar(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function leer(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  var fichas = Array.prototype.slice.call(document.querySelectorAll('.ficha[data-id]'));
+  function contar() {
+    var n = fichas.filter(function (f) { return f.classList.contains('hecha'); }).length;
+    document.getElementById('cuenta').textContent = n + ' de ' + fichas.length + ' publicados';
+    document.getElementById('barra').style.width = (100 * n / fichas.length) + '%';
+  }
+  fichas.forEach(function (f) {
+    var cb = f.querySelector('.hecho input'), k = 'kit-w43-' + f.dataset.id;
+    cb.checked = leer(k) === '1'; f.classList.toggle('hecha', cb.checked);
+    cb.addEventListener('change', function () { f.classList.toggle('hecha', cb.checked); guardar(k, cb.checked ? '1' : '0'); contar(); });
+  });
+  contar();
+  function avisar(boton, txt) {
+    var s = boton.parentNode.querySelector('.ok'); if (!s) return;
+    s.textContent = txt; setTimeout(function () { s.textContent = ''; }, 2200);
+  }
+  function seleccionar(nodo) { var r = document.createRange(); r.selectNodeContents(nodo); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copiar], [data-copiar-de]'); if (!b) return;
+    var nodo = b.dataset.copiarDe ? document.getElementById(b.dataset.copiarDe) : null;
+    var txt = nodo ? nodo.textContent : b.dataset.copiar;
+    var ok = function () { avisar(b, 'Copiado'); b.classList.add('copiado'); };
+    var mal = function () { if (nodo) { seleccionar(nodo); avisar(b, 'Seleccionado: copialo a mano'); } };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, mal); else mal();
+  });
+})();
+</script>
+{{PIE}}

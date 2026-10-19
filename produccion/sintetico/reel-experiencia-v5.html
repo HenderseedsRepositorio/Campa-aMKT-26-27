@@ -243,7 +243,7 @@ var MODO = PARAM.get('modo') === 'historia' ? 'historia' : 'reel';
 var CORTO = VER === '4' && MODO === 'reel';
 if (CORTO) document.getElementById('stage').classList.add('corto');
 document.getElementById('l2').innerHTML = V.l2; document.getElementById('l3').textContent = V.l3;
-if (V.cta) document.getElementById('cta').textContent = V.cta;
+document.getElementById('cta').textContent = V.cta || 'Pedí tu recorrida por DM';
 if (MODO === 'historia') document.getElementById('stage').classList.add('historia');
 
 var NS = 'http://www.w3.org/2000/svg';

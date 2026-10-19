@@ -89,9 +89,25 @@ genera con `node scripts/render-pdf.mjs docs/recursos/planilla-conteo-plantas.ht
 
 ## Video 4 — ¿Te queda maíz tardío por definir?
 Usa el copy de [posts/2026-W44/post-01-maiz-tardio.md](../posts/2026-W44/post-01-maiz-tardio.md).
-Datos: marbetes Nidera 26/27, siembra tardía templada vs. índice ambiental (NS 7765 +324 kg/ha, 71 %,
-165 comp. · NS 7925 +228, 59 %, 120 · NS 7921 CL +179, 60 %, 364). No se comparan entre sí.
+Regla del equipo (25/09): en maíz no se muestran números de ensayo. Cada ficha muestra el híbrido, su
+tecnología y su diferencial del marbete (NS 7765: temprana y tardía, Quebrado 1 · NS 7925: Spiroplasma 3 ·
+NS 7921 CL: 3 herramientas herbicidas).
 Cierre del video y última línea del caption: "Pedí tu recomendación por DM".
+
+## Kit de publicación y más videos
+Todo junto para el celular (video para bajar, portada, pasos y caption para copiar):
+**https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/kit/** (`docs/kit/`, se arma con
+`python3 scripts/armar-kit.py`; las opciones extra están en `scripts/kit_banco.py`). Los MP4 finales
+están en `docs/placas/video/2026-W43-*` y `2026-W44-*` (CRF 21, igual que el resto del sitio).
+
+**Más videos listos (banco):**
+- Video 1 con otro título: "¿Quién te acompaña toda la campaña?", "¿Quién conoce tu lote tanto como vos?",
+  "¿Sembrás solo o con equipo?" (23 s) y la versión historia de "¿Quién sigue de cerca tu lote?".
+- Reels del plan de septiembre que siguen vigentes (revisados 19/10, datos correctos y sin precios):
+  calculadora "¿Qué te queda de cada hectárea?", historia "¿Maíz o girasol?", "¿Qué híbrido de girasol
+  va en tu lote?" (WhatsApp), "¿Rinde o sanidad?", NS 1113 CL, NS 7925 VIPTERA3 y "Somos de acá".
+- Quedan afuera: "la siembra de girasol arranca el 15/10" (fecha pasada) y el ranking de tardío (muestra
+  kg/ha de maíz: va contra la regla del 25/09).
 
 ## Pendientes comunes
 - ✅ OK de Nidera para usar su logo y los nombres "Experiencia Nidera" / "Nidera Vuela" (confirmado 19/10).
