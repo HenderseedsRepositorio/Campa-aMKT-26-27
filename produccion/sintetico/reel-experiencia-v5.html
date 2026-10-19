@@ -198,7 +198,7 @@ html, body { background:#000; }
     <div class="l3" id="l3">Con el equipo HenderSeeds en tu lote.</div>
     <div class="dm">
       <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      Mandanos un DM
+      <span id="cta">Mandanos un DM</span>
     </div>
     <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
     <div class="sticker-txt">Tocá el enlace y escribinos ↓</div>
@@ -216,8 +216,8 @@ var VARIANTES = {
   '2': { gancho: ['¿Quién conoce', 'tu lote', 'tanto como vos?'], apertura: 'respuesta',
          resp: ['Nosotros.', 'Antes, durante y después de sembrar.'],
          l2: 'Antes, durante<br>y después.', l3: 'Con el equipo HenderSeeds en tu lote.' },
-  '3': { gancho: ['¿Quién sigue', 'tu lote de cerca?'], apertura: 'linea',
-         l2: 'Lo seguimos<br>de cerca.', l3: 'Equipo HenderSeeds · etapa por etapa.' },
+  '3': { gancho: ['¿Quién sigue de cerca', 'tu lote?'], apertura: 'linea',
+         l2: 'Lo seguimos<br>de cerca.', l3: 'Equipo HenderSeeds · etapa por etapa.', cta: 'Pedí tu recorrida por DM' },
   '4': { gancho: ['¿Sembrás solo', 'o con equipo?'], apertura: 'pasos',
          l2: 'Sembrá<br>con equipo.', l3: 'Con el equipo HenderSeeds en tu lote.' }
 };
@@ -232,6 +232,7 @@ var MODO = PARAM.get('modo') === 'historia' ? 'historia' : 'reel';
 var CORTO = VER === '4' && MODO === 'reel';
 if (CORTO) document.getElementById('stage').classList.add('corto');
 document.getElementById('l2').innerHTML = V.l2; document.getElementById('l3').textContent = V.l3;
+if (V.cta) document.getElementById('cta').textContent = V.cta;
 if (MODO === 'historia') document.getElementById('stage').classList.add('historia');
 
 var NS = 'http://www.w3.org/2000/svg';
@@ -389,9 +390,9 @@ if (document.fonts) document.fonts.ready.then(ajustarTodo);
 /* ── Línea de tiempo ── */
 var R = MODO === 'reel';
 var ESC = CORTO ? [['s1', 0, 4.0], ['s2', 4.0, 7.75], ['s3', 7.75, 11.5], ['s4', 11.5, 15.25], ['s5', 15.25, 19.0]]
-        : R ? [['s1', 0, 4.4], ['s2', 4.4, 10.8], ['s3', 10.8, 16.8], ['s4', 16.8, 24.6], ['s5', 24.6, 31.4]]
+        : R ? [['s1', 0, 3.8], ['s2', 3.8, 9.2], ['s3', 9.2, 14.4], ['s4', 14.4, 21.2], ['s5', 21.2, 26.8]]
             : [['s1', 0, 5.0], ['s2', 5.0, 8.75], ['s3', 8.75, 12.5], ['s4', 12.5, 16.25], ['s5', 16.25, 20.0]];
-var T_OUT = CORTO ? 19.0 : R ? 31.4 : 20.0, TOTAL = CORTO ? 23.5 : R ? 36.0 : 26.0, VEL = (R && !CORTO) ? 1 : 0.62;   // VEL acelera las animaciones internas en Historia
+var T_OUT = CORTO ? 19.0 : R ? 26.8 : 20.0, TOTAL = CORTO ? 23.5 : R ? 30.8 : 26.0, VEL = (R && !CORTO) ? 1 : 0.62;   // VEL acelera las animaciones internas en Historia
 window.REEL_DURACION = TOTAL;
 window.REEL_CORTES = ESC.map(function (e) { return e[1]; }).concat([T_OUT, TOTAL]);
 
@@ -432,8 +433,8 @@ var s1 = ESC[0], M0 = (R && AP !== 'respuesta') ? s1[2] - 0.6 : 1e9;
   rs.style.opacity = AP === 'respuesta' ? kr2 : 0; rs.style.transform = 'translateY(' + (1 - kr2) * 30 + 'px)';
   // V3: la línea de tiempo se recorre y después sube a ser el seguidor de etapas
   if (AP === 'linea') {
-    var tl = document.getElementById('tl'), kt0 = eout(seg(t, 1.4, 1.9));
-    var ka = eio(seg(t, 1.9, 3.3)), km = eio(seg(t, M0, M0 + 0.6));
+    var tl = document.getElementById('tl'), kt0 = eout(seg(t, 0.3, 0.8));
+    var ka = eio(seg(t, 0.8, 2.6)), km = eio(seg(t, M0, M0 + 0.6));
     tl.style.opacity = t < M0 + 0.62 ? kt0 : 0;
     tl.style.top = (880 + (168 - 880) * km) + 'px';
     document.getElementById('tl-avance').style.width = ka * (850 - 28) * (1 - km) + 'px';
