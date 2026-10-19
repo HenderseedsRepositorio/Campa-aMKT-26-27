@@ -5,6 +5,13 @@
 - **Duración objetivo:** 30–34 s · **Formato:** 1080×1920 (9:16)
 - **Quién aparece / qué se filma:** tomas de la [guía de tomas](../produccion/guia-foto-video-siembra.md) (códigos A1–A8, B2/B3, B6). Celular alcanza. Vertical.
 
+> 🎬 **Alternativa lista sin filmar (19/10):** versión 100 % animada (motion graphics, sin fotos),
+> 28 s, mismo mensaje con los datos de marbete y de conteo →
+> [`produccion/sintetico/reel-siembra-motion.html`](../produccion/sintetico/reel-siembra-motion.html)
+> (MP4: `node scripts/render-reel.mjs produccion/sintetico/reel-siembra-motion.html`).
+> Publicable tal cual: no muestra nada "real" que no lo sea. Agregar música desde Instagram.
+> Versión con fotos (reales o IA): `produccion/sintetico/reel-siembra.html` + `produccion/sintetico/img/`.
+
 ## Hook (segundos 0–3)
 Toma **A2**: la sembradora viene de frente desde la cabecera y pasa de largo.
 Texto en pantalla (grande, Archivo Black blanco con sombra suave): **"Un día de siembra en el oeste, en 30 segundos."**

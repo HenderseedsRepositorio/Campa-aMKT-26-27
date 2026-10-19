@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel motion Siembra 26/27</title>
+<!--
+  Reel 1080×1920 100 % animado (sin fotos): tipografía de marca + ilustraciones + datos reales.
+  Se anima con una sola función render(t) (t en segundos). render-reel.mjs la llama cuadro
+  por cuadro y ffmpeg arma el MP4. Abierto en el navegador, se reproduce en vivo.
+  Datos: marbetes Nidera 26/27 (ventana girasol Oeste BA) · Nafziger y col. 1991 citado por INTA.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --orange:#F5A623; --white:#FFFFFF;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --dim:rgba(255,255,255,0.62); --faint:rgba(255,255,255,0.36);
+}
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--navy); }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:72px 72px; }
+
+.scene { position:absolute; inset:0; opacity:0; z-index:2; }
+.head { position:absolute; left:80px; right:150px; top:330px; }
+.kick { font-family:var(--mono); font-size:30px; letter-spacing:5px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:14px; }
+.kick .led { width:14px; height:14px; border-radius:50%; background:var(--orange); box-shadow:0 0 16px var(--orange); }
+.big { font-family:var(--arch); font-size:112px; line-height:0.97; letter-spacing:-3.5px; color:var(--white); margin-top:26px; }
+.big .ln { display:block; }
+.big .hl { color:var(--orange); }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.lbl { font-family:var(--mono); fill:var(--dim); }
+.note { position:absolute; left:80px; right:150px; font-family:var(--sans); font-weight:600; font-size:38px; line-height:1.35; color:var(--white); }
+.src { position:absolute; left:80px; right:150px; font-family:var(--mono); font-size:22px; color:var(--faint); letter-spacing:1px; }
+.num { font-family:var(--mono); font-weight:500; color:var(--white); letter-spacing:-4px; line-height:1; position:absolute; }
+.chip { position:absolute; left:80px; display:inline-flex; align-items:center; font-family:var(--mono); font-weight:500; font-size:44px; letter-spacing:-0.5px; color:var(--navy); background:var(--orange); border-radius:12px; padding:16px 26px; }
+
+.top { position:absolute; top:190px; left:80px; right:80px; display:flex; justify-content:space-between; align-items:center; z-index:20; }
+.top .tag { font-family:var(--mono); font-size:24px; letter-spacing:4px; color:var(--white); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:10px 22px; display:flex; align-items:center; gap:12px; }
+.top .tag i { width:10px; height:10px; border-radius:50%; background:var(--orange); display:block; }
+.top img { height:62px; }
+.bar { position:absolute; left:0; top:0; height:10px; background:var(--orange); z-index:30; }
+
+.outro { position:absolute; inset:0; opacity:0; z-index:40; background:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 100px 120px; }
+.outro .logo { height:120px; }
+.outro .q { font-family:var(--arch); font-size:100px; line-height:1; letter-spacing:-3px; color:var(--white); margin-top:90px; }
+.outro .dm { display:flex; align-items:center; gap:20px; font-family:var(--sans); font-weight:700; font-size:54px; color:var(--orange); margin-top:44px; }
+.outro .redin { display:flex; align-items:center; gap:18px; margin-top:120px; font-family:var(--mono); font-size:24px; letter-spacing:2px; color:rgba(255,255,255,0.55); text-transform:uppercase; }
+.outro .nid { position:relative; width:130px; height:72px; overflow:hidden; background:#fff; border-radius:10px; }
+.outro .nid img { position:absolute; width:147px; left:-8.6px; top:-37.3px; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-size:30px; color:rgba(255,255,255,0.8); }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 · La 26/27 ya se está sembrando: surcos en perspectiva que se dibujan -->
+  <div class="scene" id="s1">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s1-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Oeste bonaerense</div>
+      <div class="big"><span class="ln">La 26/27 ya</span><span class="ln">se está</span><span class="ln hl">sembrando.</span></div>
+    </div>
+  </div>
+
+  <!-- 2 · Maíz: plántulas que crecen -->
+  <div class="scene" id="s2">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s2-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Maíz temprano</div>
+      <div class="big"><span class="ln">Adentro.</span><span class="ln">Y <span class="hl">naciendo.</span></span></div>
+    </div>
+  </div>
+
+  <!-- 3 · Girasol: línea de tiempo de la ventana -->
+  <div class="scene" id="s3">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s3-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Girasol</div>
+      <div class="big"><span class="ln">La ventana</span><span class="ln">está <span class="hl">abierta.</span></span></div>
+    </div>
+    <div class="note" id="s3-note" style="top:1330px">Óptima <b style="color:var(--orange)">15/10 → 15/11</b><br>Fecha límite 20/11</div>
+    <div class="src" style="top:1470px">Marbetes Nidera 26/27 · Oeste de Buenos Aires</div>
+  </div>
+
+  <!-- 4 · Conteo: cinta + contador -->
+  <div class="scene" id="s4">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s4-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Después</div>
+      <div class="big"><span class="ln">Contamos</span><span class="ln">plantas.</span></div>
+    </div>
+    <div class="num" id="s4-num" style="left:80px; top:1290px; font-size:150px">0</div>
+    <div class="src" id="s4-unit" style="top:1300px; left:420px; font-size:30px; color:var(--dim)">plantas en 19,05 m<br><span style="font-size:22px;color:var(--faint)">EJEMPLO · surco a 52,5 cm</span></div>
+    <div class="chip" id="s4-chip" style="top:1470px">× 1.000 = 63.000 pl/ha</div>
+  </div>
+
+  <!-- 5 · Uniformidad -->
+  <div class="scene" id="s5">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s5-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>¿Nacieron parejas?</div>
+      <div class="big"><span class="ln">Fijate</span><span class="ln">cuándo</span><span class="ln">nacieron.</span></div>
+    </div>
+    <div class="num" id="s5-num" style="left:80px; top:1290px; font-size:150px; color:var(--orange)">0%</div>
+    <div class="note" id="s5-note" style="top:1460px; font-size:34px">menos de rinde si parte de las plantas<br>nace unos 10 días tarde.</div>
+    <div class="src" style="top:1570px; font-size:20px">Nafziger y col. (1991), Crop Science · citado por INTA</div>
+  </div>
+
+  <div class="outro" id="outro">
+    <img class="logo" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+    <div class="q">¿Cómo viene<br>tu siembra?</div>
+    <div class="dm">
+      <svg viewBox="0 0 24 24" width="54" height="54" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Mandanos un DM
+    </div>
+    <div class="redin"><span class="nid"><img src="../../docs/assets/logo-nidera.png" alt="Nidera"></span> RED.IN · Nidera Semillas</div>
+    <div class="wa"><svg id="wa-ico" viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+  </div>
+
+  <div class="top" id="top">
+    <span class="tag"><i></i> SIEMBRA 26/27</span>
+    <img src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  </div>
+  <div class="bar" id="bar"></div>
+</div>
+
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) {
+  var e = document.createElementNS(NS, tag);
+  for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function back(v) { v = clamp(v); var c = 1.6; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+
+// Plántula de maíz (mismo dibujo que el carrusel): tallo + 3 hojas
+function planta(g, x, base, h, color) {
+  var L = 0.46 * h, grp = el('g', {}, g);
+  el('path', { d: 'M' + x + ' ' + base + ' L' + x + ' ' + (base - 0.80 * h), stroke: color, 'stroke-width': 6, 'stroke-linecap': 'round', fill: 'none' }, grp);
+  [[base - 0.28 * h, -1], [base - 0.52 * h, 1]].forEach(function (p) {
+    var py = p[0], s = p[1];
+    el('path', { d: 'M' + x + ' ' + py + ' Q' + (x + s * 0.20 * h) + ' ' + (py - 0.30 * h) + ' ' + (x + s * L) + ' ' + (py + 0.10 * h) +
+      ' Q' + (x + s * 0.24 * h) + ' ' + (py - 0.08 * h) + ' ' + x + ' ' + (py + 0.07 * h) + ' Z', fill: color, 'fill-opacity': 0.92 }, grp);
+  });
+  var top = base - h;
+  el('path', { d: 'M' + (x - 4) + ' ' + (base - 0.78 * h) + ' Q' + (x - 0.02 * h) + ' ' + (top - 0.02 * h) + ' ' + (x + 0.14 * h) + ' ' + (top + 0.02 * h) +
+    ' Q' + (x + 0.04 * h) + ' ' + (base - 0.86 * h) + ' ' + (x + 4) + ' ' + (base - 0.76 * h) + ' Z', fill: color, 'fill-opacity': 0.92 }, grp);
+  grp.style.transformBox = 'fill-box';
+  grp.style.transformOrigin = '50% 100%';
+  return grp;
+}
+
+/* ── Escena 1: surcos en perspectiva ── */
+var s1 = document.getElementById('s1-art');
+var VP = { x: 540, y: 1000 };
+el('line', { x1: 0, y1: VP.y, x2: 1080, y2: VP.y, stroke: 'rgba(255,255,255,0.35)', 'stroke-width': 3 }, s1);
+var sol = el('circle', { cx: 760, cy: VP.y, r: 70, fill: '#F5A623', opacity: 0.9 }, s1);
+var tapa = el('rect', { x: 0, y: VP.y + 1.5, width: 1080, height: 920, fill: '#0A0F1B' }, s1);
+var surcos = [];
+for (var i = 0; i < 15; i++) {
+  var bx = -700 + i * 177;
+  var ln = el('line', { x1: VP.x, y1: VP.y, x2: bx, y2: 1920, stroke: i % 2 ? 'rgba(255,255,255,0.20)' : 'rgba(245,166,35,0.45)', 'stroke-width': 3 }, s1);
+  var len = Math.hypot(bx - VP.x, 1920 - VP.y);
+  ln.setAttribute('stroke-dasharray', len); ln.dataset.len = len;
+  surcos.push(ln);
+}
+s1.insertBefore(tapa, surcos[0]);
+
+/* ── Escena 2: plántulas creciendo ── */
+var s2 = document.getElementById('s2-art');
+var SUELO2 = 1500;
+el('line', { x1: 80, y1: SUELO2, x2: 1000, y2: SUELO2, stroke: 'rgba(255,255,255,0.30)', 'stroke-width': 4 }, s2);
+var plantas2 = [];
+for (var j = 0; j < 6; j++) plantas2.push(planta(s2, 150 + j * 156, SUELO2 - 4, 330, '#FFFFFF'));
+
+/* ── Escena 3: línea de tiempo oct–nov (14 px por día, 1/10 = día 0) ── */
+var s3 = document.getElementById('s3-art');
+var X0 = 120, PX = 14, YT = 1060;
+function xd(d) { return X0 + d * PX; }
+el('text', { x: xd(0), y: YT - 150, class: 'lbl', 'font-size': 26, 'letter-spacing': 4 }, s3).textContent = 'OCTUBRE';
+el('text', { x: xd(31), y: YT - 150, class: 'lbl', 'font-size': 26, 'letter-spacing': 4 }, s3).textContent = 'NOVIEMBRE';
+el('rect', { x: xd(0), y: YT, width: 60 * PX, height: 96, rx: 12, fill: 'rgba(255,255,255,0.05)', stroke: 'rgba(255,255,255,0.12)' }, s3);
+var defs = el('defs', {}, s3);
+var pat = el('pattern', { id: 'rayas', width: 16, height: 16, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+el('rect', { width: 8, height: 16, fill: 'rgba(245,166,35,0.85)' }, pat);
+el('rect', { x: 8, width: 8, height: 16, fill: 'rgba(245,166,35,0.30)' }, pat);
+var banda = el('rect', { x: xd(14), y: YT, width: 0, height: 96, fill: '#F5A623' }, s3);
+var bandaTxt = el('text', { x: xd(29.5), y: YT + 60, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 32, 'letter-spacing': 5, fill: '#0A0F1B', opacity: 0 }, s3);
+bandaTxt.textContent = 'ÓPTIMA';
+var limite = el('rect', { x: xd(45), y: YT, width: 0, height: 96, fill: 'url(#rayas)' }, s3);
+[[14, '15/10'], [31, '1/11'], [45, '15/11'], [51.5, '20/11']].forEach(function (p, k) {
+  el('line', { x1: xd(p[0] === 51.5 ? 50 : p[0]), y1: YT + 104, x2: xd(p[0] === 51.5 ? 50 : p[0]), y2: YT + 118, stroke: 'rgba(255,255,255,0.4)', 'stroke-width': 2 }, s3);
+  el('text', { x: xd(p[0]), y: YT + 156, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-size': 28, fill: k === 3 ? '#F5A623' : 'rgba(255,255,255,0.65)' }, s3).textContent = p[1];
+});
+var hoy = el('g', { opacity: 0 }, s3);
+el('rect', { x: xd(21) - 3, y: YT - 30, width: 6, height: 156, rx: 3, fill: '#FFFFFF' }, hoy);
+el('rect', { x: xd(21) - 120, y: YT - 104, width: 240, height: 56, rx: 8, fill: '#FFFFFF' }, hoy);
+el('text', { x: xd(21), y: YT - 66, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 26, 'letter-spacing': 3, fill: '#0A0F1B' }, hoy).textContent = 'ESTAMOS ACÁ';
+
+/* ── Escena 4: surco + cinta ── */
+var s4 = document.getElementById('s4-art');
+var SUELO4 = 1130;
+el('line', { x1: 80, y1: SUELO4, x2: 1000, y2: SUELO4, stroke: 'rgba(255,255,255,0.30)', 'stroke-width': 4 }, s4);
+var plantas4 = [];
+for (var m = 0; m < 7; m++) plantas4.push(planta(s4, 130 + m * 137, SUELO4 - 4, 230, '#FFFFFF'));
+var cinta = el('g', {}, s4);
+var cintaRect = el('rect', { x: 80, y: SUELO4 + 24, width: 0, height: 52, rx: 6, fill: 'rgba(245,166,35,0.92)' }, cinta);
+var marcas = [];
+for (var q = 0; q <= 20; q++) {
+  marcas.push(el('line', { x1: 90 + q * 45.5, y1: SUELO4 + 24, x2: 90 + q * 45.5, y2: SUELO4 + (q % 5 ? 42 : 56), stroke: '#0A0F1B', 'stroke-width': 3, opacity: 0 }, cinta));
+}
+
+/* ── Escena 5: 2 plantas atrasadas ── */
+var s5 = document.getElementById('s5-art');
+var SUELO5 = 1130;
+el('line', { x1: 80, y1: SUELO5, x2: 1000, y2: SUELO5, stroke: 'rgba(255,255,255,0.30)', 'stroke-width': 4 }, s5);
+var chicas = [2, 5], circulos = [], plantas5 = [];
+for (var n = 0; n < 7; n++) {
+  var x5 = 130 + n * 137, chica = chicas.indexOf(n) >= 0;
+  var pl = planta(s5, x5, SUELO5 - 4, chica ? 110 : 230, '#FFFFFF');
+  plantas5.push({ g: pl, chica: chica });
+  if (chica) {
+    var c = el('circle', { cx: x5, cy: SUELO5 - 55, r: 92, fill: 'none', stroke: '#F5A623', 'stroke-width': 4, 'stroke-dasharray': '10 10', opacity: 0 }, s5);
+    circulos.push(c);
+  }
+}
+
+/* ── Línea de tiempo del reel ── */
+var ESC = [
+  { id: 's1', ini: 0.0, fin: 4.2 },
+  { id: 's2', ini: 4.2, fin: 8.6 },
+  { id: 's3', ini: 8.6, fin: 13.8 },
+  { id: 's4', ini: 13.8, fin: 19.2 },
+  { id: 's5', ini: 19.2, fin: 24.0 }
+];
+var T_OUT = 24.0, TOTAL = 28.0, XF = 0.45;
+window.REEL_DURACION = TOTAL;
+
+function textoEntra(scene, t0, t) {
+  var lns = scene.querySelectorAll('.head .kick, .head .ln');
+  lns.forEach(function (l, i) {
+    var k = eout(seg(t, t0 + 0.15 + i * 0.14, t0 + 0.75 + i * 0.14));
+    l.style.opacity = k;
+    l.style.transform = 'translateY(' + (1 - k) * 70 + 'px)';
+    if (!l.classList.contains('kick')) l.style.display = 'block';
+  });
+}
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e.id);
+    var a = i === 0 ? 1 : seg(t, e.ini, e.ini + XF);
+    var b = 1 - seg(t, e.fin, e.fin + XF);
+    n.style.opacity = Math.min(a, b);
+    textoEntra(n, e.ini, t);
+  });
+
+  // 1 · surcos + sol
+  surcos.forEach(function (ln, i) {
+    var k = eio(seg(t, 0.3 + i * 0.06, 1.6 + i * 0.06));
+    ln.setAttribute('stroke-dashoffset', ln.dataset.len * (1 - k));
+  });
+  sol.setAttribute('cy', VP.y + 80 - 140 * eout(seg(t, 0.2, 3.6)));
+
+  // 2 · plantas creciendo
+  plantas2.forEach(function (p, i) {
+    var k = back(seg(t, 4.9 + i * 0.22, 5.8 + i * 0.22));
+    p.style.transform = 'scale(' + (0.15 + 0.85 * k) + ',' + k + ')';
+    p.style.opacity = clamp(k * 3);
+  });
+
+  // 3 · ventana
+  var kb = eio(seg(t, 9.4, 10.8));
+  banda.setAttribute('width', 31 * PX * kb);
+  bandaTxt.setAttribute('opacity', seg(t, 10.4, 10.9));
+  limite.setAttribute('width', 5 * PX * eio(seg(t, 10.8, 11.3)));
+  var kh = back(seg(t, 11.2, 11.9));
+  hoy.setAttribute('opacity', clamp(kh * 2));
+  hoy.setAttribute('transform', 'translate(0,' + (-60 * (1 - kh)) + ')');
+  var n3 = document.getElementById('s3-note');
+  n3.style.opacity = seg(t, 11.6, 12.2);
+
+  // 4 · plantas aparecen, cinta se extiende, contador
+  plantas4.forEach(function (p, i) {
+    var k = eout(seg(t, 14.2 + i * 0.08, 14.7 + i * 0.08));
+    p.style.transform = 'scale(1,' + k + ')'; p.style.opacity = k;
+  });
+  var kc = eio(seg(t, 14.9, 16.4));
+  cintaRect.setAttribute('width', 920 * kc);
+  marcas.forEach(function (mk, i) { mk.setAttribute('opacity', 90 + i * 45.5 < 80 + 920 * kc ? 1 : 0); });
+  var cnt = Math.round(63 * eout(seg(t, 15.2, 17.2)));
+  document.getElementById('s4-num').textContent = cnt;
+  document.getElementById('s4-num').style.opacity = seg(t, 15.0, 15.3);
+  document.getElementById('s4-unit').style.opacity = seg(t, 15.2, 15.6);
+  var kch = back(seg(t, 17.3, 17.9));
+  var ch = document.getElementById('s4-chip');
+  ch.style.opacity = clamp(kch * 2); ch.style.transform = 'scale(' + (0.85 + 0.15 * kch) + ')'; ch.style.transformOrigin = 'left center';
+
+  // 5 · atrasadas
+  plantas5.forEach(function (p, i) {
+    var k = eout(seg(t, 19.6 + i * 0.06, 20.1 + i * 0.06));
+    p.g.style.transform = 'scale(1,' + k + ')'; p.g.style.opacity = k;
+    if (p.chica) p.g.querySelectorAll('path').forEach(function (pp) {
+      var hl = seg(t, 20.6, 21.0);
+      var col = hl > 0.5 ? '#F5A623' : '#FFFFFF';
+      if (pp.getAttribute('stroke')) pp.setAttribute('stroke', col); else pp.setAttribute('fill', col);
+    });
+  });
+  circulos.forEach(function (c, i) {
+    var k = eout(seg(t, 20.6 + i * 0.15, 21.2 + i * 0.15));
+    c.setAttribute('opacity', k);
+    c.setAttribute('r', 70 + 22 * k);
+  });
+  var pct = Math.round(9 * eout(seg(t, 21.2, 22.4)));
+  var k5 = seg(t, 21.1, 21.4);
+  document.getElementById('s5-num').textContent = (pct < 6 ? pct : '6–' + pct) + '%';
+  document.getElementById('s5-num').style.opacity = k5;
+  document.getElementById('s5-note').style.opacity = seg(t, 21.6, 22.1);
+
+  // Cierre
+  var o = eio(seg(t, T_OUT, T_OUT + 0.6));
+  document.getElementById('outro').style.opacity = o;
+  var outro = document.getElementById('outro');
+  outro.querySelectorAll(':scope > *').forEach(function (c, i) {
+    var k = eout(seg(t, T_OUT + 0.3 + i * 0.15, T_OUT + 0.9 + i * 0.15));
+    c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
+  });
+  document.getElementById('top').style.opacity = 1 - o;
+  document.getElementById('bar').style.width = (clamp(t / TOTAL) * 100) + '%';
+};
+
+if (!window.__RENDER_MODE__) {
+  var t0 = null;
+  (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now());
+} else {
+  window.render(0);
+}
+</script>
+</body>
+</html>
