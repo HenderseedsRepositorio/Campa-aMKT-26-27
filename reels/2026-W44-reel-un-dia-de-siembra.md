@@ -12,7 +12,43 @@
 > Publicable tal cual: no muestra nada "real" que no lo sea. Agregar música desde Instagram.
 > Versión con fotos (reales o IA): `produccion/sintetico/reel-siembra.html` + `produccion/sintetico/img/`.
 
-> 🎬 **v4 "Experiencia Nidera" (19/10) — la recomendada:** reel general del acompañamiento, 37 s →
+> ✅ **v5 FINAL "Experiencia Nidera" (19/10) — revisada por 4 agentes (diseño, formatos, ritmo, texto/marca)** →
+> [`produccion/sintetico/reel-experiencia-v5.html`](../produccion/sintetico/reel-experiencia-v5.html)
+> - **Reel** (36 s): `node scripts/render-reel.mjs produccion/sintetico/reel-experiencia-v5.html`
+> - **Historia** (26 s, sin bajadas, lugar para stickers): `… --modo historia`, cortada en 3 archivos:
+>   H1 gancho (5 s) · H2 etapas (15 s) · H3 cierre (6 s).
+> - Gancho: "¿Quién te acompaña de la bolsa a la cosecha?" (se descartó "¿Comprás semilla o comprás un
+>   plan?": en el campo "plan" se lee como plan de pagos/canje, roza condición comercial).
+> - Grilla dentro de la zona libre de IG (x 80–930, y 250–1540); la foto del lote aparece **solo** en el
+>   conteo; el gancho muestra los 4 pasos y vuelan al seguidor de etapas; naranja = resaltado + 1 dato.
+> - Exportación BT.709, H.264 High, pista de audio muda (la música se agrega en Instagram).
+>
+> **Plan de publicación**
+> 1. **Día 1 — Reel.** Portada: `produccion/sintetico/out/portada-reel-1080x1920.png` (o el cuadro de 3 s).
+>    Subir mudo y agregar música desde la biblioteca de Instagram (acústica, ~120 BPM, cortes en 4,4 ·
+>    10,8 · 16,8 · 24,6 · 31,4 s). Compartirlo a la historia ese mismo día.
+> 2. **Días 2–3 — Historia propia (3 partes).** H1 + sticker de encuesta en y 1380–1560: "¿Ya medís la
+>    calidad de siembra? Sí / Todavía no" (a los que respondan, DM). H2 tal cual. H3 + sticker de enlace a
+>    wa.me/5492314530691 en el espacio libre debajo de "Tocá el enlace y escribinos".
+> 3. **Pauta (si se hace):** pide una versión con los gráficos ~250 px más arriba (el botón del anuncio
+>    tapa y 1248–1540) y música de Meta Sound Collection incrustada.
+>
+> **Caption (v5):**
+> ¿Quién te acompaña de la bolsa a la cosecha? 🌽🌻
+> Con Experiencia Nidera, el equipo HenderSeeds está en tu lote en cada etapa:
+> — Antes de sembrar: híbrido y densidad para cada zona del lote, con la base de ensayos de Nidera.
+> — Al sembrar: mapa de siembra variable para tu sembradora, con la recomendación Nidera o a medida.
+> — Con el cultivo nacido: control con dron (Nidera Vuela): plantas logradas, distribución, fallas y dobles.
+> — Hasta la cosecha: recorridas e informe de visita con qué hacer.
+> ¿Lo vemos para tu campo? Mandanos un DM o escribinos por WhatsApp 📲 wa.me/5492314530691
+> #Henderseeds #Nidera #ExperienciaNidera #Maiz #Girasol #Henderson #Daireaux #Bolivar
+>
+> **Pendientes antes de publicar:** `[COMPLETAR: OK de Nidera para usar el logo y nombrar "Experiencia
+> Nidera" y "Nidera Vuela"]` · `[COMPLETAR: confirmar que los 4 servicios valen para todos los clientes;
+> si no, sacar "en cada etapa"]` · El "106 plantas detectadas" es el conteo de nuestra prueba (coincide con
+> los anillos que se ven), no un dato de Nidera Vuela.
+>
+> 🎬 **v4 "Experiencia Nidera" (19/10):** reel general del acompañamiento, 37 s →
 > [`produccion/sintetico/reel-experiencia-v4.html`](../produccion/sintetico/reel-experiencia-v4.html)
 > Gancho en pregunta sobre foto real de dron (horizontal) + 4 etapas con seguidor de pasos:
 > **Antes** (híbrido y densidad por ambiente, base de ensayos Nidera) · **Siembra** (siembra variable,

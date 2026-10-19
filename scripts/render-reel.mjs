@@ -10,6 +10,7 @@
  * Uso:
  *   node scripts/render-reel.mjs produccion/sintetico/reel-siembra-motion.html [salida.mp4] [--fps 30] [--preview]
  *   --preview  saca solo 6 cuadros sueltos (para revisar sin esperar el render completo)
+ *   --modo historia  abre el HTML con ?modo=historia (versión Historia) y agrega -historia al nombre
  */
 import { chromium } from 'playwright';
 import { mkdtemp, readFile, rm, mkdir } from 'node:fs/promises';
@@ -25,10 +26,11 @@ const FUENTES_MARCA = ['Archivo Black', 'DM Sans', 'DM Mono'];
 const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);
 const valor = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d);
-const CON_VALOR = ['--fps', '--ts'];
+const CON_VALOR = ['--fps', '--ts', '--modo'];
 const posicionales = args.filter((a, i) => !a.startsWith('--') && !CON_VALOR.includes(args[i - 1]));
 const entrada = path.resolve(posicionales[0] || '');
-const salida = path.resolve(posicionales[1] || entrada.replace(/\.html$/, '.mp4').replace('/sintetico/', '/sintetico/out/'));
+const MODO = valor('--modo', '');
+const salida = path.resolve(posicionales[1] || entrada.replace(/\.html$/, (MODO ? '-' + MODO : '') + '.mp4').replace('/sintetico/', '/sintetico/out/'));
 const FPS = Number(valor('--fps', 30));
 
 const cssFuentes = (await readFile(CSS_FUENTES, 'utf8')).replace(
@@ -39,7 +41,7 @@ const cssFuentes = (await readFile(CSS_FUENTES, 'utf8')).replace(
 const nav = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 const pag = await nav.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
 await pag.addInitScript(() => { window.__RENDER_MODE__ = true; });
-await pag.goto('file://' + entrada, { waitUntil: 'load' });
+await pag.goto('file://' + entrada + (MODO ? '?modo=' + MODO : ''), { waitUntil: 'load' });
 await pag.addStyleTag({ content: cssFuentes });
 await pag.evaluate(() => document.fonts.ready);
 const faltan = await pag.evaluate((fs) => {
@@ -79,8 +81,13 @@ await nav.close();
 console.log(`\r  ${total} cuadros capturados, codificando…`);
 
 await mkdir(path.dirname(salida), { recursive: true });
+// Color BT.709 (si no, el naranja de marca se corre de tono), perfil High, y una pista de audio
+// muda AAC: hay plataformas que tratan raro un MP4 sin audio; la música se agrega desde la app.
 const ff = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', path.join(tmp, 'f%05d.jpg'),
-  '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', salida], { stdio: 'inherit' });
+  '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000', '-shortest',
+  '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709',
+  '-c:v', 'libx264', '-preset', 'slow', '-profile:v', 'high', '-level', '4.1', '-crf', '16', '-maxrate', '12M', '-bufsize', '24M', '-g', '60', '-r', String(FPS),
+  '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', salida], { stdio: 'inherit' });
 await rm(tmp, { recursive: true, force: true });
 if (ff.status !== 0) { console.error('  ffmpeg falló'); process.exit(1); }
 console.log(`  listo -> ${path.relative(RAIZ, salida)} (${dur}s @ ${FPS} fps)`);
