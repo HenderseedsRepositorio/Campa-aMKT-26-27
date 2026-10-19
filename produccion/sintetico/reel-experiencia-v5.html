@@ -21,7 +21,8 @@
   --L:80px; --W:850px;
 }
 html, body { background:#000; }
-#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--navy); }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:radial-gradient(ellipse 90% 60% at 50% 32%, #111b2f 0%, #0A0F1B 70%); }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:60; }
 #stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
   background-image:linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
   background-size:72px 72px; }
@@ -31,7 +32,7 @@ html, body { background:#000; }
 .head { position:absolute; left:var(--L); width:var(--W); top:384px; z-index:3; }
 .kick { font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--steel); display:flex; align-items:center; gap:14px; }
 .kick .led { width:14px; height:14px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
-.big { font-family:var(--arch); font-size:80px; line-height:0.98; letter-spacing:-2.5px; color:var(--white); margin-top:22px; white-space:nowrap; }
+.big { font-family:var(--arch); font-size:88px; line-height:0.98; letter-spacing:-2.5px; color:var(--white); margin-top:22px; white-space:nowrap; }
 .big .hl { color:var(--orange); }
 .body { font-family:var(--sans); font-weight:500; font-size:36px; line-height:1.32; color:rgba(232,238,247,0.72); margin-top:24px; max-width:760px; }
 .body b { color:var(--white); font-weight:700; }
@@ -42,14 +43,14 @@ html, body { background:#000; }
 .resp .r1 { font-family:var(--arch); font-size:72px; letter-spacing:-2px; color:var(--white); line-height:1; }
 .resp .r2 { font-family:var(--sans); font-weight:600; font-size:40px; color:var(--ice); line-height:1.3; margin-top:18px; padding-bottom:18px; border-bottom:3px solid rgba(232,238,247,0.30); display:inline-block; }
 /* Gancho V3 · línea de tiempo de la campaña */
-.tl { position:absolute; left:var(--L); width:var(--W); top:900px; height:300px; z-index:16; }
-.tl .tl-linea { position:absolute; left:14px; right:14px; top:133px; height:3px; background:rgba(255,255,255,0.16); }
-.tl .tl-avance { position:absolute; left:14px; top:133px; height:3px; width:0; background:var(--orange); }
-.tl .tl-nodo { position:absolute; top:120px; width:29px; height:29px; border-radius:50%; background:var(--navy); border:3px solid rgba(255,255,255,0.30); }
+.tl { position:absolute; left:var(--L); width:var(--W); top:880px; height:320px; z-index:16; }
+.tl .tl-linea { position:absolute; left:14px; right:14px; top:157px; height:3px; background:rgba(255,255,255,0.16); }
+.tl .tl-avance { position:absolute; left:14px; top:157px; height:3px; width:0; background:var(--orange); }
+.tl .tl-nodo { position:absolute; top:144px; width:29px; height:29px; border-radius:50%; background:var(--navy); border:3px solid rgba(255,255,255,0.30); }
 .tl .tl-nodo.on { background:var(--orange); border-color:var(--orange); box-shadow:0 0 14px rgba(245,166,35,0.6); }
-.tl .tl-ic { position:absolute; top:0; width:96px; height:96px; border-radius:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); display:grid; place-items:center; }
-.tl .tl-ic svg { width:56px; height:56px; }
-.tl .tl-lb { position:absolute; top:172px; width:200px; font-family:var(--mono); font-size:24px; letter-spacing:1px; line-height:1.3; color:var(--ice); text-transform:uppercase; }
+.tl .tl-ic { position:absolute; top:0; width:120px; height:120px; border-radius:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); display:grid; place-items:center; }
+.tl .tl-ic svg { width:68px; height:68px; }
+.tl .tl-lb { position:absolute; top:198px; width:210px; font-family:var(--mono); font-size:27px; letter-spacing:1px; line-height:1.3; color:var(--ice); text-transform:uppercase; }
 
 /* Seguidor de etapas: solo puntos y línea */
 .pasos { position:absolute; left:var(--L); width:var(--W); top:312px; height:29px; z-index:15; }
@@ -222,7 +223,7 @@ var VARIANTES = {
 };
 var PARAM = new URLSearchParams(location.search);
 var VER = VARIANTES[PARAM.get('v')] ? PARAM.get('v') : '1', V = VARIANTES[VER];
-var GANCHO = V.gancho;
+var GANCHO = PARAM.get('g') ? PARAM.get('g').split('|') : V.gancho;
 var PASOS = ['Recomendación por ambiente', 'Siembra variable', 'Calidad de siembra con dron', 'Informe de cada visita'];
 var ITEMS = ['Estado del cultivo', 'Malezas, plagas y enfermedades', 'Qué hacer ahora'];
 var DETECCION = {"w":600,"h":300,"puntos":[[226.8,8.9],[486.4,6.9],[550.3,9.4],[177.5,6.8],[208.9,7.3],[346.0,11.0],[383.6,14.2],[255.3,12.5],[438.8,11.9],[149.5,9.5],[25.6,9.3],[304.8,10.6],[404.5,12.1],[592.0,13.5],[271.2,52.7],[21.3,51.2],[342.4,54.3],[177.4,53.9],[462.9,53.6],[199.7,56.3],[383.1,55.8],[232.4,53.3],[151.5,55.0],[311.1,55.0],[547.5,57.9],[72.8,55.5],[49.8,58.9],[490.1,56.7],[417.8,58.7],[99.7,57.2],[122.3,57.0],[325.8,99.5],[509.6,106.5],[229.7,101.2],[379.1,100.4],[51.2,101.6],[308.3,107.2],[398.1,102.9],[267.1,107.3],[131.7,109.8],[351.2,103.7],[586.7,105.8],[445.7,104.3],[469.4,106.8],[552.2,105.8],[76.0,105.9],[182.2,110.3],[335.0,151.0],[247.6,150.7],[541.1,151.8],[172.9,154.8],[127.4,151.3],[416.9,154.3],[273.3,152.5],[382.5,154.2],[439.8,153.2],[486.4,154.1],[200.9,157.9],[70.9,158.1],[578.8,155.7],[297.2,157.4],[510.8,155.2],[45.5,155.5],[93.3,156.5],[575.7,196.4],[360.8,198.3],[552.0,197.2],[482.4,199.0],[255.8,201.2],[437.7,198.9],[460.1,199.7],[46.0,201.3],[118.2,205.4],[293.4,201.5],[14.2,203.8],[332.4,201.6],[529.0,201.8],[92.5,206.8],[219.1,202.5],[411.0,203.0],[67.5,204.8],[154.5,204.5],[194.6,203.8],[298.3,248.8],[346.6,249.1],[271.3,249.0],[374.1,248.9],[502.2,247.1],[465.6,247.5],[540.3,245.4],[19.8,249.8],[75.6,253.8],[123.7,253.7],[226.7,251.9],[429.0,249.2],[561.6,249.7],[582.4,249.8],[56.7,253.5],[150.5,251.2],[204.1,251.2],[94.4,254.0],[395.3,251.1],[324.1,249.7],[178.2,252.1],[574.3,291.5],[166.4,293.7]]};   // plantas detectadas en img/dron/dron-01-analisis.jpg (foto real)
@@ -279,11 +280,11 @@ var tlNodos = [], tlFade = [];
   tl.innerHTML = '<div class="tl-linea"></div><div class="tl-avance" id="tl-avance"></div>';
   for (var i = 0; i < 4; i++) {
     var x = i * (850 - 29) / 3;
-    var ic = document.createElement('div'); ic.className = 'tl-ic'; ic.style.left = (x + 14.5 - 48) + 'px'; ic.innerHTML = ICONOS[i];
-    if (i === 0) ic.style.left = '0px'; if (i === 3) ic.style.left = (850 - 96) + 'px';
+    var ic = document.createElement('div'); ic.className = 'tl-ic'; ic.style.left = (x + 14.5 - 60) + 'px'; ic.innerHTML = ICONOS[i];
+    if (i === 0) ic.style.left = '0px'; if (i === 3) ic.style.left = (850 - 120) + 'px';
     var nd = document.createElement('div'); nd.className = 'tl-nodo'; nd.style.left = x + 'px';
     var lb = document.createElement('div'); lb.className = 'tl-lb'; lb.innerHTML = TL_ETQ[i];
-    lb.style.left = (i === 0 ? 0 : i === 3 ? 850 - 200 : x + 14.5 - 100) + 'px'; lb.style.textAlign = i === 0 ? 'left' : i === 3 ? 'right' : 'center';
+    lb.style.left = (i === 0 ? 0 : i === 3 ? 850 - 210 : x + 14.5 - 105) + 'px'; lb.style.textAlign = i === 0 ? 'left' : i === 3 ? 'right' : 'center';
     tl.appendChild(ic); tl.appendChild(nd); tl.appendChild(lb);
     tlNodos.push(nd); tlFade.push(ic, lb);
   }
@@ -375,9 +376,15 @@ items.forEach(function (it, i) {
 });
 
 /* ── Tipografía: que nada se corte ── */
-document.querySelectorAll('.big').forEach(function (b) { ajustar(b, 62); });
-ajustar(document.getElementById('q'), 70);
-ajustar(document.getElementById('l2'), 64);
+// Se recalcula cuando carga la tipografía de marca: con la letra de reemplazo las medidas dan mal
+function ajustarTodo() {
+  [['.big', 62], ['#q', 70], ['#l2', 64]].forEach(function (r) {
+    document.querySelectorAll(r[0]).forEach(function (n) { n.style.fontSize = ''; ajustar(n, r[1]); });
+  });
+}
+ajustarTodo();
+window.reajustar = ajustarTodo;
+if (document.fonts) document.fonts.ready.then(ajustarTodo);
 
 /* ── Línea de tiempo ── */
 var R = MODO === 'reel';
@@ -428,7 +435,7 @@ var s1 = ESC[0], M0 = (R && AP !== 'respuesta') ? s1[2] - 0.6 : 1e9;
     var tl = document.getElementById('tl'), kt0 = eout(seg(t, 1.4, 1.9));
     var ka = eio(seg(t, 1.9, 3.3)), km = eio(seg(t, M0, M0 + 0.6));
     tl.style.opacity = t < M0 + 0.62 ? kt0 : 0;
-    tl.style.top = (900 + (205 - 900) * km) + 'px';
+    tl.style.top = (880 + (168 - 880) * km) + 'px';
     document.getElementById('tl-avance').style.width = ka * (850 - 28) * (1 - km) + 'px';
     tlNodos.forEach(function (n, i) { n.className = 'tl-nodo' + (ka * 3 >= i - 0.01 && km < 0.5 ? ' on' : ''); });
     tlFade.forEach(function (f) { f.style.opacity = 1 - eio(seg(t, M0, M0 + 0.3)); });

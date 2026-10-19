@@ -56,6 +56,8 @@ if (faltan.length) {
   await pag.evaluate(() => window.render(window.REEL_DURACION * 0.5));
   await pag.evaluate(() => document.fonts.ready);
 }
+// Con las tipografías ya cargadas, que el HTML recalcule los tamaños que dependen de ellas
+await pag.evaluate(() => window.reajustar && window.reajustar());
 const dur = await pag.evaluate(() => window.REEL_DURACION);
 const escenario = pag.locator('#stage');
 

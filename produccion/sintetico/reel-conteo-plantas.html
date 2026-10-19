@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · ¿Cuántas plantas lograste?</title>
+<!--
+  Estilo: TUTORIAL CON NÚMEROS GIGANTES (fondo navy, un número enorme por paso, contador de pasos
+  arriba). Mensaje: cómo contar plantas de maíz en 1/1000 ha, en 3 pasos.
+  Datos: aritmética (10 m² ÷ distancia entre surcos); 63 plantas = EJEMPLO rotulado.
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --orange:#F5A623; --white:#FFFFFF; --ice:#E8EEF7; --steel:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:radial-gradient(ellipse 90% 60% at 50% 32%, #111b2f 0%, #0A0F1B 70%); }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px); background-size:72px 72px; }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:60; }
+.scene { position:absolute; inset:0; z-index:2; opacity:0; }
+.paso { position:absolute; left:80px; top:290px; display:flex; align-items:center; gap:18px; font-family:var(--mono); font-size:28px; letter-spacing:4px; color:var(--steel); z-index:20; }
+.paso b { display:inline-grid; place-items:center; width:64px; height:64px; border-radius:50%; background:var(--orange); color:#0A0A0A; font-weight:500; font-size:32px; letter-spacing:0; }
+.verbo { position:absolute; left:80px; top:400px; font-family:var(--arch); font-size:132px; letter-spacing:-5px; color:var(--white); line-height:1; }
+.giga { position:absolute; left:72px; top:600px; font-family:var(--mono); font-weight:500; font-size:210px; letter-spacing:-12px; color:var(--orange); line-height:1; white-space:nowrap; }
+.giga small { font-size:96px; letter-spacing:-3px; color:var(--white); margin-left:16px; }
+.nota { position:absolute; left:80px; width:820px; font-family:var(--sans); font-weight:500; font-size:38px; line-height:1.35; color:rgba(232,238,247,0.75); }
+.nota b { color:var(--white); font-weight:700; }
+.ej { position:absolute; left:80px; font-family:var(--mono); font-size:24px; letter-spacing:3px; color:var(--steel); }
+.hook { position:absolute; left:80px; width:850px; top:420px; font-family:var(--arch); font-size:112px; line-height:0.98; letter-spacing:-4px; color:var(--white); white-space:nowrap; }
+.hook .o { color:var(--orange); display:block; }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.tips { position:absolute; left:80px; width:850px; top:720px; display:flex; flex-direction:column; gap:26px; }
+.tip { display:flex; align-items:center; gap:24px; background:rgba(0,0,0,0.30); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:28px 30px; font-family:var(--sans); font-weight:700; font-size:42px; color:var(--white); }
+.tip svg { flex-shrink:0; }
+.outro { position:absolute; inset:0; z-index:40; opacity:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:0 150px 160px 80px; }
+.outro .kick { font-family:var(--mono); font-size:28px; letter-spacing:4px; color:var(--steel); text-transform:uppercase; }
+.outro .q { font-family:var(--arch); font-size:104px; line-height:0.98; letter-spacing:-3.5px; color:var(--white); margin-top:22px; }
+.outro .q span { color:var(--orange); }
+.outro .s { font-family:var(--sans); font-weight:600; font-size:36px; line-height:1.35; color:var(--ice); margin-top:28px; }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--orange); border-radius:8px; padding:24px 38px; margin-top:56px; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-size:30px; color:var(--ice); }
+.outro img.hs { height:70px; margin-top:80px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="s1">
+    <div class="hook" id="hook">¿Cuántas plantas<span class="o" id="hook2">lograste?</span></div>
+    <div class="nota" id="n1" style="top:690px">Lo sacás en 15 minutos, <b>con una cinta.</b></div>
+    <svg class="art" viewBox="0 0 1080 1920"><g id="a1"></g></svg>
+  </div>
+  <div class="scene" id="s2">
+    <div class="verbo">Medí</div>
+    <div class="giga" id="g2">0<small>m</small></div>
+    <div class="nota" style="top:850px">de surco, si sembraste a <b>52,5 cm.</b><br>A 70 cm: <b>14,29 m.</b> Son 10 m² (1/1000 ha).</div>
+    <svg class="art" viewBox="0 0 1080 1920"><g id="a2"></g></svg>
+  </div>
+  <div class="scene" id="s3">
+    <div class="verbo">Contá</div>
+    <div class="giga" id="g3">0</div>
+    <div class="nota" style="top:850px">todas las plantas en esos metros.</div>
+    <div class="ej" style="top:930px">EJEMPLO</div>
+    <svg class="art" viewBox="0 0 1080 1920"><g id="a3"></g></svg>
+  </div>
+  <div class="scene" id="s4">
+    <div class="verbo">Multiplicá</div>
+    <div class="giga" id="g4a" style="font-size:150px; letter-spacing:-8px; color:#FFFFFF">63 × 1.000</div>
+    <div class="giga" id="g4b" style="top:800px">63.000</div>
+    <div class="nota" id="n4" style="top:1030px"><b>plantas por hectárea.</b> Comparalo con las semillas que sembraste.</div>
+    <div class="ej" style="top:1170px">EJEMPLO</div>
+  </div>
+  <div class="scene" id="s5">
+    <div class="hook" style="top:420px; font-size:96px">Y no te quedes<span class="o">con un solo punto.</span></div>
+    <div class="tips" id="tips">
+      <div class="tip"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg>Repetilo en 4 o 5 puntos</div>
+      <div class="tip"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V10M12 20V6M18 20v-8"/></svg>Lomas y bajos, por separado</div>
+      <div class="tip"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M8 20v-6M12 20V8M16 20v-3"/><circle cx="16" cy="13" r="3" stroke-dasharray="3 2"/></svg>Fijate si nacieron parejas</div>
+    </div>
+  </div>
+  <div class="outro" id="outro">
+    <div class="kick">Verificación de implantación</div>
+    <div class="q">¿Lo contamos<br><span>juntos?</span></div>
+    <div class="s">Vamos a tu lote y hacemos el conteo con vos.</div>
+    <div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Mandanos un DM</div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <img class="hs" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  </div>
+  <div class="paso" id="paso"><b id="pasoN">1</b><span id="pasoT">PASO 1 DE 3</span></div>
+</div>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function back(v) { v = clamp(v); var c = 1.5; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); while (n.scrollWidth > n.clientWidth + 1 && fs > min) { fs -= 2; n.style.fontSize = fs + 'px'; } }
+window.reajustar = function () { document.querySelectorAll('.hook').forEach(function (n) { n.style.fontSize = n.id === 'hook' ? '' : '96px'; ajustar(n, 64); }); };
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+// Plántula vista de costado (mismo dibujo que el carrusel)
+function planta(g, x, base, h, color) {
+  var L = 0.46 * h, grp = el('g', {}, g);
+  el('path', { d: 'M' + x + ' ' + base + ' L' + x + ' ' + (base - 0.80 * h), stroke: color, 'stroke-width': 6, 'stroke-linecap': 'round', fill: 'none' }, grp);
+  [[base - 0.28 * h, -1], [base - 0.52 * h, 1]].forEach(function (p) { var py = p[0], s = p[1];
+    el('path', { d: 'M' + x + ' ' + py + ' Q' + (x + s * 0.20 * h) + ' ' + (py - 0.30 * h) + ' ' + (x + s * L) + ' ' + (py + 0.10 * h) + ' Q' + (x + s * 0.24 * h) + ' ' + (py - 0.08 * h) + ' ' + x + ' ' + (py + 0.07 * h) + ' Z', fill: color }, grp); });
+  var top = base - h;
+  el('path', { d: 'M' + (x - 4) + ' ' + (base - 0.78 * h) + ' Q' + (x - 0.02 * h) + ' ' + (top - 0.02 * h) + ' ' + (x + 0.14 * h) + ' ' + (top + 0.02 * h) + ' Q' + (x + 0.04 * h) + ' ' + (base - 0.86 * h) + ' ' + (x + 4) + ' ' + (base - 0.76 * h) + ' Z', fill: color }, grp);
+  grp.style.transformBox = 'fill-box'; grp.style.transformOrigin = '50% 100%';
+  return grp;
+}
+function surco(g, y, n, h) { el('line', { x1: 80, y1: y, x2: 930, y2: y, stroke: 'rgba(255,255,255,0.30)', 'stroke-width': 4 }, g); var ps = []; for (var i = 0; i < n; i++) ps.push(planta(g, 125 + i * (760 / (n - 1)), y - 4, h, '#FFFFFF')); return ps; }
+
+var p1 = surco(document.getElementById('a1'), 1380, 7, 260);
+// 2 · cinta métrica que se estira
+var a2 = document.getElementById('a2'); surco(a2, 1330, 7, 220);
+var cinta = el('rect', { x: 80, y: 1360, width: 0, height: 60, rx: 6, fill: '#F5A623' }, a2), marcas = [];
+for (var q = 0; q <= 20; q++) marcas.push(el('line', { x1: 92 + q * 41.5, y1: 1360, x2: 92 + q * 41.5, y2: 1360 + (q % 5 ? 20 : 34), stroke: '#0A0F1B', 'stroke-width': 3 }, a2));
+// 3 · plantas que aparecen una por una mientras corre el contador
+var p3 = surco(document.getElementById('a3'), 1380, 9, 190);
+
+var ESC = [['s1', 0, 3.6], ['s2', 3.6, 8.2], ['s3', 8.2, 12.6], ['s4', 12.6, 16.6], ['s5', 16.6, 20.0]];
+var T_OUT = 20.0, TOTAL = 24.0;
+window.REEL_DURACION = TOTAL;
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e[0]);
+    n.style.opacity = t >= e[1] && t < e[2] ? 1 : 0;
+    var k = i === 0 ? 1 : eout(seg(t, e[1], e[1] + 0.4));
+    n.style.transform = 'translateX(' + (1 - k) * 60 + 'px)';   // los pasos entran desde la derecha, como pasar de página
+  });
+  // contador de pasos (solo en los pasos 1–3)
+  var paso = t >= 12.6 ? 3 : t >= 8.2 ? 2 : t >= 3.6 ? 1 : 0, pz = document.getElementById('paso');
+  pz.style.opacity = paso > 0 && t < 16.6 ? 1 : 0;
+  document.getElementById('pasoN').textContent = paso; document.getElementById('pasoT').textContent = 'PASO ' + paso + ' DE 3';
+  // 1 · gancho
+  var k1 = eout(seg(t, 0.5, 1.0)), h2 = document.getElementById('hook2');
+  h2.style.opacity = k1; h2.style.transform = 'translateY(' + (1 - k1) * 24 + 'px)';
+  document.getElementById('n1').style.opacity = eout(seg(t, 1.3, 1.8));
+  p1.forEach(function (p, i) { var k = back(seg(t, 0.8 + i * 0.12, 1.4 + i * 0.12)); p.style.transform = 'scale(' + (0.2 + 0.8 * clamp(k)) + ',' + k + ')'; p.style.opacity = clamp(k * 2); });
+  // 2 · la cinta se estira y el número sube a 19,05
+  var kc = eio(seg(t, 4.0, 6.4));
+  cinta.setAttribute('width', 850 * kc);
+  marcas.forEach(function (m, i) { m.setAttribute('opacity', 92 + i * 41.5 < 80 + 850 * kc ? 1 : 0); });
+  var v2 = (19.05 * kc).toFixed(2).replace('.', ',');
+  document.getElementById('g2').innerHTML = v2 + '<small>m</small>';
+  // 3 · plantas + contador hasta 63
+  p3.forEach(function (p, i) { var k = back(seg(t, 8.6 + i * 0.28, 9.1 + i * 0.28)); p.style.transform = 'scale(' + (0.2 + 0.8 * clamp(k)) + ',' + k + ')'; p.style.opacity = clamp(k * 2); });
+  document.getElementById('g3').textContent = Math.round(63 * eout(seg(t, 8.6, 11.4)));
+  // 4 · la cuenta y el resultado
+  document.getElementById('g4a').style.opacity = eout(seg(t, 12.9, 13.3));
+  var kr = back(seg(t, 13.8, 14.4)), r = document.getElementById('g4b');
+  r.style.opacity = clamp(kr * 2); r.style.transform = 'scale(' + (0.85 + 0.15 * kr) + ')'; r.style.transformOrigin = '0 50%';
+  document.getElementById('n4').style.opacity = eout(seg(t, 14.6, 15.1));
+  // 5 · consejos (aparecen juntos)
+  var kt = eout(seg(t, 17.2, 17.9)), tp = document.getElementById('tips');
+  tp.style.opacity = kt; tp.style.transform = 'translateY(' + (1 - kt) * 40 + 'px)';
+  // cierre
+  var out = document.getElementById('outro'); out.style.opacity = t >= T_OUT ? 1 : 0;
+  out.querySelectorAll(':scope > *').forEach(function (c, i) { var k = eout(seg(t, T_OUT + i * 0.12, T_OUT + 0.45 + i * 0.12)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · Girasol: ¿cuándo se siembra?</title>
+<!--
+  Estilo: CLARO / EDITORIAL (fondo crema, tipografía navy, marcador naranja que subraya palabras,
+  calendario real de octubre y noviembre 2026). Mensaje: ventana de siembra de girasol en el oeste.
+  Datos: marbetes oficiales Nidera 26/27, región Oeste – Oeste de Buenos Aires (óptima 15/10–15/11, límite 20/11).
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --crema:#F6F4EE; --arena:#EFEAE0; --tinta:#15181E; --navy:#0D2D5E; --gris:#4A5264; --orange:#F5A623;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--crema); }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(13,45,94,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(13,45,94,0.045) 1px, transparent 1px); background-size:72px 72px; }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:60; }
+.scene { position:absolute; inset:0; z-index:2; opacity:0; }
+.kick { position:absolute; left:80px; top:300px; font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--gris); display:flex; align-items:center; gap:14px; }
+.kick i { width:14px; height:14px; border-radius:50%; background:var(--orange); display:block; }
+.t { position:absolute; left:80px; width:850px; top:360px; font-family:var(--arch); font-size:104px; line-height:1.02; letter-spacing:-3.5px; color:var(--navy); white-space:nowrap; }
+/* Marcador: un fondo naranja que se "pinta" de izquierda a derecha detrás de la palabra */
+.mk { position:relative; display:inline-block; z-index:0; }
+.mk::before { content:''; position:absolute; left:-8px; right:-8px; top:52%; height:44%; background:var(--orange); z-index:-1; transform-origin:0 50%; transform:scaleX(var(--k, 0)); border-radius:4px; }
+.sub { position:absolute; left:80px; width:780px; font-family:var(--sans); font-weight:500; font-size:40px; line-height:1.32; color:var(--gris); }
+.sub b { color:var(--tinta); font-weight:700; }
+/* Calendario */
+.cal { position:absolute; left:80px; width:850px; top:760px; display:flex; gap:66px; }
+.mes { width:392px; }
+.mes h4 { font-family:var(--mono); font-weight:500; font-size:28px; letter-spacing:4px; color:var(--navy); margin-bottom:14px; }
+.dias { display:grid; grid-template-columns:repeat(7, 56px); }
+.dias span { height:56px; display:grid; place-items:center; font-family:var(--mono); font-size:24px; color:var(--gris); position:relative; }
+.dias .ds { font-size:20px; color:rgba(74,82,100,0.6); }
+.dias .d::before { content:''; position:absolute; inset:4px; border-radius:8px; background:var(--orange); opacity:var(--k, 0); z-index:-1; }
+.dias .d.lim::before { background:repeating-linear-gradient(135deg, rgba(245,166,35,0.95) 0 6px, rgba(245,166,35,0.35) 6px 12px); }
+.dias .d { z-index:0; }
+.dias .d.on { color:var(--tinta); font-weight:500; }
+.dias .hoy::after { content:''; position:absolute; inset:0; border:3px solid var(--navy); border-radius:12px; opacity:var(--h, 0); }
+.ref { position:absolute; left:80px; top:1230px; display:flex; gap:34px; font-family:var(--mono); font-size:26px; color:var(--gris); }
+.ref span { display:flex; align-items:center; gap:12px; }
+.ref i { width:30px; height:30px; border-radius:6px; display:block; }
+.huge { position:absolute; left:72px; top:520px; font-family:var(--mono); font-weight:500; font-size:250px; letter-spacing:-12px; color:var(--navy); line-height:1; }
+.chips { position:absolute; left:80px; width:850px; top:1010px; display:flex; flex-wrap:wrap; gap:14px; }
+.chip { font-family:var(--mono); font-size:28px; color:var(--navy); background:#FFFFFF; border:2px solid rgba(13,45,94,0.18); border-radius:999px; padding:12px 22px; }
+.flor { position:absolute; left:540px; top:1200px; width:520px; height:520px; transform:translate(-50%,-50%); }
+.outro { position:absolute; inset:0; z-index:40; opacity:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:0 150px 160px 80px; }
+.outro img.hs { height:92px; }
+.outro .q { font-family:var(--arch); font-size:76px; line-height:1.02; letter-spacing:-2.5px; color:var(--navy); margin-top:70px; }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--orange); border-radius:8px; padding:24px 38px; margin-top:56px; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-size:30px; color:var(--tinta); }
+.outro .src { font-family:var(--mono); font-size:22px; color:var(--gris); margin-top:60px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- 1 · Gancho -->
+  <div class="scene" id="s1">
+    <div class="kick"><i></i>Girasol · Oeste bonaerense</div>
+    <div class="t" id="t1">¿Cuándo se siembra<br>el <span class="mk" id="mk1">girasol?</span></div>
+  </div>
+  <svg class="flor" id="flor" viewBox="-130 -130 260 260" style="z-index:3"></svg>
+  <!-- 2 · Calendario -->
+  <div class="scene" id="s2">
+    <div class="kick"><i></i>Según los marbetes Nidera</div>
+    <div class="t" id="t2" style="font-size:96px">Óptima:<br><span class="mk" id="mk2">15/10 → 15/11</span></div>
+    <div class="cal" id="cal"></div>
+    <div class="ref" id="ref"><span><i style="background:#F5A623"></i>óptima</span><span><i style="background:repeating-linear-gradient(135deg,rgba(245,166,35,.95) 0 5px,rgba(245,166,35,.35) 5px 10px)"></i>límite</span><span><i style="border:3px solid #0D2D5E"></i>hoy</span></div>
+  </div>
+  <!-- 3 · Fecha límite -->
+  <div class="scene" id="s3">
+    <div class="kick"><i></i>Fecha límite</div>
+    <div class="huge" id="huge">20/11</div>
+    <div class="sub" style="top:800px">La misma ventana para los <b>4 girasoles Nidera:</b></div>
+    <div class="chips" id="chips3"><span class="chip">NS 1113 CL</span><span class="chip">NS 1115 CL</span><span class="chip">NS 1117 CL</span><span class="chip">NS 1227 CL HO</span></div>
+  </div>
+  <!-- 4 · Consejo -->
+  <div class="scene" id="s4">
+    <div class="kick"><i></i>El consejo</div>
+    <div class="t" id="t4" style="font-size:96px">Hay tiempo<br>para <span class="mk" id="mk4">sembrar bien.</span></div>
+    <div class="sub" id="sub4" style="top:640px">Mejor esperar <b>piso y humedad</b> que apurarse: una implantación despareja <b>no se corrige después.</b></div>
+  </div>
+  <div class="outro" id="outro">
+    <img class="hs" src="../../docs/assets/logo-henderseeds-navy.png" alt="HenderSeeds">
+    <div class="q">¿Dudas de densidad<br>o de qué híbrido va<br>en tu lote?</div>
+    <div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Mandanos un DM</div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <div class="src">Fuente: marbetes oficiales Nidera 26/27 · región Oeste de Buenos Aires.<br>CLEARFIELD® es marca registrada de BASF. RED.IN · Nidera Semillas.</div>
+  </div>
+</div>
+<script>
+var HOY = 22;   // día de octubre que se marca como "hoy" (publicación jueves 22/10)
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); while (n.scrollWidth > n.clientWidth + 1 && fs > min) { fs -= 2; n.style.fontSize = fs + 'px'; } }
+window.reajustar = function () { ['t1', 't2', 't4'].forEach(function (id) { var n = document.getElementById(id); n.style.fontSize = ''; ajustar(n, 64); }); };
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+/* Girasol de línea: centro + 2 coronas de pétalos */
+var NS = 'http://www.w3.org/2000/svg', flor = document.getElementById('flor'), petalos = [];
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; }
+var gf = el('g', {}, flor);
+for (var i = 0; i < 16; i++) {
+  var ang = i * 22.5;
+  petalos.push(el('path', { d: 'M0 -46 C 16 -70, 14 -104, 0 -122 C -14 -104, -16 -70, 0 -46 Z', fill: i % 2 ? '#F5A623' : 'rgba(245,166,35,0.55)', stroke: '#0D2D5E', 'stroke-width': 2.5, transform: 'rotate(' + ang + ')' }, gf));
+}
+el('circle', { cx: 0, cy: 0, r: 46, fill: '#0D2D5E' }, gf);
+for (var s = 0; s < 22; s++) { var a = s * 2.4, r = 6 * Math.sqrt(s + 1); el('circle', { cx: r * Math.cos(a), cy: r * Math.sin(a), r: 3.2, fill: '#F6F4EE', opacity: 0.6 }, gf); }
+
+/* Calendario oct–nov 2026 (semana que arranca el lunes; el 1/10/2026 es jueves, el 1/11 domingo) */
+var cal = document.getElementById('cal'), celdas = [];
+[['OCTUBRE 2026', 31, 3, 10], ['NOVIEMBRE 2026', 30, 6, 11]].forEach(function (m) {
+  var html = '<div class="mes"><h4>' + m[0] + '</h4><div class="dias">' + ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(function (d) { return '<span class="ds">' + d + '</span>'; }).join('');
+  for (var k = 0; k < m[2]; k++) html += '<span></span>';
+  for (var d = 1; d <= m[1]; d++) html += '<span class="d" data-m="' + m[3] + '" data-d="' + d + '">' + d + '</span>';
+  cal.insertAdjacentHTML('beforeend', html + '</div></div>');
+});
+cal.querySelectorAll('.d').forEach(function (c) {
+  var m = +c.dataset.m, d = +c.dataset.d, n = m === 10 ? d : 31 + d;   // número de día desde el 1/10
+  var opt = n >= 15 && n <= 46, lim = n >= 47 && n <= 51;
+  if (lim) c.classList.add('lim');
+  if (m === 10 && d === HOY) c.classList.add('hoy');
+  if (opt || lim) celdas.push({ n: n, el: c });
+});
+
+var ESC = [['s1', 0, 3.8], ['s2', 3.8, 10.2], ['s3', 10.2, 14.4], ['s4', 14.4, 18.4]];
+var T_OUT = 18.4, TOTAL = 22.4;
+window.REEL_DURACION = TOTAL;
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e[0]);
+    n.style.opacity = i === 0 ? (t < e[2] ? 1 : 0) : (t >= e[1] && t < e[2] ? 1 : 0);
+    // entrada editorial: el bloque sube 40 px en 0,45 s (sin fundidos superpuestos)
+    var k = i === 0 ? 1 : eout(seg(t, e[1], e[1] + 0.45));
+    n.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
+  });
+  // 1 · marcador sobre "girasol" y la flor que gira lento
+  document.getElementById('mk1').style.setProperty('--k', eio(seg(t, 0.7, 1.4)));
+  // la flor: grande en el gancho, oculta en el calendario, chica abajo a la derecha en el cierre de datos
+  var fl = document.getElementById('flor'), enCal = t >= 3.8 && t < 10.2, chica = t >= 10.2 && t < 18.4;
+  fl.style.opacity = t < 3.8 ? eout(seg(t, 0.2, 0.9)) : enCal ? 0 : chica ? eout(seg(t, 10.4, 10.9)) : 0;
+  fl.style.left = chica ? '820px' : '540px'; fl.style.top = chica ? '1380px' : '1200px';
+  fl.style.width = chica ? '320px' : '520px'; fl.style.height = chica ? '320px' : '520px';
+  gf.setAttribute('transform', 'rotate(' + t * 14 + ') scale(' + (0.92 + 0.08 * eout(seg(t, 0.2, 1.2))) + ')');
+  // 2 · marcador + días que se pintan en orden
+  document.getElementById('mk2').style.setProperty('--k', eio(seg(t, 4.3, 5.0)));
+  var kp = seg(t, 5.0, 7.6);
+  celdas.forEach(function (c) { var on = kp * 37 >= c.n - 14; c.el.style.setProperty('--k', on ? 1 : 0); c.el.classList.toggle('on', on && !c.el.classList.contains('lim')); });
+  cal.querySelectorAll('.hoy').forEach(function (h) { h.style.setProperty('--h', eout(seg(t, 7.8, 8.2))); });
+  document.getElementById('ref').style.opacity = eout(seg(t, 7.8, 8.3));
+  // 3 · fecha límite grande + chips
+  var kh = eout(seg(t, 10.3, 10.9));
+  document.getElementById('huge').style.transform = 'scale(' + (0.9 + 0.1 * kh) + ')';
+  document.querySelectorAll('#chips3 .chip').forEach(function (c, i) { var k = eout(seg(t, 11.4 + i * 0.15, 11.8 + i * 0.15)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 16 + 'px)'; });
+  // 4 · marcador + bajada
+  document.getElementById('mk4').style.setProperty('--k', eio(seg(t, 14.9, 15.6)));
+  document.getElementById('sub4').style.opacity = eout(seg(t, 15.6, 16.2));
+  // cierre
+  var o = t >= T_OUT ? 1 : 0, out = document.getElementById('outro');
+  out.style.opacity = o;
+  out.querySelectorAll(':scope > *').forEach(function (c, i) { var k = eout(seg(t, T_OUT + i * 0.12, T_OUT + 0.45 + i * 0.12)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>
