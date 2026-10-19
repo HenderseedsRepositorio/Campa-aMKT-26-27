@@ -26,7 +26,8 @@ produccion/sintetico/reel-experiencia-v5.html --v 3` (31 s; la línea de tiempo 
 - Mismo día, **compartirlo en historia** con sticker de encuesta: "¿Ya medís la calidad de siembra?
   Sí / Todavía no" → a los que voten "Todavía no", responderles por DM.
 - Horario: mar 20/10, 7–9 h o 20–22 h. Si en 48 h tiene buena retención, pautarlo (ver brief W43).
-- Colaboración con la cuenta de Nidera (Collab de IG) **solo con su OK**.
+- Colaboración con Nidera (Collab de IG): el OK de marca ya está; se invita a la cuenta de Nidera al
+  publicar y sale en las dos cuentas solo cuando ellos aceptan la invitación.
 - **Voz en off y clip real:** guion y pasos en [2026-W43-video1-voz-y-clip.md](2026-W43-video1-voz-y-clip.md).
 
 **Caption:**
@@ -93,5 +94,5 @@ Datos: marbetes Nidera 26/27, siembra tardía templada vs. índice ambiental (NS
 Cierre del video y última línea del caption: "Pedí tu recomendación por DM".
 
 ## Pendientes comunes
-- `[COMPLETAR: OK de Nidera para usar su logo y los nombres "Experiencia Nidera" / "Nidera Vuela"]`
-- `[COMPLETAR: confirmar que los servicios del video 1 valen para todos los clientes]`
+- ✅ OK de Nidera para usar su logo y los nombres "Experiencia Nidera" / "Nidera Vuela" (confirmado 19/10).
+- ✅ Los servicios del video 1 valen para todos los clientes (confirmado 19/10).

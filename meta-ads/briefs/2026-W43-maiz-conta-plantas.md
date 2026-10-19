@@ -2,8 +2,11 @@
 
 - **Post asociado:** [`posts/2026-W43/post-03-maiz-conta-plantas.md`](../../posts/2026-W43/post-03-maiz-conta-plantas.md) + Reel 3 (`reels/2026-W43-reels-semana.md`)
 - **Objetivo en Meta:** Mensajes (destinos: Instagram Direct + WhatsApp)
-- **Presupuesto:** $`[COMPLETAR]` por día × 7 días (total $`[COMPLETAR]`).
-  Referencia propia: el reel de márgenes W27 se pautó a $15.000/día × 7 días.
+- **Presupuesto:** **$15.000 por día × 7 días (total $105.000)**. Definido 19/10.
+  Es el mismo monto que el reel de márgenes W27, así los resultados se pueden comparar. El público es
+  chico (4 partidos): más plata no trae más gente, trae más repeticiones a los mismos.
+  - **A las 72 h:** si el costo por conversación está bien y la frecuencia es menor a 2 → subir a $20.000/día.
+  - Si la frecuencia pasa 2,5 o el costo por conversación duplica la referencia → cortar o cambiar la pieza.
 - **Duración:** del 2026-10-26 al 2026-11-01 (arrancar el lunes, después de 48 h de orgánico)
 - **Por qué se pauta este post:** es contenido útil (se guarda y se comparte), llega justo cuando el maíz temprano está emergiendo y termina en un servicio concreto (recorrida/conteo en el lote), que es la puerta de entrada a la relación comercial.
 

@@ -53,9 +53,8 @@
 > ¿Lo vemos para tu campo? Mandanos un DM o escribinos por WhatsApp 📲 wa.me/5492314530691
 > #Henderseeds #Nidera #ExperienciaNidera #Maiz #Girasol #Henderson #Daireaux #Bolivar
 >
-> **Pendientes antes de publicar:** `[COMPLETAR: OK de Nidera para usar el logo y nombrar "Experiencia
-> Nidera" y "Nidera Vuela"]` · `[COMPLETAR: confirmar que los 4 servicios valen para todos los clientes;
-> si no, sacar "en cada etapa"]` · El "106 plantas detectadas" es el conteo de nuestra prueba (coincide con
+> **Confirmado 19/10:** OK de Nidera para el logo y los nombres "Experiencia Nidera" y "Nidera Vuela";
+> los 4 servicios valen para todos los clientes. · El "106 plantas detectadas" es el conteo de nuestra prueba (coincide con
 > los anillos que se ven), no un dato de Nidera Vuela.
 >
 > 🎬 **v4 "Experiencia Nidera" (19/10):** reel general del acompañamiento, 37 s →

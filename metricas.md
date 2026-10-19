@@ -73,7 +73,7 @@ atribuibles al post · WA = ídem por WhatsApp.
 | Campaña | Período | Inversión | Mensajes iniciados | Costo por mensaje | Notas |
 |---------|---------|-----------|--------------------|--------------------|-------|
 | Reel Márgenes v2 | 26/06–03/07 | $15.000/día × 7 | `[COMPLETAR]` | `[COMPLETAR]` | objetivo: WhatsApp |
-| [Maíz: ahora contá](meta-ads/briefs/2026-W43-maiz-conta-plantas.md) | 26/10–01/11 | `[COMPLETAR]` | | | objetivo: Mensajes (DM + WA) |
+| [Maíz: ahora contá](meta-ads/briefs/2026-W43-maiz-conta-plantas.md) | 26/10–01/11 | $15.000/día × 7 | | | objetivo: Mensajes (DM + WA) · reel + planilla · anotar planillas enviadas y recorridas |
 
 ---
 
