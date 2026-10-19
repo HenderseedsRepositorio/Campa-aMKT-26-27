@@ -6,7 +6,8 @@ name: Publicar página en GitHub Pages
 
 on:
   push:
-    branches: [claude/peaceful-sagan-srghou]
+    # Desde el 07/10/2026 todo vive en main (se juntaron las 8 ramas). Solo main publica.
+    branches: [main]
     paths:
       - "docs/**"
       - "scripts/**"
@@ -45,3 +46,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
           publish_branch: gh-pages
+          # En gh-pages hay páginas subidas a mano (agosto 2026, carpeta docs/placas/ de gh-pages:
+          # NS 7765, NS 7921, carrusel y galería W31) que no están en ninguna rama: no borrarlas.
+          keep_files: true

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Calculadora: ¿maíz o girasol?</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .app { border-radius: 26px; background: #0E1628; border: 1.5px solid var(--line-2); overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+.hs .app-top { display: flex; align-items: center; justify-content: space-between; padding: 22px 30px; border-bottom: 1.5px solid var(--line); }
+.hs .app-top .t { font: 700 26px/1 var(--f-sans); color: var(--txt); }
+.hs .app-top .t small { display: block; font: 500 18px/1 var(--f-mono); color: var(--txt-3); letter-spacing: .1em; margin-top: 8px; text-transform: uppercase; }
+.hs .app-top .dots { display: flex; gap: 8px; } .hs .app-top .dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--line-2); }
+.hs .app-cols { display: grid; grid-template-columns: 1fr 1fr; }
+.hs .app-col { padding: 28px 30px 32px; }
+.hs .app-col + .app-col { border-left: 1.5px solid var(--line); }
+.hs .app-col h4 { font: 500 24px/1 var(--f-mono); letter-spacing: .16em; color: var(--amber); }
+.hs .app-col .k { font: 500 22px/1.2 var(--f-mono); color: var(--txt-3); margin-top: 26px; letter-spacing: .04em; }
+.hs .app-col .v { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; font-family: var(--f-arch); color: var(--txt); letter-spacing: -.02em; }
+.hs .app-col .v .cur { font: 600 30px/1 var(--f-sans); color: var(--txt-2); letter-spacing: 0; }
+.hs .app-col .v .q { font-size: 84px; line-height: .95; color: var(--amber); }
+.hs .app-col .v .un { font: 600 26px/1 var(--f-sans); color: var(--txt-3); letter-spacing: 0; }
+.hs .app-col .v.sm .q { font-size: 60px; }
+.hs .url { display: inline-flex; align-items: center; gap: 0; font: 500 40px/1 var(--f-mono); color: var(--txt); padding: 20px 26px; border-radius: 16px; background: var(--amber-soft); border: 1.5px solid rgba(245,166,35,.45); }
+.hs .url b { color: var(--amber); font-weight: 500; }
+.hs .url small { font: 500 20px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); }
+/* odómetro */
+.hs .odo { display: inline-block; height: 1.02em; overflow: hidden; vertical-align: bottom; line-height: 1.02; }
+.hs .odo span { display: block; height: 1.02em; }
+@keyframes odoRoll { from { transform: translateY(0); } to { transform: translateY(calc(-1.02em * var(--n))); } }
+.hs .odo .strip { transform: translateY(calc(-1.02em * var(--n))); }
+.hs.play .odo .strip { animation: odoRoll var(--dur, 2.2s) cubic-bezier(.15,.7,.2,1) var(--d, 0s) both; }
+
+#calc-A .h1 { font-size: 104px; margin-top: 40px; }
+#calc-A .lede { margin-top: 18px; }
+#calc-A .app { margin-top: 40px; }
+#calc-A .urlrow { margin-top: 36px; display: flex; align-items: center; gap: 20px; }
+
+#calc-S .inner { position: absolute; left: 84px; right: 84px; top: 200px; }
+#calc-S .h1 { font-size: 122px; margin-top: 26px; }
+#calc-S .app { margin-top: 56px; }
+#calc-S .app-col .v .q { font-size: 96px; }
+#calc-S .tus { margin-top: 40px; font: 700 46px/1.2 var(--f-sans); color: var(--txt); }
+#calc-S .slot { position: absolute; left: 84px; right: 140px; top: 1330px; height: 180px; border-radius: 24px; border: 3px dashed rgba(245,166,35,.55); }
+#calc-S .slot span { position: absolute; left: 28px; top: -17px; padding: 0 12px; background: #0A0F1B; font: 500 24px/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+#calc-S .type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; }
+/* variante clara */
+#calc-L .h1 { font-size: 104px; margin-top: 40px; }
+#calc-L .lede { margin-top: 18px; }
+#calc-L .app { margin-top: 40px; }
+#calc-L .urlrow { margin-top: 36px; display: flex; align-items: center; gap: 20px; }
+/* variante clara: la app queda oscura, como una pantalla sobre la mesa */
+#calc-L .app { box-shadow: 0 30px 70px rgba(13,45,94,.28); }
+#calc-L .app .app-top .t, #calc-L .app .app-col .v { color: #F2F5FA; }
+#calc-L .app .app-col .k, #calc-L .app .app-top .t small { color: #7F8DA6; }
+#calc-L .app .app-col + .app-col, #calc-L .app .app-top { border-color: rgba(255,255,255,.12); }
+#calc-L .url { color: #121826; background: rgba(245,166,35,.16); }
+#calc-L .url b { color: #B36F00; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "calculadora-maiz-girasol",
+  "concepto": "Calculadora · ¿maíz o girasol en ese lote?",
+  "pilar": "Herramientas",
+  "semana": "2026-W41",
+  "fecha": "mié 07/10 · 20–22 h (placa) · historia con link el mismo día",
+  "porque": "Es la pregunta de estas semanas: el lote que todavía no está definido va a maíz o a girasol. La calculadora es el diferencial que ninguna otra reventa tiene y la comparación lado a lado es justo lo que hace. No mostramos números inventados: los signos de pregunta invitan a poner los propios.",
+  "pauta": "Sí, en la historia con link (objetivo Tráfico a margen.henderseeds.com con UTM), 5 días. Quien entra a la calculadora pasa a ser público tibio para retargeting.",
+  "caption": "¿Maíz o girasol en ese lote? 🌽🌻\n\nLa respuesta no está en una placa: está en tus números. Con la calculadora de márgenes cargás alquiler, labores, insumos, flete y precio, y te devuelve el margen por hectárea de los dos cultivos, lado a lado.\n\nGratis y sin registro, desde el celular.\n\n📲 margen.henderseeds.com (link en la bio)\n📩 ¿Preferís que lo hagamos juntos? Mandanos tus números por DM.",
+  "hashtags": "#Henderseeds #MargenesAgricolas #Maiz2627 #Girasol2627 #Herramientas #Henderson #Daireaux #Bolivar",
+  "fuentes": "Herramienta propia: margen.henderseeds.com (contexto/herramientas.md). UTM sugerido para el link: ?utm_source=instagram&utm_medium=historia&utm_campaign=siembra2627",
+  "opciones": [
+    {
+      "slide": "calc-A",
+      "nombre": "Placa feed 4:5",
+      "nota": "La app como protagonista, sin números inventados."
+    },
+    {
+      "slide": "calc-L",
+      "nombre": "Variante crema",
+      "nota": "Recomendada para el feed: la app oscura sobre crema se ve como una pantalla."
+    },
+    {
+      "slide": "calc-S",
+      "nombre": "Historia animada 9:16 · 8 s",
+      "nota": "Los números giran como odómetro y caen en '?'. Poné el sticker de link en el recuadro punteado."
+    }
+  ]
+}
+</script>
+
+<!-- ═════════ A · FEED 4:5 ═════════ -->
+<section class="slide hs" id="calc-A" data-name="2026-W41-calculadora-maiz-girasol-A">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Herramientas Henderseeds</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">¿Maíz o girasol <span class="hl">en ese lote?</span></h1>
+    <p class="lede">Cargá tus números y compará el margen por hectárea de los dos, <b>lado a lado</b>.</p>
+
+    <div class="app">
+      <div class="app-top"><div class="t">Márgenes agrícolas<small>Campaña 26/27</small></div><div class="dots"><i></i><i></i><i></i></div></div>
+      <div class="app-cols">
+        <div class="app-col">
+          <h4>MAÍZ</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q">?</span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q">?</span><span class="un">qq/ha</span></div>
+        </div>
+        <div class="app-col">
+          <h4>GIRASOL</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q">?</span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q">?</span><span class="un">qq/ha</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="urlrow"><span class="url"><b>margen</b>.henderseeds.com</span><small class="label">Sin registro</small></div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos juntos? Mandanos tus números por DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ═════════ VARIANTE CLARA (crema) ═════════ -->
+<section class="slide hs light" id="calc-L" data-name="2026-W41-calculadora-maiz-girasol-L">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Herramientas Henderseeds</div>
+      <img class="logo-hs" src="../assets/logo-hs-navy-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">¿Maíz o girasol <span class="hl">en ese lote?</span></h1>
+    <p class="lede">Cargá tus números y compará el margen por hectárea de los dos, <b>lado a lado</b>.</p>
+
+    <div class="app">
+      <div class="app-top"><div class="t">Márgenes agrícolas<small>Campaña 26/27</small></div><div class="dots"><i></i><i></i><i></i></div></div>
+      <div class="app-cols">
+        <div class="app-col">
+          <h4>MAÍZ</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q">?</span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q">?</span><span class="un">qq/ha</span></div>
+        </div>
+        <div class="app-col">
+          <h4>GIRASOL</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q">?</span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q">?</span><span class="un">qq/ha</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="urlrow"><span class="url"><b>margen</b>.henderseeds.com</span><small class="label">Sin registro</small></div>
+
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Lo hacemos juntos? Mandanos tus números por DM.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ═════════ S · HISTORIA 9:16 animada (8 s) ═════════ -->
+<section class="slide hs story anim" id="calc-S" data-name="2026-W41-calculadora-maiz-girasol-historia" data-dur="8" data-hold="3">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="inner">
+    <div class="hd a-hook" style="--d:0s">
+      <div class="kicker"><span class="led"></span>Herramientas</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </div>
+    <h1 class="h1 a-hook" style="--d:0s">¿Maíz o <span class="hl">girasol?</span></h1>
+
+    <div class="app a-up" style="--d:.6s">
+      <div class="app-top"><div class="t">Márgenes agrícolas<small>Campaña 26/27</small></div><div class="dots"><i></i><i></i><i></i></div></div>
+      <div class="app-cols">
+        <div class="app-col">
+          <h4>MAÍZ</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q"><span class="odo" style="--n:10;--d:1.0s;--dur:2.4s"><span class="strip"><span>4</span><span>7</span><span>2</span><span>9</span><span>1</span><span>6</span><span>3</span><span>8</span><span>5</span><span>0</span><span>?</span></span></span></span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q"><span class="odo" style="--n:10;--d:1.2s;--dur:2.4s"><span class="strip"><span>6</span><span>1</span><span>8</span><span>3</span><span>9</span><span>2</span><span>7</span><span>4</span><span>5</span><span>0</span><span>?</span></span></span></span><span class="un">qq/ha</span></div>
+        </div>
+        <div class="app-col">
+          <h4>GIRASOL</h4>
+          <div class="k">Margen bruto</div>
+          <div class="v"><span class="cur">USD</span><span class="q"><span class="odo" style="--n:10;--d:1.1s;--dur:2.6s"><span class="strip"><span>3</span><span>8</span><span>5</span><span>1</span><span>7</span><span>0</span><span>9</span><span>2</span><span>6</span><span>4</span><span>?</span></span></span></span><span class="un">/ha</span></div>
+          <div class="k">Rinde de indiferencia</div>
+          <div class="v sm"><span class="q"><span class="odo" style="--n:10;--d:1.3s;--dur:2.6s"><span class="strip"><span>2</span><span>9</span><span>4</span><span>7</span><span>0</span><span>5</span><span>1</span><span>8</span><span>3</span><span>6</span><span>?</span></span></span></span><span class="un">qq/ha</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="tus a-up" style="--d:4.0s">Tus números, <span class="hl">tu respuesta.</span></p>
+    <div class="url a-in" style="--d:4.6s;margin-top:34px"><span class="type a-type" style="--d:4.9s;--chars:22ch;--steps:22;--dur:1.3s"><b>margen</b>.henderseeds.com</span></div>
+  </div>
+  <div class="slot a-fade" style="--d:6.4s"><span>Link · gratis · sin registro</span></div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

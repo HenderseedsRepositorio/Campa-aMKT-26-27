@@ -47,7 +47,14 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 - **Hashtags:** máximo 8, al final. Mezclar marca + cultivo + zona.
   Base: #Henderseeds #Nidera + cultivo + zona (Henderson/Daireaux/Bolivar).
 
-### B) Pieza visual (descripción precisa)
+### B) Pieza visual (descripción precisa + HTML)
+- Desde W40 la pieza se construye en HTML con el sistema **Siembra 26/27**:
+  `docs/assets/hs2627.css` + `docs/assets/hs-anim.js`. Copiar la estructura de cualquier
+  `docs/placas/2026-W4*.html` (header con logo HD, pie con sello Nidera negativo + WhatsApp) y
+  cargar el texto, hashtags, horario, pauta y fuentes en `<script type="application/json" class="hs-meta">`.
+- Legibilidad en el celular: nada por debajo de 19 px en el canvas de 1080; lectura desde 30 px.
+- Animación (reels/historias 9:16): clases `a-up`, `a-fade`, `a-pop`, `a-growx`… con `--d` (segundos)
+  y `data-dur` en la slide; `npm run videos` la graba a MP4.
 - Describir composición, textos que van EN la pieza, dato destacado,
   foto de referencia, colores exactos de `brand/identidad.md`.
 - Fondo navy oscuro (`#0A0F1B`) por defecto, estilo agro-tech.
@@ -58,6 +65,11 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 ### C) Validación de datos
 - Todo dato numérico (rinde, kg/ha, qq/ha, % éxito) DEBE venir de
   `contexto/productos-26-27.md` con fuente "marbete oficial Nidera".
+- Ante la duda, abrir el PDF del marbete (`contexto/marbetes/`): el 24/09 se encontró la fecha de
+  siembra del girasol mal cargada (era la fila Norte) y un "Spiroplasma 3" que el marbete no dice.
+- Decir "comparaciones", no "ensayos". Traducir "vs. índice ambiental" como "sobre el promedio de
+  cada sitio de ensayo". Escala sanitaria: 1 = excelente, 9 = deficiente, R = resistencia genética.
+- **Nunca usar `brand/referencias/hibridos-nidera.md`** (tiene precios y datos que contradicen los marbetes).
 - Si falta un dato: poner `[COMPLETAR: qué falta]` y listarlo al final.
 - **NUNCA inventar rindes, precios, descuentos ni condiciones comerciales.**
 - **NUNCA publicar % de descuento ni precios.** Hablar de "precampaña" en general.
@@ -73,10 +85,35 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 - Si hay MCP de Canva conectado, armar directo en Canva y poner el link.
 
 ### Reel
-- Guion en `reels/` según `reels/_plantilla-reel.md`.
-- Hook en los primeros 3 segundos.
-- Subtítulos siempre (se mira sin audio).
-- Duración ideal: 30-60 segundos.
+- **Reel animado (lo que se usa desde W40):** HTML en `docs/placas/AAAA-Www-reel-tema.html` con el
+  sistema Siembra 26/27 (copiar cualquiera de la serie `*-reel-*.html`). Reglas de la serie:
+  - 11–13 s, 3 o 4 escenas; el gancho ya está escrito en el **cuadro 0** (`a-hook`, escena con `--in:-1s`).
+  - Texto arriba (y 250–700); abajo tapa el caption (~420 px) y a la derecha los botones (~130 px).
+  - Un dato del marbete, una sola idea, cierre a WhatsApp (endcard con logo, sello Nidera y 2314 53-0691).
+  - Entre escena y escena, ~0,5 s de respiro: sale un texto y recién después entra el otro (nunca se pisan).
+    El video sale mudo: el audio se suma en Instagram.
+  - Tapa aparte (`.hs.story.tapa`) con todo dentro del recorte 3:4 de la grilla (y 290–1630).
+  - Girasol realista y plantas de maíz: `<!--@girasol flor-->…<!--/@girasol-->`, `campo`, `disco`,
+    `<!--@maiz defs-->` y `lote`, rellenados con `python3 scripts/lib/inyectar-girasol.py <pieza>`.
+  - **Marca fija:** `<div class="marca-fija"><img src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds"></div>`
+    justo después de `<div class="topbar"></div>`, DENTRO de la sección R (no de la T): logo chico y
+    discreto arriba a la derecha, visible todo el video (no está dentro de una `.scene`, así no se
+    apaga con las transiciones). Zona segura para reel, historia y Estado de WhatsApp.
+  - Para un dato "fuerte" en una tarjeta: clase `.tarjeta.acento` (borde ámbar arriba) + `.icono-linea`
+    (ícono + texto) con los símbolos `hs-top` (techo/ventaja) o `hs-shield` (sanidad/garantía) si aplican.
+  - `npm run videos -- reel-tema` graba el MP4; `node scripts/armar-reels.mjs` rearma `docs/reels-siembra/`.
+- **Nada introductorio:** el productor ya sabe leer un marbete. Nada de "cómo leer…", almanaques
+  para guardar ni teasers tipo "mirá este número": dato directo + pedido de contacto.
+- **Maíz: producto, no ranking.** En maíz no somos líderes: no armar piezas que comparen híbridos por
+  su ventaja en ensayos. Mostrar un híbrido nuestro con su tecnología (VIPTERA3, CL) y lo que dice su
+  marbete (sanidad, madurez, posicionamiento). Referencia: `docs/placas/2026-W41-reel-ns7925.html`.
+- **Fechas en su momento:** no preguntar por lo que todavía no pasó (ej.: "¿tu lote tuvo Phomopsis?"
+  antes de la siembra). Antes de sembrar, la decisión es qué híbrido va en cada lote.
+- **Márgenes sin números inventados:** para explicar el margen, la barra de cómo se compone la hectárea
+  (alquiler, semilla e insumos, labores, cosecha, flete, margen) como ejemplo ilustrativo, y el link
+  a margen.henderseeds.com para que cada uno ponga sus números.
+- Guion de reel filmado (con persona/cámara): en `reels/` según `reels/_plantilla-reel.md`.
+  Hook en los primeros 3 segundos, subtítulos siempre (se mira sin audio).
 
 ### Brief de pauta
 - Si el post va con pauta → crear brief en `meta-ads/briefs/AAAA-Www-tema.md`.
@@ -122,7 +159,7 @@ Al terminar, dar un resumen con:
 4. **Nunca marketing genérico.** Prohibido: "imperdible", "no te lo pierdas", "calidad premium", "líder", "revolucionario".
 5. **Máximo 8 hashtags.**
 6. **Paleta navy + naranja.** Fondo oscuro por defecto. Naranja para UN acento por pieza.
-7. **CTA siempre a WhatsApp** (wa.me/5492314530691).
+7. **CTA siempre a la conversación privada:** en orgánico "Mandanos un DM" + WhatsApp (wa.me/5492314530691) visible; en pauta, botón "Enviar mensaje de WhatsApp".
 8. **Datos > adjetivos.** "+392 kg/ha en 191 comparaciones" vence a "excelente rendimiento".
 
 ---

@@ -40,7 +40,11 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 > calendario anual de efemérides (jul 2026 → jun 2027) con opciones de placa, prioridad y
 > método de publicación.
 
-## Agosto 2026 — ⚠️ probable tramo final de precampaña: priorizar urgencia real
+> ⏸️ **Julio–septiembre (W29–W39): no se publicó nada.** Último posteo: reel de márgenes (26/06).
+> Lo planificado para esas semanas queda como archivo. El relanzamiento arranca en W40 (ver abajo y
+> [`docs/propuesta/index.html`](docs/propuesta/index.html)).
+
+## Agosto 2026 — ⚠️ probable tramo final de precampaña: priorizar urgencia real (no ejecutado)
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|
 | 2026-W32 | 03/08 | 💡 Girasol: últimas definiciones | 💡 Condiciones de precampaña vigentes | 💡 Técnico |
@@ -49,7 +53,7 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W35 | 24/08 | 💡 "Último tramo de precampaña" (si aplica) | 💡 Financiación: aprovechar antes del cierre | 💡 Institucional |
 | 2026-W36 | 31/08 | 💡 Cuenta regresiva (si hay fecha de cierre) | 💡 Herramientas | 💡 Técnico |
 
-## Septiembre 2026 — cierre precampaña / arranque de siembra
+## Septiembre 2026 — cierre precampaña / arranque de siembra (no ejecutado)
 | Semana | Lunes | Post 1 — cultivo | Post 2 — negocio | Post 3 — comunidad |
 |--------|-------|------------------|-------------------|---------------------|
 | 2026-W37 | 07/09 | 💡 Cierre precampaña / últimas bolsas | 💡 Márgenes actualizados | 💡 Técnico: preparando la siembra |
@@ -57,7 +61,10 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W39 | 21/09 | 💡 Girasol: pre-siembra en la zona | 💡 Herramientas | 💡 Técnico: dato de siembra |
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
-## Octubre–noviembre 2026 — campaña Siembra 26/27 (maíz sembrándose, arranca girasol)
+## Octubre–noviembre 2026 — campaña Siembra 26/27 (plan vigente desde el 19/10)
+> Acordado con Henderseeds el 19/10: W43–W44 salen con los 4 reels de abajo. El plan de 9 semanas
+> ([`docs/estrategia/plan.html`](docs/estrategia/plan.html)) sigue como marco (Estados de WhatsApp, pauta A + B)
+> y sus piezas de W40–W42 quedan como banco de opciones.
 > Pausa de publicaciones entre fines de junio y mediados de octubre: lo propuesto para
 > jul–sep (💡) quedó sin publicar. Se retoma en W43 con foco **siembra / acompañamiento a campo**
 > (la precampaña ya cerró: no hablar más de "asegurá tu bolsa").
@@ -70,6 +77,29 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W44 | 26/10 | 🎬 **mar 27/10** [Reel 4: ¿Te queda maíz tardío por definir?](reels/2026-W43-reels-semana.md) · [placa](docs/placas/2026-W44-post-01-maiz-tardio.html) | ✍️ **jue 29/10** [Parte de siembra (foto real)](posts/2026-W44/post-02-parte-de-siembra.md) — ⏳ falta foto A1/A6/A8 | 💡 **sáb 31/10** carrusel conteo (feed, para guardar) o reel con tomas reales |
 | 2026-W45 | 02/11 | 💡 Girasol: emergencia y conteo (cotiledones, 7–12 días post siembra) | 💡 Calculadora de márgenes: ¿cuánto tiene que rendir el girasol? (rinde de indiferencia) | 💡 Parte de siembra #2 (foto real) |
 | 2026-W46 | 09/11 | 💡 Girasol: última semana de ventana óptima (cierra 15/11) | 💡 Herramienta financiera: tasa real de cuotas/cheques de la campaña | 💡 Testimonio corto de productor (toma B5, con OK) |
+
+> ⚠️ **Desde el 07/10/2026 manda el plan de 9 semanas: [`docs/estrategia/plan.html`](docs/estrategia/plan.html)**
+> (1 publicación por semana, Estados de WhatsApp, pauta A + B). La grilla de abajo queda como
+> referencia de las piezas hechas en septiembre; el plan elige cuáles salen y cuándo.
+
+## Plan anterior: relanzamiento W40 → W46 (propuesta 24/09/2026, no se publicó)
+Plan completo, piezas y textos: [`docs/propuesta/index.html`](docs/propuesta/index.html).
+**Arranque con reels (W40–W41):** los 6 reels juntos, con MP4, tapa y texto: [`docs/reels-siembra/index.html`](docs/reels-siembra/index.html).
+Todas las piezas en ✍️ borrador hasta que se aprueben (las dos páginas tienen botones Aprobar / Cambiar / Descartar).
+Fechas del girasol: marbete (15/10 → 15/11, límite 20/11). Cada posteo sale también como **Estado de WhatsApp** el mismo día (versión 9:16).
+Fotos reales: [`docs/foto/index.html`](docs/foto/index.html) arma la placa con marca desde el celular.
+Afuera por pedido (24/09): almanaque del girasol, refugio NS 7800, "cómo leer un marbete" y el teaser del "3" de NS 7925 → `docs/placas/_archivo/`.
+Cuarta vuelta (25/09): girasol dibujado en serio, R2 "¿qué híbrido…?", R4 pasa a "¿rinde o sanidad?" (el girasol todavía no se sembró), R5 muestra NS 7925 VIPTERA3 sin comparar ensayos (la "carrera del tardío" va a `_archivo/`) y R6 muestra la barra de cómo se compone el margen.
+
+| Semana | Foco | Feed | Reel / historias |
+|--------|------|------|------------------|
+| 2026-W40 (28/09) | Arrancar con reels | — | ✍️ [Reel: la siembra de girasol arranca el 15/10](posts/2026-W40/post-01-reel-girasol-fecha.md) (lun · 📣 [brief](meta-ads/briefs/2026-W40-reel-girasol-fecha.md)) · ✍️ [Reel: ¿qué híbrido va en tu lote? (WhatsApp)](posts/2026-W40/post-02-reel-whatsapp-lote.md) (mié) · historia encuesta (jue) · ✍️ [Reel: NS 1113 CL +2,11 qq/ha](posts/2026-W40/post-03-reel-ns1113.md) (vie) |
+| 2026-W41 (05/10) | La decisión del lote | — | ✍️ [Reel: ¿rinde o sanidad?](posts/2026-W41/post-01-reel-girasol-phomopsis.md) (lun · + encuesta real en historia) · ✍️ [Reel: maíz para diciembre, NS 7925 VIPTERA3](posts/2026-W41/post-02-reel-ns7925.md) (mié · 📣 [brief](meta-ads/briefs/2026-W41-reel-ns7925.md)) · encuesta tardío (jue) · ✍️ [Reel: ¿qué te queda de cada hectárea? (barra del margen)](posts/2026-W41/post-03-reel-calculadora.md) (vie · + historia con link) |
+| 2026-W42 (12/10) | Abre la ventana del girasol | ✍️ [Carrusel girasol: techo o sanidad](posts/2026-W42/post-01-girasol-carrusel.md) (lun) · 📷 foto real: arranca la siembra `[COMPLETAR]` (jue 15/10) · ✍️ [Día de la Madre](posts/2026-W42/post-02-dia-de-la-madre.md) (dom 18/10 · versión crema) | cuenta regresiva al 15/10 (mié) |
+| 2026-W43 (19/10) | Tardío con datos | ✍️ [NS 7765: las dos fechas](posts/2026-W43/post-01-ns7765-dos-fechas.md) (lun) · ✍️ [NS 7925: Spiroplasma 3](posts/2026-W43/post-02-ns7925-spiroplasma.md) (mié) · 📷 foto real con el [generador](docs/foto/index.html) `[COMPLETAR]` (sáb) | — |
+| 2026-W44 (26/10) | Servicio y números | ✍️ [¿Pesos o dólares?](posts/2026-W44/post-01-finanzas-pesos-dolares.md) (mar) · ✍️ [Implantación](posts/2026-W44/post-02-implantacion.md) (jue · versión crema) · ✍️ [Somos de acá](posts/2026-W44/post-03-somos-de-aca.md) (sáb · versión crema · 📣 [brief](meta-ads/briefs/2026-W40-somos-de-aca-siempre.md)) | — |
+| 2026-W45 (02/11) | Tardío: el lote difícil | ✍️ [Carrusel tardío: ¿cuál va en tu lote?](posts/2026-W45/post-01-maiz-tardio-carrusel.md) (lun) · 📷 foto con frase de un productor `[COMPLETAR]` (sáb) | historia calculadora con link (vie) |
+| 2026-W46 (09/11) | Cierre de ventana | 📷 girasol: última semana de fecha óptima (foto + plantilla Dato) `[COMPLETAR]` (mié) | historia Día de la Tradición (mar 10/11) · 📣 re-pauta del reel de NS 7925 como **anuncio**, no posteo nuevo ([brief](meta-ads/briefs/2026-W41-reel-ns7925.md)) (jue) |
 
 ## Reglas de mantenimiento
 - Al generar un lote semanal: actualizar el estado (💡 → ✍️) y linkear el archivo del post.

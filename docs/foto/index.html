@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Placa con foto · HenderSeeds</title>
+<meta name="description" content="Subí una foto del lote y bajá una placa con la marca HenderSeeds lista para Instagram (feed 4:5 o historia 9:16).">
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<style>
+:root {
+  --bg: #0A0F1B; --panel: #101829; --panel-2: #16213A; --line: rgba(255,255,255,.10); --line-2: rgba(255,255,255,.2);
+  --ink: #EEF2F8; --ink-2: #BFCADB; --ink-3: #8C9AB3; --amber: #F5A623; --ok: #6FD6A0;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.5 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--amber); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 18px; }
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+header.top .links { display: flex; gap: 14px; font: 500 13px 'DM Mono', monospace; }
+header.top .links a { color: var(--ink-3); text-decoration: none; }
+.eyebrow { font: 500 12.5px/1.3 'DM Mono', monospace; letter-spacing: .13em; text-transform: uppercase; color: var(--amber); }
+h1 { font: 400 clamp(32px, 5vw, 54px)/1 'Archivo Black', sans-serif; letter-spacing: -.03em; margin: 10px 0 10px; }
+.intro { color: var(--ink-2); max-width: 70ch; margin: 0 0 22px; }
+.app { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 28px; align-items: start; padding-bottom: 60px; }
+.vista { position: sticky; top: 14px; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.vista canvas { width: 100%; max-width: 560px; height: auto; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,.5); background: #000; display: block; }
+.vista .nota { font-size: 13.5px; color: var(--ink-3); text-align: center; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 18px; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+legend, .lab { font: 500 12px/1.2 'DM Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; padding: 0; }
+.opciones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.opciones.dos { grid-template-columns: repeat(2, 1fr); }
+.opciones label { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 11px 12px; border-radius: 12px; border: 1.5px solid var(--line-2); cursor: pointer; font-weight: 600; font-size: 14.5px; }
+.opciones label small { font-weight: 400; font-size: 12.5px; color: var(--ink-3); line-height: 1.3; }
+.opciones input { position: absolute; opacity: 0; pointer-events: none; }
+.opciones label:has(input:checked) { border-color: var(--amber); background: rgba(245,166,35,.1); }
+.opciones label:has(input:focus-visible) { outline: 3px solid var(--amber); outline-offset: 2px; }
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo input[type="text"], .campo textarea { font: 400 15.5px/1.4 'DM Sans', sans-serif; color: var(--ink); background: var(--panel-2); border: 1.5px solid var(--line-2); border-radius: 10px; padding: 10px 12px; width: 100%; }
+.campo textarea { resize: vertical; min-height: 64px; }
+.campo small { color: var(--ink-3); font-size: 12.5px; }
+.campo[hidden] { display: none; }
+.rango { display: grid; grid-template-columns: 76px 1fr 44px; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); }
+.rango input { width: 100%; accent-color: var(--amber); }
+.rango output { font: 500 12.5px 'DM Mono', monospace; color: var(--ink-3); text-align: right; }
+.subir { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: 14px; border: 2px dashed rgba(245,166,35,.55); color: var(--ink); font-weight: 700; cursor: pointer; text-align: center; }
+.subir:hover { background: rgba(245,166,35,.08); }
+.subir input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.subir:has(input:focus-visible) { outline: 3px solid var(--amber); outline-offset: 2px; }
+.btn { font: 700 16px/1 'DM Sans', sans-serif; border: 0; border-radius: 12px; padding: 16px 18px; cursor: pointer; background: var(--amber); color: #0A0F1B; width: 100%; }
+.btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.check { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--ink-2); }
+.check input { accent-color: var(--amber); width: 18px; height: 18px; }
+.estado { font-size: 13.5px; color: var(--ok); min-height: 1.4em; }
+@media (max-width: 860px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .vista { position: static; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">HenderSeeds · Siembra 26/27</div>
+    <nav class="links" aria-label="Otras páginas"><a href="../propuesta/">Propuesta</a><a href="../">Dashboard</a></nav>
+  </header>
+  <h1>Placa con foto</h1>
+  <p class="intro">Subí una foto del lote, del equipo o de la siembra, elegí la plantilla y escribí. Sale con la marca, lista para Instagram. Todo pasa en tu celular: la foto no se sube a ningún lado.</p>
+
+  <div class="app">
+    <div class="vista">
+      <canvas id="lienzo" width="1080" height="1350" aria-label="Vista previa de la placa"></canvas>
+      <div class="nota" id="nota-foto">Foto de ejemplo. Subí la tuya para reemplazarla.</div>
+    </div>
+
+    <form class="panel" id="form" autocomplete="off">
+      <label class="subir" for="foto">📷 Elegir foto
+        <input type="file" id="foto" accept="image/*">
+      </label>
+
+      <fieldset>
+        <legend>Plantilla</legend>
+        <div class="opciones">
+          <label><input type="radio" name="plantilla" value="titular" checked>Titular<small>Foto entera + frase fuerte</small></label>
+          <label><input type="radio" name="plantilla" value="dato">Dato<small>Foto arriba + número abajo</small></label>
+          <label><input type="radio" name="plantilla" value="frase">Frase<small>Palabra de un productor</small></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Formato</legend>
+        <div class="opciones dos">
+          <label><input type="radio" name="formato" value="feed" checked>Feed 4:5<small>1080 × 1350</small></label>
+          <label><input type="radio" name="formato" value="historia">Historia 9:16<small>1080 × 1920</small></label>
+        </div>
+      </fieldset>
+
+      <div class="campo">
+        <label class="lab" for="etiqueta">Etiqueta</label>
+        <input type="text" id="etiqueta" value="Siembra 26/27 · En el lote" maxlength="42">
+      </div>
+      <div class="campo" data-para="titular dato">
+        <label class="lab" for="titular">Titular</label>
+        <textarea id="titular" maxlength="90">Arrancó la siembra *en Daireaux.*</textarea>
+        <small>Lo que va entre *asteriscos* sale en ámbar.</small>
+      </div>
+      <div class="campo" data-para="dato">
+        <label class="lab" for="dato">Dato grande</label>
+        <input type="text" id="dato" value="15/10 → 15/11" maxlength="16">
+      </div>
+      <div class="campo" data-para="dato">
+        <label class="lab" for="detalle">Qué dice el dato</label>
+        <input type="text" id="detalle" value="Fecha óptima del girasol · marbete Nidera" maxlength="60">
+        <small>Todo número necesita su fuente (marbete, ensayo).</small>
+      </div>
+      <div class="campo" data-para="frase">
+        <label class="lab" for="frase">Frase</label>
+        <textarea id="frase" maxlength="120">Lo vimos juntos en el lote antes de elegir el híbrido.</textarea>
+      </div>
+      <div class="campo" data-para="frase">
+        <label class="lab" for="firma">Quién lo dice</label>
+        <input type="text" id="firma" value="[COMPLETAR] Nombre · productor de Henderson" maxlength="60">
+        <small>Solo con permiso de la persona.</small>
+      </div>
+      <div class="campo">
+        <label class="lab" for="cta">Llamado a la acción</label>
+        <input type="text" id="cta" value="¿Recorremos tu lote? Mandanos un DM." maxlength="60">
+      </div>
+
+      <fieldset>
+        <legend>Encuadre de la foto</legend>
+        <div class="rango"><label for="zoom">Zoom</label><input type="range" id="zoom" min="1" max="2.5" step="0.01" value="1"><output for="zoom" id="o-zoom">1,0×</output></div>
+        <div class="rango"><label for="px">Horizontal</label><input type="range" id="px" min="0" max="100" step="1" value="50"><output for="px" id="o-px">50</output></div>
+        <div class="rango"><label for="py">Vertical</label><input type="range" id="py" min="0" max="100" step="1" value="50"><output for="py" id="o-py">50</output></div>
+        <div class="rango"><label for="sombra">Oscurecer</label><input type="range" id="sombra" min="0" max="0.8" step="0.01" value="0.25"><output for="sombra" id="o-sombra">25%</output></div>
+      </fieldset>
+
+      <label class="check"><input type="checkbox" id="wa" checked> Mostrar WhatsApp 2314 53-0691</label>
+
+      <button type="button" class="btn" id="bajar">Descargar JPG</button>
+      <div class="estado" id="estado" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var LOGO_HS = 'data:image/png;base64,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';
+  var LOGO_NID = 'data:image/png;base64,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';
+  var AMBAR = '#F5A623', NAVY = '#0A0F1B', BLANCO = '#F2F5FA', GRIS = '#B4C1D6', GRIS3 = '#8C9AB3';
+  var DM = new Path2D('M22 2 11 13 M22 2 15 22l-4-9-9-4 20-7z');
+  var WA = new Path2D('M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z');
+
+  var lienzo = document.getElementById('lienzo');
+  var ctx = lienzo.getContext('2d');
+  var $ = function (id) { return document.getElementById(id); };
+  var foto = null;                 // imagen subida (o null: se dibuja el lote de ejemplo)
+  var logos = { hs: new Image(), nid: new Image() };
+  logos.hs.src = LOGO_HS; logos.nid.src = LOGO_NID;
+
+  function valor(nombre) { var el = document.querySelector('input[name="' + nombre + '"]:checked'); return el ? el.value : ''; }
+
+  /* ── texto: palabras con *resaltado* y ajuste automático ───────────── */
+  function tokens(texto) {
+    var out = [], ambar = false;
+    texto.split(/(\*)/).forEach(function (parte) {
+      if (parte === '*') { ambar = !ambar; return; }
+      parte.split(/\s+/).filter(Boolean).forEach(function (w) { out.push({ w: w, a: ambar }); });
+    });
+    return out;
+  }
+  function lineas(toks, fuente, ancho) {
+    ctx.font = fuente;
+    var res = [], actual = [], w = 0, esp = ctx.measureText(' ').width;
+    toks.forEach(function (t) {
+      var tw = ctx.measureText(t.w).width;
+      if (actual.length && w + esp + tw > ancho) { res.push(actual); actual = []; w = 0; }
+      w += (actual.length ? esp : 0) + tw; actual.push(t);
+    });
+    if (actual.length) res.push(actual);
+    return res;
+  }
+  function ajustar(texto, familia, peso, ancho, maxLineas, grande, chico) {
+    var toks = tokens(texto);
+    for (var s = grande; s >= chico; s -= 4) {
+      var f = peso + ' ' + s + 'px ' + familia;
+      var ls = lineas(toks, f, ancho);
+      if (ls.length <= maxLineas) return { size: s, font: f, lineas: ls };
+    }
+    var f2 = peso + ' ' + chico + 'px ' + familia;
+    return { size: chico, font: f2, lineas: lineas(toks, f2, ancho) };
+  }
+  function dibujarLineas(r, x, y, alto, color) {
+    ctx.font = r.font; ctx.textBaseline = 'alphabetic';
+    var esp = ctx.measureText(' ').width;
+    r.lineas.forEach(function (ln, i) {
+      var cx = x;
+      ln.forEach(function (t) {
+        ctx.fillStyle = t.a ? AMBAR : (color || BLANCO);
+        ctx.fillText(t.w, cx, y + i * alto);
+        cx += ctx.measureText(t.w).width + esp;
+      });
+    });
+    return y + (r.lineas.length - 1) * alto;
+  }
+
+  /* ── fondo: la foto (cubre el área) o un lote de ejemplo ──────────── */
+  function fondo(x, y, w, h) {
+    ctx.save();
+    ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+    if (foto) {
+      var z = parseFloat($('zoom').value), px = $('px').value / 100, py = $('py').value / 100;
+      var escala = Math.max(w / foto.width, h / foto.height) * z;
+      var dw = foto.width * escala, dh = foto.height * escala;
+      ctx.drawImage(foto, x + (w - dw) * px, y + (h - dh) * py, dw, dh);
+    } else {
+      // Lote de ejemplo: cielo, horizonte y surcos que fugan al horizonte.
+      var cielo = ctx.createLinearGradient(0, y, 0, y + h * 0.42);
+      cielo.addColorStop(0, '#2B4A73'); cielo.addColorStop(1, '#C9A46A');
+      ctx.fillStyle = cielo; ctx.fillRect(x, y, w, h * 0.42);
+      var tierra = ctx.createLinearGradient(0, y + h * 0.42, 0, y + h);
+      tierra.addColorStop(0, '#5A4A2E'); tierra.addColorStop(1, '#2A2217');
+      ctx.fillStyle = tierra; ctx.fillRect(x, y + h * 0.42, w, h * 0.58);
+      var hx = x + w * 0.5, hy = y + h * 0.42;
+      ctx.strokeStyle = 'rgba(120,150,70,.75)';
+      for (var i = -14; i <= 14; i++) {
+        ctx.lineWidth = 2 + Math.abs(i) * 0.4;
+        ctx.beginPath(); ctx.moveTo(hx + i * 6, hy); ctx.lineTo(hx + i * 150, y + h); ctx.stroke();
+      }
+    }
+    var sombra = parseFloat($('sombra').value);
+    if (sombra > 0) { ctx.fillStyle = 'rgba(10,15,27,' + sombra + ')'; ctx.fillRect(x, y, w, h); }
+    ctx.restore();
+  }
+
+  /* ── piezas comunes ──────────────────────────────────────────────── */
+  function cabecera(W, top) {
+    ctx.fillStyle = AMBAR; ctx.fillRect(0, 0, W, 10);
+    var et = $('etiqueta').value.toUpperCase();
+    ctx.font = '500 26px "DM Mono"';
+    ctx.fillStyle = AMBAR;
+    ctx.beginPath(); ctx.arc(83, top + 14, 7, 0, Math.PI * 2); ctx.fill();
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
+    ctx.fillText(et, 104, top + 23);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+    if (logos.hs.complete && logos.hs.naturalWidth) {
+      var lh = 70, lw = logos.hs.naturalWidth * lh / logos.hs.naturalHeight;
+      ctx.drawImage(logos.hs, W - 76 - lw, top - 18, lw, lh);
+    }
+  }
+  function pie(W, H, story) {
+    // En historias, abajo va la barra de "Enviar mensaje": el pie sube.
+    var y = H - (story ? 260 : 54);
+    var base = y - 60;                           // línea divisoria
+    ctx.strokeStyle = 'rgba(255,255,255,.18)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(76, base); ctx.lineTo(W - 76, base); ctx.stroke();
+    if (logos.nid.complete && logos.nid.naturalWidth) {
+      var nh = 54, nw = logos.nid.naturalWidth * nh / logos.nid.naturalHeight;
+      ctx.drawImage(logos.nid, 76, base + 16, nw, nh);
+      ctx.font = '500 20px "DM Mono"'; ctx.fillStyle = GRIS3;
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '2.5px';
+      ctx.fillText('RED.IN · DISTRIBUIDOR OFICIAL', 76 + nw + 16, base + 50);
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+    }
+    if ($('wa').checked) {
+      ctx.font = '500 24px "DM Mono"'; ctx.fillStyle = GRIS;
+      var t = '2314 53-0691', tw = ctx.measureText(t).width;
+      ctx.fillText(t, W - 76 - tw, base + 51);
+      ctx.save(); ctx.translate(W - 76 - tw - 40, base + 26); ctx.scale(30 / 32, 30 / 32); ctx.fillStyle = '#25D366'; ctx.fill(WA); ctx.restore();
+    }
+    // CTA con el avioncito
+    var cta = $('cta').value;
+    if (cta) {
+      ctx.save(); ctx.translate(76, base - 84); ctx.scale(44 / 24, 44 / 24);
+      ctx.strokeStyle = AMBAR; ctx.lineWidth = 2.2; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.stroke(DM); ctx.restore();
+      var r = ajustar(cta, '"DM Sans"', '700', W - 76 * 2 - 64, 1, 36, 26);
+      dibujarLineas(r, 76 + 62, base - 48, r.size * 1.2, BLANCO);
+    }
+    return base - 110;                          // hasta dónde puede bajar el contenido
+  }
+
+  /* ── plantillas ──────────────────────────────────────────────────── */
+  function degradeAbajo(W, H, desde) {
+    var g = ctx.createLinearGradient(0, desde, 0, H);
+    g.addColorStop(0, 'rgba(10,15,27,0)'); g.addColorStop(0.35, 'rgba(10,15,27,.72)'); g.addColorStop(1, 'rgba(10,15,27,.96)');
+    ctx.fillStyle = g; ctx.fillRect(0, desde, W, H - desde);
+  }
+  function degradeArriba(W) {
+    var g = ctx.createLinearGradient(0, 0, 0, 260);
+    g.addColorStop(0, 'rgba(10,15,27,.75)'); g.addColorStop(1, 'rgba(10,15,27,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, 260);
+  }
+
+  function titular(W, H, story) {
+    fondo(0, 0, W, H);
+    degradeArriba(W);
+    degradeAbajo(W, H, H * (story ? 0.38 : 0.34));
+    var top = story ? 160 : 66;
+    cabecera(W, top);
+    var limite = pie(W, H, story);
+    var r = ajustar($('titular').value, '"Archivo Black"', '400', W - 152, story ? 5 : 4, story ? 128 : 112, 60);
+    var alto = r.size * 1.0;
+    var y0 = limite - (r.lineas.length - 1) * alto - 20;
+    dibujarLineas(r, 76, y0, alto);
+  }
+
+  function dato(W, H, story) {
+    var corte = Math.round(H * (story ? 0.52 : 0.5));
+    fondo(0, 0, W, corte);
+    degradeArriba(W);
+    ctx.fillStyle = NAVY; ctx.fillRect(0, corte, W, H - corte);
+    ctx.fillStyle = AMBAR; ctx.fillRect(0, corte, W, 8);
+    var top = story ? 160 : 66;
+    cabecera(W, top);
+    var limite = pie(W, H, story);
+    var y = corte + 70;
+    var rt = ajustar($('titular').value, '"Archivo Black"', '400', W - 152, 2, 64, 40);
+    dibujarLineas(rt, 76, y + rt.size * 0.8, rt.size * 1.02);
+    y += rt.size * 0.8 + (rt.lineas.length - 1) * rt.size * 1.02 + 40;
+    var rd = ajustar($('dato').value, '"Archivo Black"', '400', W - 152, 1, story ? 190 : 150, 70);
+    ctx.font = rd.font; ctx.fillStyle = AMBAR;
+    var yd = Math.min(y + rd.size * 0.82, limite - 70);
+    ctx.fillText($('dato').value, 76, yd);
+    ctx.font = '500 28px "DM Mono"'; ctx.fillStyle = GRIS;
+    var rdet = ajustar($('detalle').value, '"DM Mono"', '500', W - 152, 2, 28, 22);
+    dibujarLineas(rdet, 76, yd + 52, rdet.size * 1.35, GRIS);
+  }
+
+  function frase(W, H, story) {
+    fondo(0, 0, W, H);
+    ctx.fillStyle = 'rgba(10,15,27,.45)'; ctx.fillRect(0, 0, W, H);
+    degradeAbajo(W, H, H * 0.45);
+    var top = story ? 160 : 66;
+    cabecera(W, top);
+    var limite = pie(W, H, story);
+    var r = ajustar($('frase').value, '"Archivo Black"', '400', W - 152, story ? 6 : 5, story ? 92 : 80, 48);
+    var alto = r.size * 1.08;
+    var firmaY = limite - 10;
+    var y0 = firmaY - 70 - (r.lineas.length - 1) * alto;
+    ctx.font = '400 240px "Archivo Black"'; ctx.fillStyle = AMBAR;
+    ctx.fillText('“', 64, y0 + 6);            // el glifo queda arriba de la primera línea
+    dibujarLineas(r, 76, y0, alto);
+    ctx.font = '500 26px "DM Mono"'; ctx.fillStyle = GRIS;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '2px';
+    ctx.fillText($('firma').value.toUpperCase(), 76, firmaY);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+  }
+
+  function dibujar() {
+    var story = valor('formato') === 'historia';
+    var W = 1080, H = story ? 1920 : 1350;
+    if (lienzo.height !== H) lienzo.height = H;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = NAVY; ctx.fillRect(0, 0, W, H);
+    var p = valor('plantilla');
+    document.querySelectorAll('[data-para]').forEach(function (c) { c.hidden = c.getAttribute('data-para').split(' ').indexOf(p) < 0; });
+    if (p === 'dato') dato(W, H, story); else if (p === 'frase') frase(W, H, story); else titular(W, H, story);
+  }
+
+  /* ── eventos ─────────────────────────────────────────────────────── */
+  var salidas = { zoom: function (v) { return parseFloat(v).toFixed(1).replace('.', ',') + '×'; }, px: String, py: String, sombra: function (v) { return Math.round(v * 100) + '%'; } };
+  $('form').addEventListener('input', function (e) {
+    if (salidas[e.target.id]) $('o-' + e.target.id).textContent = salidas[e.target.id](e.target.value);
+    dibujar();
+  });
+  $('form').addEventListener('change', dibujar);
+  $('foto').addEventListener('change', function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var lector = new FileReader();
+    lector.onload = function () {
+      var img = new Image();
+      img.onload = function () { foto = img; $('nota-foto').textContent = 'Tu foto. Ajustá el encuadre con los controles.'; dibujar(); };
+      img.src = lector.result;
+    };
+    lector.readAsDataURL(f);
+  });
+  $('bajar').addEventListener('click', function () {
+    var nombre = 'henderseeds-' + valor('plantilla') + '-' + valor('formato') + '.jpg';
+    lienzo.toBlob(function (blob) {
+      if (!blob) { $('estado').textContent = 'No se pudo generar la imagen en este navegador.'; return; }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a'); a.href = url; a.download = nombre;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      $('estado').textContent = 'Listo: ' + nombre;
+    }, 'image/jpeg', 0.92);
+  });
+
+  // Dibujar cuando estén las tipografías (si no, el canvas usa otra letra).
+  var fuentes = ['400 100px "Archivo Black"', '500 26px "DM Mono"', '700 36px "DM Sans"', '400 16px "DM Sans"'];
+  Promise.all(fuentes.map(function (f) { return document.fonts.load(f); })).then(dibujar, dibujar);
+  logos.hs.onload = logos.nid.onload = dibujar;
+  dibujar();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estilo 13 · Tarjeta de producto</title>
+<link rel="stylesheet" href="../../../assets/fonts/fuentes.css"><link rel="stylesheet" href="../../../assets/fonts/extra/fuentes-extra.css"><link rel="stylesheet" href="../../../assets/hs2627.css">
+<style>
+body { margin:0; background:#05070d; display:flex; flex-direction:column; align-items:center; gap:40px; padding:40px 16px; }
+.slide .grow { flex:1 1 auto; }
+.slide .frame > * { position:relative; z-index:1; }
+.slide .frame > .bg2, .slide .frame > .ph { position:absolute; z-index:0; }
+
+.e13 { --txt:#0A0F1B; --txt-2:#3E4A60; --txt-3:#6B7488; --line:rgba(13,45,94,.14); background:#E9EEF5; }
+.e13 .frame { padding:60px 60px 54px; }
+.e13 .card2 { background:#fff; border-radius:40px; padding:56px 50px 50px; box-shadow:0 30px 60px rgba(13,45,94,.14); margin-top:10px; }
+.e13 .r1 { display:flex; justify-content:space-between; align-items:center; }
+.e13 .r1 span { font:500 22px/1 'DM Mono'; color:#6B7488; letter-spacing:.12em; text-transform:uppercase; }
+.e13 .logo-hs { height:56px; }
+.e13 h1 { font:800 108px/.95 'Inter Tight'; letter-spacing:-.05em; color:#0A0F1B; margin-top:30px; }
+.e13 .ver { display:inline-flex; gap:10px; margin-top:20px; }
+.e13 .ver span { font:600 24px/1 'Inter Tight'; padding:12px 18px; border-radius:999px; background:#0A0F1B; color:#fff; }
+.e13 .ver span:last-child { background:#F5A623; color:#0A0F1B; }
+.e13 .inc { margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:4px 30px; }
+.e13 .inc div { display:flex; gap:14px; align-items:center; font:600 32px/1.15 'Inter Tight'; color:#0A0F1B; padding:30px 0; border-bottom:1.5px solid #E2E7EF; letter-spacing:-.01em; }
+.e13 .inc i { width:30px; height:30px; flex-shrink:0; border-radius:50%; background:#E6F4EA; color:#1E8E3E; font:700 18px/30px 'DM Sans'; text-align:center; font-style:normal; }
+.e13 .ft { margin-top:30px; }
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+</svg>
+<section class="slide hs e13" data-name="estilo-13" data-fmt="feed">
+  <div class="frame">
+    <div class="card2"><div class="r1"><span>Oferta · Campaña 26/27</span><img class="logo-hs" src="../../../assets/logo-hs-navy-hd.png" alt="HenderSeeds"></div>
+    <h1>Plan de Campaña<br>HenderSeeds</h1>
+    <div class="ver"><span>Maíz y girasol</span><span>6 pasos incluidos</span></div>
+    <div class="inc"><div><i>✓</i>Diagnóstico</div><div><i>✓</i>Recomendación Asista</div><div><i>✓</i>Financiación</div><div><i>✓</i>Seguro de resiembra</div><div><i>✓</i>Vuelo de drone</div><div><i>✓</i>Informe de visita</div></div></div>
+    <div class="grow"></div><footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>¿Armamos el tuyo? Mandanos un DM.</span></div>
+      <div class="base"><div class="sello"><img src="../../../assets/logo-nidera-positivo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+      <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div></div>
+    </footer>
+  </div>
+</section>
+</body></html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds · Carrusel girasol: cuál va en tu lote</title>
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<link rel="stylesheet" href="../assets/hs2627.css">
+<style>
+body { margin: 0; background: #05070d; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 16px; }
+.hs .pager { font: 500 24px/1 var(--f-mono); letter-spacing: .14em; color: var(--txt-3); }
+.hs .pager b { color: var(--amber); font-weight: 500; }
+.hs .swipe { display: flex; align-items: center; gap: 14px; font: 500 26px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.hs .swipe svg { width: 44px; height: 20px; }
+.hs .foot-min { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1.5px solid var(--line); }
+
+/* 1 · portada */
+#gc-1 .h1 { font-size: 112px; margin-top: 56px; }
+#gc-1 .tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 90px; }
+#gc-1 .tres figure { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+#gc-1 .tres img { width: 270px; height: 270px; }
+#gc-1 .tres figure:nth-child(1) img { opacity: 1; }
+#gc-1 .tres figure:nth-child(2) img { opacity: .72; }
+#gc-1 .tres figure:nth-child(3) img { opacity: .5; }
+#gc-1 .tres figcaption { text-align: center; }
+#gc-1 .tres .n { font: 500 30px/1.1 var(--f-mono); color: var(--txt); }
+#gc-1 .tres .t { font: 600 26px/1.2 var(--f-sans); color: var(--txt-3); margin-top: 8px; }
+
+/* 2 · árbol de decisión */
+#gc-2 .h1 { font-size: 88px; margin-top: 50px; }
+#gc-2 .ramas { display: flex; flex-direction: column; gap: 30px; margin-top: 60px; }
+#gc-2 .rama { display: grid; grid-template-columns: 1fr 70px 1.15fr; align-items: center; gap: 10px; }
+#gc-2 .si { background: var(--panel); border: 1.5px solid var(--line-2); border-radius: 20px; padding: 32px 30px; font: 600 36px/1.25 var(--f-sans); color: var(--txt); }
+#gc-2 .si small { display: block; font: 500 22px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--txt-3); margin-bottom: 10px; }
+#gc-2 .flecha { color: var(--amber); display: grid; place-items: center; }
+#gc-2 .flecha svg { width: 56px; height: 56px; }
+#gc-2 .va { border-radius: 20px; padding: 30px; background: var(--amber); color: #0A0F1B; }
+#gc-2 .va small { display: block; font: 500 22px/1.2 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; color: rgba(10,15,27,.7); }
+#gc-2 .va b { font-family: var(--f-arch); font-weight: 400; font-size: 44px; letter-spacing: -.02em; line-height: 1.05; display: block; }
+#gc-2 .va.b2 { background: #fff; }
+#gc-2 .nota { margin-top: 44px; }
+
+/* 3 · NS 1113 CL */
+#gc-3 .h1 { font-size: 132px; margin-top: 30px; }
+#gc-3 .hero { margin-top: 44px; }
+#gc-3 .hero .num { display: block; font-size: 290px; color: var(--amber); }
+#gc-3 .hero .u { font: 700 46px/1.2 var(--f-sans); color: var(--txt); margin-top: 18px; }
+#gc-3 .hero .u small { display: block; font: 500 26px/1.3 var(--f-mono); color: var(--txt-3); letter-spacing: .04em; margin-top: 6px; }
+#gc-3 .stats { display: flex; gap: 56px; margin-top: 44px; }
+#gc-3 .stats div { font: 500 26px/1.2 var(--f-mono); color: var(--txt-3); letter-spacing: .06em; }
+#gc-3 .stats b { display: block; font-family: var(--f-arch); font-weight: 400; font-size: 64px; color: var(--txt); letter-spacing: -.03em; margin-bottom: 6px; }
+#gc-3 .chips { margin-top: 40px; }
+#gc-3 .ojo { margin-top: 30px; }
+
+/* 4 · 1115 vs 1117 */
+#gc-4 .h1 { font-size: 92px; margin-top: 40px; }
+#gc-4 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 46px; }
+#gc-4 .col { background: var(--panel); border: 1.5px solid var(--line-2); border-radius: 22px; padding: 32px 32px 34px; }
+#gc-4 .col h3 { font: 500 30px/1 var(--f-mono); color: var(--txt); letter-spacing: .04em; }
+#gc-4 .col h3 b { color: var(--amber); font-weight: 500; }
+#gc-4 .col .num { font-size: 120px; color: var(--txt); margin-top: 26px; }
+#gc-4 .col .u { font: 500 24px/1.3 var(--f-mono); color: var(--txt-3); margin-top: 8px; }
+#gc-4 .col .kv { margin-top: 26px; display: flex; flex-direction: column; gap: 12px; }
+#gc-4 .col .kv div { display: flex; justify-content: space-between; font: 500 26px/1.2 var(--f-mono); color: var(--txt-2); border-top: 1.5px solid var(--line); padding-top: 12px; }
+#gc-4 .col .kv b { color: var(--txt); font-weight: 500; }
+#gc-4 .same { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+#gc-4 .body { margin-top: 30px; }
+
+/* 5 · tabla */
+#gc-5 .h1 { font-size: 88px; margin-top: 38px; }
+#gc-5 table { width: 100%; border-collapse: collapse; margin-top: 38px; font-family: var(--f-mono); }
+#gc-5 th { font: 500 26px/1.1 var(--f-mono); color: var(--txt); text-align: right; padding: 0 0 18px; letter-spacing: .02em; }
+#gc-5 th:first-child { text-align: left; color: var(--txt-3); font-size: 20px; letter-spacing: .12em; text-transform: uppercase; }
+#gc-5 td { font-size: 30px; color: var(--txt-2); text-align: right; padding: 15px 0; border-top: 1.5px solid var(--line); }
+#gc-5 td:first-child { text-align: left; font: 500 26px/1.2 var(--f-sans); color: var(--txt-2); }
+#gc-5 td.best { color: var(--amber); font-weight: 500; }
+#gc-5 .esc { margin-top: 16px; }
+#gc-5 .ventana { margin-top: 26px; display: flex; align-items: center; gap: 16px; font: 600 30px/1.2 var(--f-sans); color: var(--txt); }
+#gc-5 .ventana span { font: 500 22px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: #0A0F1B; background: var(--amber); padding: 10px 14px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hs-dm" viewBox="0 0 24 24"><path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2 15 22l-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="hs-wa" viewBox="0 0 32 32"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></symbol>
+  <symbol id="hs-arrow" viewBox="0 0 48 24"><path d="M2 12h40M32 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<script type="application/json" class="hs-meta">
+{
+  "id": "girasol-carrusel",
+  "concepto": "Girasol · ¿cuál va en tu lote? (carrusel)",
+  "pilar": "Precampaña girasol",
+  "semana": "2026-W41",
+  "fecha": "mar 06/10 · 20–22 h",
+  "porque": "Reemplaza al carrusel W26 con un posicionamiento más honesto: 1115 y 1117 tienen el mismo perfil sanitario en el marbete, así que la decisión real es techo (1113) o sanidad (1115/1117). La tabla final es para guardar: los carruseles útiles se guardan y el algoritmo lo premia.",
+  "pauta": "No hace falta. Si rinde bien orgánico (guardados), se pauta la slide 5 sola en la semana del 15/10.",
+  "caption": "Girasol 26/27: ¿cuál va en tu lote? 🌻\n\nNo hay un girasol mejor. Hay uno mejor para cada lote. Y la primera pregunta es simple: ¿qué te complicó en los últimos girasoles?\n\n→ Si la sanidad no fue problema, buscá techo: NS 1113 CL (+2,11 qq/ha sobre el promedio de cada sitio en Sur+Oeste, 74% de éxito).\n→ Si Phomopsis o Verticilium te sacaron kilos, priorizá sanidad: NS 1115 CL o NS 1117 CL (Phomopsis 2 en la escala Nidera).\n\nDeslizá hasta la tabla y guardala para la siembra. Fecha óptima en el oeste: 15/10 al 15/11.\n\n📩 Mandanos un DM con tu lote y lo posicionamos juntos.",
+  "hashtags": "#Henderseeds #Nidera #Girasol2627 #Girasol #Clearfield #Henderson #Daireaux #Bolivar",
+  "fuentes": "Marbetes oficiales Nidera 26/27: NS 1113 CL (+2,11** Sur+Oeste, 74%, 225 comp.; Phomopsis 3, Verticilium 4, Sclerotinia 2, DM R, Roya negra R), NS 1115 CL (+1,64**, 69%, 192 comp.; Phomopsis 2, Verticilium 3, Sclerotinia 2, DM R, RN R), NS 1117 CL (+1,75**, 67%, 73 comp.; mismo perfil sanitario que 1115).",
+  "opciones": [
+    { "slide": "gc-1", "nombre": "Slide 1 · Portada", "nota": "" },
+    { "slide": "gc-2", "nombre": "Slide 2 · Primero, el lote", "nota": "" },
+    { "slide": "gc-3", "nombre": "Slide 3 · NS 1113 CL", "nota": "" },
+    { "slide": "gc-4", "nombre": "Slide 4 · 1115 o 1117", "nota": "" },
+    { "slide": "gc-5", "nombre": "Slide 5 · Tabla para guardar", "nota": "" }
+  ]
+}
+</script>
+
+<!-- 1 · PORTADA -->
+<section class="slide hs" id="gc-1" data-name="2026-W41-girasol-carrusel-01">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Siembra 26/27 · Girasol</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Tres girasoles. <span class="hl">¿Cuál va en tu lote?</span></h1>
+    <div class="tres">
+      <figure><img src="../assets/girasol-capitulo.svg" alt=""><figcaption><div class="n">NS 1113 CL</div><div class="t">Techo de rinde y aceite</div></figcaption></figure>
+      <figure><img src="../assets/girasol-capitulo.svg" alt=""><figcaption><div class="n">NS 1115 CL</div><div class="t">Sanidad más completa</div></figcaption></figure>
+      <figure><img src="../assets/girasol-capitulo.svg" alt=""><figcaption><div class="n">NS 1117 CL</div><div class="t">Sanidad + rinde</div></figcaption></figure>
+    </div>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>01</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · PRIMERO, EL LOTE -->
+<section class="slide hs" id="gc-2" data-name="2026-W41-girasol-carrusel-02">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Paso 1 · La historia del lote</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">¿Qué te complicó en los <span class="hl">últimos girasoles?</span></h1>
+    <div class="ramas">
+      <div class="rama">
+        <div class="si"><small>Si en tu lote…</small>La sanidad no fue problema</div>
+        <div class="flecha"><svg viewBox="0 0 48 24"><use href="#hs-arrow"/></svg></div>
+        <div class="va"><small>Buscá techo</small><b>NS 1113 CL</b></div>
+      </div>
+      <div class="rama">
+        <div class="si"><small>Si en tu lote…</small>Phomopsis o Verticilium te sacaron kilos</div>
+        <div class="flecha"><svg viewBox="0 0 48 24"><use href="#hs-arrow"/></svg></div>
+        <div class="va b2"><small>Priorizá sanidad</small><b>NS 1115 CL<br>NS 1117 CL</b></div>
+      </div>
+    </div>
+    <p class="body nota">Es el primer filtro. Después se afina con el ambiente y la fecha, <b>lote por lote</b>.</p>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>02</b> / 05</span>
+      <span class="swipe">Deslizá <svg><use href="#hs-arrow"/></svg></span>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · NS 1113 CL -->
+<section class="slide hs" id="gc-3" data-name="2026-W41-girasol-carrusel-03">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Techo de rinde y aceite</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">NS 1113 <span class="hl">CL</span></h1>
+    <div class="hero">
+      <span class="num">+2,11</span>
+      <div class="u">qq/ha<small>sobre el promedio de cada sitio · región Sur + Oeste</small></div>
+    </div>
+    <div class="stats">
+      <div><b>74%</b>de éxito</div>
+      <div><b>225</b>comparaciones</div>
+    </div>
+    <div class="chips">
+      <span class="chip">Sclerotinia <b>2</b></span>
+      <span class="chip">Downy Mildew <b>R</b></span>
+      <span class="chip">Roya negra <b>R</b></span>
+      <span class="chip">Aceite <b>muy alto</b></span>
+    </div>
+    <p class="body ojo">Ojo: Phomopsis <b>3</b> y Verticilium <b>4</b>. Si tu lote tiene historia, mirá la próxima.</p>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>03</b> / 05</span>
+      <span class="src">Marbete oficial Nidera 26/27</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · 1115 o 1117 -->
+<section class="slide hs" id="gc-4" data-name="2026-W41-girasol-carrusel-04">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>Cuando la sanidad pesa</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">1115 o 1117: <span class="hl">mismo escudo.</span></h1>
+    <div class="cols">
+      <div class="col">
+        <h3>NS 1115 <b>CL</b></h3>
+        <div class="num">+1,64</div>
+        <div class="u">qq/ha · Sur + Oeste</div>
+        <div class="kv"><div>Éxito <b>69%</b></div><div>Comparaciones <b>192</b></div></div>
+      </div>
+      <div class="col">
+        <h3>NS 1117 <b>CL</b></h3>
+        <div class="num">+1,75</div>
+        <div class="u">qq/ha · Sur + Oeste</div>
+        <div class="kv"><div>Éxito <b>67%</b></div><div>Comparaciones <b>73</b></div></div>
+      </div>
+    </div>
+    <div class="same">
+      <span class="chip">Phomopsis <b>2</b></span>
+      <span class="chip">Verticilium <b>3</b></span>
+      <span class="chip">Sclerotinia <b>2</b></span>
+      <span class="chip">DM y Roya negra <b>R</b></span>
+    </div>
+    <p class="body">Los dos tienen el mismo perfil sanitario. El 1115 suma <b>más comparaciones</b>; el 1117 muestra una diferencia de rinde <b>algo mayor</b>, con menos datos.</p>
+    <div class="grow"></div>
+    <div class="foot-min">
+      <span class="pager"><b>04</b> / 05</span>
+      <span class="src">Marbetes oficiales Nidera 26/27</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · TABLA + CTA -->
+<section class="slide hs" id="gc-5" data-name="2026-W41-girasol-carrusel-05">
+  <div class="bg"></div><div class="topbar"></div>
+  <div class="frame">
+    <header class="hd">
+      <div class="kicker"><span class="led"></span>La tabla para guardar</div>
+      <img class="logo-hs" src="../assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+    </header>
+    <h1 class="h1">Los tres, <span class="hl">frente a frente.</span></h1>
+    <table>
+      <thead><tr><th>Marbete 26/27</th><th>1113 CL</th><th>1115 CL</th><th>1117 CL</th></tr></thead>
+      <tbody>
+        <tr><td>Rinde vs. promedio (qq/ha)</td><td class="best">+2,11</td><td>+1,64</td><td>+1,75</td></tr>
+        <tr><td>Éxito · Sur + Oeste</td><td class="best">74%</td><td>69%</td><td>67%</td></tr>
+        <tr><td>Comparaciones</td><td class="best">225</td><td>192</td><td>73</td></tr>
+        <tr><td>Phomopsis</td><td>3</td><td class="best">2</td><td class="best">2</td></tr>
+        <tr><td>Verticilium</td><td>4</td><td class="best">3</td><td class="best">3</td></tr>
+        <tr><td>Sclerotinia</td><td>2</td><td>2</td><td>2</td></tr>
+        <tr><td>Downy Mildew · Roya negra</td><td>R · R</td><td>R · R</td><td>R · R</td></tr>
+      </tbody>
+    </table>
+    <p class="src esc">Sanidad: 1 = excelente · 9 = deficiente · R = resistencia genética.</p>
+    <div class="ventana"><span>Oeste BA</span>Fecha óptima: 15/10 al 15/11 · límite 20/11</div>
+    <div class="grow"></div>
+    <footer class="ft">
+      <div class="cta"><svg><use href="#hs-dm"/></svg><span>Mandanos un DM con tu lote y lo posicionamos.</span></div>
+      <div class="base">
+        <div class="sello"><img src="../assets/logo-nidera-negativo.png" alt="Nidera Semillas"><span>Red.in · Distribuidor oficial</span></div>
+        <div class="wa"><svg><use href="#hs-wa"/></svg>2314 53-0691</div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<script src="../assets/hs-anim.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 - **Semana:** 2026-W26 · publicación tentativa: 2026-06-23
 - **Pilar:** girasol (precampaña)
 - **Formato:** placa simple (1080×1350)
-- **Objetivo:** consultas por WhatsApp de precampaña girasol; posicionar el NS 1113 CL como el techo de rinde y aceite para la zona, aprovechando que la siembra de girasol arranca en agosto/septiembre.
+- **Objetivo:** consultas por WhatsApp de precampaña girasol; posicionar el NS 1113 CL como el techo de rinde y aceite para la zona, antes de la ventana óptima de siembra del oeste (15/10 → 15/11, marbete Nidera).
 - **Pauta:** sí → brief: `meta-ads/briefs/2026-W26-girasol-ns1113.md`
 
 ## Copy (Instagram/Facebook)
@@ -13,7 +13,7 @@
 >
 > Sumale la tecnología Clearfield para el control de malezas y un perfil sanitario firme (Sclerotinia 2, resistente a Downy Mildew y Roya negra), y tenés un girasol para apuntar alto sin resignar estabilidad.
 >
-> La siembra arranca en agosto. La precampaña está abierta ahora: es el momento de asegurar la bolsa.
+> En el oeste, la fecha óptima de siembra va del 15/10 al 15/11 (marbete Nidera). La precampaña está abierta ahora: es el momento de asegurar la bolsa. <!-- corregido 24/09: decía "arranca en agosto" -->
 >
 > 📲 Escribinos y lo vemos para tus lotes.
 
@@ -34,7 +34,7 @@ Placa **navy oscuro** (`#0A0F1B`) con grilla sutil de líneas naranjas (estilo a
 
 ## Fuentes de los datos usados
 - NS 1113 CL: +2,11 qq/ha** en Sur+Oeste (225 comp., 74% éxito), Sclerotinia 2, resistencias Downy Mildew y Roya negra, tecnología Clearfield, aceite muy alto → `contexto/productos-26-27.md` (marbete oficial Nidera).
-- Fecha de siembra girasol Oeste BA (óptima ago-sep) → `contexto/productos-26-27.md` y `contexto/calendario-comercial.md`.
+- Fecha de siembra girasol Oeste de Buenos Aires (óptima 15/10 → 15/11, límite 20/11) → marbetes Nidera / `contexto/productos-26-27.md`.
 - Sin precios ni condiciones (regla dura): la precampaña se comunica en general, la venta se cierra por WhatsApp.
 
 ## Estado

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HenderSeeds — Historia 6 de Agosto · Día del Ingeniero Agrónomo y del Médico Veterinario</title>
+<link href="../assets/fonts/fuentes.css" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --cream:#F6F4EE;
+  --orange:#F5A623; --celeste:#74ACDF; --white:#E8EEF7; --grey:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+}
+body { background:#05070d; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+
+/* Historia nativa 9:16. Texto en zona segura central:
+   padding alto arriba/abajo para esquivar la UI de Instagram. */
+.slide {
+  width:1080px; height:1920px; background:var(--navy);
+  position:relative; overflow:hidden; padding:185px 84px 170px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; flex-shrink:0;
+}
+/* grilla agro-tech sutil */
+.slide::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,  rgba(245,166,35,0.045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(90deg, rgba(245,166,35,0.045) 0 1px, transparent 1px 96px);
+}
+/* resplandor central */
+.slide::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 720px 540px at 50% 26%, rgba(245,166,35,0.07), transparent 70%),
+    radial-gradient(ellipse 900px 720px at 50% 112%, rgba(13,45,94,0.45), transparent 75%);
+}
+.slide > * { z-index:2; }
+
+.logo-hs { height:52px; }
+
+.spacer { flex:1; }
+
+/* fecha arriba, simple */
+.kicker {
+  margin-top:44px;
+  font-family:var(--mono); font-size:22px; font-weight:500; letter-spacing:6px; text-transform:uppercase;
+  color:var(--grey);
+}
+
+/* pregunta gancho */
+.hook { margin-top:42px; }
+.hook .q1 { font-family:var(--arch); font-size:38px; color:var(--white); letter-spacing:-0.5px; }
+.hook .q2 { font-family:var(--arch); font-size:70px; color:var(--orange); line-height:1.06; letter-spacing:-2px; margin-top:12px; }
+.hook .q3 { font-family:var(--arch); font-size:40px; color:var(--white); letter-spacing:-0.5px; margin-top:14px; }
+
+/* burbujas tipo chat: la historia contada corta */
+.burbujas { margin-top:46px; width:100%; display:flex; flex-direction:column; gap:16px; }
+.bur {
+  max-width:80%; text-align:left;
+  background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.10);
+  border-radius:18px; padding:20px 28px;
+  font-family:var(--sans); font-size:27px; font-weight:500; color:var(--white); line-height:1.45;
+}
+.bur b { font-weight:700; }
+.bur.izq { align-self:flex-start; border-bottom-left-radius:5px; }
+.bur.der { align-self:flex-end;   border-bottom-right-radius:5px; }
+
+/* tarjetas de saludo, levemente rotadas (estilo Día del Amigo) */
+.tarjetas { margin-top:46px; width:100%; display:flex; flex-direction:column; gap:20px; }
+.tar {
+  text-align:left; border-radius:16px; padding:24px 30px;
+  background:rgba(255,255,255,0.04);
+}
+.tar .tag { display:block; font-family:var(--mono); font-size:18px; letter-spacing:2px; text-transform:uppercase; margin-bottom:9px; }
+.tar .fr  { font-family:var(--sans); font-size:28px; font-weight:600; color:var(--white); line-height:1.4; }
+.tar.agro { border:1.5px solid rgba(245,166,35,0.55);  transform:rotate(-1.2deg); }
+.tar.agro .tag { color:var(--orange); }
+.tar.vete { border:1.5px solid rgba(116,172,223,0.55); transform:rotate(1deg); }
+.tar.vete .tag { color:var(--celeste); }
+
+/* cierre */
+.cierre { font-family:var(--arch); font-size:54px; color:var(--white); letter-spacing:-1px; margin-top:52px; }
+.cierre-sub { font-family:var(--sans); font-size:26px; font-weight:600; color:var(--grey); margin-top:14px; }
+
+.zona { font-family:var(--mono); font-size:18px; letter-spacing:4px; text-transform:uppercase; color:var(--grey); margin-top:36px; }
+
+.firma { display:flex; flex-direction:column; align-items:center; gap:14px; width:100%; padding-top:26px; border-top:1px dashed rgba(232,238,247,0.16); }
+.firma-row { display:flex; align-items:center; gap:16px; }
+.firma-row img { height:28px; background:#fff; padding:6px 10px; border-radius:7px; }
+.firma-row span { font-family:var(--mono); font-size:16px; letter-spacing:2px; color:var(--grey); text-transform:uppercase; }
+.ig-min { font-family:var(--mono); font-size:17px; letter-spacing:1.5px; color:rgba(143,160,190,0.75); }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <img class="logo-hs" src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+
+  <div class="kicker">6 de Agosto</div>
+
+  <div class="hook">
+    <div class="q1">¿Sabías que</div>
+    <div class="q2">agrónomos<br>y veterinarios</div>
+    <div class="q3">cumplen años el mismo día?</div>
+  </div>
+
+  <div class="burbujas">
+    <div class="bur izq">🌱 <b>6 de agosto de 1883:</b> abre Santa Catalina, en Buenos Aires.</div>
+    <div class="bur der">🎓 La primera escuela del país que enseñó <b>las dos carreras juntas</b>.</div>
+    <div class="bur izq">🥂 Por eso hoy <b>festejan juntos</b>.</div>
+  </div>
+
+  <div class="tarjetas">
+    <div class="tar agro">
+      <span class="tag">🌾 el ingeniero agrónomo</span>
+      <span class="fr">El que pisa el lote y te canta qué, cuándo y cuánto sembrar.</span>
+    </div>
+    <div class="tar vete">
+      <span class="tag">🩺 el médico veterinario</span>
+      <span class="fr">El que se levanta a las 3 AM porque la vaca no sabe de horarios.</span>
+    </div>
+  </div>
+
+  <div class="cierre">¡Feliz día a los dos! 🤝</div>
+  <div class="cierre-sub">La campaña también se hace con ustedes.</div>
+
+  <div class="zona">Henderson · Daireaux · Bolívar</div>
+
+  <div class="spacer"></div>
+
+  <div class="firma">
+    <div class="firma-row">
+      <img src="../assets/logo-nidera.png" alt="Nidera Semillas">
+      <span>RED.IN · Nidera Semillas</span>
+    </div>
+    <div class="ig-min">@henderseeds</div>
+  </div>
+</div>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- ── Descarga: historia 1080×1920 (9:16), 2x retina ── -->
+<script>
+(function () {
+  var FILE = '2026-08-06-dia-veterinario-agronomo';
+  var SCALE = 2;              // 2x retina
+  if (window.self !== window.top) return;  // no cargar en miniatura/iframe
+  if (location.hash === '#export') return; // abrir con #export = sin botones (captura limpia)
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>

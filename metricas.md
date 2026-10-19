@@ -59,14 +59,27 @@ atribuibles al post · WA = ídem por WhatsApp.
 | [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | herramientas | 26/06 | reel pautado | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | pauta $15k/día × 7d — anotar tb. costo/mensaje |
 | [Girasol NS 1113 CL: ensayos CREA](posts/2026-W28/post-01-girasol-ns1113.md) | girasol | pendiente | placa | | | | | | | |
 
-### Octubre 2026 — campaña Siembra 26/27
+### Octubre 2026 — campaña Siembra 26/27 (plan vigente desde el 19/10)
 
 | Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
 |------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
-| [La 26/27 ya se está sembrando](posts/2026-W43/post-01-campana-en-marcha.md) | institucional | 20/10 | placa (+ foto) | | | | | | | vuelta a redes tras 4 meses |
-| [Girasol: la ventana está abierta](posts/2026-W43/post-02-girasol-ventana.md) | girasol | 22/10 | placa | | | | | | | |
-| [Maíz: sembraste, ahora contá](posts/2026-W43/post-03-maiz-conta-plantas.md) 📣 | técnico | 24/10 | carrusel | | | | | | | anotar tb. recorridas pedidas |
-| [Maíz tardío](posts/2026-W44/post-01-maiz-tardio.md) | maíz | 27/10 | placa | | | | | | | |
+| [Reel 1: ¿Quién sigue de cerca tu lote?](reels/2026-W43-reels-semana.md) | institucional | 20/10 | reel 31 s | | | | | | | vuelta a redes tras 4 meses · encuesta en historia |
+| [Reel 2: ¿Ya tenés el girasol en la tolva?](reels/2026-W43-reels-semana.md) | girasol | 22/10 | reel 24 s | | | | | | | |
+| [Reel 3: ¿Cuántas plantas lograste?](reels/2026-W43-reels-semana.md) 📣 | técnico | 24/10 | reel 24 s + planilla | | | | | | | anotar comentarios PLANILLA, planillas enviadas y recorridas |
+| [Reel 4: ¿Te queda maíz tardío por definir?](reels/2026-W43-reels-semana.md) | maíz | 27/10 | reel 22 s | | | | | | | |
+
+### Plan anterior W40–W41 (armado el 24/09, no se publicó)
+
+| Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
+|------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
+| [Girasol: ventana de siembra](posts/2026-W40/post-01-girasol-ventana.md) | girasol | 28/09 plan | placa 📣 | | | | | | | |
+| [Refugio NS 7800](posts/2026-W40/post-02-refugio-ns7800.md) | técnica | 01/10 plan | placa | | | | | | | |
+| [Reel girasol](posts/2026-W40/post-03-girasol-ventana-reel.md) | girasol | 02/10 plan | reel | | | | | | | |
+| [Somos de acá](posts/2026-W40/post-04-somos-de-aca.md) | institucional | 03/10 plan | placa 📣 | | | | | | | |
+| [Carrusel girasol](posts/2026-W41/post-01-girasol-carrusel.md) | girasol | 06/10 plan | carrusel | | | | | | | |
+| [Calculadora ¿maíz o girasol?](posts/2026-W41/post-02-calculadora-maiz-girasol.md) | herramientas | 07/10 plan | placa + historia | | | | | | | anotar clics al link |
+| [Tardío: ranking](posts/2026-W41/post-03-maiz-tardio-ranking.md) | maíz | 08/10 plan | placa | | | | | | | |
+| [Reel ranking tardío](posts/2026-W41/post-04-maiz-tardio-ranking-reel.md) | maíz | 11/10 plan | reel 📣 | | | | | | | costo/conversación |
 
 ### Pauta (solo posts 📣)
 
@@ -86,6 +99,11 @@ atribuibles al post · WA = ídem por WhatsApp.
 
 ## Línea base y objetivos
 
+**Número norte (provisorio):** `[COMPLETAR: definir con Henderseeds — ej. "5
+conversaciones comerciales nuevas por semana durante precampaña"]`. Sin ese
+número, la tabla semanal no tiene contra qué compararse. Se ajusta con los
+datos reales de W27–W30.
+
 Todavía **no hay línea base**: se construye con las primeras 4 semanas de datos
 reales. Cuando estén cargadas W27–W30, definir acá:
 
@@ -101,5 +119,6 @@ nada en 4 intentos se replantea (ángulo, visual u horario), no se repite igual.
 
 - Cada lote semanal nuevo agrega su fila acá (con celdas vacías) al crearse el post.
 - Nunca borrar filas: si un post no se publicó, anotarlo en Notas.
-- Los datos son privados: **este archivo no se publica** ni se citan números
-  de alcance/resultados en redes.
+- Los datos son privados: **no se citan números de alcance/resultados en redes.**
+  ⚠️ Ojo: el repo es **público**, así que este archivo también se ve en internet. Si se cargan
+  inversiones y costos reales, conviene pasar el repo a privado o llevar la planilla a otro lado.

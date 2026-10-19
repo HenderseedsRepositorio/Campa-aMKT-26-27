@@ -17,7 +17,7 @@
 >
 > Techo de rinde y aceite del portafolio, Clearfield para limpiar el lote y sanidad firme (Sclerotinia 2, resistente a Downy Mildew y Roya negra). Es el girasol que más posicionamos para Henderson, Daireaux y Bolívar.
 >
-> La siembra arranca en agosto. La bolsa se asegura ahora, en precampaña.
+> En el oeste, la fecha óptima de siembra va del 15/10 al 15/11 (marbete Nidera). La bolsa se asegura antes. <!-- corregido 24/09: decía "arranca en agosto" (dato de la región Norte) -->
 >
 > 📩 Mandanos un DM con tu lote y te decimos si el 1113 va ahí.
 

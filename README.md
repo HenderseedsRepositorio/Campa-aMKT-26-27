@@ -10,6 +10,23 @@ precampaña maíz/girasol 26/27: posts, carruseles, reels y pauta de Meta.
 **🌐 Página demo online:** <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/>
 (se publica sola desde `docs/` con cada push, vía GitHub Pages + Actions).
 
+**🌱 Relanzamiento Siembra 26/27 (24/09/2026):** diagnóstico, plan W40–W46 y todas las piezas
+con su texto → `docs/propuesta/index.html` (online: <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/propuesta/>).
+
+**🎬 Reels para arrancar (W40–W41):** los 6 reels con MP4, tapa, texto y audio sugerido →
+`docs/reels-siembra/index.html` (online: <https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/reels-siembra/>).
+Se rearma con `node scripts/armar-reels.mjs`; `--autocontenida archivo.html` arma un solo archivo para mandar.
+La página se publica sola con cada push a `claude/peaceful-sagan-srghou` o `claude/gallant-hawking-qbdjlf`.
+
+| Comando | Qué hace |
+|---------|----------|
+| `npm run placas` | Renderiza cada `docs/placas/*.html` a JPG (feed 4:5 + historia 9:16) en `docs/placas/img/` |
+| `npm run videos` | Graba las placas animadas a MP4 (1080×1920, H.264) en `docs/placas/video/` — necesita `ffmpeg` |
+| `npm run propuesta` | Rearma `docs/propuesta/index.html` desde las placas (`--posts` escribe los `.md` del plan, `--miniaturas` regenera la grilla del perfil) |
+
+**📷 Placa con foto:** `docs/foto/index.html` — subís una foto del celular y sale la placa con marca
+(plantillas titular / dato / frase, feed o historia). Funciona sin internet y la foto no sale del teléfono.
+
 ## Cómo se usa (desde la web o el celular)
 
 Abrí una sesión de Claude Code sobre este repo y tirá uno de estos prompts:

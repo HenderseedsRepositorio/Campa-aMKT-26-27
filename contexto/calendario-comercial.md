@@ -1,5 +1,11 @@
 # Calendario comercial 26/27
 
+> ⚠️ **PENDIENTE CRÍTICO — BLOQUEA TODO EL CONTENIDO DE AGOSTO:**
+> conseguir de Nidera las **fechas de escalones y cierre de precampaña**.
+> Sin hito real no hay posts de urgencia (regla: nada de falsa escasez), y el
+> tramo final de la campaña se comunica en el aire. Es un llamado al RTV de
+> Nidera: la acción de mayor palanca de todo el proyecto. `[COMPLETAR]`
+
 > Las fechas y condiciones de precampaña las define **Nidera**. Henderseeds las
 > carga acá apenas las confirma. Sin fecha confirmada, en los posts se habla de
 > "precampaña abierta" sin prometer vencimientos.
@@ -11,7 +17,9 @@
 ### Histórico (junio 2026)
 - ✅ **Precampaña maíz y girasol 26/27: ABIERTA.**
 - Cierre estimado: **agosto/septiembre 2026** `[COMPLETAR: fecha exacta cuando Nidera la confirme]`.
+- Plan anterior (24/09 y 07/10, no se publicó): `docs/propuesta/` y `docs/estrategia/plan.html`.
 - Primer post de lanzamiento: ya publicado `[COMPLETAR: fecha y link]`.
+- Último posteo publicado: reel de márgenes, 26/06/2026. Relanzamiento: plan W40–W46.
 
 ## Condiciones comerciales
 > ⚠️ **REGLA DURA: NUNCA publicar % de descuento, precios ni condiciones comerciales
