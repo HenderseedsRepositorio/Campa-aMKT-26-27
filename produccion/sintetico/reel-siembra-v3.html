@@ -35,12 +35,13 @@ html, body { background:#000; }
 
 /* 1 · Gancho sobre foto real */
 #s1 { opacity:1; }
-#s1 .foto { position:absolute; inset:0; background:url(img/dron/dron-02-vertical.jpg) center/cover; transform-origin:50% 55%; filter:brightness(1.12) saturate(1.25) contrast(1.05); }
-#s1 .velo { position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,15,27,0.92) 0%, rgba(10,15,27,0.62) 24%, rgba(10,15,27,0.0) 46%, rgba(10,15,27,0.0) 72%, rgba(10,15,27,0.55) 100%); }
-#s1 .hook { position:absolute; left:80px; right:120px; top:270px; }
-#s1 .h1 { font-family:var(--arch); font-size:104px; line-height:0.98; letter-spacing:-3.5px; color:var(--white); text-shadow:0 6px 40px rgba(0,0,0,0.45); }
-#s1 .h2 { font-family:var(--arch); font-size:104px; line-height:0.98; letter-spacing:-3.5px; color:var(--orange); margin-top:18px; text-shadow:0 6px 40px rgba(0,0,0,0.45); }
-#s1 .tag { position:absolute; left:80px; bottom:420px; font-family:var(--mono); font-size:26px; letter-spacing:4px; color:var(--white); background:rgba(10,15,27,0.62); border:1px solid rgba(255,255,255,0.22); border-radius:999px; padding:12px 24px; display:flex; align-items:center; gap:12px; }
+/* La foto de dron va horizontal, como se ve en el dron: franja ancha al centro */
+#s1 .banda { position:absolute; left:0; right:0; top:760px; height:760px; overflow:hidden; border-top:2px solid rgba(245,166,35,0.55); border-bottom:2px solid rgba(245,166,35,0.55); }
+#s1 .foto { position:absolute; inset:0; background:url(img/dron/dron-02.jpg) center/cover; transform-origin:50% 50%; filter:brightness(1.12) saturate(1.25) contrast(1.05); }
+#s1 .hook { position:absolute; left:80px; right:110px; top:300px; height:420px; display:flex; flex-direction:column; justify-content:flex-end; }
+#s1 .h1 { font-family:var(--arch); font-size:92px; line-height:0.98; letter-spacing:-3.5px; color:var(--white); text-shadow:0 6px 40px rgba(0,0,0,0.45); }
+#s1 .h2 { font-family:var(--arch); font-size:92px; line-height:0.98; letter-spacing:-3.5px; color:var(--orange); margin-top:18px; text-shadow:0 6px 40px rgba(0,0,0,0.45); }
+#s1 .tag { position:absolute; left:80px; top:1440px; font-family:var(--mono); font-size:26px; letter-spacing:4px; color:var(--white); background:rgba(10,15,27,0.62); border:1px solid rgba(255,255,255,0.22); border-radius:999px; padding:12px 24px; display:flex; align-items:center; gap:12px; }
 #s1 .tag i { width:12px; height:12px; border-radius:50%; background:var(--orange); display:block; }
 
 .metrics { position:absolute; left:80px; right:80px; top:1420px; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; }
@@ -78,8 +79,7 @@ html, body { background:#000; }
 
   <!-- 1 · Gancho: foto real de dron, texto visible desde el primer cuadro -->
   <div class="scene" id="s1">
-    <div class="foto" id="s1-foto"></div>
-    <div class="velo"></div>
+    <div class="banda"><div class="foto" id="s1-foto"></div></div>
     <div class="hook">
       <div class="h1" id="h1"></div>
       <div class="h2" id="h2"></div>
@@ -250,7 +250,7 @@ window.render = function (t) {
   });
 
   // 1 · gancho: primera línea visible desde el cuadro 0, la segunda entra a 1 s
-  document.getElementById('s1-foto').style.transform = 'scale(' + (1.22 + 0.12 * eio(seg(t, 0, 6))) + ')';
+  document.getElementById('s1-foto').style.transform = 'scale(' + (1.0 + 0.10 * eio(seg(t, 0, 6))) + ')';
   var k2 = eout(seg(t, 1.0, 1.6));
   var h2 = document.getElementById('h2'); h2.style.opacity = k2; h2.style.transform = 'translateY(' + (1 - k2) * 30 + 'px)';
 
