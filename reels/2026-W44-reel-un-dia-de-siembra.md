@@ -12,7 +12,17 @@
 > Publicable tal cual: no muestra nada "real" que no lo sea. Agregar música desde Instagram.
 > Versión con fotos (reales o IA): `produccion/sintetico/reel-siembra.html` + `produccion/sintetico/img/`.
 
-> ✅ **v5 FINAL "Experiencia Nidera" (19/10) — revisada por 4 agentes (diseño, formatos, ritmo, texto/marca)** →
+> 🔀 **4 versiones para elegir (19/10)** — mismo archivo, `?v=1..4` (`node scripts/render-reel.mjs
+> produccion/sintetico/reel-experiencia-v5.html --v N`). Se descartó "de la bolsa a la cosecha".
+> | Versión | Gancho | Apertura | Cierre | Duración |
+> |---|---|---|---|---|
+> | V1 | ¿Quién te acompaña toda la campaña? | 4 pasos que vuelan al seguidor | Toda la campaña, en tu lote. | 36 s |
+> | V2 | ¿Quién conoce tu lote tanto como vos? | Pregunta + respuesta "Nosotros. Antes, durante y después de sembrar." | Antes, durante y después. | 36 s |
+> | V3 | ¿Quién recorre tu lote con vos? | Línea de tiempo de la campaña que sube y se vuelve el seguidor | Recorremos tu lote con vos. | 36 s |
+> | V4 | ¿Sembrás solo o con equipo? | 4 pasos (corte corto, sin bajadas) | Sembrá con equipo. | 23,5 s |
+> Los ganchos son intercambiables entre versiones (variable `VARIANTES` del HTML).
+>
+> ✅ **v5 "Experiencia Nidera" (19/10) — revisada por 4 agentes (diseño, formatos, ritmo, texto/marca)** →
 > [`produccion/sintetico/reel-experiencia-v5.html`](../produccion/sintetico/reel-experiencia-v5.html)
 > - **Reel** (36 s): `node scripts/render-reel.mjs produccion/sintetico/reel-experiencia-v5.html`
 > - **Historia** (26 s, sin bajadas, lugar para stickers): `… --modo historia`, cortada en 3 archivos:

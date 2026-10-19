@@ -11,6 +11,7 @@
  *   node scripts/render-reel.mjs produccion/sintetico/reel-siembra-motion.html [salida.mp4] [--fps 30] [--preview]
  *   --preview  saca solo 6 cuadros sueltos (para revisar sin esperar el render completo)
  *   --modo historia  abre el HTML con ?modo=historia (versión Historia) y agrega -historia al nombre
+ *   --v N            elige la versión del reel (?v=N) y agrega -vN al nombre
  */
 import { chromium } from 'playwright';
 import { mkdtemp, readFile, rm, mkdir } from 'node:fs/promises';
@@ -26,11 +27,13 @@ const FUENTES_MARCA = ['Archivo Black', 'DM Sans', 'DM Mono'];
 const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);
 const valor = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d);
-const CON_VALOR = ['--fps', '--ts', '--modo'];
+const CON_VALOR = ['--fps', '--ts', '--modo', '--v'];
 const posicionales = args.filter((a, i) => !a.startsWith('--') && !CON_VALOR.includes(args[i - 1]));
 const entrada = path.resolve(posicionales[0] || '');
 const MODO = valor('--modo', '');
-const salida = path.resolve(posicionales[1] || entrada.replace(/\.html$/, (MODO ? '-' + MODO : '') + '.mp4').replace('/sintetico/', '/sintetico/out/'));
+const VERSION = valor('--v', '');
+const QUERY = [MODO && 'modo=' + MODO, VERSION && 'v=' + VERSION].filter(Boolean).join('&');
+const salida = path.resolve(posicionales[1] || entrada.replace(/\.html$/, (VERSION ? '-v' + VERSION : '') + (MODO ? '-' + MODO : '') + '.mp4').replace('/sintetico/', '/sintetico/out/'));
 const FPS = Number(valor('--fps', 30));
 
 const cssFuentes = (await readFile(CSS_FUENTES, 'utf8')).replace(
@@ -41,7 +44,7 @@ const cssFuentes = (await readFile(CSS_FUENTES, 'utf8')).replace(
 const nav = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 const pag = await nav.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
 await pag.addInitScript(() => { window.__RENDER_MODE__ = true; });
-await pag.goto('file://' + entrada + (MODO ? '?modo=' + MODO : ''), { waitUntil: 'load' });
+await pag.goto('file://' + entrada + (QUERY ? '?' + QUERY : ''), { waitUntil: 'load' });
 await pag.addStyleTag({ content: cssFuentes });
 await pag.evaluate(() => document.fonts.ready);
 const faltan = await pag.evaluate((fs) => {
