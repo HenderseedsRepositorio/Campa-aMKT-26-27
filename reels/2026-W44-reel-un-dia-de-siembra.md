@@ -12,6 +12,21 @@
 > Publicable tal cual: no muestra nada "real" que no lo sea. Agregar música desde Instagram.
 > Versión con fotos (reales o IA): `produccion/sintetico/reel-siembra.html` + `produccion/sintetico/img/`.
 
+> 🎬 **v2 educativa (19/10) — recomendada:** 5 escenas + cierre, ritmo tranquilo, 40 s →
+> [`produccion/sintetico/reel-siembra-motion-v2.html`](../produccion/sintetico/reel-siembra-motion-v2.html)
+> 1. Título (configurable) · 2. En V3–V4 el lote ya muestra cómo nació · 3. **Nidera Vuela**: volamos
+> el lote con dron, fotos en loma/media loma/bajo · 4. Qué medimos: plantas/ha, CV de distancia entre
+> plantas, fallas/dobles · 5. Por qué importa (6–9 %, Nafziger 1991/INTA) · Cierre co-brand
+> "Tecnología Nidera Vuela · El ojo de HenderSeeds en tu lote".
+> ⚠️ Los números de la escena 4 son **EJEMPLO ILUSTRATIVO**: `[COMPLETAR: plantas/ha, CV y
+> fallas/dobles de un informe real de Nidera Vuela]` (variable `METRICAS` del HTML).
+>
+> **Opciones de título** (variable `TITULO` del HTML):
+> La 26/27 ya se está sembrando. · La siembra no termina en la sembradora. · Sembrar es la mitad.
+> La otra, medirlo. · ¿Cómo nació tu maíz? Lo vemos desde arriba. · Tu lote, planta por planta. ·
+> Del surco al dron. · Sembramos. Ahora, a contar. · Lo que dejó la sembradora, el dron lo cuenta. ·
+> Ya está sembrado. ¿Nació parejo?
+
 ## Hook (segundos 0–3)
 Toma **A2**: la sembradora viene de frente desde la cabecera y pasa de largo.
 Texto en pantalla (grande, Archivo Black blanco con sombra suave): **"Un día de siembra en el oeste, en 30 segundos."**
