@@ -12,6 +12,7 @@
  *   --preview  saca solo 6 cuadros sueltos (para revisar sin esperar el render completo)
  *   --modo historia  abre el HTML con ?modo=historia (versión Historia) y agrega -historia al nombre
  *   --v N            elige la versión del reel (?v=N) y agrega -vN al nombre
+ *   --q "a=1&b=2"    parámetros extra para el HTML (ej. el clip real: --q "clip=img/clip&clipn=120")
  */
 import { chromium } from 'playwright';
 import { mkdtemp, readFile, rm, mkdir } from 'node:fs/promises';
@@ -27,12 +28,12 @@ const FUENTES_MARCA = ['Archivo Black', 'DM Sans', 'DM Mono'];
 const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);
 const valor = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d);
-const CON_VALOR = ['--fps', '--ts', '--modo', '--v'];
+const CON_VALOR = ['--fps', '--ts', '--modo', '--v', '--q'];
 const posicionales = args.filter((a, i) => !a.startsWith('--') && !CON_VALOR.includes(args[i - 1]));
 const entrada = path.resolve(posicionales[0] || '');
 const MODO = valor('--modo', '');
 const VERSION = valor('--v', '');
-const QUERY = [MODO && 'modo=' + MODO, VERSION && 'v=' + VERSION].filter(Boolean).join('&');
+const QUERY = [MODO && 'modo=' + MODO, VERSION && 'v=' + VERSION, valor('--q', '')].filter(Boolean).join('&');
 const salida = path.resolve(posicionales[1] || entrada.replace(/\.html$/, (VERSION ? '-v' + VERSION : '') + (MODO ? '-' + MODO : '') + '.mp4').replace('/sintetico/', '/sintetico/out/'));
 const FPS = Number(valor('--fps', 30));
 
@@ -58,6 +59,8 @@ if (faltan.length) {
 }
 // Con las tipografías ya cargadas, que el HTML recalcule los tamaños que dependen de ellas
 await pag.evaluate(() => window.reajustar && window.reajustar());
+// Si el HTML carga imágenes aparte (cuadros de un clip real), esperar a que estén decodificadas
+await pag.evaluate(() => (window.LISTO ? window.LISTO.then(() => true) : true));
 const dur = await pag.evaluate(() => window.REEL_DURACION);
 const escenario = pag.locator('#stage');
 

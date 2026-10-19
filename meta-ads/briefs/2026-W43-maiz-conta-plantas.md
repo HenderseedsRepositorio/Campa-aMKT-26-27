@@ -1,6 +1,6 @@
 # Brief de pauta — Maíz: "Sembraste. Ahora contá." (verificación de implantación)
 
-- **Post asociado:** [`posts/2026-W43/post-03-maiz-conta-plantas.md`](../../posts/2026-W43/post-03-maiz-conta-plantas.md)
+- **Post asociado:** [`posts/2026-W43/post-03-maiz-conta-plantas.md`](../../posts/2026-W43/post-03-maiz-conta-plantas.md) + Reel 3 (`reels/2026-W43-reels-semana.md`)
 - **Objetivo en Meta:** Mensajes (destinos: Instagram Direct + WhatsApp)
 - **Presupuesto:** $`[COMPLETAR]` por día × 7 días (total $`[COMPLETAR]`).
   Referencia propia: el reel de márgenes W27 se pautó a $15.000/día × 7 días.
@@ -16,17 +16,28 @@
 - **Exclusiones:** seguidores actuales que ya interactuaron con el post orgánico (opcional, para no pagar por los que ya lo vieron)
 
 ## Ubicaciones
-Automáticas. Si se puede elegir: Feed IG/FB + Stories (el carrusel funciona mal en Reels).
+Automáticas (Reels, Stories y Feed de IG/FB): la pieza principal es vertical.
 
-## Creatividad
-- **Pieza:** el carrusel de 5 slides tal cual (feed). Para Stories: slide 1 + slide 5 en 9:16 (`docs/placas/img/*-historia-1080x1920.jpg`).
+## Creatividad (2 anuncios en el mismo conjunto, Meta reparte al que mejor rinde)
+- **A · Reel "¿Cuántas plantas lograste?" versión pauta** (principal): `node scripts/render-reel.mjs
+  produccion/sintetico/reel-conteo-plantas.html --v pauta` → `reel-conteo-plantas-vpauta.mp4` (24 s).
+  Cierra con la planilla y "Mandanos PLANILLA por DM" (en un anuncio no se comenta: se escribe).
+- **B · Carrusel de 5 slides** (`docs/placas/2026-W43-post-03-carrusel-maiz-conta-plantas.html`), solo Feed.
+- **Gancho del anuncio = planilla gratis para llevar al lote** ([docs/recursos/planilla-conteo-plantas.html](../../docs/recursos/planilla-conteo-plantas.html)):
+  pedir algo útil cuesta menos que pedir una recorrida, y la conversación ya queda abierta.
 - **Texto principal del anuncio:**
-  > Sembraste el maíz. ¿Ya contaste cuántas plantas nacieron? 🌽 Con una cinta y 15 minutos lo sabés. Y si querés, lo hacemos juntos en tu lote: escribinos y coordinamos la verificación de implantación.
-- **Título:** Verificación de implantación en tu lote
+  > ¿Cuántas plantas lograste? 🌽🌻 Con una cinta y 15 minutos lo sabés. Armamos una planilla para llevar al lote: metros a contar, logro de implantación, dobles y fallas. Escribinos PLANILLA y te la mandamos. Y si querés, lo contamos juntos en tu lote.
+- **Título:** Planilla de conteo de plantas
 - **Botón:** "Enviar mensaje"
+- **Plantilla de mensaje** (se configura en el anuncio):
+  - Saludo: "¡Hola! Somos HenderSeeds, RED.IN Nidera. ¿En qué te ayudamos?"
+  - Preguntas sugeridas: "Quiero la planilla de conteo" · "Quiero que cuenten mi lote" · "¿Qué maíz va en mi zona?"
+  - Respuesta: mandar la imagen de la planilla (`docs/recursos/out/planilla-conteo-plantas.jpg`) y
+    seguir con el guion de [reels/2026-W43-reels-semana.md](../../reels/2026-W43-reels-semana.md) (Video 3).
 
 ## Métrica de éxito
 - **Principal:** costo por conversación iniciada < $`[COMPLETAR]` y cantidad de recorridas pedidas.
+- **Embudo:** conversaciones → planillas enviadas → recorridas/conteos coordinados (anotar a mano en `metricas.md`).
 - **Secundarias:** guardados y compartidos (señal de contenido útil), frecuencia < 2,5.
 - **Cortar si:** a las 72 h el costo por conversación duplica la referencia, o la frecuencia pasa 2,5.
 

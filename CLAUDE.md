@@ -118,3 +118,6 @@ meta-ads/
   maíz y girasol y el acompañamiento a campo. Ventana girasol Oeste BA (marbete): óptima 15/10–15/11,
   límite 20/11 (corregido en `contexto/productos-26-27.md`, antes decía ago-sep por error).
   Fotos/videos: pedir según `produccion/guia-foto-video-siembra.md`.
+- 🎬 W43–W44: 4 reels listos (`reels/2026-W43-reels-semana.md`), planilla de conteo como imán de contactos
+  (`docs/recursos/`, render con `scripts/render-pdf.mjs`) y video 1 preparado para voz en off y clip real
+  (`reels/2026-W43-video1-voz-y-clip.md`).

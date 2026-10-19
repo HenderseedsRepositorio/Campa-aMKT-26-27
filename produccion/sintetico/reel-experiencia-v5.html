@@ -116,6 +116,12 @@ html, body { background:#000; }
 .outro .sticker-txt { display:none; font-family:var(--sans); font-weight:700; font-size:36px; color:var(--orange); margin-top:60px; }
 .historia .outro .dm, .historia .outro .wa { display:none; }
 .historia .outro .sticker-txt { display:block; }
+/* Clip real del cierre (?clip=carpeta&clipn=N): toma de campo a pantalla completa y el cierre encima */
+#clip { position:absolute; inset:0; z-index:35; opacity:0; }
+#clipVelo { position:absolute; inset:0; z-index:36; opacity:0; background:linear-gradient(180deg, rgba(10,15,27,0.35) 0%, rgba(10,15,27,0) 22%, rgba(10,15,27,0) 55%, rgba(10,15,27,0.85) 100%); }
+#clipOsc { position:absolute; inset:0; z-index:37; opacity:0; background:rgba(10,15,27,0.84); }
+#clipTag { position:absolute; left:80px; top:1300px; z-index:38; opacity:0; font-family:var(--mono); font-size:30px; letter-spacing:4px; text-transform:uppercase; color:#fff; display:flex; align-items:center; gap:14px; }
+#clipTag i { width:16px; height:16px; border-radius:50%; background:var(--orange); display:block; }
 </style>
 </head>
 <body>
@@ -186,6 +192,11 @@ html, body { background:#000; }
   </div>
 
   <div class="pasos" id="pasos"><div class="linea"></div><div class="avance" id="avance"></div></div>
+
+  <canvas id="clip" width="1080" height="1920"></canvas>
+  <div id="clipVelo"></div>
+  <div id="clipOsc"></div>
+  <div id="clipTag"><i></i>Equipo HenderSeeds · a campo</div>
 
   <div class="outro" id="outro">
     <div class="logos">
@@ -393,6 +404,21 @@ var ESC = CORTO ? [['s1', 0, 4.0], ['s2', 4.0, 7.75], ['s3', 7.75, 11.5], ['s4',
         : R ? [['s1', 0, 3.8], ['s2', 3.8, 9.2], ['s3', 9.2, 14.4], ['s4', 14.4, 21.2], ['s5', 21.2, 26.8]]
             : [['s1', 0, 5.0], ['s2', 5.0, 8.75], ['s3', 8.75, 12.5], ['s4', 12.5, 16.25], ['s5', 16.25, 20.0]];
 var T_OUT = CORTO ? 19.0 : R ? 26.8 : 20.0, TOTAL = CORTO ? 23.5 : R ? 30.8 : 26.0, VEL = (R && !CORTO) ? 1 : 0.62;   // VEL acelera las animaciones internas en Historia
+// Clip real: 2,4 s de toma limpia después de la última etapa; el cierre aparece encima del clip oscurecido
+var CLIP = R && PARAM.get('clip') ? { dir: PARAM.get('clip').replace(/\/?$/, '/'), n: +PARAM.get('clipn') || 0, libre: 2.4, cuadros: [] } : null;
+var T_FIN = T_OUT;   // fin de las etapas
+if (CLIP) { T_OUT += CLIP.libre; TOTAL += CLIP.libre; }
+if (CLIP) window.LISTO = Promise.all(Array.from({ length: CLIP.n }, function (_, i) {
+  var im = new Image(); CLIP.cuadros.push(im);
+  return new Promise(function (ok, mal) { im.onload = ok; im.onerror = function () { mal(new Error('falta ' + im.src)); }; im.src = CLIP.dir + String(i + 1).padStart(4, '0') + '.jpg'; });
+}));
+function cuadroClip(t) {
+  var c = document.getElementById('clip'), x = c.getContext('2d'), u = Math.max(0, t - T_FIN);
+  var im = CLIP.cuadros[Math.min(CLIP.n - 1, Math.floor(u * 30))]; if (!im) return;
+  var z = 1 + 0.05 * clamp(u / (TOTAL - T_FIN)), w = 1080 * z, h = 1920 * z;   // zoom lento: si el clip se termina, el último cuadro no queda quieto
+  var esc = Math.max(w / im.naturalWidth, h / im.naturalHeight), dw = im.naturalWidth * esc, dh = im.naturalHeight * esc;
+  x.drawImage(im, (1080 - dw) / 2, (1920 - dh) / 2, dw, dh);
+}
 window.REEL_DURACION = TOTAL;
 window.REEL_CORTES = ESC.map(function (e) { return e[1]; }).concat([T_OUT, TOTAL]);
 
@@ -452,8 +478,8 @@ var s1 = ESC[0], M0 = (R && AP !== 'respuesta') ? s1[2] - 0.6 : 1e9;
   });
 
   // Seguidor de etapas
-  var visible = ((R && AP !== 'respuesta') ? t >= M0 + 0.6 : t >= ESC[1][1]) && t < T_OUT;
-  pasosEl.style.opacity = visible ? 1 - eio(seg(t, T_OUT - 0.2, T_OUT + 0.1)) : 0;
+  var visible = ((R && AP !== 'respuesta') ? t >= M0 + 0.6 : t >= ESC[1][1]) && t < T_FIN + 0.1;
+  pasosEl.style.opacity = visible ? 1 - eio(seg(t, T_FIN - 0.2, T_FIN + 0.1)) : 0;
   var etapa = -1; for (var k = 1; k < ESC.length; k++) if (t >= ESC[k][1]) etapa = k - 1;
   puntos.forEach(function (p, i) { p.className = 'punto' + (i === etapa ? ' on' : i < etapa ? ' hecho' : ''); });
   var av = 0; for (var k2 = 2; k2 < ESC.length; k2++) av += eio(seg(t, ESC[k2][1] - 0.4, ESC[k2][1]));
@@ -499,6 +525,15 @@ var s1 = ESC[0], M0 = (R && AP !== 'respuesta') ? s1[2] - 0.6 : 1e9;
     tk.circ.setAttribute('opacity', 0.45 + 0.55 * kt);
   });
 
+  // Clip real (opcional)
+  if (CLIP) {
+    var kc = eio(seg(t, T_FIN - 0.1, T_FIN + 0.3));
+    document.getElementById('clip').style.opacity = kc; document.getElementById('clipVelo').style.opacity = kc;
+    if (kc > 0) cuadroClip(t);
+    var kg = eout(seg(t, T_FIN + 0.5, T_FIN + 0.9)) * (1 - eio(seg(t, T_OUT - 0.3, T_OUT)));
+    var tg = document.getElementById('clipTag'); tg.style.opacity = kg; tg.style.transform = 'translateY(' + (1 - kg) * 20 + 'px)';
+    document.getElementById('clipOsc').style.opacity = eio(seg(t, T_OUT - 0.2, T_OUT + 0.5));
+  }
   // Cierre
   var o = eio(seg(t, T_OUT, T_OUT + 0.4));
   var outro = document.getElementById('outro');

@@ -7,6 +7,8 @@
   Estilo: TUTORIAL CON NÚMEROS GIGANTES (fondo navy, un número enorme por paso, contador de pasos
   arriba). Mensaje: cómo contar plantas de maíz en 1/1000 ha, en 3 pasos.
   Datos: aritmética (10 m² ÷ distancia entre surcos); 63 plantas = EJEMPLO rotulado.
+  Cierre: imán de contactos "Comentá PLANILLA" (orgánico) · ?v=pauta → "Mandanos PLANILLA por DM".
+  La planilla está en docs/placas/planilla-conteo-plantas.html.
   Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
 -->
 <link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
@@ -34,11 +36,14 @@ html, body { background:#000; }
 .tips { position:absolute; left:80px; width:850px; top:720px; display:flex; flex-direction:column; gap:26px; }
 .tip { display:flex; align-items:center; gap:24px; background:rgba(0,0,0,0.30); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:28px 30px; font-family:var(--sans); font-weight:700; font-size:42px; color:var(--white); }
 .tip svg { flex-shrink:0; }
-.outro { position:absolute; inset:0; z-index:40; opacity:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:0 150px 160px 80px; }
+.outro { position:absolute; inset:0; z-index:40; opacity:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:0 150px 400px 80px; }
+.outro .hoja { position:absolute; left:330px; top:270px; width:420px; }
+.outro .hoja img { width:100%; display:block; border-radius:6px; box-shadow:0 30px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08); transform:rotate(-4deg); }
 .outro .kick { font-family:var(--mono); font-size:28px; letter-spacing:4px; color:var(--steel); text-transform:uppercase; }
 .outro .q { font-family:var(--arch); font-size:104px; line-height:0.98; letter-spacing:-3.5px; color:var(--white); margin-top:22px; }
 .outro .q span { color:var(--orange); }
 .outro .s { font-family:var(--sans); font-weight:600; font-size:36px; line-height:1.35; color:var(--ice); margin-top:28px; }
+.outro .s b { color:var(--orange); font-weight:700; }
 .outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--orange); border-radius:8px; padding:24px 38px; margin-top:56px; }
 .outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-size:30px; color:var(--ice); }
 .outro img.hs { height:70px; margin-top:80px; }
@@ -80,12 +85,12 @@ html, body { background:#000; }
     </div>
   </div>
   <div class="outro" id="outro">
-    <div class="kick">Verificación de implantación</div>
-    <div class="q">¿Lo contamos<br><span>juntos?</span></div>
-    <div class="s">Vamos a tu lote y hacemos el conteo con vos.</div>
-    <div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Mandanos un DM</div>
+    <div class="hoja" id="hoja"><img src="img/planilla-conteo-thumb.jpg" alt="Planilla de conteo de plantas"></div>
+    <div class="kick">Planilla de conteo · maíz y girasol</div>
+    <div class="q">¿Querés la<br><span>planilla?</span></div>
+    <div class="s" id="ctaS">Comentá <b>PLANILLA</b> y te la mandamos por DM. Y si querés, vamos a tu lote y contamos con vos.</div>
+    <div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg><span id="ctaB">Comentá PLANILLA</span></div>
     <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
-    <img class="hs" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
   </div>
   <div class="paso" id="paso"><b id="pasoN">1</b><span id="pasoT">PASO 1 DE 3</span></div>
 </div>
@@ -122,6 +127,10 @@ for (var q = 0; q <= 20; q++) marcas.push(el('line', { x1: 92 + q * 41.5, y1: 13
 // 3 · plantas que aparecen una por una mientras corre el contador
 var p3 = surco(document.getElementById('a3'), 1380, 9, 190);
 
+if (new URLSearchParams(location.search).get('v') === 'pauta') {
+  document.getElementById('ctaS').innerHTML = 'Mandanos <b>PLANILLA</b> por DM y te la pasamos. Y si querés, vamos a tu lote y contamos con vos.';
+  document.getElementById('ctaB').textContent = 'Mandanos PLANILLA por DM';
+}
 var ESC = [['s1', 0, 3.6], ['s2', 3.6, 8.2], ['s3', 8.2, 12.6], ['s4', 12.6, 16.6], ['s5', 16.6, 20.0]];
 var T_OUT = 20.0, TOTAL = 24.0;
 window.REEL_DURACION = TOTAL;

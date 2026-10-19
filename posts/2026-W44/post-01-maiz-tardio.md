@@ -12,12 +12,12 @@
 > Datos de los marbetes oficiales Nidera, siembra tardía templada (diferencia de rinde contra el índice ambiental):
 >
 > • NS 7765 VIPTERA3: +324 kg/ha, 71 % de éxito en 165 comparaciones. El más completo del portafolio.
-> • NS 7925 VIPTERA3: +228 kg/ha, 59 % de éxito. Lanzamiento, con el mejor Spiroplasma del portafolio (3).
+> • NS 7925 VIPTERA3: +228 kg/ha, 59 % de éxito en 120 comparaciones. Lanzamiento, con el mejor Spiroplasma del portafolio (3).
 > • NS 7921 VIPTERA3 CL: +179 kg/ha, 60 % de éxito en 364 comparaciones. Suma 3 herramientas herbicidas.
 >
 > Cuál va depende del lote, de las malezas que vengas peleando y de la presión de chicharrita en la zona. Eso lo vemos juntos.
 >
-> 📩 Mandanos un DM · wa.me/5492314530691
+> 📩 Pedí tu recomendación por DM · wa.me/5492314530691
 
 ## Pieza visual
 Placa 1080×1350 navy, grilla naranja sutil.

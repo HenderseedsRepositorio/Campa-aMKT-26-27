@@ -11,3 +11,5 @@ docs/placas/img/
 
 # Salidas de render de reels (MP4 y cuadros de vista previa): se regeneran con scripts/render-reel.mjs
 produccion/sintetico/out/
+docs/recursos/out/
+produccion/sintetico/img/clip/
