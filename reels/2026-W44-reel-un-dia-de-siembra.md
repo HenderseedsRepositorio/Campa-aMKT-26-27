@@ -12,7 +12,20 @@
 > Publicable tal cual: no muestra nada "real" que no lo sea. Agregar música desde Instagram.
 > Versión con fotos (reales o IA): `produccion/sintetico/reel-siembra.html` + `produccion/sintetico/img/`.
 
-> 🎬 **v3 con fotos REALES de dron (19/10) — la recomendada:** 37 s, 5 escenas + cierre →
+> 🎬 **v4 "Experiencia Nidera" (19/10) — la recomendada:** reel general del acompañamiento, 37 s →
+> [`produccion/sintetico/reel-experiencia-v4.html`](../produccion/sintetico/reel-experiencia-v4.html)
+> Gancho en pregunta sobre foto real de dron (horizontal) + 4 etapas con seguidor de pasos:
+> **Antes** (híbrido y densidad por ambiente, base de ensayos Nidera) · **Siembra** (siembra variable,
+> mapa de prescripción; recomendación Nidera o plan a medida) · **Post-siembra** (calidad de siembra
+> con dron: escena de detección sobre foto real, sin números) · **Ciclo** (informe de visita) ·
+> Cierre "Experiencia Nidera · Con el equipo HenderSeeds en tu lote".
+> Ganchos (variable `GANCHO`): ¿Comprás semilla o comprás un plan? · ¿Quién te acompaña después de
+> la bolsa? · ¿Qué hay detrás de una buena siembra? · ¿Tu semilla viene con equipo? · ¿Sembrar y
+> esperar? Hay otra forma. · ¿Cuánto conocés tu lote?
+> `[COMPLETAR: confirmar el nombre exacto de la herramienta de recomendación ("Asista" / Asistente
+> Dinámico Nidera) si se quiere nombrar en el video o el caption]`
+>
+> 🎬 **v3 con fotos REALES de dron (19/10), foco en conteo:** 37 s, 5 escenas + cierre →
 > [`produccion/sintetico/reel-siembra-v3.html`](../produccion/sintetico/reel-siembra-v3.html)
 > 1. **Gancho sobre foto real** (texto desde el cuadro 0, sirve de portada): "La sembradora dice
 > una cosa. / El lote, otra." · 2. Cuándo medir: V3–V4 · 3. Cómo: Nidera Vuela (dron por ambientes) ·
