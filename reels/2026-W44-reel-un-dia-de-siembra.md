@@ -12,7 +12,26 @@
 > Publicable tal cual: no muestra nada "real" que no lo sea. Agregar música desde Instagram.
 > Versión con fotos (reales o IA): `produccion/sintetico/reel-siembra.html` + `produccion/sintetico/img/`.
 
-> 🎬 **v2 educativa (19/10) — recomendada:** 5 escenas + cierre, ritmo tranquilo, 40 s →
+> 🎬 **v3 con fotos REALES de dron (19/10) — la recomendada:** 37 s, 5 escenas + cierre →
+> [`produccion/sintetico/reel-siembra-v3.html`](../produccion/sintetico/reel-siembra-v3.html)
+> 1. **Gancho sobre foto real** (texto desde el cuadro 0, sirve de portada): "La sembradora dice
+> una cosa. / El lote, otra." · 2. Cuándo medir: V3–V4 · 3. Cómo: Nidera Vuela (dron por ambientes) ·
+> 4. Qué medimos: foto real con las plantas detectadas + plantas/ha, CV, fallas/dobles · 5. Para qué
+> sirve: resembrar o no, ajustar la sembradora, densidad por ambiente · Cierre co-brand.
+> ⚠️ Tarjetas de la escena 4 = EJEMPLO hasta tener el informe real (ver `produccion/analisis-dron-ejemplo.md`).
+>
+> **Ganchos alternativos** (variable `GANCHO`): "Lo que no ves desde la camioneta, / lo ve el dron." ·
+> "¿Cuántas plantas nacieron / de verdad?" · "Antes de decidir si resembrás, / mirá esto." ·
+> "Así se ve tu maíz / desde el dron." · "¿Nació parejo? / Desde arriba no hay dudas."
+>
+> **Caption sugerido (v3):**
+> La sembradora dice una cosa. El lote, otra. 🌽
+> En V3–V4 volamos el lote con dron (Nidera Vuela), sacamos fotos por ambiente y contamos planta por planta: cuántas hay, cómo quedaron distribuidas y dónde hubo fallas.
+> Con ese dato decidís si resembrás, qué ajustar en la sembradora y qué densidad usar en cada ambiente la próxima.
+> ¿Lo medimos en tu lote? Mandanos un DM. 📲 wa.me/5492314530691
+> #Henderseeds #Nidera #NideraVuela #Maiz #Siembra2627 #Henderson #Daireaux #Bolivar
+>
+> 🎬 **v2 educativa (19/10), ilustrada:** 5 escenas + cierre, ritmo tranquilo, 40 s →
 > [`produccion/sintetico/reel-siembra-motion-v2.html`](../produccion/sintetico/reel-siembra-motion-v2.html)
 > 1. Título (configurable) · 2. En V3–V4 el lote ya muestra cómo nació · 3. **Nidera Vuela**: volamos
 > el lote con dron, fotos en loma/media loma/bajo · 4. Qué medimos: plantas/ha, CV de distancia entre
