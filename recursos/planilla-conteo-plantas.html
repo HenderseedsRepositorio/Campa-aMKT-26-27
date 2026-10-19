@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Planilla de conteo de plantas</title>
+<!--
+  Imán de contactos del Reel 3 ("Comentá PLANILLA"). Una hoja A4 para imprimir y llevar al lote,
+  que también se manda como imagen por DM (Instagram no acepta PDF) y como PDF por WhatsApp.
+  Render: node scripts/render-pdf.mjs docs/recursos/planilla-conteo-plantas.html
+  Datos:
+  - 1/1000 ha = 10 m² → metros de surco = 10 ÷ distancia entre surcos (m). Aritmética.
+  - Dobles y fallas: espaciamiento < 0,5 × teórico = doble; > 1,5 × teórico = falla.
+    Kachman, S. D. y Smith, J. A. (1995). Alternative measures of accuracy in plant spacing for
+    planters using single seed metering. Transactions of the ASAE 38(2): 379–387.
+  - Maíz, emergencia despareja: 6–9 % menos de rinde cuando parte de las plantas nace ~10 días tarde.
+    Nafziger, Carter y Graham (1991), Crop Science 31: 811–815, citado por INTA.
+  - Ejemplos rotulados como EJEMPLO: no son recomendación de densidad.
+-->
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<style>
+@page { size: A4; margin: 0; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0D2D5E; --tinta:#0A0F1B; --gris:#4A5264; --linea:#C9D1DE; --suave:#F3F5F9; --orange:#F5A623;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#fff; }
+.hoja { width:794px; height:1123px; position:relative; overflow:hidden; background:#fff; color:var(--tinta); font-family:var(--sans); }
+.band { height:74px; background:var(--tinta); display:flex; align-items:center; justify-content:space-between; padding:0 36px; border-bottom:5px solid var(--orange); }
+.band img { height:38px; }
+.band span { font-family:var(--mono); font-size:11px; letter-spacing:2.4px; color:#C9D3E6; text-transform:uppercase; text-align:right; line-height:1.5; }
+.cuerpo { padding:24px 36px 0; }
+h1 { font-family:var(--arch); font-size:34px; letter-spacing:-1px; line-height:1; color:var(--navy); }
+h1 em { font-style:normal; color:var(--tinta); background:linear-gradient(transparent 58%, rgba(245,166,35,0.75) 58%); padding:0 3px; }
+.bajada { font-size:14px; color:var(--gris); margin-top:8px; line-height:1.4; }
+.bajada b { color:var(--tinta); }
+.lote { display:grid; grid-template-columns:2.2fr 1.4fr 1.3fr; gap:10px 18px; margin-top:13px; padding:12px 14px; border:1.5px solid var(--linea); border-radius:10px; }
+.f { font-family:var(--mono); font-size:10.5px; letter-spacing:1px; color:var(--gris); text-transform:uppercase; display:flex; align-items:flex-end; gap:6px; white-space:nowrap; }
+.f i { flex:1; border-bottom:1.3px solid var(--gris); height:16px; }
+.f .box { display:inline-flex; align-items:center; gap:5px; text-transform:none; letter-spacing:0; font-family:var(--sans); font-size:12.5px; color:var(--tinta); }
+.f .box::before { content:''; width:12px; height:12px; border:1.5px solid var(--tinta); border-radius:3px; }
+.paso { display:flex; align-items:center; gap:10px; margin-top:15px; }
+.paso b { width:26px; height:26px; border-radius:50%; background:var(--orange); display:grid; place-items:center; font-family:var(--mono); font-size:13px; font-weight:500; color:var(--tinta); }
+.paso h2 { font-family:var(--arch); font-size:17px; letter-spacing:-0.3px; color:var(--navy); }
+.paso span { font-size:12.5px; color:var(--gris); }
+.metros { display:grid; grid-template-columns:1fr 1fr 1.25fr; gap:10px; margin-top:9px; }
+.m { border:1.5px solid var(--linea); border-radius:10px; padding:7px 12px; }
+.m small { font-family:var(--mono); font-size:10.5px; letter-spacing:1.2px; color:var(--gris); text-transform:uppercase; }
+.m div { font-family:var(--mono); font-weight:500; font-size:24px; color:var(--tinta); margin-top:2px; letter-spacing:-0.5px; }
+.m div u { text-decoration:none; color:var(--navy); background:linear-gradient(transparent 60%, rgba(245,166,35,0.6) 60%); }
+.m.otra div { font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; line-height:1.3; padding-top:3px; }
+table { width:100%; border-collapse:collapse; margin-top:9px; font-size:12px; }
+th { font-family:var(--mono); font-weight:500; font-size:9.5px; letter-spacing:1px; text-transform:uppercase; color:var(--gris); text-align:left; padding:6px 7px; background:var(--suave); border-bottom:1.5px solid var(--linea); line-height:1.25; vertical-align:bottom; }
+th small { display:block; text-transform:none; letter-spacing:0; font-family:var(--sans); font-size:10px; color:var(--gris); }
+td { height:23px; border-bottom:1px solid var(--linea); padding:0 7px; color:var(--gris); }
+td + td, th + th { border-left:1px solid var(--linea); }
+td.n { font-family:var(--mono); font-weight:500; color:var(--tinta); width:40px; }
+td.amb { font-size:11px; white-space:nowrap; letter-spacing:0.2px; }
+tr.prom td { background:#FFF6E6; border-bottom:2px solid var(--orange); font-weight:700; color:var(--tinta); }
+.logro { display:flex; align-items:center; gap:8px; margin-top:9px; padding:10px 14px; background:var(--suave); border-radius:10px; font-size:12.5px; font-weight:600; white-space:nowrap; }
+.logro .h { display:inline-block; width:66px; border-bottom:1.5px solid var(--tinta); height:18px; }
+.logro .op { font-family:var(--mono); font-size:16px; color:var(--navy); }
+.logro .res { font-family:var(--arch); color:var(--navy); }
+.ej { font-family:var(--mono); font-size:10px; letter-spacing:1px; color:var(--gris); margin-top:5px; }
+.dos { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; margin-top:13px; }
+.caja { border:1.5px solid var(--linea); border-radius:10px; padding:12px 14px; position:relative; }
+.caja h3 { font-family:var(--arch); font-size:14.5px; color:var(--navy); letter-spacing:-0.2px; }
+.caja p { font-size:11.8px; line-height:1.45; color:var(--tinta); margin-top:6px; }
+.caja p.g { color:var(--gris); }
+.caja .form { font-family:var(--mono); font-size:10.2px; white-space:nowrap; background:var(--suave); border-radius:6px; padding:7px 9px; margin-top:7px; line-height:1.45; color:var(--tinta); }
+.caja .dato { font-family:var(--arch); font-size:26px; color:var(--navy); margin-top:6px; line-height:1; }
+.caja .dato small { font-family:var(--sans); font-weight:700; font-size:12px; color:var(--tinta); }
+.surco { margin-top:6px; width:100%; height:auto; display:block; }
+.caja .fuente { font-family:var(--mono); font-size:8.6px; letter-spacing:0.2px; color:var(--gris); margin-top:7px; line-height:1.45; }
+.cuando { display:flex; gap:14px; margin-top:14px; font-size:12.5px; align-items:center; }
+.cuando b.k { font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:1.5px; color:var(--gris); text-transform:uppercase; }
+.cuando span { background:var(--suave); border-radius:999px; padding:6px 12px; font-weight:600; }
+.pie { position:absolute; left:0; right:0; bottom:0; height:76px; background:var(--tinta); display:flex; align-items:center; justify-content:space-between; padding:0 36px; color:#fff; }
+.pie .q { font-family:var(--arch); font-size:19px; letter-spacing:-0.3px; line-height:1.1; }
+.pie .q em { font-style:normal; color:var(--orange); }
+.pie .q small { display:block; font-family:var(--sans); font-weight:500; font-size:11.5px; color:#C9D3E6; letter-spacing:0; margin-top:4px; }
+.pie .c { text-align:right; font-family:var(--mono); font-size:12.5px; line-height:1.6; color:#E8EEF7; }
+.pie .c b { color:var(--orange); font-weight:500; }
+</style>
+</head>
+<body>
+<div class="hoja">
+  <div class="band">
+    <img src="../assets/logo-henderseeds-white.png" alt="HenderSeeds">
+    <span>Planilla de conteo de plantas<br>Maíz y girasol · Campaña 26/27</span>
+  </div>
+
+  <div class="cuerpo">
+    <h1>¿Cuántas plantas <em>lograste?</em></h1>
+    <p class="bajada">Contá en <b>1/1000 de hectárea (10 m²)</b>, en <b>4 a 6 puntos al azar</b> (no los más lindos), lomas y bajos por separado.<br><b>Cuándo:</b> maíz en V2 a V4 · girasol ya nacido, con 2 a 4 hojas.</p>
+
+    <div class="lote">
+      <div class="f">Productor / lote <i></i></div>
+      <div class="f">Cultivo <span class="box">Maíz</span><span class="box">Girasol</span></div>
+      <div class="f">Híbrido <i></i></div>
+      <div class="f">Semillas sembradas por ha <i></i></div>
+      <div class="f">Siembra <i></i></div>
+      <div class="f">Conteo <i></i></div>
+    </div>
+
+    <div class="paso"><b>1</b><h2>Medí los metros de surco</h2><span>según tu distancia entre surcos</span></div>
+    <div class="metros">
+      <div class="m"><small>Surcos a 52,5 cm</small><div><u>19,05 m</u></div></div>
+      <div class="m"><small>Surcos a 70 cm</small><div><u>14,29 m</u></div></div>
+      <div class="m otra"><small>Otra distancia</small><div>10 ÷ distancia en metros<br>= metros a contar</div></div>
+    </div>
+
+    <div class="paso"><b>2</b><h2>Contá y anotá</h2><span>todas las plantas en esos metros</span></div>
+    <table>
+      <tr>
+        <th>Punto</th>
+        <th>Ambiente<small>loma · media · bajo</small></th>
+        <th>Plantas<small>en los metros</small></th>
+        <th>Plantas/ha<small>plantas × 1.000</small></th>
+        <th>Dobles</th>
+        <th>Fallas</th>
+        <th>Atrasadas</th>
+      </tr>
+      <tr><td class="n">1</td><td class="amb"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">2</td><td class="amb"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">3</td><td class="amb"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">4</td><td class="amb"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">5</td><td class="amb"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">6</td><td class="amb"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="prom"><td colspan="3">Promedio</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+
+    <div class="paso"><b>3</b><h2>Calculá el logro</h2><span>cuántas de las semillas que sembraste hoy son planta</span></div>
+    <div class="logro">
+      Plantas/ha promedio <span class="h"></span><span class="op">÷</span> semillas sembradas/ha <span class="h"></span><span class="op">× 100 =</span><span class="h"></span><span class="res">% de logro</span>
+    </div>
+    <div class="ej">EJEMPLO: 63 plantas en 19,05 m = 63.000 pl/ha · sembraste 70.000/ha → 90 % de logro</div>
+
+    <div class="dos">
+      <div class="caja">
+        <h3>Dobles y fallas</h3>
+        <p>Medí la distancia entre 20 plantas seguidas y comparala con la distancia teórica:</p>
+        <div class="form">teórica (cm) = 1.000.000 ÷ (sem/ha × surco m)<br><b>Doble:</b> &lt; la mitad · <b>Falla:</b> &gt; 1,5 veces</div>
+        <svg class="surco" viewBox="0 0 330 46" width="330" height="46">
+          <line x1="4" y1="38" x2="326" y2="38" stroke="#C9D1DE" stroke-width="2"/>
+          <g fill="#0D2D5E">
+            <circle cx="20" cy="30" r="6"/><circle cx="64" cy="30" r="6"/><circle cx="108" cy="30" r="6"/><circle cx="118" cy="30" r="6"/>
+            <circle cx="162" cy="30" r="6"/><circle cx="294" cy="30" r="6"/>
+          </g>
+          <path d="M100 17 h26" stroke="#F5A623" stroke-width="3"/><text x="113" y="10" text-anchor="middle" font-family="DM Mono" font-size="10" fill="#0A0F1B">doble</text>
+          <path d="M170 17 h116" stroke="#F5A623" stroke-width="3" stroke-dasharray="5 4"/><text x="228" y="10" text-anchor="middle" font-family="DM Mono" font-size="10" fill="#0A0F1B">falla</text>
+        </svg>
+        <p class="g">Ej.: 70.000 semillas/ha a 52,5 cm → 27 cm entre plantas. Doble: menos de 14 cm. Falla: más de 41 cm.</p>
+        <p class="fuente">Criterio: Kachman y Smith (1995), Transactions of the ASAE 38(2). Valores de ejemplo, no son recomendación de densidad.</p>
+      </div>
+      <div class="caja">
+        <h3>Plantas atrasadas</h3>
+        <p>Marcá las que tienen <b>1 o 2 hojas menos</b> que sus vecinas: nacieron tarde y quedan dominadas.</p>
+        <div class="dato">6–9 % <small>menos de rinde</small></div>
+        <p>en maíz, cuando parte de las plantas nace unos 10 días tarde.</p>
+        <svg class="surco" viewBox="0 0 330 46" width="330" height="46">
+          <line x1="4" y1="42" x2="326" y2="42" stroke="#C9D1DE" stroke-width="2"/>
+          <g stroke-width="3" stroke-linecap="round" fill="none"><path d="M30 41 V11 M30 31 C24 24 17 22 12 27 M30 23 C36 16 43 14 48 19 M30 14 C28 8 24 5 20 5" stroke="#0D2D5E"/><path d="M90 41 V11 M90 31 C84 24 77 22 72 27 M90 23 C96 16 103 14 108 19 M90 14 C88 8 84 5 80 5" stroke="#0D2D5E"/><path d="M210 41 V11 M210 31 C204 24 197 22 192 27 M210 23 C216 16 223 14 228 19 M210 14 C208 8 204 5 200 5" stroke="#0D2D5E"/><path d="M270 41 V11 M270 31 C264 24 257 22 252 27 M270 23 C276 16 283 14 288 19 M270 14 C268 8 264 5 260 5" stroke="#0D2D5E"/><path d="M150 41 V27 M150 36 C147 33 144 32 142 34 M150 33 C153 29 156 28 158 31 M150 28 C149 26 147 24 145 24" stroke="#F5A623"/></g>
+          <circle cx="150" cy="33" r="15" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-dasharray="3 3"/>
+        </svg>
+        <p class="fuente">Nafziger, Carter y Graham (1991), Crop Science 31: 811–815, citado por INTA.</p>
+      </div>
+    </div>
+
+      </div>
+
+  <div class="pie">
+    <div class="q">¿Lo contamos <em>juntos?</em><small>Vamos a tu lote y hacemos la verificación de implantación con vos.</small></div>
+    <div class="c">WhatsApp <b>2314 53-0691</b><br>@henderseeds · RED.IN Nidera</div>
+  </div>
+</div>
+</body>
+</html>
