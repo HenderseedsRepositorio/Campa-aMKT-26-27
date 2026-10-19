@@ -61,12 +61,28 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W39 | 21/09 | 💡 Girasol: pre-siembra en la zona | 💡 Herramientas | 💡 Técnico: dato de siembra |
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
+## Octubre–noviembre 2026 — campaña Siembra 26/27 (plan vigente desde el 19/10)
+> Acordado con Henderseeds el 19/10: W43–W44 salen con los 4 reels de abajo. El plan de 9 semanas
+> ([`docs/estrategia/plan.html`](docs/estrategia/plan.html)) sigue como marco (Estados de WhatsApp, pauta A + B)
+> y sus piezas de W40–W42 quedan como banco de opciones.
+> Pausa de publicaciones entre fines de junio y mediados de octubre: lo propuesto para
+> jul–sep (💡) quedó sin publicar. Se retoma en W43 con foco **siembra / acompañamiento a campo**
+> (la precampaña ya cerró: no hablar más de "asegurá tu bolsa").
+> Ventana de girasol Oeste BA (marbete): **óptima 15/10–15/11, límite 20/11**.
+> 📷 Fotos y videos: [guía de tomas](produccion/guia-foto-video-siembra.md) (códigos A1–A8, B1–B6).
+
+| Semana | Lunes | Post 1 — cultivo | Post 2 — negocio / técnico | Post 3 — comunidad |
+|--------|-------|------------------|-----------------------------|---------------------|
+| 2026-W43 | 19/10 | 🎬 **mar 20/10** [Reel 1: ¿Quién sigue de cerca tu lote?](reels/2026-W43-reels-semana.md) (Experiencia Nidera) → historia con encuesta | 🎬 **jue 22/10** [Reel 2: ¿Ya tenés el girasol en la tolva?](reels/2026-W43-reels-semana.md) · [placa](docs/placas/2026-W43-post-02-girasol-ventana.html) → historia | 🎬 **sáb 24/10** [Reel 3: ¿Cuántas plantas lograste?](reels/2026-W43-reels-semana.md) · 📋 [planilla](docs/recursos/planilla-conteo-plantas.html) ("Comentá PLANILLA") · 📣 [brief](meta-ads/briefs/2026-W43-maiz-conta-plantas.md) · [carrusel](docs/placas/2026-W43-post-03-carrusel-maiz-conta-plantas.html) para guardar |
+| 2026-W44 | 26/10 | 🎬 **mar 27/10** [Reel 4: ¿Te queda maíz tardío por definir?](reels/2026-W43-reels-semana.md) · [placa](docs/placas/2026-W44-post-01-maiz-tardio.html) | ✍️ **jue 29/10** [Parte de siembra (foto real)](posts/2026-W44/post-02-parte-de-siembra.md) — ⏳ falta foto A1/A6/A8 | 💡 **sáb 31/10** reel de la calculadora "¿Qué te queda de cada hectárea?" ([kit](docs/kit/), banco) o carrusel conteo |
+| 2026-W45 | 02/11 | 💡 Girasol: emergencia y conteo (cotiledones, 7–12 días post siembra) | 💡 Calculadora de márgenes: ¿cuánto tiene que rendir el girasol? (rinde de indiferencia) | 💡 Parte de siembra #2 (foto real) |
+| 2026-W46 | 09/11 | 💡 Girasol: última semana de ventana óptima (cierra 15/11) | 💡 Herramienta financiera: tasa real de cuotas/cheques de la campaña | 💡 Testimonio corto de productor (toma B5, con OK) |
 
 > ⚠️ **Desde el 07/10/2026 manda el plan de 9 semanas: [`docs/estrategia/plan.html`](docs/estrategia/plan.html)**
 > (1 publicación por semana, Estados de WhatsApp, pauta A + B). La grilla de abajo queda como
 > referencia de las piezas hechas en septiembre; el plan elige cuáles salen y cuándo.
 
-## 🌱 Relanzamiento Siembra 26/27 — W40 → W46 (propuesta 24/09/2026, ajustada el mismo día)
+## Plan anterior: relanzamiento W40 → W46 (propuesta 24/09/2026, no se publicó)
 Plan completo, piezas y textos: [`docs/propuesta/index.html`](docs/propuesta/index.html).
 **Arranque con reels (W40–W41):** los 6 reels juntos, con MP4, tapa y texto: [`docs/reels-siembra/index.html`](docs/reels-siembra/index.html).
 Todas las piezas en ✍️ borrador hasta que se aprueben (las dos páginas tienen botones Aprobar / Cambiar / Descartar).

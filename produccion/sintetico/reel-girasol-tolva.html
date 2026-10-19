@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · ¿Ya tenés el girasol en la tolva?</title>
+<!--
+  Estilo: CLARO / EDITORIAL (crema, tipografía navy, marcador naranja). Reemplaza a reel-girasol-ventana.
+  Mensaje: arranca el girasol (sin decirlo literal) → ventana del oeste → qué girasol va en cada lote →
+  fecha límite y consejo → contacto.
+  Datos: marbetes oficiales Nidera 26/27 (Oeste BA: óptima 15/10–15/11, límite 20/11) y
+  contexto/productos-26-27.md (posicionamiento de los 4 girasoles).
+  Gancho sobreescribible por URL: ?g=línea1|línea2 (para probar títulos).
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --crema:#F6F4EE; --arena:#EFEAE0; --tinta:#15181E; --navy:#0D2D5E; --gris:#4A5264; --orange:#F5A623;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--crema); }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(13,45,94,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(13,45,94,0.045) 1px, transparent 1px); background-size:72px 72px; }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:60; }
+.scene { position:absolute; inset:0; z-index:2; opacity:0; }
+.kick { position:absolute; left:80px; top:300px; font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--gris); display:flex; align-items:center; gap:14px; }
+.kick i { width:14px; height:14px; border-radius:50%; background:var(--orange); display:block; }
+.t { position:absolute; left:80px; width:850px; top:360px; font-family:var(--arch); font-size:104px; line-height:1.02; letter-spacing:-3.5px; color:var(--navy); white-space:nowrap; }
+.mk { position:relative; display:inline-block; z-index:0; }
+.mk::before { content:''; position:absolute; left:-8px; right:-8px; top:52%; height:44%; background:var(--orange); z-index:-1; transform-origin:0 50%; transform:scaleX(var(--k, 0)); border-radius:4px; }
+.sub { position:absolute; left:80px; width:800px; font-family:var(--sans); font-weight:500; font-size:40px; line-height:1.32; color:var(--gris); }
+.sub b { color:var(--tinta); font-weight:700; }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+/* Calendario: 6 semanas corridas (12/10 → 22/11), celdas grandes para leer en el celular */
+.cal { position:absolute; left:80px; width:850px; top:680px; }
+.cal h4 { font-family:var(--mono); font-weight:500; font-size:28px; letter-spacing:4px; color:var(--navy); margin-bottom:16px; }
+.dias { display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; }
+.dias span { height:92px; display:grid; place-items:center; font-family:var(--mono); font-size:38px; color:var(--gris); position:relative; }
+.dias .ds { height:46px; font-size:24px; color:rgba(74,82,100,0.6); }
+.dias .d { z-index:0; }
+.dias .d::before { content:''; position:absolute; inset:0; border-radius:12px; background:var(--orange); opacity:var(--k, 0); z-index:-1; }
+.dias .d.lim::before { background:repeating-linear-gradient(135deg, rgba(245,166,35,0.95) 0 8px, rgba(245,166,35,0.35) 8px 16px); }
+.dias .d.on { color:var(--tinta); font-weight:500; }
+.dias .d em { position:absolute; top:6px; left:10px; font-style:normal; font-size:17px; letter-spacing:2px; color:var(--navy); opacity:0.75; }
+.dias .hoy::after { content:''; position:absolute; inset:0; border:4px solid var(--navy); border-radius:12px; opacity:var(--h, 0); }
+.ref { position:absolute; left:80px; top:1400px; display:flex; gap:34px; font-family:var(--mono); font-size:26px; color:var(--gris); }
+.ref span { display:flex; align-items:center; gap:12px; }
+.ref i { width:30px; height:30px; border-radius:6px; display:block; }
+/* Los 4 girasoles */
+.hib { position:absolute; left:80px; width:850px; top:700px; display:flex; flex-direction:column; gap:20px; }
+.hb { display:flex; align-items:center; gap:24px; background:#FFFFFF; border:2px solid rgba(13,45,94,0.12); border-radius:16px; padding:24px 28px; }
+.hb .ic { width:64px; height:64px; flex-shrink:0; }
+.hb .nm { font-family:var(--arch); font-size:42px; letter-spacing:-1.5px; color:var(--navy); line-height:1; white-space:nowrap; }
+.hb .tg { font-family:var(--sans); font-weight:600; font-size:31px; color:var(--gris); margin-top:8px; }
+/* Fecha límite */
+.huge { position:absolute; left:72px; top:470px; font-family:var(--mono); font-weight:500; font-size:250px; letter-spacing:-12px; color:var(--navy); line-height:1; }
+.outro { position:absolute; inset:0; z-index:40; opacity:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:0 150px 160px 80px; }
+.outro img.hs { height:92px; mix-blend-mode:multiply; }
+.outro .q { font-family:var(--arch); font-size:76px; line-height:1.02; letter-spacing:-2.5px; color:var(--navy); margin-top:70px; }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--orange); border-radius:8px; padding:24px 38px; margin-top:56px; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-size:30px; color:var(--tinta); }
+.outro .src { font-family:var(--mono); font-size:22px; color:var(--gris); margin-top:60px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- 1 · Gancho: semillas de girasol cayendo en la tolva -->
+  <div class="scene" id="s1">
+    <div class="kick"><i></i>Girasol 26/27 · Oeste bonaerense</div>
+    <div class="t" id="t1"></div>
+    <svg class="art" viewBox="0 0 1080 1920"><g id="tolva"></g></svg>
+  </div>
+  <!-- 2 · Ventana -->
+  <div class="scene" id="s2">
+    <div class="kick"><i></i>Según los marbetes Nidera</div>
+    <div class="t" id="t2" style="font-size:92px">Ventana óptima:<br><span class="mk" id="mk2">15/10 → 15/11</span></div>
+    <div class="cal" id="cal"></div>
+    <div class="ref" id="ref"><span><i style="background:#F5A623"></i>óptima</span><span><i style="background:repeating-linear-gradient(135deg,rgba(245,166,35,.95) 0 5px,rgba(245,166,35,.35) 5px 10px)"></i>límite</span><span><i style="border:3px solid #0D2D5E"></i>hoy</span></div>
+  </div>
+  <!-- 3 · Qué girasol va -->
+  <div class="scene" id="s3">
+    <div class="kick"><i></i>Los 4 girasoles Nidera</div>
+    <div class="t" id="t3" style="font-size:92px">¿Cuál va<br>en <span class="mk" id="mk3">tu lote?</span></div>
+    <div class="hib" id="hib"></div>
+  </div>
+  <!-- 4 · Límite + consejo -->
+  <div class="scene" id="s4">
+    <div class="kick"><i></i>Fecha límite</div>
+    <div class="huge" id="huge">20/11</div>
+    <div class="sub" id="sub4" style="top:780px">Hay tiempo para <b>sembrar bien:</b> mejor esperar piso y humedad que apurarse. Una implantación despareja <b>no se corrige después.</b></div>
+    <svg class="art" viewBox="0 0 1080 1920"><g id="hilera"></g></svg>
+  </div>
+  <div class="outro" id="outro">
+    <img class="hs" src="../../docs/assets/logo-henderseeds-navy.png" alt="HenderSeeds">
+    <div class="q">¿Dudas de densidad<br>o de qué girasol va<br>en tu lote?</div>
+    <div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Pedí tu recomendación por DM</div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <div class="src">Fuente: marbetes oficiales Nidera 26/27 · región Oeste de Buenos Aires.<br>CLEARFIELD® es marca registrada de BASF. RED.IN · Nidera Semillas.</div>
+  </div>
+</div>
+<script>
+/* ── Lo que se cambia seguido ── */
+var PARAM = new URLSearchParams(location.search);
+var GANCHO = PARAM.get('g') ? PARAM.get('g').split('|') : ['¿Ya tenés el girasol', 'en la tolva?'];   // la última palabra lleva el marcador
+var HOY = 22;   // día de octubre marcado como "hoy" (publicación jueves 22/10)
+var GIRASOLES = [
+  ['NS 1113 CL', 'Techo de rinde y aceite'],
+  ['NS 1115 CL', 'La sanidad más completa · Phomopsis 2'],
+  ['NS 1117 CL', 'Máximo rinde con Phomopsis 2'],
+  ['NS 1227 CL HO', 'Alto oleico']
+];
+
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); while (n.scrollWidth > n.clientWidth + 1 && fs > min) { fs -= 2; n.style.fontSize = fs + 'px'; } }
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+
+// gancho: la última palabra va con marcador
+(function () {
+  var ult = GANCHO[GANCHO.length - 1], partes = ult.split(' '), w = partes.pop().replace(/([?.!])$/, ''), cierre = (ult.match(/[?.!]$/) || [''])[0];
+  var linea = (partes.length ? partes.join(' ') + ' ' : '') + '<span class="mk" id="mk1">' + w + cierre + '</span>';
+  document.getElementById('t1').innerHTML = GANCHO.slice(0, -1).concat([linea]).join('<br>');
+})();
+window.reajustar = function () { ['t1', 't2', 't3'].forEach(function (id) { var n = document.getElementById(id); n.style.fontSize = ''; ajustar(n, 62); }); };
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+/* ── 1 · Tolva + semillas de girasol (aquenios rayados) que caen ── */
+var tv = document.getElementById('tolva');
+var TX = 540, TY = 1010, TW = 560, BW = 150, TH = 330;
+var cuerpo = 'M' + (TX - TW / 2) + ' ' + TY + ' L' + (TX + TW / 2) + ' ' + TY + ' L' + (TX + BW / 2) + ' ' + (TY + TH) + ' L' + (TX - BW / 2) + ' ' + (TY + TH) + ' Z';
+var defs = el('defs', {}, tv), cl = el('clipPath', { id: 'clipTolva' }, defs); el('path', { d: cuerpo }, cl);
+el('path', { d: cuerpo, fill: 'rgba(13,45,94,0.06)' }, tv);
+var carga = el('g', { 'clip-path': 'url(#clipTolva)' }, tv);
+// la carga de la tolva se rellena con un patrón de aquenios
+var pat = el('pattern', { id: 'aquenios', width: 64, height: 64, patternUnits: 'userSpaceOnUse' }, defs);
+el('rect', { width: 64, height: 64, fill: '#3A3F4A' }, pat);
+[[16, 18, 30], [46, 44, -40], [48, 10, 70], [14, 52, -10]].forEach(function (q) {
+  var g = el('g', { transform: 'translate(' + q[0] + ',' + q[1] + ') rotate(' + q[2] + ')' }, pat);
+  el('ellipse', { rx: 9, ry: 17, fill: '#1F232B' }, g);
+  el('path', { d: 'M-3.5 -13 Q -5 0 -3.5 13 M 3.5 -13 Q 5 0 3.5 13', stroke: '#F6F4EE', 'stroke-width': 1.8, fill: 'none', opacity: 0.8 }, g);
+});
+var pila = el('path', { d: '', fill: 'url(#aquenios)' }, carga);
+el('path', { d: cuerpo, fill: 'none', stroke: '#0D2D5E', 'stroke-width': 7, 'stroke-linejoin': 'round' }, tv);
+el('rect', { x: TX - 34, y: TY + TH, width: 68, height: 120, rx: 6, fill: 'none', stroke: '#0D2D5E', 'stroke-width': 7 }, tv);
+el('line', { x1: 140, y1: TY + TH + 150, x2: 940, y2: TY + TH + 150, stroke: 'rgba(13,45,94,0.35)', 'stroke-width': 4 }, tv);
+var semilla = 3; function rnd() { semilla = (semilla * 16807) % 2147483647; return (semilla - 1) / 2147483646; }
+function aquenio(g) {
+  var s = el('g', {}, g);
+  el('ellipse', { cx: 0, cy: 0, rx: 13, ry: 26, fill: '#2B2F38' }, s);
+  el('path', { d: 'M-5 -20 Q -8 0 -5 20 M 5 -20 Q 8 0 5 20', stroke: '#F6F4EE', 'stroke-width': 2.4, fill: 'none', opacity: 0.85 }, s);
+  return s;
+}
+var caen = [];
+for (var i = 0; i < 26; i++) caen.push({ g: aquenio(tv), x: TX + (rnd() - 0.5) * 380, t0: 0.15 + i * 0.09 + rnd() * 0.12, rot: (rnd() - 0.5) * 160, spin: (rnd() - 0.5) * 300 });
+
+/* ── 2 · Calendario: lunes 12/10 a domingo 22/11 de 2026, en una sola grilla ── */
+var cal = document.getElementById('cal'), celdas = [];
+(function () {
+  var html = '<h4>OCTUBRE → NOVIEMBRE 2026</h4><div class="dias">' + ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(function (d) { return '<span class="ds">' + d + '</span>'; }).join('');
+  for (var n = 12; n <= 31 + 22; n++) {   // n = día corrido desde el 1/10
+    var m = n <= 31 ? 10 : 11, d = m === 10 ? n : n - 31, tag = n === 12 ? '<em>OCT</em>' : d === 1 && m === 11 ? '<em>NOV</em>' : '';
+    html += '<span class="d" data-n="' + n + '">' + tag + d + '</span>';
+  }
+  cal.innerHTML = html + '</div>';
+})();
+cal.querySelectorAll('.d').forEach(function (c) {
+  var n = +c.dataset.n, opt = n >= 15 && n <= 46, lim = n >= 47 && n <= 51;   // óptima 15/10–15/11 · límite 16–20/11
+  if (lim) c.classList.add('lim');
+  if (n === HOY) c.classList.add('hoy');
+  if (opt || lim) celdas.push({ n: n, el: c });
+});
+/* ── 3 · Los 4 girasoles ── */
+var FLOR = '<svg class="ic" viewBox="-60 -60 120 120">' + (function () { var s = ''; for (var i = 0; i < 12; i++) s += '<path d="M0 -22 C 8 -32, 7 -48, 0 -56 C -7 -48, -8 -32, 0 -22 Z" fill="' + (i % 2 ? '#F5A623' : 'rgba(245,166,35,0.6)') + '" transform="rotate(' + i * 30 + ')"/>'; return s; })() + '<circle r="22" fill="#0D2D5E"/></svg>';
+document.getElementById('hib').innerHTML = GIRASOLES.map(function (g) { return '<div class="hb">' + FLOR + '<div><div class="nm">' + g[0] + '</div><div class="tg">' + g[1] + '</div></div></div>'; }).join('');
+
+/* ── 4 · hilera de plántulas de girasol (cotiledones) naciendo parejas ── */
+var hl = document.getElementById('hilera'), plantulas = [];
+el('line', { x1: 80, y1: 1420, x2: 930, y2: 1420, stroke: 'rgba(13,45,94,0.35)', 'stroke-width': 4 }, hl);
+for (var p = 0; p < 7; p++) {
+  var x = 130 + p * 128, g = el('g', {}, hl);
+  // plántula de girasol: tallo y dos cotiledones abiertos en V
+  el('path', { d: 'M' + x + ' 1418 Q ' + (x - 4) + ' 1380 ' + x + ' 1352', stroke: '#0D2D5E', 'stroke-width': 6, 'stroke-linecap': 'round', fill: 'none' }, g);
+  el('ellipse', { cx: x - 26, cy: 1338, rx: 30, ry: 13, fill: '#0D2D5E', transform: 'rotate(28 ' + (x - 26) + ' 1338)' }, g);
+  el('ellipse', { cx: x + 26, cy: 1338, rx: 30, ry: 13, fill: '#0D2D5E', transform: 'rotate(-28 ' + (x + 26) + ' 1338)' }, g);
+  g.style.transformBox = 'fill-box'; g.style.transformOrigin = '50% 100%'; plantulas.push(g);
+}
+
+var ESC = [['s1', 0, 4.2], ['s2', 4.2, 10.4], ['s3', 10.4, 15.6], ['s4', 15.6, 20.0]];
+var T_OUT = 20.0, TOTAL = 24.0;
+window.REEL_DURACION = TOTAL;
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e[0]);
+    n.style.opacity = i === 0 ? (t < e[2] ? 1 : 0) : (t >= e[1] && t < e[2] ? 1 : 0);
+    var k = i === 0 ? 1 : eout(seg(t, e[1], e[1] + 0.45));
+    n.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
+  });
+  // 1 · semillas cayendo, la pila sube y el marcador pinta "tolva"
+  var mk1 = document.getElementById('mk1'); if (mk1) mk1.style.setProperty('--k', eio(seg(t, 0.8, 1.5)));
+  caen.forEach(function (c) {
+    var u = (t - c.t0) / 0.9;
+    if (u < 0 || u > 1) { c.g.setAttribute('opacity', 0); return; }
+    var y = 640 + (TY + 200 - 640) * u * u;
+    c.g.setAttribute('opacity', u < 0.92 ? 1 : 0);
+    c.g.setAttribute('transform', 'translate(' + (c.x + (TX - c.x) * u * 0.35) + ',' + y + ') rotate(' + (c.rot + c.spin * u) + ')');
+  });
+  var nivel = eout(seg(t, 0.6, 3.6)), sup = TY + TH - nivel * 250;
+  pila.setAttribute('d', 'M' + (TX - TW / 2) + ' ' + (TY + TH + 10) + ' L' + (TX - TW / 2) + ' ' + (sup + 30) + ' Q ' + TX + ' ' + (sup - 40) + ' ' + (TX + TW / 2) + ' ' + (sup + 30) + ' L' + (TX + TW / 2) + ' ' + (TY + TH + 10) + ' Z');
+  // 2 · marcador + días que se pintan
+  document.getElementById('mk2').style.setProperty('--k', eio(seg(t, 4.7, 5.4)));
+  var kp = seg(t, 5.4, 7.8);
+  celdas.forEach(function (c) { var on = kp * 37 >= c.n - 14; c.el.style.setProperty('--k', on ? 1 : 0); c.el.classList.toggle('on', on && !c.el.classList.contains('lim')); });
+  cal.querySelectorAll('.hoy').forEach(function (h) { h.style.setProperty('--h', eout(seg(t, 8.0, 8.4))); });
+  document.getElementById('ref').style.opacity = eout(seg(t, 8.0, 8.5));
+  // 3 · girasoles uno por uno
+  document.getElementById('mk3').style.setProperty('--k', eio(seg(t, 10.8, 11.4)));
+  document.querySelectorAll('#hib .hb').forEach(function (h, i) { var k = eout(seg(t, 11.4 + i * 0.35, 11.9 + i * 0.35)); h.style.opacity = k; h.style.transform = 'translateX(' + (1 - k) * 60 + 'px)'; });
+  // 4 · fecha límite + consejo + hilera pareja
+  var kh = eout(seg(t, 15.7, 16.3));
+  document.getElementById('huge').style.transform = 'scale(' + (0.9 + 0.1 * kh) + ')';
+  document.getElementById('sub4').style.opacity = eout(seg(t, 16.4, 16.9));
+  plantulas.forEach(function (g, i) { var k = eout(seg(t, 17.0 + i * 0.08, 17.6 + i * 0.08)); g.style.transform = 'scale(1,' + k + ')'; g.style.opacity = k; });
+  // cierre
+  var out = document.getElementById('outro'); out.style.opacity = t >= T_OUT ? 1 : 0;
+  out.querySelectorAll(':scope > *').forEach(function (c, i) { var k = eout(seg(t, T_OUT + i * 0.12, T_OUT + 0.45 + i * 0.12)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

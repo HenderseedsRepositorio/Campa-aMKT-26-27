@@ -59,7 +59,16 @@ atribuibles al post · WA = ídem por WhatsApp.
 | [Reel Márgenes v2](reels/2026-W27-reel-margenes-v2.md) 📣 | herramientas | 26/06 | reel pautado | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` | pauta $15k/día × 7d — anotar tb. costo/mensaje |
 | [Girasol NS 1113 CL: ensayos CREA](posts/2026-W28/post-01-girasol-ns1113.md) | girasol | pendiente | placa | | | | | | | |
 
-### Octubre–noviembre 2026 (relanzamiento W40–W46)
+### Octubre 2026 — campaña Siembra 26/27 (plan vigente desde el 19/10)
+
+| Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
+|------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
+| [Reel 1: ¿Quién sigue de cerca tu lote?](reels/2026-W43-reels-semana.md) | institucional | 20/10 | reel 31 s | | | | | | | vuelta a redes tras 4 meses · encuesta en historia |
+| [Reel 2: ¿Ya tenés el girasol en la tolva?](reels/2026-W43-reels-semana.md) | girasol | 22/10 | reel 24 s | | | | | | | |
+| [Reel 3: ¿Cuántas plantas lograste?](reels/2026-W43-reels-semana.md) 📣 | técnico | 24/10 | reel 24 s + planilla | | | | | | | anotar comentarios PLANILLA, planillas enviadas y recorridas |
+| [Reel 4: ¿Te queda maíz tardío por definir?](reels/2026-W43-reels-semana.md) | maíz | 27/10 | reel 22 s | | | | | | | |
+
+### Plan anterior W40–W41 (armado el 24/09, no se publicó)
 
 | Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
 |------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
@@ -77,6 +86,7 @@ atribuibles al post · WA = ídem por WhatsApp.
 | Campaña | Período | Inversión | Mensajes iniciados | Costo por mensaje | Notas |
 |---------|---------|-----------|--------------------|--------------------|-------|
 | Reel Márgenes v2 | 26/06–03/07 | $15.000/día × 7 | `[COMPLETAR]` | `[COMPLETAR]` | objetivo: WhatsApp |
+| [Maíz: ahora contá](meta-ads/briefs/2026-W43-maiz-conta-plantas.md) | 26/10–01/11 | $15.000/día × 7 | | | objetivo: Mensajes (DM + WA) · reel + planilla · anotar planillas enviadas y recorridas |
 
 ---
 

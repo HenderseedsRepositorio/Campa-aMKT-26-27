@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel v3 · Nidera Vuela (fotos reales de dron)</title>
+<!--
+  v3: gancho con foto REAL de dron desde el primer cuadro (sirve de portada), 5 escenas + cierre,
+  una idea por escena. Arco: problema → cuándo medir → cómo (Nidera Vuela) → qué medimos → qué decidís.
+  Escena 4: los anillos están sobre las plantas REALES detectadas en la foto (procesamiento de imagen).
+  ⚠️ Los números de las tarjetas son EJEMPLO ILUSTRATIVO hasta tener el informe real (ver METRICAS).
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --orange:#F5A623; --white:#FFFFFF;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --dim:rgba(255,255,255,0.66); --faint:rgba(255,255,255,0.40);
+}
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--navy); }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:72px 72px; }
+.scene { position:absolute; inset:0; opacity:0; z-index:2; }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.head { position:absolute; left:80px; right:150px; top:300px; }
+.kick { font-family:var(--mono); font-size:30px; letter-spacing:5px; text-transform:uppercase; color:var(--orange); display:flex; align-items:center; gap:14px; }
+.kick .led { width:14px; height:14px; border-radius:50%; background:var(--orange); box-shadow:0 0 16px var(--orange); }
+.big { font-family:var(--arch); font-size:86px; line-height:1.0; letter-spacing:-2.5px; color:var(--white); margin-top:24px; }
+.big .hl { color:var(--orange); }
+.body { font-family:var(--sans); font-weight:500; font-size:38px; line-height:1.38; color:var(--dim); margin-top:28px; }
+.body b { color:var(--white); font-weight:700; }
+
+/* 1 · Gancho sobre foto real */
+#s1 { opacity:1; }
+/* La foto de dron va horizontal, como se ve en el dron: franja ancha al centro */
+#s1 .banda { position:absolute; left:0; right:0; top:760px; height:760px; overflow:hidden; border-top:2px solid rgba(245,166,35,0.55); border-bottom:2px solid rgba(245,166,35,0.55); }
+#s1 .foto { position:absolute; inset:0; background:url(img/dron/dron-02.jpg) center/cover; transform-origin:50% 50%; filter:brightness(1.12) saturate(1.25) contrast(1.05); }
+#s1 .hook { position:absolute; left:80px; right:110px; top:300px; height:420px; display:flex; flex-direction:column; justify-content:flex-end; }
+#s1 .h1 { font-family:var(--arch); font-size:92px; line-height:0.98; letter-spacing:-3.5px; color:var(--white); text-shadow:0 6px 40px rgba(0,0,0,0.45); }
+#s1 .h2 { font-family:var(--arch); font-size:92px; line-height:0.98; letter-spacing:-3.5px; color:var(--orange); margin-top:18px; text-shadow:0 6px 40px rgba(0,0,0,0.45); }
+#s1 .tag { position:absolute; left:80px; top:1440px; font-family:var(--mono); font-size:26px; letter-spacing:4px; color:var(--white); background:rgba(10,15,27,0.62); border:1px solid rgba(255,255,255,0.22); border-radius:999px; padding:12px 24px; display:flex; align-items:center; gap:12px; }
+#s1 .tag i { width:12px; height:12px; border-radius:50%; background:var(--orange); display:block; }
+
+.metrics { position:absolute; left:80px; right:80px; top:1420px; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; }
+.metric { background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:20px 22px; }
+.metric .k { font-family:var(--mono); font-size:19px; letter-spacing:2px; text-transform:uppercase; color:var(--faint); line-height:1.3; }
+.metric .v { font-family:var(--mono); font-weight:500; font-size:54px; letter-spacing:-2px; color:var(--white); margin-top:8px; line-height:1; }
+.metric.hl .v { color:var(--orange); }
+.ejemplo { position:absolute; left:80px; top:1586px; font-family:var(--mono); font-size:20px; letter-spacing:3px; color:var(--faint); }
+.fotolbl { position:absolute; left:80px; top:822px; font-family:var(--mono); font-size:22px; letter-spacing:3px; color:var(--dim); }
+
+.decis { position:absolute; left:80px; right:120px; top:820px; display:flex; flex-direction:column; gap:26px; }
+.dec { display:flex; align-items:center; gap:26px; background:rgba(0,0,0,0.30); border:1px solid rgba(255,255,255,0.12); border-radius:18px; padding:30px 32px; }
+.dec .n { font-family:var(--mono); font-weight:500; font-size:30px; color:var(--navy); background:var(--orange); border-radius:10px; width:58px; height:58px; display:grid; place-items:center; flex-shrink:0; }
+.dec .t { font-family:var(--sans); font-weight:700; font-size:46px; color:var(--white); line-height:1.2; }
+.dec .t small { display:block; font-weight:500; font-size:31px; color:var(--dim); margin-top:6px; }
+
+.logo-top { position:absolute; top:190px; right:80px; height:60px; z-index:20; }
+.bar { position:absolute; left:0; top:0; height:10px; background:var(--orange); z-index:30; }
+
+.outro { position:absolute; inset:0; opacity:0; z-index:40; background:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 90px 140px; }
+.outro .logos { display:flex; align-items:center; gap:34px; }
+.outro .logos .hs { height:110px; }
+.outro .logos .x { font-family:var(--mono); font-size:40px; color:var(--faint); }
+.outro .nid { position:relative; width:170px; height:94px; overflow:hidden; background:#fff; border-radius:12px; }
+.outro .nid img { position:absolute; width:192px; left:-11.3px; top:-48.7px; }
+.outro .l1 { font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--orange); margin-top:80px; }
+.outro .l2 { font-family:var(--arch); font-size:78px; line-height:1.02; letter-spacing:-2.5px; color:var(--white); margin-top:22px; }
+.outro .dm { display:flex; align-items:center; gap:18px; font-family:var(--sans); font-weight:700; font-size:44px; color:var(--white); margin-top:70px; background:rgba(245,166,35,0.12); border:2px solid var(--orange); border-radius:16px; padding:22px 34px; white-space:nowrap; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:34px; font-family:var(--mono); font-size:30px; color:rgba(255,255,255,0.8); }
+.outro .redin { font-family:var(--mono); font-size:22px; letter-spacing:2px; color:var(--faint); margin-top:18px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 · Gancho: foto real de dron, texto visible desde el primer cuadro -->
+  <div class="scene" id="s1">
+    <div class="banda"><div class="foto" id="s1-foto"></div></div>
+    <div class="hook">
+      <div class="h1" id="h1"></div>
+      <div class="h2" id="h2"></div>
+    </div>
+    <div class="tag"><i></i> FOTO REAL · DRON · MAÍZ 26/27</div>
+  </div>
+
+  <!-- 2 · Cuándo medir -->
+  <div class="scene" id="s2">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s2-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Cuándo medir</div>
+      <div class="big">En V3–V4,<br>el lote ya mostró<br><span class="hl">cómo nació.</span></div>
+      <div class="body">3 o 4 hojas con lígula visible: <b>se ve cuántas plantas hay y cómo quedaron.</b></div>
+    </div>
+  </div>
+
+  <!-- 3 · Cómo: Nidera Vuela -->
+  <div class="scene" id="s3">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s3-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Nidera Vuela</div>
+      <div class="big">Volamos<br>el lote <span class="hl">con dron.</span></div>
+      <div class="body">Fotos en loma, media loma y bajo: <b>cada foto es una muestra del lote.</b></div>
+    </div>
+  </div>
+
+  <!-- 4 · Qué medimos (foto real + detección) -->
+  <div class="scene" id="s4">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s4-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>Qué medimos</div>
+      <div class="big">Planta por planta,<br><span class="hl">foto por foto.</span></div>
+      <div class="body">CV = cuánto varía la distancia entre plantas. <b>Más bajo, más parejo.</b></div>
+    </div>
+    <div class="fotolbl">FOTO REAL · PLANTAS DETECTADAS</div>
+    <div class="metrics" id="metrics"></div>
+    <div class="ejemplo">VALORES: EJEMPLO ILUSTRATIVO</div>
+  </div>
+
+  <!-- 5 · Qué decidís con el dato -->
+  <div class="scene" id="s5">
+    <div class="head">
+      <div class="kick"><span class="led"></span>Para qué sirve</div>
+      <div class="big">Con el dato,<br><span class="hl">decidís.</span></div>
+    </div>
+    <div class="decis">
+      <div class="dec"><span class="n">1</span><span class="t">¿Resembrar o no?<small>Con el stand real, no a ojo.</small></span></div>
+      <div class="dec"><span class="n">2</span><span class="t">Ajustar la sembradora<small>Fallas y dobles marcan dónde mirar.</small></span></div>
+      <div class="dec"><span class="n">3</span><span class="t">Densidad por ambiente<small>Para la próxima siembra, lote por lote.</small></span></div>
+    </div>
+  </div>
+
+  <div class="outro" id="outro">
+    <div class="logos">
+      <img class="hs" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+      <span class="x">+</span>
+      <span class="nid"><img src="../../docs/assets/logo-nidera.png" alt="Nidera Semillas"></span>
+    </div>
+    <div class="l1">Tecnología Nidera Vuela</div>
+    <div class="l2">El ojo de HenderSeeds<br>en tu lote.</div>
+    <div class="dm">
+      <svg viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      ¿Lo medimos en tu lote? Mandanos un DM
+    </div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <div class="redin">RED.IN · Nidera Semillas · Henderson · Daireaux · Bolívar</div>
+  </div>
+
+  <img class="logo-top" id="logo-top" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  <div class="bar" id="bar"></div>
+</div>
+
+<script>
+/* ── Lo que se cambia seguido ── */
+var GANCHO = ['La sembradora<br>dice una cosa.', 'El lote, otra.'];
+var METRICAS = [   // EJEMPLO ILUSTRATIVO hasta tener el informe real de Nidera Vuela
+  { k: 'Plantas/ha', v: '71.500' },
+  { k: 'CV distancia<br>entre plantas', v: '24%', hl: true },
+  { k: 'Fallas /<br>dobles', v: '4% / 2%' }
+];
+// Plantas detectadas en img/dron/dron-01-analisis.jpg (procesamiento de imagen sobre la foto real)
+var DETECCION = {"w":600,"h":300,"puntos":[[226.8,8.9],[486.4,6.9],[550.3,9.4],[177.5,6.8],[208.9,7.3],[346.0,11.0],[383.6,14.2],[255.3,12.5],[438.8,11.9],[149.5,9.5],[25.6,9.3],[304.8,10.6],[404.5,12.1],[592.0,13.5],[271.2,52.7],[21.3,51.2],[342.4,54.3],[177.4,53.9],[462.9,53.6],[199.7,56.3],[383.1,55.8],[232.4,53.3],[151.5,55.0],[311.1,55.0],[547.5,57.9],[72.8,55.5],[49.8,58.9],[490.1,56.7],[417.8,58.7],[99.7,57.2],[122.3,57.0],[325.8,99.5],[509.6,106.5],[229.7,101.2],[379.1,100.4],[51.2,101.6],[308.3,107.2],[398.1,102.9],[267.1,107.3],[131.7,109.8],[351.2,103.7],[586.7,105.8],[445.7,104.3],[469.4,106.8],[552.2,105.8],[76.0,105.9],[182.2,110.3],[335.0,151.0],[247.6,150.7],[541.1,151.8],[172.9,154.8],[127.4,151.3],[416.9,154.3],[273.3,152.5],[382.5,154.2],[439.8,153.2],[486.4,154.1],[200.9,157.9],[70.9,158.1],[578.8,155.7],[297.2,157.4],[510.8,155.2],[45.5,155.5],[93.3,156.5],[575.7,196.4],[360.8,198.3],[552.0,197.2],[482.4,199.0],[255.8,201.2],[437.7,198.9],[460.1,199.7],[46.0,201.3],[118.2,205.4],[293.4,201.5],[14.2,203.8],[332.4,201.6],[529.0,201.8],[92.5,206.8],[219.1,202.5],[411.0,203.0],[67.5,204.8],[154.5,204.5],[194.6,203.8],[298.3,248.8],[346.6,249.1],[271.3,249.0],[374.1,248.9],[502.2,247.1],[465.6,247.5],[540.3,245.4],[19.8,249.8],[75.6,253.8],[123.7,253.7],[226.7,251.9],[429.0,249.2],[561.6,249.7],[582.4,249.8],[56.7,253.5],[150.5,251.2],[204.1,251.2],[94.4,254.0],[395.3,251.1],[324.1,249.7],[178.2,252.1],[574.3,291.5],[166.4,293.7]]};
+
+document.getElementById('h1').innerHTML = GANCHO[0];
+document.getElementById('h2').innerHTML = GANCHO[1];
+document.getElementById('metrics').innerHTML = METRICAS.map(function (m) {
+  return '<div class="metric' + (m.hl ? ' hl' : '') + '"><div class="k">' + m.k + '</div><div class="v">' + m.v + '</div></div>';
+}).join('');
+
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+
+/* ── 2 · planta que pasa de V1 a V4 ── */
+var s2 = document.getElementById('s2-art'), SUELO2 = 1560, X2 = 470;
+el('line', { x1: 80, y1: SUELO2, x2: 1000, y2: SUELO2, stroke: 'rgba(255,255,255,0.30)', 'stroke-width': 4 }, s2);
+var tallo = el('line', { x1: X2, y1: SUELO2, x2: X2, y2: SUELO2, stroke: '#FFFFFF', 'stroke-width': 9, 'stroke-linecap': 'round' }, s2);
+var hojas = [], lig = [];
+[{ y: 70, s: -1, L: 200 }, { y: 140, s: 1, L: 240 }, { y: 210, s: -1, L: 270 }, { y: 275, s: 1, L: 285 }].forEach(function (h) {
+  var py = SUELO2 - h.y, s = h.s, L = h.L, x = X2, g = el('g', {}, s2);
+  el('path', { d: 'M' + x + ' ' + py + ' C' + (x + s * L * 0.22) + ' ' + (py - L * 0.75) + ' ' + (x + s * L * 0.72) + ' ' + (py - L * 0.70) + ' ' + (x + s * L) + ' ' + (py - L * 0.18) +
+    ' C' + (x + s * L * 0.68) + ' ' + (py - L * 0.48) + ' ' + (x + s * L * 0.26) + ' ' + (py - L * 0.50) + ' ' + x + ' ' + (py + 16) + ' Z', fill: '#FFFFFF', 'fill-opacity': 0.94 }, g);
+  g.style.transformBox = 'fill-box'; g.style.transformOrigin = (s < 0 ? '100%' : '0%') + ' 100%';
+  hojas.push(g); lig.push(el('circle', { cx: x, cy: py + 6, r: 9, fill: '#F5A623', opacity: 0 }, s2));
+});
+var etapa = el('g', { opacity: 0 }, s2);
+el('rect', { x: 760, y: 1170, width: 180, height: 84, rx: 12, fill: 'rgba(245,166,35,0.14)', stroke: '#F5A623', 'stroke-width': 2 }, etapa);
+var etapaTxt = el('text', { x: 850, y: 1228, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 46, fill: '#F5A623' }, etapa);
+var ligLbl = el('g', { opacity: 0 }, s2);
+el('circle', { cx: 772, cy: 1300, r: 9, fill: '#F5A623' }, ligLbl);
+el('text', { x: 792, y: 1309, 'font-family': 'DM Mono', 'font-size': 26, fill: 'rgba(255,255,255,0.75)' }, ligLbl).textContent = '= lígula visible';
+
+/* ── 3 · lote visto desde arriba + recorrido del dron ── */
+var s3 = document.getElementById('s3-art'), LX = 100, LY = 860, LW = 880, LH = 640;
+el('path', { d: 'M' + LX + ' ' + LY + ' h' + LW + ' v' + LH * 0.22 + ' C' + (LX + LW * 0.6) + ' ' + (LY + LH * 0.40) + ' ' + (LX + LW * 0.3) + ' ' + (LY + LH * 0.18) + ' ' + LX + ' ' + (LY + LH * 0.34) + ' Z', fill: 'rgba(245,166,35,0.10)' }, s3);
+el('path', { d: 'M' + LX + ' ' + (LY + LH) + ' h' + LW + ' v' + (-LH * 0.30) + ' C' + (LX + LW * 0.6) + ' ' + (LY + LH * 0.55) + ' ' + (LX + LW * 0.35) + ' ' + (LY + LH * 0.80) + ' ' + LX + ' ' + (LY + LH * 0.66) + ' Z', fill: 'rgba(26,74,138,0.35)' }, s3);
+for (var r = 0; r < 33; r++) el('line', { x1: LX + 14 + r * 26.5, y1: LY + 8, x2: LX + 14 + r * 26.5, y2: LY + LH - 8, stroke: 'rgba(255,255,255,0.10)', 'stroke-width': 2 }, s3);
+el('rect', { x: LX, y: LY, width: LW, height: LH, rx: 10, fill: 'none', stroke: 'rgba(255,255,255,0.35)', 'stroke-width': 3 }, s3);
+[['LOMA', LY + 70], ['MEDIA LOMA', LY + LH * 0.50], ['BAJO', LY + LH - 40]].forEach(function (z) {
+  el('text', { x: LX + LW - 24, y: z[1], 'text-anchor': 'end', 'font-family': 'DM Mono', 'font-size': 24, 'letter-spacing': 3, fill: 'rgba(255,255,255,0.55)' }, s3).textContent = z[0];
+});
+var WP = [[230, 950], [800, 1010], [600, 1180], [250, 1290], [760, 1420]];
+var rutaEl = el('path', { d: 'M' + (LX - 40) + ' ' + (LY + 60) + WP.map(function (p) { return ' L' + p[0] + ' ' + p[1]; }).join('') + ' L' + (LX + LW - 70) + ' ' + (LY + LH - 50), fill: 'none', stroke: 'rgba(255,255,255,0.45)', 'stroke-width': 3, 'stroke-dasharray': '10 12' }, s3);
+var rutaLen = rutaEl.getTotalLength();
+var marcos = WP.map(function (p, k) {
+  var g = el('g', { opacity: 0 }, s3);
+  el('rect', { x: p[0] - 62, y: p[1] - 62, width: 124, height: 124, rx: 6, fill: 'rgba(255,255,255,0.10)', stroke: '#F5A623', 'stroke-width': 4 }, g);
+  el('text', { x: p[0], y: p[1] + 10, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 28, fill: '#F5A623' }, g).textContent = 'F' + (k + 1);
+  return g;
+});
+var dron = el('g', {}, s3);
+[[-34, -34, 34, 34], [-34, 34, 34, -34]].forEach(function (l) { el('line', { x1: l[0], y1: l[1], x2: l[2], y2: l[3], stroke: '#FFFFFF', 'stroke-width': 7, 'stroke-linecap': 'round' }, dron); });
+[[-34, -34], [34, -34], [-34, 34], [34, 34]].forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: 17, fill: 'none', stroke: '#FFFFFF', 'stroke-width': 5 }, dron); });
+el('rect', { x: -14, y: -14, width: 28, height: 28, rx: 6, fill: '#F5A623' }, dron);
+var wpLen = WP.map(function (p) { var best = 0, bd = 1e9; for (var u = 0; u <= rutaLen; u += 4) { var q = rutaEl.getPointAtLength(u), d = Math.hypot(q.x - p[0], q.y - p[1]); if (d < bd) { bd = d; best = u; } } return best; });
+
+/* ── 4 · foto real + plantas detectadas ── */
+var s4 = document.getElementById('s4-art'), FX = 80, FY = 860, FW = 920, SC = FW / DETECCION.w, FH = DETECCION.h * SC;
+el('image', { href: 'img/dron/dron-01-analisis.jpg', x: FX, y: FY, width: FW, height: FH, preserveAspectRatio: 'none' }, s4);
+el('rect', { x: FX, y: FY, width: FW, height: FH, rx: 4, fill: 'none', stroke: 'rgba(255,255,255,0.25)', 'stroke-width': 2 }, s4);
+var anillos = DETECCION.puntos.map(function (p) {
+  return { x: FX + p[0] * SC, el: el('circle', { cx: FX + p[0] * SC, cy: FY + p[1] * SC, r: 15, fill: 'none', stroke: '#F5A623', 'stroke-width': 3, opacity: 0 }, s4) };
+});
+var scan = el('rect', { x: FX, y: FY, width: 5, height: FH, fill: '#F5A623', opacity: 0 }, s4);
+var contador = el('text', { x: FX + FW - 16, y: FY + FH + 52, 'text-anchor': 'end', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 30, fill: '#F5A623', opacity: 0 }, s4);
+
+/* ── Línea de tiempo: 5 escenas + cierre ── */
+var ESC = [['s1', 0, 5.4], ['s2', 5.4, 11.6], ['s3', 11.6, 18.2], ['s4', 18.2, 26.4], ['s5', 26.4, 32.4]];
+var T_OUT = 32.4, TOTAL = 37.0, XF = 0.7;
+window.REEL_DURACION = TOTAL;
+
+function bloque(node, t, t0) {
+  var h = node.querySelector('.head'); if (!h) return;
+  var k = eout(seg(t, t0 + 0.2, t0 + 1.1));
+  h.style.opacity = k; h.style.transform = 'translateY(' + (1 - k) * 50 + 'px)';
+  var b = h.querySelector('.body'); if (b) b.style.opacity = eout(seg(t, t0 + 1.4, t0 + 2.2));
+}
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e[0]);
+    n.style.opacity = Math.min(i === 0 ? 1 : eio(seg(t, e[1], e[1] + XF)), 1 - eio(seg(t, e[2], e[2] + XF)));
+    if (i > 0) bloque(n, t, e[1]);
+  });
+
+  // 1 · gancho: primera línea visible desde el cuadro 0, la segunda entra a 1 s
+  document.getElementById('s1-foto').style.transform = 'scale(' + (1.0 + 0.10 * eio(seg(t, 0, 6))) + ')';
+  var k2 = eout(seg(t, 1.0, 1.6));
+  var h2 = document.getElementById('h2'); h2.style.opacity = k2; h2.style.transform = 'translateY(' + (1 - k2) * 30 + 'px)';
+
+  // 2 · V1 → V4
+  var g2 = seg(t, 6.0, 10.6);
+  tallo.setAttribute('y2', SUELO2 - 330 * eio(g2));
+  hojas.forEach(function (h, i) {
+    var k = eout(seg(t, 6.2 + i * 1.05, 7.2 + i * 1.05));
+    h.style.transform = 'scale(' + k + ')'; h.style.opacity = clamp(k * 2);
+    lig[i].setAttribute('opacity', seg(t, 6.8 + i * 1.05, 7.2 + i * 1.05));
+  });
+  etapa.setAttribute('opacity', seg(t, 6.8, 7.2));
+  etapaTxt.textContent = 'V' + Math.max(1, [0, 1, 2, 3].filter(function (i) { return t >= 6.8 + i * 1.05; }).length);
+  ligLbl.setAttribute('opacity', seg(t, 9.8, 10.4));
+
+  // 3 · dron
+  var kd = eio(seg(t, 12.6, 17.6)), pos = rutaEl.getPointAtLength(rutaLen * kd);
+  dron.setAttribute('transform', 'translate(' + pos.x + ',' + pos.y + ')');
+  marcos.forEach(function (m, i) { m.setAttribute('opacity', rutaLen * kd >= wpLen[i] ? 1 : 0); });
+
+  // 4 · barrido sobre la foto real, después las métricas
+  var ks = seg(t, 19.4, 22.6), sx = FX + FW * ks, vistos = 0;
+  scan.setAttribute('x', sx); scan.setAttribute('opacity', ks > 0 && ks < 1 ? 0.9 : 0);
+  anillos.forEach(function (a) { var on = sx >= a.x; a.el.setAttribute('opacity', on ? 1 : 0); if (on) vistos++; });
+  contador.setAttribute('opacity', seg(t, 19.4, 19.8));
+  contador.textContent = vistos + ' plantas detectadas en esta foto';
+  var km = eout(seg(t, 23.0, 23.9)), mt = document.getElementById('metrics');
+  mt.style.opacity = km; mt.style.transform = 'translateY(' + (1 - km) * 40 + 'px)';
+  document.querySelector('#s4 .ejemplo').style.opacity = km;
+  document.querySelector('#s4 .fotolbl').style.opacity = seg(t, 18.6, 19.2);
+
+  // 5 · decisiones: aparecen juntas, una sola vez
+  var kdec = eout(seg(t, 27.6, 28.6)), dz = document.querySelector('.decis');
+  dz.style.opacity = kdec; dz.style.transform = 'translateY(' + (1 - kdec) * 40 + 'px)';
+
+  // Cierre
+  var o = eio(seg(t, T_OUT, T_OUT + XF));
+  document.getElementById('outro').style.opacity = o;
+  var ko = eout(seg(t, T_OUT + 0.4, T_OUT + 1.3));
+  document.querySelectorAll('#outro > *').forEach(function (c) { c.style.opacity = ko; c.style.transform = 'translateY(' + (1 - ko) * 30 + 'px)'; });
+  document.getElementById('logo-top').style.opacity = 1 - o;
+  document.getElementById('bar').style.width = (clamp(t / TOTAL) * 100) + '%';
+};
+
+if (!window.__RENDER_MODE__) {
+  var t0 = null;
+  (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now());
+} else { window.render(0); }
+</script>
+</body>
+</html>

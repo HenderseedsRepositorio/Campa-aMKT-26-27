@@ -62,6 +62,10 @@ dato de tercero > autoelogio):
   en la placa NO comparamos contra el 1° (híbrido de la competencia) — solo vs. media.
 
 ## Estado
+> ⚠️ **Desactualizado (18/10/2026):** no se publicó y quedó viejo. Dice "la siembra arranca en
+> agosto" (falso para el oeste: la ventana es 15/10–15/11) y habla de precampaña, que ya cerró.
+> Los datos CREA y de marbete siguen sirviendo para un post de híbrido en siembra.
+
 - [x] ✍️ Borrador
 - [ ] ✅ Aprobado
 - [ ] 📤 Publicado → link:

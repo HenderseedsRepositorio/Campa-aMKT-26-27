@@ -5,6 +5,22 @@
 
 ## Goal activo
 
+**Campaña "Siembra 26/27": W43 y W44 publicadas (4 reels + planilla de conteo) y medidas.**
+(Se retomó el 18/10/2026 después de la pausa jul–oct. La precampaña ya cerró; el foco es siembra
+de maíz y girasol y el acompañamiento a campo. Plan acordado con Henderseeds el 19/10.)
+
+### Criterios de "hecho"
+- [x] Guía de tomas para el campo → `produccion/guia-foto-video-siembra.md`
+- [x] 4 reels W43–W44 con portada y caption → `reels/2026-W43-reels-semana.md` (+ kit de publicación)
+- [x] Planilla de conteo (imán de contactos) → `docs/recursos/planilla-conteo-plantas.html`
+- [x] Brief de pauta del reel 3 con presupuesto ($15.000/día × 7, desde el 26/10)
+- [x] OK de Nidera para logo y nombres; servicios válidos para todos los clientes (19/10)
+- [ ] Publicar reel 1 (20/10), 2 (22/10), 3 (24/10) y 4 (27/10) y marcar 📤 con fecha real
+- [ ] Cargar métricas a las 72 h en `metricas.md` (DMs, comentarios PLANILLA, recorridas)
+- [ ] Voz en off y clip real del video 1 → `reels/2026-W43-video1-voz-y-clip.md` (quién: a definir)
+- [ ] Recibir fotos/videos de la guía (A1, A6, A7, A8) para el parte de siembra
+
+### Marco general: guía de 10 pasos (`docs/estrategia/guia.html`, armada el 07/10)
 **Guía de 10 pasos (`docs/estrategia/guia.html`)** — primero los cimientos, después la rutina:
 - [ ] 1 · La casa en orden (Instagram, Google Maps, WhatsApp Business, clientes agendados) — 07 al 11/10
 - [ ] 2 · Los números de la 25/26 (línea de base + tamaño del mercado) — hasta el 16/10
@@ -67,6 +83,7 @@ Cada vez que entro al proyecto, sigo este ciclo:
 
 | Goal | Fecha | Notas |
 |------|-------|-------|
+| ~~W28 completa antes del 10/07~~ | — | Quedó a medias (solo post 1, sin publicar). Pausa de redes jul–oct. Reemplazado por el goal Siembra 26/27 |
 | Estructura del repo creada | W24 (junio 2026) | CLAUDE.md, plantillas, carpetas |
 | GitHub Pages activo | W24 | Dashboard + infografía "cómo funciona" |
 | W25 completa (4 posts) | W25 | 3 rotación + extra Día de la Bandera |

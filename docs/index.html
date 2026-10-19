@@ -646,7 +646,9 @@ details .details-content {
 <nav style="display:flex;align-items:center;gap:16px;padding:14px 20px;background:rgba(0,0,0,0.4);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'DM Mono',monospace;font-size:12px">
   <a href="./" style="color:var(--orange);text-decoration:none;font-weight:500">Dashboard</a>
   <span style="color:rgba(255,255,255,0.15)">|</span>
-  <a href="reels-siembra/" style="color:#F5A623;text-decoration:none;font-weight:500">Reels para arrancar &#9733;</a>
+  <a href="kit/" style="color:#F5A623;text-decoration:none;font-weight:500">Kit de la semana &#9733;</a>
+  <span style="color:rgba(255,255,255,0.15)">|</span>
+  <a href="reels-siembra/" style="color:#F5A623;text-decoration:none;font-weight:500">Reels para arrancar</a>
   <span style="color:rgba(255,255,255,0.15)">|</span>
   <a href="propuesta/" style="color:#F5A623;text-decoration:none;font-weight:500">Propuesta 26/27</a>
   <span style="color:rgba(255,255,255,0.15)">|</span>
@@ -686,6 +688,16 @@ details .details-content {
 </header>
 
 <main class="container">
+
+<!-- Kit de publicación W43–W44 (19/10/2026) -->
+<a href="kit/" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;text-decoration:none;margin:28px 0 8px;padding:22px 24px;border-radius:14px;background:rgba(245,166,35,0.22);border:1px solid #F5A623;color:#E8EEF7">
+  <span style="display:flex;flex-direction:column;gap:6px">
+    <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#F5A623">Esta semana &middot; 20 al 31/10</span>
+    <span style="font-family:'Archivo Black',sans-serif;font-size:24px;letter-spacing:-.02em">Kit de publicaci&oacute;n: los 4 reels de la siembra + 11 videos m&aacute;s</span>
+    <span style="font-size:14px;color:#8FA0BE">Cada video con su MP4 para bajar, portada, pasos y caption para copiar. Planilla de conteo incluida.</span>
+  </span>
+  <span style="font-family:'DM Mono',monospace;font-size:14px;color:#F5A623;white-space:nowrap">Abrir el kit &rarr;</span>
+</a>
 
 <!-- Arranque con reels (24/09/2026) -->
 <a href="reels-siembra/" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;text-decoration:none;margin:28px 0 8px;padding:22px 24px;border-radius:14px;background:rgba(245,166,35,0.16);border:1px solid rgba(245,166,35,0.6);color:#E8EEF7">
@@ -1345,6 +1357,11 @@ Feliz D&iacute;a de la Bandera.</div>
      ═══════════════════════════════════════════════════ -->
 <script>
   const PLACAS = [
+    { semana:"W44", fecha:"29/10", pilar:"institucional",titulo:"Parte de siembra · plantilla foto + datos", archivo:"placas/plantilla-parte-de-siembra.html", nota:"Plantilla · falta foto real", tipo:"placa" },
+    { semana:"W44", fecha:"27/10", pilar:"maiz",         titulo:"¿Te queda maíz tardío por definir?", archivo:"placas/2026-W44-post-01-maiz-tardio.html", nota:"NS 7765 · NS 7925 · NS 7921 CL", tipo:"placa" },
+    { semana:"W43", fecha:"24/10", pilar:"tecnico",      titulo:"Maíz: sembraste, ahora contá", archivo:"placas/2026-W43-post-03-carrusel-maiz-conta-plantas.html", nota:"Carrusel 5 slides · pautado", tipo:"carrusel" },
+    { semana:"W43", fecha:"22/10", pilar:"girasol",      titulo:"Girasol: la ventana está abierta", archivo:"placas/2026-W43-post-02-girasol-ventana.html", nota:"Ventana de siembra · marbete", tipo:"placa" },
+    { semana:"W43", fecha:"20/10", pilar:"institucional",titulo:"La 26/27 ya se está sembrando", archivo:"placas/2026-W43-post-01-campana-en-marcha.html", nota:"Vuelta a redes · siembra en marcha", tipo:"placa" },
     { semana:"W30", fecha:"20/07", pilar:"efemeride",    titulo:"Día del Amigo · etiquetá al amigo", archivo:"placas/2026-07-20-dia-del-amigo.html", nota:"Efeméride · interacción", tipo:"placa" },
     { semana:"W28", fecha:"09/07", pilar:"efemeride",    titulo:"9 de Julio · Independencia", archivo:"placas/2026-07-09-independencia.html", nota:"Efeméride patria · sin pauta", tipo:"placa" },
     { semana:"W28", fecha:"08/07", pilar:"girasol",      titulo:"NS 1113 CL · ensayos CREA", archivo:"placas/w28-post-01-girasol-ns1113.html", nota:"Híbrido bandera girasol", tipo:"placa" },
@@ -1357,6 +1374,8 @@ Feliz D&iacute;a de la Bandera.</div>
   // Semanas de más nueva a más vieja. Si agregás una semana nueva,
   // ponela arriba de todo. {fecha} es el lunes de esa semana.
   const ORDEN_SEMANAS = [
+    { semana:"W44", fecha:"26/10" },
+    { semana:"W43", fecha:"19/10" },
     { semana:"W30", fecha:"20/07" },
     { semana:"W28", fecha:"06/07" },
     { semana:"W27", fecha:"29/06" },

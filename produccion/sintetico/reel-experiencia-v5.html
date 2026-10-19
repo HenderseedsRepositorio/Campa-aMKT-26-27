@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel v5 · Experiencia Nidera (final)</title>
+<!--
+  v5: versión final después de la revisión de 4 agentes (diseño, formatos, ritmo, texto/marca).
+  - Grilla única dentro de la zona libre de Instagram: x 80–930, y 250–1540 (texto) / ilustraciones desde y 840.
+  - La foto real del lote aparece SOLO en la escena del conteo de plantas.
+  - El gancho muestra el recorrido en 4 pasos, que se convierten en el seguidor de etapas.
+  - Naranja: resaltado del título + un dato por escena. Sin barra de progreso propia.
+  - Dos modos: ?modo=reel (default, 36 s) y ?modo=historia (26 s, sin bajadas, con lugar para stickers).
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy2:#0D2D5E; --mid:#1A4A8A; --orange:#F5A623; --white:#FFFFFF; --ice:#E8EEF7; --steel:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+  --L:80px; --W:850px;
+}
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:radial-gradient(ellipse 90% 60% at 50% 32%, #111b2f 0%, #0A0F1B 70%); }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:60; }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(245,166,35,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.05) 1px, transparent 1px);
+  background-size:72px 72px; }
+
+.scene { position:absolute; inset:0; z-index:2; }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.head { position:absolute; left:var(--L); width:var(--W); top:384px; z-index:3; }
+.kick { font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--steel); display:flex; align-items:center; gap:14px; }
+.kick .led { width:14px; height:14px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
+.big { font-family:var(--arch); font-size:88px; line-height:0.98; letter-spacing:-2.5px; color:var(--white); margin-top:22px; white-space:nowrap; }
+.big .hl { color:var(--orange); }
+.body { font-family:var(--sans); font-weight:500; font-size:36px; line-height:1.32; color:rgba(232,238,247,0.72); margin-top:24px; max-width:760px; }
+.body b { color:var(--white); font-weight:700; }
+.historia .body, .corto .body { display:none; }
+/* Gancho V2 · pregunta y respuesta */
+.q.centro { top:560px; font-size:100px; }
+.resp { position:absolute; left:var(--L); width:var(--W); top:1040px; z-index:3; opacity:0; }
+.resp .r1 { font-family:var(--arch); font-size:72px; letter-spacing:-2px; color:var(--white); line-height:1; }
+.resp .r2 { font-family:var(--sans); font-weight:600; font-size:40px; color:var(--ice); line-height:1.3; margin-top:18px; padding-bottom:18px; border-bottom:3px solid rgba(232,238,247,0.30); display:inline-block; }
+/* Gancho V3 · línea de tiempo de la campaña */
+.tl { position:absolute; left:var(--L); width:var(--W); top:880px; height:320px; z-index:16; }
+.tl .tl-linea { position:absolute; left:14px; right:14px; top:157px; height:3px; background:rgba(255,255,255,0.16); }
+.tl .tl-avance { position:absolute; left:14px; top:157px; height:3px; width:0; background:var(--orange); }
+.tl .tl-nodo { position:absolute; top:144px; width:29px; height:29px; border-radius:50%; background:var(--navy); border:3px solid rgba(255,255,255,0.30); }
+.tl .tl-nodo.on { background:var(--orange); border-color:var(--orange); box-shadow:0 0 14px rgba(245,166,35,0.6); }
+.tl .tl-ic { position:absolute; top:0; width:120px; height:120px; border-radius:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); display:grid; place-items:center; }
+.tl .tl-ic svg { width:68px; height:68px; }
+.tl .tl-lb { position:absolute; top:198px; width:210px; font-family:var(--mono); font-size:27px; letter-spacing:1px; line-height:1.3; color:var(--ice); text-transform:uppercase; }
+
+/* Seguidor de etapas: solo puntos y línea */
+.pasos { position:absolute; left:var(--L); width:var(--W); top:312px; height:29px; z-index:15; }
+.pasos .linea { position:absolute; left:14px; right:14px; top:13px; height:3px; background:rgba(255,255,255,0.14); }
+.pasos .avance { position:absolute; left:14px; top:13px; height:3px; width:0; background:rgba(232,238,247,0.55); }
+.punto { position:absolute; top:0; width:29px; height:29px; border-radius:50%; background:var(--navy); border:3px solid rgba(255,255,255,0.28); }
+.punto.hecho { background:rgba(232,238,247,0.55); border-color:transparent; }
+.punto.on { background:var(--orange); border-color:var(--orange); box-shadow:0 0 14px rgba(245,166,35,0.6); }
+
+/* 1 · Gancho: pregunta + el recorrido en 4 pasos */
+.q { position:absolute; left:var(--L); width:var(--W); top:300px; font-family:var(--arch); font-size:92px; line-height:0.98; letter-spacing:-3px; white-space:nowrap; z-index:3; }
+.q .w { color:var(--white); display:block; }
+.q .o { color:var(--orange); display:block; }
+.plan-lbl { position:absolute; left:var(--L); top:676px; font-family:var(--mono); font-size:26px; letter-spacing:4px; color:var(--steel); z-index:3; }
+.fila { position:absolute; left:var(--L); width:var(--W); height:112px; display:flex; align-items:center; gap:36px; z-index:3; }
+.tile { width:112px; height:112px; border-radius:14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); display:grid; place-items:center; flex-shrink:0; }
+.fila .txt { display:flex; flex-direction:column; gap:6px; }
+.fila .n { font-family:var(--mono); font-size:24px; letter-spacing:2px; color:var(--steel); }
+.fila .l { font-family:var(--sans); font-weight:700; font-size:40px; color:var(--white); line-height:1.1; }
+.conector { position:absolute; left:135px; width:3px; background:rgba(255,255,255,0.16); z-index:2; }
+.viajero { position:absolute; width:112px; height:112px; border-radius:14px; background:rgba(232,238,247,0.16); border:3px solid rgba(232,238,247,0.55); z-index:16; opacity:0; transform-origin:0 0; }
+.logo-hook { position:absolute; left:var(--L); top:1420px; height:52px; z-index:3; }
+.historia .logo-hook { display:none; }
+
+/* 3 · leyenda */
+.leyenda { position:absolute; left:var(--L); width:var(--W); top:1374px; display:flex; gap:40px; z-index:3; }
+.leyenda span { display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:28px; color:var(--ice); }
+.leyenda i { width:40px; height:40px; border-radius:8px; display:block; }
+
+/* 4 · conteo */
+.fotolbl { position:absolute; left:var(--L); top:796px; font-family:var(--mono); font-size:22px; letter-spacing:3px; color:var(--steel); z-index:3; }
+.cuenta { position:absolute; left:var(--L); top:1290px; display:flex; align-items:baseline; gap:22px; z-index:3; transform-origin:0 70%; }
+.cuenta .num { font-family:var(--mono); font-weight:500; font-size:96px; letter-spacing:-4px; color:var(--orange); line-height:1; }
+.cuenta .u { font-family:var(--sans); font-weight:600; font-size:30px; color:var(--steel); line-height:1.2; }
+.chips { position:absolute; left:var(--L); width:var(--W); top:1430px; display:flex; flex-wrap:wrap; gap:14px; z-index:3; }
+.chip { font-family:var(--mono); font-size:26px; color:var(--ice); background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:10px 18px; white-space:nowrap; }
+
+/* 5 · informe de visita */
+.informe { position:absolute; left:var(--L); width:var(--W); top:840px; background:#F6F4EE; border-radius:14px; padding:30px 32px 18px; box-shadow:0 30px 80px rgba(0,0,0,0.45); z-index:3; }
+.informe .cab { display:flex; justify-content:space-between; align-items:baseline; padding-bottom:18px; border-bottom:2px dashed rgba(13,45,94,0.18); }
+.informe .cab b { font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:3px; color:var(--navy2); }
+.informe .cab span { font-family:var(--mono); font-size:24px; color:#4A5264; }
+.informe svg.croquis { display:block; margin-top:20px; }
+.item { display:flex; align-items:center; gap:18px; padding:16px 0; border-bottom:1px solid rgba(13,45,94,0.10); font-family:var(--sans); font-weight:700; font-size:32px; color:#15181E; }
+.item:last-child { border-bottom:none; }
+.item svg { flex-shrink:0; }
+
+/* Cierre */
+.outro { position:absolute; inset:0; z-index:40; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 150px 120px 80px; }
+.historia .outro { justify-content:flex-start; padding-top:330px; }
+.outro .logos { display:flex; align-items:center; gap:32px; }
+.outro .logos .hs { height:96px; }
+.outro .sep { width:2px; height:72px; background:rgba(255,255,255,0.22); }
+.outro .nid { position:relative; width:148px; height:96px; overflow:hidden; background:#fff; border-radius:12px; }
+/* logo-nidera.png: logo en la caja (75,157)–(437,356) de 512×512 → 64 px de alto con 16 px de aire */
+.outro .nid img { position:absolute; width:164.7px; left:-8.1px; top:-34.5px; }
+.outro .l1 { font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--steel); margin-top:72px; }
+.outro .l2 { width:100%; font-family:var(--arch); font-size:84px; line-height:0.98; letter-spacing:-3px; color:var(--white); margin-top:22px; white-space:nowrap; }
+.outro .l3 { font-family:var(--sans); font-weight:600; font-size:32px; color:var(--ice); margin-top:26px; }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:40px; color:#0A0A0A; background:var(--orange); border-radius:8px; padding:24px 40px; margin-top:64px; white-space:nowrap; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:30px; font-family:var(--mono); font-size:30px; color:var(--ice); }
+.outro .redin { font-family:var(--mono); font-size:26px; letter-spacing:2px; color:var(--steel); margin-top:16px; text-transform:uppercase; }
+.outro .sticker-txt { display:none; font-family:var(--sans); font-weight:700; font-size:36px; color:var(--orange); margin-top:60px; }
+.historia .outro .dm, .historia .outro .wa { display:none; }
+.historia .outro .sticker-txt { display:block; }
+/* Clip real del cierre (?clip=carpeta&clipn=N): toma de campo a pantalla completa y el cierre encima */
+#clip { position:absolute; inset:0; z-index:35; opacity:0; }
+#clipVelo { position:absolute; inset:0; z-index:36; opacity:0; background:linear-gradient(180deg, rgba(10,15,27,0.35) 0%, rgba(10,15,27,0) 22%, rgba(10,15,27,0) 55%, rgba(10,15,27,0.85) 100%); }
+#clipOsc { position:absolute; inset:0; z-index:37; opacity:0; background:rgba(10,15,27,0.84); }
+#clipTag { position:absolute; left:80px; top:1300px; z-index:38; opacity:0; font-family:var(--mono); font-size:30px; letter-spacing:4px; text-transform:uppercase; color:#fff; display:flex; align-items:center; gap:14px; }
+#clipTag i { width:16px; height:16px; border-radius:50%; background:var(--orange); display:block; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 · Gancho -->
+  <div class="scene" id="s1">
+    <div class="q" id="q"></div>
+    <div class="plan-lbl" id="plan-lbl">EXPERIENCIA NIDERA · CAMPAÑA 26/27</div>
+    <div id="filas"></div>
+    <div class="resp" id="resp"></div>
+    <div class="tl" id="tl"></div>
+    <img class="logo-hook" id="logo-hook" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+  </div>
+
+  <!-- 2 · Antes de sembrar -->
+  <div class="scene" id="s2">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s2-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>01 · Antes de sembrar</div>
+      <div class="big">Híbrido y densidad<br><span class="hl">para cada ambiente.</span></div>
+      <div class="body">Cada zona del lote, según su potencial. <b>Con ensayos Nidera.</b></div>
+    </div>
+  </div>
+
+  <!-- 3 · Al sembrar -->
+  <div class="scene" id="s3">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s3-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>02 · Al sembrar</div>
+      <div class="big">Siembra variable:<br><span class="hl">cada zona,<br>su densidad.</span></div>
+      <div class="body">Mapa para tu sembradora: <b>recomendación Nidera o a medida.</b></div>
+    </div>
+    <div class="leyenda" id="leyenda">
+      <span><i style="background:#F5A623"></i>más semillas</span>
+      <span><i style="background:#8FA0BE"></i>media</span>
+      <span><i style="background:#1A4A8A"></i>menos</span>
+    </div>
+  </div>
+
+  <!-- 4 · Con el cultivo nacido: calidad de siembra (única escena con foto real) -->
+  <div class="scene" id="s4">
+    <svg class="art" viewBox="0 0 1080 1920"><g id="s4-art"></g></svg>
+    <div class="head">
+      <div class="kick"><span class="led"></span>03 · Con el cultivo nacido</div>
+      <div class="big">Controlamos la<br>calidad de siembra.</div>
+      <div class="body">Vuelo con dron sobre tu lote <b>(Nidera Vuela).</b></div>
+    </div>
+    <div class="fotolbl" id="fotolbl">FOTO REAL · DRON</div>
+    <div class="cuenta" id="cuenta"><span class="num" id="num">0</span><span class="u">plantas detectadas<br>en esta foto</span></div>
+    <div class="chips" id="chips"><span class="chip">Plantas logradas</span><span class="chip">Distribución</span><span class="chip">Fallas y dobles</span></div>
+  </div>
+
+  <!-- 5 · Hasta la cosecha: informe de visita -->
+  <div class="scene" id="s5">
+    <div class="head">
+      <div class="kick"><span class="led"></span>04 · Hasta la cosecha</div>
+      <div class="big">Recorremos el lote<br><span class="hl">y te lo contamos.</span></div>
+      <div class="body">Te mandamos un informe <b>después de cada visita.</b></div>
+    </div>
+    <div class="informe" id="informe">
+      <div class="cab"><b>INFORME DE VISITA</b><span>CAMPAÑA 26/27</span></div>
+      <svg class="croquis" id="croquis" width="786" height="200" viewBox="0 0 786 200"></svg>
+      <div class="item" data-i="0"></div>
+      <div class="item" data-i="1"></div>
+      <div class="item" data-i="2"></div>
+    </div>
+  </div>
+
+  <div class="pasos" id="pasos"><div class="linea"></div><div class="avance" id="avance"></div></div>
+
+  <canvas id="clip" width="1080" height="1920"></canvas>
+  <div id="clipVelo"></div>
+  <div id="clipOsc"></div>
+  <div id="clipTag"><i></i>Equipo HenderSeeds · a campo</div>
+
+  <div class="outro" id="outro">
+    <div class="logos">
+      <img class="hs" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+      <span class="sep"></span>
+      <span class="nid"><img src="../../docs/assets/logo-nidera.png" alt="Nidera Semillas"></span>
+    </div>
+    <div class="l1">Experiencia Nidera</div>
+    <div class="l2" id="l2">De la bolsa<br>a la cosecha.</div>
+    <div class="l3" id="l3">Con el equipo HenderSeeds en tu lote.</div>
+    <div class="dm">
+      <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span id="cta">Mandanos un DM</span>
+    </div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <div class="sticker-txt">Tocá el enlace y escribinos ↓</div>
+    <div class="redin">RED.IN · Nidera · Henderson · Daireaux · Bolívar</div>
+  </div>
+</div>
+
+<script>
+/* ── Lo que se cambia seguido ── */
+// 4 versiones para elegir (?v=1..4). Cada una: gancho (1ª línea blanca, resto naranja), tipo de
+// apertura y frase del cierre. La v4 es el corte corto (23 s).
+var VARIANTES = {
+  '1': { gancho: ['¿Quién te acompaña', 'toda la campaña?'], apertura: 'pasos',
+         l2: 'Toda la campaña,<br>en tu lote.', l3: 'Con el equipo HenderSeeds.' },
+  '2': { gancho: ['¿Quién conoce', 'tu lote', 'tanto como vos?'], apertura: 'respuesta',
+         resp: ['Nosotros.', 'Antes, durante y después de sembrar.'],
+         l2: 'Antes, durante<br>y después.', l3: 'Con el equipo HenderSeeds en tu lote.' },
+  '3': { gancho: ['¿Quién sigue de cerca', 'tu lote?'], apertura: 'linea',
+         l2: 'Lo seguimos<br>de cerca.', l3: 'Equipo HenderSeeds · etapa por etapa.', cta: 'Pedí tu recorrida por DM' },
+  '4': { gancho: ['¿Sembrás solo', 'o con equipo?'], apertura: 'pasos',
+         l2: 'Sembrá<br>con equipo.', l3: 'Con el equipo HenderSeeds en tu lote.' }
+};
+var PARAM = new URLSearchParams(location.search);
+var VER = VARIANTES[PARAM.get('v')] ? PARAM.get('v') : '1', V = VARIANTES[VER];
+var GANCHO = PARAM.get('g') ? PARAM.get('g').split('|') : V.gancho;
+var PASOS = ['Recomendación por ambiente', 'Siembra variable', 'Calidad de siembra con dron', 'Informe de cada visita'];
+var ITEMS = ['Estado del cultivo', 'Malezas, plagas y enfermedades', 'Qué hacer ahora'];
+var DETECCION = {"w":600,"h":300,"puntos":[[226.8,8.9],[486.4,6.9],[550.3,9.4],[177.5,6.8],[208.9,7.3],[346.0,11.0],[383.6,14.2],[255.3,12.5],[438.8,11.9],[149.5,9.5],[25.6,9.3],[304.8,10.6],[404.5,12.1],[592.0,13.5],[271.2,52.7],[21.3,51.2],[342.4,54.3],[177.4,53.9],[462.9,53.6],[199.7,56.3],[383.1,55.8],[232.4,53.3],[151.5,55.0],[311.1,55.0],[547.5,57.9],[72.8,55.5],[49.8,58.9],[490.1,56.7],[417.8,58.7],[99.7,57.2],[122.3,57.0],[325.8,99.5],[509.6,106.5],[229.7,101.2],[379.1,100.4],[51.2,101.6],[308.3,107.2],[398.1,102.9],[267.1,107.3],[131.7,109.8],[351.2,103.7],[586.7,105.8],[445.7,104.3],[469.4,106.8],[552.2,105.8],[76.0,105.9],[182.2,110.3],[335.0,151.0],[247.6,150.7],[541.1,151.8],[172.9,154.8],[127.4,151.3],[416.9,154.3],[273.3,152.5],[382.5,154.2],[439.8,153.2],[486.4,154.1],[200.9,157.9],[70.9,158.1],[578.8,155.7],[297.2,157.4],[510.8,155.2],[45.5,155.5],[93.3,156.5],[575.7,196.4],[360.8,198.3],[552.0,197.2],[482.4,199.0],[255.8,201.2],[437.7,198.9],[460.1,199.7],[46.0,201.3],[118.2,205.4],[293.4,201.5],[14.2,203.8],[332.4,201.6],[529.0,201.8],[92.5,206.8],[219.1,202.5],[411.0,203.0],[67.5,204.8],[154.5,204.5],[194.6,203.8],[298.3,248.8],[346.6,249.1],[271.3,249.0],[374.1,248.9],[502.2,247.1],[465.6,247.5],[540.3,245.4],[19.8,249.8],[75.6,253.8],[123.7,253.7],[226.7,251.9],[429.0,249.2],[561.6,249.7],[582.4,249.8],[56.7,253.5],[150.5,251.2],[204.1,251.2],[94.4,254.0],[395.3,251.1],[324.1,249.7],[178.2,252.1],[574.3,291.5],[166.4,293.7]]};   // plantas detectadas en img/dron/dron-01-analisis.jpg (foto real)
+
+var MODO = PARAM.get('modo') === 'historia' ? 'historia' : 'reel';
+var CORTO = VER === '4' && MODO === 'reel';
+if (CORTO) document.getElementById('stage').classList.add('corto');
+document.getElementById('l2').innerHTML = V.l2; document.getElementById('l3').textContent = V.l3;
+document.getElementById('cta').textContent = V.cta || 'Pedí tu recorrida por DM';
+if (MODO === 'historia') document.getElementById('stage').classList.add('historia');
+
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+
+// Achica la tipografía hasta que ninguna línea se pase del ancho útil (nada de palabras sueltas cortadas)
+function ajustar(node, min) {
+  var fs = parseFloat(getComputedStyle(node).fontSize);
+  while (node.scrollWidth > node.clientWidth + 1 && fs > min) { fs -= 2; node.style.fontSize = fs + 'px'; }
+}
+
+/* ── Gancho ── */
+document.getElementById('q').innerHTML = '<span class="w">' + GANCHO[0] + '</span>' + GANCHO.slice(1).map(function (g) { return '<span class="o">' + g + '</span>'; }).join('');
+var ICONOS = [
+  // 1 · lote con dos curvas de ambiente
+  '<svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="#E8EEF7" stroke-width="3" stroke-linejoin="round"><rect x="6" y="10" width="52" height="44" rx="4"/><path d="M6 24 C 22 30, 38 16, 58 22"/><path d="M6 40 C 24 46, 40 32, 58 40"/></svg>',
+  // 2 · grilla de prescripción con 3 tonos
+  '<svg viewBox="0 0 64 64" width="64" height="64"><g>' + (function () { var s = '', c = ['#F5A623', '#F5A623', '#8FA0BE', '#1A4A8A']; for (var y = 0; y < 4; y++) for (var x = 0; x < 4; x++) s += '<rect x="' + (8 + x * 12.5) + '" y="' + (8 + y * 12.5) + '" width="10.5" height="10.5" rx="2" fill="' + c[Math.min(3, Math.max(0, y + (x > 2 ? 1 : 0) - (x === 0 ? 1 : 0)))] + '"/>'; return s; })() + '</g></svg>',
+  // 3 · anillo con brote (detección)
+  '<svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="#E8EEF7" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="32" r="24" stroke-dasharray="6 5"/><path d="M32 44 V28"/><path d="M32 34 C 24 32, 22 26, 22 22 C 28 22, 32 26, 32 30"/><path d="M32 30 C 36 24, 42 22, 44 22 C 44 28, 38 32, 32 33"/></svg>',
+  // 4 · hoja con tilde (informe)
+  '<svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="#E8EEF7" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M16 6 H40 L50 16 V58 H16 Z"/><path d="M40 6 V16 H50"/><path d="M24 36 l6 6 12-13"/></svg>'
+];
+var FILA_Y = [740, 905, 1070, 1235];
+var filasEl = document.getElementById('filas');
+filasEl.innerHTML = PASOS.map(function (p, i) {
+  return '<div class="fila" style="top:' + FILA_Y[i] + 'px"><div class="tile">' + ICONOS[i] + '</div><div class="txt"><span class="n">0' + (i + 1) + '</span><span class="l">' + p + '</span></div></div>';
+}).join('') + FILA_Y.slice(0, 3).map(function (y) { return '<div class="conector" style="top:' + (y + 112) + 'px;height:' + (165 - 112) + 'px"></div>'; }).join('');
+var filas = filasEl.querySelectorAll('.fila');
+var AP = V.apertura;
+if (AP !== 'pasos') { filasEl.style.display = 'none'; }
+if (AP === 'respuesta') {
+  document.getElementById('q').classList.add('centro');
+  document.getElementById('plan-lbl').style.display = 'none';
+  document.getElementById('resp').innerHTML = '<div class="r1">' + V.resp[0] + '</div><div class="r2">' + V.resp[1] + '</div>';
+}
+var TL_ETQ = ['Antes de<br>sembrar', 'Al<br>sembrar', 'Cultivo<br>nacido', 'Hasta la<br>cosecha'];
+var tlNodos = [], tlFade = [];
+(function () {
+  var tl = document.getElementById('tl');
+  if (AP !== 'linea') { tl.style.display = 'none'; return; }
+  tl.innerHTML = '<div class="tl-linea"></div><div class="tl-avance" id="tl-avance"></div>';
+  for (var i = 0; i < 4; i++) {
+    var x = i * (850 - 29) / 3;
+    var ic = document.createElement('div'); ic.className = 'tl-ic'; ic.style.left = (x + 14.5 - 60) + 'px'; ic.innerHTML = ICONOS[i];
+    if (i === 0) ic.style.left = '0px'; if (i === 3) ic.style.left = (850 - 120) + 'px';
+    var nd = document.createElement('div'); nd.className = 'tl-nodo'; nd.style.left = x + 'px';
+    var lb = document.createElement('div'); lb.className = 'tl-lb'; lb.innerHTML = TL_ETQ[i];
+    lb.style.left = (i === 0 ? 0 : i === 3 ? 850 - 210 : x + 14.5 - 105) + 'px'; lb.style.textAlign = i === 0 ? 'left' : i === 3 ? 'right' : 'center';
+    tl.appendChild(ic); tl.appendChild(nd); tl.appendChild(lb);
+    tlNodos.push(nd); tlFade.push(ic, lb);
+  }
+})();
+
+/* ── Seguidor: posiciones de los 4 puntos ── */
+var pasosEl = document.getElementById('pasos'), PX = [], puntos = [];
+for (var k = 0; k < 4; k++) { PX.push(k * (850 - 29) / 3); var d = document.createElement('div'); d.className = 'punto'; d.style.left = PX[k] + 'px'; pasosEl.appendChild(d); puntos.push(d); }
+// "Viajeros": copias de los mosaicos que vuelan del gancho a los puntos del seguidor
+var viajeros = FILA_Y.map(function (y, i) { var v = document.createElement('div'); v.className = 'viajero'; v.style.left = '80px'; v.style.top = y + 'px'; document.getElementById('stage').appendChild(v); return v; });
+
+/* ── Escena 2: lote con 3 ambientes (escala opaca: alto naranja / medio acero / bajo azul) ── */
+var LX = 80, LY = 840, LW = 850, LH = 500;
+function curvas() {
+  return {
+    alto: 'M' + LX + ' ' + LY + ' h' + LW + ' v' + LH * 0.30 + ' C' + (LX + LW * 0.62) + ' ' + (LY + LH * 0.46) + ' ' + (LX + LW * 0.30) + ' ' + (LY + LH * 0.22) + ' ' + LX + ' ' + (LY + LH * 0.38) + ' Z',
+    bajo: 'M' + LX + ' ' + (LY + LH) + ' h' + LW + ' v' + (-LH * 0.34) + ' C' + (LX + LW * 0.62) + ' ' + (LY + LH * 0.52) + ' ' + (LX + LW * 0.34) + ' ' + (LY + LH * 0.80) + ' ' + LX + ' ' + (LY + LH * 0.66) + ' Z'
+  };
+}
+var s2 = document.getElementById('s2-art'), cv = curvas();
+var c2 = el('clipPath', { id: 'clip2' }, el('defs', {}, s2)); el('rect', { x: LX, y: LY, width: LW, height: LH, rx: 14 }, c2);
+var g2 = el('g', { 'clip-path': 'url(#clip2)' }, s2);
+el('rect', { x: LX, y: LY, width: LW, height: LH, fill: '#8FA0BE' }, g2);
+el('path', { d: cv.alto, fill: '#F5A623' }, g2);
+el('path', { d: cv.bajo, fill: '#1A4A8A' }, g2);
+el('rect', { x: LX, y: LY, width: LW, height: LH, rx: 14, fill: 'none', stroke: 'rgba(255,255,255,0.35)', 'stroke-width': 2 }, s2);
+var pills2 = [['ALTO POTENCIAL', 'más semillas', LY + 70], ['POTENCIAL MEDIO', 'media', LY + LH * 0.54], ['BAJO POTENCIAL', 'menos semillas', LY + LH - 58]].map(function (z) {
+  var g = el('g', { opacity: 0 }, s2), y = z[2];
+  el('rect', { x: LX + 24, y: y - 32, width: 330, height: 64, rx: 32, fill: 'rgba(10,15,27,0.84)' }, g);
+  el('text', { x: LX + 50, y: y + 10, 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 26, 'letter-spacing': 2, fill: '#FFFFFF' }, g).textContent = z[0];
+  var w = z[1].length * 16.8 + 48;
+  el('rect', { x: LX + LW - 24 - w, y: y - 32, width: w, height: 64, rx: 32, fill: 'rgba(10,15,27,0.84)' }, g);
+  el('text', { x: LX + LW - 24 - w / 2, y: y + 10, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-size': 28, fill: '#E8EEF7' }, g).textContent = z[1];
+  return g;
+});
+
+/* ── Escena 3: mapa de prescripción (misma escala, sin ruido) ── */
+var s3 = document.getElementById('s3-art');
+var c3 = el('clipPath', { id: 'clip3' }, el('defs', {}, s3)); el('rect', { x: LX, y: LY, width: LW, height: LH, rx: 14 }, c3);
+var mapa = el('g', { 'clip-path': 'url(#clip3)' }, s3);
+// clasifica cada celda con las mismas curvas de la escena 2 (pintadas en un canvas oculto)
+var cvs = document.createElement('canvas'); cvs.width = 1080; cvs.height = 1920; var ctx = cvs.getContext('2d');
+ctx.fillStyle = '#010101'; ctx.fillRect(LX, LY, LW, LH);
+ctx.fillStyle = '#020202'; ctx.fill(new Path2D(cv.alto)); ctx.fillStyle = '#000000'; ctx.fill(new Path2D(cv.bajo));
+var COLS = 28, ROWS = 17, CW = LW / COLS, CH = LH / ROWS, celdas = [], COLOR = ['#1A4A8A', '#8FA0BE', '#F5A623'];
+for (var c = 0; c < COLS; c++) for (var r = 0; r < ROWS; r++) {
+  var cx = LX + c * CW, cy = LY + r * CH, px = ctx.getImageData(Math.round(cx + CW / 2), Math.round(cy + CH / 2), 1, 1).data[0];
+  celdas.push({ x: cx, el: el('rect', { x: cx + 1, y: cy + 1, width: CW - 2, height: CH - 2, fill: COLOR[px], opacity: 0 }, mapa) });
+}
+el('rect', { x: LX, y: LY, width: LW, height: LH, rx: 14, fill: 'none', stroke: 'rgba(255,255,255,0.35)', 'stroke-width': 2 }, s3);
+var barra3 = el('rect', { x: LX, y: LY - 8, width: 4, height: LH + 16, fill: '#E8EEF7', opacity: 0 }, s3);
+
+/* ── Escena 4: foto real + plantas detectadas (anillos recortados al marco) ── */
+var s4 = document.getElementById('s4-art'), FX = 80, FY = 840, FW = 850, SC = FW / DETECCION.w, FH = DETECCION.h * SC;
+var c4 = el('clipPath', { id: 'clip4' }, el('defs', {}, s4)); el('rect', { x: FX, y: FY, width: FW, height: FH, rx: 6 }, c4);
+var foto = el('g', { 'clip-path': 'url(#clip4)' }, s4);
+var zoom = el('g', {}, foto);
+el('image', { href: 'img/dron/dron-01-analisis.jpg', x: FX, y: FY, width: FW, height: FH, preserveAspectRatio: 'none' }, zoom);
+var anillos = DETECCION.puntos.map(function (p) { return { x: FX + p[0] * SC, el: el('circle', { cx: FX + p[0] * SC, cy: FY + p[1] * SC, r: 14, fill: 'none', stroke: '#F5A623', 'stroke-width': 3, opacity: 0 }, zoom) }; });
+var scan = el('rect', { x: FX, y: FY, width: 4, height: FH, fill: '#E8EEF7', opacity: 0 }, foto);
+el('rect', { x: FX, y: FY, width: FW, height: FH, rx: 6, fill: 'none', stroke: 'rgba(255,255,255,0.25)', 'stroke-width': 2 }, s4);
+
+/* ── Escena 5: croquis de recorrida dentro del informe ── */
+var cq = document.getElementById('croquis'), CQW = 786, CQH = 200;
+el('rect', { x: 0, y: 0, width: CQW, height: CQH, rx: 10, fill: '#EFEAE0', stroke: 'rgba(13,45,94,0.30)', 'stroke-width': 2 }, cq);
+var sx_ = CQW / LW, sy_ = CQH / LH;
+function escalar(d) { return d.replace(/(-?\d+\.?\d*) (-?\d+\.?\d*)/g, function (_, x, y) { return ((+x - LX) * sx_).toFixed(1) + ' ' + ((+y - LY) * sy_).toFixed(1); }); }
+el('path', { d: escalar(cv.alto.replace(/h(\d+\.?\d*)/, function (_, w) { return 'L' + (LX + +w) + ' ' + LY; }).replace(/v(-?\d+\.?\d*)/, function (_, v) { return 'L' + (LX + LW) + ' ' + (LY + +v); })), fill: 'rgba(13,45,94,0.20)' }, cq);
+el('path', { d: escalar(cv.bajo.replace(/h(\d+\.?\d*)/, function (_, w) { return 'L' + (LX + +w) + ' ' + (LY + LH); }).replace(/v(-?\d+\.?\d*)/, function (_, v) { return 'L' + (LX + LW) + ' ' + (LY + LH + +v); })), fill: 'rgba(13,45,94,0.07)' }, cq);
+var EST = [[150, 60], [430, 120], [660, 70]];
+var ruta = el('path', { d: 'M30 170 C 90 120, 110 70, ' + EST[0][0] + ' ' + EST[0][1] + ' S 360 150, ' + EST[1][0] + ' ' + EST[1][1] + ' S 600 40, ' + EST[2][0] + ' ' + EST[2][1] + ' L 760 40', fill: 'none', stroke: '#0D2D5E', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-dasharray': '2 10' }, cq);
+var rutaLen = ruta.getTotalLength();
+// la recorrida se revela con una máscara (la ruta es punteada, no se puede animar con su propio dasharray)
+var m5 = el('mask', { id: 'm5', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: CQW, height: CQH }, el('defs', {}, cq));
+var mascara = el('path', { d: ruta.getAttribute('d'), fill: 'none', stroke: '#FFFFFF', 'stroke-width': 12, 'stroke-dasharray': rutaLen + ' ' + rutaLen, 'stroke-dashoffset': rutaLen }, m5);
+ruta.setAttribute('mask', 'url(#m5)');
+var estLen = EST.map(function (p) { var best = 0, bd = 1e9; for (var u = 0; u <= rutaLen; u += 2) { var q = ruta.getPointAtLength(u), dd = Math.hypot(q.x - p[0], q.y - p[1]); if (dd < bd) { bd = dd; best = u; } } return best; });
+var estEl = EST.map(function (p, i) {
+  var g = el('g', { opacity: 0 }, cq);
+  el('circle', { cx: p[0], cy: p[1], r: 16, fill: '#0D2D5E' }, g);
+  el('text', { x: p[0], y: p[1] + 7, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 20, fill: '#FFFFFF' }, g).textContent = i + 1;
+  return g;
+});
+var items = document.querySelectorAll('.item');
+var ticks = [];
+items.forEach(function (it, i) {
+  it.innerHTML = '<svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="16" fill="none" stroke="#0D2D5E" stroke-width="2.6" opacity="0.45"/><path d="M12 21 l6 6 11-12" fill="none" stroke="#0D2D5E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="30" stroke-dashoffset="30"/></svg>' + ITEMS[i];
+  ticks.push({ circ: it.querySelector('circle'), path: it.querySelector('path') });
+});
+
+/* ── Tipografía: que nada se corte ── */
+// Se recalcula cuando carga la tipografía de marca: con la letra de reemplazo las medidas dan mal
+function ajustarTodo() {
+  [['.big', 62], ['#q', 70], ['#l2', 64]].forEach(function (r) {
+    document.querySelectorAll(r[0]).forEach(function (n) { n.style.fontSize = ''; ajustar(n, r[1]); });
+  });
+}
+ajustarTodo();
+window.reajustar = ajustarTodo;
+if (document.fonts) document.fonts.ready.then(ajustarTodo);
+
+/* ── Línea de tiempo ── */
+var R = MODO === 'reel';
+var ESC = CORTO ? [['s1', 0, 4.0], ['s2', 4.0, 7.75], ['s3', 7.75, 11.5], ['s4', 11.5, 15.25], ['s5', 15.25, 19.0]]
+        : R ? [['s1', 0, 3.8], ['s2', 3.8, 9.2], ['s3', 9.2, 14.4], ['s4', 14.4, 21.2], ['s5', 21.2, 26.8]]
+            : [['s1', 0, 5.0], ['s2', 5.0, 8.75], ['s3', 8.75, 12.5], ['s4', 12.5, 16.25], ['s5', 16.25, 20.0]];
+var T_OUT = CORTO ? 19.0 : R ? 26.8 : 20.0, TOTAL = CORTO ? 23.5 : R ? 30.8 : 26.0, VEL = (R && !CORTO) ? 1 : 0.62;   // VEL acelera las animaciones internas en Historia
+// Clip real: 2,4 s de toma limpia después de la última etapa; el cierre aparece encima del clip oscurecido
+var CLIP = R && PARAM.get('clip') ? { dir: PARAM.get('clip').replace(/\/?$/, '/'), n: +PARAM.get('clipn') || 0, libre: 2.4, cuadros: [] } : null;
+var T_FIN = T_OUT;   // fin de las etapas
+if (CLIP) { T_OUT += CLIP.libre; TOTAL += CLIP.libre; }
+if (CLIP) window.LISTO = Promise.all(Array.from({ length: CLIP.n }, function (_, i) {
+  var im = new Image(); CLIP.cuadros.push(im);
+  return new Promise(function (ok, mal) { im.onload = ok; im.onerror = function () { mal(new Error('falta ' + im.src)); }; im.src = CLIP.dir + String(i + 1).padStart(4, '0') + '.jpg'; });
+}));
+function cuadroClip(t) {
+  var c = document.getElementById('clip'), x = c.getContext('2d'), u = Math.max(0, t - T_FIN);
+  var im = CLIP.cuadros[Math.min(CLIP.n - 1, Math.floor(u * 30))]; if (!im) return;
+  var z = 1 + 0.05 * clamp(u / (TOTAL - T_FIN)), w = 1080 * z, h = 1920 * z;   // zoom lento: si el clip se termina, el último cuadro no queda quieto
+  var esc = Math.max(w / im.naturalWidth, h / im.naturalHeight), dw = im.naturalWidth * esc, dh = im.naturalHeight * esc;
+  x.drawImage(im, (1080 - dw) / 2, (1920 - dh) / 2, dw, dh);
+}
+window.REEL_DURACION = TOTAL;
+window.REEL_CORTES = ESC.map(function (e) { return e[1]; }).concat([T_OUT, TOTAL]);
+
+function escena(id, t, ini, fin, primera) {
+  var n = document.getElementById(id);
+  var arte = primera ? (R ? 1 - eio(seg(t, fin - 0.2, fin + 0.15)) : (t < fin ? 1 : 0)) : Math.min(eio(seg(t, ini - 0.05, ini + 0.3)), 1 - eio(seg(t, fin - 0.05, fin + 0.3)));
+  n.style.opacity = arte;
+  var h = n.querySelector('.head');
+  if (h) {
+    var kin = eout(seg(t, ini + 0.1, ini + 0.6)), kout = eout(seg(t, fin - 0.25, fin));
+    h.style.opacity = kin * (1 - kout);
+    h.style.transform = 'translateY(' + ((1 - kin) * 30 - kout * 30) + 'px)';
+    var b = h.querySelector('.body'); if (b) b.style.opacity = eout(seg(t, ini + 0.4, ini + 0.9));
+  }
+  return arte;
+}
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) { escena(e[0], t, e[1], e[2], i === 0); });
+
+  // 1 · gancho: 1ª línea visible desde el cuadro 0 (portada y loop), resto de la pregunta a 0,6 s
+  // arranque del vuelo de mosaicos al seguidor (en Historia no hay vuelo: cada historia se publica suelta)
+var s1 = ESC[0], M0 = (R && AP !== 'respuesta') ? s1[2] - 0.6 : 1e9;
+  document.querySelectorAll('#q .o').forEach(function (o) { var k = eout(seg(t, 0.6, 1.1)); o.style.opacity = k; o.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+  var salida = AP === 'respuesta' ? 1 : 1 - eio(seg(t, M0, M0 + 0.3));
+  document.getElementById('q').style.opacity = salida;
+  document.getElementById('plan-lbl').style.opacity = eout(seg(t, 1.3, 1.7)) * salida;
+  document.getElementById('logo-hook').style.opacity = eout(seg(t, 1.3, 1.7)) * salida;
+  filas.forEach(function (f, i) {
+    var k = eout(seg(t, 1.7 + i * 0.28, 2.2 + i * 0.28));
+    f.style.opacity = k * salida; f.style.transform = 'translateX(' + (1 - k) * -24 + 'px)';
+    f.querySelector('.tile').style.opacity = t >= M0 ? 0 : 1;
+  });
+  document.querySelectorAll('.conector').forEach(function (c, i) { c.style.opacity = eout(seg(t, 2.0 + i * 0.28, 2.5 + i * 0.28)) * salida; });
+  // vuelo: el mosaico i viaja al punto i del seguidor y se achica
+  // V2: aparece la respuesta
+  var kr2 = eout(seg(t, 1.8, 2.4)), rs = document.getElementById('resp');
+  rs.style.opacity = AP === 'respuesta' ? kr2 : 0; rs.style.transform = 'translateY(' + (1 - kr2) * 30 + 'px)';
+  // V3: la línea de tiempo se recorre y después sube a ser el seguidor de etapas
+  if (AP === 'linea') {
+    var tl = document.getElementById('tl'), kt0 = eout(seg(t, 0.3, 0.8));
+    var ka = eio(seg(t, 0.8, 2.6)), km = eio(seg(t, M0, M0 + 0.6));
+    tl.style.opacity = t < M0 + 0.62 ? kt0 : 0;
+    tl.style.top = (880 + (168 - 880) * km) + 'px';
+    document.getElementById('tl-avance').style.width = ka * (850 - 28) * (1 - km) + 'px';
+    tlNodos.forEach(function (n, i) { n.className = 'tl-nodo' + (ka * 3 >= i - 0.01 && km < 0.5 ? ' on' : ''); });
+    tlFade.forEach(function (f) { f.style.opacity = 1 - eio(seg(t, M0, M0 + 0.3)); });
+  }
+  viajeros.forEach(function (v, i) {
+    if (AP !== 'pasos') { v.style.opacity = 0; return; }
+    var k = eio(seg(t, M0, M0 + 0.6));
+    var x = 80 + (PX[i] - 0) * k, y = FILA_Y[i] + (312 - FILA_Y[i]) * k, s = 1 + (29 / 112 - 1) * k;
+    v.style.left = (80 + PX[i] * k) + 'px'; v.style.top = y + 'px';
+    v.style.transform = 'scale(' + s + ')';
+    v.style.borderRadius = (14 + (56 - 14) * k) + 'px';
+    v.style.opacity = t >= M0 && t < M0 + 0.65 ? 1 : 0;
+  });
+
+  // Seguidor de etapas
+  var visible = ((R && AP !== 'respuesta') ? t >= M0 + 0.6 : t >= ESC[1][1]) && t < T_FIN + 0.1;
+  pasosEl.style.opacity = visible ? 1 - eio(seg(t, T_FIN - 0.2, T_FIN + 0.1)) : 0;
+  var etapa = -1; for (var k = 1; k < ESC.length; k++) if (t >= ESC[k][1]) etapa = k - 1;
+  puntos.forEach(function (p, i) { p.className = 'punto' + (i === etapa ? ' on' : i < etapa ? ' hecho' : ''); });
+  var av = 0; for (var k2 = 2; k2 < ESC.length; k2++) av += eio(seg(t, ESC[k2][1] - 0.4, ESC[k2][1]));
+  document.getElementById('avance').style.width = (av / 3) * (850 - 28) + 'px';
+
+  // 2 · etiquetas de ambiente
+  var a2 = ESC[1][1];
+  pills2.forEach(function (g, i) { g.setAttribute('opacity', eout(seg(t, a2 + (0.9 + i * 0.35) * VEL, a2 + (1.3 + i * 0.35) * VEL))); });
+
+  // 3 · leyenda primero, después se pinta el mapa con una pasada
+  var a3 = ESC[2][1];
+  document.getElementById('leyenda').style.opacity = eout(seg(t, a3 + 0.6 * VEL, a3 + 1.0 * VEL));
+  var kp = eio(seg(t, a3 + 1.0 * VEL, a3 + 3.0 * VEL)), bx = LX + LW * kp;
+  celdas.forEach(function (cl) { cl.el.setAttribute('opacity', clamp((bx - cl.x) / 40)); });
+  barra3.setAttribute('x', bx - 2); barra3.setAttribute('opacity', kp > 0 && kp < 1 ? 0.9 : 0);
+
+  // 4 · barrido de detección + contador + chips; acercamiento lento de toda la foto
+  var a4 = ESC[3][1], f4 = ESC[3][2];
+  var z = 1 + 0.04 * seg(t, a4, f4);
+  zoom.setAttribute('transform', 'translate(' + (FX + FW / 2) + ',' + (FY + FH / 2) + ') scale(' + z + ') translate(' + -(FX + FW / 2) + ',' + -(FY + FH / 2) + ')');
+  document.getElementById('fotolbl').style.opacity = eout(seg(t, a4 + 0.3, a4 + 0.7));
+  var ks = seg(t, a4 + 1.2 * VEL, a4 + 4.0 * VEL), sxp = FX + FW * ks, vistos = 0;
+  scan.setAttribute('x', sxp - 2); scan.setAttribute('opacity', ks > 0 && ks < 1 ? 0.9 : 0);
+  anillos.forEach(function (a) { var on = sxp >= a.x; a.el.setAttribute('opacity', on ? 1 : 0); if (on) vistos++; });
+  document.getElementById('num').textContent = vistos;
+  var cu = document.getElementById('cuenta');
+  cu.style.opacity = eout(seg(t, a4 + 1.2 * VEL, a4 + 1.5 * VEL));
+  var pulso = seg(t, a4 + 4.2 * VEL, a4 + 4.6 * VEL);
+  cu.style.transform = 'scale(' + (1 + 0.06 * Math.sin(Math.PI * pulso)) + ')';
+  document.querySelectorAll('#chips .chip').forEach(function (c, i) { var k = eout(seg(t, a4 + (4.2 + i * 0.15) * VEL, a4 + (4.6 + i * 0.15) * VEL)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 20 + 'px)'; });
+
+  // 5 · entra la tarjeta, se dibuja la recorrida y se tildan los ítems al pasar por cada estación
+  var a5 = ESC[4][1];
+  var ki = eout(seg(t, a5 + 0.3, a5 + 0.9)), inf = document.getElementById('informe');
+  inf.style.opacity = ki; inf.style.transform = 'translateY(' + (1 - ki) * 60 + 'px)';
+  var kr = eio(seg(t, a5 + 1.1 * VEL, a5 + 3.6 * VEL)), largo = rutaLen * kr;
+  mascara.setAttribute('stroke-dashoffset', rutaLen - largo);
+  estEl.forEach(function (g, i) {
+    var llego = largo >= estLen[i];
+    g.setAttribute('opacity', llego ? 1 : 0);
+    var tk = ticks[i], kt = llego ? clamp((largo - estLen[i]) / 40) : 0;
+    tk.path.setAttribute('stroke-dashoffset', 30 * (1 - kt));
+    tk.circ.setAttribute('opacity', 0.45 + 0.55 * kt);
+  });
+
+  // Clip real (opcional)
+  if (CLIP) {
+    var kc = eio(seg(t, T_FIN - 0.1, T_FIN + 0.3));
+    document.getElementById('clip').style.opacity = kc; document.getElementById('clipVelo').style.opacity = kc;
+    if (kc > 0) cuadroClip(t);
+    var kg = eout(seg(t, T_FIN + 0.5, T_FIN + 0.9)) * (1 - eio(seg(t, T_OUT - 0.3, T_OUT)));
+    var tg = document.getElementById('clipTag'); tg.style.opacity = kg; tg.style.transform = 'translateY(' + (1 - kg) * 20 + 'px)';
+    document.getElementById('clipOsc').style.opacity = eio(seg(t, T_OUT - 0.2, T_OUT + 0.5));
+  }
+  // Cierre
+  var o = eio(seg(t, T_OUT, T_OUT + 0.4));
+  var outro = document.getElementById('outro');
+  outro.style.opacity = o;
+  outro.querySelectorAll(':scope > *').forEach(function (c, i) { var k = eout(seg(t, T_OUT + 0.2 + i * 0.12, T_OUT + 0.7 + i * 0.12)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+};
+
+if (!window.__RENDER_MODE__) {
+  var t0 = null;
+  (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now());
+} else { window.render(0); }
+</script>
+</body>
+</html>
