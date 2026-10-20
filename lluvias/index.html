@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Parte de lluvias · HenderSeeds</title>
+<meta name="description" content="Cargá los milímetros que mandaron los productores por paraje y bajá la historia del parte de lluvias de la zona.">
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<style>
+:root {
+  --bg: #0A0F1B; --panel: #101829; --panel-2: #16213A; --line: rgba(255,255,255,.10); --line-2: rgba(255,255,255,.2);
+  --ink: #EEF2F8; --ink-2: #BFCADB; --ink-3: #8C9AB3; --amber: #F5A623; --ok: #6FD6A0;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.5 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--amber); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+header.top .links { display: flex; gap: 14px; font: 500 13px 'DM Mono', monospace; }
+header.top .links a { color: var(--ink-3); text-decoration: none; }
+.eyebrow { font: 500 12.5px/1.3 'DM Mono', monospace; letter-spacing: .13em; text-transform: uppercase; color: var(--amber); }
+h1 { font: 400 clamp(32px, 5vw, 54px)/1 'Archivo Black', sans-serif; letter-spacing: -.03em; margin: 22px 0 10px; }
+.intro { color: var(--ink-2); max-width: 70ch; margin: 0 0 22px; }
+.app { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 28px; align-items: start; padding-bottom: 60px; }
+.vista { position: sticky; top: 14px; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.vista canvas { width: 100%; max-width: min(420px, 78vw); height: auto; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,.5); background: #000; display: block; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 18px; }
+.lab { font: 500 12px/1.2 'DM Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.campo { display: flex; flex-direction: column; gap: 6px; }
+input[type="text"] { font: 400 16px/1.4 'DM Sans', sans-serif; color: var(--ink); background: var(--panel-2); border: 1.5px solid var(--line-2); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0; }
+input[type="text"]:focus-visible { outline: 3px solid var(--amber); outline-offset: 1px; }
+.filas { display: flex; flex-direction: column; gap: 8px; }
+.fila { display: grid; grid-template-columns: minmax(0, 1fr) 110px; gap: 8px; }
+.ayuda { color: var(--ink-3); font-size: 13px; margin: 0; }
+.btn { font: 700 16px/1 'DM Sans', sans-serif; border: 0; border-radius: 12px; padding: 16px 18px; cursor: pointer; background: var(--amber); color: #0A0F1B; width: 100%; }
+.btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.check { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--ink-2); }
+.check input { accent-color: var(--amber); width: 18px; height: 18px; }
+.estado { font-size: 13.5px; color: var(--ok); min-height: 1.4em; margin: 0; }
+.pasos { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14.5px; }
+.pasos li + li { margin-top: 6px; }
+@media (max-width: 860px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .vista { position: static; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">HenderSeeds · Siembra 26/27</div>
+    <nav class="links" aria-label="Otras páginas"><a href="../kit/">Kit</a><a href="../">Dashboard</a></nav>
+  </header>
+  <h1>Parte de lluvias</h1>
+  <p class="intro">El día después de la lluvia: cargá los milímetros que te mandaron por paraje y bajá la historia. Sale con la marca, lista para Instagram y Estados de WhatsApp. Todo pasa en tu celular.</p>
+
+  <div class="app">
+    <div class="vista">
+      <canvas id="lienzo" width="1080" height="1920" aria-label="Vista previa del parte de lluvias"></canvas>
+    </div>
+
+    <form class="panel" id="form" autocomplete="off">
+      <div class="campo"><label class="lab" for="fecha">Fecha</label><input type="text" id="fecha"></div>
+      <div class="campo"><label class="lab" for="titulo">Título</label><input type="text" id="titulo" value="Lo que llovió en la zona"></div>
+      <div class="campo">
+        <span class="lab">Paraje y milímetros</span>
+        <div class="filas" id="filas"></div>
+        <p class="ayuda">Solo paraje y mm, sin nombres de productores. Si te mandan varios datos del mismo paraje, poné el rango: <b>25-30</b>. Las filas sin mm no salen.</p>
+      </div>
+      <label class="check"><input type="checkbox" id="orden" checked> Ordenar de mayor a menor</label>
+      <button type="button" class="btn" id="bajar">Bajar imagen</button>
+      <p class="estado" id="estado" aria-live="polite"></p>
+      <ol class="pasos">
+        <li>Subila a la historia y a los Estados de WhatsApp a la mañana.</li>
+        <li>A los que mandaron su dato, agradeceles por DM: es la mejor excusa para seguir la charla.</li>
+      </ol>
+    </form>
+  </div>
+</div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var lienzo = $('lienzo'), ctx = lienzo.getContext('2d'), W = 1080, H = 1920;
+  var PARAJES = ['Henderson', 'Daireaux', 'Bolívar', '', '', '', '', ''];
+  var GUARDA = 'hs-lluvias-v1';
+
+  // fecha de hoy por defecto
+  var hoy = new Date(); $('fecha').value = ('0' + hoy.getDate()).slice(-2) + '/' + ('0' + (hoy.getMonth() + 1)).slice(-2);
+  $('filas').innerHTML = PARAJES.map(function (p, i) {
+    return '<div class="fila"><input type="text" id="p' + i + '" value="' + p + '" placeholder="Paraje" aria-label="Paraje ' + (i + 1) + '">' +
+           '<input type="text" id="m' + i + '" inputmode="decimal" placeholder="mm" aria-label="Milímetros ' + (i + 1) + '"></div>';
+  }).join('');
+  try { var g = JSON.parse(localStorage.getItem(GUARDA) || 'null'); if (g) g.forEach(function (f, i) { if ($('p' + i)) { $('p' + i).value = f[0]; $('m' + i).value = f[1]; } }); } catch (e) {}
+
+  // "25,5" → 25.5 · "25-30" o "25 a 30" → rango (la barra va hasta el mayor)
+  function leer(txt) {
+    var m = String(txt).replace(/,/g, '.').match(/(\d+(?:\.\d+)?)(?:\s*(?:-|–|a)\s*(\d+(?:\.\d+)?))?/);
+    if (!m) return null;
+    var a = parseFloat(m[1]), b = m[2] ? parseFloat(m[2]) : null, fmt = function (v) { return String(v).replace('.', ','); };
+    return { valor: b !== null ? Math.max(a, b) : a, texto: b !== null ? fmt(Math.min(a, b)) + '–' + fmt(Math.max(a, b)) : fmt(a) };
+  }
+  function filas() {
+    var out = [];
+    for (var i = 0; i < PARAJES.length; i++) { var p = $('p' + i).value.trim(), v = leer($('m' + i).value); if (p && v) out.push({ p: p, v: v }); }
+    if ($('orden').checked) out.sort(function (a, b) { return b.v.valor - a.v.valor; });
+    return out;
+  }
+  function cortar(txt, ancho) { if (ctx.measureText(txt).width <= ancho) return txt; while (txt.length > 1 && ctx.measureText(txt + '…').width > ancho) txt = txt.slice(0, -1); return txt + '…'; }
+  function espaciado(px) { if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
+  function redondeado(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+
+  var logo = new Image(); logo.src = '../assets/logo-hs-blanco-hd.png';
+
+  function dibujar() {
+    // fondo, barra ámbar y lluvia quieta (misma cada vez)
+    var fondo = ctx.createLinearGradient(0, 0, 0, H); fondo.addColorStop(0, '#13203a'); fondo.addColorStop(0.62, '#0A0F1B'); fondo.addColorStop(1, '#0A0F1B');
+    ctx.fillStyle = fondo; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#F5A623'; ctx.fillRect(0, 0, W, 8);
+    var s = 11; function rnd() { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }
+    ctx.lineCap = 'round';
+    for (var q = 0; q < 70; q++) { var x = rnd() * 1200 - 40, y = 160 + rnd() * 1500; ctx.strokeStyle = 'rgba(232,238,247,' + (0.05 + rnd() * 0.12).toFixed(2) + ')'; ctx.lineWidth = 2 + Math.round(rnd() * 2); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 12, y + 58); ctx.stroke(); }
+    if (logo.complete && logo.naturalWidth) ctx.drawImage(logo, 80, 262, 62 * logo.naturalWidth / logo.naturalHeight, 62);
+    // bajada y título
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#F5A623'; ctx.beginPath(); ctx.arc(87, 389, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.font = '500 27px "DM Mono"'; espaciado(3); ctx.fillStyle = '#8FA0BE';
+    ctx.fillText(('Parte de lluvias · ' + $('fecha').value.trim()).toUpperCase(), 110, 398); espaciado(0);
+    var tit = $('titulo').value.trim() || 'Lo que llovió en la zona', fs = 108, lineas;
+    do { ctx.font = '400 ' + fs + 'px "Archivo Black"'; lineas = partir(tit, 900); fs -= 4; } while ((lineas.length > 2 || lineas.some(function (l) { return ctx.measureText(l).width > 900; })) && fs > 60);
+    espaciado(-3); ctx.fillStyle = '#FFFFFF'; lineas.forEach(function (l, i) { ctx.fillText(l, 80, 530 + i * (fs + 4)); }); espaciado(0);
+    // filas
+    var fs2 = filas(), top = 760, alto = 1330 - top;
+    if (!fs2.length) {
+      ctx.font = '500 36px "DM Sans"'; ctx.fillStyle = '#8FA0BE'; ctx.fillText('Cargá los mm de cada paraje →', 80, top + 80);
+    } else {
+      var paso = Math.min(118, alto / fs2.length), max = Math.max.apply(null, fs2.map(function (f) { return f.v.valor; })) || 1;
+      var X0 = 430, BMAX = 300, BAR = Math.min(46, paso * 0.48);
+      fs2.forEach(function (f, i) {
+        var cy = top + paso * i + paso / 2;
+        ctx.font = '600 38px "DM Sans"'; ctx.fillStyle = '#E8EEF7'; ctx.fillText(cortar(f.p, X0 - 110), 80, cy + 13);
+        var w = Math.max(14, BMAX * f.v.valor / max);
+        ctx.fillStyle = '#F5A623'; redondeado(X0, cy - BAR / 2, w, BAR, Math.min(10, BAR / 2)); ctx.fill();
+        ctx.font = '500 38px "DM Mono"'; ctx.fillStyle = '#FFFFFF'; ctx.fillText(f.v.texto + ' mm', X0 + w + 18, cy + 13);
+        if (i < fs2.length - 1) { ctx.strokeStyle = 'rgba(232,238,247,0.10)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(80, cy + paso / 2); ctx.lineTo(1000, cy + paso / 2); ctx.stroke(); }
+      });
+    }
+    // pie
+    ctx.font = '400 30px "DM Sans"'; ctx.fillStyle = '#8FA0BE'; ctx.fillText('Datos que nos mandaron productores de la zona. ¡Gracias!', 80, 1400);
+    ctx.font = '700 36px "DM Sans"'; ctx.fillStyle = '#F5A623'; ctx.fillText('¿No está tu paraje? Mandanos tus mm por DM.', 80, 1464);
+    ctx.font = '400 30px "DM Mono"'; ctx.fillStyle = '#E8EEF7'; ctx.fillText('WhatsApp 2314 53-0691', 80, 1516);
+  }
+  function partir(txt, ancho) {
+    var pal = txt.split(/\s+/), out = [], l = '';
+    pal.forEach(function (p) { var t = l ? l + ' ' + p : p; if (ctx.measureText(t).width > ancho && l) { out.push(l); l = p; } else l = t; });
+    if (l) out.push(l); return out;
+  }
+  function guardar() { try { localStorage.setItem(GUARDA, JSON.stringify(PARAJES.map(function (_, i) { return [$('p' + i).value, $('m' + i).value]; }))); } catch (e) {} }
+
+  $('form').addEventListener('input', function () { guardar(); dibujar(); });
+  $('bajar').addEventListener('click', function () {
+    var nombre = 'henderseeds-parte-de-lluvias-' + $('fecha').value.replace(/\D+/g, '-').replace(/^-|-$/g, '') + '.jpg';
+    lienzo.toBlob(function (blob) {
+      if (!blob) { $('estado').textContent = 'No se pudo generar la imagen en este navegador.'; return; }
+      var url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = nombre;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      $('estado').textContent = 'Listo: ' + nombre;
+    }, 'image/jpeg', 0.92);
+  });
+
+  // dibujar cuando estén las tipografías y el logo (si no, el canvas usa otra letra)
+  var fuentes = ['400 100px "Archivo Black"', '500 27px "DM Mono"', '400 30px "DM Mono"', '600 38px "DM Sans"', '700 36px "DM Sans"', '400 30px "DM Sans"'];
+  Promise.all(fuentes.map(function (f) { return document.fonts.load(f); })).then(dibujar, dibujar);
+  logo.onload = dibujar;
+  dibujar();
+})();
+</script>
+</body>
+</html>
