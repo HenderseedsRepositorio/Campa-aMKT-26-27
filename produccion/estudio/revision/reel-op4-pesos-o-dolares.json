@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/sintetico/reel-op4-pesos-o-dolares.html",
+  "fecha": "2026-10-20",
+  "duracion": 22,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "PESOS DÓLARES ¿Financiás la campaña en pesos o en dólares ?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 18,
+      "segundo": 15.4
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

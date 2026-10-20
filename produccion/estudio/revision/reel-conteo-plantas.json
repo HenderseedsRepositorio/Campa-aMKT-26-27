@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/sintetico/reel-conteo-plantas.html",
+  "fecha": "2026-10-20",
+  "duracion": 24,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "¿Cuántas plantas"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 21,
+      "segundo": 21.6
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

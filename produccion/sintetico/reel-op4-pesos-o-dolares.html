@@ -207,7 +207,7 @@ function plato(lado, nombre) {
   el('path', { d: 'M-18,' + (H + 102) + ' L18,' + (H + 102) + ' L11,' + (H + 111) + ' L-11,' + (H + 111) + ' Z', fill: CREMA, stroke: NAVY, 'stroke-width': 2, 'stroke-linejoin': 'round' }, fr);
   var tx = el('text', { x: 0, y: H + 64, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 32, 'letter-spacing': 4, fill: NAVY }, fr);
   tx.textContent = nombre;
-  return { at: at, fr: fr };
+  return { at: at, fr: fr, tx: tx };
 }
 var PL = plato(-1, 'PESOS'), PR = plato(1, 'DÓLARES');
 
@@ -309,6 +309,7 @@ window.render = function (t) {
   var s = lerp(lerp(1, sB, k1), sC, k2);
   var ty = lerp(lerp(0, 1500 * (1 - sB), k1), 290 - 740 * sC, k2);
   $('todo').setAttribute('transform', 'translate(' + (PX * (1 - s)).toFixed(2) + ',' + ty.toFixed(2) + ') scale(' + s.toFixed(4) + ')');
+  PL.tx.setAttribute('opacity', 1 - k2); PR.tx.setAttribute('opacity', 1 - k2);   // en el cierre la balanza queda chica: los rótulos no se leerían
 
   // brazo y platos
   var gl = gancho(-1, t), gr = gancho(1, t);

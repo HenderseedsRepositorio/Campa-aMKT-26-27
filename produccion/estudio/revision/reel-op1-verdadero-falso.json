@@ -1,0 +1,57 @@
+{
+  "reel": "produccion/sintetico/reel-op1-verdadero-falso.html",
+  "fecha": "2026-10-20",
+  "duracion": 24,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "¿Verdadero o falso? 3 cosas que se escuchan en la siembra V ? F V ? F V ? F VERD"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": [
+        {
+          "t": 20.4,
+          "txt": "1",
+          "caja": [
+            9,
+            469,
+            60,
+            556
+          ]
+        },
+        {
+          "t": 4.8,
+          "txt": "FALSO",
+          "caja": [
+            -87,
+            544,
+            1099,
+            1133
+          ]
+        }
+      ]
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 28,
+      "segundo": 6
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "reel": "produccion/estudio/sello.html",
+  "fecha": "2026-10-20",
+  "duracion": 5,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": true,
+      "texto": ""
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 8,
+      "segundo": 3.5
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1,
+        1.25
+      ]
+    }
+  }
+}
