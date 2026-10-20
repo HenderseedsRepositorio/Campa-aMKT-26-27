@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/sintetico/reel-girasol-tolva.html",
+  "fecha": "2026-10-20",
+  "duracion": 24,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Girasol 26/27 · Oeste bonaerense ¿Ya tenés el girasol en la tolva?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 29,
+      "segundo": 13.2
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

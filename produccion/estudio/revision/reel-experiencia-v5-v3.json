@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/sintetico/reel-experiencia-v5.html?v=3",
+  "fecha": "2026-10-20",
+  "duracion": 30.8,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "¿Quién sigue de cerca"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 23,
+      "segundo": 23.1
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

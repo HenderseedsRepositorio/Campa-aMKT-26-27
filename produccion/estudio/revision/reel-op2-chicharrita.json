@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/sintetico/reel-op2-chicharrita.html",
+  "fecha": "2026-10-20",
+  "duracion": 24,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "¿Sembrás maíz tardío? Mirá la chicharrita primero."
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 25,
+      "segundo": 14.4
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "reel": "produccion/sintetico/reel-op3-semillas-por-metro.html",
+  "fecha": "2026-10-20",
+  "duracion": 24,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "10 20 30 40 50 60 70 80 90 1 m ¿Cuántas semillas por metro? La cuenta antes de l"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": [
+        {
+          "t": 15.6,
+          "txt": "2",
+          "px": 9.6,
+          "caja": [
+            294,
+            1125,
+            300,
+            1138
+          ]
+        }
+      ]
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 22,
+      "segundo": 8.4
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

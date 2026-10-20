@@ -1,0 +1,38 @@
+{
+  "reel": "produccion/sintetico/reel-op5-granizo.html",
+  "fecha": "2026-10-20",
+  "duracion": 25,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Maíz · Siembra 26/27 ¿Y si graniza después de sembrar?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 16,
+      "segundo": 8.75
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        12.5
+      ]
+    }
+  }
+}
