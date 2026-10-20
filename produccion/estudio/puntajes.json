@@ -1,13 +1,13 @@
 {
-  "_como": "Puntaje de director creativo exigente (1-10) mirando la hoja de 20 cuadros de scripts/revisar-reel.mjs. g = gancho, l = legibilidad, c = continuidad, t = terminación, m = marca y reglas. 'flojo' = los puntos a corregir primero (por segundo). Revisado el 20/10/2026.",
-  "acompanamiento": { "g": 7, "l": 8, "c": 9, "t": 8, "m": 9, "flojo": ["0-1 s: el gancho es solo texto; una toma real o el clip del cierre lo levantaría", "14-21 s: la foto del dron es la única imagen real y dura poco"] },
-  "ventana": { "g": 8, "l": 8, "c": 7, "t": 7, "m": 9, "flojo": ["4 s y 10 s: las escenas cortan sin nada que las una", "0-4 s: la tolva es un dibujo simple al lado del resto"] },
-  "tutorial": { "g": 8, "l": 9, "c": 8, "t": 7, "m": 9, "flojo": ["3-12 s: las plantas blancas son siluetas planas"] },
-  "fichas": { "g": 7, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["0-3,6 s: el gancho es una pregunta y tres fichas en abanico, sin un dato que tire"] },
-  "verdadero_falso": { "g": 8, "l": 8, "c": 9, "t": 9, "m": 9, "flojo": ["6 s: afirmación + explicación = 28 palabras grandes, cerca del máximo"] },
-  "lupa": { "g": 8, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["9-11 s: la escala aparece tarde y la escena queda vacía un segundo"] },
-  "mecanismo": { "g": 7, "l": 8, "c": 9, "t": 8, "m": 9, "flojo": ["0-3 s: la pregunta no dice para qué cultivo"] },
-  "balanza": { "g": 7, "l": 9, "c": 9, "t": 9, "m": 9, "flojo": ["0-2 s: la balanza quieta no engancha; que arranque oscilando"] },
-  "alerta": { "g": 9, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["12,5 s: un cuadro sin texto entre el paso 1 y el 2"] },
-  "sello": { "g": null, "l": 9, "c": 9, "t": 9, "m": 10, "flojo": [] }
+  "_como": "Puntaje de director creativo exigente (1-10) mirando la hoja de 20 cuadros de scripts/revisar-reel.mjs. g = gancho, l = legibilidad, c = continuidad, t = terminación, m = marca y reglas. 'flojo' = los puntos a corregir primero (por segundo). Revisado el 20/10/2026 (segunda pasada: las 6 que tenían 7 subieron a 8).",
+  "acompanamiento": {"g": 8, "l": 8, "c": 9, "t": 8, "m": 9, "flojo": ["0-3 s: con una toma real del lote de fondo el gancho pasa a 9", "14-21 s: la foto del dron es la única imagen real y dura poco"]},
+  "ventana": {"g": 8, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["10-16 s: las opciones son solo texto; un dibujo del híbrido las haría memorables", "16-20 s: el consejo de manejo queda chico al lado de la fecha"]},
+  "tutorial": {"g": 8, "l": 9, "c": 8, "t": 8, "m": 9, "flojo": ["8-12 s: las plantas nacen todas iguales; mostrar una atrasada reforzaría 'fijate si nacieron parejas'"]},
+  "fichas": {"g": 8, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["0-3,6 s: los chips dan el dato, pero sin foto real el abanico sigue siendo gráfico"]},
+  "verdadero_falso": {"g": 8, "l": 8, "c": 9, "t": 9, "m": 9, "flojo": ["6 s: afirmación + explicación = 28 palabras grandes, cerca del máximo"]},
+  "lupa": {"g": 8, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["9-11 s: la escala aparece tarde y la escena queda vacía un segundo"]},
+  "mecanismo": {"g": 8, "l": 8, "c": 9, "t": 8, "m": 9, "flojo": ["0-3 s: el gancho es una pregunta; un número grande lo empujaría a 9"]},
+  "balanza": {"g": 8, "l": 9, "c": 9, "t": 9, "m": 9, "flojo": ["2-10 s: las pesas son rótulos de texto; con un ícono cada una se leerían más rápido"]},
+  "alerta": {"g": 9, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["12,5 s: un cuadro sin texto entre el paso 1 y el 2"]},
+  "sello": {"g": null, "l": 9, "c": 9, "t": 9, "m": 10, "flojo": []}
 }

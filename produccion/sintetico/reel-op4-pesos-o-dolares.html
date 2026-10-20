@@ -250,7 +250,8 @@ function resp(tau) { if (tau <= 0) return 0; var e = Math.exp(-Z * W * tau); ret
 // [instante, cambio de equilibrio en grados (+ = baja el plato de DÓLARES)]
 var EVENTOS = [[4.40, -10], [6.30, 10], [8.20, 12], [10.70, -12], [11.05, -10], [11.40, 10]];
 function theta(t) {
-  var a = 6 * Math.sin(2 * Math.PI * 0.42 * t + 0.5) * (1 - eio(seg(t, 2.6, 4.2)));    // 1 · oscila suave
+  // 1 · arranca bien inclinada y oscilando (se ve movimiento desde el cuadro 0) y se calma de a poco
+  var a = (13 * Math.exp(-0.55 * t) * Math.cos(2 * Math.PI * 0.62 * t) + 5 * Math.sin(2 * Math.PI * 0.42 * t + 0.5)) * (1 - eio(seg(t, 2.6, 4.2)));
   for (var i = 0; i < EVENTOS.length; i++) a += EVENTOS[i][1] * resp(t - EVENTOS[i][0]);
   var amp = 4.5 * eio(seg(t, 11.9, 12.9)) * (1 - eio(seg(t, 17.0, 19.0)));              // 3–4 · duda; cierre: se asienta
   return a + amp * Math.sin(2 * Math.PI * 0.36 * (t - 11.9));
