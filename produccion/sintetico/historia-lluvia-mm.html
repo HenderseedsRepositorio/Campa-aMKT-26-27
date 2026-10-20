@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Historia · ¿Cuántos mm te cayeron?</title>
+<!--
+  Historia / Estado de WhatsApp para el día de lluvia (7 s). Abre conversaciones: cada respuesta es un DM.
+  Al día siguiente, con lo que manden, se arma el parte de la zona en docs/lluvias/ (sin nombres, solo paraje y mm).
+  Llueve desde el cuadro 0 y el pluviómetro se llena; el nivel no marca ningún número.
+  ?v=wa → versión Estado de WhatsApp ("Respondé este estado…"); la común deja lugar abajo para la cajita
+  de preguntas de Instagram.
+  Render: node scripts/render-reel.mjs produccion/sintetico/historia-lluvia-mm.html [--v wa]
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --azul:#0D2D5E; --orange:#F5A623; --ice:#E8EEF7; --steel:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:linear-gradient(180deg, #13203a 0%, #0A0F1B 62%); }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--orange); z-index:60; }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; z-index:1; }
+.logo { position:absolute; left:80px; top:262px; height:62px; z-index:3; }
+.kick { position:absolute; left:80px; top:360px; font-family:var(--mono); font-size:27px; letter-spacing:3px; text-transform:uppercase; color:var(--steel); display:flex; align-items:center; gap:14px; z-index:3; }
+.kick i { width:14px; height:14px; border-radius:50%; background:var(--orange); display:block; }
+.q { position:absolute; left:80px; top:410px; font-family:var(--arch); font-size:114px; line-height:1.0; letter-spacing:-4px; color:#fff; z-index:3; }
+.q span { color:var(--orange); display:inline-block; }
+.sub { position:absolute; left:80px; width:840px; top:680px; font-family:var(--sans); font-weight:500; font-size:40px; line-height:1.3; color:var(--ice); z-index:3; }
+.sub b { color:#fff; font-weight:700; }
+.resp { position:absolute; left:80px; right:150px; top:1350px; font-family:var(--mono); font-size:30px; letter-spacing:1px; color:var(--orange); display:flex; align-items:center; gap:16px; z-index:3; }
+.resp svg { flex-shrink:0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg class="art" viewBox="0 0 1080 1920"><g id="art"></g></svg>
+  <img class="logo" src="../../docs/assets/logo-hs-blanco-hd.png" alt="HenderSeeds">
+  <div class="kick"><i></i>Henderson · Daireaux · Bolívar</div>
+  <div class="q">¿Cuántos <span id="mm">mm</span><br>te cayeron?</div>
+  <div class="sub" id="sub">Mandanos los milímetros y el paraje. <b>Mañana publicamos el parte de la zona.</b></div>
+  <div class="resp" id="resp"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg><span id="respT">Respondé acá: mm y paraje</span></div>
+</div>
+<script>
+var WA = new URLSearchParams(location.search).get('v') === 'wa';
+if (WA) document.getElementById('respT').textContent = 'Respondé este estado: mm y paraje';
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function resorte(u, z, w) { if (u <= 0) return 0; z = z || 0.65; w = w || 13; var wd = w * Math.sqrt(1 - z * z); return 1 - Math.exp(-z * w * u) * (Math.cos(wd * u) + z * w / wd * Math.sin(wd * u)); }
+var semilla = 11; function rnd() { semilla = (semilla * 16807) % 2147483647; return (semilla - 1) / 2147483646; }
+
+/* ── Pluviómetro: embudo arriba, probeta graduada con agua que sube ── */
+var A = document.getElementById('art');
+var PX = 540, PT = 930, PB = 1290, PW = 150;          // centro, arriba y abajo de la probeta, ancho
+var defs = el('defs', {}, A);
+var vidrio = el('linearGradient', { id: 'vidrio', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
+[[0, 'rgba(232,238,247,0.20)'], [0.3, 'rgba(232,238,247,0.06)'], [0.75, 'rgba(232,238,247,0.03)'], [1, 'rgba(232,238,247,0.16)']].forEach(function (p) { el('stop', { offset: p[0], 'stop-color': p[1] }, vidrio); });
+var agua = el('linearGradient', { id: 'agua', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+[[0, 'rgba(143,190,240,0.95)'], [1, 'rgba(70,120,190,0.95)']].forEach(function (p) { el('stop', { offset: p[0], 'stop-color': p[1] }, agua); });
+var clip = el('clipPath', { id: 'probeta' }, defs); el('rect', { x: PX - PW / 2 + 6, y: PT, width: PW - 12, height: PB - PT - 6, rx: 10 }, clip);
+
+// lluvia detrás de todo
+var gotas = [];
+for (var i = 0; i < 90; i++) gotas.push({ g: el('line', { x1: 0, y1: 0, x2: -12, y2: 58, stroke: 'rgba(232,238,247,' + (0.10 + rnd() * 0.22).toFixed(2) + ')', 'stroke-width': 2 + Math.round(rnd() * 2), 'stroke-linecap': 'round' }, A), x: rnd() * 1240 - 40, f: rnd(), v: 0.5 + rnd() * 0.35 });
+// piso y salpicaduras
+var PISO = 1330;
+el('line', { x1: 80, y1: PISO, x2: 1000, y2: PISO, stroke: 'rgba(232,238,247,0.22)', 'stroke-width': 4 }, A);
+var salp = []; for (var s = 0; s < 8; s++) salp.push({ g: el('ellipse', { cx: 120 + s * 120 + rnd() * 50, cy: PISO, rx: 0, ry: 0, fill: 'none', stroke: 'rgba(232,238,247,0.35)', 'stroke-width': 3 }, A), f: rnd() });
+// soporte
+el('rect', { x: PX - 10, y: PB, width: 20, height: PISO - PB, fill: '#2A3A57' }, A);
+// probeta
+el('rect', { x: PX - PW / 2, y: PT - 6, width: PW, height: PB - PT + 6, rx: 16, fill: 'url(#vidrio)', stroke: 'rgba(232,238,247,0.75)', 'stroke-width': 5 }, A);
+var nivel = el('path', { d: '', fill: 'url(#agua)', 'clip-path': 'url(#probeta)' }, A);
+// graduación: 0 a 50 mm (rayas cada 5, número cada 10), del lado derecho
+for (var m = 0; m <= 50; m += 5) {
+  var y = PB - 20 - m * ((PB - PT - 40) / 50), largo = m % 10 ? 22 : 40;
+  el('line', { x1: PX + PW / 2 - 8, y1: y, x2: PX + PW / 2 - 8 - largo, y2: y, stroke: 'rgba(232,238,247,0.85)', 'stroke-width': 3 }, A);
+  if (m % 10 === 0) { var tx = el('text', { x: PX + PW / 2 + 18, y: y + 8, 'font-family': 'DM Mono', 'font-size': 24, fill: '#8FA0BE' }, A); tx.textContent = m; }
+}
+// embudo
+el('path', { d: 'M' + (PX - 150) + ' 860 L' + (PX + 150) + ' 860 L' + (PX + PW / 2 - 14) + ' ' + (PT + 10) + ' L' + (PX - PW / 2 + 14) + ' ' + (PT + 10) + ' Z', fill: '#E8EEF7', stroke: '#0D2D5E', 'stroke-width': 4, 'stroke-linejoin': 'round' }, A);
+el('rect', { x: PX - 162, y: 846, width: 324, height: 22, rx: 6, fill: '#F5A623' }, A);
+el('line', { x1: PX - 152, y1: 851, x2: PX + 152, y2: 851, stroke: 'rgba(255,255,255,0.5)', 'stroke-width': 3, 'stroke-linecap': 'round' }, A);
+// brillo del vidrio
+el('rect', { x: PX - PW / 2 + 16, y: PT + 20, width: 12, height: PB - PT - 70, rx: 6, fill: 'rgba(255,255,255,0.22)' }, A);
+
+var TOTAL = 7.0;
+window.REEL_DURACION = TOTAL;
+window.render = function (t) {
+  gotas.forEach(function (d) { var u = ((t / d.v) + d.f) % 1, y = 180 + u * (PISO - 180); d.g.setAttribute('transform', 'translate(' + (d.x - u * 50) + ',' + y + ')'); });
+  salp.forEach(function (s) { var u = ((t / 0.7) + s.f) % 1; s.g.setAttribute('rx', 6 + u * 30); s.g.setAttribute('ry', 2 + u * 6); s.g.setAttribute('opacity', 1 - u); });
+  // el agua sube y la superficie se mueve apenas
+  var k = eio(seg(t, 0.2, 6.2)), top = PB - 20 - (4 + k * 30) * ((PB - PT - 40) / 50), ola = 5 * Math.sin(t * 5);
+  nivel.setAttribute('d', 'M' + (PX - PW / 2) + ' ' + (PB + 10) + ' L' + (PX - PW / 2) + ' ' + (top + ola) + ' Q ' + PX + ' ' + (top - ola) + ' ' + (PX + PW / 2) + ' ' + (top + ola) + ' L' + (PX + PW / 2) + ' ' + (PB + 10) + ' Z');
+  // "mm" late una vez; el texto de abajo entra con resorte
+  var km = resorte(t - 0.25, 0.45, 12); document.getElementById('mm').style.transform = 'scale(' + (0.85 + 0.15 * km) + ')';
+  var ks = resorte(t - 0.6), sub = document.getElementById('sub'); sub.style.opacity = clamp(ks * 1.5); sub.style.transform = 'translateY(' + (1 - ks) * 30 + 'px)';
+  var kr = resorte(t - 1.4), r = document.getElementById('resp'); r.style.opacity = clamp(kr * 1.5); r.style.transform = 'translateY(' + (1 - kr) * 20 + 'px)';
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % TOTAL); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

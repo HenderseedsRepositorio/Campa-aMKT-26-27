@@ -7,7 +7,7 @@
 | # | Video | Estilo | Mensaje | Duración | Publicar |
 |---|-------|--------|---------|----------|----------|
 | 1 | [`reel-experiencia-v5.html?v=3`](../produccion/sintetico/reel-experiencia-v5.html) | Agro-tech oscuro, línea de tiempo + 4 etapas | Acompañamiento Experiencia Nidera (institucional) | 31 s | **mar 20/10** |
-| 2 | [`reel-girasol-tolva.html`](../produccion/sintetico/reel-girasol-tolva.html) | Claro/editorial (crema): tolva que se llena, calendario real, 4 girasoles | Arranca el girasol: ventana del oeste + qué girasol va en cada lote | 24 s | **jue 22/10** |
+| 2 | [`reel-girasol-tolva.html`](../produccion/sintetico/reel-girasol-tolva.html) | Claro/editorial (crema): tolva que se llena, calendario real, 4 girasoles | Arranca el girasol: ventana del oeste + qué girasol va en cada lote | 24 s | **el día que llueva** (mié 21 o jue 22), versión lluvia |
 | 3 | [`reel-conteo-plantas.html`](../produccion/sintetico/reel-conteo-plantas.html) | Tutorial con números gigantes, 3 pasos | Cómo contar plantas + planilla para el lote (imán de contactos) | 24 s | **sáb 24/10** (+ pauta) |
 | 4 | [`reel-maiz-tardio.html`](../produccion/sintetico/reel-maiz-tardio.html) | Fichas de producto que se deslizan | 3 híbridos para tardío (producto) | 22 s | **mar 27/10** |
 
@@ -43,6 +43,12 @@ produccion/sintetico/reel-experiencia-v5.html --v 3` (31 s; la línea de tiempo 
 
 ## Video 2 — ¿Ya tenés el girasol en la tolva?
 Reemplaza a la versión "¿Cuándo se siembra el girasol?" (`reel-girasol-ventana.html`, queda de archivo).
+
+**Versión día de lluvia** (`?v=lluvia&hoy=21` o `hoy=22`): llueve sobre la tolva desde el cuadro 0, gancho
+"Con esta agua, ¿ya tenés el girasol en la tolva?" y cierre "Hoy no se entra al lote: armemos tu girasol."
+Se publica el día que llueve (11–13 h) en lugar de la común; primer comentario fijado: "¿Cuántos mm te cayeron?
+Contanos acá con el paraje 👇". Va con la historia `historia-lluvia-mm.html` y al otro día el parte (`docs/lluvias/`).
+MP4: `docs/placas/video/2026-W43-reel-2-lluvia-21.mp4` / `-22.mp4`.
 Arco: tolva que se llena de semilla (arranca el girasol, sin decirlo) → ventana óptima en el calendario →
 ¿cuál va en tu lote? (NS 1113 CL techo de rinde y aceite · NS 1115 CL la sanidad más completa ·
 NS 1117 CL máximo rinde con Phomopsis 2 · NS 1227 CL HO alto oleico) → 20/11 + consejo → contacto.

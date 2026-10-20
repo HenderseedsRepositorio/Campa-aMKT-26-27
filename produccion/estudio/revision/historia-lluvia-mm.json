@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/sintetico/historia-lluvia-mm.html",
+  "fecha": "2026-10-20",
+  "duracion": 7,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "0 10 20 30 40 50 Henderson · Daireaux · Bolívar ¿Cuántos mm te cayeron?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 20,
+      "segundo": 1.75
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}
