@@ -51,6 +51,7 @@ html, body { background:#000; }
 </head>
 <body>
 <div id="stage">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><g id="defs"></g></svg>
   <div class="scene" id="s1">
     <div class="hook" id="hook">¿Cuántas plantas<span class="o" id="hook2">lograste?</span></div>
     <div class="nota" id="n1" style="top:690px">Lo sacás en 15 minutos, <b>con una cinta.</b></div>
@@ -106,18 +107,42 @@ function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); wh
 window.reajustar = function () { document.querySelectorAll('.hook').forEach(function (n) { n.style.fontSize = n.id === 'hook' ? '' : '96px'; ajustar(n, 64); }); };
 window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
 
-// Plántula vista de costado (mismo dibujo que el carrusel)
-function planta(g, x, base, h, color) {
-  var L = 0.46 * h, grp = el('g', {}, g);
-  el('path', { d: 'M' + x + ' ' + base + ' L' + x + ' ' + (base - 0.80 * h), stroke: color, 'stroke-width': 6, 'stroke-linecap': 'round', fill: 'none' }, grp);
-  [[base - 0.28 * h, -1], [base - 0.52 * h, 1]].forEach(function (p) { var py = p[0], s = p[1];
-    el('path', { d: 'M' + x + ' ' + py + ' Q' + (x + s * 0.20 * h) + ' ' + (py - 0.30 * h) + ' ' + (x + s * L) + ' ' + (py + 0.10 * h) + ' Q' + (x + s * 0.24 * h) + ' ' + (py - 0.08 * h) + ' ' + x + ' ' + (py + 0.07 * h) + ' Z', fill: color }, grp); });
+// Plántula de maíz vista de costado: tallo afinado, hojas con degradé y nervadura, terrón al pie.
+// Los degradés viven en un <defs> compartido (el SVG oculto de arriba) y los usan las tres escenas.
+var DEFS = el('defs', {}, document.getElementById('defs'));
+var gH = el('linearGradient', { id: 'hoja', x1: 0, y1: 0, x2: 1, y2: 0 }, DEFS);
+el('stop', { offset: 0, 'stop-color': '#FFFFFF' }, gH); el('stop', { offset: 0.55, 'stop-color': '#E8EEF7' }, gH); el('stop', { offset: 1, 'stop-color': '#B9C6DA' }, gH);
+var gT = el('linearGradient', { id: 'tallo', x1: 0, y1: 1, x2: 0, y2: 0 }, DEFS);
+el('stop', { offset: 0, 'stop-color': '#C9D3E3' }, gT); el('stop', { offset: 1, 'stop-color': '#FFFFFF' }, gT);
+var gS = el('linearGradient', { id: 'suelo', x1: 0, y1: 0, x2: 0, y2: 1 }, DEFS);
+el('stop', { offset: 0, 'stop-color': 'rgba(143,160,190,0.22)' }, gS); el('stop', { offset: 1, 'stop-color': 'rgba(143,160,190,0)' }, gS);
+function hoja(grp, x, py, s, h, largo, alto) {
+  // s = lado (-1 / 1). Borde de arriba y de abajo de la lámina, y la nervadura por el medio.
+  var L = largo * h, a = alto * h, tx = x + s * L, ty = py + 0.10 * h;
+  el('path', { d: 'M' + x + ' ' + py + ' Q' + (x + s * 0.20 * h) + ' ' + (py - a) + ' ' + tx + ' ' + ty + ' Q' + (x + s * 0.26 * h) + ' ' + (py - 0.06 * h) + ' ' + x + ' ' + (py + 0.07 * h) + ' Z', fill: 'url(#hoja)' }, grp);
+  el('path', { d: 'M' + x + ' ' + (py + 0.02 * h) + ' Q' + (x + s * 0.22 * h) + ' ' + (py - a * 0.58) + ' ' + (tx - s * 0.02 * h) + ' ' + (ty - 0.005 * h), stroke: 'rgba(13,45,94,0.38)', 'stroke-width': 2.2, fill: 'none', 'stroke-linecap': 'round' }, grp);
+}
+function planta(g, x, base, h) {
+  var grp = el('g', {}, g);
+  el('ellipse', { cx: x, cy: base + 4, rx: 0.16 * h, ry: 7, fill: 'rgba(0,0,0,0.30)' }, grp);
+  // tallo: 10 px al pie, 4 px arriba
+  el('path', { d: 'M' + (x - 5) + ' ' + base + ' L' + (x - 2) + ' ' + (base - 0.80 * h) + ' L' + (x + 2) + ' ' + (base - 0.80 * h) + ' L' + (x + 5) + ' ' + base + ' Z', fill: 'url(#tallo)' }, grp);
+  hoja(grp, x, base - 0.24 * h, -1, h, 0.44, 0.26);
+  hoja(grp, x, base - 0.46 * h, 1, h, 0.50, 0.32);
+  hoja(grp, x, base - 0.64 * h, -1, h, 0.34, 0.30);
   var top = base - h;
-  el('path', { d: 'M' + (x - 4) + ' ' + (base - 0.78 * h) + ' Q' + (x - 0.02 * h) + ' ' + (top - 0.02 * h) + ' ' + (x + 0.14 * h) + ' ' + (top + 0.02 * h) + ' Q' + (x + 0.04 * h) + ' ' + (base - 0.86 * h) + ' ' + (x + 4) + ' ' + (base - 0.76 * h) + ' Z', fill: color }, grp);
+  el('path', { d: 'M' + (x - 3) + ' ' + (base - 0.78 * h) + ' Q' + (x - 0.02 * h) + ' ' + (top - 0.02 * h) + ' ' + (x + 0.14 * h) + ' ' + (top + 0.02 * h) + ' Q' + (x + 0.04 * h) + ' ' + (base - 0.86 * h) + ' ' + (x + 3) + ' ' + (base - 0.76 * h) + ' Z', fill: 'url(#hoja)' }, grp);
   grp.style.transformBox = 'fill-box'; grp.style.transformOrigin = '50% 100%';
   return grp;
 }
-function surco(g, y, n, h) { el('line', { x1: 80, y1: y, x2: 930, y2: y, stroke: 'rgba(255,255,255,0.30)', 'stroke-width': 4 }, g); var ps = []; for (var i = 0; i < n; i++) ps.push(planta(g, 125 + i * (760 / (n - 1)), y - 4, h, '#FFFFFF')); return ps; }
+function surco(g, y, n, h) {
+  // franja de suelo con terrones (fijos: misma semilla en cada render)
+  el('rect', { x: 80, y: y, width: 850, height: 70, fill: 'url(#suelo)' }, g);
+  var r = 7; function rnd() { r = (r * 9301 + 49297) % 233280; return r / 233280; }
+  for (var c = 0; c < 46; c++) el('ellipse', { cx: 88 + rnd() * 834, cy: y + 10 + rnd() * 44, rx: 4 + rnd() * 9, ry: 2.5 + rnd() * 4, fill: 'rgba(232,238,247,' + (0.06 + rnd() * 0.12).toFixed(2) + ')' }, g);
+  el('line', { x1: 80, y1: y, x2: 930, y2: y, stroke: 'rgba(255,255,255,0.34)', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  var ps = []; for (var i = 0; i < n; i++) ps.push(planta(g, 125 + i * (760 / (n - 1)), y - 2, h)); return ps;
+}
 
 var p1 = surco(document.getElementById('a1'), 1380, 7, 260);
 // 2 · cinta métrica que se estira

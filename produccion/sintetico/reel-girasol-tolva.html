@@ -55,6 +55,7 @@ html, body { background:#000; }
 /* Fecha límite */
 .huge { position:absolute; left:72px; top:470px; font-family:var(--mono); font-weight:500; font-size:250px; letter-spacing:-12px; color:var(--navy); line-height:1; }
 .outro { position:absolute; inset:0; z-index:40; opacity:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:0 150px 160px 80px; }
+#cortina { position:absolute; top:0; bottom:0; left:0; width:1180px; background:#0D2D5E; border-right:16px solid var(--orange); z-index:50; transform:translateX(-1500px) skewX(-8deg); }
 .outro img.hs { height:92px; mix-blend-mode:multiply; }
 .outro .q { font-family:var(--arch); font-size:76px; line-height:1.02; letter-spacing:-2.5px; color:var(--navy); margin-top:70px; }
 .outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--orange); border-radius:8px; padding:24px 38px; margin-top:56px; }
@@ -90,6 +91,7 @@ html, body { background:#000; }
     <div class="sub" id="sub4" style="top:780px">Hay tiempo para <b>sembrar bien:</b> mejor esperar piso y humedad que apurarse. Una implantación despareja <b>no se corrige después.</b></div>
     <svg class="art" viewBox="0 0 1080 1920"><g id="hilera"></g></svg>
   </div>
+  <div id="cortina"></div>
   <div class="outro" id="outro">
     <img class="hs" src="../../docs/assets/logo-henderseeds-navy.png" alt="HenderSeeds">
     <div class="q">¿Dudas de densidad<br>o de qué girasol va<br>en tu lote?</div>
@@ -132,7 +134,11 @@ var tv = document.getElementById('tolva');
 var TX = 540, TY = 1010, TW = 560, BW = 150, TH = 330;
 var cuerpo = 'M' + (TX - TW / 2) + ' ' + TY + ' L' + (TX + TW / 2) + ' ' + TY + ' L' + (TX + BW / 2) + ' ' + (TY + TH) + ' L' + (TX - BW / 2) + ' ' + (TY + TH) + ' Z';
 var defs = el('defs', {}, tv), cl = el('clipPath', { id: 'clipTolva' }, defs); el('path', { d: cuerpo }, cl);
-el('path', { d: cuerpo, fill: 'rgba(13,45,94,0.06)' }, tv);
+var chapa = el('linearGradient', { id: 'chapa', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
+[[0, '#F1F4F8'], [0.55, '#DCE3EC'], [1, '#B9C5D5']].forEach(function (p) { el('stop', { offset: p[0], 'stop-color': p[1] }, chapa); });
+el('ellipse', { cx: TX, cy: TY + TH + 152, rx: 210, ry: 14, fill: 'rgba(13,45,94,0.10)' }, tv);   // sombra en el piso
+el('path', { d: cuerpo, fill: 'url(#chapa)' }, tv);
+[[-TW / 4, -BW / 4], [TW / 4, BW / 4]].forEach(function (d) { el('line', { x1: TX + d[0], y1: TY + 12, x2: TX + d[1], y2: TY + TH - 4, stroke: 'rgba(13,45,94,0.16)', 'stroke-width': 3 }, tv); });   // pliegues de la chapa
 var carga = el('g', { 'clip-path': 'url(#clipTolva)' }, tv);
 // la carga de la tolva se rellena con un patrón de aquenios
 var pat = el('pattern', { id: 'aquenios', width: 64, height: 64, patternUnits: 'userSpaceOnUse' }, defs);
@@ -144,7 +150,12 @@ el('rect', { width: 64, height: 64, fill: '#3A3F4A' }, pat);
 });
 var pila = el('path', { d: '', fill: 'url(#aquenios)' }, carga);
 el('path', { d: cuerpo, fill: 'none', stroke: '#0D2D5E', 'stroke-width': 7, 'stroke-linejoin': 'round' }, tv);
-el('rect', { x: TX - 34, y: TY + TH, width: 68, height: 120, rx: 6, fill: 'none', stroke: '#0D2D5E', 'stroke-width': 7 }, tv);
+el('rect', { x: TX - TW / 2 - 16, y: TY - 22, width: TW + 32, height: 28, rx: 7, fill: '#0D2D5E' }, tv);   // borde
+el('line', { x1: TX - TW / 2 - 6, y1: TY - 15, x2: TX + TW / 2 + 6, y2: TY - 15, stroke: 'rgba(255,255,255,0.28)', 'stroke-width': 3, 'stroke-linecap': 'round' }, tv);
+for (var rv = 0; rv < 9; rv++) el('circle', { cx: TX - TW / 2 + 10 + rv * (TW - 20) / 8, cy: TY - 6, r: 4.5, fill: '#F6F4EE' }, tv);   // remaches
+el('rect', { x: TX - 34, y: TY + TH, width: 68, height: 120, rx: 6, fill: 'url(#chapa)', stroke: '#0D2D5E', 'stroke-width': 7 }, tv);
+el('circle', { cx: TX, cy: TY + TH + 58, r: 22, fill: '#F6F4EE', stroke: '#0D2D5E', 'stroke-width': 5 }, tv);   // dosificador
+for (var dz = 0; dz < 8; dz++) { var an = dz * Math.PI / 4; el('circle', { cx: TX + 12 * Math.cos(an), cy: TY + TH + 58 + 12 * Math.sin(an), r: 3, fill: '#0D2D5E' }, tv); }
 el('line', { x1: 140, y1: TY + TH + 150, x2: 940, y2: TY + TH + 150, stroke: 'rgba(13,45,94,0.35)', 'stroke-width': 4 }, tv);
 var semilla = 3; function rnd() { semilla = (semilla * 16807) % 2147483647; return (semilla - 1) / 2147483646; }
 function aquenio(g) {
@@ -199,6 +210,10 @@ window.render = function (t) {
     var k = i === 0 ? 1 : eout(seg(t, e[1], e[1] + 0.45));
     n.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
   });
+  // cortina navy con filo ámbar: cruza la pantalla y tapa justo el corte entre escenas
+  var cx = -1500;
+  [4.2, 10.4, 15.6, 20.0].forEach(function (b) { if (t > b - 0.38 && t < b + 0.38) cx = -1500 + eio(seg(t, b - 0.38, b + 0.38)) * (1500 + 1400); });
+  document.getElementById('cortina').style.transform = 'translateX(' + cx + 'px) skewX(-8deg)';
   // 1 · semillas cayendo, la pila sube y el marcador pinta "tolva"
   var mk1 = document.getElementById('mk1'); if (mk1) mk1.style.setProperty('--k', eio(seg(t, 0.8, 1.5)));
   caen.forEach(function (c) {

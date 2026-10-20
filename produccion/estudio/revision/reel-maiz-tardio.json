@@ -7,25 +7,14 @@
     "gancho_cuadro_0": {
       "ok": true,
       "no_aplica": false,
-      "texto": "Maíz tardío · 26/27 ¿Te queda maíz tardío"
+      "texto": "Maíz tardío · 26/27 ¿Te queda maíz tardío por definir? Temprana y tardía NS 7765"
     },
     "fuera_de_zona": {
       "ok": true,
       "casos": []
     },
     "en_transicion": {
-      "casos": [
-        {
-          "t": 2.16,
-          "txt": "NS 7921",
-          "caja": [
-            721,
-            900,
-            941,
-            986
-          ]
-        }
-      ]
+      "casos": []
     },
     "letra_menor_19px": {
       "ok": true,
