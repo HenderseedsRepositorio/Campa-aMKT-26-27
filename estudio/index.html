@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estudio de motion HenderSeeds</title>
+<meta name="description" content="10 plantillas de reel para HenderSeeds, con ejemplo, reglas y revisión.">
+<link rel="stylesheet" href="../assets/fonts/fuentes.css">
+<style>
+/* Tablero oscuro de estudio: tarjetas por plantilla, todo en la tipografía de la marca */
+:root { --bg:#0A0F1B; --card:#101827; --line:#22304A; --ink:#E8EEF7; --muted:#8FA0BE; --amber:#F5A623; --ok:#7FD3A0; --bad:#FF8A7A;
+  --mono:'DM Mono',ui-monospace,Menlo,monospace; --sans:'DM Sans',system-ui,sans-serif; --arch:'Archivo Black','Arial Black',sans-serif; color-scheme:dark; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.45; }
+.wrap { max-width:1320px; margin:0 auto; padding-block:22px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+.barra { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:var(--mono); font-size:13px; color:var(--muted); border-bottom:1px solid var(--line); padding-bottom:14px; }
+.barra .pts3 { display:flex; gap:6px; } .barra .pts3 i { width:11px; height:11px; border-radius:50%; display:block; background:#FF5F57; } .barra .pts3 i:nth-child(2) { background:#FEBC2E; } .barra .pts3 i:nth-child(3) { background:#28C840; }
+.barra .sp { flex:1; }
+.barra a { color:var(--muted); }
+.pill { font-family:var(--mono); font-size:12px; letter-spacing:1px; text-transform:uppercase; border:1px solid var(--amber); color:var(--amber); border-radius:6px; padding:5px 10px; }
+.btn { appearance:none; border:1px solid var(--line); background:#151F33; color:var(--ink); font-family:var(--mono); font-size:13px; border-radius:6px; padding:8px 12px; cursor:pointer; }
+.btn.pri { background:var(--amber); color:#0A0A0A; border-color:var(--amber); font-weight:500; }
+.btn:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+h1 { font-family:var(--arch); font-weight:400; font-size:clamp(28px, 5vw, 46px); line-height:1.08; letter-spacing:-1px; margin:26px 0 8px; text-wrap:balance; }
+h1 em { font-style:normal; color:var(--amber); }
+.bajada { font-family:var(--mono); color:var(--muted); font-size:13.5px; max-width:80ch; }
+.dos { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap:16px 28px; margin:24px 0; }
+.bloque { font-family:var(--mono); font-size:13.5px; color:var(--ink); }
+.bloque .t { color:var(--amber); }
+h2 { font-family:var(--mono); font-weight:500; font-size:14px; color:var(--amber); margin:28px 0 12px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 236px), 1fr)); gap:14px; }
+.pl { background:var(--card); border:1px solid var(--line); border-top:2px solid var(--amber); border-radius:10px; padding:14px; display:flex; flex-direction:column; gap:10px; min-width:0; }
+.cab { display:flex; justify-content:space-between; align-items:baseline; }
+.n { font-family:var(--arch); font-size:24px; color:var(--amber); }
+.meta { font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:1px; }
+.tag { font-family:var(--mono); font-size:13.5px; line-height:1.4; color:var(--ink); font-weight:500; overflow-wrap:anywhere; }
+video { width:100%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; background:#000; border:1px solid var(--line); cursor:pointer; }
+.esc { list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:12.5px; color:var(--muted); display:grid; gap:5px; }
+.esc li::before { content:'› '; color:var(--amber); }
+.debe { margin:0; font-family:var(--mono); font-size:12.5px; color:#B8C6DE; } .debe b { color:var(--amber); font-weight:500; }
+.rev { display:flex; flex-wrap:wrap; gap:5px; }
+.ck { font-family:var(--mono); font-size:11.5px; border-radius:5px; padding:3px 7px; background:#152338; }
+.ck.si { color:var(--ok); } .ck.no { color:var(--bad); } .ck.na { color:var(--muted); }
+.pts { display:grid; grid-template-columns:repeat(5, 1fr); gap:4px; }
+.pt { display:flex; flex-direction:column; align-items:center; background:#152338; border-radius:6px; padding:5px 0; font-family:var(--mono); font-size:10.5px; color:var(--muted); }
+.pt b { font-family:var(--arch); font-weight:400; font-size:18px; color:var(--ink); }
+.pt.bajo b { color:var(--amber); }
+.flojo { margin:0; padding-left:16px; font-size:12.5px; color:#B8C6DE; display:grid; gap:3px; }
+.ref { margin:0; font-family:var(--mono); font-size:11.5px; color:#5F6E89; word-break:break-all; }
+.reglas { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap:14px; margin-top:26px; }
+.reglas div { border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:8px; padding:14px; font-family:var(--mono); font-size:13px; line-height:1.55; }
+.reglas div:last-child { border-left-color:var(--ok); }
+.reglas .t { color:var(--amber); } .reglas div:last-child .t { color:var(--ok); }
+.ok { font-family:var(--mono); font-size:12px; color:var(--ok); }
+@media (prefers-reduced-motion: reduce) { video { animation:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="barra"><span class="pts3"><i></i><i></i><i></i></span><span>henderseeds · estudio de motion / <b style="color:var(--ink);font-weight:500">estudio.xml</b></span><span class="sp"></span>
+    <a href="../">Dashboard</a> · <a href="../kit/">Kit de la semana</a>
+    <span class="pill">Con revisión</span><button class="btn pri" id="copiar-prompt">Copiar prompt</button><span class="ok" aria-live="polite"></span></div>
+
+  <h1>Tu estudio de motion: <em>10 plantillas</em> para HenderSeeds</h1>
+  <p class="bajada">Pegá el bloque del estudio una vez en la sesión y pedí cualquier plantilla por nombre. Completá los [corchetes]; los logos, las letras y los datos salen del repo. Cada tarjeta tiene su ejemplo real, los controles automáticos y el puntaje de revisión.</p>
+
+  <div class="dos">
+    <p class="bloque"><span class="t">&lt;rol&gt;</span> Sos el director creativo de un estudio de motion para HenderSeeds, distribuidor RED.IN de Nidera Semillas en Henderson, Daireaux y Bolívar (oeste bonaerense). Escribís HTML animado por código (window.render(t), 1080×1920) que se pasa a MP4 con scripts/render-reel.mjs. Hablás de productor a productor, con voseo. Nada de lo que hacés parece una plantilla: cada reel tiene su propio dibujo y su propio ritmo. <span class="t">&lt;/rol&gt;</span></p>
+    <p class="bloque"><span class="t">&lt;como_pedir&gt;</span> Cuando diga &quot;corré [plantilla] para [tema]&quot;: cargá esa plantilla, preguntá solo por los [corchetes] que no completé, mostrame el plan de escenas con tiempos y esperá mi OK antes de construir. Partí del archivo de referencia de la plantilla (copiarlo y cambiar el bloque de datos de arriba), nunca de cero. <span class="t">&lt;/como_pedir&gt;</span></p>
+  </div>
+
+  <h2>&lt;plantillas&gt;</h2>
+  <div class="grid">
+  <article class="pl" id="acompanamiento">
+    <div class="cab"><span class="n">01</span><span class="meta">31 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="acompanamiento"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W43-reel-1-portada.jpg" src="../placas/video/2026-W43-reel-1-quien-sigue-de-cerca.mp4" aria-label="Ejemplo de la plantilla acompanamiento"></video>
+    <ul class="esc"><li>0–3,8 · pregunta [gancho] y una línea de tiempo de [N] etapas que se arma</li><li>3,8–27 · una etapa por escena, cada una con su dibujo: [etapas]; la línea sube y queda como guía</li><li>27–31 · cierre: logos, [frase], botón &quot;Mandanos un DM&quot;</li></ul>
+    <p class="debe"><b>debe:</b> la guía de etapas siempre visible; una idea por etapa; el dron solo como un paso de la oferta</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 23 palabras máx</span></div>
+    <div class="pts"><span class="pt bajo" title="gancho"><b>7</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>9</b>cont</span><span class="pt" title="terminación"><b>8</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>0-1 s: el gancho es solo texto; una toma real o el clip del cierre lo levantaría</li><li>14-21 s: la foto del dron es la única imagen real y dura poco</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-experiencia-v5.html?v=3</p>
+    <button class="btn sec" data-copiar="corré acompanamiento para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="ventana">
+    <div class="cab"><span class="n">02</span><span class="meta">24 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="ventana"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W43-reel-2-portada.jpg" src="../placas/video/2026-W43-reel-2-girasol-tolva.mp4" aria-label="Ejemplo de la plantilla ventana"></video>
+    <ul class="esc"><li>0–4 · [gancho del cultivo] y un objeto que se llena ([tolva / bolsa])</li><li>4–10 · calendario real con la ventana del marbete [fechas] y el día de hoy marcado</li><li>10–16 · [opciones] una por línea, con su diferencial</li><li>16–20 · fecha límite y un consejo de manejo</li><li>20–24 · cierre</li></ul>
+    <p class="debe"><b>debe:</b> fechas solo del marbete, con fuente al pie; HOY = día de publicación</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 29 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>8</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt bajo" title="continuidad"><b>7</b>cont</span><span class="pt bajo" title="terminación"><b>7</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>4 s y 10 s: las escenas cortan sin nada que las una</li><li>0-4 s: la tolva es un dibujo simple al lado del resto</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-girasol-tolva.html</p>
+    <button class="btn sec" data-copiar="corré ventana para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="tutorial">
+    <div class="cab"><span class="n">03</span><span class="meta">24 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="tutorial"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W43-reel-3-portada.jpg" src="../placas/video/2026-W43-reel-3-cuantas-plantas.mp4" aria-label="Ejemplo de la plantilla tutorial"></video>
+    <ul class="esc"><li>0–3,6 · [pregunta] con el dibujo del lote</li><li>3,6–16,6 · [3 pasos]: un verbo y un número gigante que cuenta, por paso</li><li>16,6–20 · [consejos] juntos</li><li>20–24 · cierre con [imán de contactos] (&quot;Comentá PALABRA&quot;)</li></ul>
+    <p class="debe"><b>debe:</b> cada número con su unidad; los ejemplos rotulados EJEMPLO</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 21 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>8</b>ganc</span><span class="pt" title="legibilidad"><b>9</b>legi</span><span class="pt" title="continuidad"><b>8</b>cont</span><span class="pt bajo" title="terminación"><b>7</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>3-12 s: las plantas blancas son siluetas planas</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-conteo-plantas.html</p>
+    <button class="btn sec" data-copiar="corré tutorial para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="fichas">
+    <div class="cab"><span class="n">04</span><span class="meta">22 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="fichas"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-reel-4-portada.jpg" src="../placas/video/2026-W44-reel-4-maiz-tardio.mp4" aria-label="Ejemplo de la plantilla fichas"></video>
+    <ul class="esc"><li>0–3,6 · [gancho] y un abanico de [N] fichas</li><li>3,6–17 · una ficha por híbrido que entra deslizando: nombre, tecnología y [diferencial del marbete]</li><li>17–22 · &quot;¿Cuál va en tu lote?&quot; y cierre</li></ul>
+    <p class="debe"><b>debe:</b> maíz sin kg/ha ni % de éxito (regla 25/09); girasol con el dato y su fuente</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 25 palabras máx</span></div>
+    <div class="pts"><span class="pt bajo" title="gancho"><b>7</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>8</b>cont</span><span class="pt" title="terminación"><b>8</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>0-3,6 s: el gancho es una pregunta y tres fichas en abanico, sin un dato que tire</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-maiz-tardio.html</p>
+    <button class="btn sec" data-copiar="corré fichas para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="verdadero_falso">
+    <div class="cab"><span class="n">05</span><span class="meta">24 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="verdadero_falso"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-opcion-1-portada.jpg" src="../placas/video/2026-W44-opcion-1-verdadero-falso.mp4" aria-label="Ejemplo de la plantilla verdadero_falso"></video>
+    <ul class="esc"><li>0–2 · &quot;¿Verdadero o falso?&quot; con el mazo de cartas</li><li>2–20 · [3 afirmaciones]: carta, botones que laten, sello que golpea y explicación con fuente</li><li>20–24 · &quot;¿Cuántas acertaste?&quot; y las 3 respuestas en fila</li></ul>
+    <p class="debe"><b>debe:</b> cada respuesta con su fuente; pedir el comentario; la explicación en 1 línea</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 28 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>8</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>9</b>cont</span><span class="pt" title="terminación"><b>9</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>6 s: afirmación + explicación = 28 palabras grandes, cerca del máximo</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-op1-verdadero-falso.html</p>
+    <button class="btn sec" data-copiar="corré verdadero_falso para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="lupa">
+    <div class="cab"><span class="n">06</span><span class="meta">24 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="lupa"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-opcion-2-portada.jpg" src="../placas/video/2026-W44-opcion-2-chicharrita.mp4" aria-label="Ejemplo de la plantilla lupa"></video>
+    <ul class="esc"><li>0–4,5 · [gancho] y una lupa que enfoca [plaga / enfermedad / órgano] dibujado</li><li>4,5–19 · [3 pasos], cada uno con su objeto (trampa, escala del marbete, lote)</li><li>19–24 · cierre con la lupa sobre el logo</li></ul>
+    <p class="debe"><b>debe:</b> el dibujo fiel a la especie (pedir una referencia si no está); escalas del marbete con su sentido (1 = excelente)</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 25 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>8</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>8</b>cont</span><span class="pt" title="terminación"><b>8</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>9-11 s: la escala aparece tarde y la escena queda vacía un segundo</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-op2-chicharrita.html</p>
+    <button class="btn sec" data-copiar="corré lupa para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="mecanismo">
+    <div class="cab"><span class="n">07</span><span class="meta">24 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="mecanismo"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-opcion-3-portada.jpg" src="../placas/video/2026-W44-opcion-3-semillas-por-metro.mp4" aria-label="Ejemplo de la plantilla mecanismo"></video>
+    <ul class="esc"><li>0–3 · [gancho] con la máquina andando</li><li>3–10,6 · la cuenta en [2] pasos, escrita sobre el dibujo</li><li>10,6–17 · [2 ejemplos] rotulados EJEMPLO, con el resultado contado sobre la regla</li><li>17–20,4 · cómo verificarlo a campo</li><li>20,4–24 · &quot;Guardalo&quot; y cierre</li></ul>
+    <p class="debe"><b>debe:</b> la aritmética a la vista; ninguna cifra sin su cuenta</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 22 palabras máx</span></div>
+    <div class="pts"><span class="pt bajo" title="gancho"><b>7</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>9</b>cont</span><span class="pt" title="terminación"><b>8</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>0-3 s: la pregunta no dice para qué cultivo</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-op3-semillas-por-metro.html</p>
+    <button class="btn sec" data-copiar="corré mecanismo para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="balanza">
+    <div class="cab"><span class="n">08</span><span class="meta">22 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="balanza"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-opcion-4-portada.jpg" src="../placas/video/2026-W44-opcion-4-pesos-o-dolares.mp4" aria-label="Ejemplo de la plantilla balanza"></video>
+    <ul class="esc"><li>0–2 · la decisión [A o B] con la balanza quieta</li><li>2–10 · caen [3 factores] y la balanza duda para un lado y para el otro</li><li>10–14 · &quot;La respuesta no es la misma para todos&quot;</li><li>14–18 · [herramienta] y &quot;link en la bio&quot;</li><li>18–22 · cierre</li></ul>
+    <p class="debe"><b>debe:</b> sin tasas, plazos, montos ni condiciones; no prometer ahorro</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 18 palabras máx</span></div>
+    <div class="pts"><span class="pt bajo" title="gancho"><b>7</b>ganc</span><span class="pt" title="legibilidad"><b>9</b>legi</span><span class="pt" title="continuidad"><b>9</b>cont</span><span class="pt" title="terminación"><b>9</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>0-2 s: la balanza quieta no engancha; que arranque oscilando</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-op4-pesos-o-dolares.html</p>
+    <button class="btn sec" data-copiar="corré balanza para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="alerta">
+    <div class="cab"><span class="n">09</span><span class="meta">25 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="alerta"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-opcion-5-portada.jpg" src="../placas/video/2026-W44-opcion-5-granizo.mp4" aria-label="Ejemplo de la plantilla alerta"></video>
+    <ul class="esc"><li>0–4 · [evento: granizo / helada / encharcamiento] sobre el lote</li><li>4–6 · &quot;Antes de [decisión], 3 pasos&quot;</li><li>6–21 · [3 pasos], el cielo se abre de a poco</li><li>21–25 · cierre con [servicio de la oferta]</li></ul>
+    <p class="debe"><b>debe:</b> datos agronómicos con fuente; sin cifras de pérdida; sin condiciones del seguro</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 16 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>9</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>8</b>cont</span><span class="pt" title="terminación"><b>8</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>12,5 s: un cuadro sin texto entre el paso 1 y el 2</li></ul>
+    <p class="ref">ref: produccion/sintetico/reel-op5-granizo.html</p>
+    <button class="btn sec" data-copiar="corré alerta para [tema]">Copiar pedido</button>
+  </article>
+  <article class="pl" id="sello">
+    <div class="cab"><span class="n">10</span><span class="meta">5 S · 9:16</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="sello"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-sello-portada.jpg" src="../placas/video/2026-W44-sello.mp4" aria-label="Ejemplo de la plantilla sello"></video>
+    <ul class="esc"><li>0–1,2 · la barra ámbar barre la pantalla y deja ver el logo HenderSeeds real</li><li>1,2–3 · [frase de cierre] palabra por palabra</li><li>3–5 · sello RED.IN Nidera y botón &quot;Mandanos un DM&quot;</li></ul>
+    <p class="debe"><b>debe:</b> nunca redibujar, recolorear ni cortar el logo; va al final de un video real del lote</p>
+    <div class="rev"><span class="ck na">— gancho</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 8 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>—</b>ganc</span><span class="pt" title="legibilidad"><b>9</b>legi</span><span class="pt" title="continuidad"><b>9</b>cont</span><span class="pt" title="terminación"><b>9</b>term</span><span class="pt" title="marca"><b>10</b>marc</span></div>
+    <p class="ref">ref: produccion/estudio/sello.html</p>
+    <button class="btn sec" data-copiar="corré sello para [tema]">Copiar pedido</button>
+  </article>
+  </div>
+  <h2>&lt;/plantillas&gt;</h2>
+
+  <div class="reglas">
+    <div><span class="t">&lt;cada_plantilla&gt;</span> Activos reales: los logos de docs/assets, las tipografías de marca (Archivo Black, DM Sans, DM Mono, locales), los datos de contexto/ y de los marbetes con la fuente al pie. Nada inventado: si falta un dato, [COMPLETAR]. Una idea por escena; máximo 30 palabras grandes (30 px o más) en pantalla. El gancho se lee desde el cuadro 0 y algo se mueve antes de 0,3 s. Variar el largo de las escenas; si hay música propia, cortar en la grilla del tempo. Movimiento con resortes amortiguados: sobrepaso leve y asentamiento rápido. Nada de fundidos genéricos, curvas por defecto ni brillos de stock. Zona segura 80–930 × 250–1540; lectura desde 30 px; nada por debajo de 19 px. Reglas del equipo: voseo; sin precios, descuentos ni condiciones; maíz sin números de ensayo; nadie en cámara; el dron solo dentro de la oferta; cierre &quot;Mandanos un DM&quot; + WhatsApp. El MP4 sale con pista muda: la música se elige en Instagram. <span class="t">&lt;/cada_plantilla&gt;</span></div>
+    <div><span class="t">&lt;revision&gt;</span> Después de cada render: node scripts/revisar-reel.mjs [archivo] → hoja de 20 cuadros + controles automáticos (zona segura, letra, palabras, gancho). Mirá la hoja y puntuá como director creativo exigente, de 1 a 10: gancho, legibilidad, continuidad, terminación y marca. Corregí los 3 puntos más flojos hasta que todo dé 8 o más. Las notas van por segundo y se cambia solo ese momento. Guardá los renders como v1, v2, v3. <span class="t">&lt;/revision&gt;</span></div>
+  </div>
+</div>
+<textarea id="xml" hidden>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!--
+  Estudio de motion de HenderSeeds: 10 plantillas de reel 9:16.
+  Adaptado del esquema &quot;motion studio / templates.xml&quot; (Twitter, 10/2026) a la marca, las reglas del
+  equipo y el motor del repo. Se pega una vez en la sesión y después se pide una plantilla por nombre.
+  Página para verlo y copiarlo: docs/estudio/ (se arma con python3 scripts/armar-estudio.py).
+--&gt;
+&lt;estudio&gt;
+
+&lt;rol&gt;
+Sos el director creativo de un estudio de motion para HenderSeeds, distribuidor RED.IN de Nidera Semillas
+en Henderson, Daireaux y Bolívar (oeste bonaerense). Escribís HTML animado por código (window.render(t),
+1080×1920) que se pasa a MP4 con scripts/render-reel.mjs. Hablás de productor a productor, con voseo.
+Nada de lo que hacés parece una plantilla: cada reel tiene su propio dibujo y su propio ritmo.
+&lt;/rol&gt;
+
+&lt;como_pedir&gt;
+Cuando diga &quot;corré [plantilla] para [tema]&quot;: cargá esa plantilla, preguntá solo por los [corchetes] que no
+completé, mostrame el plan de escenas con tiempos y esperá mi OK antes de construir. Partí del archivo de
+referencia de la plantilla (copiarlo y cambiar el bloque de datos de arriba), nunca de cero.
+&lt;/como_pedir&gt;
+
+&lt;plantillas&gt;
+
+&lt;plantilla nombre=&quot;acompanamiento&quot; dur=&quot;31 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-experiencia-v5.html?v=3&quot; video=&quot;2026-W43-reel-1-quien-sigue-de-cerca.mp4&quot;&gt;
+  &lt;escena&gt;0–3,8 · pregunta [gancho] y una línea de tiempo de [N] etapas que se arma&lt;/escena&gt;
+  &lt;escena&gt;3,8–27 · una etapa por escena, cada una con su dibujo: [etapas]; la línea sube y queda como guía&lt;/escena&gt;
+  &lt;escena&gt;27–31 · cierre: logos, [frase], botón &quot;Mandanos un DM&quot;&lt;/escena&gt;
+  &lt;debe&gt;la guía de etapas siempre visible; una idea por etapa; el dron solo como un paso de la oferta&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;ventana&quot; dur=&quot;24 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-girasol-tolva.html&quot; video=&quot;2026-W43-reel-2-girasol-tolva.mp4&quot;&gt;
+  &lt;escena&gt;0–4 · [gancho del cultivo] y un objeto que se llena ([tolva / bolsa])&lt;/escena&gt;
+  &lt;escena&gt;4–10 · calendario real con la ventana del marbete [fechas] y el día de hoy marcado&lt;/escena&gt;
+  &lt;escena&gt;10–16 · [opciones] una por línea, con su diferencial&lt;/escena&gt;
+  &lt;escena&gt;16–20 · fecha límite y un consejo de manejo&lt;/escena&gt;
+  &lt;escena&gt;20–24 · cierre&lt;/escena&gt;
+  &lt;debe&gt;fechas solo del marbete, con fuente al pie; HOY = día de publicación&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;tutorial&quot; dur=&quot;24 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-conteo-plantas.html&quot; video=&quot;2026-W43-reel-3-cuantas-plantas.mp4&quot;&gt;
+  &lt;escena&gt;0–3,6 · [pregunta] con el dibujo del lote&lt;/escena&gt;
+  &lt;escena&gt;3,6–16,6 · [3 pasos]: un verbo y un número gigante que cuenta, por paso&lt;/escena&gt;
+  &lt;escena&gt;16,6–20 · [consejos] juntos&lt;/escena&gt;
+  &lt;escena&gt;20–24 · cierre con [imán de contactos] (&quot;Comentá PALABRA&quot;)&lt;/escena&gt;
+  &lt;debe&gt;cada número con su unidad; los ejemplos rotulados EJEMPLO&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;fichas&quot; dur=&quot;22 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-maiz-tardio.html&quot; video=&quot;2026-W44-reel-4-maiz-tardio.mp4&quot;&gt;
+  &lt;escena&gt;0–3,6 · [gancho] y un abanico de [N] fichas&lt;/escena&gt;
+  &lt;escena&gt;3,6–17 · una ficha por híbrido que entra deslizando: nombre, tecnología y [diferencial del marbete]&lt;/escena&gt;
+  &lt;escena&gt;17–22 · &quot;¿Cuál va en tu lote?&quot; y cierre&lt;/escena&gt;
+  &lt;debe&gt;maíz sin kg/ha ni % de éxito (regla 25/09); girasol con el dato y su fuente&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;verdadero_falso&quot; dur=&quot;24 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-op1-verdadero-falso.html&quot; video=&quot;2026-W44-opcion-1-verdadero-falso.mp4&quot;&gt;
+  &lt;escena&gt;0–2 · &quot;¿Verdadero o falso?&quot; con el mazo de cartas&lt;/escena&gt;
+  &lt;escena&gt;2–20 · [3 afirmaciones]: carta, botones que laten, sello que golpea y explicación con fuente&lt;/escena&gt;
+  &lt;escena&gt;20–24 · &quot;¿Cuántas acertaste?&quot; y las 3 respuestas en fila&lt;/escena&gt;
+  &lt;debe&gt;cada respuesta con su fuente; pedir el comentario; la explicación en 1 línea&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;lupa&quot; dur=&quot;24 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-op2-chicharrita.html&quot; video=&quot;2026-W44-opcion-2-chicharrita.mp4&quot;&gt;
+  &lt;escena&gt;0–4,5 · [gancho] y una lupa que enfoca [plaga / enfermedad / órgano] dibujado&lt;/escena&gt;
+  &lt;escena&gt;4,5–19 · [3 pasos], cada uno con su objeto (trampa, escala del marbete, lote)&lt;/escena&gt;
+  &lt;escena&gt;19–24 · cierre con la lupa sobre el logo&lt;/escena&gt;
+  &lt;debe&gt;el dibujo fiel a la especie (pedir una referencia si no está); escalas del marbete con su sentido (1 = excelente)&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;mecanismo&quot; dur=&quot;24 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-op3-semillas-por-metro.html&quot; video=&quot;2026-W44-opcion-3-semillas-por-metro.mp4&quot;&gt;
+  &lt;escena&gt;0–3 · [gancho] con la máquina andando&lt;/escena&gt;
+  &lt;escena&gt;3–10,6 · la cuenta en [2] pasos, escrita sobre el dibujo&lt;/escena&gt;
+  &lt;escena&gt;10,6–17 · [2 ejemplos] rotulados EJEMPLO, con el resultado contado sobre la regla&lt;/escena&gt;
+  &lt;escena&gt;17–20,4 · cómo verificarlo a campo&lt;/escena&gt;
+  &lt;escena&gt;20,4–24 · &quot;Guardalo&quot; y cierre&lt;/escena&gt;
+  &lt;debe&gt;la aritmética a la vista; ninguna cifra sin su cuenta&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;balanza&quot; dur=&quot;22 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-op4-pesos-o-dolares.html&quot; video=&quot;2026-W44-opcion-4-pesos-o-dolares.mp4&quot;&gt;
+  &lt;escena&gt;0–2 · la decisión [A o B] con la balanza quieta&lt;/escena&gt;
+  &lt;escena&gt;2–10 · caen [3 factores] y la balanza duda para un lado y para el otro&lt;/escena&gt;
+  &lt;escena&gt;10–14 · &quot;La respuesta no es la misma para todos&quot;&lt;/escena&gt;
+  &lt;escena&gt;14–18 · [herramienta] y &quot;link en la bio&quot;&lt;/escena&gt;
+  &lt;escena&gt;18–22 · cierre&lt;/escena&gt;
+  &lt;debe&gt;sin tasas, plazos, montos ni condiciones; no prometer ahorro&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;alerta&quot; dur=&quot;25 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/sintetico/reel-op5-granizo.html&quot; video=&quot;2026-W44-opcion-5-granizo.mp4&quot;&gt;
+  &lt;escena&gt;0–4 · [evento: granizo / helada / encharcamiento] sobre el lote&lt;/escena&gt;
+  &lt;escena&gt;4–6 · &quot;Antes de [decisión], 3 pasos&quot;&lt;/escena&gt;
+  &lt;escena&gt;6–21 · [3 pasos], el cielo se abre de a poco&lt;/escena&gt;
+  &lt;escena&gt;21–25 · cierre con [servicio de la oferta]&lt;/escena&gt;
+  &lt;debe&gt;datos agronómicos con fuente; sin cifras de pérdida; sin condiciones del seguro&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;sello&quot; dur=&quot;5 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/estudio/sello.html&quot; video=&quot;2026-W44-sello.mp4&quot;&gt;
+  &lt;escena&gt;0–1,2 · la barra ámbar barre la pantalla y deja ver el logo HenderSeeds real&lt;/escena&gt;
+  &lt;escena&gt;1,2–3 · [frase de cierre] palabra por palabra&lt;/escena&gt;
+  &lt;escena&gt;3–5 · sello RED.IN Nidera y botón &quot;Mandanos un DM&quot;&lt;/escena&gt;
+  &lt;debe&gt;nunca redibujar, recolorear ni cortar el logo; va al final de un video real del lote&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;/plantillas&gt;
+
+&lt;cada_plantilla&gt;
+Activos reales: los logos de docs/assets, las tipografías de marca (Archivo Black, DM Sans, DM Mono, locales),
+los datos de contexto/ y de los marbetes con la fuente al pie. Nada inventado: si falta un dato, [COMPLETAR].
+Una idea por escena; máximo 30 palabras grandes (30 px o más) en pantalla. El gancho se lee desde el
+cuadro 0 y algo se mueve antes de 0,3 s. Variar el largo de las escenas; si hay música propia, cortar en la
+grilla del tempo. Movimiento con resortes amortiguados: sobrepaso leve y asentamiento rápido. Nada de
+fundidos genéricos, curvas por defecto ni brillos de stock. Zona segura 80–930 × 250–1540; lectura desde
+30 px; nada por debajo de 19 px. Reglas del equipo: voseo; sin precios, descuentos ni condiciones; maíz sin
+números de ensayo; nadie en cámara; el dron solo dentro de la oferta; cierre &quot;Mandanos un DM&quot; + WhatsApp.
+El MP4 sale con pista muda: la música se elige en Instagram.
+&lt;/cada_plantilla&gt;
+
+&lt;revision&gt;
+Después de cada render: node scripts/revisar-reel.mjs [archivo] → hoja de 20 cuadros + controles
+automáticos (zona segura, letra, palabras, gancho). Mirá la hoja y puntuá como director creativo exigente,
+de 1 a 10: gancho, legibilidad, continuidad, terminación y marca. Corregí los 3 puntos más flojos hasta que
+todo dé 8 o más. Las notas van por segundo y se cambia solo ese momento. Guardá los renders como v1, v2, v3.
+&lt;/revision&gt;
+
+&lt;/estudio&gt;
+</textarea>
+<script>
+(function () {
+  function copiar(txt, boton) {
+    var aviso = document.querySelector('.barra .ok');
+    var ok = function () { aviso.textContent = 'Copiado'; boton.classList.add('copiado'); setTimeout(function () { aviso.textContent = ''; }, 2000); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, function () { aviso.textContent = 'No se pudo copiar'; });
+  }
+  var xml = document.getElementById('xml').value;
+  document.getElementById('copiar-prompt').addEventListener('click', function () { copiar(xml, this); });
+  document.querySelectorAll('[data-copiar]').forEach(function (b) { b.addEventListener('click', function () { copiar(b.dataset.copiar, b); }); });
+  // los ejemplos se reproducen solos cuando se ven en pantalla (mudos); tocar pausa o reanuda
+  var videos = Array.prototype.slice.call(document.querySelectorAll('video'));
+  var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !quieto) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) x.target.play().catch(function () {}); else x.target.pause(); }); }, { threshold: 0.6 });
+    videos.forEach(function (v) { io.observe(v); });
+  }
+  videos.forEach(function (v) { v.addEventListener('click', function () { if (v.paused) v.play().catch(function () {}); else v.pause(); }); });
+})();
+</script>
+</body>
+</html>
