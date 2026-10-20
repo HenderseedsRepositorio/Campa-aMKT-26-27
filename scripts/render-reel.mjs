@@ -65,7 +65,7 @@ const dur = await pag.evaluate(() => window.REEL_DURACION);
 const escenario = pag.locator('#stage');
 
 if (flag('--preview')) {
-  const dir = path.join(path.dirname(salida), 'preview');
+  const dir = path.join(path.dirname(salida), 'preview', path.basename(salida, '.mp4'));   // una carpeta por reel: se pueden previsualizar varios a la vez
   await mkdir(dir, { recursive: true });
   const ts = valor('--ts', '').split(',').filter(Boolean).map(Number);
   const tiempos = ts.length ? ts : [0.2, 2.5, 6.5, 12.5, 18, 23, dur - 1.5].filter((x) => x < dur);

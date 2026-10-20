@@ -177,4 +177,4 @@ meta-ads/
 - 🎬 W43–W44: 4 reels listos (`reels/2026-W43-reels-semana.md`), planilla de conteo como imán de contactos
   (`docs/recursos/`, render con `scripts/render-pdf.mjs`) y video 1 preparado para voz en off y clip real
   (`reels/2026-W43-video1-voz-y-clip.md`). Kit de publicación en el sitio: `docs/kit/` (/kit/), se arma con
-  `python3 scripts/armar-kit.py` (+ `scripts/kit_banco.py` con 11 videos extra). Video 4 sin kg/ha (regla 25/09).
+  `python3 scripts/armar-kit.py` (+ `scripts/kit_banco.py`: 5 opciones de reel distintas para elegir; nada de versiones que solo cambian el título). Video 4 sin kg/ha (regla 25/09).

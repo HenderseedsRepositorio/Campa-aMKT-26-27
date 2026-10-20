@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · ¿Cuántas semillas por metro?</title>
+<!--
+  Opción 3 · Estilo: LÁMINA TÉCNICA, CORTE DEL SURCO VISTO DE COSTADO. Fondo crema con grilla fina;
+  abajo, el corte de suelo (banda oscura con textura) que corre; arriba, la unidad de siembra dibujada
+  en línea (tolva, dosificador, tubo de bajada en corte, cuchilla, rueda de profundidad y tapadora)
+  que deja caer semillas a intervalos parejos. Una regla de 1 m se despliega sobre el surco y un
+  contador cuenta lo que quedó en ese metro.
+  Datos: solo aritmética. Ejemplos rotulados EJEMPLO (no son recomendación):
+    girasol 50.000 pl/ha ÷ 0,9 × 0,525 ÷ 10.000 = 2,92 → 2,9 semillas/m
+    maíz    70.000 pl/ha ÷ 0,9 × 0,525 ÷ 10.000 = 4,08 → 4,1 semillas/m
+  Escala del dibujo: 1 m = 640 px; la separación entre semillas sale de esas mismas cuentas.
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --navy2:#0D2D5E; --amber:#F5A623; --crema:#F6F4EE; --steel:#8FA0BE; --ice:#E8EEF7; --ink:#15181E;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--crema); }
+#mundo { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.scene { position:absolute; inset:0; z-index:5; opacity:0; pointer-events:none; }
+
+/* gancho */
+.hook { position:absolute; left:80px; top:310px; width:860px; font-family:var(--arch); font-size:128px; line-height:1.0; letter-spacing:-4px; color:var(--navy); }
+.hook div { white-space:nowrap; }
+.hl { background-image:linear-gradient(var(--amber), var(--amber)); background-repeat:no-repeat; background-position:0 88%; background-size:100% 0.40em; padding:0 6px; margin:0 -6px; }
+.baj { position:absolute; left:80px; top:720px; width:820px; font-family:var(--sans); font-weight:600; font-size:48px; line-height:1.25; color:var(--ink); }
+
+/* pasos con cuentas */
+.step { position:absolute; left:80px; top:290px; display:flex; align-items:center; gap:20px; font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:4px; color:var(--navy2); }
+.step b { display:inline-grid; place-items:center; width:62px; height:62px; border-radius:50%; background:var(--navy2); color:var(--crema); font-size:34px; letter-spacing:0; font-weight:500; }
+.rows { position:absolute; left:80px; top:400px; width:870px; display:flex; flex-direction:column; gap:26px; }
+.row { display:flex; align-items:center; gap:22px; font-family:var(--sans); font-weight:800; font-size:62px; line-height:1.08; letter-spacing:-1px; color:var(--navy); }
+.row .op { flex:0 0 80px; height:80px; border-radius:50%; background:var(--amber); display:grid; place-items:center; font-family:var(--mono); font-style:normal; font-weight:500; font-size:50px; color:var(--navy); letter-spacing:0; }
+.row .op.vacio { background:transparent; border:3px dashed rgba(13,45,94,0.30); }
+.row small { display:block; font-family:var(--sans); font-weight:500; font-size:32px; letter-spacing:0; color:rgba(21,24,30,0.72); margin-top:6px; }
+.row small b { font-family:var(--mono); font-weight:500; color:var(--navy2); }
+.row.muted { color:rgba(10,15,27,0.42); }
+.row.res span.t { background:var(--navy2); color:var(--crema); padding:10px 24px 12px; border-radius:6px; }
+
+/* ejemplos */
+.tag { position:absolute; left:80px; top:290px; display:flex; align-items:center; gap:18px; }
+.tag i { font-style:normal; font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:5px; color:var(--navy2); border:3px solid var(--navy2); border-radius:6px; padding:6px 14px 4px; }
+.cultivo { position:absolute; left:80px; top:355px; font-family:var(--arch); font-size:124px; line-height:1; letter-spacing:-4px; color:var(--navy); }
+.tabla { position:absolute; left:80px; top:525px; width:850px; display:flex; gap:30px; }
+.tabla div { flex:1 1 auto; border-top:4px solid var(--navy2); padding-top:12px; }
+.tabla em { display:block; font-style:normal; font-family:var(--mono); font-weight:500; font-size:28px; letter-spacing:3px; color:rgba(13,45,94,0.80); }
+.tabla b { display:block; font-family:var(--mono); font-weight:500; font-size:58px; letter-spacing:-2px; color:var(--navy); margin-top:4px; white-space:nowrap; }
+.cadena { position:absolute; left:80px; top:712px; width:850px; font-family:var(--mono); font-weight:500; font-size:44px; letter-spacing:-1px; color:var(--navy); background:var(--ice); border-left:6px solid var(--amber); padding:16px 20px 14px; white-space:nowrap; }
+.nota { position:absolute; left:80px; top:838px; width:850px; font-family:var(--sans); font-weight:500; font-size:30px; line-height:1.3; color:rgba(21,24,30,0.78); z-index:6; opacity:0; }
+
+/* paso final */
+.t5 { position:absolute; left:80px; top:300px; width:850px; font-family:var(--arch); font-size:100px; line-height:1; letter-spacing:-4px; color:var(--navy); white-space:nowrap; }
+.b5 { position:absolute; left:80px; top:438px; width:850px; font-family:var(--sans); font-weight:800; font-size:58px; line-height:1.14; letter-spacing:-1px; color:var(--navy); }
+.b5 .hl { padding:0 4px; margin:0 -4px; }
+.s5 { position:absolute; left:80px; top:760px; width:850px; font-family:var(--sans); font-weight:600; font-size:38px; line-height:1.3; color:var(--ink); }
+.s5 b { font-family:var(--mono); font-weight:500; color:var(--navy2); }
+
+/* contador */
+.cnt { position:absolute; left:80px; top:905px; z-index:7; opacity:0; }
+.cnt .lab { font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:4px; color:var(--navy2); white-space:nowrap; }
+.cnt .lin { display:flex; align-items:center; gap:26px; margin-top:4px; }
+.cnt .num { font-family:var(--mono); font-weight:500; font-size:130px; line-height:1; letter-spacing:-8px; color:var(--navy); min-width:120px; }
+.cnt .sub { font-family:var(--sans); font-weight:700; font-size:40px; line-height:1.1; color:var(--navy); }
+.tally { position:absolute; left:80px; top:990px; z-index:7; opacity:0; }
+.tally .lab { font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:4px; color:var(--navy2); white-space:nowrap; }
+
+/* cierre */
+.outro { position:absolute; left:80px; top:300px; width:860px; z-index:20; opacity:0; display:flex; flex-direction:column; align-items:flex-start; }
+.outro .kick { font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:4px; color:var(--navy2); }
+.outro .q { font-family:var(--arch); font-size:104px; line-height:1.0; letter-spacing:-4px; color:var(--navy); margin-top:20px; }
+.outro .q div { white-space:nowrap; }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:800; font-size:44px; color:var(--navy); background:var(--amber); border-radius:8px; padding:24px 38px; margin-top:52px; }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-weight:500; font-size:32px; color:var(--ink); }
+.outro img.hs { height:118px; margin-top:44px; margin-left:-6px; mix-blend-mode:multiply; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg id="mundo" viewBox="0 0 1080 1920"></svg>
+
+  <div class="scene" id="s1">
+    <div class="hook" id="hook"><div>¿Cuántas</div><div>semillas</div><div><span class="hl" id="hl1">por metro?</span></div></div>
+    <div class="baj" id="baj">La cuenta antes de largar la sembradora.</div>
+  </div>
+
+  <div class="scene" id="s2">
+    <div class="step"><b>1</b><span>SEMILLAS POR HECTÁREA</span></div>
+    <div class="rows">
+      <div class="row"><i class="op vacio"></i><span class="t">Las plantas que querés</span></div>
+      <div class="row"><i class="op">÷</i><span class="t">el logro que esperás</span></div>
+      <div class="row res"><i class="op">=</i><span class="t">semillas por hectárea</span></div>
+    </div>
+  </div>
+
+  <div class="scene" id="s3">
+    <div class="step"><b>2</b><span>SEMILLAS POR METRO</span></div>
+    <div class="rows">
+      <div class="row muted"><i class="op vacio"></i><span class="t">Semillas por hectárea</span></div>
+      <div class="row"><i class="op">×</i><span class="t">la distancia entre surcos<small>en metros: 52,5 cm → <b>0,525</b></small></span></div>
+      <div class="row"><i class="op">÷</i><span class="t">10.000<small>los m² de una hectárea</small></span></div>
+      <div class="row res"><i class="op">=</i><span class="t">semillas por metro</span></div>
+    </div>
+  </div>
+
+  <div class="scene" id="s4a">
+    <div class="tag"><i>EJEMPLO</i></div>
+    <div class="cultivo">Girasol</div>
+    <div class="tabla"><div><em>PLANTAS/HA</em><b>50.000</b></div><div><em>LOGRO</em><b>90 %</b></div><div><em>SURCOS</em><b>52,5 cm</b></div></div>
+    <div class="cadena">50.000 ÷ 0,9 × 0,525 ÷ 10.000</div>
+  </div>
+
+  <div class="scene" id="s4b">
+    <div class="tag"><i>EJEMPLO</i></div>
+    <div class="cultivo">Maíz</div>
+    <div class="tabla"><div><em>PLANTAS/HA</em><b>70.000</b></div><div><em>LOGRO</em><b>90 %</b></div><div><em>SURCOS</em><b>52,5 cm</b></div></div>
+    <div class="cadena">70.000 ÷ 0,9 × 0,525 ÷ 10.000</div>
+  </div>
+  <div class="nota" id="nota">La densidad y el logro de tu lote se definen por ambiente.</div>
+
+  <div class="scene" id="s5">
+    <div class="t5" id="t5">Antes de largar:</div>
+    <div class="b5">contá lo que cae en <span class="hl" id="hl5">10 m de surco</span> y compará.</div>
+    <div class="s5" id="s5b">Dividí por <b>10</b> y comparalo con tu cuenta.</div>
+  </div>
+
+  <div class="cnt" id="cnt"><div class="lab" id="cntLab">SEMILLAS EN 1 m</div><div class="lin"><div class="num" id="cntNum">?</div><div class="sub" id="cntSub"></div></div></div>
+  <div class="tally" id="tally"><div class="lab">LO QUE CAE EN 10 m</div><svg id="palotes" width="600" height="130" viewBox="0 0 600 130" style="display:block; margin-top:14px"></svg></div>
+
+  <div class="outro" id="outro">
+    <div class="kick">LA CUENTA, A MANO</div>
+    <div class="q" id="oq"><div>Guardalo</div><div>para la próxima</div><div><span class="hl" id="hl6">siembra.</span></div></div>
+    <div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0F1B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Mandanos un DM</div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <img class="hs" src="../../docs/assets/logo-henderseeds-navy.png" alt="HenderSeeds">
+  </div>
+</div>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function back(v) { v = clamp(v); var c = 1.5; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function coma(v, d) { return v.toFixed(d).replace('.', ','); }
+function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); while (n.scrollWidth > n.clientWidth + 1 && fs > min) { fs -= 2; n.style.fontSize = fs + 'px'; } }
+window.reajustar = function () {
+  ['hook', 'oq', 't5'].forEach(function (id) { var n = document.getElementById(id); n.style.fontSize = ''; ajustar(n, 70); });
+  document.querySelectorAll('.cadena').forEach(function (n) { n.style.fontSize = ''; ajustar(n, 34); });
+};
+
+/* ---------- geometría ---------- */
+var SUP = 1225;          // superficie del suelo
+var LS = 1300;           // línea de siembra (profundidad de la semilla)
+var XT = 842;            // donde cae la semilla (salida del tubo)
+var PXM = 640;           // 1 m = 640 px
+var W0 = 100, W1 = W0 + PXM;   // la regla de 1 m
+var SEM_M = 70000 / 0.9 * 0.525 / 10000;   // 4,08 semillas/m (ejemplo maíz)
+var SEM_G = 50000 / 0.9 * 0.525 / 10000;   // 2,92 semillas/m (ejemplo girasol)
+var DM = PXM / SEM_M, DG = PXM / SEM_G;     // separación en px
+var V = 330;             // velocidad de crucero (px/s)
+var TAU = 0.32;          // lo que tarda la semilla en bajar por el tubo
+
+/* ---------- tiempos ---------- */
+var ESC = [['s1', 0, 3.0], ['s2', 3.0, 6.6], ['s3', 6.6, 10.6], ['s4a', 10.6, 14.0], ['s4b', 14.0, 17.2], ['s5', 17.2, 20.4]];
+var T_OUT = 20.4, TOTAL = 24.0;
+window.REEL_DURACION = TOTAL;
+
+// El suelo corre (la sembradora avanza). Tres paradas: regla (A), girasol (B), maíz (C).
+var M = [{ t0: 0, t1: 6.6, ri: 0, ro: 1.4 / 6.6 }, { t0: 10.3, t1: 11.9, ri: 0.25, ro: 0.25 }, { t0: 14.0, t1: 15.3, ri: 0.25, ro: 0.25 }];
+var TD = 17.0, RAMPA = 0.6;   // arranca otra vez y sigue hasta el final
+var OFF_M = XT - 767, OFF_G = XT - 798;   // dónde queda la última semilla al parar (fuera de la regla, antes de la tapadora)
+M[0].d = V * (6.6 - 0.7);
+var sA = M[0].d, aA = sA - OFF_M;
+var aB = aA + 4 * DG, sB = aB + OFF_G; M[1].d = sB - sA;
+var aC = aB + 5 * DM, sC = aC + OFF_M; M[2].d = sC - sB;
+function perfil(u, ri, ro) { u = clamp(u); var vm = 1 / (1 - ri / 2 - ro / 2); if (u < ri) return vm * u * u / (2 * ri); if (u <= 1 - ro) return vm * (u - ri / 2); return 1 - vm * (1 - u) * (1 - u) / (2 * ro); }
+function sDe(t) {
+  var s = 0;
+  for (var i = 0; i < M.length; i++) { var m = M[i]; if (t <= m.t0) return s; if (t >= m.t1) { s += m.d; continue; } return s + m.d * perfil((t - m.t0) / (m.t1 - m.t0), m.ri, m.ro); }
+  if (t <= TD) return s;
+  var dt = t - TD; return s + (dt < RAMPA ? V * dt * dt / (2 * RAMPA) : V * (RAMPA / 2 + dt - RAMPA));
+}
+function tCae(g) { if (g <= 0) return -1; var a = 0, b = TOTAL + 2; if (sDe(b) < g) return Infinity; for (var i = 0; i < 50; i++) { var c = (a + b) / 2; if (sDe(c) >= g) b = c; else a = c; } return b; }
+
+/* ---------- dibujo ---------- */
+var svg = document.getElementById('mundo');
+var defs = el('defs', {}, svg);
+var R = rng(26);
+// grilla de lámina
+var pg = el('pattern', { id: 'grilla', width: 40, height: 40, patternUnits: 'userSpaceOnUse' }, defs);
+el('path', { d: 'M40 0H0V40', fill: 'none', stroke: 'rgba(13,45,94,0.07)', 'stroke-width': 1.5 }, pg);
+var pg2 = el('pattern', { id: 'grilla2', width: 200, height: 200, patternUnits: 'userSpaceOnUse' }, defs);
+el('path', { d: 'M200 0H0V200', fill: 'none', stroke: 'rgba(13,45,94,0.10)', 'stroke-width': 2 }, pg2);
+// textura del suelo (se desplaza con el avance)
+var pSuelo = el('pattern', { id: 'suelo', width: 480, height: 700, patternUnits: 'userSpaceOnUse', y: SUP }, defs);
+var colS = ['#2E3547', '#363E52', '#4A4136', '#3D3529', '#2A3040'];
+for (var i = 0; i < 330; i++) el('circle', { cx: R() * 480, cy: R() * 700, r: 0.9 + R() * 1.9, fill: colS[Math.floor(R() * colS.length)], opacity: 0.6 + R() * 0.4 }, pSuelo);
+for (i = 0; i < 70; i++) { var x0 = R() * 480, y0 = R() * 700, an = R() * Math.PI, ln = 4 + R() * 7; el('line', { x1: x0, y1: y0, x2: x0 + Math.cos(an) * ln, y2: y0 + Math.sin(an) * ln, stroke: '#343C50', 'stroke-width': 2, 'stroke-linecap': 'round' }, pSuelo); }
+for (i = 0; i < 9; i++) el('ellipse', { cx: R() * 480, cy: 150 + R() * 540, rx: 6 + R() * 9, ry: 4 + R() * 5, fill: '#272D3C', stroke: '#3B4358', 'stroke-width': 2 }, pSuelo);
+var pFloja = el('pattern', { id: 'floja', width: 240, height: 90, patternUnits: 'userSpaceOnUse', y: SUP }, defs);
+for (i = 0; i < 120; i++) el('circle', { cx: R() * 240, cy: R() * 90, r: 0.8 + R() * 1.6, fill: R() < 0.5 ? '#46506A' : '#5A4D3C', opacity: 0.8 }, pFloja);
+var pRastrojo = el('pattern', { id: 'rastrojo', width: 300, height: 30, patternUnits: 'userSpaceOnUse', y: SUP - 30 }, defs);
+for (i = 0; i < 16; i++) { var rx = R() * 300, rl = 8 + R() * 14, ra = -0.5 - R() * 1.6; el('line', { x1: rx, y1: 30, x2: rx + Math.cos(ra) * rl, y2: 30 + Math.sin(ra) * rl, stroke: 'rgba(13,45,94,0.55)', 'stroke-width': 3, 'stroke-linecap': 'round' }, pRastrojo); }
+for (i = 0; i < 6; i++) { var rx2 = R() * 300; el('line', { x1: rx2, y1: 28, x2: rx2 + 14 + R() * 16, y2: 27 - R() * 3, stroke: 'rgba(13,45,94,0.45)', 'stroke-width': 3, 'stroke-linecap': 'round' }, pRastrojo); }
+var clipArriba = el('clipPath', { id: 'arriba' }, defs); el('rect', { x: 0, y: 0, width: 1080, height: SUP }, clipArriba);
+var clipRegla = el('clipPath', { id: 'clipRegla' }, defs); var rClip = el('rect', { x: W0 - 2, y: 1150, width: 0, height: 90 }, clipRegla);
+
+// fondo
+el('rect', { x: 0, y: 0, width: 1080, height: SUP + 100, fill: 'url(#grilla)' }, svg);
+el('rect', { x: 0, y: 0, width: 1080, height: SUP + 100, fill: 'url(#grilla2)' }, svg);
+el('rect', { x: 0, y: 0, width: 1080, height: 8, fill: '#F5A623' }, svg);
+[[40, 60, 1], [1040, 60, -1]].forEach(function (c) { el('path', { d: 'M' + c[0] + ' ' + (c[1] + 40) + 'V' + c[1] + 'H' + (c[0] + 40 * c[2]), fill: 'none', stroke: 'rgba(13,45,94,0.35)', 'stroke-width': 3 }, svg); });
+// todo el dibujo de la máquina y el suelo va 100 px más abajo (deja aire para el texto)
+var DY = 100, gW = el('g', { transform: 'translate(0 ' + DY + ')' }, svg);
+// suelo
+el('rect', { x: 0, y: SUP, width: 1080, height: 1920 - SUP, fill: '#1D2230' }, gW);
+el('rect', { x: 0, y: 1600, width: 1080, height: 320, fill: '#171B26' }, gW);
+var gSuelo = el('rect', { x: -480, y: SUP, width: 2040, height: 1920 - SUP, fill: 'url(#suelo)' }, gW);
+var floja = el('rect', { x: 0, y: SUP, width: 870, height: LS - SUP + 22, fill: '#252B3B' }, gW);
+var gFloja = el('rect', { x: 0, y: SUP, width: 870, height: LS - SUP + 22, fill: 'url(#floja)' }, gW);
+el('line', { x1: 0, y1: LS + 22, x2: 870, y2: LS + 22, stroke: 'rgba(143,160,190,0.22)', 'stroke-width': 2, 'stroke-dasharray': '3 9' }, gW);
+el('line', { x1: 0, y1: 1600, x2: 1080, y2: 1600, stroke: 'rgba(143,160,190,0.14)', 'stroke-width': 2, 'stroke-dasharray': '18 12' }, gW);
+var gRastrojo = el('rect', { x: -300, y: SUP - 30, width: 1680, height: 30, fill: 'url(#rastrojo)' }, gW);
+el('line', { x1: 0, y1: SUP, x2: 1080, y2: SUP, stroke: '#0A0F1B', 'stroke-width': 4 }, gW);
+
+// unidad de siembra — capa de atrás (relleno del tubo en corte)
+var gPlanta = el('g', {}, gW);
+el('path', { d: 'M829 1040 L823 1298 L861 1298 L867 1040 Z', fill: '#F6F4EE', opacity: 0.94 }, gPlanta);
+
+// semillas
+var gSem = el('g', {}, gW);
+var FORMA = {
+  m: 'M-14 -8 Q0 -15 14 -8 Q12 4 7 10 Q0 14 -7 10 Q-12 4 -14 -8 Z',
+  g: 'M-18 0 C-12 -9 8 -10 17 -2 Q19 0 17 2 C8 10 -12 9 -18 0 Z'
+};
+var SEM = [];
+var nA = Math.ceil((aA + XT + 80) / DM);
+for (var k = nA; k >= 0; k--) SEM.push({ g: aA - k * DM, tipo: 'm' });
+for (k = 1; k <= 4; k++) SEM.push({ g: aA + k * DG, tipo: 'g' });
+for (k = 1; k <= 5; k++) SEM.push({ g: aB + k * DM, tipo: 'm' });
+var sFin = sDe(TOTAL + 0.5);
+for (k = 1; aC + k * DM <= sFin; k++) SEM.push({ g: aC + k * DM, tipo: 'm' });
+var Rs = rng(7);
+SEM.forEach(function (s, i) {
+  s.tl = tCae(s.g); s.r0 = Rs() * 360; s.rf = (Rs() - 0.5) * 40;
+  s.n = el('g', {}, gSem);
+  el('path', { d: FORMA[s.tipo], fill: '#F5A623', stroke: '#0A0F1B', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, s.n);
+  if (s.tipo === 'g') { el('path', { d: 'M-10 -4 L10 -4 M-12 0 L13 0 M-10 4 L10 4', stroke: 'rgba(10,15,27,0.55)', 'stroke-width': 2, fill: 'none' }, s.n); }
+  else el('ellipse', { cx: 0, cy: -2, rx: 4.5, ry: 6, fill: 'rgba(255,255,255,0.55)' }, s.n);
+});
+
+// unidad de siembra — capa de adelante (líneas)
+var P = { stroke: '#0D2D5E', 'stroke-width': 4, fill: 'none', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' };
+var gFrente = el('g', {}, gW);
+el('rect', { x: 985, y: 868, width: 72, height: 72, rx: 4, fill: '#0A0F1B' }, gFrente);                 // barra portaherramientas
+el('line', { x1: 900, y1: 978, x2: 992, y2: 892, stroke: '#0D2D5E', 'stroke-width': 13, 'stroke-linecap': 'round' }, gFrente);   // paralelogramo
+el('line', { x1: 900, y1: 1040, x2: 992, y2: 922, stroke: '#0D2D5E', 'stroke-width': 13, 'stroke-linecap': 'round' }, gFrente);
+el('line', { x1: 890, y1: 990, x2: 890, y2: 1236, stroke: '#0A0F1B', 'stroke-width': 22, 'stroke-linecap': 'round' }, gFrente);   // cuerpo
+el('line', { x1: 888, y1: 1128, x2: 792, y2: 1198, stroke: '#0D2D5E', 'stroke-width': 10, 'stroke-linecap': 'round' }, gFrente);  // brazo tapadora
+// tolva (en corte, con semilla adentro)
+el('path', { d: 'M772 870 L928 870 L902 956 L798 956 Z', fill: '#E8EEF7' }, gFrente);
+var Rt = rng(11);
+for (i = 0; i < 22; i++) { var hx = 808 + Rt() * 84, hy = 918 + Rt() * 32; el('ellipse', { cx: hx, cy: hy, rx: 8, ry: 6, transform: 'rotate(' + Math.round(Rt() * 180) + ' ' + hx + ' ' + hy + ')', fill: '#F5A623', stroke: '#0A0F1B', 'stroke-width': 1.5 }, gFrente); }
+el('path', { d: 'M772 870 L928 870 L902 956 L798 956 Z', ...P }, gFrente);
+el('rect', { x: 764, y: 856, width: 172, height: 16, rx: 4, fill: '#0D2D5E' }, gFrente);
+el('rect', { x: 838, y: 954, width: 20, height: 10, fill: '#0D2D5E' }, gFrente);
+// dosificador (placa que gira)
+el('circle', { cx: 848, cy: 1000, r: 40, fill: '#E8EEF7' }, gFrente);
+var placa = el('g', {}, gFrente);
+el('circle', { cx: 0, cy: 0, r: 29, fill: 'none', stroke: 'rgba(13,45,94,0.45)', 'stroke-width': 2 }, placa);
+for (i = 0; i < 10; i++) { var aa = i / 10 * Math.PI * 2; el('circle', { cx: Math.cos(aa) * 22, cy: Math.sin(aa) * 22, r: 4.5, fill: '#0D2D5E' }, placa); }
+el('circle', { cx: 0, cy: 0, r: 6, fill: '#0D2D5E' }, placa);
+el('circle', { cx: 848, cy: 1000, r: 40, ...P }, gFrente);
+// tubo de bajada (paredes)
+el('path', { d: 'M829 1040 L823 1298', ...P }, gFrente);
+el('path', { d: 'M867 1040 L861 1298', ...P }, gFrente);
+// cuchilla / doble disco: arriba línea llena, abajo línea oculta (punteada)
+el('circle', { cx: 884, cy: 1240, r: 62, fill: 'none', stroke: 'rgba(143,160,190,0.75)', 'stroke-width': 3, 'stroke-dasharray': '10 8' }, gFrente);
+el('circle', { cx: 884, cy: 1240, r: 62, fill: 'none', stroke: '#0D2D5E', 'stroke-width': 4, 'clip-path': 'url(#arriba)' }, gFrente);
+var disco = el('g', {}, gFrente);
+for (i = 0; i < 3; i++) el('line', { x1: 0, y1: -50, x2: 0, y2: 50, stroke: 'rgba(13,45,94,0.35)', 'stroke-width': 3, transform: 'rotate(' + i * 60 + ')' }, disco);
+el('circle', { cx: 884, cy: 1240, r: 11, fill: '#0A0F1B' }, gFrente);
+// rueda limitadora de profundidad
+el('circle', { cx: 934, cy: 1188, r: 37, fill: 'rgba(232,238,247,0.85)', stroke: '#0D2D5E', 'stroke-width': 4 }, gFrente);
+var rueda = el('g', {}, gFrente);
+for (i = 0; i < 5; i++) el('line', { x1: 0, y1: 0, x2: 0, y2: -30, stroke: '#0D2D5E', 'stroke-width': 3, transform: 'rotate(' + i * 72 + ')' }, rueda);
+el('circle', { cx: 934, cy: 1188, r: 8, fill: '#0A0F1B' }, gFrente);
+// rueda tapadora
+el('circle', { cx: 792, cy: 1198, r: 27, fill: 'rgba(232,238,247,0.85)', stroke: '#0D2D5E', 'stroke-width': 4 }, gFrente);
+var tapa = el('g', {}, gFrente);
+for (i = 0; i < 4; i++) el('line', { x1: 0, y1: 0, x2: 0, y2: -21, stroke: '#0D2D5E', 'stroke-width': 3, transform: 'rotate(' + i * 90 + ')' }, tapa);
+el('circle', { cx: 792, cy: 1198, r: 6, fill: '#0A0F1B' }, gFrente);
+
+// regla de 1 m
+var gRegla = el('g', { 'clip-path': 'url(#clipRegla)' }, gW);
+el('rect', { x: W0, y: 1170, width: PXM, height: 52, fill: '#F5A623' }, gRegla);
+for (var cm = 5; cm < 100; cm += 5) { var tx = W0 + cm * PXM / 100, tl = cm % 50 === 0 ? 30 : cm % 10 === 0 ? 21 : 11;
+  el('line', { x1: tx, y1: 1170, x2: tx, y2: 1170 + tl, stroke: '#0A0F1B', 'stroke-width': 2.5 }, gRegla);
+  if (cm % 10 === 0) { var lb = el('text', { x: tx, y: 1215, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 20, fill: '#0A0F1B' }, gRegla); lb.textContent = cm; } }
+el('rect', { x: W0, y: 1166, width: 5, height: 60, fill: '#0A0F1B' }, gRegla);
+var lb1 = el('text', { x: W1 - 10, y: 1192, 'text-anchor': 'end', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 22, fill: '#0A0F1B' }, gRegla); lb1.textContent = '1 m';
+var punta = el('rect', { x: W0, y: 1164, width: 6, height: 62, fill: '#0A0F1B' }, gW);
+
+// cota de 10 m (paso final)
+var gCota = el('g', { opacity: 0 }, gW);
+var cotaL = el('line', { x1: W0, y1: 1150, x2: W1, y2: 1150, stroke: '#0D2D5E', 'stroke-width': 3 }, gCota);
+el('line', { x1: W0, y1: 1128, x2: W0, y2: 1222, stroke: '#0D2D5E', 'stroke-width': 2 }, gCota);
+el('line', { x1: W1, y1: 1128, x2: W1, y2: 1222, stroke: '#0D2D5E', 'stroke-width': 2 }, gCota);
+el('path', { d: 'M' + W0 + ' 1150 l22 -9 v18 Z', fill: '#0D2D5E' }, gCota);
+el('path', { d: 'M' + W1 + ' 1150 l-22 -9 v18 Z', fill: '#0D2D5E' }, gCota);
+[260, 580].forEach(function (zx) { el('rect', { x: zx - 12, y: 1140, width: 24, height: 20, fill: '#F6F4EE' }, gCota); el('path', { d: 'M' + (zx - 14) + ' 1150 L' + (zx - 6) + ' 1150 L' + (zx - 2) + ' 1136 L' + (zx + 3) + ' 1164 L' + (zx + 7) + ' 1150 L' + (zx + 14) + ' 1150', fill: 'none', stroke: '#0D2D5E', 'stroke-width': 3, 'stroke-linejoin': 'round' }, gCota); });
+el('rect', { x: 352, y: 1124, width: 136, height: 50, fill: '#F6F4EE' }, gCota);
+var cotaT = el('text', { x: 420, y: 1163, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 40, fill: '#0A0F1B' }, gCota); cotaT.textContent = '10 m';
+
+// marcas de conteo sobre cada semilla
+var gMarcas = el('g', {}, svg), MARCAS = [];
+for (i = 0; i < 4; i++) {
+  var mg = el('g', { opacity: 0 }, gMarcas);
+  el('line', { x1: 0, y1: 1229, x2: 0, y2: LS - 18, stroke: '#F5A623', 'stroke-width': 3, 'stroke-dasharray': '6 6' }, mg);
+  el('line', { x1: 0, y1: 1170, x2: 0, y2: 1197, stroke: '#0A0F1B', 'stroke-width': 4 }, mg);
+  var bg = el('g', {}, mg);
+  el('circle', { cx: 0, cy: 0, r: 24, fill: '#0D2D5E' }, bg);
+  var bt = el('text', { x: 0, y: 9, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 28, fill: '#F6F4EE' }, bg); bt.textContent = i + 1;
+  MARCAS.push({ g: mg, b: bg });
+}
+
+// palotes (paso final)
+var palSvg = document.getElementById('palotes'), PAL = [];
+for (i = 0; i < 12; i++) {
+  var px = 6 + (i % 5) * 30 + Math.floor(i / 5) * 190;
+  var pl = (i % 5 === 4) ? el('line', { x1: px - 132, y1: 104, x2: px + 4, y2: 14, stroke: '#0A0F1B', 'stroke-width': 7, 'stroke-linecap': 'round' }, palSvg)
+                         : el('line', { x1: px, y1: 10, x2: px, y2: 112, stroke: '#0A0F1B', 'stroke-width': 7, 'stroke-linecap': 'round' }, palSvg);
+  PAL.push(pl);
+}
+// arreglar posición de los palotes (4 verticales + 1 cruzado por grupo)
+(function () { var j = 0; for (var g = 0; g < 3; g++) for (var q = 0; q < 5; q++) { if (j >= PAL.length) return; var base = 10 + g * 190; var n = PAL[j];
+  if (q < 4) { n.setAttribute('x1', base + q * 34); n.setAttribute('x2', base + q * 34); n.setAttribute('y1', 12); n.setAttribute('y2', 112); }
+  else { n.setAttribute('x1', base - 16); n.setAttribute('y1', 98); n.setAttribute('x2', base + 3 * 34 + 16); n.setAttribute('y2', 26); }
+  j++; } })();
+
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+/* ---------- cuadro a cuadro ---------- */
+function semillasEnRegla(s) {
+  var out = [];
+  SEM.forEach(function (q) { if (q.tl <= TOTAL + 5 && q.g <= s) { var x = XT + q.g - s; if (x > W0 + 8 && x < W1 - 8) out.push(x); } });
+  return out.sort(function (a, b) { return a - b; });
+}
+var cntNum = document.getElementById('cntNum'), cntLab = document.getElementById('cntLab'), cntSub = document.getElementById('cntSub'), cnt = document.getElementById('cnt');
+
+window.render = function (t) {
+  var s = sDe(t);
+  // escenas de texto
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e[0]);
+    var on = t >= e[1] && t < e[2];
+    var kin = i === 0 ? 1 : eout(seg(t, e[1], e[1] + 0.4));
+    var kout = 1 - eio(seg(t, e[2] - 0.28, e[2]));
+    n.style.opacity = on ? Math.min(kin, kout) : 0;
+    n.style.transform = 'translateY(' + ((1 - kin) * 34 - (1 - kout) * 16) + 'px)';
+    n.querySelectorAll('.row').forEach(function (r, j) { var k = i === 0 ? 1 : eout(seg(t, e[1] + 0.15 + j * 0.32, e[1] + 0.55 + j * 0.32)); r.style.opacity = k; r.style.transform = 'translateX(' + (1 - k) * 40 + 'px)'; });
+  });
+  // gancho: el resaltado ámbar se estira
+  var kh = eout(seg(t, 0.05, 0.6));
+  document.getElementById('hl1').style.backgroundSize = (kh * 100) + '% 0.40em';
+  document.getElementById('hl5').style.backgroundSize = (eout(seg(t, 17.8, 18.3)) * 100) + '% 0.40em';
+  document.getElementById('hl6').style.backgroundSize = (eout(seg(t, T_OUT + 0.5, T_OUT + 1.0)) * 100) + '% 0.40em';
+  document.getElementById('baj').style.opacity = 1;
+  // ejemplos: la tabla y la cuenta entran escalonadas
+  [['s4a', 10.6], ['s4b', 14.0]].forEach(function (e) {
+    var sc = document.getElementById(e[0]);
+    var tb = sc.querySelector('.tabla'), cd = sc.querySelector('.cadena');
+    var k1 = eout(seg(t, e[1] + 0.3, e[1] + 0.7)), k2 = eout(seg(t, e[1] + 0.75, e[1] + 1.15));
+    tb.style.opacity = k1; tb.style.transform = 'translateY(' + (1 - k1) * 24 + 'px)';
+    cd.style.opacity = k2; cd.style.transform = 'translateX(' + (1 - k2) * 40 + 'px)';
+  });
+  var kn = eout(seg(t, 11.4, 11.8)) * (1 - eio(seg(t, 16.95, 17.2)));
+  document.getElementById('nota').style.opacity = kn;
+  document.getElementById('s5b').style.opacity = eout(seg(t, 18.5, 18.9));
+
+  // suelo que corre
+  var sx = -(s % 480), sx2 = -(s % 240), sx3 = -(s % 300);
+  gSuelo.setAttribute('x', -480); document.getElementById('suelo').setAttribute('x', sx);
+  document.getElementById('floja').setAttribute('x', sx2);
+  document.getElementById('rastrojo').setAttribute('x', sx3);
+  // piezas que giran
+  placa.setAttribute('transform', 'translate(848 1000) rotate(' + (s / DM * 36) + ')');
+  disco.setAttribute('transform', 'translate(884 1240) rotate(' + (s / 62 * 57.2958) + ')');
+  rueda.setAttribute('transform', 'translate(934 1188) rotate(' + (s / 37 * 57.2958) + ')');
+  tapa.setAttribute('transform', 'translate(792 1198) rotate(' + (s / 27 * 57.2958) + ')');
+
+  // semillas
+  SEM.forEach(function (q) {
+    var x, y, r;
+    if (q.tl === Infinity || t < q.tl - TAU) { q.n.setAttribute('display', 'none'); return; }
+    if (t < q.tl) { var u = (t - (q.tl - TAU)) / TAU; x = 848 - 6 * u; y = 1046 + 250 * u * u; r = q.r0 + 220 * u; }
+    else { var b = seg(t, q.tl, q.tl + 0.16); x = XT + q.g - s; y = LS - 9 * Math.sin(Math.PI * b) * (1 - b); r = q.rf; }
+    if (x < -40 || x > 1120) { q.n.setAttribute('display', 'none'); return; }
+    q.n.removeAttribute('display');
+    q.n.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + r.toFixed(1) + ')');
+  });
+
+  // regla: se despliega en el paso 2, se recoge en el paso final
+  var kr = eio(seg(t, 6.9, 8.5)) * (1 - eio(seg(t, 17.3, 17.75)));
+  var borde = W0 + PXM * kr;
+  rClip.setAttribute('width', PXM * kr + 4);
+  punta.setAttribute('x', borde - 3); punta.setAttribute('opacity', kr > 0.002 ? 1 : 0);
+  // cota 10 m
+  var kc = eout(seg(t, 17.7, 18.3)) * (1 - eio(seg(t, T_OUT - 0.3, T_OUT)));
+  gCota.setAttribute('opacity', kc);
+  cotaL.setAttribute('x1', 420 - 320 * kc); cotaL.setAttribute('x2', 420 + 320 * kc);
+
+  // marcas sobre las semillas + contador
+  var xs = semillasEnRegla(s), parada = null, kfin = 0;
+  if (t >= 6.6 && t < 10.3) { parada = 'A'; kfin = 1 - eio(seg(t, 10.0, 10.3)); }
+  else if (t >= 11.9 && t < 14.0) { parada = 'B'; kfin = 1 - eio(seg(t, 13.75, 14.0)); }
+  else if (t >= 15.3 && t < 17.0) { parada = 'C'; kfin = 1 - eio(seg(t, 16.7, 17.0)); }
+  var contadas = 0;
+  MARCAS.forEach(function (m, j) {
+    var x = xs[j], k = 0;
+    if (parada && x !== undefined) {
+      if (parada === 'A') k = back(clamp((borde - x) / 70));
+      else if (parada === 'B') k = back(seg(t, 12.0 + j * 0.2, 12.35 + j * 0.2));
+      else k = back(seg(t, 15.4 + j * 0.17, 15.75 + j * 0.17));
+      if (parada === 'A' && borde > x) contadas++;
+    }
+    var o = clamp(k * 2) * kfin;
+    m.g.setAttribute('opacity', o);
+    if (x !== undefined) { m.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' 0)'); m.b.setAttribute('transform', 'translate(0 1132) scale(' + Math.max(0.01, k) + ')'); }
+  });
+  // contador
+  var co = 0, num = '?', lab = 'SEMILLAS EN 1 m', sub = '';
+  if (t < 10.3) { co = 1 - eio(seg(t, 10.05, 10.3)); num = t < 6.9 ? '?' : String(contadas); }
+  else if (t < 14.0) { co = eout(seg(t, 11.95, 12.2)) * (1 - eio(seg(t, 13.75, 14.0))); lab = 'EJEMPLO · GIRASOL'; num = coma(2.9 * eout(seg(t, 12.0, 12.75)), 1); sub = 'semillas<br>por metro'; }
+  else if (t < 17.2) { co = eout(seg(t, 15.35, 15.6)) * (1 - eio(seg(t, 16.95, 17.2))); lab = 'EJEMPLO · MAÍZ'; num = coma(4.1 * eout(seg(t, 15.4, 16.1)), 1); sub = 'semillas<br>por metro'; }
+  cnt.style.opacity = co;
+  if (cntNum.textContent !== num) cntNum.textContent = num;
+  if (cntLab.textContent !== lab) cntLab.textContent = lab;
+  if (cntSub.innerHTML !== sub) cntSub.innerHTML = sub;
+  // el "?" late suave mientras espera la cuenta
+  cntNum.style.transform = num === '?' ? 'scale(' + (1 + 0.06 * Math.max(0, Math.sin(t * 4.2))) + ')' : 'none';
+  cntNum.style.transformOrigin = '20% 60%';
+  // al aparecer cada número nuevo en la parada A, un pequeño salto
+  if (t >= 6.9 && t < 10.3) { var ultimo = xs[contadas - 1]; var kk = ultimo !== undefined ? clamp((borde - ultimo) / 70) : 1; cntNum.style.transform = 'scale(' + (1 + 0.12 * (1 - kk)) + ')'; }
+
+  // palotes: uno por cada semilla que cae en el paso final
+  var kt = eout(seg(t, 17.6, 17.95)) * (1 - eio(seg(t, T_OUT - 0.3, T_OUT)));
+  document.getElementById('tally').style.opacity = kt;
+  var caidas = SEM.filter(function (q) { return q.tl >= 17.75 && q.tl <= t; }).map(function (q) { return q.tl; });
+  PAL.forEach(function (p, j) { var kp = caidas[j] !== undefined ? eout(seg(t, caidas[j], caidas[j] + 0.14)) : 0; p.setAttribute('opacity', kp > 0 ? 1 : 0); p.style.transformBox = 'fill-box'; p.style.transformOrigin = '50% 100%'; p.style.transform = 'scale(1,' + Math.max(0.01, kp) + ')'; });
+
+  // cierre
+  var out = document.getElementById('outro'); out.style.opacity = t >= T_OUT ? 1 : 0;
+  out.querySelectorAll(':scope > *').forEach(function (c, i) { var k = eout(seg(t, T_OUT + i * 0.13, T_OUT + 0.45 + i * 0.13)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % window.REEL_DURACION); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

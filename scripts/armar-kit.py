@@ -114,12 +114,16 @@ def ficha(f, modo, publicado=True):
         bajar = f'<a class="btn sec" href="{PAGES}kit/#{f["id"]}" target="_blank" rel="noopener">Bajar video (sitio)</a>'
     pasos = ''.join(f'<li><b>{e(a)}</b><span>{e(b)}</span></li>' for a, b in f.get('pasos', []))
     chips = (f'<span class="chip dia">{e(f["dia"])}</span><span class="chip">{e(f["hora"])}</span>' if f.get('dia') else '') + f'<span class="chip">{e(f["fmt"])}</span>'
-    marca = f'<label class="hecho"><input type="checkbox" id="hecho-{f["id"]}"> Publicado</label>' if publicado else ''
-    cap = (f'<div class="cap"><pre id="cap-{f["id"]}">{e(f["cap"])}</pre>'
+    marca = (f'<label class="hecho"><input type="checkbox" id="hecho-{f["id"]}"> Publicado</label>' if publicado else
+             f'<label class="hecho elige"><input type="checkbox" id="elige-{f["id"]}" data-titulo="{e(f["titulo"])}"> Me la quedo</label>')
+    pre = f'<pre id="cap-{f["id"]}">{e(f["cap"])}</pre>'
+    if not publicado:   # en las opciones el caption va plegado: la ficha se lee de un vistazo
+        pre = f'<details><summary>Ver caption</summary>{pre}</details>'
+    cap = (f'<div class="cap">{pre}'
            f'<div class="acciones"><button class="btn" data-copiar-de="cap-{f["id"]}">Copiar caption</button>{bajar}<span class="ok" aria-live="polite"></span></div></div>') if f.get('cap') else f'<div class="acciones">{bajar}</div>'
     nota = f'<p class="nota">{f["nota"]}</p>' if f.get('nota') else ''
     return f'''
-    <article class="ficha" id="{f['id']}" data-id="{f['id'] if publicado else ''}">
+    <article class="ficha{'' if publicado else ' opcion'}" id="{f['id']}"{f' data-id="{f["id"]}"' if publicado else ''}>
       <div class="top">{chips}{marca}</div>
       <div class="cab"><div class="media">{media}</div>
         <div><h3>{e(f['titulo'])}</h3><p>{e(f['obj'])}</p></div></div>
