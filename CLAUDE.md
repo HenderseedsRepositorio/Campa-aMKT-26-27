@@ -182,3 +182,7 @@ meta-ads/
   reglas y revisión), página `docs/estudio/` (`python3 scripts/armar-estudio.py`) y revisión automática
   `node scripts/revisar-reel.mjs <html>` (hoja de 20 cuadros + zona segura, letra, palabras, gancho; JSON en
   `produccion/estudio/revision/`). Todo reel nuevo parte de una plantilla y pasa la revisión antes de publicarse.
+- 🌧️ 20/10: **paquete día de lluvia** → reel 2 con `?v=lluvia&hoy=DD` (llueve sobre la tolva, "Con esta agua…",
+  reemplaza al común), historia/Estado `produccion/sintetico/historia-lluvia-mm.html` ("¿Cuántos mm te cayeron?",
+  `?v=wa` para WhatsApp) y generador del **parte de lluvias** `docs/lluvias/` (paraje + mm, sin nombres; sirve para
+  cada lluvia de la campaña). En el kit, sección "Día de lluvia".

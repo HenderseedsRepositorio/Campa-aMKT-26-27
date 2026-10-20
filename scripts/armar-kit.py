@@ -36,19 +36,22 @@ SEMANA = [
              ('Opciones', 'compartir en Facebook · ubicación Henderson · invitar a Nidera como colaborador · fijar en el perfil.'),
              ('Historia', 'compartirlo el mismo día con encuesta: "¿Ya medís la calidad de siembra?" Sí / Todavía no. A los "Todavía no", escribirles por DM.')],
       cap=CAP_R1),
- dict(id='r2', dia='Jue 22/10', hora='7–9 h o 20–22 h', fmt='Reel · 24 s',
-      video='2026-W43-reel-2-girasol-tolva.mp4', portada='2026-W43-reel-2-portada.jpg',
-      titulo='¿Ya tenés el girasol en la tolva?', obj='Arranca el girasol: ventana del oeste según marbete y qué girasol va en cada lote.',
-      pasos=[('Portada', 'subí la portada (botón de abajo).'),
-             ('Música', 'algo con más ritmo que el video 1, volumen bajo.'),
-             ('Ojo', 'el calendario marca "hoy" el 22/10: si se publica otro día, hay que cambiarlo.'),
-             ('Historia', 'encuesta: "¿Ya arrancaste con el girasol?" Sí / Esta semana / Todavía no.')],
-      cap='''¿Ya tenés el girasol en la tolva? 🌻
-En el oeste bonaerense la ventana óptima va del 15/10 al 15/11 (fecha límite 20/11), según los marbetes Nidera. Igual para los cuatro: NS 1113 CL, NS 1115 CL, NS 1117 CL y NS 1227 CL HO.
-Cada uno tiene su lugar: techo de rinde y aceite, la sanidad más completa, máximo rinde con Phomopsis 2 o alto oleico.
-Hay tiempo para sembrar bien. ¿Dudas de densidad o de qué girasol va en tu lote? Pedí tu recomendación por DM o escribinos 📲 wa.me/5492314530691
+ dict(id='r2', dia='Mié 21 o jue 22 · el día que llueva', hora='11–13 h', fmt='Reel · 24 s',
+      video='2026-W43-reel-2-lluvia-21.mp4', portada='2026-W43-reel-2-lluvia-portada.jpg',
+      titulo='Con esta agua, ¿ya tenés el girasol en la tolva?', obj='El reel del girasol con el gancho del día de lluvia: la gente está en casa y con el celular. Reemplaza al común: no se suben los dos.',
+      extra=[('Versión 22/10', '2026-W43-reel-2-lluvia-22.mp4'), ('Versión sin lluvia', '2026-W43-reel-2-girasol-tolva.mp4')],
+      pasos=[('Cuándo', 'el día que llueva, entre las 11 y las 13 h. El video marca "hoy" en el calendario: si llueve el miércoles va el de 21/10 (botón "Bajar video"); si es el jueves, el de 22/10. Si al final no llueve, el jueves va la versión sin lluvia.'),
+             ('Portada', 'subí la portada (botón de abajo).'),
+             ('Música', 'algo tranquilo, volumen bajo.'),
+             ('1er comentario', 'fijá uno propio: "¿Cuántos mm te cayeron? Contanos acá con el paraje 👇". Cada respuesta suma al parte de mañana.'),
+             ('Historia', 'compartí el reel y, aparte, la historia "¿Cuántos mm te cayeron?" (en Día de lluvia, arriba).')],
+      cap='''Con esta agua, ¿ya tenés el girasol en la tolva? 🌧️🌻
+En el oeste bonaerense la ventana óptima va del 15/10 al 15/11 (fecha límite 20/11), según los marbetes Nidera.
+Hay tiempo para sembrar bien: mejor esperar piso y humedad que apurarse. Una implantación despareja no se corrige después.
+Hoy que no se entra al lote, armemos tu girasol: NS 1113 CL, NS 1115 CL, NS 1117 CL o NS 1227 CL HO, según tu ambiente y lo que busques (rinde y aceite, sanidad, Phomopsis 2 o alto oleico).
+📩 Pedí tu recomendación por DM o escribinos 📲 wa.me/5492314530691
 
-#Henderseeds #Nidera #Girasol #NS1113CL #Siembra2627 #Henderson #Daireaux #Bolivar'''),
+#Henderseeds #Nidera #Girasol #Siembra2627 #Lluvia #Henderson #Daireaux #Bolivar'''),
  dict(id='r3', dia='Sáb 24/10', hora='8 h', fmt='Reel · 24 s · pauta desde lun 26',
       video='2026-W43-reel-3-cuantas-plantas.mp4', portada='2026-W43-reel-3-portada.jpg',
       titulo='¿Cuántas plantas lograste?', obj='Tutorial de conteo en 3 pasos que cierra con la planilla: cada comentario abre una conversación.',
@@ -85,6 +88,18 @@ Cuál va depende del lote, de las malezas que vengas peleando y de la presión d
 #Henderseeds #Nidera #MaizTardio #NS7765 #Siembra2627 #Henderson #Daireaux #Bolivar'''),
 ]
 
+# ── Día de lluvia: la historia que pide los mm y el parte del día siguiente ──
+LLUVIA = [
+ dict(id='ll1', dia='El día de lluvia', hora='cuando para de llover', fmt='Historia + Estado · 7 s',
+      video='2026-W43-historia-lluvia-mm.mp4', portada='2026-W43-historia-lluvia-mm.jpg',
+      titulo='¿Cuántos mm te cayeron?', obj='Abre conversaciones: cada respuesta es un DM con nombre, paraje y algo para charlar. Promete el parte de la zona para el otro día.',
+      extra=[('Versión WhatsApp', '2026-W43-historia-lluvia-mm-wa.mp4')],
+      pasos=[('Instagram', 'subí el video a la historia y poné la cajita de Preguntas debajo de la flecha, con el texto "mm y paraje".'),
+             ('WhatsApp', 'subí la versión WhatsApp a los Estados: las respuestas llegan como mensaje.'),
+             ('Respuestas', 'contestá cada una ("¡Gracias! Mañana sale el parte") y si el contacto no está en Salesforce, cargalo.'),
+             ('Al otro día', 'cargá los mm en el generador del parte (abajo) y subilo a la mañana.')]),
+]
+
 # ── Más opciones: se completa en BANCO (ver abajo) ──
 BANCO = []
 try:
@@ -116,7 +131,7 @@ def ficha(f, modo, publicado=True):
     chips = (f'<span class="chip dia">{e(f["dia"])}</span><span class="chip">{e(f["hora"])}</span>' if f.get('dia') else '') + f'<span class="chip">{e(f["fmt"])}</span>'
     marca = (f'<label class="hecho"><input type="checkbox" id="hecho-{f["id"]}"> Publicado</label>' if publicado else
              f'<label class="hecho elige"><input type="checkbox" id="elige-{f["id"]}" data-titulo="{e(f["titulo"])}"> Me la quedo</label>')
-    pre = f'<pre id="cap-{f["id"]}">{e(f["cap"])}</pre>'
+    pre = f'<pre id="cap-{f["id"]}">{e(f.get("cap", ""))}</pre>'
     if not publicado:   # en las opciones el caption va plegado: la ficha se lee de un vistazo
         pre = f'<details><summary>Ver caption</summary>{pre}</details>'
     cap = (f'<div class="cap">{pre}'
@@ -135,12 +150,18 @@ def ficha(f, modo, publicado=True):
 def armar(modo):
     t = open(os.path.join(RAIZ, 'scripts/lib/kit.html')).read()
     semana = ''.join(ficha(f, modo) for f in SEMANA)
+    gen = '../lluvias/' if modo == 'pages' else PAGES + 'lluvias/'
+    lluvia = ''.join(ficha(f, modo) for f in LLUVIA) + (
+        '<article class="ficha"><div class="top"><span class="chip dia">Al día siguiente</span><span class="chip">7–8 h</span><span class="chip">Historia + Estado</span></div>'
+        '<div><h3>Parte de lluvias de la zona</h3><p>Con los mm que te mandaron, por paraje y sin nombres. Se arma en el celular y se baja la imagen. '
+        'Sirve para cada lluvia de la campaña: si sale siempre, la gente lo espera.</p></div>'
+        f'<div class="acciones"><a class="btn" href="{gen}" target="_blank" rel="noopener">Abrir el generador</a></div></article>')
     banco = ''.join(f'<h3 class="grupo">{html.escape(g["grupo"])}</h3><p class="grupo-d">{g["desc"]}</p>' + ''.join(ficha(f, modo, publicado=False) for f in g['items']) for g in BANCO)
     planilla = '../recursos/planilla-conteo-plantas.jpg' if modo == 'pages' else uri(os.path.join(RAIZ, 'docs/recursos/out/planilla-conteo-plantas.jpg'), 900)
     bajar_pl = ('<a class="btn sec" href="../recursos/planilla-conteo-plantas.jpg" download>Bajar imagen</a>'
                 '<a class="btn sec" href="../recursos/planilla-conteo-plantas.pdf" download>Bajar PDF</a>') if modo == 'pages' else ''
     sitio = '' if modo == 'pages' else f'<p class="lead">Videos para bajar: <a href="{PAGES}kit/" target="_blank" rel="noopener">{PAGES}kit/</a></p>'
-    return (t.replace('<!--SEMANA-->', semana).replace('<!--BANCO-->', banco or '<p class="lead">—</p>')
+    return (t.replace('<!--SEMANA-->', semana).replace('<!--LLUVIA-->', lluvia).replace('<!--BANCO-->', banco or '<p class="lead">—</p>')
              .replace('{{PLANILLA}}', planilla).replace('<!--BAJAR_PLANILLA-->', bajar_pl).replace('<!--SITIO-->', sitio)
              .replace('{{CABEZA}}', '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">' if modo == 'pages' else '')
              .replace('{{CIERRE_HEAD}}', '</head><body>' if modo == 'pages' else '')

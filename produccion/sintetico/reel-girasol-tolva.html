@@ -9,7 +9,9 @@
   fecha límite y consejo → contacto.
   Datos: marbetes oficiales Nidera 26/27 (Oeste BA: óptima 15/10–15/11, límite 20/11) y
   contexto/productos-26-27.md (posicionamiento de los 4 girasoles).
-  Gancho sobreescribible por URL: ?g=línea1|línea2 (para probar títulos).
+  Gancho sobreescribible por URL: ?g=línea1|línea2 (para probar títulos). ?hoy=21 cambia el día marcado.
+  Versión día de lluvia: ?v=lluvia → llueve sobre la tolva, gancho "Con esta agua, ¿ya tenés el girasol
+  en la tolva?" y cierre "Hoy no se entra al lote: armemos tu girasol". Reemplaza a la común, no se suben las dos.
   Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
 -->
 <link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
@@ -25,7 +27,7 @@ html, body { background:#000; }
 .scene { position:absolute; inset:0; z-index:2; opacity:0; }
 .kick { position:absolute; left:80px; top:300px; font-family:var(--mono); font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--gris); display:flex; align-items:center; gap:14px; }
 .kick i { width:14px; height:14px; border-radius:50%; background:var(--orange); display:block; }
-.t { position:absolute; left:80px; width:850px; top:360px; font-family:var(--arch); font-size:104px; line-height:1.02; letter-spacing:-3.5px; color:var(--navy); white-space:nowrap; }
+.t { position:absolute; z-index:3; left:80px; width:850px; top:360px; font-family:var(--arch); font-size:104px; line-height:1.02; letter-spacing:-3.5px; color:var(--navy); white-space:nowrap; }
 .mk { position:relative; display:inline-block; z-index:0; }
 .mk::before { content:''; position:absolute; left:-8px; right:-8px; top:52%; height:44%; background:var(--orange); z-index:-1; transform-origin:0 50%; transform:scaleX(var(--k, 0)); border-radius:4px; }
 .sub { position:absolute; left:80px; width:800px; font-family:var(--sans); font-weight:500; font-size:40px; line-height:1.32; color:var(--gris); }
@@ -103,8 +105,9 @@ html, body { background:#000; }
 <script>
 /* ── Lo que se cambia seguido ── */
 var PARAM = new URLSearchParams(location.search);
-var GANCHO = PARAM.get('g') ? PARAM.get('g').split('|') : ['¿Ya tenés el girasol', 'en la tolva?'];   // la última palabra lleva el marcador
-var HOY = 22;   // día de octubre marcado como "hoy" (publicación jueves 22/10)
+var LLUVIA = PARAM.get('v') === 'lluvia';
+var GANCHO = PARAM.get('g') ? PARAM.get('g').split('|') : LLUVIA ? ['Con esta agua,', '¿ya tenés el girasol', 'en la tolva?'] : ['¿Ya tenés el girasol', 'en la tolva?'];   // la última palabra lleva el marcador
+var HOY = +(PARAM.get('hoy') || 22);   // día de octubre marcado como "hoy" (publicación jueves 22/10)
 var GIRASOLES = [
   ['NS 1113 CL', 'Techo de rinde y aceite'],
   ['NS 1115 CL', 'La sanidad más completa · Phomopsis 2'],
@@ -165,6 +168,16 @@ function aquenio(g) {
   return s;
 }
 var caen = [];
+/* ── Versión lluvia: gotas en diagonal que cruzan la escena y salpican en el piso ── */
+var gotas = [], salpicas = [], PISO = TY + TH + 150;
+if (LLUVIA) {
+  document.querySelector('#s1 .kick').innerHTML = '<i></i>Día de lluvia · Oeste bonaerense';
+  var lluvia = el('g', {}, tv);
+  for (var q = 0; q < 70; q++) gotas.push({ g: el('line', { x1: 0, y1: 0, x2: -14, y2: 62, stroke: 'rgba(13,45,94,' + (0.16 + rnd() * 0.22).toFixed(2) + ')', 'stroke-width': 3 + Math.round(rnd() * 2), 'stroke-linecap': 'round' }, lluvia),
+    x: rnd() * 1240 - 40, f: rnd(), v: 0.55 + rnd() * 0.35 });
+  for (var q2 = 0; q2 < 9; q2++) salpicas.push({ g: el('ellipse', { cx: 150 + q2 * 95 + rnd() * 40, cy: PISO, rx: 0, ry: 0, fill: 'none', stroke: 'rgba(13,45,94,0.35)', 'stroke-width': 3 }, lluvia), f: rnd() });
+  document.querySelector('#outro .q').innerHTML = 'Hoy no se entra<br>al lote: armemos<br>tu girasol.';
+}
 for (var i = 0; i < 26; i++) caen.push({ g: aquenio(tv), x: TX + (rnd() - 0.5) * 380, t0: 0.15 + i * 0.09 + rnd() * 0.12, rot: (rnd() - 0.5) * 160, spin: (rnd() - 0.5) * 300 });
 
 /* ── 2 · Calendario: lunes 12/10 a domingo 22/11 de 2026, en una sola grilla ── */
@@ -214,6 +227,9 @@ window.render = function (t) {
   var cx = -1500;
   [4.2, 10.4, 15.6, 20.0].forEach(function (b) { if (t > b - 0.38 && t < b + 0.38) cx = -1500 + eio(seg(t, b - 0.38, b + 0.38)) * (1500 + 1400); });
   document.getElementById('cortina').style.transform = 'translateX(' + cx + 'px) skewX(-8deg)';
+  // lluvia: cada gota cae de arriba al piso en ~0,6 s y vuelve a empezar (posición fija por cuadro)
+  gotas.forEach(function (d) { var u = ((t / d.v) + d.f) % 1, y = -80 + u * (PISO + 80); d.g.setAttribute('transform', 'translate(' + (d.x - u * 60) + ',' + y + ')'); d.g.setAttribute('opacity', t < 4.2 ? 1 : 0); });
+  salpicas.forEach(function (s) { var u = ((t / 0.7) + s.f) % 1; s.g.setAttribute('rx', 6 + u * 34); s.g.setAttribute('ry', 2 + u * 7); s.g.setAttribute('opacity', t < 4.2 ? (1 - u) : 0); });
   // 1 · semillas cayendo, la pila sube y el marcador pinta "tolva"
   var mk1 = document.getElementById('mk1'); if (mk1) mk1.style.setProperty('--k', eio(seg(t, 0.8, 1.5)));
   caen.forEach(function (c) {
