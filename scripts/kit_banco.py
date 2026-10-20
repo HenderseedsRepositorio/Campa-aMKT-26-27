@@ -1,112 +1,70 @@
-"""Más videos para el kit de publicación (scripts/armar-kit.py): alternativas y reels ya hechos que
-siguen vigentes en la semana del 20 al 31/10. Los videos viven en docs/placas/video/."""
-
-_R1 = '''{primera} 🌽🌻
-Con Experiencia Nidera, el equipo HenderSeeds te acompaña en cada etapa:
-— Antes de sembrar: híbrido y densidad para cada zona del lote, con la base de ensayos de Nidera.
-— Al sembrar: mapa de siembra variable para tu sembradora, con la recomendación Nidera o a medida.
-— Con el cultivo nacido: control de calidad de siembra con dron (Nidera Vuela).
-— Hasta la cosecha: recorridas e informe de cada visita.
-¿Querés que recorramos tu lote? Mandanos un DM o escribinos por WhatsApp 📲 wa.me/5492314530691
-
-#Henderseeds #Nidera #ExperienciaNidera #Maiz #Girasol #Henderson #Daireaux #Bolivar'''
+"""Opciones para el kit de publicación (scripts/armar-kit.py): 5 reels distintos entre sí (mensaje,
+formato y dibujo propios) para que Henderseeds elija. Nada de versiones que solo cambian el título.
+Los videos viven en docs/placas/video/; las fuentes de cada dato, en reels/2026-W44-5-opciones.md."""
 
 BANCO = [
- dict(grupo='El video 1 con otro título', desc='Mismo video y mismo cierre ("Pedí tu recorrida por DM"), con otra pregunta de arranque. Sirven para pauta (probar cuál engancha más) o para volver a publicarlo más adelante.', items=[
-   dict(id='b-v1', fmt='Reel · 31 s', video='2026-W43-video1-alt-te-acompana.mp4', portada='2026-W43-video1-alt-te-acompana-portada.jpg',
-        titulo='¿Quién te acompaña toda la campaña?', obj='Arranca con los 4 pasos que se ordenan en la línea de tiempo.',
-        cap=_R1.format(primera='¿Quién te acompaña toda la campaña?')),
-   dict(id='b-v2', fmt='Reel · 31 s', video='2026-W43-video1-alt-conoce-tu-lote.mp4', portada='2026-W43-video1-alt-conoce-tu-lote-portada.jpg',
-        titulo='¿Quién conoce tu lote tanto como vos?', obj='Pregunta y respuesta: "Nosotros. Antes, durante y después de sembrar."',
-        cap=_R1.format(primera='¿Quién conoce tu lote tanto como vos?')),
-   dict(id='b-v4', fmt='Reel corto · 23 s', video='2026-W43-video1-alt-corto.mp4', portada='2026-W43-video1-alt-corto-portada.jpg',
-        titulo='¿Sembrás solo o con equipo?', obj='Versión corta, la más ágil para pauta.',
-        cap=_R1.format(primera='¿Sembrás solo o con equipo?')),
-   dict(id='b-h1', fmt='Historia · 26 s', video='2026-W43-video1-historia.mp4', portada='2026-W43-video1-historia-portada.jpg',
-        titulo='¿Quién sigue de cerca tu lote? (historia)', obj='Versión para historias y Estados de WhatsApp, con lugar abajo para el sticker de enlace o de encuesta.',
-        nota='Subila como historia y poné un sticker de enlace a WhatsApp (wa.me/5492314530691) donde dice "Tocá el enlace".'),
- ]),
- dict(grupo='Reels ya hechos que siguen vigentes', desc='Se armaron para el plan de septiembre y nunca se publicaron. Revisados el 19/10: datos del marbete correctos y sin precios. Ninguno repite lo de los 4 de la semana.', items=[
-   dict(id='b-calc', fmt='Reel · 16 s', video='2026-W41-reel-calculadora.mp4', portada='2026-W41-reel-calculadora-portada.jpg',
-        titulo='¿Qué te queda de cada hectárea?', obj='Herramientas: la barra de la calculadora de márgenes, sin números. Buen candidato para el sábado 31/10.',
-        nota='El mismo día, historia con sticker de enlace a margen.henderseeds.com.',
-        cap='''¿Qué te queda de cada hectárea? 🌽🌻
+ dict(grupo='5 opciones para elegir', desc='Cinco reels distintos de verdad: otro mensaje, otro formato y otro dibujo cada uno. Mirá los videos, tildá los que te gusten y mandame la lista.', items=[
+   dict(id='op1', fmt='Reel · 24 s · técnica', video='2026-W44-opcion-1-verdadero-falso.mp4', portada='2026-W44-opcion-1-portada.jpg',
+        titulo='1 · ¿Verdadero o falso?', obj='Juego de 3 creencias de la siembra, con sello de respuesta. Pide comentarios ("¿cuántas acertaste?").',
+        cap='''¿Verdadero o falso? 3 cosas que se escuchan en la siembra 🌽🌻
 
-Alquiler, semilla e insumos, labores, cosecha, flete y comercialización: cada uno se lleva su parte y lo que sobra es tu margen. Si sube el alquiler o baja el precio, el reparto cambia.
+1. "Si una planta nace atrasada, después se empareja." Falso: queda dominada. En maíz, cuando parte de las plantas nace unos 10 días tarde, se pierde entre 6 y 9 % de rinde (Nafziger y col., 1991, citado por INTA).
+2. "En el oeste bonaerense, el girasol se puede sembrar hasta el 20/11." Verdadero: es la fecha límite del marbete Nidera. La óptima va del 15/10 al 15/11.
+3. "Más semillas por metro, siempre más rinde." Falso: la densidad se ajusta a cada ambiente.
 
-Cargá tus números en la calculadora de márgenes y mirá cómo se compone tu hectárea, cultivo por cultivo.
+¿Cuántas acertaste? Contalo en los comentarios 👇
+¿Dudas con tu lote? Mandanos un DM o escribinos 📲 wa.me/5492314530691
 
-📲 margen.henderseeds.com (link en la bio) · gratis y sin registro
-📩 ¿La hacemos juntos? Mandanos tus números por DM o al WhatsApp 2314 53-0691.
+#Henderseeds #Nidera #Siembra2627 #Maiz #Girasol #Henderson #Daireaux #Bolivar'''),
+   dict(id='op2', fmt='Reel · 24 s · maíz tardío', video='2026-W44-opcion-2-chicharrita.mp4', portada='2026-W44-opcion-2-portada.jpg',
+        titulo='2 · ¿Sembrás maíz tardío? Mirá la chicharrita', obj='Una lupa sobre la chicharrita, la trampa amarilla y la escala de Spiroplasma del marbete (NS 7925: 3).',
+        cap='''¿Sembrás maíz tardío? Mirá la chicharrita primero. 🌽🔍
 
-#Henderseeds #MargenesAgricolas #Maiz2627 #Girasol2627 #Herramientas #Henderson #Daireaux #Bolivar'''),
-   dict(id='b-calc-h', fmt='Historia · 9,5 s', video='2026-W41-calculadora-maiz-girasol-historia.mp4', portada='2026-W41-calculadora-maiz-girasol-historia-portada.jpg',
-        titulo='¿Maíz o girasol? (historia)', obj='Historia con la pregunta del margen. El plan de 9 semanas la ponía el lunes 26/10.',
-        nota='Sticker de enlace a margen.henderseeds.com.'),
-   dict(id='b-wa', fmt='Reel · 14 s', video='2026-W40-reel-whatsapp-lote.mp4', portada='2026-W40-reel-whatsapp-lote-portada.jpg',
-        titulo='¿Qué híbrido de girasol va en tu lote?', obj='Un chat de ejemplo y los 3 datos que hay que mandar. Sirve mientras quede girasol por sembrar (hasta el 15/11).',
-        cap='''¿Qué híbrido de girasol va en tu lote? 🌻 Te lo decimos por WhatsApp.
+La chicharrita (Dalbulus maidis) transmite el Spiroplasma, que causa el achaparramiento del maíz. Antes de definir:
+1. Seguí el monitoreo de tu zona: las trampas amarillas muestran si anda cerca.
+2. Elegí por Spiroplasma: en el marbete la escala va de 1 (excelente) a 9 (deficiente). NS 7925 VIPTERA3 tiene 3, el mejor del portafolio.
+3. Contanos tu lote: con la fecha de siembra y el ambiente vemos qué híbrido va.
 
-Mandanos 3 datos:
-1. Dónde está el lote
-2. Qué tuvo antes
-3. Qué problemas tuvo (enfermedades, malezas)
+Mandanos un DM o escribinos 📲 wa.me/5492314530691
 
-Te respondemos con qué híbrido va y por qué, con el marbete Nidera en la mano. Y si querés, la cotización en menos de 24 h.
+#Henderseeds #Nidera #MaizTardio #Chicharrita #NS7925 #Henderson #Daireaux #Bolivar'''),
+   dict(id='op3', fmt='Reel · 24 s · técnica', video='2026-W44-opcion-3-semillas-por-metro.mp4', portada='2026-W44-opcion-3-portada.jpg',
+        titulo='3 · ¿Cuántas semillas por metro?', obj='La sembradora vista de costado: caen las semillas sobre una regla de 1 m y se arma la cuenta. Para guardar.',
+        cap='''¿Cuántas semillas por metro? La cuenta antes de largar la sembradora. 🌻🌽
 
-📲 WhatsApp 2314 53-0691 · o por DM.
+1. Las plantas que querés por hectárea ÷ el logro que esperás = semillas por hectárea.
+2. × la distancia entre surcos (en metros) ÷ 10.000 = semillas por metro.
 
-(El chat del video es un ejemplo.)
+Ejemplos, no son recomendación: girasol a 50.000 pl/ha, 90 % de logro y surcos a 52,5 cm → 2,9 semillas por metro. Maíz a 70.000 pl/ha, 90 % y 52,5 cm → 4,1.
 
-#Henderseeds #Nidera #Girasol2627 #GirasolCL #Siembra2627 #Henderson #Daireaux #Bolivar'''),
-   dict(id='b-ph', fmt='Reel · 16 s', video='2026-W41-reel-girasol-phomopsis.mp4', portada='2026-W41-reel-girasol-phomopsis-portada.jpg',
-        titulo='¿Rinde o sanidad?', obj='Girasol: NS 1113 CL para techo de rinde o NS 1115 / 1117 CL (Phomopsis 2) para el lote con historia de enfermedad. Para quien todavía no sembró.',
-        nota='El mismo día, historia con encuesta: "¿Qué priorizás en tu girasol?" Rinde / Sanidad. Respondé por DM a cada voto.',
-        cap='''¿Rinde o sanidad? Así se elige el girasol para cada lote. 🌻
+Antes de largar, contá lo que cae en 10 m de surco, dividilo por 10 y comparalo con tu cuenta. La densidad y el logro de tu lote se definen por ambiente: si querés, lo vemos juntos.
 
-Si buscás techo de rinde: NS 1113 CL, +2,11 qq/ha sobre el promedio de cada sitio de ensayo (74% de éxito, 225 comparaciones, Sur+Oeste).
+📌 Guardalo para la próxima siembra. Mandanos un DM o escribinos 📲 wa.me/5492314530691
 
-Si el lote tiene historia de Phomopsis: priorizá sanidad. NS 1115 CL y NS 1117 CL tienen Phomopsis 2 en el marbete (escala 1 a 9, 1 = excelente): el mejor puntaje del portafolio.
+#Henderseeds #Nidera #Siembra2627 #Girasol #Maiz #Densidad #Henderson #Bolivar'''),
+   dict(id='op4', fmt='Reel · 22 s · finanzas', video='2026-W44-opcion-4-pesos-o-dolares.mp4', portada='2026-W44-opcion-4-portada.jpg',
+        titulo='4 · ¿Pesos o dólares?', obj='Una balanza que duda entre pesos y dólares mientras caen tasa, plazo y devaluación. Lleva a la herramienta financiera. Sin números.',
+        nota='El mismo día, historia con sticker de enlace a la herramienta pesos vs. dólares (contexto/herramientas.md, punto 2).',
+        cap='''¿Financiás la campaña en pesos o en dólares? ⚖️
 
-📩 Contanos cómo es tu lote por DM o al WhatsApp 2314 53-0691 y te decimos cuál va.
+Depende de tres cosas que cambian con cada operación: la tasa, el plazo y la devaluación que esperás. La respuesta no es la misma para todos.
 
-#Henderseeds #Nidera #Girasol2627 #Phomopsis #GirasolCL #Henderson #Daireaux #Bolivar'''),
-   dict(id='b-1113', fmt='Reel · 16 s', video='2026-W40-reel-ns1113.mp4', portada='2026-W40-reel-ns1113-portada.jpg',
-        titulo='NS 1113 CL: ¿cuánto es en tu campo?', obj='Girasol: el dato del marbete llevado a la cuenta del productor (en girasol sí se muestran números de ensayo).',
-        cap='''NS 1113 CL: +2,11 qq/ha por encima del promedio de cada ensayo. ¿Cuánto es en tu campo? 🌻
+Con la herramienta de HenderSeeds comparás el costo real en dólares de cada opción, con tus números. Link en la bio.
 
-Es la diferencia de rinde contra el promedio de cada sitio de ensayo en la región Sur+Oeste: 225 comparaciones, 74% de éxito, diferencia significativa (marbete Nidera 26/27).
+¿Lo hacemos juntos antes de firmar? Mandanos un DM o escribinos 📲 wa.me/5492314530691
 
-Hacé la cuenta: en 100 ha son 211 qq más, si se repite el promedio de los ensayos. No es promesa de rinde: el ambiente y el manejo mandan.
+#Henderseeds #Finanzas #Campaña2627 #Herramientas #Agro #Henderson #Daireaux #Bolivar'''),
+   dict(id='op5', fmt='Reel · 25 s · oferta', video='2026-W44-opcion-5-granizo.mp4', portada='2026-W44-opcion-5-portada.jpg',
+        titulo='5 · ¿Y si graniza después de sembrar?', obj='Tormenta sobre el lote y 3 pasos antes de resembrar; cierra con el seguro de resiembra de Nidera (paso 4 del Plan de Campaña).',
+        cap='''¿Y si graniza después de sembrar? ⛈️🌽
 
-📩 ¿Te queda girasol por sembrar? Escribinos por DM o al WhatsApp 2314 53-0691. Cotización en menos de 24 h.
+Antes de resembrar, 3 pasos:
+1. Esperá unos días. Hasta V5–V6 el punto de crecimiento del maíz está bajo tierra: muchas plantas rebrotan (R. L. Nielsen, Universidad de Purdue).
+2. Contá las plantas que quedaron. La resiembra se decide con números, no a ojo. Pedinos la planilla de conteo.
+3. Preguntanos por el seguro de resiembra de Nidera, ante granizo o encharcamiento.
 
-#Henderseeds #Nidera #NS1113CL #Girasol2627 #GirasolCL #Henderson #Daireaux #Bolivar'''),
-   dict(id='b-7925', fmt='Reel · 14,5 s', video='2026-W41-reel-ns7925.mp4', portada='2026-W41-reel-ns7925-portada.jpg',
-        titulo='Maíz para diciembre: NS 7925 VIPTERA3', obj='Tardío: la planta crece y aparecen sus fichas del marbete, sin números de ensayo. Se superpone con el video 4: usalo en otra semana o como anuncio.',
-        cap='''Maíz para diciembre: NS 7925 VIPTERA3. 🌽
+¿Te agarró la piedra? Mandanos un DM o escribinos 📲 wa.me/5492314530691
 
-Lanzamiento Nidera 26/27, posicionado para siembras tardías:
-• Viptera 3: control de lepidópteros.
-• Spiroplasma 3: el mejor puntaje del portafolio de maíz (escala del marbete: 1 excelente, 9 deficiente).
-• Roya 2 · Green Snap 2 · Quebrado 2.
-• Madurez relativa 119, grano semidentado.
-
-El híbrido suma; el monitoreo y el manejo siguen siendo la base.
-
-📩 ¿Lo sembrás en diciembre? Escribinos por DM o al WhatsApp 2314 53-0691.
-
-#Henderseeds #Nidera #Maiz2627 #MaizTardio #VIPTERA3 #NS7925 #Henderson #Daireaux'''),
-   dict(id='b-aca', fmt='Reel corto · 10 s', video='2026-W40-somos-de-aca-reel.mp4', portada='2026-W40-somos-de-aca-reel-portada.jpg',
-        titulo='Somos de acá', obj='Institucional: el mapa de Henderson, Daireaux y Bolívar. Sirve para historias o para presentarnos en la pauta.',
-        cap='''Somos de acá. 📍
-
-Henderson, Daireaux y Bolívar: recorremos los lotes de la zona, posicionamos cada híbrido según el ambiente y después de la siembra volvemos a ver cómo quedó la implantación.
-
-Distribuidor oficial RED.IN de Nidera Semillas. Más de 100 productores y más de 30.000 hectáreas bajo plan en la 25/26. Cotización en menos de 24 horas.
-
-📩 Pasá por la oficina en Henderson o mandanos un DM.
-
-#Henderseeds #Nidera #REDIN #Henderson #Daireaux #Bolivar #OesteBonaerense #Agro'''),
+#Henderseeds #Nidera #Granizo #Maiz #Siembra2627 #Henderson #Daireaux #Bolivar'''),
  ]),
 ]

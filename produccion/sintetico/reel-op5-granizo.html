@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · ¿Y si graniza después de sembrar?</title>
+<!--
+  OPCIÓN 5 · Estilo: TORMENTA. Cielo de tormenta en capas (canvas), relámpago suave, granizo
+  determinístico en diagonal sobre una hilera de plantitas de maíz vistas de costado; algunas hojas
+  se rompen. Después el cielo se abre (azul grisáceo) y aparecen los 3 pasos.
+  Datos (solo estos):
+   · Punto de crecimiento del maíz bajo la superficie hasta aprox. V5–V6 → el granizo temprano suele
+     permitir rebrote. Fuente: R. L. Nielsen, Purdue University (Corny News).
+   · Nidera tiene un seguro de resiembra ante granizo o encharcamiento (sin condiciones ni montos).
+  Sin cifras de pérdida ni números de ensayo (regla de maíz del 25/09).
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --navy2:#0D2D5E; --amber:#F5A623; --crema:#F6F4EE; --acero:#8FA0BE; --hielo:#E8EEF7; --tinta:#15181E;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:#0A0F1B; }
+#cv { position:absolute; left:0; top:0; width:1080px; height:1920px; z-index:0; }
+.scene { position:absolute; inset:0; z-index:2; opacity:0; }
+.scene > * { position:absolute; left:80px; }
+.kick { font-family:var(--mono); font-size:26px; letter-spacing:4px; color:rgba(232,238,247,0.85); text-transform:uppercase; text-shadow:0 2px 14px rgba(0,0,0,0.7); }
+.tit { width:850px; font-family:var(--arch); color:#FFFFFF; line-height:1.0; letter-spacing:-3px; white-space:nowrap; text-shadow:0 4px 30px rgba(0,0,0,0.6); }
+.tit .n { color:var(--amber); }
+.card { width:850px; background:rgba(10,15,27,0.62); border:1px solid rgba(232,238,247,0.16); border-radius:18px; padding:26px 32px 28px; }
+.txt { font-family:var(--sans); font-weight:500; font-size:40px; line-height:1.32; color:var(--hielo); }
+.txt b { color:#FFFFFF; font-weight:700; }
+.src { font-family:var(--mono); font-size:24px; letter-spacing:1px; color:rgba(232,238,247,0.75); margin-top:16px; }
+.lab { font-family:var(--mono); font-size:26px; letter-spacing:2px; line-height:1.3; color:var(--hielo); text-transform:uppercase; text-shadow:0 2px 10px rgba(0,0,0,0.8); }
+.lab.chico { font-size:22px; color:rgba(232,238,247,0.7); }
+.pasos { display:flex; gap:34px; }
+.pasos div { width:112px; height:112px; border-radius:50%; background:var(--amber); color:#0A0F1B; font-family:var(--arch); font-size:60px; display:grid; place-items:center; box-shadow:0 10px 30px rgba(0,0,0,0.35); }
+.rot { display:flex; align-items:center; gap:18px; font-family:var(--mono); font-size:28px; letter-spacing:2px; color:var(--hielo); text-transform:uppercase; background:rgba(10,15,27,0.62); border:2px solid rgba(232,238,247,0.55); border-radius:999px; padding:18px 30px 18px 24px; }
+.iconos { display:flex; align-items:center; gap:30px; }
+.ico { width:250px; height:210px; border-radius:18px; background:rgba(10,15,27,0.55); border:1px solid rgba(232,238,247,0.16); display:grid; place-items:center; }
+.iconos .o { font-family:var(--sans); font-weight:700; font-size:40px; color:var(--hielo); }
+.outro { position:absolute; inset:0; z-index:40; opacity:0; }
+.outro .col { position:absolute; left:80px; top:470px; width:850px; display:flex; flex-direction:column; align-items:flex-start; }
+.outro .q { font-family:var(--arch); font-size:104px; line-height:0.98; letter-spacing:-3.5px; color:#FFFFFF; margin-top:22px; text-shadow:0 4px 30px rgba(0,0,0,0.5); }
+.outro .q span { color:var(--hielo); }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:44px; color:#0A0A0A; background:var(--amber); border-radius:10px; padding:24px 40px; margin-top:54px; box-shadow:0 14px 34px rgba(0,0,0,0.35); }
+.outro .wa { display:flex; align-items:center; gap:14px; margin-top:30px; font-family:var(--mono); font-size:32px; color:var(--hielo); background:rgba(10,15,27,0.5); border-radius:999px; padding:12px 26px 12px 18px; }
+.outro img.hs { height:90px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="cv" width="1080" height="1920"></canvas>
+
+  <div class="scene" id="s1">
+    <div class="kick" style="top:262px">Maíz · Siembra 26/27</div>
+    <div class="tit fit" id="hook" style="top:318px; font-size:104px">¿Y si graniza<br>después de<br>sembrar?</div>
+  </div>
+
+  <div class="scene" id="s2">
+    <div class="tit fit" style="top:360px; font-size:100px">Antes de<br>resembrar,<br>3 pasos:</div>
+    <div class="pasos" id="pasos" style="top:720px"><div>1</div><div>2</div><div>3</div></div>
+  </div>
+
+  <div class="scene" id="s3">
+    <div class="tit fit" style="top:300px; font-size:96px"><span class="n">1 ·</span> Esperá<br>unos días.</div>
+    <div class="card" data-d="0.45" style="top:520px">
+      <div class="txt">Hasta <b>V5–V6</b> el punto de crecimiento del maíz está <b>bajo tierra</b>: muchas plantas rebrotan.</div>
+      <div class="src">Fuente: R. L. Nielsen · Universidad de Purdue</div>
+    </div>
+    <div class="lab" data-d="1.0" style="left:650px; top:1196px">Punto de<br>crecimiento</div>
+    <div class="lab chico" data-d="1.0" style="left:84px; top:1140px">Superficie</div>
+  </div>
+
+  <div class="scene" id="s4">
+    <div class="tit fit" style="top:300px; font-size:92px"><span class="n">2 ·</span> Contá las<br>plantas que<br>quedaron.</div>
+    <div class="card" data-d="0.45" style="top:600px">
+      <div class="txt">La resiembra se decide<br><b>con números</b>, no a ojo.</div>
+    </div>
+    <div class="rot" data-d="0.9" style="top:800px"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#E8EEF7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M8.5 12.5h7M8.5 16h7"/></svg>Pedinos la planilla de conteo</div>
+  </div>
+
+  <div class="scene" id="s5">
+    <div class="tit fit" style="top:300px; font-size:80px"><span class="n">3 ·</span> Preguntanos<br>por el seguro<br>de resiembra<br>de Nidera.</div>
+    <div class="card" data-d="0.45" style="top:660px">
+      <div class="txt">Ante <b>granizo</b> o <b>encharcamiento</b>.</div>
+    </div>
+    <div class="iconos" data-d="0.8" style="top:820px">
+      <div class="ico"><svg viewBox="0 0 200 160" width="200" height="160" fill="none" stroke="#E8EEF7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M52 92h96a26 26 0 0 0 0-52 38 38 0 0 0-72-6 28 28 0 0 0-24 58z"/><g id="icoG" fill="#E8EEF7" stroke="none"><circle cx="70" cy="112" r="6"/><circle cx="100" cy="120" r="6"/><circle cx="130" cy="110" r="6"/><circle cx="85" cy="140" r="6"/><circle cx="118" cy="142" r="6"/></g></svg></div>
+      <div class="o">o</div>
+      <div class="ico"><svg viewBox="0 0 200 160" width="200" height="160" fill="none" stroke="#E8EEF7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M100 104V58"/><path d="M100 84c-10-14-30-18-42-14 10 2 26 8 42 22"/><path d="M100 72c10-14 28-20 42-16-10 2-26 8-42 22"/><path d="M100 60c-2-14 2-26 8-34"/><g id="icoW"><path d="M10 112q15-10 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0"/><path d="M10 134q15-10 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0" opacity="0.6"/></g></svg></div>
+    </div>
+  </div>
+
+  <div class="outro" id="outro">
+    <div class="col">
+      <div class="kick">Henderson · Daireaux · Bolívar</div>
+      <div class="q">¿Te agarró<br>la piedra?<br><span>Escribinos.</span></div>
+      <div class="dm"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Mandanos un DM</div>
+      <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+      <img class="hs" src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds">
+    </div>
+  </div>
+</div>
+<script>
+// ---------- helpers ----------
+var W = 1080, H = 1920;
+var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function back(v) { v = clamp(v); var c = 1.5; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+function mix(a, b, k) { return a + (b - a) * k; }
+function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var r = Math.imul(seed ^ seed >>> 15, 1 | seed); r = r + Math.imul(r ^ r >>> 7, 61 | r) ^ r; return ((r ^ r >>> 14) >>> 0) / 4294967296; }; }
+var HEX = {};
+function rgb(h) { if (!HEX[h]) HEX[h] = [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)]; return HEX[h]; }
+function mixc(a, b, k, al) { var A = rgb(a), B = rgb(b); return 'rgba(' + Math.round(mix(A[0], B[0], k)) + ',' + Math.round(mix(A[1], B[1], k)) + ',' + Math.round(mix(A[2], B[2], k)) + ',' + (al == null ? 1 : al) + ')'; }
+function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); while (n.scrollWidth > n.clientWidth + 1 && fs > min) { fs -= 2; n.style.fontSize = fs + 'px'; } }
+var FIT = [].slice.call(document.querySelectorAll('.fit')).map(function (n) { return [n, n.style.fontSize]; });
+window.reajustar = function () { FIT.forEach(function (f) { f[0].style.fontSize = f[1]; ajustar(f[0], 60); }); };
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+// ---------- línea de tiempo ----------
+var ESC = [['s1', 0, 4.2], ['s2', 4.2, 7.0], ['s3', 7.0, 12.4], ['s4', 12.4, 16.8], ['s5', 16.8, 21.0]];
+var T_OUT = 21.0, TOTAL = 25.0;
+window.REEL_DURACION = TOTAL;
+function tormenta(t) { return 1 - eio(seg(t, 4.4, 7.2)); }          // 1 = tormenta, 0 = cielo abierto
+function granizoI(t) { return t < 4.3 ? 1 : 1 - seg(t, 4.3, 5.4); }   // intensidad con que nace el granizo
+function spike(t, a, d) { var u = (t - a) / d; if (u < 0 || u > 1) return 0; return (u < 0.06 ? u / 0.06 : 1) * Math.pow(1 - u, 2); }
+function rayo(t) { return 0.95 * spike(t, 1.45, 0.20) + 0.75 * spike(t, 1.70, 0.38) + 0.5 * spike(t, 3.35, 0.42); }
+function zoom(t) { return eio(seg(t, 7.0, 7.8)) - eio(seg(t, 12.25, 13.0)); }
+function sueloY(t) { return mix(1480, 1180, zoom(t)); }
+
+// ---------- nubes: 3 capas pre-dibujadas (oscura + iluminada) que se desplazan ----------
+var LW = 2160, LH = 1300;
+function capa(seed, n, y0, y1, r0, r1, techo, base, luz, al) {
+  var r = rng(seed), P = [];
+  for (var i = 0; i < n; i++) P.push([r() * LW, y0 + Math.pow(r(), 0.8) * (y1 - y0), r0 + r() * (r1 - r0)]);
+  var PAD = 80;
+  // silueta de la capa (unión de bollos) + sombreado vertical + relieve suave en las cimas
+  function pinta(cb, cl, ch) {
+    var c = document.createElement('canvas'); c.width = LW + 2 * PAD; c.height = LH; var x = c.getContext('2d');
+    x.translate(PAD, 0);
+    if (techo > 0) { var g = x.createLinearGradient(0, 0, 0, techo + 160); g.addColorStop(0, cb); g.addColorStop(techo / (techo + 160), cb); g.addColorStop(1, mixc(base, base, 0, 0)); x.fillStyle = g; x.fillRect(-PAD, 0, LW + 2 * PAD, techo + 160); }
+    function cada(fn) { P.forEach(function (p) { [-LW, 0, LW].forEach(function (dx) { var cx = p[0] + dx; if (cx < -PAD - p[2] * 1.3 || cx > LW + PAD + p[2] * 1.3) return; fn(cx, p[1], p[2]); }); }); }
+    cada(function (cx, cy, pr) {
+      var g = x.createRadialGradient(cx, cy, 0, cx, cy, pr * 1.1);
+      g.addColorStop(0, cb); g.addColorStop(0.72, cb); g.addColorStop(1, mixc(base, base, 0, 0));
+      x.fillStyle = g; x.beginPath(); x.arc(cx, cy, pr * 1.1, 0, 6.2832); x.fill();
+    });
+    x.globalCompositeOperation = 'source-atop';
+    var vg = x.createLinearGradient(0, Math.max(0, y0 - 160), 0, y1 + 160);
+    vg.addColorStop(0, cl); vg.addColorStop(0.5, cb); vg.addColorStop(1, ch);
+    x.globalAlpha = 0.9; x.fillStyle = vg; x.fillRect(-PAD, 0, LW + 2 * PAD, LH);
+    x.globalAlpha = 0.42;
+    cada(function (cx, cy, pr) {
+      var g = x.createRadialGradient(cx, cy - pr * 0.45, 0, cx, cy - pr * 0.45, pr * 0.8);
+      g.addColorStop(0, cl); g.addColorStop(1, mixc(base, base, 0, 0));
+      x.fillStyle = g; x.beginPath(); x.arc(cx, cy - pr * 0.45, pr * 0.8, 0, 6.2832); x.fill();
+    });
+    var d = document.createElement('canvas'); d.width = LW; d.height = LH; var y = d.getContext('2d');
+    y.filter = 'blur(6px)'; y.globalAlpha = al; y.drawImage(c, -PAD, 0);
+    return d;
+  }
+  return { osc: pinta(base, mixc(base, '#7F90B4', 0.40), mixc(base, '#000000', 0.45)),
+           luz: pinta(luz, mixc(luz, '#DCE5F5', 0.45), mixc(luz, '#000000', 0.25)) };
+}
+var NUB = [
+  { c: capa(11, 90, 80, 640, 130, 260, 220, '#1B2640', '#5A6C94', 1), v: 10, x0: 300, sube: 420 },
+  { c: capa(23, 70, 420, 900, 100, 210, 0, '#121A2B', '#44547A', 1), v: 22, x0: 900, sube: 560 },
+  { c: capa(37, 44, 860, 1040, 70, 140, 0, '#0B111C', '#2E3B54', 0.9), v: 44, x0: 1500, sube: 760 }
+];
+function dibNube(n, t, aOsc, aLuz) {
+  var off = ((n.x0 + n.v * t) % LW + LW) % LW, dy = -n.sube * (1 - tormenta(t));
+  [n.c.osc, n.c.luz].forEach(function (img, i) {
+    var a = i ? aLuz : aOsc; if (a <= 0.003) return;
+    ctx.globalAlpha = Math.min(1, a);
+    ctx.drawImage(img, -off, dy); ctx.drawImage(img, LW - off, dy);
+  });
+  ctx.globalAlpha = 1;
+}
+
+// ---------- relámpago lejano (solo en el primer destello) ----------
+var BOLT = (function () { var r = rng(5), p = [[820, 150]], x = 820, y = 150; while (y < 780) { y += 40 + r() * 50; x += (r() - 0.62) * 70; p.push([x, y]); } return p; })();
+
+// ---------- granizo ----------
+var RANGO = 2400, PEND = -0.36, HAIL = [];
+(function () { var r = rng(20261019); for (var i = 0; i < 180; i++) { var cerca = r() < 0.38; HAIL.push({ x0: r() * 1800, y0: r() * RANGO, v: cerca ? 1750 + r() * 600 : 1150 + r() * 400, r: cerca ? 5.5 + r() * 5 : 2.4 + r() * 2.4, cerca: cerca, thr: r() * 0.999, dep: r() * 40 }); } })();
+var DIRL = Math.hypot(PEND, 1), DX = PEND / DIRL, DY = 1 / DIRL;
+function dibGranizo(t, gy, cerca) {
+  if (t > 7.2) return;
+  HAIL.forEach(function (h) {
+    if (h.cerca !== cerca) return;
+    var p = h.y0 + h.v * t, k = Math.floor(p / RANGO), y = p - k * RANGO - 300, ts = (k * RANGO - h.y0) / h.v;
+    if (granizoI(ts) <= h.thr) return;
+    var lim = cerca ? gy + h.dep : gy - 2;
+    if (y > lim) {   // rebote corto: piedra, no lluvia
+      if (!cerca) return;
+      var tb = (y - lim) / h.v; if (tb > 0.34) return;
+      var xb = h.x0 + PEND * (lim + 300) + PEND * 260 * tb, yb = lim - (500 * tb - 1450 * tb * tb);
+      ctx.fillStyle = '#F2F6FC'; ctx.beginPath(); ctx.arc(xb, yb, h.r * 0.85, 0, 6.2832); ctx.fill(); return;
+    }
+    var x = h.x0 + PEND * (y + 300), L = h.r * 4.2;
+    ctx.strokeStyle = cerca ? 'rgba(232,238,247,0.28)' : 'rgba(232,238,247,0.16)'; ctx.lineWidth = h.r * 1.1; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(x - DX * L, y - DY * L); ctx.lineTo(x, y); ctx.stroke();
+    ctx.fillStyle = cerca ? '#F2F6FC' : 'rgba(232,238,247,0.6)';
+    ctx.beginPath(); ctx.arc(x, y, h.r, 0, 6.2832); ctx.fill();
+  });
+}
+var PIEDRAS = [];
+(function () { var r = rng(77); for (var i = 0; i < 95; i++) PIEDRAS.push({ x: r() * 1080, dy: 3 + r() * 36, r: 2.6 + r() * 3.6, ta: 0.25 + r() * 4.6 }); })();
+function dibPiedras(t, gy) {
+  var m = 1 - seg(t, 5.6, 8.6); if (m <= 0) return;
+  PIEDRAS.forEach(function (p) {
+    var k = back(seg(t, p.ta, p.ta + 0.2)); if (k <= 0) return;
+    ctx.fillStyle = 'rgba(240,245,252,' + (0.85 * m) + ')';
+    ctx.beginPath(); ctx.ellipse(p.x, gy + p.dy, p.r * k * (0.6 + 0.4 * m), p.r * 0.8 * k * (0.6 + 0.4 * m), 0, 0, 6.2832); ctx.fill();
+  });
+}
+
+// ---------- plántulas de maíz de costado ----------
+function mkPlanta(x, h, seed, dmg, snap) {
+  var r = rng(seed), j = function (a) { return 1 + (r() - 0.5) * a; }, s = r() < 0.5 ? -1 : 1;
+  return { x: x, h: h, sh: 0.40 * h, side: s, ph: r() * 6.28, dmg: dmg || {}, snap: snap || null,
+    hojas: [
+      { at: 0.10, side: -s, len: 0.60 * h * j(0.15), w: 0.085 * h, ang: 1.10 * j(0.15), curl: 1.05 * j(0.2) },
+      { at: 0.45, side: s, len: 0.70 * h * j(0.15), w: 0.090 * h, ang: 0.78 * j(0.15), curl: 1.20 * j(0.2) },
+      { at: 0.80, side: -s, len: 0.58 * h * j(0.15), w: 0.080 * h, ang: 0.42 * j(0.2), curl: 1.10 * j(0.2) },
+      { at: 1.00, side: s, len: 0.40 * h * j(0.10), w: 0.065 * h, ang: 0.07, curl: 0.35 }
+    ],
+    nuevas: [
+      { at: 1.0, side: -s, len: 0.52 * h, w: 0.085 * h, ang: 0.34, curl: 0.95 },
+      { at: 1.0, side: s, len: 0.46 * h, w: 0.080 * h, ang: 0.24, curl: 0.85 },
+      { at: 1.0, side: -s, len: 0.34 * h, w: 0.062 * h, ang: 0.04, curl: 0.30 }
+    ] };
+}
+function linea(len, side, ang, curl, kink, fold) {
+  var N = 24, P = [[0, 0]], x = 0, y = 0;
+  for (var i = 0; i < N; i++) { var s = (i + 0.5) / N, th = ang + curl * s; if (kink != null && s > kink) th += fold; x += side * Math.sin(th) * len / N; y -= Math.cos(th) * len / N; P.push([x, y]); }
+  return P;
+}
+function ptAt(P, s) { var f = s * (P.length - 1), i = Math.min(P.length - 2, Math.floor(f)), u = f - i; return [mix(P[i][0], P[i + 1][0], u), mix(P[i][1], P[i + 1][1], u)]; }
+function tgAt(P, s) { var f = s * (P.length - 1), i = Math.min(P.length - 2, Math.floor(f)), dx = P[i + 1][0] - P[i][0], dy = P[i + 1][1] - P[i][1], d = Math.hypot(dx, dy) || 1; return [dx / d, dy / d]; }
+function ancho(s, w) { return w * Math.pow(Math.max(0, Math.sin(Math.PI * (0.18 + 0.82 * s))), 0.7); }
+function zig(p1, p2, tg, j) { for (var k = 1; k < 5; k++) { var u = k / 5, o = (k % 2 ? 1 : -1) * j; ctx.lineTo(mix(p1[0], p2[0], u) + tg[0] * o, mix(p1[1], p2[1], u) + tg[1] * o); } }
+function hojaPath(P, w, a, b, jag) {
+  var n = Math.max(3, Math.ceil((b - a) * 24)), L = [], R = [];
+  for (var i = 0; i <= n; i++) { var s = a + (b - a) * i / n, p = ptAt(P, s), tg = tgAt(P, s), hw = ancho(s, w) / 2; L.push([p[0] - tg[1] * hw, p[1] + tg[0] * hw]); R.push([p[0] + tg[1] * hw, p[1] - tg[0] * hw]); }
+  ctx.beginPath(); ctx.moveTo(L[0][0], L[0][1]);
+  for (i = 1; i <= n; i++) ctx.lineTo(L[i][0], L[i][1]);
+  if (b < 1) zig(L[n], R[n], tgAt(P, b), jag);
+  for (i = n; i >= 0; i--) ctx.lineTo(R[i][0], R[i][1]);
+  if (a > 0) zig(R[0], L[0], tgAt(P, a), jag);
+  ctx.closePath(); ctx.fill();
+  // nervadura
+  ctx.beginPath(); for (i = 0; i <= n; i++) { var q = ptAt(P, a + (b - a) * i / n * 0.92); if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); }
+  ctx.strokeStyle = 'rgba(255,255,255,0.16)'; ctx.lineWidth = Math.max(1.2, w * 0.07); ctx.stroke();
+}
+function dibHoja(pl, L, i, t, ay, col, o) {
+  var d = pl.dmg[i], est = o.est, viento = 0.12 * tormenta(t) * Math.sin(t * 7 + pl.ph + i * 1.7);
+  var curl = L.curl + viento, kink = null, fold = 0, cut = 1;
+  if (d && (est || t >= d.t)) {
+    if (d.kink != null) { kink = d.kink; fold = d.fold * (est ? 1 : back(seg(t, d.t, d.t + 0.35))); }
+    if (d.cut) cut = d.cut;
+  }
+  var len = L.len * (o.g == null ? 1 : o.g), ang = o.g == null ? L.ang : mix(0.02, L.ang, o.g);
+  ctx.save(); ctx.translate(0, ay); ctx.fillStyle = col;
+  var P = linea(len, L.side, ang, curl, kink, fold);
+  hojaPath(P, L.w * (o.g == null ? 1 : mix(0.4, 1, o.g)), 0, cut, L.w * 0.18);
+  // pedazo de hoja que se corta y cae (solo en la tormenta)
+  if (cut < 1 && !est) {
+    var dt = t - d.t, P0 = linea(L.len, L.side, L.ang, L.curl, null, 0), c = ptAt(P0, (cut + 1) / 2);
+    var D = Math.max(0, -ay - c[1] - 4), tl = Math.sqrt(2 * D / 1400), tt = Math.min(dt, tl);
+    var a = 1 - seg(dt, tl + 0.8, tl + 2.0);
+    if (a > 0) { ctx.save(); ctx.globalAlpha *= a; ctx.translate(c[0] + L.side * 46 * tt, c[1] + 700 * tt * tt); ctx.rotate(L.side * 2.4 * tt); ctx.translate(-c[0], -c[1]); hojaPath(P0, L.w, cut, 1, L.w * 0.18); ctx.restore(); }
+  }
+  ctx.restore();
+}
+function tallo(y0, y1, w0, w1, col) { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(-w0 / 2, -y0); ctx.lineTo(-w1 / 2, -y1); ctx.lineTo(w1 / 2, -y1); ctx.lineTo(w0 / 2, -y0); ctx.closePath(); ctx.fill(); }
+// o: { base, alpha, sway, est (daño final, sin animación), rec (0..1 rebrote), seca (0..1) }
+function dibPlanta(pl, t, o) {
+  if (o.alpha <= 0.003) return;
+  var h = pl.h, sh = pl.sh;
+  ctx.save(); ctx.globalAlpha = o.alpha;
+  ctx.beginPath(); ctx.rect(pl.x - 500, o.base - 1200, 1000, 1204); ctx.clip();
+  ctx.translate(pl.x, o.base);
+  var rot = o.sway || 0;
+  if (!o.est) { for (var k in pl.dmg) { var dt = t - pl.dmg[k].t; if (dt > 0) rot += 0.10 * Math.exp(-dt * 6) * Math.sin(dt * 30); } if (pl.snap && t > pl.snap.t) { } }
+  ctx.rotate(rot);
+  var seca = o.seca || 0, verde = mixc('#7FA06C', '#8C8668', seca), osc = mixc('#5D7E51', '#76725A', seca), nueva = '#9CC283';
+  var sn = pl.snap, fa = 0, ky = sn ? sn.at * sh : 1e9;
+  if (sn && (o.est || t >= sn.t)) {
+    var u = o.est ? 9 : t - sn.t, q = Math.min(1, Math.pow(u / 0.5, 2));
+    if (u > 0.5) q -= 0.07 * Math.exp(-(u - 0.5) * 6) * Math.abs(Math.sin((u - 0.5) * 14));
+    fa = q * sn.ang * pl.side;
+  }
+  pl.hojas.forEach(function (L, i) { if (L.at * sh <= ky && !L.at1) { if (L.at < 1 || !sn) dibHoja(pl, L, i, t, -L.at * sh, i % 2 ? verde : osc, o); } });
+  tallo(0, Math.min(ky, sh), 0.075 * h, sn ? 0.068 * h : 0.05 * h, osc);
+  if (sn) {
+    ctx.translate(0, -ky); ctx.rotate(fa);
+    tallo(0, sh - ky, 0.068 * h, 0.05 * h, osc);
+    pl.hojas.forEach(function (L, i) { if (L.at * sh > ky) dibHoja(pl, L, i, t, -(L.at * sh - ky), i % 2 ? verde : osc, o); });
+  } else if (o.rec > 0) {
+    pl.nuevas.forEach(function (L, i) { dibHoja(pl, L, 100 + i, t, -sh, nueva, { est: true, g: eout(clamp(o.rec * 1.3 - i * 0.15)) }); });
+  }
+  ctx.restore();
+}
+
+// hilera: 8 plantas; daños durante la tormenta (t en segundos)
+var XS = [185, 300, 415, 530, 645, 760, 875];
+var FILA = [
+  mkPlanta(XS[0], 250, 101, { 1: { t: 0.9, cut: 0.48 }, 2: { t: 2.8, kink: 0.42, fold: 1.25 } }),
+  mkPlanta(XS[1], 265, 102, { 3: { t: 2.1, cut: 0.6 } }),
+  mkPlanta(XS[2], 245, 103, {}, { t: 1.9, at: 0.32, ang: 1.42 }),
+  mkPlanta(XS[3], 270, 104, { 1: { t: 3.4, cut: 0.55 }, 2: { t: 1.55, kink: 0.45, fold: 1.3 } }),
+  mkPlanta(XS[4], 255, 106, {}, { t: 3.1, at: 0.30, ang: 1.45 }),
+  mkPlanta(XS[5], 260, 107, { 0: { t: 2.4, cut: 0.45 }, 2: { t: 3.75, kink: 0.4, fold: 1.2 } }),
+  mkPlanta(XS[6], 245, 108, { 1: { t: 1.2, cut: 0.5 } })
+];
+var VIVAS = [0, 1, 3, 5, 6];
+// planta grande del paso 1 (daño ya hecho, rebrota)
+var GRANDE = mkPlanta(540, 330, 205, { 0: { t: 0, cut: 0.5 }, 1: { t: 0, kink: 0.42, fold: 1.25 }, 2: { t: 0, cut: 0.42 }, 3: { t: 0, cut: 0.55 } });
+
+// ---------- escenario ----------
+function cielo(t) {
+  var k = 1 - tormenta(t), g = ctx.createLinearGradient(0, 0, 0, 1480);
+  g.addColorStop(0, mixc('#03060C', '#1A2F4E', k)); g.addColorStop(0.55, mixc('#0A0F1B', '#36537B', k)); g.addColorStop(1, mixc('#172338', '#7C91B0', k));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  if (k > 0.01) {   // rayos de luz cuando se abre
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    for (var i = 0; i < 5; i++) {
+      var a0 = 1.95 + i * 0.16 + 0.03 * Math.sin(t * 0.5 + i), w = 0.05 + 0.02 * (i % 2);
+      var gr = ctx.createLinearGradient(820, -120, 820 + Math.cos(a0) * 1500, -120 + Math.sin(a0) * 1500);
+      gr.addColorStop(0, 'rgba(232,238,247,' + (0.10 * k) + ')'); gr.addColorStop(1, 'rgba(232,238,247,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(820, -120);
+      ctx.lineTo(820 + Math.cos(a0 - w) * 1800, -120 + Math.sin(a0 - w) * 1800); ctx.lineTo(820 + Math.cos(a0 + w) * 1800, -120 + Math.sin(a0 + w) * 1800); ctx.closePath(); ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+function suelo(t, gy) {
+  var k = 1 - tormenta(t), g = ctx.createLinearGradient(0, gy, 0, H);
+  g.addColorStop(0, mixc('#2A231D', '#3A3129', k)); g.addColorStop(0.3, '#1D1916'); g.addColorStop(1, '#111318');
+  ctx.fillStyle = g; ctx.fillRect(0, gy, W, H - gy);
+  ctx.fillStyle = mixc('#3B342C', '#5A5044', k); ctx.fillRect(0, gy, W, 4);
+  var r = rng(9); ctx.fillStyle = 'rgba(232,238,247,0.05)';
+  for (var i = 0; i < 70; i++) { var x = r() * W, y = gy + 14 + r() * 520, rr = 1.5 + r() * 3; ctx.beginPath(); ctx.arc(x, y, rr, 0, 6.2832); ctx.fill(); }
+}
+function corte(t, gy, a) {   // vista en corte bajo la planta grande
+  if (a <= 0.01) return;
+  var x = 540, pc = gy + 40, sem = gy + 128;
+  ctx.save(); ctx.globalAlpha = a;
+  // raíces
+  ctx.strokeStyle = 'rgba(232,238,247,0.38)'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+  [[-1, 0.8], [1, 0.9], [-1, 0.35], [1, 0.4]].forEach(function (rr, i) {
+    var y0 = i < 2 ? pc + 8 : sem + 10; ctx.beginPath(); ctx.moveTo(x, y0);
+    ctx.bezierCurveTo(x + rr[0] * 60 * rr[1], y0 + 30, x + rr[0] * 120 * rr[1], y0 + 90, x + rr[0] * 150 * rr[1], y0 + (i < 2 ? 170 : 150)); ctx.stroke();
+  });
+  ctx.strokeStyle = 'rgba(232,238,247,0.22)'; ctx.lineWidth = 2;
+  for (var i = 0; i < 6; i++) { var s = i % 2 ? 1 : -1, l = 40 + i * 14; ctx.beginPath(); ctx.moveTo(x, sem + 14); ctx.quadraticCurveTo(x + s * l * 0.4, sem + 40 + i * 8, x + s * l * 0.7, sem + 90 + i * 14); ctx.stroke(); }
+  // tallo bajo tierra y mesocótilo
+  ctx.fillStyle = '#5D7E51'; ctx.fillRect(x - 11, gy - 2, 22, 50);
+  ctx.strokeStyle = '#B9C6A8'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(x, pc + 8); ctx.lineTo(x, sem - 18); ctx.stroke();
+  // semilla
+  ctx.fillStyle = '#E2D6B8'; ctx.beginPath(); ctx.ellipse(x, sem, 17, 23, 0.15, 0, 6.2832); ctx.fill();
+  // punto de crecimiento: pulso
+  var pu = ((t - 7.9) % 1.3 + 1.3) % 1.3 / 1.3, vis = seg(t, 7.8, 8.2);
+  ctx.strokeStyle = 'rgba(232,238,247,' + (0.8 * (1 - pu) * vis) + ')'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(x, pc, 12 + 28 * pu, 0, 6.2832); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,' + vis + ')'; ctx.beginPath(); ctx.arc(x, pc, 10, 0, 6.2832); ctx.fill();
+  // línea guía al rótulo
+  var lg = eout(seg(t, 7.9, 8.4)); ctx.strokeStyle = 'rgba(232,238,247,0.85)'; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.moveTo(x + 16, pc); ctx.lineTo(x + 16 + (632 - x - 16) * lg, pc); ctx.stroke();
+  ctx.restore();
+}
+function insignias(t) {
+  ctx.save(); ctx.font = '500 30px "DM Mono", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  VIVAS.forEach(function (ix, n) {
+    var pl = FILA[ix], k = back(seg(t, 13.3 + n * 0.32, 13.65 + n * 0.32)), sal = 1 - seg(t, 16.5, 16.8);
+    if (k <= 0 || sal <= 0) return;
+    var x = pl.x, y = 1480 - pl.h - 34;
+    ctx.globalAlpha = clamp(k * 2) * sal; ctx.translate(x, y); ctx.scale(k, k);
+    ctx.fillStyle = 'rgba(10,15,27,0.75)'; ctx.beginPath(); ctx.arc(0, 0, 28, 0, 6.2832); ctx.fill();
+    ctx.strokeStyle = '#E8EEF7'; ctx.lineWidth = 3; ctx.stroke();
+    ctx.fillStyle = '#FFFFFF'; ctx.fillText(String(n + 1), 0, 2);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  });
+  ctx.restore();
+}
+
+window.render = function (t) {
+  var st = tormenta(t), cl = 1 - st, fl = rayo(t), gy = sueloY(t), zm = zoom(t);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  cielo(t);
+  // capas de nubes (lejana, relámpago, media, cercana)
+  dibNube(NUB[0], t, st, Math.max(fl, cl * 0.42));
+  var b1 = 0.95 * spike(t, 1.45, 0.20) + 0.75 * spike(t, 1.70, 0.38);
+  if (b1 > 0.01) { ctx.save(); ctx.strokeStyle = 'rgba(240,245,255,' + b1 + ')'; ctx.lineWidth = 3.5; ctx.shadowColor = 'rgba(190,208,255,0.9)'; ctx.shadowBlur = 28; ctx.beginPath(); BOLT.forEach(function (p, i) { if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); }); ctx.stroke(); ctx.restore(); }
+  dibNube(NUB[1], t, st, Math.max(fl * 0.9, cl * 0.3));
+  dibGranizo(t, gy, false);
+  dibNube(NUB[2], t, st * 0.95, Math.max(fl * 0.8, cl * 0.12));
+  // suelo y corte
+  suelo(t, gy);
+  corte(t, gy, seg(t, 7.4, 7.9) * (1 - seg(t, 12.25, 12.6)));
+  dibPiedras(t, gy);
+  // plantas
+  var rec = t > 10 ? 1 : 0, filaA = 1 - zm;
+  FILA.forEach(function (pl, i) {
+    var muerta = !!pl.snap, sway = (0.05 * st + 0.012) * Math.sin(2 * Math.PI * 0.75 * t + pl.ph);
+    dibPlanta(pl, t, { base: gy, alpha: filaA, sway: sway, est: rec > 0, rec: muerta ? 0 : rec, seca: muerta ? (rec ? 1 : 0.6 * seg(t, pl.snap.t + 0.4, 6.5)) : 0 });
+  });
+  var gA = seg(t, 7.35, 7.9) * (1 - seg(t, 12.2, 12.55));
+  dibPlanta(GRANDE, t, { base: gy, alpha: gA, sway: 0.012 * Math.sin(t * 1.6), est: true, rec: seg(t, 9.0, 11.4) });
+  dibGranizo(t, gy, true);
+  // destello del relámpago sobre todo el cuadro
+  if (fl > 0.005) { ctx.fillStyle = 'rgba(205,218,245,' + (0.20 * fl) + ')'; ctx.fillRect(0, 0, W, H); }
+  insignias(t);
+
+  // textos
+  ESC.forEach(function (e, i) {
+    var n = document.getElementById(e[0]), a = e[1], b = e[2];
+    var a0 = i === 0 ? 0 : a + 0.02;   // la anterior sale del todo antes de que entre la siguiente (los títulos ocupan el mismo lugar)
+    var op = t < a0 || t >= b ? 0 : Math.min(i === 0 ? 1 : eout(seg(t, a0, a0 + 0.35)), 1 - seg(t, b - 0.28, b));
+    n.style.opacity = op;
+    if (op <= 0) return;
+    [].forEach.call(n.children, function (c) {
+      var d = parseFloat(c.getAttribute('data-d') || '0'), k = i === 0 && d === 0 ? 1 : eout(seg(t, a0 + d, a0 + d + 0.45));
+      c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 26 + 'px)';
+    });
+  });
+  // gancho: leve respiración para que se mueva desde el cuadro 0
+  document.getElementById('hook').style.transform = 'translateY(' + (-6 * eio(seg(t, 0, 4))) + 'px)';
+  // 2 · los tres números aparecen de a uno
+  [].forEach.call(document.getElementById('pasos').children, function (c, i) { var k = back(seg(t, 4.9 + i * 0.25, 5.35 + i * 0.25)); c.style.opacity = clamp(k * 2); c.style.transform = 'scale(' + (0.3 + 0.7 * k) + ')'; });
+  // 3 · íconos animados
+  [].forEach.call(document.getElementById('icoG').children, function (c, i) { var u = ((t * 0.9 + i * 0.23) % 1); c.setAttribute('transform', 'translate(' + (-6 * u) + ',' + (14 * u - 6) + ')'); c.setAttribute('opacity', (1 - Math.abs(u - 0.5) * 1.6).toFixed(2)); });
+  document.getElementById('icoW').setAttribute('transform', 'translate(' + (-((t * 24) % 60)) + ',0)');
+  // cierre
+  var out = document.getElementById('outro'); out.style.opacity = t >= T_OUT ? 1 : 0;
+  [].forEach.call(out.querySelector('.col').children, function (c, i) { var k = eout(seg(t, T_OUT + i * 0.12, T_OUT + 0.45 + i * 0.12)); c.style.opacity = k; c.style.transform = 'translateY(' + (1 - k) * 24 + 'px)'; });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % window.REEL_DURACION); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · ¿Pesos o dólares?</title>
+<!--
+  Opción 4 · "¿Pesos o dólares?" — estilo BALANZA (grabado editorial).
+  Una balanza de dos platos en línea navy fina sobre crema. Caen pesas rotuladas (Tasa, Plazo,
+  Devaluación esperada), la balanza se inclina para un lado y para el otro con física suave
+  (respuesta amortiguada de segundo orden, todo función de t) y termina en duda.
+  Mensaje: la respuesta depende de cada operación → compará el costo real en dólares con la
+  herramienta pesos vs dólares (contexto/herramientas.md, punto 2) → conversación privada.
+  REGLA: sin tasas, plazos, montos ni condiciones; ningún número de dinero; no se promete ahorro.
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --navy2:#0D2D5E; --amb:#F5A623; --crema:#F6F4EE; --acero:#8FA0BE; --hielo:#E8EEF7; --tinta:#15181E;
+  --arch:'Archivo Black',sans-serif; --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden;
+  background:radial-gradient(ellipse 90% 70% at 50% 44%, #F9F7F2 0%, #F6F4EE 52%, #EBE6D9 100%); }
+#papel { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+#marco, #bal { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+.tx { position:absolute; left:80px; width:850px; text-align:center; isolation:isolate; opacity:0; }
+.ln { display:block; white-space:nowrap; }
+.big { font-family:var(--arch); color:var(--navy); letter-spacing:-2px; line-height:1.04; }
+.sub { font-family:var(--sans); font-weight:500; line-height:1.3; color:var(--navy2); margin-top:26px; }
+.sub b { font-weight:700; color:var(--navy); }
+.mk { position:relative; display:inline-block; }
+.mk i { position:absolute; left:-6px; right:-6px; bottom:12px; height:28px; background:var(--amb); z-index:-1; transform-origin:0 50%; transform:scaleX(0); }
+.rot { display:inline-flex; align-items:stretch; margin-top:38px; font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:1px; white-space:nowrap; }
+.rot span { display:flex; align-items:center; padding:14px 22px; }
+.rot .c1 { background:var(--navy); color:var(--crema); border-radius:8px 0 0 8px; }
+.rot .c2 { background:var(--amb); color:var(--navy); border-radius:0 8px 8px 0; gap:10px; }
+#outro { position:absolute; left:80px; width:850px; top:690px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+#outro > * { opacity:0; }
+#outro .q { font-family:var(--arch); font-size:106px; line-height:1.0; letter-spacing:-3px; color:var(--navy); }
+#outro .s { font-family:var(--sans); font-weight:500; font-size:40px; line-height:1.3; color:var(--navy2); margin-top:26px; }
+#outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:44px; color:var(--navy); background:var(--amb); border-radius:10px; padding:24px 46px; margin-top:44px; }
+#outro .wa { display:flex; align-items:center; gap:14px; margin-top:28px; font-family:var(--mono); font-size:32px; color:var(--navy); }
+#outro img.hs { height:104px; margin-top:48px; mix-blend-mode:multiply; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="papel" width="540" height="960"></canvas>
+
+  <!-- marco de grabado (solo decoración, fuera de la zona segura) -->
+  <svg id="marco" viewBox="0 0 1080 1920">
+    <rect x="34" y="34" width="1012" height="1852" fill="none" stroke="#0A0F1B" stroke-width="2"/>
+    <rect x="46" y="46" width="988" height="1828" fill="none" stroke="#0A0F1B" stroke-width="1" opacity=".45"/>
+    <g fill="#F6F4EE" stroke="#0A0F1B" stroke-width="1.6">
+      <rect x="27" y="27" width="14" height="14" transform="rotate(45 34 34)"/>
+      <rect x="1039" y="27" width="14" height="14" transform="rotate(45 1046 34)"/>
+      <rect x="27" y="1879" width="14" height="14" transform="rotate(45 34 1886)"/>
+      <rect x="1039" y="1879" width="14" height="14" transform="rotate(45 1046 1886)"/>
+    </g>
+  </svg>
+
+  <!-- la balanza -->
+  <svg id="bal" viewBox="0 0 1080 1920">
+    <defs>
+      <pattern id="hx" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="1" y1="0" x2="1" y2="7" stroke="#0A0F1B" stroke-width="1.3" opacity=".55"/></pattern>
+      <pattern id="hv" width="6" height="6" patternUnits="userSpaceOnUse"><line x1="1" y1="0" x2="1" y2="6" stroke="#0A0F1B" stroke-width="1.2" opacity=".5"/></pattern>
+      <pattern id="hh" width="6" height="6" patternUnits="userSpaceOnUse"><line x1="0" y1="1" x2="6" y2="1" stroke="#0A0F1B" stroke-width="1.1" opacity=".45"/></pattern>
+    </defs>
+    <g id="todo">
+      <!-- pie fijo -->
+      <g id="pie" stroke="#0A0F1B" stroke-width="2.4" fill="#F6F4EE" stroke-linejoin="round">
+        <ellipse cx="505" cy="1509" rx="236" ry="10" fill="url(#hh)" stroke="none" opacity=".8"/>
+        <rect x="494" y="884" width="22" height="472"/>
+        <rect x="505" y="884" width="11" height="472" fill="url(#hv)" stroke="none"/>
+        <line x1="500" y1="884" x2="500" y2="1356" stroke-width="1"/>
+        <line x1="510" y1="884" x2="510" y2="1356" stroke-width="1"/>
+        <rect x="487" y="1030" width="36" height="10" rx="2"/>
+        <rect x="484" y="1354" width="42" height="18" rx="3"/>
+        <path d="M488,1372 C488,1404 434,1414 420,1446 L590,1446 C576,1414 522,1404 522,1372 Z"/>
+        <path d="M505,1374 L520,1374 C522,1404 574,1414 587,1444 L505,1444 Z" fill="url(#hx)" stroke="none"/>
+        <rect x="402" y="1446" width="206" height="22" rx="2"/>
+        <rect x="548" y="1448" width="58" height="18" fill="url(#hv)" stroke="none"/>
+        <rect x="378" y="1468" width="254" height="32" rx="3"/>
+        <line x1="386" y1="1477" x2="624" y2="1477" stroke-width="1"/>
+        <rect x="566" y="1479" width="64" height="19" fill="url(#hx)" stroke="none"/>
+        <rect x="486" y="874" width="38" height="10" rx="2"/>
+        <path d="M478,874 L532,874 L525,858 Q505,846 485,858 Z"/>
+      </g>
+      <g id="placa"></g>
+      <g id="fant"></g>
+      <g id="atrasL"></g><g id="atrasR"></g>
+      <!-- cruz (brazo) con el fiel: gira alrededor del pivote -->
+      <g id="cruz" stroke="#0A0F1B" stroke-linejoin="round">
+        <path d="M-5,24 L5,24 L2.2,346 L0,368 L-2.2,346 Z" fill="#F5A623" stroke-width="1.3"/>
+        <circle cx="0" cy="98" r="8" fill="#F5A623" stroke-width="1.6"/>
+        <path d="M-280,-6 Q-150,-8 -30,-15 L30,-15 Q150,-8 280,-6 L280,6 Q150,9 30,16 L-30,16 Q-150,9 -280,6 Z" fill="#F6F4EE" stroke-width="2.6"/>
+        <path d="M-280,1 Q-150,2 -30,5 L30,5 Q150,2 280,1 L280,6 Q150,9 30,16 L-30,16 Q-150,9 -280,6 Z" fill="url(#hx)" stroke="none"/>
+        <path d="M-266,-1.5 Q-150,-3 -44,-7 M266,-1.5 Q150,-3 44,-7" fill="none" stroke-width="1" opacity=".7"/>
+        <path d="M-30,-16 C-42,-34 -66,-42 -86,-34 C-102,-27 -100,-10 -88,-11 C-79,-12 -79,-23 -87,-23 M30,-16 C42,-34 66,-42 86,-34 C102,-27 100,-10 88,-11 C79,-12 79,-23 87,-23 M-28,-17 C-46,-24 -60,-22 -68,-16 M28,-17 C46,-24 60,-22 68,-16" fill="none" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="-280" cy="17" r="6" fill="none" stroke-width="2.2"/>
+        <circle cx="280" cy="17" r="6" fill="none" stroke-width="2.2"/>
+        <circle cx="-280" cy="0" r="10" fill="#F6F4EE" stroke-width="2.4"/>
+        <circle cx="280" cy="0" r="10" fill="#F6F4EE" stroke-width="2.4"/>
+        <circle cx="-280" cy="0" r="3" fill="#0A0F1B" stroke="none"/>
+        <circle cx="280" cy="0" r="3" fill="#0A0F1B" stroke="none"/>
+        <path d="M-9,-26 C-6,-34 -4,-40 -3,-48 L3,-48 C4,-40 6,-34 9,-26 Z" fill="#F6F4EE" stroke-width="2"/>
+        <circle cx="0" cy="-58" r="10" fill="#F6F4EE" stroke-width="2.2"/>
+        <circle cx="0" cy="-58" r="4.5" fill="url(#hx)" stroke-width="1"/>
+        <line x1="0" y1="-68" x2="0" y2="-76" stroke-width="2"/>
+        <circle cx="0" cy="-79" r="3.2" fill="#0A0F1B" stroke="none"/>
+        <circle cx="0" cy="0" r="27" fill="#F6F4EE" stroke-width="2.6"/>
+        <circle cx="0" cy="0" r="19" fill="url(#hx)" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="7" fill="#F5A623" stroke-width="1.6"/>
+      </g>
+      <g id="pesas"></g>
+      <g id="frenteL"></g><g id="frenteR"></g>
+    </g>
+  </svg>
+
+  <!-- 1 · gancho (visible desde el cuadro 0) -->
+  <div class="tx" id="t1" style="top:288px; opacity:1">
+    <div class="ln big" data-fs="80">¿Financiás la campaña</div>
+    <div class="ln big" data-fs="112">en <span class="mk"><i id="mk1"></i>pesos</span></div>
+    <div class="ln big" data-fs="112">o en <span class="mk"><i id="mk2"></i>dólares</span>?</div>
+  </div>
+  <!-- 2 · caen las pesas -->
+  <div class="tx" id="t2" style="top:300px">
+    <div class="ln big" data-fs="104">Depende de</div>
+    <div class="ln big" data-fs="104">tres cosas,</div>
+    <div class="ln sub" data-fs="50">y cambian con cada operación.</div>
+  </div>
+  <!-- 3 · la balanza duda -->
+  <div class="tx" id="t3" style="top:300px">
+    <div class="ln big" data-fs="100">La respuesta</div>
+    <div class="ln big" data-fs="100">no es la misma</div>
+    <div class="ln big" data-fs="100">para todos.</div>
+  </div>
+  <!-- 4 · la herramienta -->
+  <div class="tx" id="t4" style="top:288px">
+    <div class="ln big" data-fs="90">Compará el costo</div>
+    <div class="ln big" data-fs="90">real en dólares</div>
+    <div class="ln sub" data-fs="46">de cada opción, <b>con tus números.</b></div>
+    <div class="rot" id="rot"><span class="c1">HERRAMIENTA HENDERSEEDS</span><span class="c2">LINK EN LA BIO</span></div>
+  </div>
+  <!-- cierre -->
+  <div id="outro">
+    <div class="q">¿Lo hacemos<br>juntos?</div>
+    <div class="s">Hacemos la cuenta con vos,<br>antes de firmar.</div>
+    <div class="dm"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="#0A0F1B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Mandanos un DM</div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <img class="hs" src="../../docs/assets/logo-henderseeds-navy.png" alt="HenderSeeds">
+  </div>
+</div>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+var NAVY = '#0A0F1B', AMB = '#F5A623', CREMA = '#F6F4EE', ACERO = '#8FA0BE';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function back(v) { v = clamp(v); var c = 1.5; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+function lerp(a, b, k) { return a + (b - a) * k; }
+function $(id) { return document.getElementById(id); }
+
+// ---------- papel: grano fijo con semilla (determinístico) ----------
+(function () {
+  var c = $('papel'), x = c.getContext('2d'), im = x.createImageData(540, 960), s = 2627;
+  function rnd() { s |= 0; s = s + 0x6D2B79F5 | 0; var r = Math.imul(s ^ s >>> 15, 1 | s); r = r + Math.imul(r ^ r >>> 7, 61 | r) ^ r; return ((r ^ r >>> 14) >>> 0) / 4294967296; }
+  for (var i = 0; i < im.data.length; i += 4) { var v = rnd() < 0.55 ? 40 : 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = Math.floor(rnd() * 16); }
+  x.putImageData(im, 0, 0);
+})();
+
+// ---------- geometría ----------
+var PX = 505, PY = 820;        // pivote
+var L = 280, HK = 22, H = 370; // medio brazo · gancho bajo el brazo · gancho → borde del plato
+var RX = 140, RY = 15;         // boca del plato
+
+// placa con marcas (fija) que lee el fiel
+(function () {
+  var g = $('placa'), A = 17, r1 = 342, r2 = 378;
+  function po(r, a) { a = a * Math.PI / 180; return (PX + r * Math.sin(a)).toFixed(1) + ',' + (PY + r * Math.cos(a)).toFixed(1); }
+  el('path', { d: 'M' + po(r2, -A) + ' A' + r2 + ',' + r2 + ' 0 0,0 ' + po(r2, A) + ' L' + po(r1, A) + ' A' + r1 + ',' + r1 + ' 0 0,1 ' + po(r1, -A) + ' Z', fill: CREMA, stroke: NAVY, 'stroke-width': 2.2, 'stroke-linejoin': 'round' }, g);
+  el('path', { d: 'M' + po(r2 - 6, -A + 1.2) + ' A' + (r2 - 6) + ',' + (r2 - 6) + ' 0 0,0 ' + po(r2 - 6, A - 1.2), fill: 'none', stroke: NAVY, 'stroke-width': 1, opacity: 0.6 }, g);
+  for (var a = -15; a <= 15; a += 3) {
+    if (a === 0) continue;
+    var big = a % 9 === 0;
+    el('line', { x1: po(r1 + 3, a).split(',')[0], y1: po(r1 + 3, a).split(',')[1], x2: po(r1 + (big ? 22 : 13), a).split(',')[0], y2: po(r1 + (big ? 22 : 13), a).split(',')[1], stroke: NAVY, 'stroke-width': big ? 2 : 1.3 }, g);
+  }
+  el('line', { x1: PX, y1: PY + r1 + 2, x2: PX, y2: PY + r2 - 8, stroke: AMB, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
+})();
+
+// platos: atrás (hilos + boca) y adelante (cuenco + rótulo); las pesas van entre los dos
+function plato(lado, nombre) {
+  var id = lado < 0 ? 'L' : 'R', at = $('atras' + id), fr = $('frente' + id);
+  [[-RX, H], [RX, H], [0, H - RY]].forEach(function (p) { el('line', { x1: 0, y1: 9, x2: p[0], y2: p[1], stroke: NAVY, 'stroke-width': 1.7 }, at); });
+  el('circle', { cx: 0, cy: 0, r: 7, fill: 'none', stroke: NAVY, 'stroke-width': 2.2 }, at);
+  el('circle', { cx: 0, cy: 10, r: 3.6, fill: NAVY }, at);
+  el('ellipse', { cx: 0, cy: H, rx: RX, ry: RY, fill: '#E6E0D0', stroke: NAVY, 'stroke-width': 2.4 }, at);
+  el('ellipse', { cx: 0, cy: H + 1.5, rx: RX - 13, ry: RY - 5, fill: 'none', stroke: NAVY, 'stroke-width': 1, opacity: 0.55 }, at);
+  var d = 'M' + (-RX) + ',' + H + ' A' + RX + ',' + RY + ' 0 0,0 ' + RX + ',' + H + ' C' + (RX - 2) + ',' + (H + 60) + ' 88,' + (H + 102) + ' 0,' + (H + 102) + ' C-88,' + (H + 102) + ' ' + (-RX + 2) + ',' + (H + 60) + ' ' + (-RX) + ',' + H + ' Z';
+  var cp = el('clipPath', { id: 'cb' + id }, $('bal').querySelector('defs')); el('path', { d: d }, cp);
+  el('path', { d: d, fill: '#F2EEE3' }, fr);
+  el('rect', { x: 78, y: H - 20, width: 80, height: 140, fill: 'url(#hx)', 'clip-path': 'url(#cb' + id + ')' }, fr);
+  el('path', { d: 'M-84,' + (H + 84) + ' Q0,' + (H + 99) + ' 84,' + (H + 84), fill: 'none', stroke: NAVY, 'stroke-width': 1, opacity: 0.55 }, fr);
+  el('path', { d: d, fill: 'none', stroke: NAVY, 'stroke-width': 2.4, 'stroke-linejoin': 'round' }, fr);
+  el('path', { d: 'M-18,' + (H + 102) + ' L18,' + (H + 102) + ' L11,' + (H + 111) + ' L-11,' + (H + 111) + ' Z', fill: CREMA, stroke: NAVY, 'stroke-width': 2, 'stroke-linejoin': 'round' }, fr);
+  var tx = el('text', { x: 0, y: H + 64, 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 32, 'letter-spacing': 4, fill: NAVY }, fr);
+  tx.textContent = nombre;
+  return { at: at, fr: fr };
+}
+var PL = plato(-1, 'PESOS'), PR = plato(1, 'DÓLARES');
+
+// pesas: origen en el centro de la base
+var PESAS = [
+  { txt: ['TASA'],                      w: 168, h: 92,  fs: 34, lado: -1, so: 0,    tl: 4.40, tu: 11.40, r0: -7 },
+  { txt: ['PLAZO'],                     w: 180, h: 92,  fs: 34, lado: 1,  so: 0,    tl: 6.30, tu: 11.05, r0: 6 },
+  { txt: ['DEVALUACIÓN', 'ESPERADA'],   w: 262, h: 118, fs: 30, lado: 1,  so: -101, tl: 8.20, tu: 10.70, r0: -5 }
+];
+var FALL = 0.46, DROP = 300, G = 2 * DROP / (FALL * FALL);
+PESAS.forEach(function (p, i) {
+  var g = el('g', { opacity: 0 }, $('pesas')), w = p.w, h = p.h, tp = w / 2 - 12;
+  p.g = g;
+  // líneas de velocidad (arriba de la pesa)
+  p.vel = el('g', { stroke: NAVY, 'stroke-width': 2, 'stroke-linecap': 'round', opacity: 0 }, g);
+  [-0.26, 0, 0.26].forEach(function (f, j) { el('line', { x1: f * w, y1: -h - 52 - j % 2 * 14, x2: f * w, y2: -h - 112 - j % 2 * 14 }, p.vel); });
+  el('path', { d: 'M-18,' + (-h - 8) + ' C-18,' + (-h - 42) + ' 18,' + (-h - 42) + ' 18,' + (-h - 8), fill: 'none', stroke: NAVY, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  el('rect', { x: -tp - 6, y: -h - 9, width: 2 * tp + 12, height: 10, rx: 3, fill: AMB, stroke: NAVY, 'stroke-width': 2.2 }, g);
+  var body = 'M' + (-w / 2 + 5) + ',0 L' + (w / 2 - 5) + ',0 Q' + (w / 2) + ',0 ' + (w / 2 - 1) + ',-5 L' + tp + ',' + (-h + 3) + ' Q' + (tp - 1) + ',' + (-h) + ' ' + (tp - 5) + ',' + (-h) + ' L' + (-tp + 5) + ',' + (-h) + ' Q' + (-tp + 1) + ',' + (-h) + ' ' + (-tp) + ',' + (-h + 3) + ' L' + (-w / 2 + 1) + ',-5 Q' + (-w / 2) + ',0 ' + (-w / 2 + 5) + ',0 Z';
+  var cp = el('clipPath', { id: 'cw' + i }, $('bal').querySelector('defs')); el('path', { d: body }, cp);
+  el('path', { d: body, fill: AMB }, g);
+  el('rect', { x: w / 2 - 28, y: -h - 2, width: 30, height: h + 4, fill: 'url(#hx)', 'clip-path': 'url(#cw' + i + ')' }, g);
+  el('line', { x1: -w / 2 + 14, y1: -9, x2: w / 2 - 30, y2: -9, stroke: NAVY, 'stroke-width': 1, opacity: 0.6 }, g);
+  el('path', { d: body, fill: 'none', stroke: NAVY, 'stroke-width': 2.4, 'stroke-linejoin': 'round' }, g);
+  var n = p.txt.length;
+  p.txt.forEach(function (s, j) {
+    var y = -h / 2 + (j - (n - 1) / 2) * p.fs * 1.12 + p.fs * 0.36;
+    var t = el('text', { x: -4, y: y.toFixed(1), 'text-anchor': 'middle', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': p.fs, 'letter-spacing': n > 1 ? 0 : 3, fill: NAVY }, g);
+    t.textContent = s;
+  });
+  // marcas del golpe, a los costados de la base
+  p.golpe = el('g', { stroke: NAVY, 'stroke-width': 2.4, 'stroke-linecap': 'round', opacity: 0 }, g);
+  p.rayas = [];
+  [-1, 1].forEach(function (sd) { [-160, -135, -112].forEach(function (a) { var ar = a * Math.PI / 180; p.rayas.push({ l: el('line', {}, p.golpe), x0: sd * (w / 2 + 8), y0: -6, dx: -sd * Math.cos(ar), dy: Math.sin(ar) }); }); });
+});
+
+// ---------- física: respuesta amortiguada de segundo orden (todo función de t) ----------
+var Z = 0.32, W = 2 * Math.PI * 0.85, WD = W * Math.sqrt(1 - Z * Z), KICK = 0.15;
+function resp(tau) { if (tau <= 0) return 0; var e = Math.exp(-Z * W * tau); return 1 - e * (Math.cos(WD * tau) + Z / Math.sqrt(1 - Z * Z) * Math.sin(WD * tau)) + KICK * e * Math.sin(WD * tau); }
+// [instante, cambio de equilibrio en grados (+ = baja el plato de DÓLARES)]
+var EVENTOS = [[4.40, -10], [6.30, 10], [8.20, 12], [10.70, -12], [11.05, -10], [11.40, 10]];
+function theta(t) {
+  var a = 6 * Math.sin(2 * Math.PI * 0.42 * t + 0.5) * (1 - eio(seg(t, 2.6, 4.2)));    // 1 · oscila suave
+  for (var i = 0; i < EVENTOS.length; i++) a += EVENTOS[i][1] * resp(t - EVENTOS[i][0]);
+  var amp = 4.5 * eio(seg(t, 11.9, 12.9)) * (1 - eio(seg(t, 17.0, 19.0)));              // 3–4 · duda; cierre: se asienta
+  return a + amp * Math.sin(2 * Math.PI * 0.36 * (t - 11.9));
+}
+function phi(t) { var d = (theta(t + 0.004) - theta(t - 0.004)) / 0.008; return Math.max(-3, Math.min(3, -0.05 * d)); }
+function gancho(lado, t) { var th = theta(t), r = th * Math.PI / 180; return { x: PX + lado * L * Math.cos(r) - HK * Math.sin(r), y: PY + lado * L * Math.sin(r) + HK * Math.cos(r), f: phi(t), th: th }; }
+PESAS.forEach(function (p) { p.cae = gancho(p.lado, p.tl); });
+
+// balanzas fantasma (escena 3): dos respuestas posibles
+(function () {
+  var f = $('fant');
+  [-12, 12].forEach(function (a) {
+    var g = el('g', { opacity: 0, fill: 'none', stroke: ACERO, 'stroke-width': 2.4, 'stroke-dasharray': '10 8' }, f);
+    el('path', { d: 'M-280,-6 Q-150,-8 -30,-15 L30,-15 Q150,-8 280,-6 L280,6 Q150,9 30,16 L-30,16 Q-150,9 -280,6 Z', transform: 'translate(' + PX + ',' + PY + ') rotate(' + a + ')' }, g);
+    [-1, 1].forEach(function (lado) {
+      var r = a * Math.PI / 180, ex = PX + lado * L * Math.cos(r) - HK * Math.sin(r), ey = PY + lado * L * Math.sin(r) + HK * Math.cos(r);
+      el('line', { x1: ex, y1: ey, x2: ex - RX, y2: ey + H }, g); el('line', { x1: ex, y1: ey, x2: ex + RX, y2: ey + H }, g);
+      el('ellipse', { cx: ex, cy: ey + H, rx: RX, ry: RY }, g);
+      el('path', { d: 'M' + (ex - RX) + ',' + (ey + H) + ' C' + (ex - RX + 2) + ',' + (ey + H + 60) + ' ' + (ex - 88) + ',' + (ey + H + 102) + ' ' + ex + ',' + (ey + H + 102) + ' C' + (ex + 88) + ',' + (ey + H + 102) + ' ' + (ex + RX - 2) + ',' + (ey + H + 60) + ' ' + (ex + RX) + ',' + (ey + H) }, g);
+    });
+    a < 0 ? f.g1 = g : f.g2 = g;
+  });
+})();
+
+// ---------- textos ----------
+function ajustar(blk) {
+  var ls = blk.querySelectorAll('.ln'), k = 1;
+  function poner() { ls.forEach(function (n) { n.style.fontSize = (parseFloat(n.dataset.fs) * k).toFixed(1) + 'px'; }); }
+  poner();
+  var guard = 0;
+  while (guard++ < 40 && Array.prototype.some.call(ls, function (n) { return n.scrollWidth > blk.clientWidth + 1; })) { k *= 0.97; poner(); }
+}
+window.reajustar = function () { ['t1', 't2', 't3', 't4'].forEach(function (id) { ajustar($(id)); }); };
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+var TXT = [['t1', 0, 3.35], ['t2', 3.55, 10.45], ['t3', 10.65, 14.0], ['t4', 14.2, 17.45]];
+var T_OUT = 17.95, TOTAL = 22.0;
+window.REEL_DURACION = TOTAL;
+
+window.render = function (t) {
+  // textos de escena
+  TXT.forEach(function (e) {
+    var n = $(e[0]), kin = e[1] === 0 ? 1 : eout(seg(t, e[1], e[1] + 0.45)), kout = eio(seg(t, e[2], e[2] + 0.3));
+    var vis = t >= e[1] && t < e[2] + 0.3;
+    n.style.opacity = vis ? kin * (1 - kout) : 0;
+    n.style.transform = 'translateY(' + ((1 - kin) * 28 - kout * 22).toFixed(1) + 'px)';
+  });
+  $('mk1').style.transform = 'scaleX(' + eout(seg(t, 0.05, 0.55)) + ')';
+  $('mk2').style.transform = 'scaleX(' + eout(seg(t, 0.3, 0.8)) + ')';
+  var kr = eout(seg(t, 14.85, 15.3)), rot = $('rot');
+  rot.style.opacity = kr; rot.style.transform = 'translateY(' + ((1 - kr) * 18).toFixed(1) + 'px)';
+
+  // ubicación de la balanza: grande → un poco más chica (escena 4) → arriba y chica (cierre)
+  var k1 = eio(seg(t, 13.95, 14.75)), k2 = eio(seg(t, 17.55, 18.35));
+  var sB = 0.9, sC = 0.44;
+  var s = lerp(lerp(1, sB, k1), sC, k2);
+  var ty = lerp(lerp(0, 1500 * (1 - sB), k1), 290 - 740 * sC, k2);
+  $('todo').setAttribute('transform', 'translate(' + (PX * (1 - s)).toFixed(2) + ',' + ty.toFixed(2) + ') scale(' + s.toFixed(4) + ')');
+
+  // brazo y platos
+  var gl = gancho(-1, t), gr = gancho(1, t);
+  $('cruz').setAttribute('transform', 'translate(' + PX + ',' + PY + ') rotate(' + gl.th.toFixed(3) + ')');
+  var tL = 'translate(' + gl.x.toFixed(2) + ',' + gl.y.toFixed(2) + ') rotate(' + gl.f.toFixed(3) + ')';
+  var tR = 'translate(' + gr.x.toFixed(2) + ',' + gr.y.toFixed(2) + ') rotate(' + gr.f.toFixed(3) + ')';
+  PL.at.setAttribute('transform', tL); PL.fr.setAttribute('transform', tL);
+  PR.at.setAttribute('transform', tR); PR.fr.setAttribute('transform', tR);
+
+  // pesas: caen, rebotan apenas, viajan con el plato y se levantan
+  PESAS.forEach(function (p) {
+    var tau = t - p.tl, base = H + 6 + p.so, g = p.g;
+    if (tau < -FALL) { g.setAttribute('opacity', 0); return; }
+    if (tau < 0) {
+      var k = 1 + tau / FALL, c = p.cae, caida = 0.5 * G * tau * tau;
+      g.setAttribute('transform', 'translate(' + c.x.toFixed(2) + ',' + (c.y - caida).toFixed(2) + ') rotate(' + c.f.toFixed(3) + ') translate(0,' + base + ') rotate(' + (p.r0 * (1 - eout(k))).toFixed(2) + ',0,' + (-p.h / 2) + ')');
+      g.setAttribute('opacity', clamp((tau + FALL) / 0.1).toFixed(3));
+      p.vel.setAttribute('opacity', (0.5 * clamp(k * 1.4)).toFixed(3));
+      p.golpe.setAttribute('opacity', 0);
+      return;
+    }
+    var pt = gancho(p.lado, t);
+    var bote = tau < 0.9 ? 11 * Math.exp(-9 * tau) * Math.abs(Math.sin(17 * tau)) : 0;
+    var sube = 300 * eio(seg(t, p.tu, p.tu + 0.8));
+    g.setAttribute('transform', 'translate(' + pt.x.toFixed(2) + ',' + pt.y.toFixed(2) + ') rotate(' + pt.f.toFixed(3) + ') translate(0,' + (base - bote - sube).toFixed(2) + ')');
+    g.setAttribute('opacity', (1 - eio(seg(t, p.tu + 0.1, p.tu + 0.7))).toFixed(3));
+    p.vel.setAttribute('opacity', 0);
+    var kg = seg(tau, 0, 0.45);
+    p.golpe.setAttribute('opacity', kg > 0 && kg < 1 ? (1 - kg).toFixed(3) : 0);
+    var ke = eout(kg);
+    p.rayas.forEach(function (r) {
+      var a = 8 + 14 * ke, b = 20 + 26 * ke;
+      r.l.setAttribute('x1', (r.x0 + r.dx * a).toFixed(1)); r.l.setAttribute('y1', (r.y0 + r.dy * a).toFixed(1));
+      r.l.setAttribute('x2', (r.x0 + r.dx * b).toFixed(1)); r.l.setAttribute('y2', (r.y0 + r.dy * b).toFixed(1));
+    });
+  });
+
+  // fantasmas: "no es la misma para todos"
+  var kf = eio(seg(t, 11.9, 12.6)) * (1 - eio(seg(t, 13.8, 14.3)));
+  $('fant').g1.setAttribute('opacity', (0.95 * kf).toFixed(3));
+  $('fant').g2.setAttribute('opacity', (0.95 * eio(seg(t, 12.15, 12.85)) * (1 - eio(seg(t, 13.8, 14.3)))).toFixed(3));
+
+  // cierre
+  document.querySelectorAll('#outro > *').forEach(function (c, i) {
+    var k = eout(seg(t, T_OUT + 0.1 + i * 0.14, T_OUT + 0.6 + i * 0.14));
+    c.style.opacity = k;
+    c.style.transform = k >= 1 ? 'none' : 'translateY(' + ((1 - k) * 24).toFixed(1) + 'px)';
+  });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % window.REEL_DURACION); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · Chicharrita: mirala antes de definir el tardío</title>
+<!--
+  Opción 2 · Estilo: LUPA / MIRADA DE CERCA. Fondo navy, una lupa que recorre una hoja de maíz y enfoca
+  la chicharrita; después una trampa amarilla con capturas y la escala 1–9 del marbete con la lupa como
+  marcador, que frena en 3.
+  Datos (y nada más):
+    · La chicharrita (Dalbulus maidis) transmite el Spiroplasma (achaparramiento del maíz).
+    · NS 7925 VIPTERA3: Spiroplasma 3 en el marbete, el mejor del portafolio (el resto, 4 a 6).
+    · Escala sanitaria del marbete: 1 = excelente, 9 = deficiente.
+    · NS 7925: lanzamiento 26/27, posicionado para siembras tardías.
+    Fuente: marbete oficial Nidera 26/27 (contexto/productos-26-27.md).
+  Regla del equipo: en maíz no se muestran números de ensayo (sin kg/ha ni % de éxito).
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --navy2:#0D2D5E; --amber:#F5A623; --cream:#F6F4EE; --steel:#8FA0BE; --ice:#E8EEF7; --ink:#15181E;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden;
+  background:radial-gradient(ellipse 90% 58% at 50% 52%, #111c31 0%, #0A0F1B 72%); }
+#stage::before { content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(rgba(143,160,190,0.10) 1.3px, transparent 1.9px); background-size:36px 36px; }
+.deco { position:absolute; left:0; top:0; width:1080px; height:1920px; z-index:1; pointer-events:none; }
+.scene { position:absolute; inset:0; z-index:2; opacity:0; }
+.art { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+/* gancho */
+.hook { position:absolute; left:80px; top:286px; width:850px; font-family:var(--arch); font-size:118px; line-height:1.0; letter-spacing:-4px; color:#FFFFFF; white-space:nowrap; z-index:3; }
+.hook span { display:block; }
+.hsub { position:absolute; left:80px; top:560px; width:850px; font-family:var(--arch); font-size:62px; line-height:1.1; letter-spacing:-1.5px; color:var(--ice); white-space:nowrap; z-index:3; }
+.hsub span { display:block; }
+.hsub .am { color:var(--amber); position:relative; display:inline; }
+.hsub .ul { position:absolute; left:0; bottom:-6px; height:6px; width:100%; background:var(--amber); transform-origin:0 50%; border-radius:3px; }
+.rot { position:absolute; left:80px; width:850px; text-align:center; z-index:3; }
+.rot .a { font-family:var(--mono); font-size:32px; letter-spacing:0.5px; color:var(--ice); }
+.rot .a b { color:var(--amber); font-weight:500; }
+.rot .b { font-family:var(--sans); font-size:30px; color:var(--steel); margin-top:12px; font-weight:500; }
+.rot .b i { font-style:italic; font-weight:700; color:var(--cream); }
+/* pasos */
+.top { position:absolute; left:0; top:0; width:1080px; height:340px; z-index:30; opacity:0; }
+.top .k { position:absolute; left:80px; top:272px; font-family:var(--mono); font-size:30px; letter-spacing:3px; color:var(--steel); }
+.top svg { position:absolute; left:0; top:0; }
+.tit { position:absolute; left:80px; top:350px; width:850px; font-family:var(--arch); font-size:90px; line-height:1.0; letter-spacing:-3px; color:#FFFFFF; z-index:3; }
+.tit .n { color:var(--amber); }
+.txt { position:absolute; left:80px; width:850px; font-family:var(--sans); font-weight:500; font-size:46px; line-height:1.28; color:rgba(232,238,247,0.84); z-index:3; }
+.txt b { color:#FFFFFF; font-weight:700; }
+.txt .am { color:var(--amber); font-weight:700; }
+.cab { position:absolute; left:80px; font-family:var(--mono); font-size:30px; letter-spacing:3px; color:var(--steel); z-index:3; }
+.hib { position:absolute; left:80px; width:850px; font-family:var(--arch); font-size:76px; letter-spacing:-2px; line-height:1; color:#FFFFFF; white-space:nowrap; z-index:3; }
+.chip { position:absolute; left:80px; font-family:var(--mono); font-size:30px; letter-spacing:2px; color:var(--amber); border:2px solid rgba(245,166,35,0.75); border-radius:8px; padding:12px 20px; z-index:3; }
+/* cierre */
+.outro { position:absolute; inset:0; z-index:40; opacity:0; }
+.outro > * { position:absolute; }
+.outro .q { left:80px; width:850px; top:800px; text-align:center; font-family:var(--arch); font-size:104px; line-height:1.0; letter-spacing:-3.5px; color:#FFFFFF; white-space:nowrap; }
+.outro .q span { color:var(--amber); display:block; }
+.outro .dmw { left:80px; width:850px; top:1052px; display:flex; justify-content:center; }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:44px; color:#0A0A0A; background:var(--amber); border-radius:10px; padding:24px 44px; }
+.outro .wa { left:80px; width:850px; top:1190px; display:flex; justify-content:center; align-items:center; gap:14px; font-family:var(--mono); font-size:32px; color:var(--ice); }
+.outro .hsw { left:80px; width:850px; top:1290px; display:flex; justify-content:center; }
+.outro .hsw img { height:72px; display:block; }
+.outro .fte { left:80px; width:850px; top:1474px; text-align:center; font-family:var(--mono); font-size:22px; letter-spacing:1px; color:var(--steel); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- decoración fija: marcas de visor en las esquinas (fuera de la zona de texto) -->
+  <svg class="deco" viewBox="0 0 1080 1920">
+    <g fill="none" stroke="rgba(143,160,190,0.30)" stroke-width="3" stroke-linecap="round">
+      <path d="M44 236 V196 H84"/><path d="M996 196 H1036 V236"/>
+      <path d="M44 1574 V1614 H84"/><path d="M996 1614 H1036 V1574"/>
+    </g>
+  </svg>
+
+  <!-- definiciones compartidas: la chicharrita y el vidrio de la lupa -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="alaI" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F6EFD0" stop-opacity=".46"/><stop offset="1" stop-color="#FFF9E2" stop-opacity=".66"/></linearGradient>
+      <linearGradient id="alaD" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#BFB27E" stop-opacity=".46"/><stop offset="1" stop-color="#D8CC9C" stop-opacity=".30"/></linearGradient>
+      <radialGradient id="vidrio" cx=".5" cy=".5" r=".5"><stop offset=".62" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#A9BEDD" stop-opacity=".22"/></radialGradient>
+      <linearGradient id="estaca" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A5568"/><stop offset=".78" stop-color="#4A5568"/><stop offset="1" stop-color="#4A5568" stop-opacity="0"/></linearGradient>
+      <linearGradient id="tarjeta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8B940"/><stop offset="1" stop-color="#F09C17"/></linearGradient>
+      <linearGradient id="brillo" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+      <filter id="difu" x="-60%" y="-30%" width="220%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+      <filter id="sombraL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+      <filter id="sombraT" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="16"/></filter>
+
+      <!-- Chicharrita (Dalbulus maidis), vista dorsal. Largo ≈ 100 unidades, cabeza hacia -y. -->
+      <g id="bug">
+        <ellipse cx="4" cy="6" rx="18" ry="47" fill="#000" opacity=".40" filter="url(#difu)"/>
+        <!-- patas: desde arriba casi no se ven; asoman las puntas y la tibia trasera con espinas -->
+        <g fill="none" stroke="#CDBE88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M-6 -30 L-13.5 -33 L-17 -28.5"/><path d="M6 -30 L13.5 -33 L17 -28.5"/>
+          <path d="M-8 -21 L-16.5 -20 L-20 -13.5"/><path d="M8 -21 L16.5 -20 L20 -13.5"/>
+          <path d="M-7 -13 L-18 -6 L-22.5 15 L-24.5 21"/><path d="M7 -13 L18 -6 L22.5 15 L24.5 21"/>
+        </g>
+        <g stroke="#CDBE88" stroke-width=".9" stroke-linecap="round">
+          <path d="M-18.9 -1.8 L-21.6 0 M-19.8 2.4 L-22.5 4.2 M-20.7 6.6 L-23.4 8.4 M-21.6 10.8 L-24.3 12.6"/>
+          <path d="M18.9 -1.8 L21.6 0 M19.8 2.4 L22.5 4.2 M20.7 6.6 L23.4 8.4 M21.6 10.8 L24.3 12.6"/>
+        </g>
+        <!-- abdomen, apenas visible bajo las alas -->
+        <path d="M-9 -14 C-11 4 -8 26 0 36 C8 26 11 4 9 -14 Z" fill="#D6C37C" opacity=".85"/>
+        <g stroke="#8E7838" stroke-opacity=".18" stroke-width=".7" fill="none">
+          <path d="M-9.6 0 Q0 3 9.6 0"/><path d="M-9.6 9 Q0 12 9.6 9"/><path d="M-8.4 18 Q0 21 8.4 18"/><path d="M-6 26 Q0 28.5 6 26"/>
+        </g>
+        <!-- alas en techo: derecha (sombra) y después izquierda (luz), se cruzan en la punta -->
+        <g transform="scale(-1 1)">
+          <path d="M-1.5 -23 C-9.5 -24.5 -16.5 -20.5 -17.5 -9 C-18.5 8 -15.5 30 -7.5 46.5 C-5.5 51 -1 52 1.8 48 C1.2 30 0.6 8 -1.5 -23 Z" fill="url(#alaD)" stroke="#EFE7C4" stroke-opacity=".75" stroke-width=".9"/>
+          <g fill="none" stroke="#FFF8DE" stroke-opacity=".40" stroke-width=".7">
+            <path d="M-4 -19 C-5.5 0 -6.5 22 -4.5 41"/><path d="M-9.5 -20 C-12 -2 -12 20 -9 38"/><path d="M-14 -15 C-16.3 3 -14.5 24 -11.5 36"/>
+            <path d="M-11.5 36 C-9 38 -6.5 39.5 -4.5 41"/><path d="M-9 38 L-7.6 44.5"/><path d="M-4.5 41 L-2.6 47"/>
+          </g>
+        </g>
+        <g>
+          <path d="M-1.5 -23 C-9.5 -24.5 -16.5 -20.5 -17.5 -9 C-18.5 8 -15.5 30 -7.5 46.5 C-5.5 51 -1 52 1.8 48 C1.2 30 0.6 8 -1.5 -23 Z" fill="url(#alaI)" stroke="#F7F0D2" stroke-opacity=".85" stroke-width=".9"/>
+          <g fill="none" stroke="#FFFBEA" stroke-opacity=".55" stroke-width=".7">
+            <path d="M-4 -19 C-5.5 0 -6.5 22 -4.5 41"/><path d="M-9.5 -20 C-12 -2 -12 20 -9 38"/><path d="M-14 -15 C-16.3 3 -14.5 24 -11.5 36"/>
+            <path d="M-11.5 36 C-9 38 -6.5 39.5 -4.5 41"/><path d="M-9 38 L-7.6 44.5"/><path d="M-4.5 41 L-2.6 47"/>
+          </g>
+        </g>
+        <path d="M0.2 -21 L0.8 45" stroke="#FFFBEA" stroke-opacity=".55" stroke-width="1.1"/>
+        <!-- pronoto, escutelo y corona -->
+        <path d="M-15 -33 C-8 -38.5 8 -38.5 15 -33 L13.5 -23.5 C6 -21 -6 -21 -13.5 -23.5 Z" fill="#E6D89C" stroke="#8C7838" stroke-opacity=".45" stroke-width=".6"/>
+        <path d="M-6 -35.5 L-5 -24 M6 -35.5 L5 -24" stroke="#CDBA76" stroke-opacity=".45" stroke-width="1.3"/>
+        <path d="M-9 -23 C-4 -22 4 -22 9 -23 L0 -11.5 Z" fill="#E1CF8C" stroke="#8C7838" stroke-opacity=".40" stroke-width=".6"/>
+        <!-- ojos: alargados sobre el borde de la cabeza, sin brillo -->
+        <path d="M-13.6 -34.8 C-16.6 -36.5 -17 -41 -14.2 -44 C-12.6 -41.5 -12 -38 -13.6 -34.8 Z" fill="#6A5E42" stroke="#3E3424" stroke-width=".5"/>
+        <path d="M13.6 -34.8 C16.6 -36.5 17 -41 14.2 -44 C12.6 -41.5 12 -38 13.6 -34.8 Z" fill="#6A5E42" stroke="#3E3424" stroke-width=".5"/>
+        <path d="M-13.5 -35 C-14 -44.5 -8 -53 0 -53.5 C8 -53 14 -44.5 13.5 -35 C7 -37.5 -7 -37.5 -13.5 -35 Z" fill="#F1E7B5" stroke="#8C7838" stroke-opacity=".45" stroke-width=".6"/>
+        <!-- los dos puntos negros de la corona: la marca de Dalbulus maidis -->
+        <circle cx="-5" cy="-46" r="2.5" fill="#15120C"/><circle cx="5" cy="-46" r="2.5" fill="#15120C"/>
+        <path d="M-7.5 -48.5 Q-11 -52 -12.5 -56 M7.5 -48.5 Q11 -52 12.5 -56" stroke="#D8CB92" stroke-width=".7" fill="none" stroke-linecap="round"/>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- 1 · gancho + lupa sobre la hoja -->
+  <div class="scene" id="s1">
+    <svg class="art" viewBox="0 0 1080 1920" id="art1"><g id="c1"></g></svg>
+    <div class="hook" id="hook"><span>¿Sembrás</span><span>maíz tardío?</span></div>
+    <div class="hsub" id="hsub"><span>Mirá la <span class="am">chicharrita<i class="ul" id="ul"></i></span></span><span>primero.</span></div>
+    <div class="rot" id="rot1" style="top:1300px">
+      <div class="a"><b>Chicharrita</b> · transmite el Spiroplasma</div>
+      <div class="b"><i>Dalbulus maidis</i> · achaparramiento del maíz</div>
+    </div>
+  </div>
+
+  <!-- 2 · trampa amarilla -->
+  <div class="scene" id="s2">
+    <svg class="art" viewBox="0 0 1080 1920" id="art2"><g id="c2"></g></svg>
+    <div class="tit"><span class="n">1 ·</span> Seguí el<br>monitoreo<br>de tu zona</div>
+    <div class="txt" id="t2" style="top:1300px">Las trampas amarillas<br>muestran <b>si anda cerca.</b></div>
+  </div>
+
+  <!-- 3 · escala del marbete -->
+  <div class="scene" id="s3">
+    <svg class="art" viewBox="0 0 1080 1920" id="art3"><g id="c3"></g></svg>
+    <div class="tit"><span class="n">2 ·</span> Elegí por Spiroplasma</div>
+    <div class="cab" id="cab3" style="top:622px">ESCALA SANITARIA DEL MARBETE</div>
+    <div class="hib" id="hib1" style="top:1132px">NS 7925 VIPTERA3</div>
+    <div class="txt" id="hib2" style="top:1226px"><span class="am">Spiroplasma 3</span>, el mejor del portafolio.</div>
+    <div class="chip" id="hib3" style="top:1318px">LANZAMIENTO 26/27 · SIEMBRAS TARDÍAS</div>
+  </div>
+
+  <!-- 4 · tu lote -->
+  <div class="scene" id="s4">
+    <svg class="art" viewBox="0 0 1080 1920" id="art4"><g id="c4"></g></svg>
+    <div class="tit"><span class="n">3 ·</span> Contanos<br>tu lote</div>
+    <div class="txt" id="t4" style="top:1300px">Fecha de siembra y ambiente:<br><b>con eso vemos qué híbrido va.</b></div>
+  </div>
+
+  <!-- rótulo fijo de los pasos -->
+  <div class="top" id="top">
+    <div class="k">CHICHARRITA · MAÍZ TARDÍO</div>
+    <svg width="1080" height="340" viewBox="0 0 1080 340"><g id="anillos"></g></svg>
+  </div>
+
+  <!-- cierre -->
+  <div class="outro" id="outro">
+    <svg class="art" viewBox="0 0 1080 1920" id="art5" style="left:0;top:0"><defs><g id="c5"></g></defs></svg>
+    <div class="q">¿Lo vemos para<span>tu lote?</span></div>
+    <div class="dmw"><div class="dm"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Mandanos un DM</div></div>
+    <div class="wa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+    <div class="hsw"><img src="../../docs/assets/logo-henderseeds-white.png" alt="HenderSeeds"></div>
+    <div class="fte">Escala sanitaria: marbete oficial Nidera 26/27</div>
+  </div>
+</div>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function $(id) { return document.getElementById(id); }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function back(v, c) { v = clamp(v); c = c === undefined ? 1.5 : c; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+function lerp(a, b, k) { return a + (b - a) * k; }
+var _s = 20262027; function rnd() { _s = (_s * 16807) % 2147483647; return (_s - 1) / 2147483646; }   // con semilla: siempre igual
+function ajustar(n, min) { var fs = parseFloat(getComputedStyle(n).fontSize); while (n.scrollWidth > n.clientWidth + 1 && fs > min) { fs -= 2; n.style.fontSize = fs + 'px'; } }
+window.reajustar = function () {
+  [['hook', 118, 70], ['hsub', 62, 40], ['hib1', 76, 50]].forEach(function (a) { var n = $(a[0]); n.style.fontSize = a[1] + 'px'; ajustar(n, a[2]); });
+  var q = document.querySelector('.outro .q'); q.style.fontSize = '104px'; ajustar(q, 64);
+};
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+/* ---------- hoja de maíz (curva cuadrática, nervaduras paralelas) ---------- */
+function Q(p0, c, p2, s) { var u = 1 - s; return [u * u * p0[0] + 2 * u * s * c[0] + s * s * p2[0], u * u * p0[1] + 2 * u * s * c[1] + s * s * p2[1]]; }
+function QD(p0, c, p2, s) { var dx = 2 * (1 - s) * (c[0] - p0[0]) + 2 * s * (p2[0] - c[0]), dy = 2 * (1 - s) * (c[1] - p0[1]) + 2 * s * (p2[1] - c[1]), l = Math.hypot(dx, dy); return [dx / l, dy / l]; }
+function poly(a) { return a.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(' '); }
+var VERDE = { base: '#46604B', luz: '#516D56', vena: 'rgba(222,234,205,0.17)', fina: 'rgba(222,234,205,0.08)', nervio: '#9DB091', borde: 'rgba(14,22,16,0.7)' };
+function hoja(g, p0, c, p2, W, tono) {
+  var N = 140, top = [], bot = [], pts = [], nor = [], ws = [];
+  for (var i = 0; i <= N; i++) {
+    var s = i / N, p = Q(p0, c, p2, s), d = QD(p0, c, p2, s), n = [d[1], -d[0]];
+    var w = W / 2 * Math.pow(Math.max(0, 1 - Math.pow(s, 2.6)), 0.6) * (1 + 0.02 * Math.sin(s * 95));
+    pts.push(p); nor.push(n); ws.push(w);
+    top.push([p[0] + n[0] * w, p[1] + n[1] * w]); bot.push([p[0] - n[0] * w, p[1] - n[1] * w]);
+  }
+  var contorno = poly(top) + ' ' + poly(bot.slice().reverse()).replace(/^M/, 'L') + ' Z';
+  el('path', { d: contorno, fill: tono.base }, g);
+  el('path', { d: poly(top) + ' ' + poly(pts.slice().reverse()).replace(/^M/, 'L') + ' Z', fill: tono.luz }, g);
+  function linea(f, col, w) { var a = []; for (var i = 0; i <= N * 0.985; i++) a.push([pts[i][0] + nor[i][0] * ws[i] * f, pts[i][1] + nor[i][1] * ws[i] * f]); el('path', { d: poly(a), fill: 'none', stroke: col, 'stroke-width': w }, g); }
+  [-0.9, -0.62, -0.34, 0.34, 0.62, 0.9].forEach(function (f) { linea(f, tono.fina, 1); });
+  [-0.76, -0.48, -0.2, 0.2, 0.48, 0.76].forEach(function (f) { linea(f, tono.vena, 1.4); });
+  var mid = pts.slice(0, Math.round(N * 0.97));
+  el('path', { d: poly(mid), fill: 'none', stroke: tono.nervio, 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0.5 }, g);
+  el('path', { d: poly(mid), fill: 'none', stroke: '#DCE4CE', 'stroke-width': 1.8, opacity: 0.6 }, g);
+  el('path', { d: contorno, fill: 'none', stroke: tono.borde, 'stroke-width': 1.6 }, g);
+  return { pt: function (s, off) { var p = Q(p0, c, p2, s), d = QD(p0, c, p2, s); off = off || 0; return { x: p[0] + d[1] * off, y: p[1] - d[0] * off, ang: Math.atan2(d[1], d[0]) * 180 / Math.PI }; } };
+}
+function bicho(g, x, y, rot, sc) { var u = el('use', { href: '#bug' }, g); u.setAttribute('transform', 'translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + sc + ')'); return u; }
+
+/* ---------- la lupa: muestra el contenido ampliado debajo de su centro ---------- */
+var lid = 0;
+function lente(svg, refId, o) {
+  var id = 'lz' + (++lid), defs = el('defs', {}, svg), H = o.h || 130, W = o.w || 16;
+  var cp = el('clipPath', { id: id + 'c' }, defs), cc = el('circle', { r: o.r }, cp);
+  var fl = el('filter', { id: id + 'f', filterUnits: 'userSpaceOnUse', x: -200, y: -200, width: 1480, height: 2320 }, defs), fb = el('feGaussianBlur', { stdDeviation: 0 }, fl);
+  var root = el('g', {}, svg);
+  var sh = el('g', { opacity: 0.5 }, root);
+  el('circle', { r: o.r + W / 2, fill: '#000', filter: 'url(#sombraL)' }, sh);
+  el('rect', { x: o.r + 6, y: -17, width: H + 26, height: 34, rx: 17, fill: '#000', transform: 'rotate(45)', filter: 'url(#sombraL)' }, sh);
+  var inner = el('g', { 'clip-path': 'url(#' + id + 'c)' }, root);
+  var bg = el('circle', { r: o.r, fill: o.bg || '#0E1729' }, inner);
+  var bl = el('g', {}, inner), u = el('use', { href: '#' + refId }, bl);
+  var vid = el('circle', { r: o.r, fill: 'url(#vidrio)' }, inner);
+  var hud = el('g', {}, root);
+  var fr = el('g', {}, root), hg = el('g', { transform: 'rotate(45)' }, fr);
+  el('rect', { x: o.r + W / 2 - 2, y: -12, width: 30, height: 24, rx: 3, fill: '#8FA0BE' }, hg);
+  el('rect', { x: o.r + W / 2 + 6, y: -6, width: 4, height: 12, fill: '#5E6E88' }, hg);
+  el('rect', { x: o.r + W / 2 + 26, y: -16, width: H, height: 32, rx: 16, fill: '#0D2D5E', stroke: '#F6F4EE', 'stroke-width': 3 }, hg);
+  el('line', { x1: o.r + W / 2 + 42, y1: -6, x2: o.r + W / 2 + H + 12, y2: -6, stroke: 'rgba(255,255,255,0.22)', 'stroke-width': 4, 'stroke-linecap': 'round' }, hg);
+  el('circle', { r: o.r + W / 2 + 2, fill: 'none', stroke: 'rgba(0,0,0,0.5)', 'stroke-width': 3 }, fr);
+  var aro = el('circle', { r: o.r, fill: 'none', stroke: '#F6F4EE', 'stroke-width': W }, fr);
+  el('circle', { r: o.r - W / 2 - 3, fill: 'none', stroke: '#8FA0BE', 'stroke-width': 2, opacity: 0.7 }, fr);
+  var rr = o.r * 0.8;
+  el('path', { d: 'M' + (rr * Math.cos(3.49)).toFixed(1) + ' ' + (rr * Math.sin(3.49)).toFixed(1) + ' A' + rr + ' ' + rr + ' 0 0 1 ' + (rr * Math.cos(4.36)).toFixed(1) + ' ' + (rr * Math.sin(4.36)).toFixed(1), fill: 'none', stroke: '#FFFFFF', 'stroke-width': Math.max(4, o.r * 0.045), 'stroke-linecap': 'round', opacity: 0.3 }, fr);
+  return {
+    root: root, hud: hud, aro: aro,
+    set: function (cx, cy, blur, M) {
+      M = M || o.M;
+      [cc, bg, vid].forEach(function (c) { c.setAttribute('cx', cx); c.setAttribute('cy', cy); });
+      u.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + M + ') translate(' + (-cx) + ' ' + (-cy) + ')');
+      if (blur > 0.05) { bl.setAttribute('filter', 'url(#' + id + 'f)'); fb.setAttribute('stdDeviation', blur.toFixed(2)); } else bl.removeAttribute('filter');
+      var tr = 'translate(' + cx.toFixed(2) + ' ' + cy.toFixed(2) + ')';
+      fr.setAttribute('transform', tr); hud.setAttribute('transform', tr);
+      sh.setAttribute('transform', 'translate(' + (cx + 14).toFixed(2) + ' ' + (cy + 20).toFixed(2) + ')');
+    }
+  };
+}
+
+/* ---------- 1 · hoja + chicharrita + lupa ---------- */
+var art1 = $('art1'), c1 = $('c1');
+var H1 = hoja(c1, [-120, 1300], [520, 820], [1000, 1090], 200, VERDE);
+var B1 = H1.pt(0.56, 10), B1rot = B1.ang + 180 + 90 - 8;
+bicho(c1, B1.x, B1.y, B1rot, 0.62);
+var L1 = lente(art1, 'c1', { r: 188, M: 3, w: 18, h: 128 });
+// marcas de foco (ámbar) alrededor de la chicharrita ampliada
+var foco = el('g', {}, L1.hud), focoIn = el('g', { transform: 'rotate(' + (B1rot - 90) + ')' }, foco);
+[[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (q) {
+  var x = q[0] * 118, y = q[1] * 70;
+  el('path', { d: 'M' + x + ' ' + (y - q[1] * 26) + ' L' + x + ' ' + y + ' L' + (x - q[0] * 26) + ' ' + y, fill: 'none', stroke: '#F5A623', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, focoIn);
+});
+var guia1 = el('line', { x1: B1.x - 18, y1: B1.y + 210, x2: B1.x - 18, y2: 1282, stroke: '#8FA0BE', 'stroke-width': 2.5, 'stroke-dasharray': '6 7' }, art1);
+var guiaP = el('circle', { cx: B1.x - 18, cy: B1.y + 210, r: 6, fill: '#F5A623' }, art1);
+
+/* ---------- 2 · trampa amarilla pegajosa ---------- */
+var art2 = $('art2'), c2 = $('c2');
+var TX = 330, TY = 700, TW = 420, TH = 520;
+el('rect', { x: 533, y: 640, width: 14, height: 680, rx: 3, fill: 'url(#estaca)' }, c2);
+el('rect', { x: TX + 14, y: TY + 22, width: TW, height: TH, rx: 12, fill: '#000', opacity: 0.45, filter: 'url(#sombraT)' }, c2);
+el('rect', { x: TX, y: TY, width: TW, height: TH, rx: 12, fill: 'url(#tarjeta)' }, c2);
+var cpT = el('clipPath', { id: 'cpT' }, el('defs', {}, art2)); el('rect', { x: TX, y: TY, width: TW, height: TH, rx: 12 }, cpT);
+var grilla = el('g', { 'clip-path': 'url(#cpT)' }, c2);
+for (var gx = TX + 21; gx < TX + TW; gx += 21) el('line', { x1: gx, y1: TY, x2: gx, y2: TY + TH, stroke: 'rgba(92,54,0,' + (((gx - TX) % 105) ? 0.13 : 0.30) + ')', 'stroke-width': ((gx - TX) % 105) ? 1 : 1.6 }, grilla);
+for (var gy = TY + 21; gy < TY + TH; gy += 21) el('line', { x1: TX, y1: gy, x2: TX + TW, y2: gy, stroke: 'rgba(92,54,0,' + (((gy - TY) % 105) ? 0.13 : 0.30) + ')', 'stroke-width': ((gy - TY) % 105) ? 1 : 1.6 }, grilla);
+var brillo = el('rect', { x: TX - 300, y: TY - 40, width: 180, height: TH + 80, fill: 'url(#brillo)', transform: 'skewX(-18)' }, grilla);
+el('rect', { x: TX + 0.5, y: TY + 0.5, width: TW - 1, height: TH - 1, rx: 12, fill: 'none', stroke: 'rgba(255,240,200,0.55)', 'stroke-width': 1.5 }, c2);
+[TY + 16, TY + TH - 34].forEach(function (y) { el('rect', { x: 526, y: y, width: 28, height: 18, rx: 3, fill: '#C7CFDB', stroke: '#6B778A', 'stroke-width': 1.5 }, c2); });
+// restos chicos (polvo, otros insectos) y capturas de chicharrita
+for (var d = 0; d < 26; d++) el('circle', { cx: TX + 24 + rnd() * (TW - 48), cy: TY + 30 + rnd() * (TH - 60), r: 1.2 + rnd() * 1.8, fill: 'rgba(70,40,0,0.45)' }, c2);
+var CL = { x: 600, y: 935 };
+var capt = [[CL.x - 34, CL.y - 18, 0.24], [CL.x + 30, CL.y + 26, 0.23], [CL.x - 4, CL.y + 52, 0.22]];
+while (capt.length < 24) {
+  var px = TX + 40 + rnd() * (TW - 80), py = TY + 46 + rnd() * (TH - 92), ok = true;
+  capt.forEach(function (c) { if (Math.hypot(c[0] - px, c[1] - py) < 46) ok = false; });
+  if (ok) capt.push([px, py, 0.16 + rnd() * 0.06]);
+}
+var capG = el('g', {}, c2);
+capt = capt.map(function (c, i) {
+  var g = el('g', {}, capG), r = Math.round(rnd() * 360);
+  el('ellipse', { cx: 0, cy: 0, rx: 7.5, ry: 13, fill: 'rgba(110,62,0,0.20)', transform: 'rotate(' + r + ')' }, g);
+  bicho(g, 0, 0, r, c[2] / 0.24 * 0.24);
+  return { g: g, x: c[0], y: c[1], t: i < 3 ? 5.75 + i * 0.12 : 5.9 + (i - 3) * 0.085 };
+});
+var L2 = lente(art2, 'c2', { r: 165, M: 2.7, w: 18, h: 120 });
+
+/* ---------- 3 · escala 1–9 del marbete ---------- */
+var art3 = $('art3'), c3 = $('c3');
+var X0 = 150, DX = 93.75, YN = 880, YT = 975;
+function xs(n) { return X0 + (n - 1) * DX; }
+var pista = el('line', { x1: X0, y1: YT, x2: xs(9), y2: YT, stroke: 'rgba(143,160,190,0.55)', 'stroke-width': 3, 'stroke-linecap': 'round' }, c3);
+var nums = [], ticks = [];
+for (var n = 1; n <= 9; n++) {
+  ticks.push(el('line', { x1: xs(n), y1: YT - 12, x2: xs(n), y2: YT + 12, stroke: 'rgba(143,160,190,0.75)', 'stroke-width': 3, 'stroke-linecap': 'round' }, c3));
+  var tx = el('text', { x: xs(n), y: YN, 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 58, fill: '#E8EEF7' }, c3);
+  tx.textContent = n; nums.push(tx);
+}
+var ext1 = el('text', { x: X0 - 22, y: 1052, 'font-family': 'DM Sans', 'font-weight': 500, 'font-size': 32, fill: '#E8EEF7' }, art3); ext1.textContent = '1 = excelente';
+var ext9 = el('text', { x: xs(9) + 22, y: 1052, 'text-anchor': 'end', 'font-family': 'DM Sans', 'font-weight': 500, 'font-size': 32, fill: '#E8EEF7' }, art3); ext9.textContent = '9 = deficiente';
+var rango = el('g', {}, art3);
+el('path', { d: 'M' + (xs(4) - 22) + ' 812 L' + (xs(4) - 22) + ' 798 L' + (xs(6) + 22) + ' 798 L' + (xs(6) + 22) + ' 812', fill: 'none', stroke: '#8FA0BE', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, rango);
+var rt = el('text', { x: xs(5), y: 770, 'text-anchor': 'middle', 'font-family': 'DM Sans', 'font-weight': 500, 'font-size': 31, fill: '#8FA0BE' }, rango); rt.textContent = 'resto del portafolio: 4 a 6';
+var divi = el('line', { x1: 80, y1: 1102, x2: 930, y2: 1102, stroke: 'rgba(143,160,190,0.35)', 'stroke-width': 2 }, art3);
+var pulso = el('circle', { r: 64, fill: 'none', stroke: '#F5A623', 'stroke-width': 5, opacity: 0 }, art3);
+var L3 = lente(art3, 'c3', { r: 58, M: 1.7, w: 11, h: 62, bg: '#0F192C' });
+
+/* ---------- 4 · lote en planta ---------- */
+var art4 = $('art4'), c4 = $('c4');
+var LOTE = [[190, 690], [880, 650], [915, 1170], [165, 1215]];
+var dfs4 = el('defs', {}, art4);
+var cpL = el('clipPath', { id: 'cpL' }, dfs4); el('path', { d: poly(LOTE) + ' Z' }, cpL);
+var cpR = el('clipPath', { id: 'cpR' }, dfs4); var revela = el('rect', { x: 150, y: 600, width: 0, height: 700 }, cpR);
+el('path', { d: poly(LOTE) + ' Z', fill: 'rgba(70,96,75,0.22)' }, c4);
+var surcos = el('g', { 'clip-path': 'url(#cpL)' }, c4), surcos2 = el('g', { 'clip-path': 'url(#cpR)' }, surcos);
+for (var r = 0; r < 24; r++) { var y0 = 660 + r * 26; el('line', { x1: 150, y1: y0 + 8, x2: 940, y2: y0 - 38, stroke: '#6E8C6C', 'stroke-width': 5, 'stroke-dasharray': '4 9', 'stroke-linecap': 'round' }, surcos2); }
+el('path', { d: poly(LOTE) + ' Z', fill: 'none', stroke: '#F6F4EE', 'stroke-width': 3, 'stroke-dasharray': '14 10', opacity: 0.8 }, c4);
+var pinG = el('g', {}, art4), pinS = el('ellipse', { cx: 470, cy: 960, rx: 30, ry: 9, fill: 'rgba(0,0,0,0.45)' }, pinG), pin = el('g', {}, pinG);
+el('path', { d: 'M470 960 C450 930 426 905 426 875 A44 44 0 1 1 514 875 C514 905 490 930 470 960 Z', fill: '#F5A623' }, pin);
+el('circle', { cx: 470, cy: 875, r: 16, fill: '#0A0F1B' }, pin);
+var L4 = lente(art4, 'c4', { r: 132, M: 2.3, w: 16, h: 110 });
+
+/* ---------- cierre: lupa con la chicharrita ---------- */
+var art5 = $('art5'), c5 = $('c5');
+var H5 = hoja(c5, [360, 580], [540, 495], [760, 540], 120, VERDE);
+var B5 = H5.pt(0.5, 4); bicho(c5, B5.x, B5.y, B5.ang + 270 - 10, 0.6);
+var L5 = lente(art5, 'c5', { r: 150, M: 3, w: 16, h: 118 });
+
+/* ---------- anillos de progreso (pasos 1 a 3) ---------- */
+var anillos = [836, 872, 908].map(function (x) { return el('circle', { cx: x, cy: 290, r: 12, fill: 'none', stroke: '#8FA0BE', 'stroke-width': 3 }, $('anillos')); });
+
+var ESC = [['s1', 0, 5.0], ['s2', 5.0, 9.8], ['s3', 9.8, 15.8], ['s4', 15.8, 19.4]];
+var T_OUT = 19.4, TOTAL = 24.0;
+window.REEL_DURACION = TOTAL;
+function aparece(id, t, a, dy) { var n = $(id), k = eout(seg(t, a, a + 0.45)); n.style.opacity = k; n.style.transform = 'translateY(' + (1 - k) * (dy || 24) + 'px)'; }
+
+window.render = function (t) {
+  ESC.forEach(function (e, i) {
+    var n = $(e[0]);
+    var kin = i === 0 ? 1 : eout(seg(t, e[1] - 0.12, e[1] + 0.32));
+    var kout = 1 - eio(seg(t, e[2] - 0.3, e[2] + 0.04));
+    var op = kin * kout;
+    n.style.opacity = op; n.style.visibility = op > 0.002 ? 'visible' : 'hidden';
+    n.style.transform = 'translateY(' + (1 - kin) * 40 + 'px)';
+  });
+  // rótulo de pasos
+  var paso = t >= 15.8 ? 3 : t >= 9.8 ? 2 : t >= 5.0 ? 1 : 0;
+  $('top').style.opacity = eout(seg(t, 4.9, 5.3)) * (1 - eio(seg(t, T_OUT - 0.3, T_OUT + 0.04)));
+  anillos.forEach(function (a, i) { var on = i < paso; a.setAttribute('fill', on ? '#F5A623' : 'none'); a.setAttribute('stroke', on ? '#F5A623' : '#8FA0BE'); });
+
+  /* 1 · gancho + lupa */
+  $('ul').style.transform = 'scaleX(' + eout(seg(t, 0.05, 0.75)) + ')';
+  var k1 = eio(seg(t, 0, 1.7)), wob = seg(t, 1.5, 2.3);
+  var lx = lerp(1000, B1.x, k1) + 4 * Math.sin(t * 1.7) * wob, ly = lerp(1490, B1.y, k1) - 70 * Math.sin(Math.PI * k1) + 3 * Math.sin(t * 2.3 + 1) * wob;
+  var kf = eout(seg(t, 1.1, 2.1));
+  L1.set(lx, ly, 7 * (1 - kf), lerp(2.3, 3, kf));
+  var kb = back(seg(t, 2.05, 2.45));
+  foco.setAttribute('opacity', clamp(seg(t, 2.05, 2.2)));
+  foco.firstChild.setAttribute('transform', 'rotate(' + (B1rot - 90) + ') scale(' + (1.35 - 0.35 * kb).toFixed(3) + ')');
+  var kg = eout(seg(t, 2.3, 2.75));
+  guia1.setAttribute('opacity', kg); guiaP.setAttribute('opacity', kg);
+  guia1.setAttribute('y2', lerp(B1.y + 210, 1282, kg));
+  aparece('rot1', t, 2.45);
+
+  /* 2 · trampa */
+  var kd = back(seg(t, 5.05, 5.75), 1.2), sw = 1.1 * Math.sin((t - 5) * 1.5);
+  c2.setAttribute('transform', 'translate(0 ' + ((1 - kd) * -110).toFixed(1) + ') rotate(' + sw.toFixed(3) + ' 540 700)');
+  c2.setAttribute('opacity', clamp(seg(t, 5.0, 5.3)));
+  brillo.setAttribute('x', lerp(TX - 300, TX + TW + 250, seg(t, 5.6, 9.4)));
+  capt.forEach(function (c, i) {
+    var k = back(seg(t, c.t, c.t + 0.3), 2.2);
+    c.g.setAttribute('transform', 'translate(' + c.x + ' ' + c.y + ') scale(' + (1.7 - 0.7 * k).toFixed(3) + ')');
+    c.g.setAttribute('opacity', clamp(seg(t, c.t, c.t + 0.12)));
+  });
+  var k2 = eio(seg(t, 6.7, 7.9)), wob2 = seg(t, 7.7, 8.4);
+  var rad = sw * Math.PI / 180, cx2 = 540 + (CL.x - 540) * Math.cos(rad) - (CL.y - 700) * Math.sin(rad), cy2 = 700 + (CL.x - 540) * Math.sin(rad) + (CL.y - 700) * Math.cos(rad);
+  L2.set(lerp(1200, cx2, k2) + 4 * Math.sin(t * 1.9) * wob2, lerp(1330, cy2 + 14, k2) - 60 * Math.sin(Math.PI * k2) + 3 * Math.sin(t * 2.4) * wob2, 6 * (1 - eout(seg(t, 7.3, 8.1))));
+  L2.root.setAttribute('opacity', t < 6.6 ? 0 : 1);
+  aparece('t2', t, 6.0);
+
+  /* 3 · escala */
+  aparece('cab3', t, 9.95);
+  pista.setAttribute('x2', lerp(X0, xs(9), eio(seg(t, 10.0, 10.6))));
+  nums.forEach(function (n, i) {
+    var k = eout(seg(t, 10.05 + i * 0.05, 10.4 + i * 0.05));
+    n.setAttribute('opacity', k); ticks[i].setAttribute('opacity', k);
+  });
+  var e1 = eout(seg(t, 10.5, 10.9)); ext1.setAttribute('opacity', e1); ext9.setAttribute('opacity', e1);
+  var ks = seg(t, 10.8, 12.45), xm = lerp(1180, xs(3), 1 - Math.pow(1 - ks, 3.4));
+  var tau = Math.max(0, t - 12.45); xm += -9 * Math.exp(-7 * tau) * Math.sin(15 * tau) * (t > 12.45 ? 1 : 0);
+  L3.set(xm, YN, 0);
+  var k3 = eout(seg(t, 12.4, 12.7));
+  nums[2].setAttribute('fill', k3 > 0.5 ? '#F5A623' : '#E8EEF7');
+  var kp = seg(t, 12.45, 13.15);
+  pulso.setAttribute('cx', xs(3)); pulso.setAttribute('cy', YN); pulso.setAttribute('r', 64 + 70 * eout(kp)); pulso.setAttribute('opacity', kp > 0 && kp < 1 ? 0.9 * (1 - kp) : 0);
+  L3.aro.setAttribute('stroke', k3 > 0.5 ? '#F5A623' : '#F6F4EE');
+  var kr = eout(seg(t, 12.75, 13.2)); rango.setAttribute('opacity', kr); rango.setAttribute('transform', 'translate(0 ' + (1 - kr) * 14 + ')');
+  divi.setAttribute('opacity', eout(seg(t, 12.95, 13.3)));
+  aparece('hib1', t, 13.0); aparece('hib2', t, 13.25); aparece('hib3', t, 13.5);
+
+  /* 4 · lote */
+  revela.setAttribute('width', 800 * eio(seg(t, 15.85, 16.9)));
+  var k4 = eio(seg(t, 15.8, 17.4));
+  L4.set(lerp(150, 735, k4) + 3 * Math.sin(t * 1.8) * seg(t, 17.2, 17.8), lerp(1150, 990, k4) - 40 * Math.sin(Math.PI * k4), 0);
+  var kpin = back(seg(t, 16.85, 17.35), 2);
+  pin.setAttribute('transform', 'translate(0 ' + ((1 - kpin) * -170).toFixed(1) + ')');
+  pinG.setAttribute('opacity', clamp(seg(t, 16.85, 16.95)));
+  pinS.setAttribute('transform', 'translate(470 960) scale(' + (0.3 + 0.7 * clamp(kpin)).toFixed(3) + ') translate(-470 -960)');
+  aparece('t4', t, 16.95);
+
+  /* cierre */
+  var out = $('outro'), ko = eout(seg(t, T_OUT - 0.12, T_OUT + 0.3));
+  out.style.opacity = t >= T_OUT - 0.12 ? ko : 0;
+  L5.set(540 + 5 * Math.sin(t * 1.5), 520 + 3 * Math.sin(t * 2.1 + 0.5), 0);
+  out.querySelectorAll(':scope > *').forEach(function (c, i) {
+    var k = eout(seg(t, T_OUT + i * 0.12, T_OUT + 0.45 + i * 0.12));
+    c.style.opacity = k; c.style.transform = (i === 0 ? 'scale(' + (0.94 + 0.06 * k) + ')' : 'translateY(' + (1 - k) * 24 + 'px)');
+  });
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % window.REEL_DURACION); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>

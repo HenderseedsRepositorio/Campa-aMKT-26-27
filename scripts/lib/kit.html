@@ -54,6 +54,10 @@ ul.pasos li b { font-family: var(--mono); font-weight: 500; font-size: 11.5px; l
 .btn { appearance: none; border: 0; cursor: pointer; font-family: var(--body); font-weight: 700; font-size: 15px; padding: 11px 16px; border-radius: 8px; background: var(--amber); color: var(--amber-ink); display: inline-flex; align-items: center; gap: 8px; }
 .btn.sec { background: var(--chip); color: var(--ink); font-weight: 500; font-size: 14px; padding: 8px 12px; }
 .btn.copiado { box-shadow: 0 0 0 2px var(--ok); }
+details summary { cursor: pointer; font-weight: 700; font-size: 14.5px; color: var(--navy); padding: 6px 0; }
+details[open] summary { margin-bottom: 8px; }
+.ficha.opcion.elegida { border-color: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+.hecho.elige input { accent-color: var(--amber); }
 .btn:focus-visible, .hecho input:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
 .acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
 .ok { font-family: var(--mono); font-size: 12.5px; color: var(--ok); }
@@ -86,6 +90,10 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); text-al
     <h2>Más videos para subir</h2>
     <p class="lead">Listos para usar cuando quieras sumar un posteo, reemplazar uno o armar historias. No se tildan como publicados: si subís alguno, anotalo en el calendario.</p>
     <!--BANCO-->
+    <div class="ficha eleccion">
+      <p class="lead" style="margin:0">Tildá <b>Me la quedo</b> en las que te gusten y mandame la lista.</p>
+      <div class="acciones"><button class="btn" id="mi-eleccion">Copiar mi elección</button><span class="ok" aria-live="polite"></span></div>
+    </div>
   </section>
 
   <section>
@@ -133,6 +141,18 @@ footer { font-family: var(--mono); font-size: 12px; color: var(--muted); text-al
     document.getElementById('cuenta').textContent = n + ' de ' + fichas.length + ' publicados';
     document.getElementById('barra').style.width = (100 * n / fichas.length) + '%';
   }
+  document.querySelectorAll('.hecho.elige input').forEach(function (cb) {
+    var k = 'kit-w43-' + cb.id, art = cb.closest('.ficha');
+    cb.checked = leer(k) === '1'; art.classList.toggle('elegida', cb.checked);
+    cb.addEventListener('change', function () { art.classList.toggle('elegida', cb.checked); guardar(k, cb.checked ? '1' : '0'); });
+  });
+  var bEl = document.getElementById('mi-eleccion');
+  if (bEl) bEl.addEventListener('click', function () {
+    var el = Array.prototype.slice.call(document.querySelectorAll('.hecho.elige input:checked')).map(function (c) { return '• ' + c.dataset.titulo; });
+    var txt = el.length ? 'Me quedo con estas opciones de reel:\n' + el.join('\n') : 'Todavía no elegí ninguna opción.';
+    var ok = function () { avisar(bEl, el.length ? 'Copiado: pegalo en el chat' : 'Tildá al menos una'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, ok); else ok();
+  });
   fichas.forEach(function (f) {
     var cb = f.querySelector('.hecho input'), k = 'kit-w43-' + f.dataset.id;
     cb.checked = leer(k) === '1'; f.classList.toggle('hecha', cb.checked);

@@ -100,14 +100,10 @@ Todo junto para el celular (video para bajar, portada, pasos y caption para copi
 `python3 scripts/armar-kit.py`; las opciones extra están en `scripts/kit_banco.py`). Los MP4 finales
 están en `docs/placas/video/2026-W43-*` y `2026-W44-*` (CRF 21, igual que el resto del sitio).
 
-**Más videos listos (banco):**
-- Video 1 con otro título: "¿Quién te acompaña toda la campaña?", "¿Quién conoce tu lote tanto como vos?",
-  "¿Sembrás solo o con equipo?" (23 s) y la versión historia de "¿Quién sigue de cerca tu lote?".
-- Reels del plan de septiembre que siguen vigentes (revisados 19/10, datos correctos y sin precios):
-  calculadora "¿Qué te queda de cada hectárea?", historia "¿Maíz o girasol?", "¿Qué híbrido de girasol
-  va en tu lote?" (WhatsApp), "¿Rinde o sanidad?", NS 1113 CL, NS 7925 VIPTERA3 y "Somos de acá".
-- Quedan afuera: "la siembra de girasol arranca el 15/10" (fecha pasada) y el ranking de tardío (muestra
-  kg/ha de maíz: va contra la regla del 25/09).
+**5 opciones nuevas para elegir** (20/10, pedido de Henderseeds: reels distintos de verdad, no el mismo
+video con otro título). Cada una con mensaje, formato y dibujo propios; ver
+[2026-W44-5-opciones.md](2026-W44-5-opciones.md). Se sacaron del kit y del sitio las versiones del video 1
+que solo cambiaban el título; los reels del plan de septiembre siguen en `docs/reels-siembra/`.
 
 ## Pendientes comunes
 - ✅ OK de Nidera para usar su logo y los nombres "Experiencia Nidera" / "Nidera Vuela" (confirmado 19/10).

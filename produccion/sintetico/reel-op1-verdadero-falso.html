@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HenderSeeds — Reel · ¿Verdadero o falso?</title>
+<!--
+  Estilo: JUEGO DE PREGUNTAS (fondo crema con rayos que giran, mazo de tres cartas, botones
+  VERDADERO / FALSO que laten y un sello ámbar que golpea la carta con la respuesta).
+  Mensaje: 3 cosas que se escuchan en la siembra, con la respuesta y el porqué.
+  Datos: 1) Nafziger y col. (1991), citado por INTA (nacimiento desparejo, 6–9 % de rinde);
+         2) marbetes Nidera 26/27, Oeste de Buenos Aires (girasol: óptima 15/10–15/11, límite 20/11);
+         3) criterio de manejo por ambiente (sin número).
+  Cierre: "¿Cuántas acertaste?" → comentarios + "Mandanos un DM" + WhatsApp.
+  Se anima con window.render(t); scripts/render-reel.mjs lo pasa a MP4.
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --navy:#0A0F1B; --navy2:#0D2D5E; --amber:#F5A623; --cream:#F6F4EE; --steel:#8FA0BE; --ice:#E8EEF7; --ink:#15181E;
+  --arch:'Archivo Black',sans-serif; --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--cream); }
+.capa { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+
+/* gancho */
+.hook { position:absolute; left:80px; top:290px; width:850px; z-index:5; }
+.hook h1 { font-family:var(--arch); font-weight:400; font-size:116px; line-height:1.02; letter-spacing:-4px; color:var(--navy); white-space:nowrap; }
+.hl { position:relative; z-index:0; display:inline-block; }
+.mk { position:absolute; left:-14px; right:-16px; top:20%; bottom:0; background:var(--amber); z-index:-1; transform-origin:0 50%; border-radius:8px; }
+.hook p { font-family:var(--sans); font-weight:600; font-size:54px; line-height:1.22; color:var(--navy); margin-top:30px; }
+.hook p b { font-weight:800; }
+
+/* contador */
+.top { position:absolute; left:80px; top:250px; width:850px; height:84px; z-index:6; }
+.top .lab { position:absolute; left:0; bottom:10px; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:3px; color:rgba(10,15,27,0.72); }
+.top .cnt { position:absolute; right:0; bottom:0; font-family:var(--arch); font-size:76px; line-height:1; letter-spacing:-2px; color:var(--navy); white-space:nowrap; }
+.top .cnt b { display:inline-block; font-weight:400; transform-origin:50% 80%; }
+.top .cnt small { font-size:42px; letter-spacing:0; color:rgba(10,15,27,0.38); }
+.timer { position:absolute; left:80px; top:344px; width:850px; height:10px; border-radius:5px; background:rgba(10,15,27,0.09); overflow:hidden; z-index:6; }
+.timer i { display:block; width:100%; height:100%; border-radius:5px; background:var(--navy2); transform-origin:0 50%; }
+
+/* cartas */
+.card { position:absolute; left:80px; top:372px; width:850px; height:560px; transform-origin:50% 50%; }
+.face { position:absolute; inset:0; border-radius:34px; }
+.front { background:#FFFFFF; box-shadow:0 26px 60px rgba(10,15,27,0.15), 0 0 0 1px rgba(10,15,27,0.05); }
+.back { background-color:var(--navy2); box-shadow:0 26px 60px rgba(10,15,27,0.22);
+  background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.045) 0 18px, transparent 18px 36px); overflow:hidden; }
+.back::before { content:''; position:absolute; inset:22px; border:3px solid rgba(232,238,247,0.22); border-radius:22px; }
+.back .q { position:absolute; left:0; right:0; top:50%; transform:translateY(-52%); text-align:center; font-family:var(--arch); font-size:300px; line-height:1; color:var(--amber); }
+.back .ix { position:absolute; font-family:var(--arch); font-size:50px; line-height:1; color:var(--ice); }
+.back .ix.a { left:52px; top:46px; }
+.back .ix.b { right:52px; bottom:46px; transform:rotate(180deg); }
+.ch { position:absolute; left:50px; top:44px; display:flex; align-items:center; gap:14px; font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:4px; color:rgba(10,15,27,0.55); }
+.stmt { position:absolute; left:50px; top:102px; width:752px; height:256px; font-family:var(--arch); font-size:64px; line-height:1.08; letter-spacing:-1.5px; color:var(--navy); }
+.burst { position:absolute; left:0; top:0; width:850px; height:560px; overflow:visible; }
+.stamp { position:absolute; left:425px; top:462px; transform:translate(-50%,-50%) rotate(-8deg); background:var(--amber); border-radius:18px; padding:26px 48px 22px;
+  font-family:var(--arch); font-size:140px; line-height:1; letter-spacing:3px; color:var(--navy); white-space:nowrap; overflow:hidden; opacity:0;
+  box-shadow:inset 0 0 0 10px var(--amber), inset 0 0 0 16px var(--navy); }
+.stamp svg { position:absolute; left:0; top:0; width:900px; height:260px; }
+
+/* botones */
+.btns { position:absolute; left:80px; top:1000px; width:850px; height:118px; z-index:4; }
+.btn { position:absolute; top:0; width:414px; height:108px; border-radius:24px; background:#FFFFFF; border:4px solid var(--navy);
+  display:flex; align-items:center; justify-content:center; gap:16px; font-family:var(--arch); font-size:40px; letter-spacing:0; color:var(--navy); white-space:nowrap; }
+.btn.v { left:0; } .btn.f { right:0; }
+.btn .ic { width:54px; height:54px; border-radius:50%; display:grid; place-items:center; flex-shrink:0; border:4px solid currentColor; }
+.btn .ic svg { display:block; }
+
+.prompt { position:absolute; left:80px; top:1160px; width:850px; display:flex; align-items:center; gap:18px; font-family:var(--sans); font-style:italic; font-weight:700; font-size:46px; color:rgba(10,15,27,0.6); z-index:4; }
+.ex { position:absolute; left:80px; top:1146px; width:850px; z-index:4; opacity:0; }
+.ex p { font-family:var(--sans); font-weight:500; font-size:39px; line-height:1.3; color:var(--ink); }
+.ex p b { font-weight:800; color:var(--navy); }
+.ex .src { font-family:var(--mono); font-size:22px; line-height:1.3; letter-spacing:0.5px; color:rgba(10,15,27,0.62); margin-top:16px; }
+
+/* cinta de abajo (decoración, fuera de la zona segura) */
+.tk { position:absolute; left:0; top:1628px; width:1080px; height:80px; background:var(--navy); overflow:hidden; z-index:2; }
+.tk .run { position:absolute; left:0; top:0; height:80px; display:flex; align-items:center; white-space:nowrap; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:5px; color:var(--ice); }
+.tk .run span { padding-right:28px; }
+.tk .run i { font-style:normal; color:var(--amber); padding-right:28px; }
+
+/* cierre */
+.outro > * { position:absolute; left:80px; opacity:0; }
+.outro .rlab { top:396px; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:4px; color:rgba(10,15,27,0.72); }
+.outro .minis { top:444px; width:850px; height:120px; }
+.mini { position:absolute; top:0; display:flex; align-items:center; gap:14px; background:var(--amber); border-radius:14px; padding:20px 26px 16px;
+  font-family:var(--arch); font-size:38px; line-height:1; letter-spacing:1px; color:var(--navy); white-space:nowrap; box-shadow:inset 0 0 0 6px var(--amber), inset 0 0 0 10px var(--navy); }
+.mini em { font-style:normal; font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:0; }
+.outro .oq { top:630px; font-family:var(--arch); font-size:112px; line-height:1.02; letter-spacing:-4px; color:var(--navy); white-space:nowrap; }
+.outro .os { top:882px; font-family:var(--sans); font-weight:600; font-size:46px; color:var(--navy); }
+.outro .odm { top:990px; display:flex; align-items:center; gap:18px; background:var(--amber); border:4px solid var(--navy); border-radius:24px; padding:24px 42px;
+  font-family:var(--sans); font-weight:800; font-size:46px; color:var(--navy); box-shadow:0 8px 0 var(--navy); }
+.outro .owa { top:1152px; display:flex; align-items:center; gap:16px; font-family:var(--mono); font-weight:500; font-size:34px; color:var(--navy); }
+#logo { position:absolute; left:74px; top:1262px; height:128px; mix-blend-mode:multiply; opacity:0; z-index:3; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg class="capa" viewBox="0 0 1080 1920" id="fondo"><g id="rays"></g></svg>
+
+  <div class="hook" id="hook">
+    <h1>¿Verdadero<br><span class="hl"><span class="mk" id="mk1"></span>o falso?</span></h1>
+    <p><b>3 cosas</b> que se escuchan<br>en la siembra</p>
+  </div>
+
+  <div class="top" id="top"><div class="lab">¿VERDADERO O FALSO?</div><div class="cnt"><b id="cntN">1</b><small>/3</small></div></div>
+  <div class="timer" id="timerW"><i id="timer"></i></div>
+
+  <div id="mazo"></div>
+
+  <div class="btns" id="btns">
+    <div class="btn v" id="bV"><span class="ic"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.6 4.6L19 7.6"/></svg></span>VERDADERO</div>
+    <div class="btn f" id="bF"><span class="ic"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span>FALSO</div>
+  </div>
+
+  <div class="prompt" id="prompt"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="rgba(10,15,27,0.6)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5M6 11l6-6 6 6"/></svg>¿Vos qué decís?</div>
+
+  <div class="ex" id="ex0"><p><b>Queda dominada:</b> en maíz, cuando parte de las plantas nace unos 10 días tarde, se pierde entre 6 y 9&nbsp;% de rinde.</p><div class="src">Fuente: Nafziger y col. (1991), citado por INTA</div></div>
+  <div class="ex" id="ex1"><p><b>Es la fecha límite del marbete Nidera.</b> La fecha óptima va del 15/10 al 15/11.</p><div class="src">Fuente: Marbetes Nidera 26/27 · Oeste de Buenos Aires</div></div>
+  <div class="ex" id="ex2"><p><b>La densidad se ajusta a cada ambiente:</b> la loma y el bajo no piden lo mismo.</p></div>
+
+  <svg class="capa" viewBox="0 0 1080 1920" id="ilus" style="z-index:4"><g id="il0"></g><g id="il1"></g><g id="il2"></g></svg>
+
+  <div class="tk"><div class="run" id="run"></div></div>
+
+  <div class="outro" id="outro">
+    <div class="rlab">LAS RESPUESTAS</div>
+    <div class="minis" id="minis">
+      <div class="mini" id="m0"><em>1</em>FALSO</div>
+      <div class="mini" id="m1"><em>2</em>VERDADERO</div>
+      <div class="mini" id="m2"><em>3</em>FALSO</div>
+    </div>
+    <div class="oq">¿Cuántas<br><span class="hl"><span class="mk" id="mk2"></span>acertaste?</span></div>
+    <div class="os">Contalo en los comentarios.</div>
+    <div class="odm"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="#0A0F1B" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Mandanos un DM</div>
+    <div class="owa"><svg viewBox="0 0 32 32" width="34" height="34" fill="#25D366"><path d="M16 .4C7.4.4.5 7.3.5 15.9c0 2.8.7 5.4 2 7.8L.4 31.6l8.1-2.1c2.3 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-7 15.5-15.5S24.6.4 16 .4zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.9-13.1 13.1-13.1 3.5 0 6.8 1.4 9.3 3.8 2.5 2.5 3.8 5.8 3.8 9.3 0 7.2-5.9 13-13.2 13zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.7-.7-.9-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.4 1.4-1.4 3.4s1.5 3.9 1.7 4.2c.2.3 2.9 4.4 7 6.2 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.3-.9 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg> WhatsApp 2314 53-0691</div>
+  </div>
+  <img id="logo" src="../../docs/assets/logo-henderseeds-navy.png" alt="HenderSeeds">
+</div>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function $(id) { return document.getElementById(id); }
+function clamp(v) { return Math.max(0, Math.min(1, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+function eio(v) { v = clamp(v); return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+function eout(v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); }
+function ein(v) { v = clamp(v); return v * v * v; }
+function back(v) { v = clamp(v); var c = 1.7; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); }
+function lerp(a, b, k) { return a + (b - a) * k; }
+function mezcla(c1, c2, k) {   // mezcla dos colores #RRGGBB
+  var a = parseInt(c1.slice(1), 16), b = parseInt(c2.slice(1), 16);
+  var r = Math.round(lerp(a >> 16, b >> 16, k)), g = Math.round(lerp((a >> 8) & 255, (b >> 8) & 255, k)), bl = Math.round(lerp(a & 255, b & 255, k));
+  return 'rgb(' + r + ',' + g + ',' + bl + ')';
+}
+function azar(semilla) { var s = semilla >>> 0; return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+
+// ---------- guion ----------
+var PREG = [
+  { txt: 'Si una planta nace atrasada, después se empareja.', resp: 'F' },
+  { txt: 'En el oeste bonaerense, el girasol se puede sembrar hasta el 20/11.', resp: 'V' },
+  { txt: 'Más semillas por metro, siempre más rinde.', resp: 'F' }
+];
+// in: la carta pasa al frente · flip: se da vuelta · stamp: sello · out: se va
+var Q = [
+  { inn: 1.9,  flip: 2.2,   stamp: 4.75,  out: 8.4 },
+  { inn: 8.45, flip: 8.65,  stamp: 11.2,  out: 14.45 },
+  { inn: 14.5, flip: 14.7,  stamp: 16.65, out: 20.05 }
+];
+var T_OUT = 20.22, TOTAL = 24.0;
+window.REEL_DURACION = TOTAL;
+
+// ---------- fondo: rayos de programa de preguntas ----------
+(function () {
+  var g = $('rays'), n = 32, R = 1500;
+  for (var i = 0; i < n; i += 2) {
+    var a1 = (i / n) * Math.PI * 2, a2 = ((i + 1) / n) * Math.PI * 2;
+    el('path', { d: 'M0 0 L' + (R * Math.cos(a1)).toFixed(1) + ' ' + (R * Math.sin(a1)).toFixed(1) + ' L' + (R * Math.cos(a2)).toFixed(1) + ' ' + (R * Math.sin(a2)).toFixed(1) + ' Z', fill: 'rgba(13,45,94,0.035)' }, g);
+  }
+})();
+
+// ---------- mazo de cartas ----------
+var mazo = $('mazo'), CARTAS = [];
+var QUOTE = '<svg viewBox="0 0 40 30" width="40" height="30"><path d="M2 30V18C2 8 7 2 16 0l2 4c-5 2-7 6-7 10h7v16zM22 30V18c0-10 5-16 14-18l2 4c-5 2-7 6-7 10h7v16z" fill="#0D2D5E"/></svg>';
+PREG.forEach(function (p, i) {
+  var c = document.createElement('div'); c.className = 'card'; c.style.zIndex = 30 - i;
+  c.innerHTML =
+    '<div class="face back"><div class="ix a">V</div><div class="q">?</div><div class="ix b">F</div></div>' +
+    '<div class="face front"><div class="ch">' + QUOTE + 'SE ESCUCHA EN LA SIEMBRA</div>' +
+    '<div class="stmt">' + p.txt + '</div>' +
+    '<svg class="burst" viewBox="0 0 850 560"><circle class="ring" cx="425" cy="462" r="100" fill="none" stroke="#F5A623" stroke-width="8" opacity="0"/><g class="rayitos"></g></svg>' +
+    '<div class="stamp">' + (p.resp === 'V' ? 'VERDADERO' : 'FALSO') + '<svg viewBox="0 0 900 260"></svg></div></div>';
+  mazo.appendChild(c);
+  // textura de tinta del sello (puntos y rayitas blancas, semilla fija)
+  var r = azar(7 + i * 31), sv = c.querySelector('.stamp svg');
+  for (var k = 0; k < 120; k++) el('circle', { cx: (r() * 900).toFixed(1), cy: (r() * 260).toFixed(1), r: (0.8 + 3.6 * Math.pow(r(), 2.2)).toFixed(2), fill: '#FFFFFF', opacity: (0.35 + 0.5 * r()).toFixed(2) }, sv);
+  for (k = 0; k < 9; k++) { var x = r() * 900, y = r() * 260, l = 20 + r() * 60, an = -0.3 + r() * 0.6;
+    el('line', { x1: x.toFixed(1), y1: y.toFixed(1), x2: (x + l * Math.cos(an)).toFixed(1), y2: (y + l * Math.sin(an)).toFixed(1), stroke: '#FFFFFF', 'stroke-width': (1 + r() * 2).toFixed(1), opacity: 0.55, 'stroke-linecap': 'round' }, sv); }
+  // rayitos del golpe
+  var gr = c.querySelector('.rayitos'), rs = [];
+  for (k = 0; k < 14; k++) rs.push(el('line', { stroke: '#0A0F1B', 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0 }, gr));
+  CARTAS.push({ el: c, back: c.querySelector('.back'), front: c.querySelector('.front'), stmt: c.querySelector('.stmt'), stamp: c.querySelector('.stamp'),
+    ring: c.querySelector('.ring'), rayos: rs, sw: 700, sh: 160 });
+});
+
+// ---------- ilustraciones de la explicación ----------
+function plantita(g, x, base, h, color) {
+  var grp = el('g', {}, g);
+  el('path', { d: 'M' + x + ' ' + base + ' L' + x + ' ' + (base - 0.82 * h), stroke: color, 'stroke-width': 7, 'stroke-linecap': 'round', fill: 'none' }, grp);
+  [[base - 0.30 * h, -1, 0.50], [base - 0.56 * h, 1, 0.46]].forEach(function (q) {
+    var y = q[0], s = q[1], L = q[2] * h;
+    el('path', { d: 'M' + x + ' ' + y + ' Q' + (x + s * 0.22 * h) + ' ' + (y - 0.32 * h) + ' ' + (x + s * L) + ' ' + (y + 0.06 * h) + ' Q' + (x + s * 0.26 * h) + ' ' + (y - 0.10 * h) + ' ' + x + ' ' + (y + 0.08 * h) + ' Z', fill: color }, grp);
+  });
+  el('path', { d: 'M' + (x - 4) + ' ' + (base - 0.78 * h) + ' Q' + (x - 0.03 * h) + ' ' + (base - 1.02 * h) + ' ' + (x + 0.13 * h) + ' ' + (base - 0.99 * h) + ' Q' + (x + 0.03 * h) + ' ' + (base - 0.88 * h) + ' ' + (x + 4) + ' ' + (base - 0.76 * h) + ' Z', fill: color }, grp);
+  grp.style.transformBox = 'fill-box'; grp.style.transformOrigin = '50% 100%';
+  return grp;
+}
+function texto(g, x, y, s, a) { var t = el('text', Object.assign({ x: x, y: y, 'font-family': 'DM Mono', 'font-weight': 500, 'font-size': 24, 'letter-spacing': 2, fill: '#0A0F1B' }, a || {}), g); t.textContent = s; return t; }
+
+// 1 · plantas parejas y dos atrasadas (dominadas)
+var IL = [{}, {}, {}];
+(function () {
+  var g = $('il0'), base = 1490, xs = [], P = [];
+  el('line', { x1: 80, y1: base + 2, x2: 930, y2: base + 2, stroke: 'rgba(10,15,27,0.28)', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  for (var i = 0; i < 8; i++) xs.push(130 + i * (750 / 7));
+  xs.forEach(function (x, i) { var tarde = i === 2 || i === 5; P.push({ g: plantita(g, x, base, tarde ? 70 : 128, tarde ? '#F5A623' : '#0D2D5E'), tarde: tarde, i: i }); });
+  var lb = [texto(g, xs[2], base + 36, '10 DÍAS TARDE', { 'text-anchor': 'middle', 'font-size': 22, fill: 'rgba(10,15,27,0.7)' }),
+            texto(g, xs[5], base + 36, '10 DÍAS TARDE', { 'text-anchor': 'middle', 'font-size': 22, fill: 'rgba(10,15,27,0.7)' })];
+  IL[0] = { g: g, plantas: P, lb: lb };
+})();
+// 2 · ventana de siembra del girasol: óptima 15/10–15/11, límite 20/11
+(function () {
+  var g = $('il1'), y = 1452, x0 = 110, px = 790 / 60;    // eje: 1/10 → 30/11
+  function X(d) { return x0 + d * px; }
+  el('line', { x1: x0, y1: y, x2: 910, y2: y, stroke: 'rgba(10,15,27,0.25)', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  [0, 31, 60].forEach(function (d) { el('line', { x1: X(d), y1: y - 14, x2: X(d), y2: y + 14, stroke: 'rgba(10,15,27,0.25)', 'stroke-width': 4 }, g); });
+  var band = el('rect', { x: X(14), y: y - 24, width: 0, height: 48, rx: 10, fill: '#0D2D5E' }, g);
+  var bl = texto(g, (X(14) + X(45)) / 2, y + 9, 'ÓPTIMA', { 'text-anchor': 'middle', fill: '#FFFFFF', 'letter-spacing': 4 });
+  var d1 = texto(g, X(14), y + 62, '15/10', { 'text-anchor': 'middle' }), d2 = texto(g, X(45), y + 62, '15/11', { 'text-anchor': 'middle' });
+  var pin = el('g', {}, g);
+  el('line', { x1: X(50), y1: y - 58, x2: X(50), y2: y + 40, stroke: '#F5A623', 'stroke-width': 8, 'stroke-linecap': 'round' }, pin);
+  el('circle', { cx: X(50), cy: y - 58, r: 13, fill: '#F5A623' }, pin);
+  texto(pin, X(50) + 22, y - 44, 'LÍMITE', { 'font-size': 24 });
+  texto(pin, X(50) + 22, y - 12, '20/11', { 'font-size': 30 });
+  pin.style.transformBox = 'fill-box'; pin.style.transformOrigin = '50% 100%';
+  IL[1] = { g: g, band: band, bx: X(14), bw: X(45) - X(14), bl: bl, d: [d1, d2], pin: pin };
+})();
+// 3 · loma y bajo
+(function () {
+  var g = $('il2');
+  var d = 'M80 1478 C160 1470 200 1372 300 1372 C400 1372 450 1500 560 1508 C660 1516 720 1500 790 1492 C850 1486 900 1480 930 1478';
+  var fill = el('path', { d: d + ' L930 1530 L80 1530 Z', fill: '#E8EEF7' }, g);
+  var line = el('path', { d: d, fill: 'none', stroke: '#0D2D5E', 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
+  var t1 = texto(g, 300, 1346, 'LOMA', { 'text-anchor': 'middle', 'font-size': 28, 'letter-spacing': 4 });
+  var t2 = texto(g, 680, 1470, 'BAJO', { 'text-anchor': 'middle', 'font-size': 28, 'letter-spacing': 4 });
+  var ne = el('g', {}, g);    // signo "distinto" dibujado (la tipografía no lo trae)
+  el('circle', { cx: 492, cy: 1368, r: 44, fill: '#F5A623' }, ne);
+  el('path', { d: 'M468 1357 H516 M468 1379 H516', stroke: '#0A0F1B', 'stroke-width': 8, 'stroke-linecap': 'round' }, ne);
+  el('path', { d: 'M504 1341 L480 1395', stroke: '#0A0F1B', 'stroke-width': 8, 'stroke-linecap': 'round' }, ne);
+  IL[2] = { g: g, fill: fill, line: line, len: 0, t: [t1, t2], ne: ne };
+})();
+
+// ---------- cinta ----------
+var UNI = '<span>¿VERDADERO O FALSO?</span><i>✦</i><span>3 COSAS QUE SE ESCUCHAN EN LA SIEMBRA</span><i>✦</i><span>HENDERSEEDS · RED.IN NIDERA</span><i>✦</i>';
+$('run').innerHTML = '<b id="uni" style="font-weight:500;display:flex">' + UNI + '</b>' + UNI + UNI + UNI;
+var UNI_W = 1400;
+
+// ---------- ajustes que dependen de las fuentes ----------
+function encoger(n, min, condicion) { var fs = parseFloat(getComputedStyle(n).fontSize); while (condicion() && fs > min) { fs -= 1; n.style.fontSize = fs + 'px'; } }
+window.reajustar = function () {
+  CARTAS.forEach(function (c) {
+    c.stmt.style.fontSize = '';
+    encoger(c.stmt, 44, function () { return c.stmt.scrollHeight > 256 || c.stmt.scrollWidth > c.stmt.clientWidth + 1; });
+    c.stamp.style.fontSize = '';
+    encoger(c.stamp, 70, function () { return c.stamp.offsetWidth > 680; });
+    c.sw = c.stamp.offsetWidth; c.sh = c.stamp.offsetHeight;
+  });
+  document.querySelectorAll('.btn').forEach(function (b) { b.style.fontSize = ''; encoger(b, 30, function () { return b.scrollWidth > b.clientWidth + 1; }); });
+  var h = document.querySelector('.hook h1'); h.style.fontSize = ''; encoger(h, 80, function () { return h.scrollWidth > 850; });
+  var o = document.querySelector('.outro .oq'); o.style.fontSize = ''; encoger(o, 80, function () { return o.scrollWidth > 850; });
+  // mini sellos del cierre, repartidos en el ancho
+  var ms = [$('m0'), $('m1'), $('m2')], w = ms.map(function (m) { return m.offsetWidth; }), gap = (850 - w[0] - w[1] - w[2]) / 2, x = 0;
+  ms.forEach(function (m, i) { m.style.left = x + 'px'; x += w[i] + gap; });
+  var u = $('uni'); if (u) UNI_W = u.offsetWidth;
+  IL[2].len = IL[2].line.getTotalLength(); IL[2].line.setAttribute('stroke-dasharray', IL[2].len);
+};
+window.reajustar(); if (document.fonts) document.fonts.ready.then(window.reajustar);
+
+// ---------- render ----------
+var FAN_R = [-3, 6, -8], FAN_X = [0, 34, -30], FAN_Y = [0, -16, -26];
+var bV = $('bV'), bF = $('bF');
+
+window.render = function (t) {
+  // fondo que gira + cinta
+  $('rays').setAttribute('transform', 'translate(540 760) rotate(' + (t * 6).toFixed(2) + ')');
+  $('run').style.transform = 'translateX(' + (-((t * 80) % UNI_W)).toFixed(1) + 'px)';
+
+  // gancho
+  var hs = eio(seg(t, 1.85, 2.35)), hk = $('hook');
+  hk.style.opacity = 1 - hs; hk.style.transform = 'translateY(' + (-150 * hs) + 'px)';
+  $('mk1').style.transform = 'scaleX(' + eout(seg(t, 0, 0.5)) + ')';
+
+  var pan = 370 * (1 - eio(seg(t, 1.9, 2.5)));                        // el mazo y los botones suben a su lugar
+  var fan = eout(seg(t, 0, 0.9)) * (1 - eio(seg(t, 1.9, 2.45)));       // en el gancho, las cartas se abren en abanico
+
+  // contador + reloj
+  var vis = eout(seg(t, 2.3, 2.65)) * (1 - seg(t, 20.0, 20.3));
+  $('top').style.opacity = vis; $('timerW').style.opacity = vis;
+  var qi = t < Q[1].flip ? 0 : t < Q[2].flip ? 1 : 2, q = Q[qi], fe = q.flip + 0.4;
+  $('cntN').textContent = qi + 1;
+  var pop = qi === 0 ? 0 : 1 - eout(seg(t, q.flip, q.flip + 0.35));
+  $('cntN').style.transform = 'scale(' + (1 + 0.45 * pop) + ')';
+  var w = t < fe ? eout(seg(t, q.flip, fe)) : t < q.stamp ? 1 - seg(t, fe, q.stamp) : 0;
+  $('timer').style.transform = 'scaleX(' + w.toFixed(4) + ')';
+  $('timer').style.background = t > q.stamp - 0.75 && t < q.stamp ? '#F5A623' : '#0D2D5E';
+
+  // cartas
+  CARTAS.forEach(function (c, i) {
+    var depth = i;
+    for (var j = 0; j < i; j++) depth -= eio(seg(t, Q[j].out + 0.05, Q[j].out + 0.45));
+    var x = FAN_X[i] * fan, y = pan + depth * 34 + FAN_Y[i] * fan, rot = FAN_R[i] * fan, sc = 1 - depth * 0.05;
+    var ko = Math.pow(seg(t, Q[i].out, Q[i].out + 0.4), 2);                   // se va deslizando a la izquierda
+    x -= 1300 * ko; y -= 90 * ko; rot -= 22 * ko;
+    var f = seg(t, Q[i].flip, Q[i].flip + 0.4);
+    sc *= 1 + 0.06 * Math.sin(Math.PI * f);
+    var s = t - Q[i].stamp - 0.12;                                      // temblor del golpe
+    if (s >= 0) { var dmp = Math.exp(-s * 9); x += 14 * Math.sin(s * 52) * dmp; rot += 0.9 * Math.sin(s * 47 + 1) * dmp; sc *= 1 - 0.025 * Math.exp(-s * 16); }
+    c.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(4) + ')';
+    c.el.style.visibility = ko >= 1 ? 'hidden' : 'visible';
+    var cs = Math.cos(Math.PI * f);
+    c.back.style.opacity = f < 0.5 ? 1 : 0; c.front.style.opacity = f < 0.5 ? 0 : 1;
+    c.back.style.transform = 'scaleX(' + Math.max(0.002, cs).toFixed(4) + ')';
+    c.front.style.transform = 'scaleX(' + Math.max(0.002, -cs).toFixed(4) + ')';
+    // sello
+    var s0 = t - Q[i].stamp, st = c.stamp;
+    if (s0 < 0) { st.style.opacity = 0; }
+    else {
+      var scl, r, sh;
+      if (s0 < 0.12) { var p = s0 / 0.12; scl = lerp(2.5, 0.84, p * p); r = lerp(-17, -8, p); sh = 1 - p; }
+      else { scl = 0.84 + 0.16 * back(seg(s0, 0.12, 0.42)); r = -8; sh = 0; }
+      st.style.opacity = clamp(s0 / 0.05);
+      st.style.transform = 'translate(-50%,-50%) rotate(' + r.toFixed(2) + 'deg) scale(' + scl.toFixed(4) + ')';
+      st.style.filter = sh > 0 ? 'drop-shadow(0 ' + (30 * sh).toFixed(0) + 'px ' + (40 * sh).toFixed(0) + 'px rgba(10,15,27,' + (0.35 * sh).toFixed(2) + '))' : 'none';
+    }
+    // anillo y rayitos del golpe
+    var kb = seg(s0, 0.12, 0.62);
+    c.ring.setAttribute('r', (c.sw * 0.45 + 260 * eout(kb)).toFixed(1));
+    c.ring.setAttribute('opacity', s0 >= 0.12 && kb < 1 ? (0.8 * (1 - kb)).toFixed(3) : 0);
+    var rx = c.sw / 2 + 26, ry = c.sh / 2 + 40;
+    c.rayos.forEach(function (ln, k) {
+      var a = (k / c.rayos.length) * Math.PI * 2 + 0.2, ca = Math.cos(a), sa = Math.sin(a), ke = eout(seg(s0, 0.12, 0.45));
+      var r1 = 1 + 0.10 * ke, r2 = 1.08 + 0.22 * ke;
+      ln.setAttribute('x1', (425 + rx * r1 * ca).toFixed(1)); ln.setAttribute('y1', (462 + ry * r1 * sa).toFixed(1));
+      ln.setAttribute('x2', (425 + rx * r2 * ca).toFixed(1)); ln.setAttribute('y2', (462 + ry * r2 * sa).toFixed(1));
+      ln.setAttribute('opacity', s0 >= 0.12 && s0 < 0.6 ? (1 - seg(s0, 0.3, 0.6)).toFixed(3) : 0);
+    });
+  });
+
+  // botones: laten en el suspenso, después se marca la respuesta
+  var latV = 0, latF = 0;
+  if (t < 1.9) { var b0 = (t % 0.5) / 0.5, n0 = Math.floor(t / 0.5), p0 = Math.sin(Math.PI * b0) * (1 - seg(t, 1.6, 1.9)); if (n0 % 2) latF = p0 * 0.6; else latV = p0 * 0.6; }
+  var hlV = 0, hlF = 0, dimV = 0, dimF = 0;
+  Q.forEach(function (qq, i) {
+    var u = t - (qq.stamp - 0.72);
+    if (u >= 0 && u < 0.72) { var n = Math.floor(u / 0.24), b = (u - n * 0.24) / 0.24, p = Math.sin(Math.PI * b); if (n % 2) latF = p; else latV = p; }
+    var k = eout(seg(t, qq.stamp + 0.08, qq.stamp + 0.3)) * (1 - eio(seg(t, qq.out - 0.15, qq.out + 0.2)));
+    if (PREG[i].resp === 'V') { hlV = Math.max(hlV, k); dimF = Math.max(dimF, k); } else { hlF = Math.max(hlF, k); dimV = Math.max(dimV, k); }
+  });
+  var bvis = 1 - seg(t, 20.0, 20.3);
+  [[bV, latV, hlV, dimV], [bF, latF, hlF, dimF]].forEach(function (z) {
+    var b = z[0], lat = z[1], hl = z[2], dim = z[3], press = Math.max(hl, 0.5 * lat);
+    b.style.transform = 'translateY(' + (pan + 6 * press).toFixed(1) + 'px) scale(' + (1 + 0.07 * lat).toFixed(4) + ')';
+    b.style.boxShadow = '0 ' + (8 - 6 * press).toFixed(1) + 'px 0 #0A0F1B';
+    b.style.background = mezcla('#FFFFFF', '#0D2D5E', hl);
+    b.style.color = mezcla('#0A0F1B', '#FFFFFF', hl);
+    b.querySelector('.ic').style.background = hl > 0.01 ? 'rgba(245,166,35,' + hl.toFixed(3) + ')' : 'transparent';
+    b.querySelector('.ic').style.borderColor = hl > 0.5 ? '#F5A623' : '';
+    b.style.opacity = ((1 - 0.68 * dim) * bvis).toFixed(3);
+  });
+
+  // "¿Vos qué decís?"
+  var pr = 0;
+  Q.forEach(function (qq) { var fe2 = qq.flip + 0.4; pr = Math.max(pr, eout(seg(t, fe2, fe2 + 0.3)) * (1 - seg(t, qq.stamp - 0.1, qq.stamp + 0.1))); });
+  var prompt = $('prompt'); prompt.style.opacity = pr;
+  prompt.style.transform = 'translateY(' + (-6 * Math.abs(Math.sin(t * 7))).toFixed(1) + 'px)';
+
+  // explicaciones + dibujos
+  Q.forEach(function (qq, i) {
+    var a = qq.stamp + 0.28, k = eout(seg(t, a, a + 0.35)) * (1 - seg(t, qq.out - 0.18, qq.out + 0.05));
+    var ex = $('ex' + i); ex.style.opacity = k; ex.style.transform = 'translateY(' + ((1 - eout(seg(t, a, a + 0.35))) * 26).toFixed(1) + 'px)';
+    var il = IL[i], gk = 1 - seg(t, qq.out - 0.18, qq.out + 0.05), t0 = qq.stamp + 0.55;
+    il.g.style.opacity = t >= t0 ? gk : 0;
+    if (i === 0) {
+      il.plantas.forEach(function (pl, j) {
+        var st0 = pl.tarde ? t0 + 0.75 : t0 + j * 0.06, kk = back(seg(t, st0, st0 + 0.45));
+        pl.g.style.transform = 'scale(' + (0.3 + 0.7 * clamp(kk)).toFixed(3) + ',' + kk.toFixed(3) + ')';
+        pl.g.style.opacity = clamp(kk * 3);
+      });
+      il.lb.forEach(function (l) { l.setAttribute('opacity', eout(seg(t, t0 + 1.0, t0 + 1.3))); });
+    } else if (i === 1) {
+      var kb2 = eio(seg(t, t0, t0 + 0.7));
+      il.band.setAttribute('width', (il.bw * kb2).toFixed(1));
+      il.bl.setAttribute('opacity', eout(seg(t, t0 + 0.55, t0 + 0.8)));
+      il.d.forEach(function (d, j) { d.setAttribute('opacity', eout(seg(t, t0 + 0.2 + j * 0.45, t0 + 0.5 + j * 0.45))); });
+      var kp = back(seg(t, t0 + 0.85, t0 + 1.25));
+      il.pin.style.transform = 'scaleY(' + kp.toFixed(3) + ')'; il.pin.style.opacity = clamp(kp * 3);
+    } else {
+      var kl = eio(seg(t, t0, t0 + 0.8));
+      il.line.setAttribute('stroke-dashoffset', (il.len * (1 - kl)).toFixed(1));
+      il.fill.setAttribute('opacity', eout(seg(t, t0 + 0.3, t0 + 0.8)));
+      il.t.forEach(function (tx, j) { tx.setAttribute('opacity', eout(seg(t, t0 + 0.5 + j * 0.25, t0 + 0.8 + j * 0.25))); });
+      var kn = back(seg(t, t0 + 1.0, t0 + 1.35));
+      il.ne.setAttribute('opacity', clamp(kn * 3));
+      il.ne.setAttribute('transform', 'translate(492 1368) scale(' + (0.4 + 0.6 * kn).toFixed(3) + ') translate(-492 -1368)');
+    }
+  });
+
+  // cierre
+  var out = $('outro');
+  out.querySelectorAll(':scope > *').forEach(function (c, i) {
+    if (c.id === 'minis') { c.style.opacity = t >= T_OUT ? 1 : 0; return; }
+    var k = eout(seg(t, T_OUT + 0.1 + i * 0.13, T_OUT + 0.55 + i * 0.13));
+    c.style.opacity = k; c.style.transform = 'translateY(' + ((1 - k) * 26).toFixed(1) + 'px)';
+  });
+  ['m0', 'm1', 'm2'].forEach(function (id, i) {     // los tres sellos chicos golpean en fila
+    var s2 = t - (T_OUT + 0.15 + i * 0.2), m = $(id), rr = [-6, 4, -5][i];
+    if (s2 < 0) { m.style.opacity = 0; return; }
+    var sc2 = s2 < 0.1 ? lerp(2.2, 0.86, Math.pow(s2 / 0.1, 2)) : 0.86 + 0.14 * back(seg(s2, 0.1, 0.36));
+    m.style.opacity = clamp(s2 / 0.05);
+    m.style.transform = 'rotate(' + (rr - 6 * (1 - clamp(s2 / 0.1))).toFixed(2) + 'deg) scale(' + sc2.toFixed(4) + ')';
+  });
+  $('mk2').style.transform = 'scaleX(' + eout(seg(t, T_OUT + 0.6, T_OUT + 1.0)) + ')';
+  var kl2 = eout(seg(t, T_OUT + 1.0, T_OUT + 1.5)), lg = $('logo');
+  lg.style.opacity = kl2; lg.style.transform = 'translateY(' + ((1 - kl2) * 26).toFixed(1) + 'px)';
+  // el botón de DM late una vez que está todo
+  var odm = out.querySelector('.odm'), lt = t - (T_OUT + 1.6);
+  if (lt > 0) { var pl2 = Math.max(0, Math.sin(lt * Math.PI / 0.55)) * (lt % 1.1 < 0.55 ? 1 : 0); odm.style.transform = 'scale(' + (1 + 0.04 * pl2).toFixed(4) + ')'; }
+};
+if (!window.__RENDER_MODE__) { var t0 = null; (function loop(ts) { if (t0 === null) t0 = ts; window.render(((ts - t0) / 1000) % window.REEL_DURACION); requestAnimationFrame(loop); })(performance.now()); } else { window.render(0); }
+</script>
+</body>
+</html>
