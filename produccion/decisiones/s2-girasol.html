@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisión 02 · ¿Qué girasol va?</title>
+<!--
+  Versión simple de la ficha 02. Datos: marbetes oficiales Nidera 26/27 (contexto/productos-26-27.md):
+  NS 1115 CL y NS 1117 CL Phomopsis 2 (el mejor del portafolio); NS 1113 CL techo de rinde y aceite,
+  +2,11 qq/ha y 74 % de éxito en 225 comparaciones Sur + Oeste; NS 1227 CL HO alto oleico.
+  Reel: node scripts/render-reel.mjs produccion/decisiones/s2-girasol.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="simple.css">
+<style>
+.flor { width:300px; height:300px; margin-top:30px; }
+.t small { font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:2px; color:var(--amber-osc); margin-left:16px; vertical-align:middle; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>02</div>
+  <div class="esc" data-a="0" data-b="3.4"><div class="caja">
+    <div class="k" data-t="-1">Decisión 02 · girasol</div>
+    <div class="t" data-t="-1">¿Qué girasol va?</div>
+    <div class="t m" data-t="-1">Empezá por <span class="mk" data-mk="0.3">tu lote.</span></div>
+    <svg class="flor" id="flor" viewBox="-60 -60 120 120" data-t="-1"></svg>
+  </div></div>
+  <div class="esc" data-a="3.4" data-b="7.2"><div class="caja" style="gap:22px">
+    <div class="k" data-t="3.6">¿El lote tuvo Phomopsis?</div>
+    <div class="t m" data-t="3.8">NS 1115 CL<small>sanidad</small></div>
+    <div class="t m" data-t="4.2">NS 1117 CL<small>rinde</small></div>
+    <div class="chip" data-t="5.0" data-fx="pop" style="margin-top:14px">Phomopsis 2 · el mejor</div>
+  </div></div>
+  <div class="esc" data-a="7.2" data-b="10.8"><div class="caja" style="gap:26px">
+    <div class="k" data-t="7.4">¿No tuvo?</div>
+    <div class="t" data-t="7.6">NS 1113 CL</div>
+    <div class="s" data-t="8.2">Techo de rinde y aceite.</div>
+    <div class="chip" data-t="8.8" data-fx="pop">+2,11 qq/ha · 74 % de éxito</div>
+  </div></div>
+  <div class="esc" data-a="10.8" data-b="14.0"><div class="caja" style="gap:26px">
+    <div class="k" data-t="11.0">¿Te pagan alto oleico?</div>
+    <div class="t" data-t="11.2">NS 1227 CL HO</div>
+    <div class="s" data-t="11.8">El alto oleico del portafolio.</div>
+  </div></div>
+
+  <div class="placa-c ficha">
+    <div class="k">Decisión 02 · girasol</div>
+    <div class="t">¿Qué girasol va? <span class="mk">Empezá por tu lote.</span></div>
+    <div class="filas">
+      <div class="fila"><span class="p">¿Tuvo Phomopsis?</span><span class="a">NS 1115 CL · NS 1117 CL</span></div>
+      <div class="fila"><span class="p">¿No tuvo?</span><span class="a">NS 1113 CL <small>+2,11 qq/ha</small></span></div>
+      <div class="fila"><span class="p">¿Te pagan alto oleico?</span><span class="a">NS 1227 CL HO</span></div>
+    </div>
+    <div class="regla"><span class="rt">LA REGLA</span><p>Primero el problema del lote. Después, el rinde.</p></div>
+    <div class="pcta">¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+    <div class="psrc">Marbetes oficiales Nidera 26/27. NS 1113 CL: 74 % de éxito en 225 comparaciones Sur + Oeste.</div>
+  </div>
+</div>
+<script src="simple.js"></script>
+<script>
+S.cierre({ a: 14.0, b: 18.0, regla: 'Primero el problema del lote. <span>Después, el rinde.</span>', src: 'Marbetes oficiales Nidera 26/27. NS 1113 CL: +2,11 qq/ha y 74 % de éxito en 225 comparaciones Sur + Oeste.' });
+var flor = document.getElementById('flor'), petalos = [];
+for (var i = 0; i < 14; i++) petalos.push(S.el('path', { d: 'M0 -22 C 9 -32, 8 -50, 0 -58 C -8 -50, -9 -32, 0 -22 Z', fill: i % 2 ? '#F5A623' : '#F8BD55', transform: 'rotate(' + i * (360 / 14) + ')' }, flor));
+S.el('circle', { r: 23, fill: '#0D2D5E' }, flor);
+for (var j = 0; j < 30; j++) { var a = j * 137.5 * Math.PI / 180, r = 3.6 * Math.sqrt(j); S.el('circle', { cx: r * Math.cos(a), cy: r * Math.sin(a), r: 1.6, fill: '#F6F4EE', opacity: 0.55 }, flor); }
+S.init({ escena: function (t) {
+  petalos.forEach(function (p, i) { var k = S.resorte(t + 0.45 - i * 0.04, 0.5, 13); p.setAttribute('transform', 'rotate(' + (i * (360 / 14) + (1 - k) * 40) + ') scale(' + (0.3 + 0.7 * S.clamp(k)) + ')'); });
+  flor.style.transform = 'rotate(' + t * 6 + 'deg)';
+} });
+</script>
+</body>
+</html>

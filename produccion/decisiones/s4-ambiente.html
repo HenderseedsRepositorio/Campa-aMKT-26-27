@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisión 04 · ¿En qué ambiente está tu lote?</title>
+<!--
+  Versión simple de la ficha 04. Escala de ambientes del girasol en los marbetes oficiales Nidera 26/27:
+  bajo < 1.500 · medio-bajo 1.500–2.500 · medio-alto 2.500–3.500 · alto > 3.500 kg/ha.
+  (Los cortes del maíz quedaron afuera: más simple y sin números de maíz.)
+  Reel: node scripts/render-reel.mjs produccion/decisiones/s4-ambiente.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="simple.css">
+<style>
+.lote { width:560px; height:300px; margin-top:30px; }
+.esc-amb { width:850px; display:flex; flex-direction:column; gap:12px; }
+.barra { display:flex; gap:8px; height:110px; }
+.barra div { flex:1; border-radius:12px; display:grid; place-items:center; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:1.5px; color:var(--navy); text-transform:uppercase; text-align:center; line-height:1.15; transform-origin:0 50%; }
+.marcas { position:relative; height:52px; }
+.marcas span { position:absolute; top:0; transform:translateX(-50%); font-family:var(--mono); font-weight:500; font-size:40px; color:var(--navy); }
+#stage.placa .barra { height:84px; }
+#stage.placa .barra div { font-size:21px; }
+#stage.placa .marcas span { font-size:30px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>04</div>
+  <div class="esc" data-a="0" data-b="3.4"><div class="caja">
+    <div class="k" data-t="-1">Decisión 04 · diagnóstico</div>
+    <div class="t" data-t="-1">¿En qué ambiente está <span class="mk" data-mk="0.2">tu lote?</span></div>
+    <svg class="lote" id="lote" viewBox="0 0 560 300" data-t="-1"></svg>
+  </div></div>
+  <div class="esc" data-a="3.4" data-b="7.4"><div class="caja" style="gap:30px">
+    <div class="k" data-t="3.6">Girasol · escala del marbete</div>
+    <div class="esc-amb" id="amb1"></div>
+    <div class="s" data-t="5.6">En <b>kg/ha</b>, por el rinde de tu lote.</div>
+  </div></div>
+  <div class="esc" data-a="7.4" data-b="10.8"><div class="caja" style="gap:26px">
+    <div class="k" data-t="7.6">Para clasificarlo</div>
+    <div class="t m" data-t="7.8">Promedio de varias campañas.</div>
+    <div class="t" data-t="8.6"><span class="mk" data-mk="9.0">No la mejor.</span></div>
+  </div></div>
+  <div class="esc" data-a="10.8" data-b="14.2"><div class="caja" style="gap:16px">
+    <div class="k" data-t="11.0">El ambiente define</div>
+    <div class="t" data-t="11.2">El híbrido.</div>
+    <div class="t" data-t="11.6">Las plantas.</div>
+    <div class="t" data-t="12.0">La inversión.</div>
+  </div></div>
+
+  <div class="placa-c ficha">
+    <div class="k">Decisión 04 · diagnóstico</div>
+    <div class="t">¿En qué ambiente está <span class="mk">tu lote?</span></div>
+    <div class="esc-amb" id="amb2" style="width:880px"></div>
+    <div class="filas">
+      <div class="fila"><span class="p">Para clasificarlo</span><span class="a">Promedio de varias campañas</span></div>
+      <div class="fila"><span class="p">El ambiente define</span><span class="a">Híbrido · plantas · inversión</span></div>
+    </div>
+    <div class="regla"><span class="rt">LA REGLA</span><p>Clasificalo con varias campañas, no con la mejor.</p></div>
+    <div class="pcta">¿Lo vemos juntos? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+    <div class="psrc">Girasol, en kg/ha: escala de ambientes de los marbetes oficiales Nidera 26/27.</div>
+  </div>
+</div>
+<script src="simple.js"></script>
+<script>
+S.cierre({ a: 14.2, b: 18.2, regla: 'Mandanos los rindes de tus lotes y <span>los clasificamos juntos.</span>', src: 'Escala de ambientes del girasol: marbetes oficiales Nidera 26/27.' });
+var SEGS = [['Bajo', '#EFE6D2'], ['Medio<br>bajo', '#F8D9A0'], ['Medio<br>alto', '#F7C46A'], ['Alto', '#F5A623']];
+function escala(caja) {
+  var b = S.h('div', 'barra', null, caja), m = S.h('div', 'marcas', null, caja);
+  var s = SEGS.map(function (sg) { var d = S.h('div', null, sg[0], b); d.style.background = sg[1]; return d; });
+  var k = ['1.500', '2.500', '3.500'].map(function (c, i) { var e = S.h('span', null, c, m); e.style.left = (100 * (i + 1) / 4) + '%'; return e; });
+  return { s: s, k: k };
+}
+var A1 = escala(document.getElementById('amb1')); escala(document.getElementById('amb2'));
+// lote visto de arriba: surcos que se dibujan
+var lote = document.getElementById('lote');
+S.el('path', { d: 'M40 270 L120 30 L520 30 L520 270 Z', fill: '#EFEAE0', stroke: '#0D2D5E', 'stroke-width': 6, 'stroke-linejoin': 'round' }, lote);
+var surcos = [];
+for (var i = 0; i < 9; i++) { var y = 58 + i * 26, x0 = 120 - (y - 30) / 240 * 80 + 14; surcos.push(S.el('line', { x1: x0, y1: y, x2: 506, y2: y, stroke: '#F5A623', 'stroke-width': 7, 'stroke-linecap': 'round' }, lote)); }
+S.init({ escena: function (t) {
+  surcos.forEach(function (l, i) { var k = S.eout(S.seg(t, 0.1 + i * 0.12, 0.6 + i * 0.12)), x0 = +l.getAttribute('x1'); l.setAttribute('x2', x0 + (506 - x0) * k); });
+  A1.s.forEach(function (d, i) { var k = S.eout(S.seg(t, 3.8 + i * 0.15, 4.25 + i * 0.15)); d.style.transform = 'scaleX(' + k + ')'; d.style.color = k > 0.9 ? '' : 'transparent'; });
+  A1.k.forEach(function (e, i) { e.style.opacity = S.eout(S.seg(t, 4.6 + i * 0.15, 4.9 + i * 0.15)); });
+} });
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "reel": "produccion/decisiones/s1-sembradora.html",
+  "fecha": "2026-10-21",
+  "duracion": 18.4,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Decisión 01 · girasol ¿Te alcanza la sembradora?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": [
+        {
+          "t": 11.96,
+          "txt": "40",
+          "caja": [
+            67,
+            796,
+            391,
+            1078
+          ]
+        }
+      ]
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 13,
+      "segundo": 15.64
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        3.68,
+        14.72
+      ]
+    }
+  }
+}

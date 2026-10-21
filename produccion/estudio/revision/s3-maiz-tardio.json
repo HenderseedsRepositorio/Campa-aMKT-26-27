@@ -1,0 +1,39 @@
+{
+  "reel": "produccion/decisiones/s3-maiz-tardio.html",
+  "fecha": "2026-10-21",
+  "duracion": 17.6,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Decisión 03 · maíz tardío ¿Qué te preocupa más del tardío?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 13,
+      "segundo": 14.96
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        3.52,
+        7.04
+      ]
+    }
+  }
+}

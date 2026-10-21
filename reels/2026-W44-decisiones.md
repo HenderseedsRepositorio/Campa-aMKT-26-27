@@ -5,6 +5,27 @@ decidir**, no piezas para que responda ("¿cuántos mm te cayeron?"). Página pa
 [docs/decisiones/](https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/decisiones/)
 (`python3 scripts/armar-decisiones.py`).
 
+## Versión simple (la que va al feed) — devolución del 21/10
+"Te pasaste para el otro lado": las fichas tenían demasiada información. El mensaje se queda (cada pieza
+ayuda a decidir algo), pero con el formato de los reels anteriores: **una idea por pantalla, letra grande,
+pocas palabras** (máximo ~15 grandes por pantalla; las fichas llegaban a 47).
+
+| # | Reel (18 s) | Escenas | Archivo |
+|---|-------------|---------|---------|
+| 01 | ¿Te alcanza la sembradora? | 15/11 → hectáreas ÷ días hábiles = ha por día → ejemplo 40 ha por día → regla | `produccion/decisiones/s1-sembradora.html` |
+| 02 | ¿Qué girasol va? Empezá por tu lote | ¿Phomopsis? NS 1115/1117 → ¿no? NS 1113 CL → ¿alto oleico? NS 1227 CL HO → regla | `produccion/decisiones/s2-girasol.html` |
+| 03 | ¿Qué te preocupa más del tardío? | chicharrita NS 7925 → viento NS 7765 → malezas NS 7921 CL → regla | `produccion/decisiones/s3-maiz-tardio.html` |
+| 04 | ¿En qué ambiente está tu lote? | escala del girasol → promedio, no la mejor → híbrido, plantas, inversión → "mandanos tus rindes" | `produccion/decisiones/s4-ambiente.html` |
+| 05 | ¿Girasol o maíz tardío en ese lote? | rinde · precio · costo · flete → límite 20/11 y chicharrita → calculadora → regla | `produccion/decisiones/s5-girasol-o-maiz.html` |
+
+- Reels: `docs/placas/video/2026-W44-decision-0N-*.mp4` (+ portada al segundo 1,2).
+- Placas 4:5 de resumen (pregunta, 3 respuestas y la regla): `node scripts/render-fichas.mjs s` → `docs/decisiones/img/decision-0N-feed.jpg`.
+- Captions cortas en `scripts/armar-decisiones.py`. Cierre de todas: "Mandanos un DM" + WhatsApp.
+- La ficha 04 simple usa solo la escala del girasol (sin cortes de maíz en kg/ha).
+- Las fichas completas de abajo (`dN-*.html`) quedan solo para el PDF que se manda a quien pide más detalle.
+
+## Las fichas completas (solo PDF)
+
 ## La idea
 Cada pieza responde **una decisión que el productor tiene que tomar en las próximas semanas**, con el
 dato del marbete, la cuenta o el criterio, y **una regla** que se lleva. El video arma la ficha delante de
