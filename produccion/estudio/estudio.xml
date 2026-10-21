@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Estudio de motion de HenderSeeds: 10 plantillas de reel 9:16.
+  Estudio de motion de HenderSeeds: 11 plantillas de reel 9:16.
   Adaptado del esquema "motion studio / templates.xml" (Twitter, 10/2026) a la marca, las reglas del
   equipo y el motor del repo. Se pega una vez en la sesión y después se pide una plantilla por nombre.
   Página para verlo y copiarlo: docs/estudio/ (se arma con python3 scripts/armar-estudio.py).
@@ -91,6 +91,14 @@ referencia de la plantilla (copiarlo y cambiar el bloque de datos de arriba), nu
   <escena>6–21 · [3 pasos], el cielo se abre de a poco</escena>
   <escena>21–25 · cierre con [servicio de la oferta]</escena>
   <debe>datos agronómicos con fuente; sin cifras de pérdida; sin condiciones del seguro</debe>
+</plantilla>
+
+<plantilla nombre="decision" dur="22 s" formato="9:16 + placa 4:5" ref="produccion/decisiones/d1-sembradora.html" video="2026-W44-ficha-01-sembradora.mp4">
+  <escena>0–0,8 · [decisión] como pregunta, legible en el cuadro 0, con el marcador ámbar</escena>
+  <escena>0,8–13 · la herramienta se arma con el dato del marbete: [calendario / árbol / mapa de calor / escala / cuenta]</escena>
+  <escena>13,6–18,4 · LA REGLA en una línea y el sello GUARDALA</escena>
+  <escena>18,4–22 · cortina y cierre "¿Tu lote no encaja en la ficha? Lo vemos juntos." + "Comentá FICHAS"</escena>
+  <debe>una decisión por ficha; la placa 4:5 es el cuadro final (?formato=placa, scripts/render-fichas.mjs); ejemplos rotulados EJEMPLO; fuente al pie; motor común en produccion/decisiones/ficha.js</debe>
 </plantilla>
 
 <plantilla nombre="sello" dur="5 s" formato="9:16" ref="produccion/estudio/sello.html" video="2026-W44-sello.mp4">

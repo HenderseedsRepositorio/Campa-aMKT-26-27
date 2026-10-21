@@ -1,0 +1,71 @@
+{
+  "reel": "produccion/decisiones/d1-sembradora.html",
+  "fecha": "2026-10-21",
+  "duracion": 22,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Ficha 01 Girasol · ritmo de siembra ¿Te alcanza la sembradora para el girasol? V"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": [
+        {
+          "t": 0,
+          "txt": "3",
+          "px": 18.2,
+          "caja": [
+            339,
+            693,
+            349,
+            717
+          ]
+        },
+        {
+          "t": 0,
+          "txt": "4",
+          "px": 16.8,
+          "caja": [
+            465,
+            695,
+            475,
+            717
+          ]
+        },
+        {
+          "t": 14.3,
+          "txt": "Fechas: marbetes oficiales Nidera 26/27, región Oeste de Bue",
+          "caja": [
+            80,
+            1468,
+            908,
+            1552
+          ]
+        }
+      ]
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 26,
+      "segundo": 16.5
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        18.7
+      ]
+    }
+  }
+}

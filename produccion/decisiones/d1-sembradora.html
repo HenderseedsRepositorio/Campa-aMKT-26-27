@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisiones 26/27 · Ficha 01 · ¿Te alcanza la sembradora para el girasol?</title>
+<!--
+  Decisión: el ritmo de siembra del girasol para entrar en la ventana óptima.
+  Dato: marbetes oficiales Nidera 26/27, región Oeste de Buenos Aires: óptima 15/10–15/11, límite 20/11.
+  Cuenta (ejemplo rotulado): ha por día = ha pendientes ÷ días hábiles; 560 ÷ 14 = 40.
+  Días hábiles = 21 que quedan − 7 perdidos (1 de cada 3, supuesto del ejemplo).
+  Reel: node scripts/render-reel.mjs produccion/decisiones/d1-sembradora.html
+  Placa: ?formato=placa (scripts/render-fichas.mjs)
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="ficha.css">
+<style>
+.dias { display:grid; grid-template-columns:repeat(7, 1fr); gap:10px; }
+.dia { height:62px; border-radius:10px; position:relative; background:var(--arena); border:2px solid rgba(13,45,94,0.10); }
+.dia i { position:absolute; left:9px; top:5px; font-family:var(--mono); font-style:normal; font-size:19px; color:var(--gris2); }
+.dia .f { position:absolute; inset:-2px; border-radius:10px; opacity:0; }
+.dia .f.ok { background:var(--amber); }
+.dia .f.no { background:var(--navy); }
+.dia .f.lim { background:repeating-linear-gradient(135deg, rgba(245,166,35,0.9) 0 7px, rgba(245,166,35,0.3) 7px 14px); }
+.dia svg { position:absolute; left:50%; top:50%; width:40px; height:40px; margin:-18px 0 0 -20px; opacity:0; }
+.dia.lim i { color:var(--amber-osc); }
+.fechas { display:flex; gap:34px; font-family:var(--mono); font-size:20px; letter-spacing:2px; color:var(--gris); margin-top:-12px; }
+.fechas span { display:flex; align-items:center; gap:10px; }
+.fechas .sw { width:24px; height:24px; border-radius:5px; display:block; }
+.calc { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.calc .cu { font-family:var(--mono); font-weight:500; font-size:30px; line-height:1.35; color:var(--gris); }
+.calc .cu b { color:var(--navy); font-weight:500; }
+.calc .res { display:flex; align-items:baseline; gap:14px; }
+.calc .n { font-family:var(--arch); font-size:136px; line-height:0.9; letter-spacing:-6px; color:var(--navy); position:relative; }
+.calc .u { font-family:var(--sans); font-weight:700; font-size:40px; color:var(--navy); }
+.preg { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:2px; color:var(--amber-osc); text-transform:uppercase; }
+#stage .q { font-size:64px; }
+#stage.placa .q { font-size:60px; }
+#stage.placa .dia { height:54px; }
+#stage.placa .calc .n { font-size:118px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>01</div>
+  <div class="ficha">
+    <div class="cab"><div class="k"><b>Ficha 01</b>Girasol · ritmo de siembra</div><img src="../../docs/assets/logo-hs-navy-hd.png" alt="HenderSeeds"></div>
+    <div class="q">¿Te alcanza la sembradora para el <span class="mk">girasol?</span></div>
+    <div class="herr">
+      <div class="dato" id="dato">Ventana óptima hasta el <b>15/11</b> · límite <b>20/11</b></div>
+      <div id="ejr" style="display:flex; align-items:center; gap:16px"><span class="ej">Ejemplo</span><span class="dato" style="font-size:22px">560 ha · 21 días · se pierde 1 de cada 3</span></div>
+      <div class="dias" id="dias"></div>
+      <div class="fechas" id="fechas"><span><i class="sw" style="background:#F5A623"></i>DÍA HÁBIL</span><span><i class="sw" style="background:#0D2D5E"></i>PERDIDO</span><span><i class="sw" style="background:repeating-linear-gradient(135deg,rgba(245,166,35,.9) 0 5px,rgba(245,166,35,.3) 5px 10px)"></i>LÍMITE 16 AL 20/11</span></div>
+      <div class="calc" id="calc">
+        <div class="cu" id="cu"><b>560 ha</b><br>÷ <b id="habiles">14</b> días hábiles</div>
+        <div class="res" id="res"><span class="n" id="n">40</span><span class="u">ha por día</span></div>
+      </div>
+      <div class="preg" id="preg">¿Tu sembradora hace 40 ha por día?</div>
+    </div>
+    <div class="regla"><span class="t">LA REGLA</span><p>Si tu sembradora no llega, decidí hoy qué lotes van antes del 15/11.</p></div>
+    <div class="pie">
+      <div class="cta">¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+      <div class="src">Fechas: marbetes oficiales Nidera 26/27, región Oeste de Buenos Aires (los 4 girasoles). Ejemplo ilustrativo: poné tus hectáreas y tus días perdidos.</div>
+    </div>
+  </div>
+</div>
+<script src="ficha.js"></script>
+<script>
+var PERDIDOS = [2, 5, 6, 10, 13, 17, 19];   // 7 de 21: 1 de cada 3, en rachas como cae la lluvia
+var GOTA = '<svg viewBox="0 0 24 24"><path d="M7 15 l-2 4 M12 13 l-2 4 M17 15 l-2 4" stroke="#F6F4EE" stroke-width="2.2" stroke-linecap="round"/><path d="M7 11a4 4 0 0 1 1-7.9A5 5 0 0 1 17.6 5 3.5 3.5 0 0 1 17 12H7.5" fill="none" stroke="#F6F4EE" stroke-width="2"/></svg>';
+var dias = document.getElementById('dias'), celdas = [];
+for (var i = 0; i < 26; i++) {
+  var lim = i >= 21, no = PERDIDOS.indexOf(i) >= 0;
+  var c = F.h('div', 'dia' + (lim ? ' lim' : ''), '<span class="f ' + (lim ? 'lim' : no ? 'no' : 'ok') + '"></span>' + (no ? GOTA : '') + '<i>' + (lim ? 16 + i - 21 + '/11' : i + 1) + '</i>', dias);
+  celdas.push({ c: c, f: c.querySelector('.f'), g: c.querySelector('svg'), i: i, lim: lim, no: no, nl: c.querySelector('i') });
+}
+var buenos = celdas.filter(function (d) { return !d.lim && !d.no; });
+var N = function (id) { return document.getElementById(id); };
+
+F.init({ escena: function (t) {
+  F.entra(N('dato'), t, -1);
+  F.entra(N('ejr'), t, 1.0);
+  // 1 · las 26 celdas aparecen en ola
+  celdas.forEach(function (d) { var k = F.resorte(t + 0.25 - d.i * 0.045, 0.6, 14); d.c.style.opacity = F.clamp(k * 1.8); d.c.style.transform = 'scale(' + (0.7 + 0.3 * k) + ')'; });
+  N('fechas').style.opacity = F.eout(F.seg(t, 1.2, 1.7));
+  // 2 · los días perdidos se tapan de a uno (lluvia, piso, roturas)
+  var np = 0;
+  celdas.forEach(function (d) {
+    if (d.lim) { d.f.style.opacity = F.eout(F.seg(t, 1.6, 2.2)); return; }
+    if (d.no) { var j = PERDIDOS.indexOf(d.i), k = F.eout(F.seg(t, 2.8 + j * 0.32, 3.1 + j * 0.32)); d.f.style.opacity = k; d.g.style.opacity = k; d.nl.style.color = k > 0.5 ? '#8FA0BE' : ''; if (k > 0.5) np++; }
+  });
+  // 3 · los hábiles se pintan y se cuentan
+  var nb = 0;
+  buenos.forEach(function (d, j) { var k = F.eout(F.seg(t, 5.6 + j * 0.09, 5.9 + j * 0.09)); d.f.style.opacity = k; d.nl.style.color = k > 0.5 ? '#0A0F1B' : ''; if (k > 0.5) nb++; });
+    // 4 · la cuenta y el número
+  F.entra(N('cu'), t, 7.4);
+  var kn = F.resorte(t - 8.3, 0.5, 11);
+  N('res').style.opacity = F.clamp(kn * 2); N('res').style.transform = 'scale(' + (0.8 + 0.2 * kn) + ')'; N('res').style.transformOrigin = '100% 60%';
+  N('n').textContent = Math.round(40 * F.eout(F.seg(t, 8.3, 9.6)));
+  F.entra(N('preg'), t, 10.4);
+} });
+</script>
+</body>
+</html>

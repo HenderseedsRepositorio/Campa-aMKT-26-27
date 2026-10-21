@@ -83,7 +83,7 @@ pagina = f'''<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Estudio de motion HenderSeeds</title>
-<meta name="description" content="10 plantillas de reel para HenderSeeds, con ejemplo, reglas y revisión.">
+<meta name="description" content="11 plantillas de reel para HenderSeeds, con ejemplo, reglas y revisión.">
 <link rel="stylesheet" href="../assets/fonts/fuentes.css">
 <style>
 /* Tablero oscuro de estudio: tarjetas por plantilla, todo en la tipografía de la marca */
@@ -140,7 +140,7 @@ video {{ width:100%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; bac
     <a href="../">Dashboard</a> · <a href="../kit/">Kit de la semana</a>
     <span class="pill">Con revisión</span><button class="btn pri" id="copiar-prompt">Copiar prompt</button><span class="ok" aria-live="polite"></span></div>
 
-  <h1>Tu estudio de motion: <em>10 plantillas</em> para HenderSeeds</h1>
+  <h1>Tu estudio de motion: <em>11 plantillas</em> para HenderSeeds</h1>
   <p class="bajada">Pegá el bloque del estudio una vez en la sesión y pedí cualquier plantilla por nombre. Completá los [corchetes]; los logos, las letras y los datos salen del repo. Cada tarjeta tiene su ejemplo real, los controles automáticos y el puntaje de revisión.</p>
 
   <div class="dos">

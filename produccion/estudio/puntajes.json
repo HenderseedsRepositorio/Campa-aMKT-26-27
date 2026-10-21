@@ -9,5 +9,6 @@
   "mecanismo": {"g": 8, "l": 8, "c": 9, "t": 8, "m": 9, "flojo": ["0-3 s: el gancho es una pregunta; un número grande lo empujaría a 9"]},
   "balanza": {"g": 8, "l": 9, "c": 9, "t": 9, "m": 9, "flojo": ["2-10 s: las pesas son rótulos de texto; con un ícono cada una se leerían más rápido"]},
   "alerta": {"g": 9, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["12,5 s: un cuadro sin texto entre el paso 1 y el 2"]},
+  "decision": {"g": 8, "l": 8, "c": 9, "t": 9, "m": 9, "flojo": ["0-1 s: en 3 de las 5 el primer cuadro es solo la pregunta; mostrar la herramienta vacía desde el cuadro 0 lo sube a 9", "17 s: la ficha completa tiene mucha letra mono de 20-26 px: pensada para pausar y guardar, no para leer de pasada"]},
   "sello": {"g": null, "l": 9, "c": 9, "t": 9, "m": 10, "flojo": []}
 }

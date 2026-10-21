@@ -1,0 +1,38 @@
+{
+  "reel": "produccion/decisiones/d2-girasol.html",
+  "fecha": "2026-10-21",
+  "duracion": 22,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Ficha 02 Girasol · qué híbrido ¿Qué girasol va? Empezá por tu lote. Los 4 son Cl"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 29,
+      "segundo": 16.5
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        18.7
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "reel": "produccion/decisiones/d3-maiz-tardio.html",
+  "fecha": "2026-10-21",
+  "duracion": 22,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Ficha 03 Maíz tardío · sanidad Maíz tardío: elegí por tu mayor riesgo. Perfil de"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 18,
+      "segundo": 19.8
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        18.7
+      ]
+    }
+  }
+}

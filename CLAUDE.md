@@ -178,7 +178,7 @@ meta-ads/
   (`docs/recursos/`, render con `scripts/render-pdf.mjs`) y video 1 preparado para voz en off y clip real
   (`reels/2026-W43-video1-voz-y-clip.md`). Kit de publicación en el sitio: `docs/kit/` (/kit/), se arma con
   `python3 scripts/armar-kit.py` (+ `scripts/kit_banco.py`: 5 opciones de reel distintas para elegir; nada de versiones que solo cambian el título). Video 4 sin kg/ha (regla 25/09).
-- 🎛️ 20/10: **estudio de motion** → `produccion/estudio/estudio.xml` (rol, 10 plantillas con su reel de referencia,
+- 🎛️ 20/10: **estudio de motion** → `produccion/estudio/estudio.xml` (rol, 11 plantillas con su reel de referencia,
   reglas y revisión), página `docs/estudio/` (`python3 scripts/armar-estudio.py`) y revisión automática
   `node scripts/revisar-reel.mjs <html>` (hoja de 20 cuadros + zona segura, letra, palabras, gancho; JSON en
   `produccion/estudio/revision/`). Todo reel nuevo parte de una plantilla y pasa la revisión antes de publicarse.
@@ -186,3 +186,8 @@ meta-ads/
   reemplaza al común), historia/Estado `produccion/sintetico/historia-lluvia-mm.html` ("¿Cuántos mm te cayeron?",
   `?v=wa` para WhatsApp) y generador del **parte de lluvias** `docs/lluvias/` (paraje + mm, sin nombres; sirve para
   cada lluvia de la campaña). En el kit, sección "Día de lluvia".
+- 🧭 21/10: **Decisiones 26/27** (sesión 3) → cada pieza resuelve una decisión del productor con el dato del marbete y
+  una regla. 5 fichas en `produccion/decisiones/` (motor `ficha.js`/`ficha.css`): el reel (22 s) arma la ficha, la placa 4:5 es la
+  ficha terminada (`node scripts/render-fichas.mjs`), Estado 9:16 y cuaderno PDF para quien comenta FICHAS. Página
+  `docs/decisiones/` (`python3 scripts/armar-decisiones.py`), guion y fuentes en `reels/2026-W44-decisiones.md`,
+  plantilla "decision" en el estudio. **Enfoque desde acá: dar algo para decidir, no pedir que respondan.**

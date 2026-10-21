@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisiones 26/27 · Ficha 05 · ¿Girasol o maíz tardío en ese lote?</title>
+<!--
+  Decisión: qué cultivo va en el lote que queda libre, con la misma cuenta para los dos.
+  Sin cifras inventadas: la ficha pide los 4 datos del productor (rinde de su ambiente, precio a cosecha,
+  costo directo, flete y comercialización) y lleva a la calculadora de márgenes (contexto/herramientas.md).
+  Fecha límite del girasol: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires (20/11).
+  Reel: node scripts/render-reel.mjs produccion/decisiones/d5-girasol-o-maiz.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="ficha.css">
+<style>
+#stage { --sello-top:330px; }
+.q { font-size:64px; }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.col { background:var(--blanco); border:2px solid rgba(13,45,94,0.14); border-radius:14px; padding:16px 22px 14px; display:flex; flex-direction:column; gap:10px; }
+.col h3 { font-family:var(--arch); font-weight:400; font-size:31px; letter-spacing:-0.5px; color:var(--navy); display:flex; align-items:center; gap:12px; padding-bottom:10px; border-bottom:3px solid var(--navy); }
+.col h3 svg { width:38px; height:38px; flex-shrink:0; }
+.dt { display:flex; flex-direction:column; gap:4px; }
+.dt .l { font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--gris); text-transform:uppercase; }
+.dt .v { display:flex; align-items:baseline; gap:10px; font-family:var(--mono); font-size:24px; color:var(--gris2); }
+.dt .v i { flex:1; height:0; border-bottom:3px dashed rgba(13,45,94,0.35); transform-origin:0 50%; }
+.mg { display:flex; align-items:center; justify-content:space-between; border-top:2px solid rgba(13,45,94,0.14); padding-top:10px; }
+.mg .l { font-family:var(--mono); font-weight:500; font-size:22px; letter-spacing:2px; color:var(--navy); text-transform:uppercase; }
+.mg .v { font-family:var(--arch); font-size:76px; line-height:0.9; color:var(--amber-osc); }
+.ademas { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.ademas span { font-family:var(--mono); font-size:20px; letter-spacing:1px; color:var(--navy); text-transform:uppercase; display:flex; gap:10px; }
+.ademas span::before { content:'+'; color:var(--amber-osc); font-weight:500; }
+.herra { display:flex; align-items:center; gap:16px; background:var(--arena); border-radius:12px; padding:16px 22px; }
+.herra .t { font-family:var(--sans); font-weight:700; font-size:30px; color:var(--navy); white-space:nowrap; }
+.herra .u { font-family:var(--mono); font-weight:500; font-size:30px; color:var(--navy); position:relative; white-space:nowrap; }
+.herra .u::after { content:''; position:absolute; left:0; right:0; bottom:-4px; height:5px; background:var(--amber); transform-origin:0 50%; transform:scaleX(var(--k, 0)); }
+#stage.placa .q { font-size:58px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>05</div>
+  <div class="ficha">
+    <div class="cab"><div class="k"><b>Ficha 05</b>Márgenes · el lote que queda</div><img src="../../docs/assets/logo-hs-navy-hd.png" alt="HenderSeeds"></div>
+    <div class="q">¿Girasol o maíz tardío en <span class="mk">ese lote?</span></div>
+    <div class="herr">
+      <div class="dato" id="dato">La misma cuenta para los dos · <b>por hectárea</b></div>
+      <div class="cols" id="cols"></div>
+      <div class="ademas" id="ademas"><span>Límite 20/11 (marbete)</span><span>Chicharrita → ficha 03</span></div>
+      <div class="herra" id="herra"><span class="t">Hacé la cuenta en</span><span class="u" id="url">margen.henderseeds.com</span></div>
+    </div>
+    <div class="regla"><span class="t">LA REGLA</span><p>Decidí con los dos márgenes al lado, no con el precio de hoy.</p></div>
+    <div class="pie">
+      <div class="cta">¿La hacemos juntos? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+      <div class="src">Límite del girasol: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires. Sin precios ni costos: van los de tu lote.</div>
+    </div>
+  </div>
+</div>
+<script src="ficha.js"></script>
+<script>
+var N = function (id) { return document.getElementById(id); };
+var FLOR = '<svg viewBox="-60 -60 120 120">' + (function () { var s = ''; for (var i = 0; i < 12; i++) s += '<path d="M0 -22 C 8 -32, 7 -48, 0 -56 C -7 -48, -8 -32, 0 -22 Z" fill="' + (i % 2 ? '#F5A623' : 'rgba(245,166,35,0.6)') + '" transform="rotate(' + i * 30 + ')"/>'; return s; })() + '<circle r="22" fill="#0D2D5E"/></svg>';
+var ESPIGA = '<svg viewBox="0 0 40 40"><path d="M20 37 V30" stroke="#0D2D5E" stroke-width="3" stroke-linecap="round"/><ellipse cx="20" cy="17" rx="8" ry="14" fill="#F5A623"/><path d="M14 9 H26 M13 14 H27 M13 19 H27 M14 24 H26" stroke="rgba(13,45,94,0.45)" stroke-width="1.6"/><path d="M20 31 C 12 28, 8 20, 9 10 M20 31 C 28 28, 32 20, 31 10" fill="none" stroke="#0D2D5E" stroke-width="2.4" stroke-linecap="round"/></svg>';
+var DATOS = [['Rinde de tu ambiente', 'kg/ha'], ['Precio a cosecha', 'US$/t'], ['Costo directo', 'US$/ha'], ['Flete y comercialización', 'US$/ha']];
+var cols = N('cols'), campos = [], margenes = [];
+[['Girasol', FLOR], ['Maíz tardío', ESPIGA]].forEach(function (c, ci) {
+  var col = F.h('div', 'col', '<h3>' + c[1] + c[0] + '</h3>', cols);
+  DATOS.forEach(function (d, di) { var dt = F.h('div', 'dt', '<span class="l">' + d[0] + '</span><span class="v"><i></i>' + d[1] + '</span>', col); campos.push({ el: dt, raya: dt.querySelector('i'), ci: ci, di: di }); });
+  margenes.push(F.h('div', 'mg', '<span class="l">= Margen</span><span class="v">?</span>', col));
+});
+
+F.init({ escena: function (t) {
+  F.entra(N('dato'), t, -1);
+  // 1 · las dos columnas, con los mismos 4 datos; se completan de a pares (girasol y maíz a la vez)
+  N('cols').querySelectorAll('.col').forEach(function (c, i) { var k = F.resorte(t + 0.2 - i * 0.18, 0.62, 12); c.style.opacity = F.clamp(k * 1.6); c.style.transform = 'translateY(' + (1 - k) * 40 + 'px)'; });
+  campos.forEach(function (f) { var t0 = 1.2 + f.di * 1.0 + f.ci * 0.2, k = F.eout(F.seg(t, t0, t0 + 0.5)); f.raya.style.transform = 'scaleX(' + k + ')'; f.el.style.opacity = 0.35 + 0.65 * k; });
+  margenes.forEach(function (m, i) { var k = F.resorte(t - 5.6 - i * 0.3, 0.45, 13); var v = m.querySelector('.v'); v.style.transform = 'scale(' + (0.4 + 0.6 * F.clamp(k)) + ') rotate(' + (1 - k) * -12 + 'deg)'; m.style.opacity = F.clamp(k * 2); });
+  // 2 · lo que no entra en la cuenta
+  F.entra(N('ademas'), t, 7.4);
+  // 3 · la herramienta
+  F.entra(N('herra'), t, 9.0);
+  N('url').style.setProperty('--k', F.eio(F.seg(t, 9.6, 10.4)));
+} });
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisiones 26/27 · Ficha 03 · Maíz tardío: elegí por tu mayor riesgo</title>
+<!--
+  Decisión: qué maíz para la siembra tardía según el riesgo principal del lote.
+  Datos: perfil sanitario y agronómico de los marbetes oficiales Nidera 26/27 (contexto/productos-26-27.md),
+  escala 1 excelente – 9 deficiente. Los 6 híbridos con posicionamiento en tardía (NS 7925, NS 7765,
+  NS 7921 CL, NS 7624 CL, NS 7818, NS 7852). Sin números de ensayo de rinde (regla del 25/09).
+  Reel: node scripts/render-reel.mjs produccion/decisiones/d3-maiz-tardio.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="ficha.css">
+<style>
+#stage { --sello-top:330px; }
+.q { font-size:64px; }
+.tabla { position:relative; display:grid; grid-template-columns:186px repeat(6, 88px) 92px; gap:6px; }
+.tabla .th { font-family:var(--mono); font-weight:500; font-size:19px; letter-spacing:1px; color:var(--gris); text-align:center; align-self:end; padding-bottom:4px; text-transform:uppercase; }
+.tabla .hb { font-family:var(--arch); font-size:27px; letter-spacing:-0.5px; color:var(--navy); display:flex; align-items:center; height:58px; white-space:nowrap; }
+.tabla .hb small { font-family:var(--mono); font-size:19px; letter-spacing:1px; color:var(--amber-osc); margin-left:8px; }
+.cel { height:58px; border-radius:9px; display:grid; place-items:center; font-family:var(--mono); font-weight:500; font-size:30px; color:var(--navy); background:var(--arena); position:relative; }
+.cel span { position:relative; z-index:1; }
+.cel.top::after { content:''; position:absolute; inset:-1px; border-radius:9px; box-shadow:inset 0 0 0 4px var(--navy); opacity:var(--r, 0); }
+.cel.herb { font-family:var(--sans); font-weight:700; font-size:28px; }
+#foco { position:absolute; top:-6px; bottom:-6px; border:4px solid var(--amber); border-radius:12px; opacity:0; pointer-events:none; }
+.riesgos { display:flex; flex-direction:column; gap:6px; }
+.rg { display:grid; grid-template-columns:270px 170px 1fr; align-items:center; gap:14px; height:40px; border-bottom:2px dashed rgba(13,45,94,0.14); }
+.rg .r { font-family:var(--sans); font-weight:700; font-size:28px; color:var(--navy); white-space:nowrap; }
+.rg .c { font-family:var(--mono); font-size:20px; letter-spacing:1px; color:var(--gris); text-transform:uppercase; }
+.rg .h { font-family:var(--mono); font-weight:500; font-size:24px; color:var(--navy); white-space:nowrap; }
+.rg .h b { background:var(--amber); border-radius:4px; padding:0 6px; font-weight:500; }
+#stage.placa .q { font-size:56px; }
+#stage.placa .tabla .hb, #stage.placa .cel { height:54px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>03</div>
+  <div class="ficha">
+    <div class="cab"><div class="k"><b>Ficha 03</b>Maíz tardío · sanidad</div><img src="../../docs/assets/logo-hs-navy-hd.png" alt="HenderSeeds"></div>
+    <div class="q">Maíz tardío: elegí por tu <span class="mk">mayor riesgo.</span></div>
+    <div class="herr">
+      <div class="dato" id="dato">Perfil del marbete · <b>1 excelente</b> → 9 deficiente</div>
+      <div class="tabla" id="tabla"><div id="foco"></div></div>
+      <div class="riesgos" id="riesgos"></div>
+    </div>
+    <div class="regla"><span class="t">LA REGLA</span><p>Mirá la columna de tu riesgo, no el promedio.</p></div>
+    <div class="pie">
+      <div class="cta">¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+      <div class="src">Perfil sanitario y agronómico: marbetes oficiales Nidera 26/27 (1 excelente → 9 deficiente). Spiroplasma: achaparramiento, lo transmite la chicharrita. MRCV: Mal de Río Cuarto.</div>
+    </div>
+  </div>
+</div>
+<script src="ficha.js"></script>
+<script>
+var COLS = ['Spiro.', 'MRCV', 'Quebr.', 'Vuelco', 'Roya', 'Tizón', '3 herb.'];
+var HIB = [   // [nombre, etiqueta, Spiroplasma, MRCV, Quebrado, Vuelco, Roya, Tizón, CL]
+  ['NS 7925', 'LANZ.', 3, 3, 2, 5, 2, 3, false],
+  ['NS 7765', '', 5, 3, 1, 3, 2, 3, false],
+  ['NS 7921 CL', '', 6, 4, 2, 4, 3, 4, true],
+  ['NS 7624 CL', '', 5, 5, 2, 3, 2, 3, true],
+  ['NS 7818', '', 5, 5, 4, 4, 1, 2, false],
+  ['NS 7852', 'LANZ.', 5, 4, 4, 3, 2, 4, false]
+];
+var COLOR = { 1: '#F5A623', 2: '#F8BD55', 3: '#FBD58F', 4: '#F0E7D3', 5: '#E8E3D8', 6: '#DED8CB' };
+// riesgo → columna → mejores filas
+var RIESGOS = [
+  ['Chicharrita', 'Spiroplasma', 0, [0], 'NS 7925 · 3'],
+  ['Mal de Río Cuarto', 'MRCV', 1, [0, 1], 'NS 7925 · NS 7765 · 3'],
+  ['Viento y quebrado', 'Quebrado', 2, [1], 'NS 7765 · 1'],
+  ['Roya', 'Roya', 4, [4], 'NS 7818 · 1'],
+  ['Malezas difíciles', '3 herbicidas', 6, [2, 3], 'NS 7921 CL · NS 7624 CL']
+];
+var tabla = document.getElementById('tabla'), celdas = [], foco = document.getElementById('foco');
+F.h('div', 'th', '', tabla); COLS.forEach(function (c) { F.h('div', 'th', c, tabla); });
+HIB.forEach(function (hb, f) {
+  F.h('div', 'hb', hb[0] + (hb[1] ? '<small>' + hb[1] + '</small>' : ''), tabla);
+  for (var c = 0; c < 7; c++) {
+    var v = c < 6 ? hb[2 + c] : hb[8];
+    var cel = F.h('div', 'cel' + (c === 6 ? ' herb' : ''), '<span>' + (c < 6 ? v : v ? '✓' : '') + '</span>', tabla);
+    cel.dataset.bg = c < 6 ? COLOR[v] : v ? '#F5A623' : '#EFEAE0';
+    celdas.push({ el: cel, f: f, c: c });
+  }
+});
+RIESGOS.forEach(function (r) { r[3].forEach(function (f) { var ce = celdas.filter(function (x) { return x.f === f && x.c === r[2]; })[0]; ce.el.classList.add('top'); }); });
+var lista = document.getElementById('riesgos');
+var filas = RIESGOS.map(function (r) { return F.h('div', 'rg', '<span class="r">' + r[0] + '</span><span class="c">' + r[1] + '</span><span class="h"><b>' + r[4] + '</b></span>', lista); });
+function colX(c) { var a = celdas[c].el; return { x: a.offsetLeft, w: a.offsetWidth }; }   // fila 0, columna c
+
+F.init({ escena: function (t) {
+  F.entra(document.getElementById('dato'), t, -1);
+  // 1 · los puntajes se pintan en ola (diagonal)
+  celdas.forEach(function (ce) { var k = F.eout(F.seg(t, 0.3 + (ce.f + ce.c) * 0.13, 0.7 + (ce.f + ce.c) * 0.13)); ce.el.style.background = k > 0.5 ? ce.el.dataset.bg : ''; ce.el.firstChild.style.opacity = k; ce.el.firstChild.style.transform = 'scale(' + (0.6 + 0.4 * k) + ')'; });
+  // 2 · un riesgo por vez: se marca la columna y el mejor puntaje
+  var T0 = 3.6, DT = 1.75, activo = -1;
+  RIESGOS.forEach(function (r, i) { if (t >= T0 + i * DT) activo = i; });
+  if (t >= T0 + RIESGOS.length * DT) activo = -1;
+  if (activo >= 0) { var p = colX(RIESGOS[activo][2]), k = F.resorte(t - T0 - activo * DT, 0.55, 14); foco.style.opacity = 1; foco.style.left = (p.x - 6) + 'px'; foco.style.width = (p.w + 12) + 'px'; foco.style.transform = 'scaleY(' + (0.9 + 0.1 * k) + ')'; }
+  else foco.style.opacity = 0;
+  RIESGOS.forEach(function (r, i) {
+    var t1 = T0 + i * DT + 0.35;
+    F.entra(filas[i], t, t1, 18);
+    r[3].forEach(function (f) { var ce = celdas.filter(function (x) { return x.f === f && x.c === r[2]; })[0]; ce.el.style.setProperty('--r', F.eout(F.seg(t, t1, t1 + 0.3))); });
+  });
+} });
+</script>
+</body>
+</html>
