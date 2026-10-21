@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisión 08 · Lomas y bajos</title>
+<!--
+  Onda "charla de lote" (charla.js). Técnica + oferta: un lote con lomas y bajos, cada ambiente con su híbrido y su densidad. Paso 2 del Plan de Campaña: Recomendación Asista (híbrido por ambiente; siembra variable incluida, opcional). Sin cifras.
+  Reel: node scripts/render-reel.mjs produccion/decisiones/c8-lomas-y-bajos.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="charla.css">
+<style>
+.perfil { width:850px; height:300px; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script src="charla.js"></script>
+<script>
+var PERFIL = '<svg class="perfil" viewBox="0 0 850 300"><path d="M0 230 C 120 230, 170 90, 300 90 C 430 90, 470 250, 600 250 C 700 250, 760 200, 850 190 L850 300 L0 300 Z" fill="rgba(245,166,35,0.18)" stroke="#F5A623" stroke-width="6"/><g font-family="DM Mono" font-weight="500" font-size="30" letter-spacing="3" fill="#E8EEF7"><text x="245" y="60">LOMA</text><text x="545" y="220">BAJO</text></g></svg>';
+C.init({
+  num: '08', tema: 'Ambientes',
+  escenas: [
+    { a: 0, b: 3.6, txt: 'Un lote. | Dos *ambientes.*', obj: PERFIL },
+    { a: 3.6, b: 7.2, txt: 'Cada ambiente, | su híbrido | y su *densidad.*', fs: 100 },
+    { a: 7.2, b: 10.8, txt: 'Recomendación Asista: | híbrido por *ambiente.*', fs: 96 },
+    { a: 10.8, b: 14.4, txt: 'Siembra *variable:*', fs: 104, obj: '<div class="pill">opcional</div>' }
+  ],
+  cierre: { a: 14.4, b: 18.4, regla: 'Una sola densidad no le sirve a los dos.', humana: 'Pasamos por tu lote.', src: 'Recomendación Asista: paso 2 del Plan de Campaña HenderSeeds.' },
+  placa: {
+    titulo: 'Un lote. Dos <span>ambientes.</span>',
+    filas: [['Cada ambiente', 'Su híbrido y su densidad'], ['Recomendación Asista', 'Híbrido por ambiente'], ['Siembra variable', 'Opcional']],
+    regla: 'Una sola densidad no le sirve a los dos.',
+    cta: 'Pasamos por tu lote. <b>Mandanos un DM</b> · WA 2314 53-0691',
+    src: 'Paso 2 del Plan de Campaña HenderSeeds.'
+  }
+});
+</script>
+</body>
+</html>

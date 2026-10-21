@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Estudio de motion de HenderSeeds: 11 plantillas de reel 9:16.
+  Estudio de motion de HenderSeeds: 12 plantillas de reel 9:16.
   Adaptado del esquema "motion studio / templates.xml" (Twitter, 10/2026) a la marca, las reglas del
   equipo y el motor del repo. Se pega una vez en la sesión y después se pide una plantilla por nombre.
   Página para verlo y copiarlo: docs/estudio/ (se arma con python3 scripts/armar-estudio.py).
@@ -98,6 +98,13 @@ referencia de la plantilla (copiarlo y cambiar el bloque de datos de arriba), nu
   <escena>3,4–14 · una respuesta por pantalla: [dato del marbete] grande + un chip; nada más</escena>
   <escena>14–18 · cierre navy: [la regla] en una línea + "Mandanos un DM" + WhatsApp</escena>
   <debe>pocas palabras (máximo 15 grandes por pantalla); la placa 4:5 es el resumen: pregunta, 3 respuestas y la regla (?formato=placa); ejemplos rotulados; motor en produccion/decisiones/simple.js</debe>
+</plantilla>
+
+<plantilla nombre="charla" dur="18 s" formato="9:16 + placa 4:5" ref="produccion/decisiones/c6-indiferencia.html" video="2026-W44-decision-06-indiferencia.mp4">
+  <escena>0–3,6 · [afirmación técnica] en fondo noche, legible en el cuadro 0, palabras clave en ámbar</escena>
+  <escena>3,6–14,4 · tres frases que entran palabra por palabra, como dichas en el lote, cada una con [un objeto: número, lista de híbridos, píldora]</escena>
+  <escena>14,4–18,4 · tarjeta crema que sube: [la regla] + "Pasamos por tu lote." + "Mandanos un DM"</escena>
+  <debe>el reel es solo datos (C.init en produccion/decisiones/charla.js); gancho afirmativo, sin preguntas de sí o no; máximo 6 palabras por línea; línea de avance abajo</debe>
 </plantilla>
 
 <plantilla nombre="sello" dur="5 s" formato="9:16" ref="produccion/estudio/sello.html" video="2026-W44-sello.mp4">

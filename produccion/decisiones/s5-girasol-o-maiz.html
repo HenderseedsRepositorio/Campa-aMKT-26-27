@@ -15,6 +15,7 @@
 .vs svg { width:230px; height:230px; }
 .vs b { font-family:var(--mono); font-weight:500; font-size:56px; color:var(--gris); }
 .url { font-family:var(--mono); font-weight:500; font-size:62px; letter-spacing:-1px; color:var(--navy); }
+#stage.placa .placa-c .t { font-size:74px; }
 .cuatro { display:flex; flex-direction:column; gap:6px; }
 .cuatro .t { display:flex; align-items:baseline; gap:24px; }
 .cuatro .t i { font-family:var(--mono); font-style:normal; font-weight:500; font-size:40px; color:var(--amber-osc); }
@@ -25,23 +26,23 @@
   <div class="agua" data-deco>05</div>
   <div class="esc" data-a="0" data-b="3.4"><div class="caja">
     <div class="k" data-t="-1">Decisión 05 · márgenes</div>
-    <div class="t" data-t="-1">¿Girasol o maíz tardío en <span class="mk" data-mk="0.2">ese lote?</span></div>
+    <div class="t" data-t="-1">Girasol o maíz tardío: <span class="mk" data-mk="0.2">misma cuenta.</span></div>
     <div class="vs"><svg id="flor" viewBox="-60 -60 120 120" data-t="0.2" data-fx="pop"></svg><b data-t="0.6">vs</b><svg viewBox="0 0 40 40" data-t="0.8" data-fx="pop"><path d="M20 38 V31" stroke="#0D2D5E" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="20" cy="17" rx="8" ry="14" fill="#F5A623"/><path d="M14 9 H26 M13 14 H27 M13 19 H27 M14 24 H26" stroke="rgba(13,45,94,0.45)" stroke-width="1.4"/><path d="M20 32 C 12 29, 8 21, 9 10 M20 32 C 28 29, 32 21, 31 10" fill="none" stroke="#0D2D5E" stroke-width="2.2" stroke-linecap="round"/></svg></div>
   </div></div>
   <div class="esc" data-a="3.4" data-b="7.6"><div class="caja" style="gap:24px">
-    <div class="k" data-t="3.6">Que decida la cuenta</div>
+    <div class="k" data-t="3.6">Cuatro datos para los dos</div>
     <div class="cuatro">
       <div class="t" data-t="3.8"><i>1</i>Rinde</div>
       <div class="t" data-t="4.1"><i>2</i>Precio</div>
       <div class="t" data-t="4.4"><i>3</i>Costo</div>
       <div class="t" data-t="4.7"><i>4</i>Flete</div>
     </div>
-    <div class="s" data-t="5.5">Los mismos 4 datos <b>para los dos.</b></div>
+    <div class="s" data-t="5.5">Los <b>de tu lote.</b></div>
   </div></div>
   <div class="esc" data-a="7.6" data-b="10.8"><div class="caja" style="gap:24px">
-    <div class="k" data-t="7.8">Y ojo con</div>
+    <div class="k" data-t="7.8">Límites y riesgos</div>
     <div class="t m" data-t="8.0">Girasol: límite <span class="mk" data-mk="8.5">20/11.</span></div>
-    <div class="t m" data-t="8.8">Tardío: chicharrita.</div>
+    <div class="t m" data-t="8.8">Tardío: riesgo de chicharrita.</div>
   </div></div>
   <div class="esc" data-a="10.8" data-b="14.0"><div class="caja" style="gap:26px">
     <div class="k" data-t="11.0">La calculadora</div>
@@ -51,20 +52,20 @@
 
   <div class="placa-c ficha">
     <div class="k">Decisión 05 · márgenes</div>
-    <div class="t">¿Girasol o maíz tardío en <span class="mk">ese lote?</span></div>
+    <div class="t">Girasol o maíz tardío: <span class="mk">misma cuenta.</span></div>
     <div class="filas">
-      <div class="fila"><span class="p">Que decida la cuenta</span><span class="a">Rinde · precio · costo · flete</span></div>
-      <div class="fila"><span class="p">Y ojo con</span><span class="a">Girasol: límite 20/11</span></div>
+      <div class="fila"><span class="p">Cuatro datos</span><span class="a">Rinde · precio · costo · flete</span></div>
+      <div class="fila"><span class="p">Límite del girasol</span><span class="a">20/11</span></div>
       <div class="fila"><span class="p">Hacé la cuenta en</span><span class="a">margen.henderseeds.com</span></div>
     </div>
-    <div class="regla"><span class="rt">LA REGLA</span><p>Decidí con los dos márgenes al lado, no con el precio de hoy.</p></div>
-    <div class="pcta">¿La hacemos juntos? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+    <div class="regla"><span class="rt">LA REGLA</span><p>Compará los dos márgenes antes de decidir.</p></div>
+    <div class="pcta">Pasamos por tu lote. <b>Mandanos un DM</b> · WA 2314 53-0691</div>
     <div class="psrc">Límite del girasol: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires.</div>
   </div>
 </div>
 <script src="simple.js"></script>
 <script>
-S.cierre({ a: 14.0, b: 18.0, regla: 'Decidí con los dos márgenes al lado, <span>no con el precio de hoy.</span>', src: 'Límite del girasol: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires.' });
+S.cierre({ a: 14.0, b: 18.0, regla: 'Compará los dos márgenes <span>antes de decidir.</span>', humana: 'Pasamos por tu lote.', src: 'Límite del girasol: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires.' });
 var flor = document.getElementById('flor');
 for (var i = 0; i < 12; i++) S.el('path', { d: 'M0 -22 C 8 -32, 7 -48, 0 -56 C -7 -48, -8 -32, 0 -22 Z', fill: i % 2 ? '#F5A623' : '#F8BD55', transform: 'rotate(' + i * 30 + ')' }, flor);
 S.el('circle', { r: 22, fill: '#0D2D5E' }, flor);

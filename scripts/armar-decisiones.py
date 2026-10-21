@@ -15,63 +15,117 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGES = 'https://henderseedsrepositorio.github.io/Campa-aMKT-26-27/'
 PDF = 'cuaderno-de-decisiones-26-27.pdf'
 
+WA = 'Pasamos por tu lote: Mandanos un DM · wa.me/5492314530691'
 FICHAS = [
- dict(n='01', slug='01-sembradora', titulo='¿Te alcanza la sembradora?', pilar='Girasol',
+ dict(n='01', slug='01-sembradora', titulo='Girasol: la ventana cierra el 15/11.', pilar='Girasol',
       regla='Si no llega, decidí hoy qué lotes van primero.',
       fuente='Ventana del girasol, Oeste de Buenos Aires: marbetes oficiales Nidera 26/27. Ejemplo rotulado (560 ha ÷ 14 días).',
-      cap='''¿Te alcanza la sembradora para el girasol? 🌻
-La ventana óptima en el oeste cierra el 15/11 (límite 20/11, marbetes Nidera).
-La cuenta: hectáreas que te faltan ÷ días hábiles que quedan = ha por día.
-Si tu sembradora no llega, decidí hoy qué lotes van primero.
-¿Lo vemos juntos? Mandanos un DM o escribinos 📲 wa.me/5492314530691
+      cap=f'''Girasol: la ventana óptima cierra el 15/11. 🌻
+En el oeste, el límite es el 20/11 (marbetes Nidera).
+Tu ritmo: hectáreas que faltan ÷ días de siembra que quedan = ha por día.
+Si no llega, decidí hoy qué lotes van primero. {WA}
 
 #Henderseeds #Nidera #Girasol #Siembra2627 #Henderson #Daireaux #Bolivar'''),
- dict(n='02', slug='02-girasol', titulo='¿Qué girasol va? Empezá por tu lote.', pilar='Girasol',
+ dict(n='02', slug='02-girasol', titulo='Girasol: el híbrido depende del lote.', pilar='Girasol',
       regla='Primero el problema del lote. Después, el rinde.',
-      fuente='Marbetes oficiales Nidera 26/27. NS 1113 CL: +2,11 qq/ha y 74 % de éxito en 225 comparaciones Sur + Oeste.',
-      cap='''¿Qué girasol va? Empezá por tu lote. 🌻
-¿Tuvo Phomopsis? NS 1115 CL o NS 1117 CL (Phomopsis 2).
-¿No tuvo? NS 1113 CL, techo de rinde y aceite: +2,11 qq/ha y 74 % de éxito en 225 comparaciones Sur + Oeste.
-¿Te pagan alto oleico? NS 1227 CL HO.
-Datos de los marbetes oficiales Nidera 26/27. ¿Dudas con tu lote? Mandanos un DM · wa.me/5492314530691
+      fuente='Marbetes oficiales Nidera 26/27. NS 1113 CL: 74 % de éxito en 225 comparaciones, ensayos Sur + Oeste.',
+      cap=f'''Girasol: el híbrido depende del lote. 🌻
+Si tuvo Phomopsis: NS 1115 CL o NS 1117 CL (Phomopsis 2).
+Si no tuvo: NS 1113 CL, techo de rinde y aceite (74 % de éxito en 225 comparaciones Sur + Oeste).
+Si te pagan alto oleico: NS 1227 CL HO.
+Primero el problema del lote; después, el rinde. {WA}
 
 #Henderseeds #Nidera #Girasol #NS1113CL #Siembra2627 #Henderson #Daireaux #Bolivar'''),
- dict(n='03', slug='03-maiz-tardio', titulo='¿Qué te preocupa más del tardío?', pilar='Maíz tardío',
+ dict(n='03', slug='03-maiz-tardio', titulo='Tardío: tres riesgos, tres híbridos.', pilar='Maíz tardío',
       regla='Elegí por tu mayor riesgo, no por el promedio.',
       fuente='Perfil sanitario de los marbetes oficiales Nidera 26/27 (1 excelente – 9 deficiente). Sin números de ensayo de maíz.',
-      cap='''¿Qué te preocupa más del maíz tardío? 🌽
-Chicharrita → NS 7925 (Spiroplasma 3, el mejor del portafolio).
-Viento → NS 7765 (Quebrado 1).
-Malezas difíciles → NS 7921 CL (3 herramientas herbicidas).
-Perfil de los marbetes Nidera: 1 excelente, 9 deficiente. Elegí por tu mayor riesgo y, si querés, lo vemos juntos: Mandanos un DM · wa.me/5492314530691
+      cap=f'''Maíz tardío: tres riesgos, tres híbridos. 🌽
+Chicharrita: NS 7925 (Spiroplasma 3, el mejor del portafolio).
+Quebrado por viento: NS 7765 (Quebrado 1).
+Malezas difíciles: NS 7921 CL (3 herramientas herbicidas).
+Perfil de los marbetes Nidera: 1 excelente, 9 deficiente. Elegí por tu mayor riesgo. {WA}
 
 #Henderseeds #Nidera #MaizTardio #Viptera3 #Siembra2627 #Henderson #Daireaux #Bolivar'''),
- dict(n='04', slug='04-ambiente', titulo='¿En qué ambiente está tu lote?', pilar='Diagnóstico',
+ dict(n='04', slug='04-ambiente', titulo='Girasol: cuatro ambientes según el rinde.', pilar='Diagnóstico',
       regla='Clasificalo con varias campañas, no con la mejor.',
       fuente='Escala de ambientes del girasol en los marbetes oficiales Nidera 26/27.',
-      cap='''¿En qué ambiente está tu lote? 📍
-En girasol, el marbete Nidera los separa por rinde: menos de 1.500, de 1.500 a 2.500, de 2.500 a 3.500 y más de 3.500 kg/ha.
-Clasificalo con el promedio de varias campañas, no con la mejor. De eso dependen el híbrido, las plantas y la inversión.
-Mandanos los rindes de tus lotes y los clasificamos juntos · wa.me/5492314530691
+      cap='''Girasol: cuatro ambientes según el rinde. 📍
+El marbete Nidera los separa en menos de 1.500, de 1.500 a 2.500, de 2.500 a 3.500 y más de 3.500 kg/ha.
+Clasificá cada lote con el promedio de varias campañas, no con la mejor: de eso dependen el híbrido, la densidad y la inversión.
+Mandanos tus rindes y lo vemos juntos · wa.me/5492314530691
 
 #Henderseeds #Nidera #Girasol #Siembra2627 #Henderson #Daireaux #Bolivar'''),
- dict(n='05', slug='05-girasol-o-maiz', titulo='¿Girasol o maíz tardío en ese lote?', pilar='Márgenes',
-      regla='Decidí con los dos márgenes al lado, no con el precio de hoy.',
+ dict(n='05', slug='05-girasol-o-maiz', titulo='Girasol o maíz tardío: misma cuenta.', pilar='Márgenes',
+      regla='Compará los dos márgenes antes de decidir.',
       fuente='Límite del girasol: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires. Calculadora: margen.henderseeds.com.',
-      cap='''¿Girasol o maíz tardío en ese lote? 🌻🌽
-Que decida la cuenta: rinde, precio, costo y flete, los mismos 4 datos para los dos.
-Y ojo: el girasol tiene límite el 20/11 (marbete) y el tardío, el riesgo de chicharrita.
-Cargalos en margen.henderseeds.com y compará. ¿La hacemos juntos? Mandanos un DM · wa.me/5492314530691
+      cap=f'''Girasol o maíz tardío: misma cuenta. 🌻🌽
+Cuatro datos para los dos: rinde de tu ambiente, precio, costo y flete.
+Límites y riesgos: el girasol, hasta el 20/11 (marbete); el tardío, riesgo de chicharrita.
+Hacé la cuenta en margen.henderseeds.com y compará los dos márgenes antes de decidir. {WA}
 
 #Henderseeds #Nidera #Girasol #MaizTardio #Margenes #Siembra2627 #Henderson #Bolivar'''),
 ]
 
+FICHAS2 = [
+ dict(n='06', slug='06-indiferencia', titulo='Todo lote tiene un rinde de indiferencia.', pilar='Márgenes',
+      regla='Primero el número, después la bolsa.',
+      fuente='Sin cifras: los datos son los del lote. Calculadora de márgenes HenderSeeds: margen.henderseeds.com.',
+      cap=f'''Todo lote tiene un rinde de indiferencia. 📈
+Costos por hectárea ÷ precio neto: los qq/ha que necesitás para cubrir los costos.
+Si tu ambiente apenas lo supera, revisá el planteo antes de sembrar.
+La cuenta, en margen.henderseeds.com. {WA}
+
+#Henderseeds #Nidera #Margenes #Siembra2627 #Henderson #Daireaux #Bolivar'''),
+ dict(n='07', slug='07-alto-oleico', titulo='Alto oleico: la bonificación la paga el comprador.', pilar='Girasol',
+      regla='Primero el contrato, después la bolsa.',
+      fuente='NS 1227 CL HO (bonificación por calidad de aceite, Downy Mildew R) y ventana del oeste: marbetes oficiales Nidera 26/27.',
+      cap=f'''Alto oleico: la bonificación la paga el comprador. 🌻
+NS 1227 CL HO es el alto oleico del portafolio Nidera, resistente a Downy Mildew.
+Ventana en el oeste: óptima hasta el 15/11, límite 20/11 (marbete).
+Primero el contrato, después la bolsa. {WA}
+
+#Henderseeds #Nidera #Girasol #AltoOleico #Siembra2627 #Henderson #Daireaux #Bolivar'''),
+ dict(n='08', slug='08-lomas-y-bajos', titulo='Un lote. Dos ambientes.', pilar='Ambientes',
+      regla='Una sola densidad no le sirve a los dos.',
+      fuente='Recomendación Asista por ambiente, con siembra variable opcional: paso 2 del Plan de Campaña HenderSeeds.',
+      cap=f'''Un lote. Dos ambientes. 📍
+Cada ambiente, su híbrido y su densidad.
+En el Plan de Campaña, la Recomendación Asista va por ambiente, con siembra variable opcional.
+Una sola densidad no le sirve a los dos. {WA}
+
+#Henderseeds #Nidera #Maiz #Girasol #Siembra2627 #Henderson #Daireaux #Bolivar'''),
+ dict(n='09', slug='09-maiz-fecha', titulo='Maíz: no todo híbrido va en tardía.', pilar='Maíz',
+      regla='El híbrido va con la fecha.',
+      fuente='Posicionamiento por fecha de los marbetes oficiales Nidera 26/27. Sin números de ensayo de maíz.',
+      cap=f'''Maíz: no todo híbrido va en tardía. 🌽
+Mejor en temprana: NS 7621 (no es primera opción en tardía).
+Para tardía: NS 7925, NS 7624 CL y NS 7818.
+Para las dos fechas: NS 7765, NS 7852 y NS 7921 CL.
+Posicionamiento de los marbetes Nidera 26/27. El híbrido va con la fecha. {WA}
+
+#Henderseeds #Nidera #Maiz #MaizTardio #Siembra2627 #Henderson #Daireaux #Bolivar'''),
+ dict(n='10', slug='10-encharcado', titulo='Lote encharcado después de sembrar: hay seguro.', pilar='Plan de Campaña',
+      regla='La resiembra se decide con números.',
+      fuente='Seguro de resiembra de Nidera, ante granizo o encharcamiento: paso 4 del Plan de Campaña. Sin condiciones del seguro.',
+      cap=f'''Lote encharcado después de sembrar: hay seguro. 🌧️
+Tenés el seguro de resiembra de Nidera, ante granizo o encharcamiento.
+Antes de decidir, contá las plantas que quedaron: la resiembra se decide con números.
+Si te pasa, escribinos. {WA}
+
+#Henderseeds #Nidera #Siembra2627 #Resiembra #Henderson #Daireaux #Bolivar'''),
+]
+
 CALENDARIO = [
- ('Mar 27/10', 'Decisión 01 · ¿Te alcanza la sembradora?', 'Lo que vence primero: la ventana del girasol.'),
- ('Sáb 31/10', 'Decisión 03 · ¿Qué te preocupa más del tardío?', 'Reemplaza al reel 4 (mismos híbridos, ordenados por riesgo).'),
- ('Mar 3/11', 'Decisión 05 · ¿Girasol o maíz tardío?', 'Cuando se asignan los últimos lotes.'),
- ('Jue 5/11', 'Decisión 02 · ¿Qué girasol va?', 'Para reposición y lotes sin híbrido.'),
- ('Mar 10/11', 'Decisión 04 · ¿En qué ambiente está tu lote?', 'Abre la charla del diagnóstico.'),
+ ('Mar 27/10', '01 · Girasol: la ventana cierra el 15/11', 'Lo que vence primero.'),
+ ('Jue 29/10', '02 · Girasol: el híbrido depende del lote', 'Lotes de girasol sin híbrido asignado.'),
+ ('Sáb 31/10', '07 · Alto oleico', 'El contrato se cierra antes de sembrar.'),
+ ('Mar 3/11', '03 · Tardío: tres riesgos, tres híbridos', 'Reemplaza al reel 4 (mismos híbridos).'),
+ ('Jue 5/11', '09 · Maíz: no todo híbrido va en tardía', 'Cuando se cierra el híbrido del tardío.'),
+ ('Sáb 7/11', '05 · Girasol o maíz tardío', 'Antes del límite del girasol (20/11).'),
+ ('Mar 10/11', '06 · Rinde de indiferencia', 'Márgenes: vale todo el año.'),
+ ('Jue 12/11', '08 · Un lote, dos ambientes', 'Abre la charla del Plan de Campaña.'),
+ ('Sáb 14/11', '04 · Cuatro ambientes según el rinde', 'Diagnóstico para la próxima campaña.'),
+ ('Comodín', '10 · Lote encharcado: hay seguro', 'Usarlo cuando llueva fuerte con lotes recién sembrados.'),
 ]
 
 
@@ -148,6 +202,10 @@ h2 { font:400 clamp(28px, 4.6vw, 44px)/1 var(--display); letter-spacing:-.025em;
 .media figcaption { font:500 12px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--gris2); }
 .se-lleva { margin:0; background:var(--navy); color:var(--blanco); border-radius:12px; padding:14px 18px; font-weight:700; font-size:20px; line-height:1.3; display:grid; gap:4px; max-width:600px; }
 .se-lleva span { font:500 12px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--amber); }
+.tono { margin:0; padding:0; list-style:none; display:grid; gap:10px; max-width:760px; }
+.tono li { background:var(--blanco); border:1.5px solid var(--linea); border-radius:12px; padding:14px 18px; display:grid; gap:4px; }
+.tono b { color:var(--navy); font-size:18px; }
+.tono span { font:400 14px/1.5 var(--mono); color:var(--gris); }
 .fuente { margin:0; font:400 13px/1.5 var(--mono); color:var(--gris2); }
 details.cap { border:1.5px solid var(--linea); border-radius:12px; background:var(--papel2); }
 details.cap summary { cursor:pointer; padding:12px 16px; font:500 13px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--navy); }
@@ -196,18 +254,36 @@ def armar(modo):
   <header class="top"><p class="eyebrow">HenderSeeds · Siembra 26/27</p>{nav}</header>
   <div class="hero">
     <h1>Decisiones <span class="mk">26/27</span></h1>
-    <p class="lead">Cinco reels cortos y cinco placas. Cada uno responde una decisión de estas semanas con pocas palabras: la pregunta, el dato del marbete y una regla para llevarse.</p>
+    <p class="lead">Diez reels cortos y diez placas, en dos ondas para comparar. Cada uno responde una decisión de estas semanas con pocas palabras: el dato del marbete y una regla para llevarse.</p>
   </div>
 
   <section>
+    <h2>Cómo suena HenderSeeds</h2>
+    <ul class="tono">
+      <li><b>El gancho es un dato o una afirmación técnica.</b> No una pregunta que pone en duda al productor. <span>"¿Te alcanza la sembradora?" → "Girasol: la ventana cierra el 15/11."</span></li>
+      <li><b>Nada de preguntas de sí o no en pantalla.</b> <span>"¿El lote tuvo Phomopsis?" → "Si el lote tuvo Phomopsis".</span></li>
+      <li><b>Una pantalla, una idea.</b> Pocas palabras, voseo y sin signos de exclamación.</li>
+      <li><b>La calidez va en una sola línea, al cierre.</b> <span>"Pasamos por tu lote. Mandanos un DM."</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>01–05 · Hoja crema</h2>
+    <p class="sub">Una idea por pantalla, letra grande, cortina navy entre escenas.</p>
     {''.join(ficha(f, modo) for f in FICHAS)}
   </section>
 
   <section>
+    <h2>06–10 · Charla de lote</h2>
+    <p class="sub">Otra onda: fondo noche, la frase entra palabra por palabra como si la dijera alguien en el lote, y cierra en una tarjeta crema.</p>
+    {''.join(ficha(f, modo) for f in FICHAS2)}
+  </section>
+
+  <section>
     <h2>Orden para publicar</h2>
-    <p class="sub">Primero lo que vence, que es la ventana del girasol. Cada uno, el mismo día, como Estado de WhatsApp.</p>
+    <p class="sub">Tres por semana, primero lo que vence: el girasol. Cada uno, el mismo día, como Estado de WhatsApp. El 10 queda de comodín para una lluvia fuerte.</p>
     <div class="tabla-x"><table class="cal">
-      <thead><tr><th scope="col">Día</th><th scope="col">Reel</th><th scope="col">Por qué</th></tr></thead>
+      <thead><tr><th scope="col">Día</th><th scope="col">Pieza</th><th scope="col">Por qué</th></tr></thead>
       <tbody>{''.join(f'<tr><td>{e(a)}</td><td>{e(b)}</td><td>{e(c)}</td></tr>' for a, b, c in CALENDARIO)}</tbody>
     </table></div>
   </section>
@@ -223,7 +299,7 @@ def armar(modo):
 <script>{JS}</script>'''
     if modo == 'pages':
         return ('<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
-                '<title>Decisiones 26/27 · HenderSeeds</title>\n<meta name="description" content="Cinco reels cortos y cinco placas: una decisión de siembra por pieza, con pocas palabras.">\n'
+                '<title>Decisiones 26/27 · HenderSeeds</title>\n<meta name="description" content="Diez reels cortos y diez placas en dos ondas: una decisión de siembra por pieza, con pocas palabras.">\n'
                 f'{fuentes}\n<style>{CSS}</style>\n</head>\n<body>{cuerpo}\n</body>\n</html>\n')
     return (f'<title>Decisiones 26/27</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n{fuentes}\n<style>{CSS}</style>\n{cuerpo}\n')
 

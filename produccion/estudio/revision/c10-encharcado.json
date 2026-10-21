@@ -1,0 +1,36 @@
+{
+  "reel": "produccion/decisiones/c10-encharcado.html",
+  "fecha": "2026-10-21",
+  "duracion": 18.4,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "HenderSeeds · 10 · Plan de Campaña Lote encharcado después de sembrar: hay segur"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 14,
+      "segundo": 15.64
+    },
+    "cuadros_sin_texto": {
+      "segundos": []
+    }
+  }
+}

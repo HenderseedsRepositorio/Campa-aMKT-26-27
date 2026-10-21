@@ -21,44 +21,43 @@
   <div class="agua" data-deco>02</div>
   <div class="esc" data-a="0" data-b="3.4"><div class="caja">
     <div class="k" data-t="-1">Decisión 02 · girasol</div>
-    <div class="t" data-t="-1">¿Qué girasol va?</div>
-    <div class="t m" data-t="-1">Empezá por <span class="mk" data-mk="0.3">tu lote.</span></div>
+    <div class="t" data-t="-1">Girasol: el híbrido depende <span class="mk" data-mk="0.3">del lote.</span></div>
     <svg class="flor" id="flor" viewBox="-60 -60 120 120" data-t="-1"></svg>
   </div></div>
   <div class="esc" data-a="3.4" data-b="7.2"><div class="caja" style="gap:22px">
-    <div class="k" data-t="3.6">¿El lote tuvo Phomopsis?</div>
+    <div class="k" data-t="3.6">Si el lote tuvo Phomopsis</div>
     <div class="t m" data-t="3.8">NS 1115 CL<small>sanidad</small></div>
     <div class="t m" data-t="4.2">NS 1117 CL<small>rinde</small></div>
     <div class="chip" data-t="5.0" data-fx="pop" style="margin-top:14px">Phomopsis 2 · el mejor</div>
   </div></div>
   <div class="esc" data-a="7.2" data-b="10.8"><div class="caja" style="gap:26px">
-    <div class="k" data-t="7.4">¿No tuvo?</div>
+    <div class="k" data-t="7.4">Si no tuvo</div>
     <div class="t" data-t="7.6">NS 1113 CL</div>
     <div class="s" data-t="8.2">Techo de rinde y aceite.</div>
-    <div class="chip" data-t="8.8" data-fx="pop">+2,11 qq/ha · 74 % de éxito</div>
+    <div class="chip" data-t="8.8" data-fx="pop">74 % de éxito · 225 comparaciones</div>
   </div></div>
   <div class="esc" data-a="10.8" data-b="14.0"><div class="caja" style="gap:26px">
-    <div class="k" data-t="11.0">¿Te pagan alto oleico?</div>
+    <div class="k" data-t="11.0">Si te pagan alto oleico</div>
     <div class="t" data-t="11.2">NS 1227 CL HO</div>
     <div class="s" data-t="11.8">El alto oleico del portafolio.</div>
   </div></div>
 
   <div class="placa-c ficha">
     <div class="k">Decisión 02 · girasol</div>
-    <div class="t">¿Qué girasol va? <span class="mk">Empezá por tu lote.</span></div>
+    <div class="t">Girasol: el híbrido depende <span class="mk">del lote.</span></div>
     <div class="filas">
-      <div class="fila"><span class="p">¿Tuvo Phomopsis?</span><span class="a">NS 1115 CL · NS 1117 CL</span></div>
-      <div class="fila"><span class="p">¿No tuvo?</span><span class="a">NS 1113 CL <small>+2,11 qq/ha</small></span></div>
-      <div class="fila"><span class="p">¿Te pagan alto oleico?</span><span class="a">NS 1227 CL HO</span></div>
+      <div class="fila"><span class="p">Si tuvo Phomopsis</span><span class="a">NS 1115 CL · NS 1117 CL</span></div>
+      <div class="fila"><span class="p">Si no tuvo</span><span class="a">NS 1113 CL <small>74 % de éxito</small></span></div>
+      <div class="fila"><span class="p">Si te pagan alto oleico</span><span class="a">NS 1227 CL HO</span></div>
     </div>
     <div class="regla"><span class="rt">LA REGLA</span><p>Primero el problema del lote. Después, el rinde.</p></div>
-    <div class="pcta">¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+    <div class="pcta">Pasamos por tu lote. <b>Mandanos un DM</b> · WA 2314 53-0691</div>
     <div class="psrc">Marbetes oficiales Nidera 26/27. NS 1113 CL: 74 % de éxito en 225 comparaciones Sur + Oeste.</div>
   </div>
 </div>
 <script src="simple.js"></script>
 <script>
-S.cierre({ a: 14.0, b: 18.0, regla: 'Primero el problema del lote. <span>Después, el rinde.</span>', src: 'Marbetes oficiales Nidera 26/27. NS 1113 CL: +2,11 qq/ha y 74 % de éxito en 225 comparaciones Sur + Oeste.' });
+S.cierre({ a: 14.0, b: 18.0, regla: 'Primero el problema del lote. <span>Después, el rinde.</span>', humana: 'Pasamos por tu lote.', src: 'Marbetes oficiales Nidera 26/27. NS 1113 CL: 74 % de éxito en 225 comparaciones, ensayos Sur + Oeste.' });
 var flor = document.getElementById('flor'), petalos = [];
 for (var i = 0; i < 14; i++) petalos.push(S.el('path', { d: 'M0 -22 C 9 -32, 8 -50, 0 -58 C -8 -50, -9 -32, 0 -22 Z', fill: i % 2 ? '#F5A623' : '#F8BD55', transform: 'rotate(' + i * (360 / 14) + ')' }, flor));
 S.el('circle', { r: 23, fill: '#0D2D5E' }, flor);

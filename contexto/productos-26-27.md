@@ -200,6 +200,18 @@
 
 ---
 
+## Escalas de los marbetes (texto de los PDF en `contexto/marbetes/`)
+
+- **Perfil sanitario y agronómico:** escala de 1 (excelente) a 9 (deficiente); R = resistencia genética.
+- **Ambientes, girasol:** bajo < 1.500 kg/ha · medio-bajo 1.500–2.500 · medio-alto 2.500–3.500 · alto > 3.500.
+- **Ambientes, maíz** (temprana y tardía): bajo < 6.000 kg/ha · medio-bajo 6.001–9.000 · medio-alto 9.001–12.000 · alto > 12.000.
+  Es la definición del ambiente, no un dato de ensayo; igual, en piezas de maíz preferimos no mostrar kg/ha (regla 25/09).
+- **Ensayos de girasol:** el marbete muestra % de éxito, n.º de comparaciones y "diferencia de rinde (qq/ha)" con una
+  nota 3 que no está impresa: no dice contra qué se compara. En pantalla usar "% de éxito en N comparaciones";
+  los qq/ha, solo en el texto y como "diferencia de rinde en ensayos Sur + Oeste".
+
+---
+
 ## Nota sobre el NS 7626 VIPTERA3 CL
 
 El marbete de este híbrido **no fue subido** a `contexto/marbetes/`. No aparece

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisión 07 · Alto oleico</title>
+<!--
+  Onda "charla de lote" (charla.js). Girasol alto oleico: NS 1227 CL HO, bonificación por calidad de aceite, "donde el comprador pague diferencial alto oleico" (contexto/productos-26-27.md). Ventana oeste 15/10–15/11 (marbete).
+  Reel: node scripts/render-reel.mjs produccion/decisiones/c7-alto-oleico.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="charla.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="charla.js"></script>
+<script>
+C.init({
+  num: '07', tema: 'Girasol',
+  escenas: [
+    { a: 0, b: 3.6, txt: 'Alto oleico: la bonificación la paga el *comprador.*' },
+    { a: 3.6, b: 7.2, txt: 'El alto oleico del *portafolio:*', fs: 100, obj: '<div class="lista"><div>NS 1227 CL HO</div></div>' },
+    { a: 7.2, b: 10.8, txt: 'Resistente a | *Downy* *Mildew.*', fs: 104 },
+    { a: 10.8, b: 14.4, txt: 'Óptima hasta el 15/11. | Límite *20/11.*', fs: 100 }
+  ],
+  cierre: { a: 14.4, b: 18.4, regla: 'Primero el contrato, después la bolsa.', humana: 'Pasamos por tu lote.', src: 'NS 1227 CL HO y ventana del oeste: marbetes oficiales Nidera 26/27.' },
+  placa: {
+    titulo: 'Alto oleico: la bonificación la paga el <span>comprador.</span>',
+    filas: [['El alto oleico del portafolio', 'NS 1227 CL HO'], ['Sanidad', 'Resistente a Downy Mildew'], ['Ventana en el oeste', 'Óptima 15/11 · límite 20/11']],
+    regla: 'Primero el contrato, después la bolsa.',
+    src: 'Marbetes oficiales Nidera 26/27.'
+  }
+});
+</script>
+</body>
+</html>

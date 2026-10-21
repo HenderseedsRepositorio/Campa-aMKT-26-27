@@ -22,43 +22,43 @@
   <div class="agua" data-deco>01</div>
   <div class="esc" data-a="0" data-b="3.4"><div class="caja">
     <div class="k" data-t="-1">Decisión 01 · girasol</div>
-    <div class="t" data-t="-1">¿Te alcanza la <span class="mk" data-mk="0.2">sembradora?</span></div>
+    <div class="t" data-t="-1">Girasol: la ventana cierra el <span class="mk" data-mk="0.2">15/11.</span></div>
     <div class="dias" id="dias" data-t="-1"></div>
   </div></div>
   <div class="esc" data-a="3.4" data-b="6.8"><div class="caja">
-    <div class="k" data-t="3.6">Ventana óptima · marbete Nidera</div>
-    <div class="huge" data-t="3.8" data-fx="pop">15/11</div>
-    <div class="s" data-t="4.6">Después, el límite es el <b>20/11.</b></div>
+    <div class="k" data-t="3.6">Límite · marbete Nidera</div>
+    <div class="huge" data-t="3.8" data-fx="pop">20/11</div>
+    <div class="s" data-t="4.6">Después, el girasol queda <b>fuera de fecha.</b></div>
   </div></div>
   <div class="esc" data-a="6.8" data-b="10.6"><div class="caja" style="gap:18px">
-    <div class="k" data-t="7.0">La cuenta</div>
+    <div class="k" data-t="7.0">Tu ritmo</div>
     <div class="t" data-t="7.2">Hectáreas</div>
-    <div class="t" data-t="7.9">÷ días hábiles</div>
+    <div class="t" data-t="7.9">÷ días de siembra</div>
     <div class="t" data-t="8.6">= <span class="mk" data-mk="9.1">ha por día</span></div>
   </div></div>
   <div class="esc" data-a="10.6" data-b="14.4"><div class="caja" style="gap:26px">
     <span class="ej" data-t="10.8">EJEMPLO</span>
     <div class="s mono" data-t="11.0" style="font-size:52px">560 ha ÷ 14 días</div>
     <div class="res" data-t="11.6" data-fx="pop"><span class="huge" style="font-family:var(--arch); letter-spacing:-10px">40</span><span class="t m">ha por día</span></div>
-    <div class="s" data-t="12.5"><b>¿Tu sembradora llega?</b></div>
+    <div class="s" data-t="12.5"><b>Ese es el ritmo que necesitás.</b></div>
   </div></div>
 
   <div class="placa-c ficha">
     <div class="k">Decisión 01 · girasol</div>
-    <div class="t">¿Te alcanza la <span class="mk">sembradora?</span></div>
+    <div class="t">Girasol: la ventana cierra el <span class="mk">15/11.</span></div>
     <div class="filas">
-      <div class="fila"><span class="p">La ventana óptima cierra el</span><span class="a">15/11 <small>límite 20/11</small></span></div>
-      <div class="fila"><span class="p">La cuenta</span><span class="a">Hectáreas ÷ días que quedan</span></div>
+      <div class="fila"><span class="p">Límite del marbete</span><span class="a">20/11</span></div>
+      <div class="fila"><span class="p">Tu ritmo</span><span class="a">Hectáreas ÷ días de siembra</span></div>
       <div class="fila"><span class="p">Ejemplo: 560 ha ÷ 14 días</span><span class="a">40 ha por día</span></div>
     </div>
     <div class="regla"><span class="rt">LA REGLA</span><p>Si no llega, decidí hoy qué lotes van primero.</p></div>
-    <div class="pcta">¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+    <div class="pcta">Pasamos por tu lote. <b>Mandanos un DM</b> · WA 2314 53-0691</div>
     <div class="psrc">Fechas: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires.</div>
   </div>
 </div>
 <script src="simple.js"></script>
 <script>
-S.cierre({ a: 14.4, b: 18.4, regla: 'Si no llega, decidí hoy <span>qué lotes van primero.</span>', src: 'Fechas: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires. Ejemplo ilustrativo.' });
+S.cierre({ a: 14.4, b: 18.4, regla: 'Si no llega, decidí hoy <span>qué lotes van primero.</span>', humana: 'Pasamos por tu lote.', src: 'Fechas: marbetes oficiales Nidera 26/27, Oeste de Buenos Aires. Ejemplo ilustrativo.' });
 var dias = document.getElementById('dias'), celdas = [];
 for (var i = 0; i < 21; i++) celdas.push(S.h('i', null, null, dias));
 S.init({ escena: function (t) {

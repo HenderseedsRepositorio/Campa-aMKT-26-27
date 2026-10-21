@@ -23,6 +23,7 @@ var S = (function () {
     var e = h('div', 'esc navy', '<div class="caja">' +
       '<img class="hs" src="../../docs/assets/logo-hs-blanco-hd.png" alt="HenderSeeds" data-t="' + (o.a + 0.15) + '">' +
       '<div class="r" data-t="' + (o.a + 0.3) + '">' + o.regla + '</div>' +
+      (o.humana ? '<div class="h" data-t="' + (o.a + 0.6) + '">' + o.humana + '</div>' : '') +
       '<div class="dm" data-t="' + (o.a + 0.8) + '" data-fx="pop">' + ICONO_DM + (o.boton || 'Mandanos un DM') + '</div>' +
       '<div class="wa" data-t="' + (o.a + 1.0) + '">' + ICONO_WA + ' WhatsApp 2314 53-0691</div>' +
       (o.src ? '<div class="src" data-t="' + (o.a + 1.2) + '">' + o.src + '</div>' : '') + '</div>', document.getElementById('stage'));
