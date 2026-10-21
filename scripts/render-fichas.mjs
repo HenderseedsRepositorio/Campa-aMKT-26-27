@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Placas de la serie "Decisiones 26/27": produccion/decisiones/{d,s}N-*.html?formato=placa -> JPG 1080x1350.
- *   dN (fichas completas) -> docs/decisiones/img/ficha-0N-feed.jpg · sN (versión simple) -> decision-0N-feed.jpg
+ * Placas de la serie "Decisiones 26/27": produccion/decisiones/{d,s,c}N-*.html?formato=placa -> JPG 1080x1350.
+ *   dN (fichas completas) -> docs/decisiones/img/ficha-0N-feed.jpg · sN / cN (reels simples, onda charla) -> decision-NN-feed.jpg
  * Controla que la ficha entre en su caja (si algo se sale, lo avisa y sale con error).
  * Uso: node scripts/render-fichas.mjs [filtro]
  * Los reels salen con scripts/render-reel.mjs (misma ficha, sin ?formato).
@@ -15,7 +15,7 @@ const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = path.join(RAIZ, 'produccion/decisiones');
 const OUT = path.join(RAIZ, 'docs/decisiones/img');
 const filtro = process.argv.slice(2);
-const archivos = (await readdir(DIR)).filter((f) => /^[ds]\d-.*\.html$/.test(f)).filter((f) => !filtro.length || filtro.some((t) => f.includes(t))).sort();
+const archivos = (await readdir(DIR)).filter((f) => /^[dsc]\d+-.*\.html$/.test(f)).filter((f) => !filtro.length || filtro.some((t) => f.includes(t))).sort();
 await mkdir(OUT, { recursive: true });
 
 const nav = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
@@ -34,8 +34,8 @@ for (const f of archivos) {
     document.querySelectorAll('.ficha *').forEach((n) => { const r = n.getBoundingClientRect(); if (r.width && (r.bottom > fi.bottom + 2 || r.right > fi.right + 2)) malos.push((n.className || n.tagName) + ' ' + Math.round(r.bottom - fi.bottom) + 'px'); });
     return malos.slice(0, 5);
   });
-  const [, tipo, n] = f.match(/^([ds])(\d)/);
-  const salida = path.join(OUT, `${tipo === 's' ? 'decision' : 'ficha'}-0${n}-feed.jpg`);
+  const [, tipo, n] = f.match(/^([dsc])(\d+)/);
+  const salida = path.join(OUT, `${tipo === 'd' ? 'ficha' : 'decision'}-${n.padStart(2, '0')}-feed.jpg`);
   await pag.locator('#stage').screenshot({ path: salida, type: 'jpeg', quality: 92 });
   const ok = !fuera.length && !errores.length;
   if (!ok) mal++;

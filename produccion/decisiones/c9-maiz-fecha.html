@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisión 09 · Maíz según la fecha</title>
+<!--
+  Onda "charla de lote" (charla.js). Maíz: posicionamiento por fecha de los marbetes oficiales Nidera 26/27 (contexto/productos-26-27.md). NS 7621: temprana, "no recomendado como primera opción en tardía". Tardía: NS 7925, NS 7624 CL, NS 7818. Ambas: NS 7765, NS 7852, NS 7921 CL. Sin números de ensayo (regla del 25/09).
+  Reel: node scripts/render-reel.mjs produccion/decisiones/c9-maiz-fecha.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="charla.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="charla.js"></script>
+<script>
+C.init({
+  num: '09', tema: 'Maíz',
+  escenas: [
+    { a: 0, b: 3.6, txt: 'El maíz de temprana no siempre va en *tardía.*' },
+    { a: 3.6, b: 7.2, txt: 'Solo temprana:', fs: 100, obj: '<div class="lista"><div>NS 7621 <small>no es 1.ª opción en tardía</small></div></div>' },
+    { a: 7.2, b: 10.8, txt: 'Para *tardía:*', fs: 100, obj: '<div class="lista"><div>NS 7925</div><div>NS 7624 CL</div><div>NS 7818</div></div>' },
+    { a: 10.8, b: 14.4, txt: 'Para las *dos* *fechas:*', fs: 100, obj: '<div class="lista"><div>NS 7765</div><div>NS 7852</div><div>NS 7921 CL</div></div>' }
+  ],
+  cierre: { a: 14.4, b: 18.4, regla: 'El híbrido va con la fecha.', humana: '¿Dudas con la tuya? Lo vemos juntos.', src: 'Posicionamiento por fecha: marbetes oficiales Nidera 26/27.' },
+  placa: {
+    titulo: 'El maíz de temprana no siempre va en <span>tardía.</span>',
+    filas: [['Temprana', 'NS 7621'], ['Tardía', 'NS 7925 · NS 7624 CL · NS 7818'], ['Las dos fechas', 'NS 7765 · NS 7852 · NS 7921 CL']],
+    regla: 'El híbrido va con la fecha.',
+    src: 'Posicionamiento por fecha: marbetes oficiales Nidera 26/27.'
+  }
+});
+</script>
+</body>
+</html>

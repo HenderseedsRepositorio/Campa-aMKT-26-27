@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisión 06 · Rinde de indiferencia</title>
+<!--
+  Onda "charla de lote" (charla.js). Márgenes: rinde de indiferencia = costos por ha ÷ precio neto.
+  Sin cifras: el número es el del lote; se calcula en margen.henderseeds.com (contexto/herramientas.md).
+  Reel: node scripts/render-reel.mjs produccion/decisiones/c6-indiferencia.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="charla.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="charla.js"></script>
+<script>
+C.init({
+  num: '06', tema: 'Márgenes',
+  escenas: [
+    { a: 0, b: 3.6, txt: '¿Cuántos *qq/ha* necesitás para cubrir los costos?' },
+    { a: 3.6, b: 7.4, txt: 'Costos por ha | ÷ precio neto', fs: 104, obj: '<div class="pill">= rinde de indiferencia</div>' },
+    { a: 7.4, b: 11.0, txt: 'Si tu ambiente no lo supera *con* *holgura,* revisá el planteo.', fs: 96 },
+    { a: 11.0, b: 14.4, txt: 'Lo calculás en', obj: '<div class="nums"><b>margen.henderseeds.com</b></div>' }
+  ],
+  cierre: { a: 14.4, b: 18.4, regla: 'Primero el número, después la bolsa.', humana: '¿Lo hacemos juntos?', src: 'Calculadora de márgenes HenderSeeds: margen.henderseeds.com' },
+  placa: {
+    titulo: '¿Cuántos <span>qq/ha</span> necesitás para cubrir los costos?',
+    filas: [['La cuenta', 'Costos por ha ÷ precio neto'], ['Si tu ambiente no lo supera', 'Revisá el planteo'], ['Calculalo en', 'margen.henderseeds.com']],
+    regla: 'Primero el número, después la bolsa.',
+    src: 'Calculadora de márgenes HenderSeeds.'
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/* Decisiones 06–10 · onda "charla de lote": fondo noche, la frase entra palabra por palabra como si
+   alguien la dijera en el lote, palabras clave en ámbar, una línea de avance abajo y cierre en tarjeta crema.
+   Mismo sistema de marca (navy, ámbar, Archivo Black, DM Sans, DM Mono); otra onda que la de 01–05.
+   ?formato=placa → placa 4:5 en noche con la frase, 3 respuestas y la regla en tarjeta crema. */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --crema:#F6F4EE; --arena:#EFEAE0; --tinta:#15181E; --navy:#0D2D5E; --noche:#0A0F1B; --gris:#4A5264;
+  --amber:#F5A623; --amber-osc:#9A6206; --steel:#8FA0BE; --ice:#E8EEF7;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:radial-gradient(ellipse 85% 60% at 30% 40%, #16264a 0%, #0A0F1B 70%); }
+#stage.placa { height:1350px; }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(245,166,35,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.045) 1px, transparent 1px); background-size:72px 72px; }
+
+.kick { position:absolute; left:80px; top:262px; z-index:3; display:flex; align-items:center; gap:16px; font-family:var(--mono); font-weight:500; font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--steel); }
+.kick b { color:var(--amber); font-weight:500; }
+.avance { position:absolute; left:80px; width:850px; top:1500px; height:6px; border-radius:3px; background:rgba(232,238,247,0.12); z-index:3; overflow:hidden; }
+.avance i { position:absolute; left:0; top:0; bottom:0; width:100%; background:var(--amber); transform-origin:0 50%; transform:scaleX(0); }
+
+.esc { position:absolute; left:80px; width:850px; top:330px; height:1130px; z-index:2; display:flex; flex-direction:column; justify-content:center; gap:44px; }
+.frase { font-family:var(--arch); font-size:var(--fs, 112px); line-height:1.02; letter-spacing:-3.5px; color:#FFFFFF; }
+.frase span { display:inline-block; will-change:transform; }
+.frase span.a { color:var(--amber); }
+.obj { opacity:0; }
+.nums { font-family:var(--mono); font-weight:500; font-size:48px; line-height:1.35; color:var(--ice); }
+.nums b { color:var(--amber); font-weight:500; }
+.big { font-family:var(--arch); font-size:200px; line-height:0.9; letter-spacing:-8px; color:var(--amber); }
+.pill { display:inline-flex; align-items:center; gap:12px; font-family:var(--mono); font-weight:500; font-size:32px; letter-spacing:2px; text-transform:uppercase; color:var(--noche); background:var(--amber); border-radius:10px; padding:12px 22px 10px; }
+.lista { display:flex; flex-direction:column; gap:10px; }
+.lista div { font-family:var(--arch); font-size:78px; letter-spacing:-1.5px; color:#FFFFFF; line-height:1.05; }
+.lista div small { font-family:var(--mono); font-weight:500; font-size:28px; letter-spacing:2px; color:var(--amber); margin-left:14px; text-transform:uppercase; }
+
+/* cierre: tarjeta crema que sube */
+.tarjeta { position:absolute; inset:0; z-index:40; background:var(--crema); transform:translateY(100%); display:flex; flex-direction:column; justify-content:center; padding:0 150px 160px 80px; gap:30px; }
+.tarjeta::before { content:''; position:absolute; top:0; left:0; right:0; height:10px; background:var(--amber); }
+.tarjeta img { height:84px; align-self:flex-start; }
+.tarjeta .r { font-family:var(--arch); font-size:84px; line-height:1.0; letter-spacing:-3px; color:var(--navy); text-wrap:balance; }
+.tarjeta .h { font-family:var(--sans); font-weight:600; font-size:46px; color:var(--gris); }
+.tarjeta .dm { display:flex; align-items:center; gap:16px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--amber); border-radius:10px; padding:24px 38px; }
+.tarjeta .wa { display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:30px; color:var(--tinta); }
+.tarjeta .src { font-family:var(--mono); font-size:22px; color:var(--gris); line-height:1.45; }
+
+/* placa 4:5 */
+.placa-c { display:none; }
+#stage.placa .esc, #stage.placa .kick, #stage.placa .avance, #stage.placa .tarjeta { display:none; }
+#stage.placa .placa-c { display:flex; position:absolute; left:100px; top:90px; width:880px; height:1180px; z-index:2; flex-direction:column; gap:34px; }
+.placa-c .pk { font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:4px; text-transform:uppercase; color:var(--amber); }
+.placa-c .pt { font-family:var(--arch); font-size:86px; line-height:1.0; letter-spacing:-3px; color:#FFFFFF; text-wrap:balance; }
+.placa-c .pt span { color:var(--amber); }
+.placa-c .filas { display:flex; flex-direction:column; border-top:2px solid rgba(232,238,247,0.22); }
+.placa-c .fila { display:flex; flex-direction:column; gap:4px; padding:18px 0 16px; border-bottom:2px solid rgba(232,238,247,0.14); }
+.placa-c .fila .p { font-family:var(--sans); font-weight:600; font-size:34px; color:var(--steel); }
+.placa-c .fila .x { font-family:var(--arch); font-size:52px; letter-spacing:-1.5px; color:#FFFFFF; line-height:1.05; }
+.placa-c .regla { background:var(--crema); border-radius:14px; padding:24px 30px 26px; display:flex; flex-direction:column; gap:8px; }
+.placa-c .regla .rt { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:4px; color:var(--amber-osc); }
+.placa-c .regla p { font-family:var(--sans); font-weight:700; font-size:44px; line-height:1.15; color:var(--navy); text-wrap:balance; }
+.placa-c .pcta { margin-top:auto; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:1px; text-transform:uppercase; color:var(--ice); }
+.placa-c .pcta b { background:var(--amber); color:var(--noche); padding:2px 8px; border-radius:4px; font-weight:500; }
+.placa-c .psrc { font-family:var(--mono); font-size:21px; color:var(--steel); line-height:1.4; }
