@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisiones 26/27 · Ficha 04 · ¿En qué ambiente está tu lote?</title>
+<!--
+  Decisión: clasificar cada lote por ambiente antes de elegir híbrido, densidad e inversión.
+  Dato: escala de ambientes de los marbetes oficiales Nidera 26/27 (texto de los PDF en contexto/marbetes/):
+  girasol B <1.500 · MB 1.500–2.500 · MA 2.500–3.500 · A >3.500 kg/ha;
+  maíz (temprana y tardía) B <6.000 · MB 6.001–9.000 · MA 9.001–12.000 · A >12.000 kg/ha.
+  Es la definición de ambientes, no un dato de ensayo. Ejemplo rotulado: (2.100 + 2.600 + 1.900) ÷ 3 = 2.200 → Medio-Bajo.
+  Reel: node scripts/render-reel.mjs produccion/decisiones/d4-ambiente.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="ficha.css">
+<style>
+#stage { --sello-top:398px; }
+.q { font-size:70px; }
+.escala { display:flex; flex-direction:column; gap:8px; }
+.escala .nom { font-family:var(--mono); font-weight:500; font-size:22px; letter-spacing:3px; color:var(--navy); text-transform:uppercase; }
+.barra { position:relative; display:flex; gap:6px; height:64px; }
+.seg { flex:1; border-radius:8px; display:grid; place-items:center; font-family:var(--mono); font-weight:500; font-size:20px; letter-spacing:1.5px; color:var(--navy); text-transform:uppercase; transform-origin:0 50%; position:relative; }
+.seg::after { content:''; position:absolute; inset:-5px; border:4px solid var(--navy); border-radius:11px; opacity:var(--o, 0); }
+.marcas { position:relative; height:30px; }
+.marcas span { position:absolute; top:0; transform:translateX(-50%); font-family:var(--mono); font-weight:500; font-size:24px; color:var(--navy); }
+.pin { position:absolute; top:-46px; width:0; height:0; opacity:0; z-index:3; }
+.pin b { position:absolute; left:0; transform:translateX(-50%); top:0; white-space:nowrap; font-family:var(--mono); font-weight:500; font-size:20px; letter-spacing:2px; color:#FFFFFF; background:var(--navy); border-radius:6px; padding:4px 10px 3px; }
+.pin i { position:absolute; left:-12px; top:30px; border-left:12px solid transparent; border-right:12px solid transparent; border-top:16px solid var(--navy); }
+.ejb { display:flex; flex-direction:column; gap:12px; }
+.ejb .fila { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.ejb .n { font-family:var(--mono); font-weight:500; font-size:34px; color:var(--navy); background:var(--blanco); border:2px solid rgba(13,45,94,0.14); border-radius:8px; padding:6px 14px 4px; }
+.ejb .op { font-family:var(--mono); font-size:30px; color:var(--gris); }
+.ejb .prom { font-family:var(--mono); font-weight:500; font-size:30px; color:var(--navy); }
+.ejb .prom b { background:var(--amber); border-radius:4px; padding:0 8px; font-weight:500; }
+.define { display:flex; flex-direction:column; gap:12px; }
+.define .chips { display:flex; gap:12px; flex-wrap:wrap; }
+.define .chips span { display:flex; align-items:center; gap:10px; font-family:var(--sans); font-weight:700; font-size:30px; color:var(--navy); background:var(--blanco); border:2px solid rgba(13,45,94,0.14); border-radius:999px; padding:10px 22px 10px 18px; }
+.define .chips span::before { content:''; width:14px; height:14px; border-radius:50%; background:var(--amber); }
+#stage.placa .q { font-size:62px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>04</div>
+  <div class="ficha">
+    <div class="cab"><div class="k"><b>Ficha 04</b>Diagnóstico · ambiente</div><img src="../../docs/assets/logo-hs-navy-hd.png" alt="HenderSeeds"></div>
+    <div class="q">¿En qué ambiente está <span class="mk">tu lote?</span></div>
+    <div class="herr">
+      <div class="dato" id="dato">Escala de los marbetes Nidera · rinde en <b>kg/ha</b></div>
+      <div class="escala" id="eg"><span class="nom">Girasol</span><div class="barra" id="bg"><div class="pin" id="pin"><i></i><b>TU LOTE</b></div></div><div class="marcas" id="mg"></div></div>
+      <div class="escala" id="em"><span class="nom">Maíz · temprana y tardía</span><div class="barra" id="bm"></div><div class="marcas" id="mm"></div></div>
+      <div class="ejb" id="ejb">
+        <div class="fila"><span class="ej">Ejemplo</span><span class="dato" style="font-size:22px">Tu lote de girasol, últimas 3 campañas</span></div>
+        <div class="fila"><span class="n" id="n1">2.100</span><span class="op">+</span><span class="n" id="n2">2.600</span><span class="op">+</span><span class="n" id="n3">1.900</span><span class="op">÷ 3 =</span><span class="prom" id="prom"><b id="pv">2.200</b> kg/ha</span></div>
+      </div>
+      <div class="define" id="define"><span class="dato">El ambiente define</span><div class="chips"><span>El híbrido</span><span>Las plantas por ha</span><span>Cuánto invertir</span></div></div>
+    </div>
+    <div class="regla"><span class="t">LA REGLA</span><p>Clasificá cada lote con varias campañas, no con la mejor.</p></div>
+    <div class="pie">
+      <div class="cta">¿Lo hacemos juntos? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+      <div class="src">Escala de ambientes: marbetes oficiales Nidera 26/27 (girasol; maíz en temprana y tardía). Ejemplo ilustrativo: usá los rindes de tus lotes.</div>
+    </div>
+  </div>
+</div>
+<script src="ficha.js"></script>
+<script>
+var N = function (id) { return document.getElementById(id); };
+var SEGS = [['Bajo', '#EFE6D2'], ['Medio-bajo', '#F8D9A0'], ['Medio-alto', '#F7C46A'], ['Alto', '#F5A623']];
+function escala(barra, marcas, cortes) {
+  var s = SEGS.map(function (sg) { var d = F.h('div', 'seg', sg[0], barra); d.style.background = sg[1]; return d; });
+  var m = cortes.map(function (c, i) { var e = F.h('span', null, c, marcas); e.style.left = (100 * (i + 1) / 4) + '%'; return e; });
+  return { s: s, m: m };
+}
+var G = escala(N('bg'), N('mg'), ['1.500', '2.500', '3.500']);
+var M = escala(N('bm'), N('mm'), ['6.000', '9.000', '12.000']);
+// posición de 2.200 kg/ha: segundo tramo (1.500–2.500), al 70 %
+function xDe(seg, frac) { var b = N('bg'), w = (b.offsetWidth - 18) / 4; return seg * (w + 6) + frac * w; }
+
+F.init({ escena: function (t) {
+  F.entra(N('dato'), t, -1);
+  // 1 · las dos escalas se arman
+  [[G, -0.25], [M, 1.0]].forEach(function (e) {
+    e[0].s.forEach(function (sg, i) { var k = F.eout(F.seg(t, e[1] + i * 0.12, e[1] + 0.35 + i * 0.12)); sg.style.transform = 'scaleX(' + k + ')'; sg.style.color = k > 0.9 ? '' : 'transparent'; });
+    e[0].m.forEach(function (m, i) { m.style.opacity = F.eout(F.seg(t, e[1] + 0.5 + i * 0.12, e[1] + 0.8 + i * 0.12)); });
+  });
+  N('em').querySelector('.nom').style.opacity = F.eout(F.seg(t, 1.1, 1.4));
+  // 2 · el ejemplo: tres campañas, el promedio y el pin cae en su tramo
+  F.entra(N('ejb'), t, 2.8);
+  ['n1', 'n2', 'n3'].forEach(function (id, i) { var k = F.resorte(t - 3.2 - i * 0.35, 0.5, 14); N(id).style.transform = 'scale(' + (0.6 + 0.4 * k) + ')'; N(id).style.opacity = F.clamp(k * 2); });
+  N('prom').style.opacity = F.eout(F.seg(t, 4.4, 4.7));
+  N('pv').textContent = (Math.round(2200 * F.eout(F.seg(t, 4.4, 5.6)) / 100) * 100).toLocaleString('es-AR');
+  var kp = F.resorte(t - 6.0, 0.6, 11), u = F.eio(F.seg(t, 6.3, 7.5)), pin = N('pin');
+  pin.style.opacity = F.clamp(kp * 2); pin.style.left = xDe(0, 0) + (xDe(1, 0.7) - xDe(0, 0)) * u + 'px'; pin.style.transform = 'translateY(' + (1 - kp) * -30 + 'px)';
+  G.s[1].style.setProperty('--o', F.eout(F.seg(t, 7.5, 7.9)));
+  // 3 · qué define el ambiente
+  F.entra(N('define'), t, 8.6);
+  N('define').querySelectorAll('.chips span').forEach(function (c, i) { var k = F.resorte(t - 9.0 - i * 0.4, 0.55, 13); c.style.opacity = F.clamp(k * 1.8); c.style.transform = 'scale(' + (0.8 + 0.2 * k) + ')'; });
+} });
+</script>
+</body>
+</html>

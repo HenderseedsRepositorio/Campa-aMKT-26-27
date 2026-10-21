@@ -1,0 +1,82 @@
+{
+  "reel": "produccion/decisiones/d4-ambiente.html",
+  "fecha": "2026-10-21",
+  "duracion": 22,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Ficha 04 Diagnóstico · ambiente ¿En qué ambiente está tu lote? Escala de los mar"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": [
+        {
+          "t": 0,
+          "txt": "Medio-bajo",
+          "px": 15,
+          "caja": [
+            321,
+            624,
+            423,
+            650
+          ]
+        },
+        {
+          "t": 0,
+          "txt": "Medio-alto",
+          "px": 1.7,
+          "caja": [
+            511,
+            624,
+            522,
+            650
+          ]
+        },
+        {
+          "t": 1.1,
+          "txt": "Bajo",
+          "px": 12.7,
+          "caja": [
+            129,
+            785,
+            163,
+            811
+          ]
+        },
+        {
+          "t": 6.6,
+          "txt": "TU LOTE",
+          "caja": [
+            53,
+            563,
+            151,
+            589
+          ]
+        }
+      ]
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 26,
+      "segundo": 16.5
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        18.7
+      ]
+    }
+  }
+}

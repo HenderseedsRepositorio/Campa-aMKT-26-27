@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Estudio de motion HenderSeeds</title>
-<meta name="description" content="10 plantillas de reel para HenderSeeds, con ejemplo, reglas y revisión.">
+<meta name="description" content="11 plantillas de reel para HenderSeeds, con ejemplo, reglas y revisión.">
 <link rel="stylesheet" href="../assets/fonts/fuentes.css">
 <style>
 /* Tablero oscuro de estudio: tarjetas por plantilla, todo en la tipografía de la marca */
@@ -61,7 +61,7 @@ video { width:100%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; back
     <a href="../">Dashboard</a> · <a href="../kit/">Kit de la semana</a>
     <span class="pill">Con revisión</span><button class="btn pri" id="copiar-prompt">Copiar prompt</button><span class="ok" aria-live="polite"></span></div>
 
-  <h1>Tu estudio de motion: <em>10 plantillas</em> para HenderSeeds</h1>
+  <h1>Tu estudio de motion: <em>11 plantillas</em> para HenderSeeds</h1>
   <p class="bajada">Pegá el bloque del estudio una vez en la sesión y pedí cualquier plantilla por nombre. Completá los [corchetes]; los logos, las letras y los datos salen del repo. Cada tarjeta tiene su ejemplo real, los controles automáticos y el puntaje de revisión.</p>
 
   <div class="dos">
@@ -170,8 +170,19 @@ video { width:100%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; back
     <p class="ref">ref: produccion/sintetico/reel-op5-granizo.html</p>
     <button class="btn sec" data-copiar="corré alerta para [tema]">Copiar pedido</button>
   </article>
+  <article class="pl" id="decision">
+    <div class="cab"><span class="n">10</span><span class="meta">22 S · 9:16 + placa 4:5</span></div>
+    <code class="tag">&lt;plantilla<br>nombre="decision"&gt;</code>
+    <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-ficha-01-sembradora-portada.jpg" src="../placas/video/2026-W44-ficha-01-sembradora.mp4" aria-label="Ejemplo de la plantilla decision"></video>
+    <ul class="esc"><li>0–0,8 · [decisión] como pregunta, legible en el cuadro 0, con el marcador ámbar</li><li>0,8–13 · la herramienta se arma con el dato del marbete: [calendario / árbol / mapa de calor / escala / cuenta]</li><li>13,6–18,4 · LA REGLA en una línea y el sello GUARDALA</li><li>18,4–22 · cortina y cierre &quot;¿Tu lote no encaja en la ficha? Lo vemos juntos.&quot; + &quot;Comentá FICHAS&quot;</li></ul>
+    <p class="debe"><b>debe:</b> una decisión por ficha; la placa 4:5 es el cuadro final (?formato=placa, scripts/render-fichas.mjs); ejemplos rotulados EJEMPLO; fuente al pie; motor común en produccion/decisiones/ficha.js</p>
+    <div class="rev"><span class="ck si">✓ gancho en el cuadro 0</span><span class="ck si">✓ zona segura</span><span class="ck si">✓ letra</span><span class="ck si">✓ 26 palabras máx</span></div>
+    <div class="pts"><span class="pt" title="gancho"><b>8</b>ganc</span><span class="pt" title="legibilidad"><b>8</b>legi</span><span class="pt" title="continuidad"><b>9</b>cont</span><span class="pt" title="terminación"><b>9</b>term</span><span class="pt" title="marca"><b>9</b>marc</span></div><ul class="flojo"><li>0-1 s: en 3 de las 5 el primer cuadro es solo la pregunta; mostrar la herramienta vacía desde el cuadro 0 lo sube a 9</li><li>17 s: la ficha completa tiene mucha letra mono de 20-26 px: pensada para pausar y guardar, no para leer de pasada</li></ul>
+    <p class="ref">ref: produccion/decisiones/d1-sembradora.html</p>
+    <button class="btn sec" data-copiar="corré decision para [tema]">Copiar pedido</button>
+  </article>
   <article class="pl" id="sello">
-    <div class="cab"><span class="n">10</span><span class="meta">5 S · 9:16</span></div>
+    <div class="cab"><span class="n">11</span><span class="meta">5 S · 9:16</span></div>
     <code class="tag">&lt;plantilla<br>nombre="sello"&gt;</code>
     <video muted loop playsinline preload="none" poster="../placas/video/2026-W44-sello-portada.jpg" src="../placas/video/2026-W44-sello.mp4" aria-label="Ejemplo de la plantilla sello"></video>
     <ul class="esc"><li>0–1,2 · la barra ámbar barre la pantalla y deja ver el logo HenderSeeds real</li><li>1,2–3 · [frase de cierre] palabra por palabra</li><li>3–5 · sello RED.IN Nidera y botón &quot;Mandanos un DM&quot;</li></ul>
@@ -191,7 +202,7 @@ video { width:100%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; back
 </div>
 <textarea id="xml" hidden>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!--
-  Estudio de motion de HenderSeeds: 10 plantillas de reel 9:16.
+  Estudio de motion de HenderSeeds: 11 plantillas de reel 9:16.
   Adaptado del esquema &quot;motion studio / templates.xml&quot; (Twitter, 10/2026) a la marca, las reglas del
   equipo y el motor del repo. Se pega una vez en la sesión y después se pide una plantilla por nombre.
   Página para verlo y copiarlo: docs/estudio/ (se arma con python3 scripts/armar-estudio.py).
@@ -282,6 +293,14 @@ referencia de la plantilla (copiarlo y cambiar el bloque de datos de arriba), nu
   &lt;escena&gt;6–21 · [3 pasos], el cielo se abre de a poco&lt;/escena&gt;
   &lt;escena&gt;21–25 · cierre con [servicio de la oferta]&lt;/escena&gt;
   &lt;debe&gt;datos agronómicos con fuente; sin cifras de pérdida; sin condiciones del seguro&lt;/debe&gt;
+&lt;/plantilla&gt;
+
+&lt;plantilla nombre=&quot;decision&quot; dur=&quot;22 s&quot; formato=&quot;9:16 + placa 4:5&quot; ref=&quot;produccion/decisiones/d1-sembradora.html&quot; video=&quot;2026-W44-ficha-01-sembradora.mp4&quot;&gt;
+  &lt;escena&gt;0–0,8 · [decisión] como pregunta, legible en el cuadro 0, con el marcador ámbar&lt;/escena&gt;
+  &lt;escena&gt;0,8–13 · la herramienta se arma con el dato del marbete: [calendario / árbol / mapa de calor / escala / cuenta]&lt;/escena&gt;
+  &lt;escena&gt;13,6–18,4 · LA REGLA en una línea y el sello GUARDALA&lt;/escena&gt;
+  &lt;escena&gt;18,4–22 · cortina y cierre &quot;¿Tu lote no encaja en la ficha? Lo vemos juntos.&quot; + &quot;Comentá FICHAS&quot;&lt;/escena&gt;
+  &lt;debe&gt;una decisión por ficha; la placa 4:5 es el cuadro final (?formato=placa, scripts/render-fichas.mjs); ejemplos rotulados EJEMPLO; fuente al pie; motor común en produccion/decisiones/ficha.js&lt;/debe&gt;
 &lt;/plantilla&gt;
 
 &lt;plantilla nombre=&quot;sello&quot; dur=&quot;5 s&quot; formato=&quot;9:16&quot; ref=&quot;produccion/estudio/sello.html&quot; video=&quot;2026-W44-sello.mp4&quot;&gt;

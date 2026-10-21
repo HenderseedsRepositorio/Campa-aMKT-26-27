@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Decisiones 26/27 · Ficha 02 · ¿Qué girasol va? Empezá por tu lote</title>
+<!--
+  Decisión: qué híbrido de girasol va en cada lote, empezando por el problema del lote.
+  Datos: marbetes oficiales Nidera 26/27 (contexto/productos-26-27.md): posicionamiento de cada híbrido,
+  ensayos a campo Sur + Oeste (diferencia de rinde qq/ha, % de éxito, n.º de comparaciones) y perfil
+  sanitario (1 excelente – 9 deficiente). En girasol se muestran datos de ensayo (regla del 25/09).
+  NS 1113 CL +2,11 · 74 % · 225 | NS 1115 CL +1,64 · 69 % · 192 | NS 1117 CL +1,75 · 67 % · 73 | NS 1227 CL HO +0,61 · 52 % · 103
+  Reel: node scripts/render-reel.mjs produccion/decisiones/d2-girasol.html · Placa: ?formato=placa
+-->
+<link rel="stylesheet" href="../../docs/assets/fonts/fuentes.css">
+<link rel="stylesheet" href="ficha.css">
+<style>
+#stage { --sello-top:398px; }
+.q { font-size:66px; }
+.arbol { position:relative; height:610px; }
+.arbol svg { position:absolute; left:0; top:0; width:850px; height:610px; overflow:visible; }
+.nodo { position:absolute; left:0; width:410px; height:80px; border:3px solid var(--navy); border-radius:12px; background:var(--crema); display:flex; align-items:center; padding:0 20px; font-family:var(--sans); font-weight:700; font-size:30px; color:var(--navy); line-height:1.1; }
+.hoja { position:absolute; background:var(--blanco); border:2px solid rgba(13,45,94,0.14); border-radius:12px; padding:12px 18px 12px; display:flex; flex-direction:column; gap:3px; box-shadow:0 8px 20px rgba(13,45,94,0.06); }
+.hoja.der { left:470px; width:380px; }
+.hoja.abajo { top:450px; width:410px; }
+.hoja .tg { font-family:var(--mono); font-weight:500; font-size:19px; letter-spacing:1.5px; color:var(--amber-osc); text-transform:uppercase; }
+.hoja .nm { font-family:var(--arch); font-size:29px; letter-spacing:-0.8px; color:var(--navy); line-height:1.15; }
+.hoja .dt { font-family:var(--mono); font-size:21px; color:var(--tinta); }
+.hoja .sa { font-family:var(--mono); font-size:19px; color:var(--gris2); text-transform:uppercase; letter-spacing:0.5px; }
+.hoja.elegida { border:4px solid var(--amber); padding:10px 16px 10px; }
+.rot { position:absolute; font-family:var(--mono); font-weight:500; font-size:20px; letter-spacing:2px; color:var(--gris); background:var(--crema); padding:0 6px; }
+.ejm { position:absolute; left:470px; top:292px; display:flex; flex-direction:column; gap:8px; }
+.ejm .dato { font-size:21px; color:var(--navy); }
+.ley { font-family:var(--mono); font-size:20px; letter-spacing:1px; color:var(--gris); text-transform:uppercase; }
+#stage.placa .q { font-size:56px; }
+#stage.placa .ficha { gap:20px; }
+#stage.placa .arbol { height:600px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="agua" data-deco>02</div>
+  <div class="ficha">
+    <div class="cab"><div class="k"><b>Ficha 02</b>Girasol · qué híbrido</div><img src="../../docs/assets/logo-hs-navy-hd.png" alt="HenderSeeds"></div>
+    <div class="q">¿Qué girasol va? Empezá por <span class="mk">tu lote.</span></div>
+    <div class="herr">
+      <div class="dato" id="dato">Los 4 son <b>Clearfield</b> y resistentes a <b>Downy Mildew</b></div>
+      <div class="arbol" id="arbol">
+        <svg viewBox="0 0 850 610"><g id="lineas"></g><g id="camino"></g><circle id="bola" r="13" fill="#F5A623" stroke="#0D2D5E" stroke-width="4" cx="205" cy="80" opacity="0"/></svg>
+        <div class="nodo" id="q1" style="top:0">¿Te pagan alto oleico?</div>
+        <div class="nodo" id="q2" style="top:160px">¿El lote tuvo Phomopsis?</div>
+        <div class="nodo" id="q3" style="top:320px">¿Priorizás rinde o sanidad?</div>
+        <div class="hoja der" id="hHO" style="top:0"><span class="tg">Alto oleico</span><span class="nm">NS 1227 CL HO</span><span class="dt">+0,61 qq/ha · 52 % · 103</span><span class="sa">Phomopsis 4 · Sclerotinia 4</span></div>
+        <div class="hoja der" id="h13" style="top:150px"><span class="tg">Techo de rinde y aceite</span><span class="nm">NS 1113 CL</span><span class="dt">+2,11 qq/ha · 74 % · 225</span><span class="sa">Phomopsis 3 · Verticilium 4</span></div>
+        <div class="hoja abajo" id="h17" style="left:0"><span class="tg">Máximo rinde con Phomopsis 2</span><span class="nm">NS 1117 CL</span><span class="dt">+1,75 qq/ha · 67 % · 73</span><span class="sa">Phomopsis 2 · Sclerotinia 2</span></div>
+        <div class="hoja abajo" id="h15" style="left:440px"><span class="tg">La sanidad más completa</span><span class="nm">NS 1115 CL</span><span class="dt">+1,64 qq/ha · 69 % · 192</span><span class="sa">Phomopsis 2 · Sclerotinia 2 · Verticilium 3</span></div>
+        <span class="rot" id="r1" style="left:416px; top:6px">SÍ</span>
+        <span class="rot" id="r2" style="left:214px; top:106px">NO</span>
+        <span class="rot" id="r3" style="left:416px; top:166px">NO</span>
+        <span class="rot" id="r4" style="left:214px; top:266px">SÍ</span>
+        <span class="rot" id="r5" style="left:120px; top:404px">RINDE</span>
+        <span class="rot" id="r6" style="left:520px; top:404px">SANIDAD</span>
+        <div class="ejm" id="ejm"><span class="ej">Ejemplo</span><span class="dato">Lote con Phomopsis,<br>buscás rinde</span></div>
+      </div>
+      <div class="ley" id="ley">Dif. de rinde · % de éxito · comparaciones (Sur + Oeste)</div>
+    </div>
+    <div class="regla"><span class="t">LA REGLA</span><p>Primero el problema del lote; después, el techo de rinde.</p></div>
+    <div class="pie">
+      <div class="cta">¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+      <div class="src">Marbetes oficiales Nidera 26/27: ensayos a campo Sur + Oeste y perfil sanitario (1 excelente → 9 deficiente).</div>
+    </div>
+  </div>
+</div>
+<script src="ficha.js"></script>
+<script>
+var N = function (id) { return document.getElementById(id); };
+var L = N('lineas'), C = N('camino');
+function linea(d, g, color, ancho) { var p = F.el('path', { d: d, fill: 'none', stroke: color, 'stroke-width': ancho, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g); var l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; return { p: p, l: l }; }
+var NAVY = 'rgba(13,45,94,0.55)';
+// ramas: [d, cuándo se dibuja]
+var RAMAS = [
+  ['M410 40 H470', 1.2], ['M205 80 V160', 2.3], ['M410 200 H470', 3.3], ['M205 240 V320', 4.4],
+  ['M205 400 V425 M205 425 V450', 5.4], ['M205 425 H645 V450', 5.6]
+].map(function (r) { return { o: linea(r[0], L, NAVY, 3), t: r[1] }; });
+// camino del ejemplo: no alto oleico → tuvo Phomopsis → rinde → NS 1117 CL
+var CAM = linea('M205 80 V160 M205 240 V320 M205 400 V450', C, '#F5A623', 7);
+var bola = N('bola');
+var CAMINO_Y = [[0, 80], [0.28, 160], [0.36, 240], [0.64, 320], [0.72, 400], [1, 450]];   // la bola salta las cajas
+
+F.init({ escena: function (t) {
+  F.entra(N('dato'), t, -1);
+  [['q1', 0.25], ['q2', 2.6], ['q3', 4.7]].forEach(function (q) { var k = F.resorte(t - q[1], 0.6, 13); var n = N(q[0]); n.style.opacity = F.clamp(k * 1.8); n.style.transform = 'scale(' + (0.92 + 0.08 * k) + ')'; });
+  RAMAS.forEach(function (r) { r.o.p.style.strokeDashoffset = r.o.l * (1 - F.eout(F.seg(t, r.t, r.t + 0.4))); });
+  [['hHO', 1.5], ['h13', 3.6], ['h17', 5.9], ['h15', 6.2]].forEach(function (hh) { var k = F.resorte(t - hh[1], 0.6, 13), n = N(hh[0]); n.style.opacity = 0.3 + 0.7 * F.clamp(k * 1.5); n.style.transform = 'translateY(' + (1 - F.clamp(k)) * -8 + 'px)'; });
+  [['r1', 1.4], ['r2', 2.4], ['r3', 3.4], ['r4', 4.5], ['r5', 5.7], ['r6', 5.9]].forEach(function (r) { N(r[0]).style.opacity = F.eout(F.seg(t, r[1], r[1] + 0.3)); });
+  // ejemplo: la bola baja por el camino y la hoja elegida se marca
+  F.entra(N('ejm'), t, 7.2);
+  var u = F.eio(F.seg(t, 7.8, 10.6)), y = 80;
+  for (var i = 1; i < CAMINO_Y.length; i++) { var a = CAMINO_Y[i - 1], b = CAMINO_Y[i]; if (u <= b[0]) { y = a[1] + (b[1] - a[1]) * ((u - a[0]) / (b[0] - a[0])); break; } y = b[1]; }
+  bola.setAttribute('cy', y); bola.setAttribute('opacity', t > 7.7 && t < 10.9 ? 1 : 0);
+  CAM.p.style.strokeDashoffset = CAM.l * (1 - u);
+  var ke = F.resorte(t - 10.6, 0.5, 13);
+  N('h17').classList.toggle('elegida', t >= 10.6);
+  if (t >= 10.6) N('h17').style.transform = 'scale(' + (1 + 0.04 * Math.sin(Math.PI * F.clamp(ke))) + ')';
+  N('ley').style.opacity = F.eout(F.seg(t, 11.4, 11.9));
+} });
+</script>
+</body>
+</html>

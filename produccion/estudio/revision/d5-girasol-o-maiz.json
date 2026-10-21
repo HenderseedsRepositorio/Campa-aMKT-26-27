@@ -1,0 +1,38 @@
+{
+  "reel": "produccion/decisiones/d5-girasol-o-maiz.html",
+  "fecha": "2026-10-21",
+  "duracion": 22,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Ficha 05 Márgenes · el lote que queda ¿Girasol o maíz tardío en ese lote? La mis"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 28,
+      "segundo": 16.5
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        18.7
+      ]
+    }
+  }
+}

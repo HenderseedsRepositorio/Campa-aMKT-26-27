@@ -1,0 +1,56 @@
+/* Serie "Decisiones 26/27": la hoja de decisión que el video arma y la placa muestra terminada.
+   Registro Técnico de brand/identidad.md (hoja de informe: papel crema, tinta navy, DM Mono, marcador ámbar).
+   Reel 1080×1920: la ficha vive en la zona segura (80–930 × 250–1540). Placa (?formato=placa) 1080×1350. */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --crema:#F6F4EE; --arena:#EFEAE0; --blanco:#FFFFFF; --tinta:#15181E; --navy:#0D2D5E; --noche:#0A0F1B;
+  --gris:#4A5264; --gris2:#6E7689; --amber:#F5A623; --amber-osc:#9A6206; --steel:#8FA0BE; --ice:#E8EEF7;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif; }
+html, body { background:#000; }
+#stage { width:1080px; height:1920px; position:relative; overflow:hidden; background:var(--crema); }
+#stage.placa { height:1350px; }
+#stage::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(rgba(13,45,94,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(13,45,94,0.045) 1px, transparent 1px); background-size:72px 72px; }
+#stage::before { content:''; position:absolute; top:0; left:0; right:0; height:8px; background:var(--amber); z-index:60; }
+
+/* número de ficha gigante, de fondo (decorativo) */
+.agua { position:absolute; right:-30px; top:-60px; font-family:var(--arch); font-size:430px; line-height:1; letter-spacing:-20px; color:rgba(13,45,94,0.05); z-index:1; }
+#stage.placa .agua { top:-90px; font-size:360px; }
+
+.ficha { position:absolute; left:80px; top:250px; width:850px; height:1290px; z-index:2; display:flex; flex-direction:column; gap:26px; }
+#stage.placa .ficha { left:115px; top:56px; height:1250px; gap:24px; }
+
+.cab { display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--navy); padding-bottom:16px; }
+.cab .k { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:3px; color:var(--navy); text-transform:uppercase; display:flex; gap:14px; align-items:center; white-space:nowrap; }
+.cab .k b { background:var(--navy); color:var(--crema); padding:5px 12px 4px; border-radius:4px; font-weight:500; }
+.cab img { height:46px; display:block; }
+
+.q { font-family:var(--arch); font-size:74px; line-height:1.02; letter-spacing:-2.5px; color:var(--navy); text-wrap:balance; }
+.mk { position:relative; display:inline-block; z-index:0; }
+.mk::before { content:''; position:absolute; left:-6px; right:-6px; top:54%; height:42%; background:var(--amber); z-index:-1; transform-origin:0 50%; transform:scaleX(var(--k, 0)); border-radius:4px; }
+
+.dato { font-family:var(--mono); font-size:26px; letter-spacing:1.5px; color:var(--gris); text-transform:uppercase; line-height:1.4; }
+.dato b { color:var(--navy); font-weight:500; }
+.ej { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-weight:500; font-size:22px; letter-spacing:4px; color:var(--amber-osc); border:2px solid var(--amber); border-radius:6px; padding:5px 12px 4px; text-transform:uppercase; }
+.herr { position:relative; flex:1 0 auto; display:flex; flex-direction:column; gap:22px; }
+
+.regla { background:var(--navy); border-radius:14px; padding:24px 28px 26px; display:flex; flex-direction:column; gap:10px; box-shadow:0 18px 40px rgba(13,45,94,0.18); }
+.regla .t { font-family:var(--mono); font-weight:500; font-size:22px; letter-spacing:4px; color:var(--amber); }
+.regla p { font-family:var(--sans); font-weight:700; font-size:36px; line-height:1.2; color:#FFFFFF; text-wrap:balance; }
+
+.pie { display:flex; flex-direction:column; gap:10px; }
+.pie .cta { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:1px; color:var(--navy); text-transform:uppercase; }
+.pie .cta b { background:var(--amber); color:var(--noche); padding:2px 8px; border-radius:4px; font-weight:500; }
+.pie .src { font-family:var(--mono); font-size:20px; color:var(--gris2); line-height:1.45; }
+
+/* sello "Guardala" (solo reel) */
+.sello { position:absolute; right:165px; top:var(--sello-top, 420px); z-index:30; transform:rotate(-9deg); border:5px solid var(--amber); border-radius:12px; padding:10px 22px 8px; font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:5px; color:var(--amber-osc); background:rgba(246,244,238,0.92); opacity:0; }
+
+/* cierre (solo reel) */
+#cortina { position:absolute; top:0; bottom:0; left:0; width:1180px; background:var(--navy); border-right:16px solid var(--amber); z-index:50; transform:translateX(-1500px) skewX(-8deg); }
+.outro { position:absolute; inset:0; z-index:45; opacity:0; background:radial-gradient(ellipse 80% 55% at 50% 42%, #13203a 0%, #0A0F1B 72%); display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:0 150px 120px 80px; gap:26px; }
+.outro img { height:84px; }
+.outro .o1 { font-family:var(--arch); font-size:84px; line-height:1.0; letter-spacing:-3px; color:#FFFFFF; margin-top:40px; }
+.outro .o1 span { color:var(--amber); }
+.outro .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--amber); border-radius:10px; padding:24px 38px; margin-top:20px; }
+.outro .o2 { font-family:var(--sans); font-weight:500; font-size:34px; color:var(--ice); }
+.outro .wa { display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:30px; color:var(--ice); }
