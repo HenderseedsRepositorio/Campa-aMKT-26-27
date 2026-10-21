@@ -93,12 +93,11 @@ referencia de la plantilla (copiarlo y cambiar el bloque de datos de arriba), nu
   <debe>datos agronómicos con fuente; sin cifras de pérdida; sin condiciones del seguro</debe>
 </plantilla>
 
-<plantilla nombre="decision" dur="22 s" formato="9:16 + placa 4:5" ref="produccion/decisiones/d1-sembradora.html" video="2026-W44-ficha-01-sembradora.mp4">
-  <escena>0–0,8 · [decisión] como pregunta, legible en el cuadro 0, con el marcador ámbar</escena>
-  <escena>0,8–13 · la herramienta se arma con el dato del marbete: [calendario / árbol / mapa de calor / escala / cuenta]</escena>
-  <escena>13,6–18,4 · LA REGLA en una línea y el sello GUARDALA</escena>
-  <escena>18,4–22 · cortina y cierre "¿Tu lote no encaja en la ficha? Lo vemos juntos." + "Comentá FICHAS"</escena>
-  <debe>una decisión por ficha; la placa 4:5 es el cuadro final (?formato=placa, scripts/render-fichas.mjs); ejemplos rotulados EJEMPLO; fuente al pie; motor común en produccion/decisiones/ficha.js</debe>
+<plantilla nombre="decision" dur="18 s" formato="9:16 + placa 4:5" ref="produccion/decisiones/s1-sembradora.html" video="2026-W44-decision-01-sembradora.mp4">
+  <escena>0–3,4 · [decisión] como pregunta, grande, con el marcador ámbar y un dibujo simple</escena>
+  <escena>3,4–14 · una respuesta por pantalla: [dato del marbete] grande + un chip; nada más</escena>
+  <escena>14–18 · cierre navy: [la regla] en una línea + "Mandanos un DM" + WhatsApp</escena>
+  <debe>pocas palabras (máximo 15 grandes por pantalla); la placa 4:5 es el resumen: pregunta, 3 respuestas y la regla (?formato=placa); ejemplos rotulados; motor en produccion/decisiones/simple.js</debe>
 </plantilla>
 
 <plantilla nombre="sello" dur="5 s" formato="9:16" ref="produccion/estudio/sello.html" video="2026-W44-sello.mp4">

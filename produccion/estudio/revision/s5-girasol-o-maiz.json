@@ -1,0 +1,39 @@
+{
+  "reel": "produccion/decisiones/s5-girasol-o-maiz.html",
+  "fecha": "2026-10-21",
+  "duracion": 18,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Decisión 05 · márgenes ¿Girasol o maíz tardío en ese lote?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 17,
+      "segundo": 15.3
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        3.6,
+        10.8
+      ]
+    }
+  }
+}

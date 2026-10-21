@@ -1,0 +1,40 @@
+{
+  "reel": "produccion/decisiones/s4-ambiente.html",
+  "fecha": "2026-10-21",
+  "duracion": 18.2,
+  "cuadros": 20,
+  "controles": {
+    "gancho_cuadro_0": {
+      "ok": true,
+      "no_aplica": false,
+      "texto": "Decisión 04 · diagnóstico ¿En qué ambiente está tu lote?"
+    },
+    "fuera_de_zona": {
+      "ok": true,
+      "casos": []
+    },
+    "en_transicion": {
+      "casos": []
+    },
+    "letra_menor_19px": {
+      "ok": true,
+      "casos": []
+    },
+    "lectura_menor_30px": {
+      "ok": true,
+      "casos": []
+    },
+    "palabras_en_pantalla": {
+      "ok": true,
+      "max": 13,
+      "segundo": 15.47
+    },
+    "cuadros_sin_texto": {
+      "segundos": [
+        3.64,
+        10.92,
+        14.56
+      ]
+    }
+  }
+}

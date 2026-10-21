@@ -191,3 +191,7 @@ meta-ads/
   ficha terminada (`node scripts/render-fichas.mjs`), Estado 9:16 y cuaderno PDF para quien comenta FICHAS. Página
   `docs/decisiones/` (`python3 scripts/armar-decisiones.py`), guion y fuentes en `reels/2026-W44-decisiones.md`,
   plantilla "decision" en el estudio. **Enfoque desde acá: dar algo para decidir, no pedir que respondan.**
+- ✂️ 21/10 (devolución de Alvaro): las fichas eran **demasiada información**. Quedan como reels simples
+  `produccion/decisiones/sN-*.html` (motor `simple.js`/`simple.css`: una idea por pantalla, letra grande, máximo ~15
+  palabras grandes) + placa 4:5 de resumen. Las fichas completas (`dN-*.html`) solo van al PDF para quien pide detalle.
+  **Regla:** cambiar el mensaje (que sirva para decidir) sin cargar la pieza de datos.
