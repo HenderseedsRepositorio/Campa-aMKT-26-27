@@ -7,7 +7,7 @@
     "gancho_cuadro_0": {
       "ok": true,
       "no_aplica": false,
-      "texto": "Decisión 05 · márgenes ¿Girasol o maíz tardío en ese lote?"
+      "texto": "Decisión 05 · márgenes Girasol o maíz tardío: misma cuenta."
     },
     "fuera_de_zona": {
       "ok": true,
@@ -26,7 +26,7 @@
     },
     "palabras_en_pantalla": {
       "ok": true,
-      "max": 17,
+      "max": 15,
       "segundo": 15.3
     },
     "cuadros_sin_texto": {

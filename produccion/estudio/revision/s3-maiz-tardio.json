@@ -7,7 +7,7 @@
     "gancho_cuadro_0": {
       "ok": true,
       "no_aplica": false,
-      "texto": "Decisión 03 · maíz tardío ¿Qué te preocupa más del tardío?"
+      "texto": "Decisión 03 · maíz tardío Tardío: tres riesgos, tres híbridos."
     },
     "fuera_de_zona": {
       "ok": true,
@@ -26,7 +26,7 @@
     },
     "palabras_en_pantalla": {
       "ok": true,
-      "max": 13,
+      "max": 17,
       "segundo": 14.96
     },
     "cuadros_sin_texto": {

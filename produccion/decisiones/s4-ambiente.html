@@ -18,7 +18,9 @@
 .barra div { flex:1; border-radius:12px; display:grid; place-items:center; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:1.5px; color:var(--navy); text-transform:uppercase; text-align:center; line-height:1.15; transform-origin:0 50%; }
 .marcas { position:relative; height:52px; }
 .marcas span { position:absolute; top:0; transform:translateX(-50%); font-family:var(--mono); font-weight:500; font-size:40px; color:var(--navy); }
-#stage.placa .barra { height:84px; }
+#stage.placa .placa-c .t { font-size:70px; }
+#stage.placa .placa-c { gap:24px; }
+#stage.placa .barra { height:72px; }
 #stage.placa .barra div { font-size:21px; }
 #stage.placa .marcas span { font-size:30px; }
 </style>
@@ -28,42 +30,42 @@
   <div class="agua" data-deco>04</div>
   <div class="esc" data-a="0" data-b="3.4"><div class="caja">
     <div class="k" data-t="-1">Decisión 04 · diagnóstico</div>
-    <div class="t" data-t="-1">¿En qué ambiente está <span class="mk" data-mk="0.2">tu lote?</span></div>
+    <div class="t" data-t="-1">Girasol: cuatro ambientes <span class="mk" data-mk="0.2">según el rinde.</span></div>
     <svg class="lote" id="lote" viewBox="0 0 560 300" data-t="-1"></svg>
   </div></div>
   <div class="esc" data-a="3.4" data-b="7.4"><div class="caja" style="gap:30px">
-    <div class="k" data-t="3.6">Girasol · escala del marbete</div>
+    <div class="k" data-t="3.6">Escala del marbete Nidera</div>
     <div class="esc-amb" id="amb1"></div>
-    <div class="s" data-t="5.6">En <b>kg/ha</b>, por el rinde de tu lote.</div>
+    <div class="s" data-t="5.6">Medido en <b>kg/ha</b> de rinde.</div>
   </div></div>
   <div class="esc" data-a="7.4" data-b="10.8"><div class="caja" style="gap:26px">
     <div class="k" data-t="7.6">Para clasificarlo</div>
     <div class="t m" data-t="7.8">Promedio de varias campañas.</div>
-    <div class="t" data-t="8.6"><span class="mk" data-mk="9.0">No la mejor.</span></div>
+    <div class="t m" data-t="8.6"><span class="mk" data-mk="9.0">No la mejor campaña.</span></div>
   </div></div>
   <div class="esc" data-a="10.8" data-b="14.2"><div class="caja" style="gap:16px">
     <div class="k" data-t="11.0">El ambiente define</div>
     <div class="t" data-t="11.2">El híbrido.</div>
-    <div class="t" data-t="11.6">Las plantas.</div>
+    <div class="t" data-t="11.6">La densidad.</div>
     <div class="t" data-t="12.0">La inversión.</div>
   </div></div>
 
   <div class="placa-c ficha">
     <div class="k">Decisión 04 · diagnóstico</div>
-    <div class="t">¿En qué ambiente está <span class="mk">tu lote?</span></div>
+    <div class="t">Girasol: cuatro ambientes <span class="mk">según el rinde.</span></div>
     <div class="esc-amb" id="amb2" style="width:880px"></div>
     <div class="filas">
       <div class="fila"><span class="p">Para clasificarlo</span><span class="a">Promedio de varias campañas</span></div>
-      <div class="fila"><span class="p">El ambiente define</span><span class="a">Híbrido · plantas · inversión</span></div>
+      <div class="fila"><span class="p">El ambiente define</span><span class="a">Híbrido · densidad · inversión</span></div>
     </div>
     <div class="regla"><span class="rt">LA REGLA</span><p>Clasificalo con varias campañas, no con la mejor.</p></div>
-    <div class="pcta">¿Lo vemos juntos? <b>Mandanos un DM</b> · WA 2314 53-0691</div>
-    <div class="psrc">Girasol, en kg/ha: escala de ambientes de los marbetes oficiales Nidera 26/27.</div>
+    <div class="pcta">Pasamos por tu lote. <b>Mandanos un DM</b> · WA 2314 53-0691</div>
+    <div class="psrc">Escala de ambientes: marbetes oficiales Nidera 26/27.</div>
   </div>
 </div>
 <script src="simple.js"></script>
 <script>
-S.cierre({ a: 14.2, b: 18.2, regla: 'Mandanos los rindes de tus lotes y <span>los clasificamos juntos.</span>', src: 'Escala de ambientes del girasol: marbetes oficiales Nidera 26/27.' });
+S.cierre({ a: 14.2, b: 18.2, regla: 'Clasificalo con varias campañas, <span>no con la mejor.</span>', humana: 'Mandanos tus rindes y lo vemos juntos.', src: 'Escala de ambientes del girasol: marbetes oficiales Nidera 26/27.' });
 var SEGS = [['Bajo', '#EFE6D2'], ['Medio<br>bajo', '#F8D9A0'], ['Medio<br>alto', '#F7C46A'], ['Alto', '#F5A623']];
 function escala(caja) {
   var b = S.h('div', 'barra', null, caja), m = S.h('div', 'marcas', null, caja);

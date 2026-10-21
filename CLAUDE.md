@@ -195,3 +195,8 @@ meta-ads/
   `produccion/decisiones/sN-*.html` (motor `simple.js`/`simple.css`: una idea por pantalla, letra grande, máximo ~15
   palabras grandes) + placa 4:5 de resumen. Las fichas completas (`dN-*.html`) solo van al PDF para quien pide detalle.
   **Regla:** cambiar el mensaje (que sirva para decidir) sin cargar la pieza de datos.
+- 🗣️ 21/10: **06–10 en otra onda ("charla de lote")** → `produccion/decisiones/cN-*.html`, solo datos sobre el motor
+  `charla.js`/`charla.css` (fondo noche, frase palabra por palabra, cierre en tarjeta crema). **Tono:** un agente de marca
+  revisó los 10 y se ajustaron los ganchos: dato o afirmación técnica, sin preguntas de sí o no, cierre "Pasamos por tu lote.
+  Mandanos un DM." Reglas en `brand/tono-voz.md` ("Reglas de gancho"). Escalas del marbete (1–9, ambientes) en
+  `contexto/productos-26-27.md`. Reels: `docs/placas/video/2026-W44-decision-NN-*.mp4`; placas `docs/decisiones/img/decision-NN-feed.jpg`.

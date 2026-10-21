@@ -35,6 +35,7 @@ html, body { background:#000; }
 .esc.navy img.hs { height:84px; }
 .esc.navy .r { font-family:var(--arch); font-size:80px; line-height:1.02; letter-spacing:-3px; color:#FFFFFF; text-wrap:balance; }
 .esc.navy .r span { color:var(--amber); }
+.esc.navy .h { font-family:var(--sans); font-weight:600; font-size:44px; color:var(--ice); }
 .esc.navy .dm { display:flex; align-items:center; gap:16px; font-family:var(--sans); font-weight:700; font-size:42px; color:#0A0A0A; background:var(--amber); border-radius:10px; padding:24px 38px; }
 .esc.navy .wa { display:flex; align-items:center; gap:14px; font-family:var(--mono); font-size:30px; color:var(--ice); }
 .esc.navy .src { font-family:var(--mono); font-size:22px; color:var(--steel); line-height:1.45; }
@@ -53,6 +54,6 @@ html, body { background:#000; }
 .regla { background:var(--navy); border-radius:14px; padding:26px 30px 28px; display:flex; flex-direction:column; gap:8px; }
 .regla .rt { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:4px; color:var(--amber); }
 .regla p { font-family:var(--sans); font-weight:700; font-size:44px; line-height:1.15; color:#FFFFFF; text-wrap:balance; }
-.pcta { font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:1px; color:var(--navy); text-transform:uppercase; margin-top:auto; }
+.pcta { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:0.5px; color:var(--navy); text-transform:uppercase; margin-top:auto; }
 .pcta b { background:var(--amber); color:var(--noche); padding:2px 8px; border-radius:4px; font-weight:500; }
 .psrc { font-family:var(--mono); font-size:21px; color:var(--gris2); line-height:1.4; }

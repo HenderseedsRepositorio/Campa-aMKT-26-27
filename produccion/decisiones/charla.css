@@ -54,6 +54,6 @@ html, body { background:#000; }
 .placa-c .regla { background:var(--crema); border-radius:14px; padding:24px 30px 26px; display:flex; flex-direction:column; gap:8px; }
 .placa-c .regla .rt { font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:4px; color:var(--amber-osc); }
 .placa-c .regla p { font-family:var(--sans); font-weight:700; font-size:44px; line-height:1.15; color:var(--navy); text-wrap:balance; }
-.placa-c .pcta { margin-top:auto; font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:1px; text-transform:uppercase; color:var(--ice); }
+.placa-c .pcta { margin-top:auto; font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:0.5px; text-transform:uppercase; color:var(--ice); }
 .placa-c .pcta b { background:var(--amber); color:var(--noche); padding:2px 8px; border-radius:4px; font-weight:500; }
 .placa-c .psrc { font-family:var(--mono); font-size:21px; color:var(--steel); line-height:1.4; }

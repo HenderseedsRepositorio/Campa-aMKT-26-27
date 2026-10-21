@@ -7,7 +7,7 @@
     "gancho_cuadro_0": {
       "ok": true,
       "no_aplica": false,
-      "texto": "Decisión 01 · girasol ¿Te alcanza la sembradora?"
+      "texto": "Decisión 01 · girasol Girasol: la ventana cierra el 15/11."
     },
     "fuera_de_zona": {
       "ok": true,
@@ -37,7 +37,7 @@
     },
     "palabras_en_pantalla": {
       "ok": true,
-      "max": 13,
+      "max": 17,
       "segundo": 15.64
     },
     "cuadros_sin_texto": {

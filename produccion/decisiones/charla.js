@@ -41,10 +41,10 @@ var C = (function () {
       (c.src ? '<div class="src">' + c.src + '</div>' : ''), st);
     var hijos = Array.prototype.slice.call(tar.children);
     var p = o.placa;
-    h('div', 'placa-c ficha', '<div class="pk">Decisión ' + o.num + ' · ' + o.tema + '</div><div class="pt">' + p.titulo + '</div>' +
+    h('div', 'placa-c ficha', '<div class="pk">Decisión ' + o.num + ' · ' + o.tema + '</div><div class="pt"' + (p.fs ? ' style="font-size:' + p.fs + 'px"' : '') + '>' + p.titulo + '</div>' +
       '<div class="filas">' + p.filas.map(function (f) { return '<div class="fila"><span class="p">' + f[0] + '</span><span class="x">' + f[1] + '</span></div>'; }).join('') + '</div>' +
       '<div class="regla"><span class="rt">LA REGLA</span><p>' + p.regla + '</p></div>' +
-      '<div class="pcta">' + (p.cta || '¿Tu caso es otro? <b>Mandanos un DM</b> · WA 2314 53-0691') + '</div>' +
+      '<div class="pcta">' + (p.cta || 'Pasamos por tu lote. <b>Mandanos un DM</b> · WA 2314 53-0691') + '</div>' +
       (p.src ? '<div class="psrc">' + p.src + '</div>' : ''), st);
 
     window.REEL_DURACION = c.b;

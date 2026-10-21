@@ -24,6 +24,26 @@ pocas palabras** (máximo ~15 grandes por pantalla; las fichas llegaban a 47).
 - La ficha 04 simple usa solo la escala del girasol (sin cortes de maíz en kg/ha).
 - Las fichas completas de abajo (`dN-*.html`) quedan solo para el PDF que se manda a quien pide más detalle.
 
+## 06–10 · otra onda: "charla de lote" (21/10)
+Fondo noche, la frase entra palabra por palabra (como dicha en el lote), palabras clave en ámbar, línea de avance
+y cierre en tarjeta crema. Cada reel es solo datos sobre `produccion/decisiones/charla.js`.
+
+| # | Gancho | Escenas | Fuente | Archivo |
+|---|--------|---------|--------|---------|
+| 06 | Todo lote tiene un rinde de indiferencia. | costos por ha ÷ precio neto → si apenas lo superás, revisá el planteo → margen.henderseeds.com | sin cifras; herramientas.md | `c6-indiferencia.html` |
+| 07 | Alto oleico: la bonificación la paga el comprador. | NS 1227 CL HO → Downy Mildew R → óptima 15/11, límite 20/11 | marbete NS 1227 CL HO | `c7-alto-oleico.html` |
+| 08 | Un lote. Dos ambientes. | cada ambiente, su híbrido y su densidad → Recomendación Asista por ambiente → siembra variable opcional | Plan de Campaña, paso 2 | `c8-lomas-y-bajos.html` |
+| 09 | Maíz: no todo híbrido va en tardía. | NS 7621 mejor en temprana → tardía: 7925, 7624 CL, 7818 → las dos: 7765, 7852, 7921 CL | posicionamiento de los marbetes; sin ensayos | `c9-maiz-fecha.html` |
+| 10 | Lote encharcado después de sembrar: hay seguro. | seguro de resiembra de Nidera (granizo o encharcamiento) → contá las plantas que quedaron → si te pasa, escribinos | Plan de Campaña, paso 4; sin condiciones | `c10-encharcado.html` |
+
+## Tono (revisión del 21/10)
+Un agente de marca revisó los 10 contra `brand/tono-voz.md`. Cambios: ganchos afirmativos (01 "Girasol: la ventana
+cierra el 15/11.", 02 "Girasol: el híbrido depende del lote.", 03 "Tardío: tres riesgos, tres híbridos.", 04 "Girasol:
+cuatro ambientes según el rinde.", 05 "Girasol o maíz tardío: misma cuenta."), "Si el lote tuvo Phomopsis" en vez de
+preguntas, cierre común "Pasamos por tu lote. Mandanos un DM.". En 08 la siembra variable es **opcional** (no "incluida");
+en 10 se sacaron los pasos del seguro (podían ser condiciones): queda "contá las plantas" y "si te pasa, escribinos".
+En girasol, en pantalla solo "% de éxito en N comparaciones": el marbete no dice contra qué se comparan los qq/ha.
+
 ## Las fichas completas (solo PDF)
 
 ## La idea

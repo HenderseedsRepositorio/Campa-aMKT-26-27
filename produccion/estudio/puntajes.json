@@ -10,5 +10,6 @@
   "balanza": {"g": 8, "l": 9, "c": 9, "t": 9, "m": 9, "flojo": ["2-10 s: las pesas son rótulos de texto; con un ícono cada una se leerían más rápido"]},
   "alerta": {"g": 9, "l": 8, "c": 8, "t": 8, "m": 9, "flojo": ["12,5 s: un cuadro sin texto entre el paso 1 y el 2"]},
   "decision": {"g": 8, "l": 9, "c": 9, "t": 8, "m": 9, "flojo": ["0-3 s: con una toma real del lote de fondo la pregunta pega más", "3-14 s: escenas de solo texto; un dibujo por escena (como el de la escena 1) las haría menos planas"]},
+  "charla": {"g": 8, "l": 9, "c": 8, "t": 8, "m": 9, "flojo": ["3-14 s: escenas de solo texto; un objeto por escena (número, lista, dibujo) las sostiene mejor", "0-3 s: el gancho no tiene movimiento propio más allá del asentamiento de las palabras"]},
   "sello": {"g": null, "l": 9, "c": 9, "t": 9, "m": 10, "flojo": []}
 }

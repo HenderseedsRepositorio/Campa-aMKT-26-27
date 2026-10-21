@@ -7,7 +7,7 @@
     "gancho_cuadro_0": {
       "ok": true,
       "no_aplica": false,
-      "texto": "Decisión 02 · girasol ¿Qué girasol va? Empezá por tu lote."
+      "texto": "Decisión 02 · girasol Girasol: el híbrido depende del lote."
     },
     "fuera_de_zona": {
       "ok": true,
@@ -26,7 +26,7 @@
     },
     "palabras_en_pantalla": {
       "ok": true,
-      "max": 12,
+      "max": 16,
       "segundo": 15.3
     },
     "cuadros_sin_texto": {

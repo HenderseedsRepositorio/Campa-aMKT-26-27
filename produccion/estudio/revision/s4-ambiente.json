@@ -7,7 +7,7 @@
     "gancho_cuadro_0": {
       "ok": true,
       "no_aplica": false,
-      "texto": "Decisión 04 · diagnóstico ¿En qué ambiente está tu lote?"
+      "texto": "Decisión 04 · diagnóstico Girasol: cuatro ambientes según el rinde."
     },
     "fuera_de_zona": {
       "ok": true,
@@ -26,7 +26,7 @@
     },
     "palabras_en_pantalla": {
       "ok": true,
-      "max": 13,
+      "max": 18,
       "segundo": 15.47
     },
     "cuadros_sin_texto": {

@@ -61,3 +61,12 @@ comercial (👍); descartó el cercano y el humor. Como nadie aparece en cámara
 de cierre que ofrece ir al lote: "Pasamos por tu lote. Mandanos un DM." / "¿Lote así? Pasamos a verlo."
 Sin humor, sin chistes de campo. Titulares: **"¿Quién te acompaña después de la siembra?"** para anuncio
 (nombra el diferencial) y **"Tu campaña, con un plan."** para el feed.
+
+### Reglas de gancho (21/10/2026, devolución de Alvaro: "¿Te alcanza la sembradora?" no suena bien)
+1. **El gancho es un dato o una afirmación técnica**, no una pregunta que pone en duda al productor.
+   "¿Te alcanza la sembradora?" → "Girasol: la ventana cierra el 15/11."
+2. **Nada de preguntas de sí o no en pantalla** ("¿Te alcanza?", "¿Qué te preocupa?", "¿Dudas con la tuya?"):
+   piden que el productor responda o se justifique. "¿El lote tuvo Phomopsis?" → "Si el lote tuvo Phomopsis".
+3. **Una pantalla, una idea**: máximo 6 palabras por línea (el gancho, 8), voseo, sin signos de exclamación.
+   Lo que el productor ya sabe, en una línea o nada.
+4. **La calidez va en una sola línea, al cierre**: "Pasamos por tu lote. Mandanos un DM."
