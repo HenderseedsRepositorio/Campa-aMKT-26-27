@@ -26,7 +26,7 @@
 - Email: **henderseeds@gmail.com**
 - Dirección: Henderson, Buenos Aires, Argentina.
   `[COMPLETAR: dirección exacta / calle y número si se quiere publicar]`
-- Horario de atención: `[COMPLETAR]`
+- Horario de atención: lunes a viernes `[COMPLETAR: confirmar días]`, de 8 a 12 hs y de 15 a 19 hs.
 
 ## Redes sociales
 - Instagram: **@henderseeds** — [instagram.com/henderseeds](https://www.instagram.com/henderseeds/)
