@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reel Henderson · ¿Encontrás tu calle?</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#05070d; --fg:#E8EEF7; --muted:#8FA0BE; --accent:#F5A623; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:var(--bg); color:var(--fg); height:100%; }
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:16px; font-family:'DM Mono',monospace; }
+  canvas { height:min(86vh, calc((100vw - 32px) * 16 / 9)); aspect-ratio:9/16; border-radius:14px; box-shadow:0 0 0 1px rgba(255,255,255,0.08); background:#000; }
+  .ctrl { display:flex; gap:10px; align-items:center; font-size:13px; color:var(--muted); }
+  button { font-family:inherit; font-size:13px; background:var(--accent); color:#0a0a0a; border:0; border-radius:8px; padding:8px 14px; cursor:pointer; }
+  body.export { padding:0; display:block; }
+  body.export canvas { height:auto; width:1080px; border-radius:0; box-shadow:none; }
+  body.export .ctrl { display:none; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div class="ctrl"><button id="pp">Pausa</button><button id="rs">Reiniciar</button><span id="tc">0.0 s</span></div>
+<!-- Datos reales: © colaboradores de OpenStreetMap (ODbL), recortados alrededor de Henderson.
+     Nombres de calles, horarios y ubicación de tarjetas: calculados offline (sin pisarse) con la misma cámara de abajo.
+     Incluye el logo oficial de Henderseeds embebido (LOGO_HS) para no "manchar" el canvas al exportar. -->
+<script src="datos/henderson-osm-v12.js"></script>
+<script>
+(function () {
+  var W = 1080, H = 1920, DUR = 20;
+  var OR = [245,166,35];
+  var cv = document.getElementById('c'), C = cv.getContext('2d');
+  var D = window.OSM;
+
+  // ---------- utilidades ----------
+  function clamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t,a,b){ return clamp((t-a)/(b-a)); }
+  function lerp(a,b,x){ return a+(b-a)*x; }
+  function eOut(x){ return 1 - Math.pow(1-x,3); }
+  function eIn(x){ return x*x*x; }
+  function eIO(x){ return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+  function xOut(x){ return x >= 1 ? 1 : 1 - Math.pow(2, -10*x); }
+  function bOut(x){ var c1 = 1.4, c3 = c1 + 1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); }
+  function rgba(c,a){ return 'rgba('+c[0]+','+c[1]+','+c[2]+','+(a==null?1:a)+')'; }
+  function hash(n){ var x = Math.sin(n*127.1 + 311.7)*43758.5453; return x - Math.floor(x); }
+  function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; var t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function keys(K, t){ var i = 0; while (i < K.length-2 && t > K[i+1][0]) i++; var a = K[i], b = K[i+1], u = eIO(seg(t, a[0], b[0])); return lerp(a[1], b[1], u); }
+  function keysLin(K, t){ var i = 0; while (i < K.length-2 && t > K[i+1][0]) i++; var a = K[i], b = K[i+1]; return lerp(a[1], b[1], seg(t, a[0], b[0])); }
+  function normAng(a){ while (a > Math.PI/2) a -= Math.PI; while (a <= -Math.PI/2) a += Math.PI; return a; }
+  var FONT = { big:'"Archivo Black"', sans:'"DM Sans"', mono:'"DM Mono"' };
+  function setFont(px, fam, w, ls){ C.font = (w ? w + ' ' : '') + px + 'px ' + fam; if ('letterSpacing' in C) C.letterSpacing = (ls || 0) + 'px'; }
+  function measure(s, px, fam, w, ls){ C.save(); setFont(px, fam, w, ls); var m = C.measureText(s).width; C.restore(); return m; }
+  function fitPx(s, fam, w, ls, maxPx, width){ return Math.min(maxPx, maxPx*width/measure(s, maxPx, fam, w, ls)); }
+  function text(s, x, y, px, fam, w, color, o){
+    o = o || {}; var ga = C.globalAlpha; C.save();
+    setFont(px, fam, w, o.ls); C.textAlign = o.align || 'center'; C.textBaseline = 'alphabetic';
+    C.globalAlpha = ga * (o.alpha == null ? 1 : o.alpha);
+    if (o.blur && o.blur > 0.3) C.filter = 'blur(' + o.blur.toFixed(1) + 'px)';
+    if (o.shadow) { C.shadowColor = o.shadow; C.shadowBlur = o.sb || 30; C.shadowOffsetY = o.sy || 0; }
+    C.fillStyle = color; C.fillText(s, x, y); C.restore();
+  }
+  function wordsLine(str, y, px, fam, w, t, t0, opts){
+    opts = opts || {};
+    var ws = str.split(' '), sp = measure(' ', px, fam, w, opts.ls), wd = ws.map(function(s){ return measure(s, px, fam, w, opts.ls); });
+    var tot = wd.reduce(function(a,b){ return a+b; }, 0) + sp*(ws.length - 1), x = 540 - tot/2;
+    if (opts.t1 && t > opts.t1) return;
+    var out = opts.t1 ? eIn(seg(t, opts.t1 - 0.32, opts.t1)) : 0;
+    for (var i = 0; i < ws.length; i++) {
+      var p = xOut(seg(t, t0 + i*(opts.stagger || 0.07), t0 + i*(opts.stagger || 0.07) + 0.6));
+      if (p <= 0) { x += wd[i] + sp; continue; }
+      var hl = opts.hl && opts.hl.indexOf(ws[i].replace(/[.,]/g, '')) >= 0;
+      C.save(); C.beginPath(); C.rect(0, y - px*1.05, W, px*1.45); C.clip();
+      text(ws[i], x + wd[i]/2, y + (1 - p)*px*0.9 - out*px*0.5, px, fam, w, hl ? rgba(OR) : (opts.color || '#FFFFFF'),
+        { ls:opts.ls, alpha:(1 - out), blur:(1 - p)*10 + out*8, shadow: hl ? 'rgba(245,166,35,0.45)' : 'rgba(0,0,0,0.75)', sb: hl ? 28 : 22 });
+      C.restore();
+      x += wd[i] + sp;
+    }
+  }
+
+  // ---------- red de calles real: distancia desde la plaza, siguiendo las calles ----------
+  var NODE = {}, NX = [], NY = [], ADJ = [];
+  function nid(p){ var k = p[0] + ',' + p[1]; var i = NODE[k]; if (i === undefined) { i = NX.length; NODE[k] = i; NX.push(p[0]); NY.push(p[1]); ADJ.push([]); } return i; }
+  var SEGS = [];      // [a, b, clase]
+  D.roads.forEach(function(w){ for (var i = 1; i < w.p.length; i++) { var a = nid(w.p[i-1]), b = nid(w.p[i]); var L = Math.hypot(NX[a]-NX[b], NY[a]-NY[b]); ADJ[a].push([b, L]); ADJ[b].push([a, L]); SEGS.push([a, b, w.c]); } });
+  var DIST = new Float64Array(NX.length).fill(Infinity);
+  (function dijkstra(){
+    // arranca desde las esquinas de la Plaza Manuel Belgrano (las más cercanas al centro)
+    var cand = []; for (var i = 0; i < NX.length; i++) cand.push([Math.hypot(NX[i], NY[i]), i]);
+    cand.sort(function(a,b){ return a[0]-b[0]; });
+    var heap = [];
+    function push(d, i){ heap.push([d, i]); var k = heap.length - 1; while (k > 0) { var p = (k - 1) >> 1; if (heap[p][0] <= heap[k][0]) break; var tmp = heap[p]; heap[p] = heap[k]; heap[k] = tmp; k = p; } }
+    function pop(){ var top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; var k = 0; for (;;) { var l = 2*k+1, r = l+1, m = k; if (l < heap.length && heap[l][0] < heap[m][0]) m = l; if (r < heap.length && heap[r][0] < heap[m][0]) m = r; if (m === k) break; var tmp = heap[m]; heap[m] = heap[k]; heap[k] = tmp; k = m; } } return top; }
+    for (var c = 0; c < 6; c++) { DIST[cand[c][1]] = cand[c][0]; push(cand[c][0], cand[c][1]); }
+    while (heap.length) { var it = pop(), d = it[0], u = it[1]; if (d > DIST[u]) continue;
+      for (var j = 0; j < ADJ[u].length; j++) { var v = ADJ[u][j][0], nd = d + ADJ[u][j][1]; if (nd < DIST[v]) { DIST[v] = nd; push(nd, v); } } }
+    for (var n = 0; n < NX.length; n++) if (!isFinite(DIST[n])) DIST[n] = 1.5*Math.hypot(NX[n], NY[n]);
+  })();
+  var RAILP = D.rail.map(function(r){ return r.map(function(p){ return [p[0], p[1], Math.hypot(p[0], p[1])]; }); });
+
+  // ---------- cámara (los MISMOS valores usó el cálculo offline de nombres y tarjetas) ----------
+  var CAM_S  = [[0,1.55],[7.5,0.44],[12.5,0.465],[15.0,0.47],[18.2,0.105],[20,0.098]];
+  var CAM_X  = [[0,0],[7.5,-430],[12.5,-445],[15.0,-420],[18.2,-430],[20,-430]];
+  var CAM_Y  = [[0,0],[7.5,-120],[12.5,-130],[15.0,-120],[18.2,-120],[20,-120]];
+  var CAM_R  = [[0,-0.30],[7.5,0.0],[12.5,0.02],[15,0.03],[18.2,-0.05],[20,-0.07]];
+  var CAM_CY = [[0,1080],[7.5,1000],[15,1000],[18.2,990],[20,990]];
+  var cam = {};
+  function setCam(t){
+    cam.s = keys(CAM_S, t); cam.x = keys(CAM_X, t); cam.y = keys(CAM_Y, t); cam.r = keys(CAM_R, t); cam.cy = keys(CAM_CY, t);
+    if (t > 0.15 && t < 0.6) { var k = 1 - seg(t, 0.15, 0.6); cam.x += Math.sin(t*93)*k*7/cam.s; cam.y += Math.cos(t*71)*k*7/cam.s; }   // sacudón del golpe inicial
+    cam.c = Math.cos(cam.r); cam.n = Math.sin(cam.r);
+  }
+  function sx(x, y){ var dx = x - cam.x, dy = y - cam.y; return 540 + (dx*cam.c - dy*cam.n)*cam.s; }
+  function sy(x, y){ var dx = x - cam.x, dy = y - cam.y; return cam.cy + (dx*cam.n + dy*cam.c)*cam.s; }
+
+  // frente de crecimiento (metros recorridos por las calles desde la plaza) — lineal, sin tirones
+  var FRONT = [[0,0],[0.2,0],[1.2,260],[2.5,700],[4.0,1350],[5.5,2150],[7.5,3600],[10,6000],[12.5,9000],[15,14000],[18,30000],[20,40000]];
+  var NIGHT = [[0,0],[12.4,0],[13.4,1],[20,1]];
+
+  // ---------- fondo ----------
+  var R = rng(1909);
+  var DUST = []; for (var j = 0; j < 110; j++) DUST.push({ x:R()*W, y:R()*H, r:0.6 + R()*1.4, v:6 + R()*24, ph:R()*6.28 });
+  var grain = document.createElement('canvas'); grain.width = 540; grain.height = 960;
+  (function(){ var g = grain.getContext('2d'), id = g.createImageData(540,960), r = rng(7);
+    for (var p = 0; p < id.data.length; p += 4) { var v = r()*255; id.data[p]=id.data[p+1]=id.data[p+2]=v; id.data[p+3]=255; }
+    g.putImageData(id,0,0); })();
+  function background(t, night){
+    var g = C.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#04060E'); g.addColorStop(0.55,'#07102A'); g.addColorStop(1,'#0A1632');
+    C.fillStyle = g; C.fillRect(0,0,W,H);
+    var px0 = sx(0,0), py0 = sy(0,0);
+    var gw = C.createRadialGradient(px0, py0, 0, px0, py0, 900);
+    var ga = 0.12 + 0.22*night;
+    gw.addColorStop(0, rgba(OR, ga)); gw.addColorStop(0.5, rgba([230,120,40], ga*0.3)); gw.addColorStop(1, 'rgba(230,120,40,0)');
+    C.save(); C.globalCompositeOperation = 'screen'; C.fillStyle = gw; C.fillRect(0,0,W,H); C.restore();
+    C.save(); C.globalCompositeOperation = 'screen';
+    for (var k = 0; k < DUST.length; k++) { var d = DUST[k], dy = ((d.y - t*d.v) % H + H) % H, dx = d.x + Math.sin(t*0.7 + d.ph)*10;
+      C.fillStyle = 'rgba(255,230,190,'+(0.08 + 0.10*Math.sin(t*2 + d.ph*3))+')'; C.fillRect(dx, dy, d.r, d.r); }
+    C.restore();
+  }
+
+  // ---------- mapa ----------
+  var STY = [
+    { w:3.2, c:[245,166,35], a:0.95 },     // 0 troncales
+    { w:2.8, c:[245,166,35], a:0.95 },     // 1 secundarias (rutas, accesos)
+    { w:2.2, c:[255,198,110], a:0.92 },    // 2 terciarias (avenidas)
+    { w:1.4, c:[200,214,236], a:0.55 },    // 3 sin clasificar (caminos)
+    { w:1.35, c:[232,238,247], a:0.78 },   // 4 residenciales
+    { w:0.9, c:[180,195,220], a:0.40 },    // 5 servicio
+    { w:0.9, c:[180,195,220], a:0.35 },    // 6 huella
+    { w:0.7, c:[180,195,220], a:0.28 }     // 7 peatonales
+  ];
+  function poly(p){ C.beginPath(); p.forEach(function(q, i){ var X = sx(q[0], q[1]), Y = sy(q[0], q[1]); if (i) C.lineTo(X, Y); else C.moveTo(X, Y); }); C.closePath(); }
+  function drawAreas(t, F, night){
+    var ap = seg(F, 120, 1500);
+    if (ap > 0) D.areas.forEach(function(a){
+      var col = null;
+      if (a.k === 'park' || a.k === 'grass' || a.k === 'recreation_ground' || a.k === 'grassland') col = [70,150,110];
+      else if (a.k === 'pitch' || a.k === 'sports_centre' || a.k === 'track') col = [80,150,100];
+      else if (a.k === 'water') col = [70,120,200];
+      else if (a.k === 'cemetery') col = [130,140,160];
+      else return;
+      var cx = 0, cy = 0; a.p.forEach(function(q){ cx += q[0]; cy += q[1]; }); cx /= a.p.length; cy /= a.p.length;
+      var lp = seg(F, Math.hypot(cx, cy)*1.15, Math.hypot(cx, cy)*1.15 + 500) * ap;
+      if (lp <= 0) return;
+      poly(a.p);
+      var al = (a.k === 'water' ? 0.42 : a.k === 'recreation_ground' ? 0.10 : 0.26) * lp * (1 - 0.45*night);
+      C.fillStyle = rgba(col, al); C.fill();
+    });
+    // Plaza Manuel Belgrano: destacada desde el primer cuadro
+    var pz = D.areas.filter(function(a){ return a.n === 'Plaza Manuel Belgrano'; })[0];
+    if (pz) {
+      var pa = eOut(seg(t, 0.05, 0.6));
+      C.save(); poly(pz.p);
+      C.fillStyle = rgba(OR, 0.22*pa); C.fill(); C.strokeStyle = rgba(OR, 0.9*pa); C.lineWidth = 2; C.shadowColor = 'rgba(245,166,35,0.8)'; C.shadowBlur = 18; C.stroke(); C.restore();
+    }
+  }
+  function drawRoads(t, F, night){
+    var lw = Math.max(0.5, Math.min(1.6, cam.s/0.45));          // grosor según el zoom
+    var dim = 1 - 0.35*night;
+    for (var cls = 7; cls >= 0; cls--) {
+      var st = STY[cls];
+      C.beginPath();
+      var tips = [];
+      for (var i = 0; i < SEGS.length; i++) {
+        var sgm = SEGS[i]; if (sgm[2] !== cls) continue;
+        var a = sgm[0], b = sgm[1], da = DIST[a], db = DIST[b];
+        var d0 = Math.min(da, db), d1 = Math.max(da, db);
+        if (F <= d0) continue;
+        var s0 = da <= db ? a : b, s1 = da <= db ? b : a;
+        var f = d1 > d0 ? clamp((F - d0)/(d1 - d0)) : 1;
+        var x0 = NX[s0], y0 = NY[s0], x1 = lerp(x0, NX[s1], f), y1 = lerp(y0, NY[s1], f);
+        var X0 = sx(x0, y0), Y0 = sy(x0, y0), X1 = sx(x1, y1), Y1 = sy(x1, y1);
+        if ((X0 < -40 && X1 < -40) || (X0 > W+40 && X1 > W+40) || (Y0 < -40 && Y1 < -40) || (Y0 > H+40 && Y1 > H+40)) continue;
+        C.moveTo(X0, Y0); C.lineTo(X1, Y1);
+        if (f < 1 && cls <= 4) tips.push([X1, Y1]);
+      }
+      C.strokeStyle = rgba(st.c, st.a*dim); C.lineWidth = st.w*lw; C.lineCap = 'round'; C.stroke();
+      if (cls <= 2) { C.save(); C.globalCompositeOperation = 'screen'; C.strokeStyle = rgba(st.c, 0.16*dim); C.lineWidth = st.w*lw*4; C.stroke(); C.restore(); }
+      if (tips.length) {
+        C.save(); C.globalCompositeOperation = 'screen';
+        for (var k = 0; k < tips.length; k++) { var g = C.createRadialGradient(tips[k][0], tips[k][1], 0, tips[k][0], tips[k][1], 14);
+          g.addColorStop(0, 'rgba(255,236,200,0.9)'); g.addColorStop(1, 'rgba(255,190,110,0)'); C.fillStyle = g; C.fillRect(tips[k][0]-14, tips[k][1]-14, 28, 28); }
+        C.restore();
+      }
+    }
+    // vías del ferrocarril (punteado)
+    var rp = seg(F, 0, 9000);
+    if (rp > 0) {
+      C.save(); C.setLineDash([7*lw, 6*lw]); C.strokeStyle = rgba([255,190,120], 0.75*dim); C.lineWidth = 1.6*lw;
+      RAILP.forEach(function(r){ C.beginPath(); var started = false;
+        for (var i = 0; i < r.length; i++) { if (r[i][2] > F*0.9) { started = false; continue; } var X = sx(r[i][0], r[i][1]), Y = sy(r[i][0], r[i][1]); if (!started) { C.moveTo(X, Y); started = true; } else C.lineTo(X, Y); }
+        C.stroke(); });
+      C.restore();
+    }
+  }
+  function drawLights(t, night){
+    if (night <= 0.01) return;
+    C.save(); C.globalCompositeOperation = 'screen';
+    var r0 = Math.max(4, 9*Math.min(1.4, cam.s/0.45));
+    for (var i = 0; i < D.inter.length; i++) {
+      var q = D.inter[i], d = Math.hypot(q[0], q[1]);
+      var on = seg(t, 12.5 + d*0.00055 + hash(i)*0.25, 12.8 + d*0.00055 + hash(i)*0.25) * night;
+      if (on <= 0) continue;
+      var X = sx(q[0], q[1]), Y = sy(q[0], q[1]); if (X < -20 || X > W+20 || Y < -20 || Y > H+20) continue;
+      var tw = 0.8 + 0.2*Math.sin(t*3 + i*1.7), rr = r0*(0.8 + 0.5*hash(i + 3));
+      var g = C.createRadialGradient(X, Y, 0, X, Y, rr*2.2);
+      g.addColorStop(0, 'rgba(255,224,170,'+(0.95*on*tw)+')'); g.addColorStop(0.25, 'rgba(255,180,90,'+(0.45*on*tw)+')'); g.addColorStop(1, 'rgba(255,150,60,0)');
+      C.fillStyle = g; C.fillRect(X - rr*2.2, Y - rr*2.2, rr*4.4, rr*4.4);
+    }
+    C.restore();
+  }
+
+  // ---------- nombres de calles reales (aparecen cuando el frente ya dibujó la cuadra) ----------
+  var ST_TYPE = 0.45, ST_HOLD = 1.25, ST_FADE = 0.3;
+  function drawStreets(t){
+    var S = D.streets || [];
+    for (var i = 0; i < S.length; i++) {
+      var L = S[i], life = t - L.t;
+      if (life < 0 || life > ST_TYPE + ST_HOLD + ST_FADE) continue;
+      var aIn = eOut(seg(life, 0, 0.22)), aOut = 1 - eIn(seg(life, ST_TYPE + ST_HOLD, ST_TYPE + ST_HOLD + ST_FADE));
+      // la cuadra se enciende en naranja y un destello la recorre
+      var X0 = sx(L.x0, L.y0), Y0 = sy(L.x0, L.y0), X1 = sx(L.x1, L.y1), Y1 = sy(L.x1, L.y1);
+      var hl = aIn*(1 - 0.5*seg(life, 0.5, 1.5))*aOut;
+      C.save(); C.globalCompositeOperation = 'screen'; C.lineCap = 'round';
+      C.beginPath(); C.moveTo(X0, Y0); C.lineTo(X1, Y1);
+      C.strokeStyle = rgba(OR, 0.95*hl); C.lineWidth = 3.4; C.stroke();
+      C.strokeStyle = rgba(OR, 0.22*hl); C.lineWidth = 14; C.stroke();
+      var gp = seg(life, 0, 0.75);
+      if (gp > 0 && gp < 1) {
+        var gx = lerp(X0, X1, eOut(gp)), gy = lerp(Y0, Y1, eOut(gp)), gg = C.createRadialGradient(gx, gy, 0, gx, gy, 26);
+        gg.addColorStop(0, 'rgba(255,244,220,'+(0.95*(1 - gp))+')'); gg.addColorStop(1, 'rgba(255,190,110,0)');
+        C.fillStyle = gg; C.fillRect(gx - 26, gy - 26, 52, 52);
+      }
+      C.restore();
+      // cartel: mono en mayúsculas, apoyado sobre la cuadra, se tipea
+      var X = sx(L.x, L.y), Y = sy(L.x, L.y), ang = normAng(L.a + cam.r);
+      C.save(); C.translate(X, Y); C.rotate(ang);
+      setFont(29, FONT.mono, 500, 3); C.textAlign = 'left'; C.textBaseline = 'middle';
+      var full = C.measureText(L.n).width, n = Math.ceil(L.n.length*seg(life, 0.04, ST_TYPE)), s = L.n.slice(0, n);
+      C.globalAlpha = aOut*clamp(life/0.06);
+      C.lineJoin = 'round'; C.strokeStyle = 'rgba(4,7,15,0.9)'; C.lineWidth = 8; C.strokeText(s, -full/2, -20);
+      C.shadowColor = 'rgba(245,166,35,0.6)'; C.shadowBlur = 14; C.fillStyle = '#FFFFFF'; C.fillText(s, -full/2, -20);
+      C.shadowBlur = 0;
+      if (n < L.n.length) { var cw = C.measureText(s).width; C.fillStyle = rgba(OR); C.fillRect(-full/2 + cw + 2, -33, 3, 26); }
+      C.restore();
+    }
+  }
+
+  // ---------- lugares de siempre: pin + línea + tarjeta (posiciones calculadas sin pisarse) ----------
+  var PL_LIFE = 1.55;
+  function drawPlaces(t){
+    if (t < 7.4 || t > 12.5) return;
+    var gOut = eIn(seg(t, 12.05, 12.45));
+    D.places.forEach(function(p){
+      var life = t - p.t; if (life < 0) return;
+      var X = sx(p.x, p.y), Y = sy(p.x, p.y);
+      var cardA = (1 - eIn(seg(life, PL_LIFE, PL_LIFE + 0.25)))*(1 - gOut);
+      C.save(); C.globalAlpha = 1 - gOut;
+      // pin: queda encendido hasta la noche
+      if (life < PL_LIFE) { var pr = (life*1.4) % 1; C.strokeStyle = rgba(OR, 0.8*(1 - pr)); C.lineWidth = 2; C.beginPath(); C.arc(X, Y, 8 + pr*26, 0, 6.283); C.stroke(); }
+      C.fillStyle = rgba(OR); C.shadowColor = 'rgba(245,166,35,0.9)'; C.shadowBlur = 16;
+      C.beginPath(); C.arc(X, Y, lerp(5, 7.5, cardA)*bOut(seg(life, 0, 0.3)), 0, 6.283); C.fill();
+      C.shadowBlur = 0;
+      if (cardA > 0.001) {
+        var lx = X + p.s*44, ty = Y + p.dy;
+        var lp = eOut(seg(life, 0.04, 0.3));
+        C.globalAlpha = cardA; C.strokeStyle = 'rgba(255,255,255,0.75)'; C.lineWidth = 1.6;
+        C.beginPath(); C.moveTo(X, Y); C.lineTo(lerp(X, lx, lp), lerp(Y, ty, lp)); C.stroke();
+        var cp = xOut(seg(life, 0.14, 0.42));
+        if (cp > 0) {
+          setFont(26, FONT.mono, 500, 3); var tw = C.measureText(p.n).width + 34, th = 50;
+          var bx = p.s > 0 ? lx : lx - tw, by = ty - th/2;
+          C.globalAlpha = cardA*cp; C.fillStyle = 'rgba(5,8,16,0.84)'; C.beginPath(); C.roundRect(bx, by, tw, th, 10); C.fill();
+          C.strokeStyle = 'rgba(245,166,35,0.6)'; C.lineWidth = 1.5; C.stroke();
+          C.fillStyle = '#FFFFFF'; C.textAlign = 'left'; C.textBaseline = 'middle';
+          var n = Math.ceil(p.n.length*seg(life, 0.16, 0.48));
+          C.fillText(p.n.slice(0, n), bx + 17, by + th/2 + 1);
+        }
+      }
+      C.restore();
+    });
+  }
+
+  // ---------- gancho: ¿ENCONTRÁS TU CALLE? ----------
+  function hook(t){
+    if (t > 2.55) return;
+    var out = eIn(seg(t, 2.1, 2.5)), up = out*46;
+    var g = C.createLinearGradient(0, 230, 0, 840);
+    g.addColorStop(0, 'rgba(3,5,12,0)'); g.addColorStop(0.4, 'rgba(3,5,12,'+(0.7*(1 - out))+')'); g.addColorStop(1, 'rgba(3,5,12,0)');
+    C.fillStyle = g; C.fillRect(0, 230, W, 610);
+    var l1 = '¿ENCONTRÁS', p1 = fitPx(l1, FONT.big, '', -2, 132, 860), e1 = eOut(seg(t, 0, 0.5));
+    C.save(); C.translate(540, 478 - up); var s1 = lerp(1.05, 1, e1); C.scale(s1, s1);
+    text(l1, 0, 0, p1, FONT.big, '', '#FFFFFF', { ls:-2, alpha:1 - out, blur:out*10, shadow:'rgba(0,0,0,0.85)', sb:30 });
+    C.restore();
+    var p2 = seg(t, 0.15, 0.42), e2 = xOut(p2);
+    if (p2 > 0) {
+      var px2 = fitPx('TU CALLE?', FONT.big, '', -3, 178, 900);
+      var w1 = measure('TU ', px2, FONT.big, '', -3), w2 = measure('CALLE', px2, FONT.big, '', -3), w3 = measure('?', px2, FONT.big, '', -3);
+      var x0 = -(w1 + w2 + w3)/2, al = clamp(p2*3)*(1 - out), bl = (1 - e2)*16 + out*10;
+      C.save(); C.translate(540, 652 - up); var s2 = lerp(1.7, 1, e2); C.scale(s2, s2);
+      text('TU', x0 + measure('TU', px2, FONT.big, '', -3)/2, 0, px2, FONT.big, '', '#FFFFFF', { ls:-3, alpha:al, blur:bl, shadow:'rgba(0,0,0,0.85)', sb:30 });
+      text('CALLE', x0 + w1 + w2/2, 0, px2, FONT.big, '', rgba(OR), { ls:-3, alpha:al, blur:bl, shadow:'rgba(245,166,35,0.55)', sb:44 });
+      text('?', x0 + w1 + w2 + w3/2, 0, px2, FONT.big, '', '#FFFFFF', { ls:-3, alpha:al, blur:bl, shadow:'rgba(0,0,0,0.85)', sb:30 });
+      C.restore();
+    }
+    var cl = 'HENDERSON  ·  36°18′ S  ·  61°42′ O', n = Math.ceil(cl.length*seg(t, 0.55, 1.35));
+    if (n > 0) text(cl.slice(0, n), 540, 738 - up, 26, FONT.mono, 500, '#C9D4E6', { ls:5, alpha:(1 - out)*0.95, shadow:'rgba(0,0,0,0.9)', sb:14 });
+  }
+
+  // ---------- logo chico de Henderseeds (marca de agua arriba a la izquierda) ----------
+  var LOGO = new Image(); LOGO.src = window.LOGO_HS;
+  function watermark(t){
+    if (!LOGO.complete || !LOGO.naturalWidth) return;
+    var a = 0.9*eOut(seg(t, 0.2, 0.9)), w = 180, h = w*LOGO.naturalHeight/LOGO.naturalWidth;
+    C.save(); C.globalAlpha = a; C.shadowColor = 'rgba(0,0,0,0.7)'; C.shadowBlur = 14; C.drawImage(LOGO, 54, 148, w, h); C.restore();
+  }
+
+  // ---------- textos ----------
+  var OFF = document.createElement('canvas'); OFF.width = W; OFF.height = 320;
+  function pill(str, y, px, t0, t){
+    var hp = eOut(seg(t, t0, t0 + 0.5)); if (hp <= 0) return;
+    var tw = measure(str, px, FONT.sans, 600, 0) + 76, th = px*2.1;
+    C.save(); C.globalAlpha = hp; C.translate(540, y + (1 - hp)*18);
+    C.fillStyle = 'rgba(5,7,13,0.82)'; C.beginPath(); C.roundRect(-tw/2, -th/2, tw, th, th/2); C.fill();
+    C.strokeStyle = 'rgba(245,166,35,0.7)'; C.lineWidth = 2; C.stroke(); C.restore();
+    text(str, 540, y + (1 - hp)*18 + px*0.36, px, FONT.sans, 600, '#FFFFFF', { alpha:hp });
+  }
+  function finale(t){
+    if (t < 15.0) return;
+    var ba = seg(t, 15.0, 15.8);
+    var gt = C.createLinearGradient(0, 200, 0, 900);
+    gt.addColorStop(0, 'rgba(3,5,12,0)'); gt.addColorStop(0.45, 'rgba(3,5,12,'+(0.62*ba)+')'); gt.addColorStop(1, 'rgba(3,5,12,0)');
+    C.fillStyle = gt; C.fillRect(0, 200, W, 700);
+    wordsLine('Feliz cumpleaños,', 430, 80, FONT.sans, 700, t, 15.05, { stagger:0.09 });
+    var word = 'HENDERSON', px = fitPx(word, FONT.big, '', -4, 200, 950);
+    var tot = measure(word, px, FONT.big, '', -4), x = 540 - tot/2, by = 634;
+    for (var i = 0; i < word.length; i++) {
+      var cw = measure(word[i], px, FONT.big, '', -4), p = seg(t, 15.6 + i*0.06, 16.2 + i*0.06);
+      if (p > 0) { var e = xOut(p);
+        C.save(); C.translate(x + cw/2, by + (1 - e)*80); var sc = lerp(1.5, 1, e); C.scale(sc, sc);
+        text(word[i], 0, 0, px, FONT.big, '', 'rgba(8,6,4,0.55)', { ls:-4, alpha:clamp(p*2.5), blur:20 + (1 - e)*14 });
+        text(word[i], 0, 0, px, FONT.big, '', rgba(OR), { ls:-4, alpha:clamp(p*2.5), blur:(1 - e)*14, shadow:'rgba(245,166,35,0.6)', sb:48 });
+        C.restore(); }
+      x += cw;
+    }
+    var sw = seg(t, 16.9, 17.8);
+    if (sw > 0 && sw < 1) {
+      var oc = OFF.getContext('2d'); oc.setTransform(1,0,0,1,0,0); oc.globalCompositeOperation = 'source-over'; oc.clearRect(0,0,W,320);
+      oc.font = px + 'px ' + FONT.big; if ('letterSpacing' in oc) oc.letterSpacing = '-4px'; oc.textAlign = 'center'; oc.fillStyle = '#fff'; oc.fillText(word, 540, 230);
+      oc.globalCompositeOperation = 'source-in';
+      var sxx = lerp(-220, W + 220, eIO(sw)), sg = oc.createLinearGradient(sxx - 160, 0, sxx + 160, 0);
+      sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(0.5, 'rgba(255,250,232,0.92)'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+      oc.fillStyle = sg; oc.fillRect(0,0,W,320);
+      C.save(); C.globalCompositeOperation = 'lighter'; C.drawImage(OFF, 0, by - 230); C.restore();
+    }
+    var dp = eOut(seg(t, 16.3, 16.9));
+    text('1909 — 2026  ·  117 AÑOS', 540, 724, 32, FONT.mono, 500, '#FFFFFF', { ls:lerp(22, 7, dp), alpha:dp, shadow:'rgba(0,0,0,0.9)', sb:16 });
+    // cierre: la pregunta vuelve (loop) + pedir que lo compartan
+    var bb = seg(t, 17.2, 17.8);
+    var gb = C.createLinearGradient(0, 1150, 0, 1560);
+    gb.addColorStop(0, 'rgba(3,5,12,0)'); gb.addColorStop(0.5, 'rgba(3,5,12,'+(0.62*bb)+')'); gb.addColorStop(1, 'rgba(3,5,12,0)');
+    C.fillStyle = gb; C.fillRect(0, 1150, W, 410);
+    wordsLine('¿Encontraste tu calle?', 1262, 60, FONT.sans, 700, t, 17.35, { hl:['calle?'] });
+    pill('Mandáselo a alguien de Henderson', 1350, 34, 17.85, t);
+    var fp = eOut(seg(t, 18.3, 18.9));
+    text('Con cariño, el equipo de Henderseeds.', 540, 1452 + (1 - fp)*20, 32, FONT.sans, 500, '#C9D4E6', { alpha:fp*0.92, shadow:'rgba(0,0,0,0.9)', sb:16 });
+  }
+  function captions(t){
+    var g = C.createLinearGradient(0, 1340, 0, 1700);
+    var ca = clamp(seg(t, 2.3, 2.8)*(1 - seg(t, 15.0, 15.4)));
+    g.addColorStop(0, 'rgba(3,5,12,0)'); g.addColorStop(0.5, 'rgba(3,5,12,'+(0.6*ca)+')'); g.addColorStop(1, 'rgba(3,5,12,'+(0.45*ca)+')');
+    C.fillStyle = g; C.fillRect(0, 1340, W, 360);
+    wordsLine('Henderson, calle por calle.', 1520, 62, FONT.sans, 700, t, 2.5, { t1:5.0, hl:['calle'] });
+    wordsLine('Acá nos conocemos todos.', 1520, 62, FONT.sans, 700, t, 5.05, { t1:7.45, hl:['todos'] });
+    wordsLine('Los lugares de siempre.', 1520, 62, FONT.sans, 700, t, 7.5, { t1:12.45, hl:['siempre'] });
+    wordsLine('117 años con luz propia.', 1520, 64, FONT.sans, 700, t, 12.55, { t1:15.0, hl:['luz','propia'] });
+    // atribución obligatoria de los datos (siempre visible)
+    var aa = seg(t, 0.3, 0.9);
+    text('Mapa: © colaboradores de OpenStreetMap', 540, 1628, 20, FONT.mono, 400, 'rgba(201,212,230,0.8)', { ls:1, alpha:aa, shadow:'rgba(0,0,0,0.9)', sb:10 });
+  }
+
+  // ---------- render ----------
+  function render(t){
+    C.setTransform(1,0,0,1,0,0); C.globalAlpha = 1; C.globalCompositeOperation = 'source-over'; C.filter = 'none';
+    setCam(t);
+    var F = keysLin(FRONT, t), night = keys(NIGHT, t);
+    background(t, night);
+    drawAreas(t, F, night);
+    drawRoads(t, F, night);
+    drawLights(t, night);
+    // onda en la plaza con el golpe inicial
+    var pp = seg(t, 0.15, 1.7);
+    if (pp > 0 && pp < 1) { var X = sx(0,0), Y = sy(0,0); C.save(); C.strokeStyle = rgba(OR, 0.75*(1 - pp)); C.lineWidth = 3; C.beginPath(); C.arc(X, Y, 50 + eOut(pp)*380, 0, 6.283); C.stroke(); C.restore(); }
+    drawStreets(t);
+    drawPlaces(t);
+    hook(t);
+    captions(t);
+    finale(t);
+    var v = C.createRadialGradient(540, 960, 560, 540, 960, 1300);
+    v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.55)');
+    C.fillStyle = v; C.fillRect(0,0,W,H);
+    watermark(t);
+    C.save(); C.globalAlpha = 0.05; C.globalCompositeOperation = 'overlay';
+    var fr = Math.floor(t*30); C.drawImage(grain, -(fr*37)%540, -(fr*53)%960, W*2, H*2); C.restore();
+  }
+
+  window.DURATION = DUR;
+  window.renderAt = render;
+  window.ready = Promise.all([
+    document.fonts.load('200px "Archivo Black"'), document.fonts.load('500 26px "DM Mono"'), document.fonts.load('400 20px "DM Mono"'),
+    document.fonts.load('600 34px "DM Sans"'), document.fonts.load('700 62px "DM Sans"'), document.fonts.load('500 32px "DM Sans"'),
+    LOGO.decode ? LOGO.decode().catch(function(){}) : new Promise(function(r){ LOGO.onload = r; })
+  ]);
+  if (/export/.test(location.search)) { document.body.classList.add('export'); return; }
+  var playing = true, start = null, tNow = 0, tc = document.getElementById('tc');
+  function loop(ts){
+    if (start === null) start = ts - tNow*1000;
+    if (playing) tNow = ((ts - start)/1000) % DUR;
+    render(tNow); tc.textContent = tNow.toFixed(1) + ' s';
+    requestAnimationFrame(loop);
+  }
+  document.getElementById('pp').onclick = function(){ playing = !playing; this.textContent = playing ? 'Pausa' : 'Play'; if (playing) start = null; };
+  document.getElementById('rs').onclick = function(){ tNow = 0; start = null; };
+  window.ready.then(function(){ requestAnimationFrame(loop); });
+})();
+</script>
+</body>
+</html>
