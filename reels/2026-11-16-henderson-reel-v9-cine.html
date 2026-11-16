@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reel Henderson · Cine</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#05070d; --fg:#E8EEF7; --muted:#8FA0BE; --accent:#F5A623; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:var(--bg); color:var(--fg); height:100%; }
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:16px; font-family:'DM Mono',monospace; }
+  #c { height:min(86vh, calc((100vw - 32px) * 16 / 9)); aspect-ratio:9/16; border-radius:14px; box-shadow:0 0 0 1px rgba(255,255,255,0.08); background:#000; }
+  .ctrl { display:flex; gap:10px; align-items:center; font-size:13px; color:var(--muted); }
+  button { font-family:inherit; font-size:13px; background:var(--accent); color:#0a0a0a; border:0; border-radius:8px; padding:8px 14px; cursor:pointer; }
+  body.export { padding:0; display:block; }
+  body.export #c { height:auto; width:1080px; border-radius:0; box-shadow:none; }
+  body.export .ctrl { display:none; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div class="ctrl"><button id="pp">Pausa</button><button id="rs">Reiniciar</button><span id="tc">0.0 s</span></div>
+
+<script id="vs" type="x-shader/x-vertex">#version 300 es
+in vec2 a; out vec2 v;
+void main(){ v = a*0.5 + 0.5; gl_Position = vec4(a, 0.0, 1.0); }
+</script>
+
+<script id="fs-scene" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+precision highp int;
+in vec2 v;
+out vec4 o;
+uniform vec2 uRes;
+uniform vec3 uPos, uF, uR, uU;
+uniform float uTanX, uTanY, uT;
+uniform float uSunE, uTermK;
+uniform vec2 uSunD;
+uniform float uCov, uCloudH, uHole, uMist, uNight;
+uniform vec2 uWind;
+uniform float uBank;
+uniform vec2 uBankC;
+
+const vec2 CELL = vec2(1400.0, 1250.0);
+const vec2 COFF = vec2(70.0, -1300.0);
+const vec2 QCELL = vec2(240.0, 240.0);
+
+// ---------- ruido ----------
+uint hu(ivec2 p){
+  uint h = uint(p.x)*1597334677u ^ uint(p.y)*3812015801u;
+  h ^= h >> 16u; h *= 0x7feb352du; h ^= h >> 15u; h *= 0x846ca68bu; h ^= h >> 16u;
+  return h;
+}
+float h1(ivec2 p){ return float(hu(p) >> 8u) * (1.0/16777216.0); }
+vec2 h2(ivec2 p){ uint h = hu(p); return vec2(float(h & 0xffffu), float(h >> 16u)) * (1.0/65535.0); }
+float vn(vec2 x){
+  vec2 i = floor(x), f = fract(x); vec2 u = f*f*(3.0 - 2.0*f); ivec2 I = ivec2(i);
+  float a = h1(I), b = h1(I + ivec2(1,0)), c = h1(I + ivec2(0,1)), d = h1(I + ivec2(1,1));
+  return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+}
+float fbm(vec2 x, float fp, int oct){
+  float s = 0.0, a = 0.5, w = 0.0, fr = 1.0;
+  for (int i = 0; i < 7; i++){
+    if (i >= oct) break;
+    float k = 1.0 - smoothstep(0.3, 1.0, fp*fr);
+    s += a * mix(0.5, vn(x), k); w += a;
+    x = mat2(1.6, 1.2, -1.2, 1.6) * x + vec2(3.1, 1.7); fr *= 2.0; a *= 0.5;
+  }
+  return s / w;
+}
+float stripes(float x, float per, float w, float fp){
+  float d = abs(fract(x/per + 0.5) - 0.5)*per;
+  return (1.0 - smoothstep(w - fp, w + fp, d)) * (1.0 - smoothstep(per*0.2, per*0.45, fp));
+}
+
+// ---------- luz ----------
+vec3 sunColor(float e){
+  vec3 c = mix(vec3(1.0, 0.96, 0.90), vec3(1.0, 0.70, 0.40), smoothstep(0.36, 0.10, e));
+  return mix(c, vec3(1.0, 0.40, 0.17), smoothstep(0.08, 0.0, e));
+}
+vec3 ambient(float e){
+  vec3 c = mix(vec3(0.008, 0.012, 0.028), vec3(0.11, 0.09, 0.16), smoothstep(-0.13, -0.025, e));
+  c = mix(c, vec3(0.26, 0.24, 0.30), smoothstep(-0.025, 0.05, e));
+  return mix(c, vec3(0.29, 0.35, 0.47), smoothstep(0.10, 0.30, e));
+}
+float sunK(float e){ return 1.15*smoothstep(-0.012, 0.05, e)*(0.42 + 0.58*clamp(sin(max(e, 0.0))/0.4, 0.0, 1.0)); }
+vec3 skyCol(vec3 d, float e){
+  float up = max(d.z, 0.0);
+  float dayF = smoothstep(-0.05, 0.25, e);
+  float twiF = smoothstep(-0.20, -0.02, e) * (1.0 - smoothstep(0.06, 0.30, e));
+  vec3 zen = mix(vec3(0.0025, 0.005, 0.016), vec3(0.09, 0.22, 0.52), dayF);
+  vec3 hor = mix(vec3(0.012, 0.018, 0.045), vec3(0.55, 0.65, 0.78), dayF);
+  vec3 c = mix(hor, zen, pow(up, 0.45));
+  vec2 dh = normalize(d.xy + vec2(1e-5));
+  float sa = max(dot(dh, uSunD), 0.0), so = max(dot(dh, -uSunD), 0.0);
+  float hz = exp(-up*7.0);
+  c += vec3(1.0, 0.42, 0.15) * pow(sa, 3.0) * hz * (twiF*1.5 + 0.3*smoothstep(0.35, 0.05, e)*dayF);
+  c += vec3(0.32, 0.14, 0.22) * so * exp(-abs(up - 0.12)*14.0) * twiF * 0.7;
+  vec3 S = vec3(uSunD*cos(e), sin(e));
+  float sd = max(dot(d, S), 0.0);
+  c += vec3(1.0, 0.70, 0.40) * pow(sd, 900.0) * 40.0 * smoothstep(-0.02, 0.01, e);
+  c += vec3(1.0, 0.60, 0.30) * pow(sd, 10.0) * 0.6 * smoothstep(-0.07, 0.02, e);
+  return c;
+}
+vec3 fogCol(vec3 d, float e){
+  vec2 dh = normalize(d.xy + vec2(1e-5));
+  float dayF = smoothstep(-0.05, 0.25, e), twiF = smoothstep(-0.20, -0.02, e) * (1.0 - smoothstep(0.06, 0.30, e));
+  vec3 c = mix(vec3(0.012, 0.018, 0.045), vec3(0.55, 0.65, 0.78), dayF);
+  float sa = max(dot(dh, uSunD), 0.0), hz = pow(1.0 - min(abs(d.z)*1.4, 1.0), 4.0);
+  c += vec3(1.0, 0.42, 0.15) * pow(sa, 3.0) * hz * (twiF*1.2 + 0.25*smoothstep(0.35, 0.05, e)*dayF);
+  return c;
+}
+float eAt(vec2 p){ return uSunE + clamp(uTermK*dot(p, uSunD), -0.07, 0.07); }
+vec3 stars(vec3 d, float pa){
+  if (d.z < 0.015) return vec3(0.0);
+  vec2 sp = vec2(atan(d.y, d.x), asin(d.z)) * 380.0;
+  ivec2 G = ivec2(floor(sp)); vec2 f = fract(sp);
+  float h = h1(G + ivec2(91,17));
+  if (h < 0.986) return vec3(0.0);
+  vec2 c = 0.2 + 0.6*h2(G + ivec2(3,3));
+  float rad = max(0.10, pa*380.0*0.7);
+  float r = length(f - c);
+  float tw = 0.75 + 0.25*sin(uT*2.5 + h*900.0);
+  float b = (h - 0.986)*71.4; b = b*b*b;
+  return vec3(0.82, 0.88, 1.0) * (1.0 - smoothstep(0.0, rad, r)) * (0.10*0.10)/(rad*rad) * (0.4 + 6.0*b) * tw * smoothstep(0.015, 0.25, d.z);
+}
+
+// ---------- pueblo (textura suave, sin calles) ----------
+float townD(vec2 p){
+  vec2 q = p / vec2(930.0, 760.0);
+  float d = length(q) + 0.34*(vn(p/720.0 + 5.3) - 0.5) + 0.09*(vn(p/190.0 + 1.1) - 0.5);
+  d -= 0.16*exp(-pow((p.x - 70.0)/260.0, 2.0))*smoothstep(0.3, 0.9, abs(q.y));   // crece a lo largo de la avenida
+  d -= 0.10*exp(-pow(p.y/240.0, 2.0))*smoothstep(0.4, 0.9, abs(q.x));            // y de la ruta
+  return d;
+}
+float crowns(vec2 p, float cs, float prob, float r0, float r1, float fp, int seed, vec2 cc, float rad){
+  vec2 g = floor(p/cs); float m = 0.0;
+  for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++){
+    ivec2 G = ivec2(g) + ivec2(i, j);
+    vec2 hh = h2(G + ivec2(seed, seed*7 + 3));
+    if (h1(G + ivec2(seed*3 + 11, 5)) > prob) continue;
+    vec2 c = (vec2(G) + 0.2 + 0.6*hh) * cs;
+    if (rad > 0.0){ vec2 dq = abs(c - cc) - vec2(rad, rad*0.62); if (max(dq.x, dq.y) > 0.0) continue; }
+    float r = mix(r0, r1, hh.y);
+    float d = length(p - c);
+    m = max(m, 1.0 - smoothstep(r - fp, r + fp, d));
+  }
+  float rm = 0.5*(r0 + r1);
+  vec2 dq2 = abs(p - cc) - vec2(rad, rad*0.62);
+  float avg = clamp(prob*3.1416*rm*rm/(cs*cs), 0.0, 0.85) * (rad > 0.0 ? 1.0 - smoothstep(-fp, fp, max(dq2.x, dq2.y)) : 1.0);
+  return mix(m, avg, smoothstep(cs*0.2, cs*0.55, fp));
+}
+float rowT(float s, float c, int seed, float fp);
+// damero genérico de pueblo pampeano (sin plaza ni edificios singulares)
+const float BP = 116.0;
+vec2 bLocal(vec2 p, out vec2 bid){ vec2 q = p - vec2(78.0, 8.0); bid = floor(q/BP); return q - bid*BP; }
+bool blockOn(vec2 bid){ vec2 c = bid*BP + vec2(128.0, 58.0); return townD(c) < 1.0 && abs(c.y + 754.0) > 75.0; }
+float townIn(vec2 p){
+  vec2 bid; vec2 l = bLocal(p, bid);
+  bool sx = l.x >= 100.0, sy = l.y >= 100.0;
+  if (!sx && !sy) return blockOn(bid) ? 1.0 : 0.0;
+  bool a = blockOn(bid), b = sx ? blockOn(bid + vec2(1.0, 0.0)) : false, c = sy ? blockOn(bid + vec2(0.0, 1.0)) : false;
+  return (a || b || c) ? 1.0 : 0.0;
+}
+// techos sobre la línea municipal, patios al centro
+float roofM(vec2 p, float fp, out vec3 rc){
+  vec2 bid; vec2 l = bLocal(p, bid);
+  rc = vec3(0.70, 0.66, 0.60);
+  if (l.x >= 100.0 || l.y >= 100.0 || !blockOn(bid)) return 0.0;
+  float dW = l.x, dE = 100.0 - l.x, dN = l.y, dS = 100.0 - l.y;
+  float de = min(min(dW, dE), min(dN, dS));
+  int edge = de == dW ? 0 : (de == dE ? 1 : (de == dN ? 2 : 3));
+  float along = edge < 2 ? l.y : l.x;
+  float lot = floor(along/12.0);
+  ivec2 LK = ivec2(bid)*16 + ivec2(edge, int(lot));
+  vec2 hh = h2(LK + ivec2(31, 7)); float hp = h1(LK + ivec2(3, 19));
+  float dens = 1.0 - smoothstep(0.15, 1.0, townD(bid*BP + vec2(128.0, 58.0)));
+  float occ = 0.55 + 0.42*dens;
+  float depth = mix(12.0, 30.0, hh.x) * (0.8 + 0.4*dens);
+  float inLot = (1.0 - smoothstep(depth - fp, depth + fp, de)) * step(hp, occ);
+  float gap = 1.0 - smoothstep(0.6 - fp, 0.6 + fp, abs(fract(along/12.0) - 0.5)*12.0 - 5.4); // separación entre casas
+  float m = inLot * mix(1.0, gap, 0.6);
+  rc = hh.y < 0.28 ? vec3(0.66, 0.38, 0.27) : (hh.y < 0.6 ? vec3(0.73, 0.71, 0.67) : (hh.y < 0.8 ? vec3(0.84, 0.83, 0.80) : vec3(0.55, 0.53, 0.50)));
+  float k = smoothstep(2.5, 7.0, fp);
+  rc = mix(rc, vec3(0.69, 0.63, 0.57), k);
+  return mix(m, occ*0.45, k);
+}
+float rowS(float s, float c, int seed, float fp){
+  float sp = 9.0, j = floor(s/sp), m = 0.0;
+  for (int k = -1; k <= 1; k++){
+    int J = int(j) + k; vec2 hh = h2(ivec2(J, seed));
+    if (hh.x > 0.45) continue;
+    float cs = (float(J) + 0.5)*sp, r = 2.8 + hh.y*1.6;
+    m = max(m, 1.0 - smoothstep(r - fp, r + fp, length(vec2(s - cs, c))));
+  }
+  float band = (1.0 - smoothstep(3.2 - fp, 3.2 + fp, abs(c))) * 0.32;
+  return mix(m, band, smoothstep(2.0, 5.0, fp));
+}
+float streetTrees(vec2 p, float fp){
+  vec2 bid; vec2 l = bLocal(p, bid);
+  float m = 0.0;
+  if (l.x >= 100.0){ float c = l.x - 100.0; float s = l.y + bid.y*BP;
+    if (abs(c - 3.0) < 6.0) m = max(m, rowS(s, c - 3.0, int(bid.x)*7 + 1, fp));
+    if (abs(c - 13.0) < 6.0) m = max(m, rowS(s + 4.0, c - 13.0, int(bid.x)*7 + 2, fp)); }
+  if (l.y >= 100.0){ float c = l.y - 100.0; float s = l.x + bid.x*BP;
+    if (abs(c - 3.0) < 6.0) m = max(m, rowS(s, c - 3.0, int(bid.y)*13 + 3, fp));
+    if (abs(c - 13.0) < 6.0) m = max(m, rowS(s + 4.0, c - 13.0, int(bid.y)*13 + 4, fp)); }
+  return m;
+}
+float yardTrees(vec2 p, float fp){
+  vec2 bid; vec2 l = bLocal(p, bid);
+  if (l.x >= 100.0 || l.y >= 100.0) return 0.0;
+  float de = min(min(l.x, 100.0 - l.x), min(l.y, 100.0 - l.y));
+  return crowns(p, 7.5, 0.42, 2.8, 4.6, fp, 77, vec2(0.0), -1.0) * smoothstep(18.0, 26.0, de);
+}
+vec3 townAlb(vec2 p, float fp, out float tree){
+  vec2 bid; vec2 l = bLocal(p, bid);
+  float dens = 1.0 - smoothstep(0.15, 1.0, townD(p));
+  bool street = l.x >= 100.0 || l.y >= 100.0;
+  vec3 streetC = mix(vec3(0.58, 0.53, 0.46), vec3(0.52, 0.51, 0.49), smoothstep(0.2, 0.7, dens));
+  float nb = fbm(p/140.0 + 4.0, fp/140.0, 3);
+  vec3 patio = mix(vec3(0.36, 0.44, 0.25), vec3(0.46, 0.45, 0.38), 0.35 + 0.4*(nb - 0.5));
+  vec3 rc; float rm = roofM(p, fp, rc);
+  vec3 c = street ? streetC : mix(patio, rc, rm);
+  tree = street ? streetTrees(p, fp) : yardTrees(p, fp)*(1.0 - rm);
+  // a distancia: promedio de manzana y calle
+  float k = smoothstep(4.0, 12.0, fp);
+  vec3 avg = mix(streetC, mix(patio, vec3(0.69, 0.63, 0.57), 0.45), 0.74);
+  c = mix(c, avg*(0.92 + 0.16*nb), k);
+  tree = mix(tree, 0.20 + 0.16*(1.0 - dens), k);
+  c = mix(c, vec3(0.42, 0.40, 0.38), 1.0 - smoothstep(3.5 - fp, 3.5 + fp, abs(p.y + 754.0)));
+  return c;
+}
+float townShadow(vec2 p, float fp, float tn){
+  vec3 dm;
+  float r = roofM(p + uSunD*min(70.0, 6.5*tn), fp, dm);
+  float t = max(streetTrees(p + uSunD*min(90.0, 9.0*tn), fp), yardTrees(p + uSunD*min(90.0, 9.0*tn), fp));
+  return max(r*0.9, t);
+}
+
+// ---------- campo ----------
+float rowT(float s, float c, int seed, float fp){
+  float sp = 8.5, j = floor(s/sp), m = 0.0;
+  for (int k = -1; k <= 1; k++){
+    int J = int(j) + k; vec2 hh = h2(ivec2(J, seed));
+    float cs = (float(J) + 0.5)*sp + (hh.x - 0.5)*3.0, r = 4.0 + hh.y*2.4;
+    float d = length(vec2(s - cs, c + (hh.y - 0.5)*1.6));
+    m = max(m, 1.0 - smoothstep(r - fp, r + fp, d));
+  }
+  float band = (1.0 - smoothstep(4.5 - fp, 4.5 + fp, abs(c))) * 0.78 * min(1.0, 9.0/(2.0*fp + 0.001) + 0.35);
+  return mix(m, band, smoothstep(2.0, 5.0, fp));
+}
+void lotOf(vec2 p, float td, out ivec2 CI, out vec2 lp, out vec2 l0, out vec2 l1, out bool sub, out ivec2 LI);
+float treesAt(vec2 p, float fp){
+  ivec2 CIx, LIx; vec2 lpx, l0x, l1x; bool subx;
+  lotOf(p, 0.0, CIx, lpx, l0x, l1x, subx, LIx);
+  float mm = 0.0;
+  if (subx && h1(LIx + ivec2(9,1)) < 0.45){
+    vec2 hc = (p - lpx) + l0x + vec2(46.0, 40.0);
+    mm = crowns(p, 8.0, 0.72, 3.0, 5.4, fp, LIx.x*5 + LIx.y*11, hc + vec2(10.0, 6.0), 46.0);
+  }
+  vec2 q = p - COFF; vec2 ci = floor(q/CELL); vec2 lp = q - ci*CELL; ivec2 CI = ivec2(ci);
+  float m = 0.0, o = 16.0; int sd = CI.x*31 + CI.y*977;
+  if (abs(lp.y - o) < 9.0 + fp && h1(CI + ivec2(101,0)) < 0.32) m = max(m, rowT(lp.x, lp.y - o, sd + 1, fp));
+  if (abs(lp.y - (CELL.y - o)) < 9.0 + fp && h1(CI + ivec2(102,0)) < 0.22) m = max(m, rowT(lp.x, lp.y - (CELL.y - o), sd + 2, fp));
+  if (abs(lp.x - o) < 9.0 + fp && h1(CI + ivec2(103,0)) < 0.30) m = max(m, rowT(lp.y, lp.x - o, sd + 3, fp));
+  if (abs(lp.x - (CELL.x - o)) < 9.0 + fp && h1(CI + ivec2(104,0)) < 0.22) m = max(m, rowT(lp.y, lp.x - (CELL.x - o), sd + 4, fp));
+  m = max(m, mm);
+  if (!subx && h1(CI + ivec2(105,0)) < 0.42){
+    vec2 hh = h2(CI + ivec2(106,0));
+    vec2 cc = ci*CELL + COFF + vec2(160.0 + hh.x*(CELL.x - 320.0), 160.0 + hh.y*(CELL.y - 320.0));
+    if (length(p - cc) < 160.0) m = max(m, crowns(p, 9.0, 0.8, 3.2, 5.8, fp, CI.x*13 + CI.y*7 + 5, cc, 85.0));
+  }
+  return m;
+}
+void lotOf(vec2 p, float td, out ivec2 CI, out vec2 lp, out vec2 l0, out vec2 l1, out bool sub, out ivec2 LI){
+  vec2 q = p - COFF; vec2 ci = floor(q/CELL); lp = q - ci*CELL; CI = ivec2(ci);
+  vec2 cc = ci*CELL + COFF + CELL*0.5;
+  sub = townD(cc) < 2.3;
+  float nx, ny;
+  if (sub){ nx = 3.0 + floor(h1(CI + ivec2(21,4))*3.0); ny = 3.0 + floor(h1(CI + ivec2(22,4))*2.0); }
+  else { float n = 1.0 + floor(h1(CI + ivec2(7,7))*3.2); bool vert = h1(CI + ivec2(8,8)) < 0.5; nx = vert ? n : 1.0; ny = vert ? 1.0 : n; }
+  vec2 k = floor(lp/(CELL/vec2(nx, ny)));
+  l0 = k*CELL/vec2(nx, ny); l1 = (k + 1.0)*CELL/vec2(nx, ny);
+  LI = CI*8 + ivec2(int(k.x), int(k.y)*3 + 1);
+}
+vec3 fieldAlb(vec2 p, float fp, float td){
+  ivec2 CI, LI; vec2 lp, l0, l1; bool sub;
+  lotOf(p, td, CI, lp, l0, l1, sub, LI);
+  float dLot = min(min(lp.x - l0.x, l1.x - lp.x), min(lp.y - l0.y, l1.y - lp.y));
+  float dCell = min(min(lp.x, CELL.x - lp.x), min(lp.y, CELL.y - lp.y));
+  float lh = h1(LI), lv = h1(LI + ivec2(5,9));
+  int crop = int(floor(lh*9.0));
+  if (crop == 7) crop = 4; if (crop == 8) crop = 5;
+  if (sub) crop = lh < 0.48 ? 4 : (lh < 0.7 ? 5 : (lh < 0.88 ? 0 : 2));
+  float across = h1(LI + ivec2(1,1)) < 0.5 ? lp.y : lp.x;
+  vec3 a;
+  if (crop == 0) a = mix(vec3(0.68,0.60,0.33), vec3(0.52,0.56,0.28), lv);
+  else if (crop == 1) a = mix(vec3(0.62,0.62,0.32), vec3(0.72,0.64,0.38), lv);
+  else if (crop == 2) a = mix(vec3(0.42,0.35,0.27), vec3(0.35,0.29,0.22), lv);
+  else if (crop == 3) a = mix(vec3(0.43,0.37,0.26), vec3(0.40,0.38,0.24), lv);
+  else if (crop == 4) a = mix(vec3(0.37,0.47,0.24), vec3(0.46,0.52,0.30), lv);
+  else if (crop == 5) a = vec3(0.29,0.43,0.20);
+  else a = vec3(0.64,0.57,0.41);
+  float m = fbm(p/700.0 + vec2(lh*20.0), fp/700.0, 5);
+  a *= 0.80 + 0.40*m;
+  if (crop == 4 || crop == 5) a *= 0.9 + 0.2*fbm(p/55.0, fp/55.0, 3);
+  float fadeFine = 1.0 - smoothstep(1.5, 4.0, fp);
+  if (crop <= 1) a *= 1.0 - 0.22*stripes(across + 18.0*lv, 36.0, 0.9, fp);
+  if (crop == 6) a *= 1.0 + 0.07*(smoothstep(0.42, 0.58, fract(across/9.2)) - 0.5)*fadeFine;
+  if (crop == 2 || crop == 3) a *= 1.0 + 0.05*(smoothstep(0.4, 0.6, fract(across/12.0)) - 0.5)*fadeFine;
+  a *= mix(1.0, (crop <= 1 || crop == 6) ? 1.07 : 0.95, 1.0 - smoothstep(14.0, 22.0, min(dLot, dCell)));
+  float fence = (1.0 - smoothstep(0.5 - fp, 0.5 + fp, dLot)) * step(7.0, dCell) * (1.0 - smoothstep(1.0, 3.0, fp));
+  a *= 1.0 - 0.35*fence;
+  if (sub && h1(LI + ivec2(9,1)) < 0.45){
+    vec2 hc = l0 + vec2(46.0, 40.0), dd = abs(lp - hc) - vec2(8.0, 5.5);
+    a = mix(a, vec3(0.66,0.42,0.32), 1.0 - smoothstep(-fp, fp, max(dd.x, dd.y)));
+  }
+  float road = 1.0 - smoothstep(5.0 - fp, 5.0 + fp, dCell);
+  float verge = (1.0 - smoothstep(7.5 - fp, 7.5 + fp, dCell)) * (1.0 - road);
+  a = mix(a, vec3(0.40,0.42,0.28), verge*0.8);
+  a = mix(a, vec3(0.60,0.53,0.42)*(0.92 + 0.12*fbm(p/6.0, fp/6.0, 2)), road);
+  float dr = min(abs(p.x - 70.0), abs(p.y));
+  a = mix(a, vec3(0.30,0.30,0.31), 1.0 - smoothstep(4.5 - fp, 4.5 + fp, dr));
+  a = mix(a, vec3(0.42,0.40,0.38), 1.0 - smoothstep(3.5 - fp, 3.5 + fp, abs(p.y + 754.0)));
+  return a;
+}
+
+// ---------- luces de noche ----------
+float glowK(float d2, float sig){ return exp(-d2/(2.0*sig*sig)) * (1.7*1.7)/(sig*sig); }
+vec3 townLights(vec2 p, float fp, float td, float eL){
+  if (td > 1.25) return vec3(0.0);
+  float sig = max(1.6, fp*0.75);
+  vec3 L = vec3(0.0);
+  // farolas sobre las calles (cada media cuadra)
+  for (int ax = 0; ax < 2; ax++){
+    float cs = ax == 0 ? p.x - 70.0 : p.y;            // a través de la calle
+    float al = ax == 0 ? p.y : p.x - 70.0;            // a lo largo
+    float sc = floor(cs/BP + 0.5)*BP, sa = floor(al/58.0 + 0.5)*58.0;
+    vec2 lp = ax == 0 ? vec2(70.0 + sc + 6.0, sa) : vec2(70.0 + sa, sc + 6.0);
+    float main_ = (abs(sc) < 1.0) ? 1.6 : 1.0;          // avenida y ruta, más iluminadas
+    vec2 bid; bLocal(lp + vec2(-14.0, -14.0), bid);
+    if (townIn(lp) <= 0.0) continue;
+    ivec2 G = ivec2(floor(lp/7.0)) + ivec2(ax*991, 5);
+    float thr = -0.010 - 0.035*h1(G);
+    float on = smoothstep(thr + 0.004, thr - 0.004, eL);
+    vec3 col = h1(G + ivec2(2,2)) < 0.6 ? vec3(1.0, 0.56, 0.22) : vec3(1.0, 0.88, 0.70);
+    L += col * glowK(dot(p - lp, p - lp), sig) * on * main_ * 1.4;
+  }
+  // ventanas de las casas
+  float s = 13.0; vec2 g = floor(p/s);
+  for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++){
+    ivec2 G = ivec2(g) + ivec2(i, j);
+    vec2 hh = h2(G + ivec2(5,61));
+    vec2 c = (vec2(G) + 0.15 + 0.7*hh) * s;
+    vec3 dm; if (roofM(c, 0.5, dm) < 0.5) continue;
+    if (h1(G + ivec2(71,3)) > 0.55) continue;
+    float thr = -0.012 - 0.05*h1(G + ivec2(3,3));
+    float on = smoothstep(thr + 0.004, thr - 0.004, eL);
+    if (on <= 0.0) continue;
+    vec3 col = hh.y < 0.75 ? vec3(1.0, 0.62, 0.30) : vec3(0.95, 0.90, 0.85);
+    L += col * (0.35 + 0.9*hh.x) * on * glowK(dot(p - c, p - c), sig);
+  }
+  return L * 5.0;
+}
+vec3 roadLamps(vec2 p, float fp, float td, float eL){ return vec3(0.0); }
+vec3 farmLights(vec2 p, float fp, float eL){
+  vec2 q = p - COFF; vec2 ci = floor(q/CELL); ivec2 CI = ivec2(ci);
+  if (h1(CI + ivec2(105,0)) >= 0.42) return vec3(0.0);
+  vec2 hh = h2(CI + ivec2(106,0));
+  vec2 cc = ci*CELL + COFF + vec2(160.0 + hh.x*(CELL.x - 320.0), 160.0 + hh.y*(CELL.y - 320.0));
+  if (townD(ci*CELL + COFF + CELL*0.5) < 2.3) return vec3(0.0);
+  float thr = -0.015 - 0.05*h1(CI + ivec2(107,0));
+  float on = smoothstep(thr + 0.005, thr - 0.005, eL);
+  float sig = max(2.2, fp*0.8);
+  return vec3(1.0, 0.70, 0.40) * glowK(dot(p - cc, p - cc), sig) * 12.0 * on;
+}
+vec3 subLights(vec2 p, float fp, float eL){
+  ivec2 CI, LI; vec2 lp, l0, l1; bool sub;
+  lotOf(p, 0.0, CI, lp, l0, l1, sub, LI);
+  if (!sub || h1(LI + ivec2(9,1)) >= 0.45) return vec3(0.0);
+  vec2 hc = (p - lp) + l0 + vec2(46.0, 40.0);
+  float thr = -0.015 - 0.05*h1(LI + ivec2(4,4));
+  float on = smoothstep(thr + 0.005, thr - 0.005, eL);
+  return vec3(1.0, 0.68, 0.38) * glowK(dot(p - hc, p - hc), max(2.0, fp*0.8)) * 9.0 * on;
+}
+vec3 cars(vec2 p, float fp, float eL){
+  float nOn = smoothstep(-0.005, -0.03, eL);
+  if (nOn <= 0.0) return vec3(0.0);
+  float sig = max(1.4, fp*0.7);
+  vec3 L = vec3(0.0);
+  for (int axis = 0; axis < 2; axis++){
+    float cross_ = axis == 0 ? p.x - 70.0 : p.y;
+    float along = axis == 0 ? p.y : p.x;
+    if (abs(cross_) > 8.0*sig + 6.0) continue;
+    for (int lane = 0; lane < 2; lane++){
+      float lx = lane == 0 ? -2.0 : 2.0, dx = cross_ - lx;
+      float vel = lane == 0 ? 42.0 : -38.0, sp = 210.0;
+      float s = along - vel*uT, k = floor(s/sp);
+      for (int m = 0; m < 2; m++){
+        float kk = k + float(m);
+        float hh = h1(ivec2(int(kk), 11 + lane + axis*7));
+        if (hh < 0.45) continue;
+        float c = (kk + 0.5 + 0.35*(hh - 0.7))*sp;
+        float dy = s - c;
+        vec3 col = lane == 0 ? vec3(1.0, 0.93, 0.82)*1.5 : vec3(1.0, 0.13, 0.06);
+        L += col * glowK(dx*dx + dy*dy, sig);
+      }
+    }
+  }
+  return L * 7.0 * nOn;
+}
+vec3 trainL(vec2 p, float fp, float eL){
+  float nOn = smoothstep(-0.005, -0.03, eL);
+  float dy = p.y + 754.0;
+  float sig = max(1.4, fp*0.7);
+  if (nOn <= 0.0 || abs(dy) > 10.0*sig + 160.0) return vec3(0.0);
+  float xh = -9000.0 + 46.0*(uT - 12.0)*12.0;
+  float s = p.x - xh;
+  vec3 L = vec3(0.0);
+  if (s < 2.0*sig && s > -260.0 - 2.0*sig && abs(dy) < 6.0*sig + 3.0){
+    float wn = (floor(s/6.0) + 0.5)*6.0;
+    L += vec3(1.0, 0.72, 0.42) * glowK((s - wn)*(s - wn) + dy*dy, sig) * 0.7 * step(-258.0, wn);
+  }
+  L += vec3(1.0, 0.95, 0.85) * glowK(s*s + dy*dy, sig) * 3.0;
+  if (s > 0.0 && s < 260.0){ float w = 3.0 + 0.16*s; L += vec3(1.0, 0.9, 0.7) * exp(-dy*dy/(2.0*w*w)) * exp(-s/90.0) * 0.35; }
+  return L * 7.0 * nOn;
+}
+
+// ---------- nubes ----------
+float cloudDen(vec2 q, float fp, int oct){
+  float n = fbm(q/3200.0 + uWind, fp/3200.0, oct);
+  float d = smoothstep(uCov, uCov + 0.11, n);
+  d = d*d*(3.0 - 2.0*d);
+  if (uHole > 0.0) d *= smoothstep(uHole*0.55, uHole, length(q));
+  if (uBank > 0.0){
+    float bk = smoothstep(0.34, 0.6, fbm(q/1500.0 + 3.3, fp/1500.0, oct)) * (1.0 - smoothstep(1400.0, 5600.0, length(q - uBankC)));
+    d = max(d, bk*uBank);
+  }
+  return d;
+}
+vec4 cloudShade(vec2 q, float fp, float e, float below){
+  float d = cloudDen(q, fp, 6);
+  if (d <= 0.002) return vec4(0.0);
+  float dt = cloudDen(q + uSunD*280.0, fp, 4);
+  float lt = clamp(1.0 - (dt - d)*1.5 - d*0.35, 0.22, 1.0);
+  vec3 sC = sunColor(e); float sI = sunK(e);
+  vec3 amb = ambient(e);
+  vec3 c = sC*sI*2.6*lt + amb*mix(1.35, 0.75, below);
+  c += sC*sI*1.2*(1.0 - d)*lt;
+  c = mix(c, c*0.55, d*below);
+  float tg = exp(-dot(q, q)/(2800.0*2800.0));
+  c += vec3(1.0, 0.47, 0.19) * tg * 0.20 * uNight * mix(0.25, 1.0, below);
+  return vec4(c, d*0.97);
+}
+vec4 mistL(vec2 q, float fp){
+  float n = fbm(q/1400.0 + uWind*1.7 + 9.0, fp/1400.0, 4);
+  float d = smoothstep(0.5, 0.85, n) * uMist * 0.5;
+  float tg = exp(-dot(q, q)/(1900.0*1900.0));
+  return vec4(vec3(0.018, 0.026, 0.05) + vec3(1.0, 0.5, 0.22)*tg*0.32, d);
+}
+
+// ---------- suelo ----------
+vec3 shadeGround(vec2 p, float fp, vec3 dir){
+  float eL = eAt(p);
+  float td = townD(p);
+  vec3 fa = fieldAlb(p, fp, td);
+  float tm = td > 0.85 ? treesAt(p, fp) : 0.0;
+  float wn = fbm(p/3400.0 + 21.7, fp/3400.0, 4);
+  float away = smoothstep(2.4, 3.6, td);
+  float waterM = smoothstep(0.745, 0.745 + max(0.004, fp/1800.0), wn) * away;
+  float reed = smoothstep(0.725, 0.745, wn) * away * (1.0 - waterM);
+  fa = mix(fa, vec3(0.28, 0.32, 0.20), reed*0.8);
+  float tIn = td < 1.15 ? townIn(p) : 0.0;
+  float tTree = 0.0;
+  vec3 ta = vec3(0.0);
+  if (tIn > 0.0) ta = townAlb(p, fp, tTree);
+  vec3 alb = mix(fa, ta, tIn);
+  float treeAll = max(tm*(1.0 - tIn), tTree*tIn);
+  alb = mix(alb, vec3(0.13, 0.21, 0.09), treeAll*(1.0 - waterM));
+  alb = pow(alb, vec3(2.2));
+  float sI = sunK(eL);
+  float tsh = 0.0, csh = 1.0;
+  if (sI > 0.0){
+    float tn = 1.0/max(tan(max(eL, 0.02)), 0.09);
+    vec2 ps = p + uSunD*min(130.0, 11.0*tn);
+    float tdS = townD(ps);
+    float inS = tdS < 1.15 ? townIn(ps) : 0.0;
+    float shT = tdS > 0.9 ? treesAt(ps, fp) : 0.0;
+    float shU = inS > 0.0 ? townShadow(p, fp, tn) : 0.0;
+    tsh = max(shT*(1.0 - inS), shU*inS) * (1.0 - treeAll*0.6);
+    vec2 pc = p + uSunD*(uCloudH*min(tn, 25.0));
+    csh = 1.0 - 0.62*cloudDen(pc, fp*2.0 + 60.0, 4);
+  }
+  vec3 c = alb * (sunColor(eL)*sI*2.3*(1.0 - 0.74*tsh)*csh*(1.0 + 0.25*treeAll) + ambient(eL));
+  if (waterM > 0.0){
+    vec3 rd = reflect(dir, vec3(0.0, 0.0, 1.0));
+    float ct = clamp(-dir.z, 0.0, 1.0), Fr = 0.02 + 0.98*pow(1.0 - ct, 5.0);
+    vec3 wc = vec3(0.010, 0.026, 0.030)*(sI*2.0 + 0.6) + skyCol(rd, eL)*Fr;
+    c = mix(c, wc, waterM);
+  }
+  if (eL < 0.0){
+    c += townLights(p, fp, td, eL);
+    c += roadLamps(p, fp, td, eL);
+    c += farmLights(p, fp, eL);
+    c += subLights(p, fp, eL);
+    c += cars(p, fp, eL);
+    c += trainL(p, fp, eL);
+    // resplandor general del pueblo sobre el suelo
+    c += vec3(1.0, 0.5, 0.22) * exp(-dot(p, p)/(1500.0*1500.0)) * 0.03 * smoothstep(-0.01, -0.06, eL);
+  }
+  return c;
+}
+
+void main(){
+  vec2 ndc = v*2.0 - 1.0;
+  vec3 dir = normalize(uF + ndc.x*uTanX*uR + ndc.y*uTanY*uU);
+  float pa = 2.0*uTanY/uRes.y;
+  vec3 col;
+  if (dir.z < -0.0005){
+    float tg = uPos.z / -dir.z;
+    vec3 P = uPos + dir*tg;
+    float fp = max(tg*pa / sqrt(max(-dir.z, 0.01)), 0.05);
+    col = shadeGround(P.xy, fp, dir);
+    float eL = eAt(P.xy);
+    float H0 = 1500.0;
+    float od = (H0/14000.0) * (1.0 - exp(-uPos.z/H0)) / max(-dir.z, 0.015);
+    col = mix(col, fogCol(dir, eL)*0.85, 1.0 - exp(-od));
+    if (uMist > 0.0 && uPos.z > 150.0){
+      float tm = (uPos.z - 150.0)/-dir.z; vec4 m = mistL(uPos.xy + dir.xy*tm, tm*pa);
+      col = mix(col, m.rgb, m.a);
+    }
+    if (uPos.z > uCloudH){
+      float tc = (uPos.z - uCloudH)/-dir.z; vec2 qc = uPos.xy + dir.xy*tc;
+      vec4 cl = cloudShade(qc, tc*pa/max(-dir.z, 0.2), eAt(qc), 0.0);
+      col = mix(col, cl.rgb, cl.a);
+    }
+  } else {
+    col = skyCol(dir, uSunE) + stars(dir, pa) * (1.0 - smoothstep(-0.12, -0.05, uSunE));
+    if (uPos.z < uCloudH && dir.z > 0.0005){
+      float tc = (uCloudH - uPos.z)/dir.z; vec2 qc = uPos.xy + dir.xy*tc;
+      vec4 cl = cloudShade(qc, tc*pa/max(dir.z, 0.02), eAt(qc), 1.0);
+      col = mix(col, cl.rgb, cl.a*exp(-tc/90000.0)*smoothstep(0.015, 0.11, dir.z));
+    }
+  }
+  float dz = abs(uPos.z - uCloudH);
+  if (dz < 700.0){
+    float k = 1.0 - dz/700.0;
+    vec4 cl = cloudShade(uPos.xy + ndc*vec2(uTanX, uTanY)*300.0, 40.0, uSunE, 0.0);
+    vec3 cc = cl.a > 0.01 ? cl.rgb : sunColor(uSunE)*2.2*sunK(uSunE) + ambient(uSunE)*1.3;
+    col = mix(col, cc*1.04, k*k*(0.45 + 0.4*cl.a));
+  }
+  o = vec4(col, 1.0);
+}
+</script>
+
+<script id="fs-bright" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+in vec2 v; out vec4 o;
+uniform sampler2D uTex; uniform vec2 uTexel; uniform float uExp;
+void main(){
+  vec3 c = texture(uTex, v + uTexel*vec2(-0.5,-0.5)).rgb + texture(uTex, v + uTexel*vec2(0.5,-0.5)).rgb
+         + texture(uTex, v + uTexel*vec2(-0.5,0.5)).rgb + texture(uTex, v + uTexel*vec2(0.5,0.5)).rgb;
+  c *= 0.25*uExp;
+  o = vec4(max(c - 1.0, 0.0), 1.0);
+}
+</script>
+<script id="fs-blur" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+in vec2 v; out vec4 o;
+uniform sampler2D uTex; uniform vec2 uDir;
+void main(){
+  vec3 c = texture(uTex, v).rgb*0.2270270270;
+  c += texture(uTex, v + uDir*1.3846153846).rgb*0.3162162162 + texture(uTex, v - uDir*1.3846153846).rgb*0.3162162162;
+  c += texture(uTex, v + uDir*3.2307692308).rgb*0.0702702703 + texture(uTex, v - uDir*3.2307692308).rgb*0.0702702703;
+  o = vec4(c, 1.0);
+}
+</script>
+<script id="fs-comp" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+in vec2 v; out vec4 o;
+uniform sampler2D uScene, uB1, uB2; uniform float uExp, uT, uVig;
+vec3 aces(vec3 x){ return clamp((x*(2.51*x + 0.03))/(x*(2.43*x + 0.59) + 0.14), 0.0, 1.0); }
+void main(){
+  vec2 c = v - 0.5; float r2 = dot(c, c);
+  vec2 ca = c*0.0022*r2*4.0;
+  vec3 s = vec3(texture(uScene, v + ca).r, texture(uScene, v).g, texture(uScene, v - ca).b);
+  vec3 b = texture(uB1, v).rgb*0.85 + texture(uB2, v).rgb*0.75;
+  vec3 col = aces(s*uExp + b);
+  col = pow(col, vec3(1.0/2.2));
+  col = mix(col, col*vec3(1.03, 1.0, 0.97), 0.5);
+  col *= 1.0 - uVig*smoothstep(0.12, 0.62, r2*1.6);
+  float n = fract(sin(dot(gl_FragCoord.xy + vec2(uT*61.0, uT*17.0), vec2(12.9898, 78.233)))*43758.5453);
+  col += (n - 0.5)*0.03;
+  o = vec4(col, 1.0);
+}
+</script>
+
+<script>
+(function () {
+  var W = 1080, H = 1920, DUR = 20, OR = '245,166,35';
+  var out = document.getElementById('c'), C = out.getContext('2d');
+  var glc = document.createElement('canvas'); glc.width = W; glc.height = H;
+  var gl = glc.getContext('webgl2', { antialias:false, alpha:false, preserveDrawingBuffer:false });
+  gl.getExtension('EXT_color_buffer_float');
+
+  function sh(type, src){ var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(s)); throw new Error('shader'); } return s; }
+  function prog(fsId){ var p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, document.getElementById('vs').textContent.trim()));
+    gl.attachShader(p, sh(gl.FRAGMENT_SHADER, document.getElementById(fsId).textContent.trim())); gl.bindAttribLocation(p, 0, 'a'); gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(p)); throw new Error('link'); }
+    var u = {}, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); for (var i = 0; i < n; i++) { var inf = gl.getActiveUniform(p, i); u[inf.name] = gl.getUniformLocation(p, inf.name); }
+    return { p:p, u:u }; }
+  var PS = prog('fs-scene'), PB = prog('fs-bright'), PL = prog('fs-blur'), PC = prog('fs-comp');
+  var vb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+  function target(w, h){ var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, w, h, 0, gl.RGBA, gl.HALF_FLOAT, null);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    var f = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+    return { t:t, f:f, w:w, h:h }; }
+  var TS = target(W, H), HA = target(W/2, H/2), HB = target(W/2, H/2), QA = target(W/4, H/4), QB = target(W/4, H/4);
+  function pass(P, tgt){ gl.useProgram(P.p); gl.bindFramebuffer(gl.FRAMEBUFFER, tgt ? tgt.f : null); gl.viewport(0, 0, tgt ? tgt.w : W, tgt ? tgt.h : H); }
+  function tex(P, name, t, unit){ gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t); gl.uniform1i(P.u[name], unit); }
+  function draw(){ gl.drawArrays(gl.TRIANGLES, 0, 3); }
+
+  // ---------- utilidades ----------
+  function clamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t,a,b){ return clamp((t-a)/(b-a)); }
+  function eOut(x){ return 1 - Math.pow(1-x,3); }
+  function eIn(x){ return x*x*x; }
+  function eIO(x){ return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+  function lerp(a,b,x){ return a+(b-a)*x; }
+  function catmull(p0,p1,p2,p3,u){ var u2 = u*u, u3 = u2*u; return 0.5*((2*p1) + (-p0+p2)*u + (2*p0-5*p1+4*p2-p3)*u2 + (-p0+3*p1-3*p2+p3)*u3); }
+  function track(K, t){
+    var i = 0; while (i < K.length-2 && t > K[i+1][0]) i++;
+    var a = K[Math.max(0,i-1)], b = K[i], c = K[i+1], d = K[Math.min(K.length-1,i+2)], u = clamp((t-b[0])/(c[0]-b[0]));
+    var r = []; for (var k = 1; k < b.length; k++) r.push(catmull(a[k], b[k], c[k], d[k], u)); return r;
+  }
+  function smoothKeys(K, t){ // interpolación suave sin sobrepicos
+    var i = 0; while (i < K.length-2 && t > K[i+1][0]) i++;
+    var a = K[i], b = K[i+1], u = eIO(clamp((t-a[0])/(b[0]-a[0]))); return lerp(a[1], b[1], u);
+  }
+
+  // ---------- cámara: [t, ln(distancia), inclinación, rumbo, objetivo x, objetivo y] ----------
+  var CAM = [
+    [0.0,  Math.log(30000), 0.00,  0.50, 500, -900],
+    [4.0,  Math.log(15000), 0.00,  0.34, 250, -450],
+    [6.6,  Math.log(6300),  0.00,  0.20,  80, -120],
+    [10.0, Math.log(5300),  0.04,  0.08,   0,    0],
+    [13.0, Math.log(4900),  0.10, -0.02,   0,    0],
+    [15.2, Math.log(4800),  0.34, -0.22,   0,   40],
+    [18.2, Math.log(5600),  1.37, -0.86,   0,    0],
+    [20.0, Math.log(5800),  1.40, -0.98,   0,  -20]
+  ];
+  var TANY = Math.tan(30*Math.PI/180), TANX = TANY*W/H;
+  var cam = {};
+  function setCam(t){
+    var k = track(CAM, t), D = Math.exp(k[0]), th = Math.max(0, Math.min(1.45, k[1])), yaw = k[2];
+    var hv = [Math.sin(yaw), -Math.cos(yaw), 0];
+    var f = [hv[0]*Math.sin(th), hv[1]*Math.sin(th), -Math.cos(th)];
+    var u = [hv[0]*Math.cos(th), hv[1]*Math.cos(th), Math.sin(th)];
+    var r = [u[1]*f[2] - u[2]*f[1], u[2]*f[0] - u[0]*f[2], u[0]*f[1] - u[1]*f[0]];
+    cam.f = f; cam.u = u; cam.r = r; cam.pos = [k[3] - f[0]*D, k[4] - f[1]*D, -f[2]*D];
+  }
+  function project(x, y, z){
+    var v = [x - cam.pos[0], y - cam.pos[1], z - cam.pos[2]], zz = v[0]*cam.f[0] + v[1]*cam.f[1] + v[2]*cam.f[2];
+    if (zz <= 1) return null;
+    var X = (v[0]*cam.r[0] + v[1]*cam.r[1] + v[2]*cam.r[2])/zz/TANX, Y = (v[0]*cam.u[0] + v[1]*cam.u[1] + v[2]*cam.u[2])/zz/TANY;
+    return [(X + 1)/2*W, (1 - Y)/2*H];
+  }
+
+  // ---------- luz, nubes y exposición ----------
+  var SUNE = [[0,0.42],[5,0.36],[8,0.24],[10.5,0.12],[12.5,0.035],[13.8,-0.01],[15,-0.055],[17,-0.09],[20,-0.105]];
+  var EXPO = [[0,0.9],[7,0.95],[10,1.05],[12.5,1.25],[14.2,1.9],[16,2.3],[20,2.3]];
+  var COV = [[0,0.50],[6,0.52],[12,0.58],[20,0.61]];
+  var SD = (function(){ var x = -0.906, y = -0.423, l = Math.hypot(x,y); return [x/l, y/l]; })();
+
+  function renderGL(t){
+    setCam(t);
+    var e = smoothKeys(SUNE, t), ex = smoothKeys(EXPO, t);
+    pass(PS, TS); var u = PS.u;
+    gl.uniform2f(u.uRes, W, H);
+    gl.uniform3fv(u.uPos, cam.pos); gl.uniform3fv(u.uF, cam.f); gl.uniform3fv(u.uR, cam.r); gl.uniform3fv(u.uU, cam.u);
+    gl.uniform1f(u.uTanX, TANX); gl.uniform1f(u.uTanY, TANY); gl.uniform1f(u.uT, t);
+    gl.uniform1f(u.uSunE, e); gl.uniform1f(u.uTermK, 1.1e-5); gl.uniform2f(u.uSunD, SD[0], SD[1]);
+    gl.uniform1f(u.uCov, smoothKeys(COV, t)); gl.uniform1f(u.uCloudH, 7600);
+    gl.uniform1f(u.uHole, 5200*(1 - seg(t,3.6,5.6))); gl.uniform1f(u.uMist, seg(t,13,16));
+    gl.uniform1f(u.uNight, clamp((0.0 - e)/0.06)); gl.uniform2f(u.uWind, t*0.018, t*0.006);
+    gl.uniform1f(u.uBank, seg(t,4.4,5.5)*(1 - seg(t,6.1,6.9))); gl.uniform2f(u.uBankC, 120, -200);
+    draw();
+    pass(PB, HA); tex(PB, 'uTex', TS.t, 0); gl.uniform2f(PB.u.uTexel, 1/W, 1/H); gl.uniform1f(PB.u.uExp, ex); draw();
+    pass(PL, HB); tex(PL, 'uTex', HA.t, 0); gl.uniform2f(PL.u.uDir, 1.6/(W/2), 0); draw();
+    pass(PL, HA); tex(PL, 'uTex', HB.t, 0); gl.uniform2f(PL.u.uDir, 0, 1.6/(H/2)); draw();
+    pass(PL, QA); tex(PL, 'uTex', HA.t, 0); gl.uniform2f(PL.u.uDir, 1.0/(W/4), 0); draw();
+    pass(PL, QB); tex(PL, 'uTex', QA.t, 0); gl.uniform2f(PL.u.uDir, 0, 2.2/(H/4)); draw();
+    pass(PL, QA); tex(PL, 'uTex', QB.t, 0); gl.uniform2f(PL.u.uDir, 2.2/(W/4), 0); draw();
+    pass(PL, QB); tex(PL, 'uTex', QA.t, 0); gl.uniform2f(PL.u.uDir, 0, 2.2/(H/4)); draw();
+    pass(PC, null); tex(PC, 'uScene', TS.t, 0); tex(PC, 'uB1', HA.t, 1); tex(PC, 'uB2', QB.t, 2);
+    gl.uniform1f(PC.u.uExp, ex); gl.uniform1f(PC.u.uT, t); gl.uniform1f(PC.u.uVig, 0.32); draw();
+  }
+
+  // ---------- tipografía ----------
+  function txt(s, x, y, font, color, o){
+    o = o || {}; C.save();
+    C.font = font; C.textAlign = o.align || 'center'; C.textBaseline = 'alphabetic';
+    if ('letterSpacing' in C) C.letterSpacing = (o.ls || 0) + 'px';
+    C.globalAlpha = o.alpha == null ? 1 : o.alpha;
+    if (o.blur) C.filter = 'blur('+o.blur.toFixed(1)+'px)';
+    if (o.glow) { C.shadowColor = o.glow; C.shadowBlur = o.gb || 40; }
+    C.fillStyle = color; C.fillText(s, x, y); C.restore();
+  }
+  function words(str, y, font, t, t0, t1, color, hl){
+    if (t < t0 || t > t1) return;
+    C.save(); C.font = font; if ('letterSpacing' in C) C.letterSpacing = '-0.5px';
+    var ws = str.split(' '), sp = C.measureText(' ').width, wd = ws.map(function(w){ return C.measureText(w).width; });
+    var tot = wd.reduce(function(a,b){ return a+b; },0) + sp*(ws.length-1), x = 540 - tot/2;
+    C.restore();
+    var out = eIn(seg(t, t1-0.4, t1));
+    for (var i = 0; i < ws.length; i++) {
+      var p = eOut(seg(t, t0 + i*0.07, t0 + i*0.07 + 0.55));
+      var isH = hl && hl.indexOf(ws[i].replace(/[.,]/g,'')) >= 0;
+      txt(ws[i], x + wd[i]/2, y + (1-p)*44 - out*30, font, isH ? 'rgb('+OR+')' : color,
+          { alpha:p*(1-out), blur:(1-p)*12 + out*8, glow: isH ? 'rgba(245,166,35,0.55)' : 'rgba(0,0,0,0.85)', gb: isH ? 30 : 26 });
+      x += wd[i] + sp;
+    }
+  }
+  var OFF = document.createElement('canvas'); OFF.width = W; OFF.height = 320;
+  function overlay(t){
+    var g = C.createLinearGradient(0,1300,0,1720);
+    g.addColorStop(0,'rgba(4,6,14,0)'); g.addColorStop(0.5,'rgba(4,6,14,0.5)'); g.addColorStop(1,'rgba(4,6,14,0.38)');
+    C.fillStyle = g; C.fillRect(0,1300,W,420);
+    txt('16 · XI · 1909   —   16 · XI · 2026', 540, 300, '500 24px "DM Mono"', '#FFFFFF', { ls:6, alpha:seg(t,0.6,1.3)*(1-seg(t,4.2,4.8)), glow:'rgba(0,0,0,0.95)', gb:22 });
+    // marcador: un punto en el mapa
+    var pa = seg(t,1.5,2.1)*(1 - seg(t,4.3,4.9));
+    var P = project(0, 0, 0);
+    if (pa > 0 && P) {
+      var X = P[0], Y = P[1], rr = lerp(170, 66, eOut(seg(t,1.5,2.4)));
+      C.save(); C.globalAlpha = pa; C.strokeStyle = 'rgb('+OR+')'; C.lineWidth = 3; C.shadowColor = 'rgba(0,0,0,0.6)'; C.shadowBlur = 10;
+      C.beginPath(); C.arc(X, Y, rr, -Math.PI/2, -Math.PI/2 + 6.283*eOut(seg(t,1.5,2.3))); C.stroke();
+      var pr = ((t - 1.5)*0.9) % 1; C.globalAlpha = pa*(1-pr)*0.8; C.beginPath(); C.arc(X, Y, rr + pr*90, 0, 6.283); C.stroke();
+      C.globalAlpha = pa; C.lineWidth = 2;
+      [[0,-1],[1,0],[0,1],[-1,0]].forEach(function(d){ C.beginPath(); C.moveTo(X + d[0]*(rr+10), Y + d[1]*(rr+10)); C.lineTo(X + d[0]*(rr+34), Y + d[1]*(rr+34)); C.stroke(); });
+      var lx = X + rr + 60, ly = Y - rr - 40, lp = eOut(seg(t,2.2,2.7));
+      C.beginPath(); C.moveTo(X + rr*0.72, Y - rr*0.72); C.lineTo(lerp(X + rr*0.72, lx, lp), lerp(Y - rr*0.72, ly, lp)); C.lineTo(lerp(X + rr*0.72, lx, lp) + 170*seg(t,2.5,2.9), lerp(Y - rr*0.72, ly, lp)); C.stroke();
+      C.restore();
+      var nm = 'HENDERSON'; txt(nm.slice(0, Math.ceil(nm.length*seg(t,2.6,3.1))), lx + 6, ly - 12, '500 26px "DM Mono"', '#FFFFFF', { align:'left', ls:4, alpha:pa, glow:'rgba(0,0,0,0.9)', gb:14 });
+    }
+    words('Desde arriba, es un punto en el mapa.', 1520, '600 52px "DM Sans"', t, 0.9, 4.7, '#FFFFFF', ['punto']);
+    words('Rodeado de campo, como el primer día.', 1520, '600 52px "DM Sans"', t, 5.3, 8.9, '#FFFFFF', ['campo']);
+    words('Desde adentro, es nuestra casa.', 1520, '600 56px "DM Sans"', t, 9.3, 12.9, '#FFFFFF', ['casa']);
+    words('117 años con luz propia.', 1520, '700 60px "DM Sans"', t, 13.5, 16.1, '#FFFFFF', ['luz','propia']);
+    if (t > 16.3) {
+      var ba = seg(t,16.3,17.2);
+      var gt = C.createLinearGradient(0,120,0,760);
+      gt.addColorStop(0,'rgba(2,4,10,0)'); gt.addColorStop(0.45,'rgba(2,4,10,'+(0.5*ba)+')'); gt.addColorStop(1,'rgba(2,4,10,0)');
+      C.fillStyle = gt; C.fillRect(0,120,W,640);
+      words('Feliz cumpleaños,', 300, '700 72px "DM Sans"', t, 16.5, 99, '#FFFFFF');
+      var word = 'HENDERSON';
+      C.save(); C.font = '200px "Archivo Black"'; if ('letterSpacing' in C) C.letterSpacing = '-4px';
+      var w0 = C.measureText(word).width, fs = Math.min(200, 200*960/w0); C.font = fs+'px "Archivo Black"';
+      var tot = C.measureText(word).width, x = 540 - tot/2; C.restore();
+      for (var i = 0; i < word.length; i++) {
+        C.save(); C.font = fs+'px "Archivo Black"'; if ('letterSpacing' in C) C.letterSpacing = '-4px';
+        var cw = C.measureText(word[i]).width - 4; C.restore();
+        var p = seg(t, 16.8 + i*0.055, 17.4 + i*0.055);
+        if (p > 0) {
+          C.save(); C.translate(x + cw/2, 482 + (1-eOut(p))*60); var sc = lerp(1.6, 1, eOut(p)); C.scale(sc, sc);
+          C.globalAlpha = clamp(p*2.5); C.filter = 'blur('+((1-eOut(p))*14).toFixed(1)+'px)';
+          C.font = fs+'px "Archivo Black"'; C.textAlign = 'center';
+          C.fillStyle = 'rgba(10,6,4,0.55)'; C.shadowColor = 'rgba(0,0,0,0.85)'; C.shadowBlur = 40; C.fillText(word[i], 0, 6);
+          C.fillStyle = 'rgb('+OR+')'; C.shadowColor = 'rgba(245,166,35,0.6)'; C.shadowBlur = 45; C.fillText(word[i], 0, 0); C.restore();
+        }
+        x += cw;
+      }
+      var sw = seg(t,18.0,19.0);
+      if (sw > 0 && sw < 1) {
+        var oc = OFF.getContext('2d'); oc.setTransform(1,0,0,1,0,0); oc.globalCompositeOperation = 'source-over'; oc.clearRect(0,0,W,320);
+        oc.font = fs+'px "Archivo Black"'; if ('letterSpacing' in oc) oc.letterSpacing = '-4px'; oc.textAlign = 'center'; oc.fillStyle = '#fff'; oc.fillText(word, 540, 230);
+        oc.globalCompositeOperation = 'source-in';
+        var sx = lerp(-200, W+200, eIO(sw)), sg = oc.createLinearGradient(sx-150, 0, sx+150, 0);
+        sg.addColorStop(0,'rgba(255,255,255,0)'); sg.addColorStop(0.5,'rgba(255,248,226,0.9)'); sg.addColorStop(1,'rgba(255,255,255,0)');
+        oc.fillStyle = sg; oc.fillRect(0,0,W,320);
+        C.save(); C.globalCompositeOperation = 'lighter'; C.drawImage(OFF, 0, 482 - 230); C.restore();
+      }
+      var da = seg(t,17.6,18.2);
+      txt('1909 — 2026  ·  117 AÑOS', 540, 566, '500 30px "DM Mono"', '#FFFFFF', { ls:lerp(18,6,eOut(da)), alpha:da, glow:'rgba(0,0,0,1)', gb:18 });
+      words('Del campo al pueblo. Del pueblo al campo.', 1520, '600 44px "DM Sans"', t, 17.9, 99, '#FFFFFF', ['campo','pueblo']);
+      var ha = seg(t,18.6,19.1);
+      if (ha > 0) {
+        C.save(); C.globalAlpha = ha; C.fillStyle = 'rgba(4,6,14,0.78)';
+        C.beginPath(); C.roundRect(540-170, 1580, 340, 70, 35); C.fill();
+        C.strokeStyle = 'rgba(245,166,35,0.35)'; C.lineWidth = 1.5; C.stroke(); C.restore();
+        txt('@henderseeds', 540, 1625, '500 28px "DM Mono"', '#E8EEF7', { ls:4, alpha:ha*0.9 });
+      }
+    }
+  }
+
+  function render(t){
+    renderGL(t);
+    C.setTransform(1,0,0,1,0,0); C.globalAlpha = 1; C.globalCompositeOperation = 'source-over'; C.filter = 'none';
+    C.drawImage(glc, 0, 0);
+    overlay(t);
+    var fi = 1 - seg(t,0,0.8); if (fi > 0) { C.fillStyle = 'rgba(255,255,255,'+fi+')'; C.fillRect(0,0,W,H); }
+    var fo = seg(t, DUR-0.5, DUR); if (fo > 0) { C.fillStyle = 'rgba(0,0,0,'+(fo*0.6)+')'; C.fillRect(0,0,W,H); }
+  }
+
+  window.DURATION = DUR;
+  window.renderAt = function(t){ render(t); gl.finish(); };
+  window.ready = Promise.all([
+    document.fonts.load('200px "Archivo Black"'), document.fonts.load('500 24px "DM Mono"'),
+    document.fonts.load('600 52px "DM Sans"'), document.fonts.load('700 72px "DM Sans"')
+  ]);
+  if (/export/.test(location.search)) { document.body.classList.add('export'); return; }
+  var playing = true, start = null, tNow = 0, tcEl = document.getElementById('tc');
+  function loop(ts){
+    if (start === null) start = ts - tNow*1000;
+    if (playing) tNow = ((ts - start)/1000) % DUR;
+    render(tNow); tcEl.textContent = tNow.toFixed(1) + ' s';
+    requestAnimationFrame(loop);
+  }
+  document.getElementById('pp').onclick = function(){ playing = !playing; this.textContent = playing ? 'Pausa' : 'Play'; if (playing) start = null; };
+  document.getElementById('rs').onclick = function(){ tNow = 0; start = null; };
+  window.ready.then(function(){ requestAnimationFrame(loop); });
+})();
+</script>
+</body>
+</html>
