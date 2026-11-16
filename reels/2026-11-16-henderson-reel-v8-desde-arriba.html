@@ -140,15 +140,18 @@
   // ---------- luz del día ----------
   var DAY = {};
   function setDay(t){
-    DAY.gold = Math.sin(Math.PI*seg(t,7.5,12.2));      // hora dorada
+    DAY.gold = Math.sin(Math.PI*seg(t,7.5,12.9));      // hora dorada
     DAY.night = eIO(seg(t,10.6,12.8));
+    DAY.term = lerp(-700, 2750, eIO(seg(t,10.1,13.3)));   // línea día/noche que barre la pantalla
   }
   function grade(c){
-    var g = DAY.gold, n = DAY.night;
+    var g = DAY.gold, n = 0;
     var d = [c[0]*(1+0.18*g) + 10*g, c[1]*(1+0.02*g), c[2]*(1-0.18*g)];
     var nn = [c[0]*0.10 + 6, c[1]*0.13 + 12, c[2]*0.18 + 30];
     return mix(d, nn, n);
   }
+
+  function nightAt(X, Y){ return clamp((DAY.term - (X*0.55 + Y*0.835))/520 + 0.5); }
 
   function ground(t){
     C.fillStyle = css(grade([128,140,90])); C.fillRect(0,0,W,H);
@@ -162,7 +165,7 @@
       var lg = C.createLinearGradient(px(mx-gx,my-gy), py(mx-gx,my-gy), px(mx+gx,my+gy), py(mx+gx,my+gy));
       lg.addColorStop(0, css([col[0]*0.93,col[1]*0.93,col[2]*0.93])); lg.addColorStop(1, css([col[0]*1.06,col[1]*1.06,col[2]*1.05]));
       quad(p.x0,p.y0,p.x1,p.y1); C.fillStyle = lg; C.fill();
-      if (p.rows && p.tram && cam.s*60 > 5 && DAY.night < 0.9) {
+      if (p.rows && p.tram && cam.s*60 > 5) {
         C.strokeStyle = css([col[0]*1.14,col[1]*1.12,col[2]*1.1], 0.5); C.lineWidth = Math.max(1, 2.2*cam.s); C.beginPath();
         if (p.dir) for (var tx2 = p.x0 + 30; tx2 < p.x1 - 10; tx2 += 60) { C.moveTo(px(tx2,p.y0+12),py(tx2,p.y0+12)); C.lineTo(px(tx2,p.y1-12),py(tx2,p.y1-12)); }
         else for (var ty2 = p.y0 + 30; ty2 < p.y1 - 10; ty2 += 60) { C.moveTo(px(p.x0+12,ty2),py(p.x0+12,ty2)); C.lineTo(px(p.x1-12,ty2),py(p.x1-12,ty2)); }
@@ -178,8 +181,8 @@
     }
     // texturas: humedad del suelo y grano fino
     if (!PAT1) { PAT1 = sctx.createPattern(NZ1, 'repeat'); PAT2 = sctx.createPattern(NZ2, 'repeat'); }
-    texture(9, PAT1, 0.38*(1 - 0.5*DAY.night));
-    texture(3.2, PAT2, 0.35*clamp((cam.s - 0.07)/0.07)*(1 - 0.5*DAY.night));
+    texture(9, PAT1, 0.38);
+    texture(3.2, PAT2, 0.35*clamp((cam.s - 0.07)/0.07));
     // lagunas y bajos
     LAGUNAS.forEach(function(l){
       C.beginPath(); l.pts.forEach(function(q, i){ var X = px(l.x + (q[0]-l.x)*1.14, l.y + (q[1]-l.y)*1.14), Y = py(l.x + (q[0]-l.x)*1.14, l.y + (q[1]-l.y)*1.14); if (i) C.lineTo(X,Y); else C.moveTo(X,Y); }); C.closePath();
@@ -192,13 +195,13 @@
     });
     // sombras de árboles (largas con el sol bajo)
     var shl = 1.6 + 4.5*DAY.gold;
-    C.save(); C.globalCompositeOperation = 'multiply'; C.fillStyle = 'rgba(40,52,40,'+(0.4*(1-DAY.night))+')'; C.beginPath();
+    C.save(); C.globalCompositeOperation = 'multiply'; C.fillStyle = 'rgba(40,52,40,0.4)'; C.beginPath();
     for (var k0 = 0; k0 < WD.trees.length; k0++) { var t0 = WD.trees[k0]; if (Math.abs(t0.x) < 1000 && Math.abs(t0.y) < 800) continue;
       var sx = t0.x - 0.62*t0.r*shl, sy = t0.y - 0.5*t0.r*shl, X0 = px(sx,sy), Y0 = py(sx,sy); if (X0 < -20 || X0 > W+20 || Y0 < -20 || Y0 > H+20) continue;
       var rr0 = Math.max(0.8, t0.r*cam.s); C.moveTo(X0 + rr0*1.4, Y0); C.ellipse(X0, Y0, rr0*1.4, rr0*0.9, cam.a + 0.68, 0, 6.283); }
     C.fill(); C.restore();
     // caminos y vías
-    C.strokeStyle = DAY.night > 0.5 ? 'rgba(120,140,180,'+(0.22*DAY.night)+')' : css(grade([214,196,160]), 0.85 - 0.5*DAY.night); C.lineWidth = Math.max(1, 9*cam.s);
+    C.strokeStyle = css(grade([214,196,160]), 0.85); C.lineWidth = Math.max(1, 9*cam.s);
     C.beginPath(); ROADS.forEach(function(r){ C.moveTo(px(r[0],r[1]),py(r[0],r[1])); C.lineTo(px(r[2],r[3]),py(r[2],r[3])); }); C.stroke();
     C.strokeStyle = css(grade([90,86,84]), 0.9); C.lineWidth = Math.max(1, 6*cam.s);
     C.beginPath(); C.moveTo(px(-20000,-754),py(-20000,-754)); C.lineTo(px(20000,-754),py(20000,-754)); C.stroke();
@@ -229,56 +232,84 @@
     for (var k = 0; k < WD.trees.length; k++) { var tr = WD.trees[k]; if (Math.abs(tr.x) > 1000 || Math.abs(tr.y) > 800) continue;
       var X2 = px(tr.x,tr.y), Y2 = py(tr.x,tr.y), r2 = Math.max(0.9, tr.r*cam.s); ctx.moveTo(X2+r2, Y2); ctx.arc(X2, Y2, r2, 0, 6.283); }
     ctx.fill();
-    // de noche: el pueblo como constelación
-    if (DAY.night > 0.02) {
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = 'rgba(6,10,22,'+(0.75*DAY.night)+')'; ctx.fillRect(0,0,W,H);
-      ctx.globalCompositeOperation = 'lighter';
-      for (var m = 0; m < WD.boxes.length; m++) { var bb = WD.boxes[m]; if (Math.abs(bb.x0) > 1000 || Math.abs(bb.y0) > 900) continue;
-        var on = seg(t, 11.0 + bb.d*0.0016 + bb.r*0.5, 11.3 + bb.d*0.0016 + bb.r*0.5) * DAY.night; if (on <= 0 || bb.r > 0.75) continue;
-        var jx = ((bb.r*7919) % 1 - 0.5)*7, jy = ((bb.r*3571) % 1 - 0.5)*7;
-        var X3 = px((bb.x0+bb.x1)/2,(bb.y0+bb.y1)/2) + jx, Y3 = py((bb.x0+bb.x1)/2,(bb.y0+bb.y1)/2) + jy;
-        ctx.fillStyle = 'rgba(255,'+(180 + Math.round(bb.r*60))+',110,'+(0.85*on)+')'; ctx.fillRect(X3-1.3, Y3-1.3, 2.6, 2.6); }
-      for (var l = 0; l < WD.lamps.length; l++) { var L = WD.lamps[l]; if (L.k === 1) continue;
-        var on2 = seg(t, 11.0 + L.d*0.0014, 11.3 + L.d*0.0014) * DAY.night; if (on2 <= 0) continue;
-        var X4 = px(L.x,L.y), Y4 = py(L.x,L.y), g2 = ctx.createRadialGradient(X4,Y4,0,X4,Y4,9);
-        g2.addColorStop(0,'rgba(255,214,150,'+(0.55*on2)+')'); g2.addColorStop(1,'rgba(255,180,90,0)'); ctx.fillStyle = g2; ctx.fillRect(X4-9,Y4-9,18,18); }
-      ctx.globalCompositeOperation = 'source-over';
-    }
     C = C0;
     // el pueblo se ve suave, como desde muy alto
-    C.save(); C.filter = 'blur('+(1.6 + 0.8*(1-DAY.night))+'px)'; C.drawImage(TW, 0, 0); C.restore();
+    C.save(); C.filter = 'blur(2.2px)'; C.drawImage(TW, 0, 0); C.restore();
     C.save(); C.globalAlpha = 0.35; C.drawImage(TW, 0, 0); C.restore();
   }
 
+  function hsh(n){ var x = Math.sin(n*127.1 + 311.7)*43758.5453; return x - Math.floor(x); }
+  function nightOverlay(t){
+    var pos = DAY.term; if (pos < -650) return;
+    var a0 = pos - 260, a1 = pos + 260, dx = 0.55, dy = 0.835;
+    C.save();
+    var g = C.createLinearGradient(dx*a0, dy*a0, dx*a1, dy*a1);
+    g.addColorStop(0, 'rgba(22,34,74,1)'); g.addColorStop(1, 'rgba(22,34,74,0)');
+    C.globalCompositeOperation = 'multiply'; C.fillStyle = g; C.fillRect(0,0,W,H);
+    var g2 = C.createLinearGradient(dx*a0, dy*a0, dx*a1, dy*a1);
+    g2.addColorStop(0, 'rgba(8,16,40,0.55)'); g2.addColorStop(1, 'rgba(8,16,40,0)');
+    C.globalCompositeOperation = 'screen'; C.fillStyle = g2; C.fillRect(0,0,W,H);
+    var b0 = pos - 220, b1 = pos + 760;
+    var g3 = C.createLinearGradient(dx*b0, dy*b0, dx*b1, dy*b1);
+    g3.addColorStop(0, 'rgba(255,110,50,0)'); g3.addColorStop(0.22, 'rgba(255,120,55,0.42)'); g3.addColorStop(0.55, 'rgba(255,170,95,0.14)'); g3.addColorStop(1, 'rgba(255,170,95,0)');
+    C.fillStyle = g3; C.fillRect(0,0,W,H);
+    C.restore();
+  }
+  // luces del pueblo: se prenden cuando les pasa la noche por encima
+  function townLights(t){
+    if (DAY.term < -300) return;
+    var ctx = twc; ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation = 'lighter';
+    for (var m = 0; m < WD.boxes.length; m++) { var bb = WD.boxes[m]; if (Math.abs(bb.x0) > 1000 || Math.abs(bb.y0) > 900 || bb.r > 0.75) continue;
+      var jx = ((bb.r*7919) % 1 - 0.5)*7, jy = ((bb.r*3571) % 1 - 0.5)*7;
+      var X3 = px((bb.x0+bb.x1)/2,(bb.y0+bb.y1)/2) + jx, Y3 = py((bb.x0+bb.x1)/2,(bb.y0+bb.y1)/2) + jy;
+      var on = clamp((nightAt(X3,Y3) - 0.45 - hsh(m)*0.35)/0.12); if (on <= 0) continue;
+      ctx.fillStyle = 'rgba(255,'+(180 + Math.round(bb.r*60))+',110,'+(0.85*on)+')'; ctx.fillRect(X3-1.3, Y3-1.3, 2.6, 2.6); }
+    for (var l = 0; l < WD.lamps.length; l++) { var L = WD.lamps[l]; if (L.k === 1) continue;
+      var X4 = px(L.x,L.y), Y4 = py(L.x,L.y), on2 = clamp((nightAt(X4,Y4) - 0.5 - hsh(l+0.3)*0.25)/0.1); if (on2 <= 0) continue;
+      var g2 = ctx.createRadialGradient(X4,Y4,0,X4,Y4,9);
+      g2.addColorStop(0,'rgba(255,214,150,'+(0.55*on2)+')'); g2.addColorStop(1,'rgba(255,180,90,0)'); ctx.fillStyle = g2; ctx.fillRect(X4-9,Y4-9,18,18); }
+    ctx.globalCompositeOperation = 'source-over';
+    C.save(); C.globalCompositeOperation = 'lighter'; C.filter = 'blur(1.6px)'; C.drawImage(TW, 0, 0); C.filter = 'none'; C.globalAlpha = 0.5; C.drawImage(TW, 0, 0); C.restore();
+  }
+  function nightClouds(t){
+    var a = 0.2*DAY.night; if (a <= 0.01) return;
+    C.save();
+    for (var i = 0; i < 12; i++) { var c = CLOUDS[i], x = c.x*0.5 + t*220, y = c.y*0.5 + t*70;
+      var X = cam.cx + ((x-cam.x)*cam.ca - (y-cam.y)*cam.sa)*cam.s*1.15, Y = cam.cy + ((x-cam.x)*cam.sa + (y-cam.y)*cam.ca)*cam.s*1.15, sz = 512*c.s*0.9;
+      if (X < -sz || X > W+sz || Y < -sz || Y > H+sz) continue;
+      C.globalAlpha = a*c.a; C.drawImage(SPRG[c.k], X - sz/2, Y - sz/2, sz, sz); }
+    C.restore();
+  }
+
   function nightLights(t){
-    if (DAY.night <= 0.02) return;
+    if (DAY.term < -300) return;
     C.save(); C.globalCompositeOperation = 'lighter';
     // halo del pueblo
-    var cx = px(0,0), cy = py(0,0), rad = 1500*cam.s;
-    var g = C.createRadialGradient(cx,cy,0,cx,cy,rad); g.addColorStop(0,'rgba(255,170,80,'+(0.32*DAY.night)+')'); g.addColorStop(1,'rgba(255,150,60,0)');
+    var cx = px(0,0), cy = py(0,0), rad = 1500*cam.s, nT = clamp((nightAt(cx,cy) - 0.5)/0.4);
+    var g = C.createRadialGradient(cx,cy,0,cx,cy,rad); g.addColorStop(0,'rgba(255,170,80,'+(0.32*nT)+')'); g.addColorStop(1,'rgba(255,150,60,0)');
     C.fillStyle = g; C.fillRect(cx-rad, cy-rad, rad*2, rad*2);
     // autos: puntos de luz con estela que llegan al pueblo
     CARS.forEach(function(cr){
       var rd = cr.rd, k = ((cr.o + t*cr.v) % 1); if (cr.back) k = 1 - k;
       var x = lerp(rd[0], rd[2], k), y = lerp(rd[1], rd[3], k), dx = (rd[2]-rd[0])*0.012*(cr.back?-1:1), dy = (rd[3]-rd[1])*0.012*(cr.back?-1:1);
-      var X = px(x,y), Y = py(x,y), X2 = px(x-dx,y-dy), Y2 = py(x-dx,y-dy);
-      var lg = C.createLinearGradient(X2,Y2,X,Y); lg.addColorStop(0,'rgba(255,200,120,0)'); lg.addColorStop(1, cr.back ? 'rgba(255,90,70,'+(0.9*DAY.night)+')' : 'rgba(255,236,200,'+(0.95*DAY.night)+')');
+      var X = px(x,y), Y = py(x,y), X2 = px(x-dx,y-dy), Y2 = py(x-dx,y-dy), nC = clamp((nightAt(X,Y) - 0.45)/0.3);
+      if (nC <= 0) return;
+      var lg = C.createLinearGradient(X2,Y2,X,Y); lg.addColorStop(0,'rgba(255,200,120,0)'); lg.addColorStop(1, cr.back ? 'rgba(255,90,70,'+(0.9*nC)+')' : 'rgba(255,236,200,'+(0.95*nC)+')');
       C.strokeStyle = lg; C.lineWidth = 2.4; C.beginPath(); C.moveTo(X2,Y2); C.lineTo(X,Y); C.stroke();
     });
     // cascos de campo encendidos
     CASCOS.forEach(function(cs){
-      var on = seg(t, 11.0 + cs.q*1.6, 11.4 + cs.q*1.6) * DAY.night; if (on <= 0) return;
       var X = px(cs.x, cs.y), Y = py(cs.x, cs.y); if (X < -20 || X > W+20 || Y < -20 || Y > H+20) return;
+      var on = clamp((nightAt(X,Y) - 0.5 - cs.q*0.35)/0.12); if (on <= 0) return;
       var fl = 0.85 + 0.15*Math.sin(t*7 + cs.q*40);
       var cg = C.createRadialGradient(X,Y,0,X,Y,10); cg.addColorStop(0,'rgba(255,214,150,'+(0.8*on*fl)+')'); cg.addColorStop(1,'rgba(255,180,90,0)');
       C.fillStyle = cg; C.fillRect(X-10,Y-10,20,20);
     });
     // tren
-    var tp = seg(t, 11.4, 17.5), tx = lerp(-16000, 9000, tp), TX = px(tx,-754), TY = py(tx,-754), TX2 = px(tx-1600,-754), TY2 = py(tx-1600,-754);
-    var tg = C.createLinearGradient(TX2,TY2,TX,TY); tg.addColorStop(0,'rgba(255,200,120,0)'); tg.addColorStop(1,'rgba(255,240,210,'+DAY.night+')');
+    var tp = seg(t, 11.4, 17.5), tx = lerp(-16000, 9000, tp), TX = px(tx,-754), TY = py(tx,-754), TX2 = px(tx-1600,-754), TY2 = py(tx-1600,-754), nTr = clamp((nightAt(TX,TY) - 0.5)/0.3);
+    var tg = C.createLinearGradient(TX2,TY2,TX,TY); tg.addColorStop(0,'rgba(255,200,120,0)'); tg.addColorStop(1,'rgba(255,240,210,'+nTr+')');
     C.strokeStyle = tg; C.lineWidth = 3.2; C.beginPath(); C.moveTo(TX2,TY2); C.lineTo(TX,TY); C.stroke();
-    var hg = C.createRadialGradient(TX,TY,0,TX,TY,26); hg.addColorStop(0,'rgba(255,246,226,'+DAY.night+')'); hg.addColorStop(1,'rgba(255,220,170,0)');
+    var hg = C.createRadialGradient(TX,TY,0,TX,TY,26); hg.addColorStop(0,'rgba(255,246,226,'+nTr+')'); hg.addColorStop(1,'rgba(255,220,170,0)');
     C.fillStyle = hg; C.fillRect(TX-26,TY-26,52,52);
     C.restore();
   }
@@ -317,9 +348,12 @@
     ground(t);
     cloudShadows(t);
     town(t);
-    nightLights(t);
     // velo dorado
     if (DAY.gold > 0.01) { C.save(); C.globalCompositeOperation = 'soft-light'; C.fillStyle = 'rgba(255,160,80,'+(0.35*DAY.gold)+')'; C.fillRect(0,0,W,H); C.restore(); }
+    nightOverlay(t);
+    townLights(t);
+    nightLights(t);
+    nightClouds(t);
     clouds(t);
   }
 
@@ -354,6 +388,19 @@
     g.addColorStop(0,'rgba(6,8,16,0)'); g.addColorStop(0.5,'rgba(6,8,16,0.55)'); g.addColorStop(1,'rgba(6,8,16,0.4)');
     C.fillStyle = g; C.fillRect(0,1320,W,400);
     txt('16 · XI · 1909  —  16 · XI · 2026', 540, 300, '500 24px "DM Mono"', '#FFFFFF', { ls:6, alpha:seg(t,0.6,1.2)*(1-seg(t,3.4,3.9)), glow:'rgba(0,0,0,0.95)', gb:22 });
+    var pa = seg(t,1.3,1.9)*(1 - seg(t,3.7,4.2));
+    if (pa > 0) {
+      var X = px(0,0), Y = py(0,0), rr = lerp(160, 74, eOut(seg(t,1.3,2.2)));
+      C.save(); C.globalAlpha = pa; C.strokeStyle = 'rgb('+OR+')'; C.lineWidth = 3; C.shadowColor = 'rgba(0,0,0,0.6)'; C.shadowBlur = 10;
+      C.beginPath(); C.arc(X, Y, rr, -Math.PI/2, -Math.PI/2 + 6.283*eOut(seg(t,1.3,2.1))); C.stroke();
+      var pr = ((t - 1.3)*0.9) % 1; C.globalAlpha = pa*(1-pr)*0.8; C.beginPath(); C.arc(X, Y, rr + pr*90, 0, 6.283); C.stroke();
+      C.globalAlpha = pa; C.lineWidth = 2;
+      [[0,-1],[1,0],[0,1],[-1,0]].forEach(function(d){ C.beginPath(); C.moveTo(X + d[0]*(rr+10), Y + d[1]*(rr+10)); C.lineTo(X + d[0]*(rr+34), Y + d[1]*(rr+34)); C.stroke(); });
+      var lx = X + rr + 60, ly = Y - rr - 40, lp = eOut(seg(t,2.0,2.5));
+      C.beginPath(); C.moveTo(X + rr*0.72, Y - rr*0.72); C.lineTo(lerp(X + rr*0.72, lx, lp), lerp(Y - rr*0.72, ly, lp)); C.lineTo(lerp(X + rr*0.72, lx, lp) + 160*seg(t,2.3,2.7), lerp(Y - rr*0.72, ly, lp)); C.stroke();
+      C.restore();
+      var nm = 'HENDERSON'; txt(nm.slice(0, Math.ceil(nm.length*seg(t,2.4,2.9))), lx + 6, ly - 12, '500 26px "DM Mono"', '#FFFFFF', { align:'left', ls:4, alpha:pa, glow:'rgba(0,0,0,0.9)', gb:14 });
+    }
     words('Desde arriba, es un punto en el mapa.', 1520, '600 52px "DM Sans"', t, 0.8, 3.7, '#FFFFFF', ['punto']);
     words('Rodeado de campo, como el primer día.', 1520, '600 52px "DM Sans"', t, 4.1, 7.3, '#FFFFFF', ['campo']);
     words('Desde adentro, es nuestra casa.', 1520, '600 56px "DM Sans"', t, 7.7, 10.8, '#FFFFFF', ['casa']);
@@ -379,6 +426,17 @@
           C.shadowColor = 'rgba(245,166,35,0.6)'; C.shadowBlur = 50; C.fillText(word[i], 0, 0); C.restore();
         }
         x += cw;
+      }
+      var sw = seg(t,15.6,16.6);
+      if (sw > 0 && sw < 1) {
+        var OFF = overlay.off || (overlay.off = (function(){ var c = document.createElement('canvas'); c.width = W; c.height = 300; return c; })());
+        var oc = OFF.getContext('2d'); oc.setTransform(1,0,0,1,0,0); oc.globalCompositeOperation = 'source-over'; oc.clearRect(0,0,W,300);
+        oc.font = fs+'px "Archivo Black"'; if ('letterSpacing' in oc) oc.letterSpacing = '-4px'; oc.textAlign = 'center'; oc.fillStyle = '#fff'; oc.fillText(word, 540, 220);
+        oc.globalCompositeOperation = 'source-in';
+        var sx2 = lerp(-200, W+200, eIO(sw)), shg = oc.createLinearGradient(sx2-150, 0, sx2+150, 0);
+        shg.addColorStop(0,'rgba(255,255,255,0)'); shg.addColorStop(0.5,'rgba(255,248,226,0.9)'); shg.addColorStop(1,'rgba(255,255,255,0)');
+        oc.fillStyle = shg; oc.fillRect(0,0,W,300);
+        C.save(); C.globalCompositeOperation = 'lighter'; C.drawImage(OFF, 0, 660 - 220); C.restore();
       }
       var da = seg(t,15.0,15.6);
       txt('1909 — 2026  ·  117 AÑOS', 540, 745, '500 30px "DM Mono"', '#E8EEF7', { ls:lerp(18,6,eOut(da)), alpha:da*0.9 });
