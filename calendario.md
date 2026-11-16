@@ -58,7 +58,7 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
 ## Noviembre 2026
-> 🌾 **Extra W47 — Aniversario de Henderson, 117 años (lun 16/11):** placa "117 campañas" + **reel animado** ([guion](reels/2026-11-16-henderson-117.md) · [mp4](reels/export/2026-11-16-henderson-117-reel.mp4) + V2 dron, V3 archivo, **V4 plano, V5 estación, V6 vuelo y V7 mapa vivo**),
+> 🌾 **Extra W47 — Aniversario de Henderson, 117 años (lun 16/11):** placa "117 campañas" + **reel animado** ([guion](reels/2026-11-16-henderson-117.md) · [mp4](reels/export/2026-11-16-henderson-117-reel.mp4) + V2 dron, V3 archivo, **V4 plano, V5 estación, V6 vuelo, V7 mapa vivo y V8 desde arriba**),
 > foco en el pueblo y el campo, marca discreta. ✍️ Copy + placa listos →
 > [post-04](posts/2026-W47/post-04-henderson-117.md) ·
 > [placa descargable](docs/placas/2026-11-16-henderson-117.html).
