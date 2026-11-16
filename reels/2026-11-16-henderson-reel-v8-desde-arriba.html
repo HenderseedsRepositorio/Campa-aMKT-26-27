@@ -47,6 +47,7 @@
     quinta0:[112,140,80], quinta1:[100,132,74]
   };
   var TKEYS = ['trigo','siembra','pastura','alfalfa','rastrojo','siembra','pastura','trigo','pastura'];
+  var FARLIGHTS = [];
   var fields = WD.patches.slice();
   var CW = 1400, CH = 1250;
   for (var c = -13; c <= 12; c++) for (var r = -13; r <= 12; r++) {
@@ -60,9 +61,9 @@
       fields.push(p);
     }
     if (R() < 0.35) { var hx = X0 + 60 + R()*(CW-200), hy = Y0 + 60 + R()*(CH-200);
-      for (var q = 0; q < 10; q++) WD.trees.push({ x:hx + R()*90, y:hy + R()*70, r:8, k:0 }); }
+      for (var q = 0; q < 10; q++) WD.trees.push({ x:hx + R()*90, y:hy + R()*70, r:8, k:0 }); FARLIGHTS.push({ x:hx + 40, y:hy + 30, q:R() }); }
   }
-  fields.forEach(function(f){ f.v = 0.92 + R()*0.16; });   // variación de tono por lote
+  fields.forEach(function(f){ f.v = 0.92 + R()*0.16; f.gd = R()*6.283; f.tram = R() < 0.7; });   // variación de tono por lote
   var ROADS = WD.roads.slice();
   for (var c2 = -13; c2 <= 13; c2++) ROADS.push([WD.AVX + c2*CW, -17550, WD.AVX + c2*CW, 15200]);
   for (var r2 = -13; r2 <= 13; r2++) ROADS.push([-18100, -1300 + r2*CH, 18300, -1300 + r2*CH]);
@@ -72,6 +73,33 @@
   [[WD.AVX,-9000,WD.AVX,-700],[WD.AVX,9000,WD.AVX,700],[-12000,0,-900,0],[12000,0,900,0],[-12000,-1300+CH*2,-1400,-1300+CH*2],[WD.AVX+CW*2,12000,WD.AVX+CW*2,1300]].forEach(function(rd, i){
     for (var k = 0; k < 5; k++) CARS.push({ rd:rd, o:R(), v:0.05 + R()*0.04, back: k % 2 === 1 });
   });
+
+  // lagunas y bajos (lejos del pueblo)
+  var LAGUNAS = [ {x:-6900, y:4300, r:620, ph:1.1}, {x:8200, y:-5600, r:430, ph:2.3}, {x:-9800, y:-7800, r:820, ph:0.4}, {x:5200, y:8600, r:360, ph:3.0}, {x:-3600, y:-9200, r:300, ph:1.7} ];
+  LAGUNAS.forEach(function(l){ l.pts = []; for (var k = 0; k < 56; k++) { var a = k/56*6.283;
+    var rr = l.r*(1 + 0.18*Math.sin(a*3 + l.ph) + 0.1*Math.sin(a*5 + l.ph*2) + 0.06*Math.sin(a*9 + l.ph)); l.pts.push([l.x + Math.cos(a)*rr*1.25, l.y + Math.sin(a)*rr*0.85]); } });
+  var CASCOS = WD.molinos.map(function(m){ return { x:m.x - 70, y:m.y - 35, q:(m.ph % 1) }; }).concat(FARLIGHTS);
+  // texturas de suelo (ruido fractal, en coordenadas del mundo)
+  function noiseTile(seed, size, oct){
+    var cv = buf(size,size), g = cv.getContext('2d'), id = g.createImageData(size,size), rr = Pueblo.rng(seed), grids = [];
+    for (var o = 0; o < oct; o++) { var n = 4 << o, arr = new Float32Array(n*n); for (var i = 0; i < n*n; i++) arr[i] = rr(); grids.push({ n:n, a:arr }); }
+    for (var y = 0; y < size; y++) for (var x = 0; x < size; x++) {
+      var v = 0, amp = 1, tot = 0;
+      for (var o2 = 0; o2 < oct; o2++) { var G = grids[o2], n2 = G.n, fx = x/size*n2, fy = y/size*n2, ix = Math.floor(fx), iy = Math.floor(fy), tx = fx-ix, ty = fy-iy;
+        tx = tx*tx*(3-2*tx); ty = ty*ty*(3-2*ty);
+        var a = G.a[(iy%n2)*n2 + (ix%n2)], b = G.a[(iy%n2)*n2 + ((ix+1)%n2)], c = G.a[((iy+1)%n2)*n2 + (ix%n2)], d = G.a[((iy+1)%n2)*n2 + ((ix+1)%n2)];
+        v += amp*((a*(1-tx) + b*tx)*(1-ty) + (c*(1-tx) + d*tx)*ty); tot += amp; amp *= 0.55; }
+      var c8 = Math.round(v/tot*255), q = (y*size + x)*4; id.data[q] = id.data[q+1] = id.data[q+2] = c8; id.data[q+3] = 255;
+    }
+    g.putImageData(id,0,0); return cv;
+  }
+  var NZ1 = noiseTile(11, 512, 5), NZ2 = noiseTile(23, 256, 4), PAT1 = null, PAT2 = null;
+  function texture(kM, pat, alpha){
+    if (alpha <= 0.01) return;
+    pat.setTransform(new DOMMatrix([kM*cam.s*cam.ca, kM*cam.s*cam.sa, -kM*cam.s*cam.sa, kM*cam.s*cam.ca,
+      cam.cx - (cam.x*cam.ca - cam.y*cam.sa)*cam.s, cam.cy - (cam.x*cam.sa + cam.y*cam.ca)*cam.s]));
+    C.save(); C.globalCompositeOperation = 'soft-light'; C.globalAlpha = alpha; C.fillStyle = pat; C.fillRect(0,0,W,H); C.restore();
+  }
 
   // ---------- nubes ----------
   function cloudSprite(seed){
@@ -84,6 +112,7 @@
     return cv;
   }
   var SPR = [cloudSprite(1), cloudSprite(2), cloudSprite(3)];
+  var SPRG = SPR.map(function(sp){ var cv = buf(512,512), g = cv.getContext('2d'); g.drawImage(sp,0,0); g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgb(120,132,156)'; g.fillRect(0,0,512,512); return cv; });
   var CLOUDS = []; for (var i = 0; i < 26; i++) CLOUDS.push({ x:(R()-.5)*30000, y:(R()-.5)*34000, s:1.2 + R()*2.2, k:Math.floor(R()*3), a:0.55 + R()*0.4 });
   var CSH = [];  for (var j = 0; j < 14; j++) CSH.push({ x:(R()-.5)*16000, y:(R()-.5)*18000, rx:1100 + R()*1500, ry:700 + R()*900 });
 
@@ -128,7 +157,17 @@
       var p = fields[i]; if (!vis(p.x0,p.y0,p.x1,p.y1)) continue;
       var base = p.kind === 'quinta' ? (p.tone ? TONE.quinta1 : TONE.quinta0) : TONE[p.tone];
       var col = grade([base[0]*p.v, base[1]*p.v, base[2]*p.v]);
-      quad(p.x0,p.y0,p.x1,p.y1); C.fillStyle = css(col); C.fill();
+      var mx = (p.x0+p.x1)/2, my = (p.y0+p.y1)/2, hw = Math.max(p.x1-p.x0, p.y1-p.y0)*0.5;
+      var gx = Math.cos(p.gd)*hw, gy = Math.sin(p.gd)*hw;
+      var lg = C.createLinearGradient(px(mx-gx,my-gy), py(mx-gx,my-gy), px(mx+gx,my+gy), py(mx+gx,my+gy));
+      lg.addColorStop(0, css([col[0]*0.93,col[1]*0.93,col[2]*0.93])); lg.addColorStop(1, css([col[0]*1.06,col[1]*1.06,col[2]*1.05]));
+      quad(p.x0,p.y0,p.x1,p.y1); C.fillStyle = lg; C.fill();
+      if (p.rows && p.tram && cam.s*60 > 5 && DAY.night < 0.9) {
+        C.strokeStyle = css([col[0]*1.14,col[1]*1.12,col[2]*1.1], 0.5); C.lineWidth = Math.max(1, 2.2*cam.s); C.beginPath();
+        if (p.dir) for (var tx2 = p.x0 + 30; tx2 < p.x1 - 10; tx2 += 60) { C.moveTo(px(tx2,p.y0+12),py(tx2,p.y0+12)); C.lineTo(px(tx2,p.y1-12),py(tx2,p.y1-12)); }
+        else for (var ty2 = p.y0 + 30; ty2 < p.y1 - 10; ty2 += 60) { C.moveTo(px(p.x0+12,ty2),py(p.x0+12,ty2)); C.lineTo(px(p.x1-12,ty2),py(p.x1-12,ty2)); }
+        C.stroke();
+      }
       if (p.rows && rowsOn) {
         C.strokeStyle = css([col[0]*0.86,col[1]*0.86,col[2]*0.86], 0.6); C.lineWidth = 1; C.beginPath();
         var spc = p.sp;
@@ -137,6 +176,27 @@
         C.stroke();
       }
     }
+    // texturas: humedad del suelo y grano fino
+    if (!PAT1) { PAT1 = sctx.createPattern(NZ1, 'repeat'); PAT2 = sctx.createPattern(NZ2, 'repeat'); }
+    texture(9, PAT1, 0.38*(1 - 0.5*DAY.night));
+    texture(3.2, PAT2, 0.35*clamp((cam.s - 0.07)/0.07)*(1 - 0.5*DAY.night));
+    // lagunas y bajos
+    LAGUNAS.forEach(function(l){
+      C.beginPath(); l.pts.forEach(function(q, i){ var X = px(l.x + (q[0]-l.x)*1.14, l.y + (q[1]-l.y)*1.14), Y = py(l.x + (q[0]-l.x)*1.14, l.y + (q[1]-l.y)*1.14); if (i) C.lineTo(X,Y); else C.moveTo(X,Y); }); C.closePath();
+      C.fillStyle = css(grade([104,128,86]), 0.9); C.fill();
+      C.beginPath(); l.pts.forEach(function(q, i){ var X = px(q[0],q[1]), Y = py(q[0],q[1]); if (i) C.lineTo(X,Y); else C.moveTo(X,Y); }); C.closePath();
+      var wc = mix(grade([52,82,96]), [236,196,140], 0.45*DAY.gold);
+      var wg = C.createLinearGradient(px(l.x-l.r,l.y-l.r), py(l.x-l.r,l.y-l.r), px(l.x+l.r,l.y+l.r), py(l.x+l.r,l.y+l.r));
+      wg.addColorStop(0, css(wc)); wg.addColorStop(1, css([wc[0]*0.8, wc[1]*0.86, wc[2]*0.92]));
+      C.fillStyle = wg; C.fill();
+    });
+    // sombras de árboles (largas con el sol bajo)
+    var shl = 1.6 + 4.5*DAY.gold;
+    C.save(); C.globalCompositeOperation = 'multiply'; C.fillStyle = 'rgba(40,52,40,'+(0.4*(1-DAY.night))+')'; C.beginPath();
+    for (var k0 = 0; k0 < WD.trees.length; k0++) { var t0 = WD.trees[k0]; if (Math.abs(t0.x) < 1000 && Math.abs(t0.y) < 800) continue;
+      var sx = t0.x - 0.62*t0.r*shl, sy = t0.y - 0.5*t0.r*shl, X0 = px(sx,sy), Y0 = py(sx,sy); if (X0 < -20 || X0 > W+20 || Y0 < -20 || Y0 > H+20) continue;
+      var rr0 = Math.max(0.8, t0.r*cam.s); C.moveTo(X0 + rr0*1.4, Y0); C.ellipse(X0, Y0, rr0*1.4, rr0*0.9, cam.a + 0.68, 0, 6.283); }
+    C.fill(); C.restore();
     // caminos y vías
     C.strokeStyle = DAY.night > 0.5 ? 'rgba(120,140,180,'+(0.22*DAY.night)+')' : css(grade([214,196,160]), 0.85 - 0.5*DAY.night); C.lineWidth = Math.max(1, 9*cam.s);
     C.beginPath(); ROADS.forEach(function(r){ C.moveTo(px(r[0],r[1]),py(r[0],r[1])); C.lineTo(px(r[2],r[3]),py(r[2],r[3])); }); C.stroke();
@@ -206,6 +266,14 @@
       var lg = C.createLinearGradient(X2,Y2,X,Y); lg.addColorStop(0,'rgba(255,200,120,0)'); lg.addColorStop(1, cr.back ? 'rgba(255,90,70,'+(0.9*DAY.night)+')' : 'rgba(255,236,200,'+(0.95*DAY.night)+')');
       C.strokeStyle = lg; C.lineWidth = 2.4; C.beginPath(); C.moveTo(X2,Y2); C.lineTo(X,Y); C.stroke();
     });
+    // cascos de campo encendidos
+    CASCOS.forEach(function(cs){
+      var on = seg(t, 11.0 + cs.q*1.6, 11.4 + cs.q*1.6) * DAY.night; if (on <= 0) return;
+      var X = px(cs.x, cs.y), Y = py(cs.x, cs.y); if (X < -20 || X > W+20 || Y < -20 || Y > H+20) return;
+      var fl = 0.85 + 0.15*Math.sin(t*7 + cs.q*40);
+      var cg = C.createRadialGradient(X,Y,0,X,Y,10); cg.addColorStop(0,'rgba(255,214,150,'+(0.8*on*fl)+')'); cg.addColorStop(1,'rgba(255,180,90,0)');
+      C.fillStyle = cg; C.fillRect(X-10,Y-10,20,20);
+    });
     // tren
     var tp = seg(t, 11.4, 17.5), tx = lerp(-16000, 9000, tp), TX = px(tx,-754), TY = py(tx,-754), TX2 = px(tx-1600,-754), TY2 = py(tx-1600,-754);
     var tg = C.createLinearGradient(TX2,TY2,TX,TY); tg.addColorStop(0,'rgba(255,200,120,0)'); tg.addColorStop(1,'rgba(255,240,210,'+DAY.night+')');
@@ -237,6 +305,7 @@
       var X = cam.cx + ((x-cam.x)*cam.ca - (y-cam.y)*cam.sa)*cam.s*mag, Y = cam.cy + ((x-cam.x)*cam.sa + (y-cam.y)*cam.ca)*cam.s*mag;
       var sz = 512*c.s*mag*0.55;
       if (X < -sz || X > W+sz || Y < -sz || Y > H+sz) return;
+      C.globalAlpha = c.a*a*0.5; C.drawImage(SPRG[c.k], X - sz/2 + sz*0.05, Y - sz/2 + sz*0.07, sz, sz);
       C.globalAlpha = c.a*a; C.drawImage(SPR[c.k], X - sz/2, Y - sz/2, sz, sz);
     });
     C.restore();
@@ -288,7 +357,7 @@
     words('Desde arriba, es un punto en el mapa.', 1520, '600 52px "DM Sans"', t, 0.8, 3.7, '#FFFFFF', ['punto']);
     words('Rodeado de campo, como el primer día.', 1520, '600 52px "DM Sans"', t, 4.1, 7.3, '#FFFFFF', ['campo']);
     words('Desde adentro, es nuestra casa.', 1520, '600 56px "DM Sans"', t, 7.7, 10.8, '#FFFFFF', ['casa']);
-    words('117 años encendido.', 1520, '700 62px "DM Sans"', t, 11.3, 13.8, '#FFFFFF', ['117']);
+    words('117 años con luz propia.', 1520, '700 60px "DM Sans"', t, 11.3, 13.8, '#FFFFFF', ['luz', 'propia']);
     if (t > 13.9) {
       var ba = seg(t,13.9,14.6);
       var gt = C.createLinearGradient(0,240,0,960);
