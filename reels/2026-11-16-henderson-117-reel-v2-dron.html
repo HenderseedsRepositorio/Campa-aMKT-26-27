@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reel Henderson 117 · Dron</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#05070d; --fg:#E8EEF7; --muted:#8FA0BE; --accent:#F5A623; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:var(--bg); color:var(--fg); height:100%; }
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:16px; font-family:'DM Mono',monospace; }
+  canvas { height:min(86vh, calc((100vw - 32px) * 16 / 9)); aspect-ratio:9/16; border-radius:14px; box-shadow:0 0 0 1px rgba(255,255,255,0.08); background:#000; }
+  .ctrl { display:flex; gap:10px; align-items:center; font-size:13px; color:var(--muted); }
+  button { font-family:inherit; font-size:13px; background:var(--accent); color:#0a0a0a; border:0; border-radius:8px; padding:8px 14px; cursor:pointer; }
+  body.export { padding:0; display:block; }
+  body.export canvas { height:auto; width:1080px; border-radius:0; box-shadow:none; }
+  body.export .ctrl { display:none; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div class="ctrl"><button id="pp">Pausa</button><button id="rs">Reiniciar</button><span id="tc">0.0 s</span></div>
+
+<script>
+(function () {
+  var W = 1080, H = 1920, DUR = 17, OR = '245,166,35';
+  var cv = document.getElementById('c'), ctx = cv.getContext('2d');
+
+  function clamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t,a,b){ return clamp((t-a)/(b-a)); }
+  function eOut(x){ return 1 - Math.pow(1-x,3); }
+  function eIn(x){ return x*x*x; }
+  function eIO(x){ return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+  function eBack(x){ var c1=1.70158,c3=c1+1; return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2); }
+  function lerp(a,b,x){ return a+(b-a)*x; }
+  function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; var t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+
+  function txt(s, x, y, font, color, o){
+    o = o || {}; ctx.save();
+    ctx.font = font; ctx.textAlign = o.align || 'center'; ctx.textBaseline = 'alphabetic';
+    if ('letterSpacing' in ctx) ctx.letterSpacing = (o.ls || 0) + 'px';
+    ctx.globalAlpha = o.alpha == null ? 1 : o.alpha;
+    if (o.glow) { ctx.shadowColor = o.glow; ctx.shadowBlur = o.blur || 40; }
+    ctx.fillStyle = color; ctx.fillText(s, x, y); ctx.restore();
+  }
+
+  // ---------- grilla de siembra (vista cenital) ----------
+  var S = 12, M = 320, K = 0.72;                         // separación entre plantas, margen extra por la rotación
+  var COLS = Math.ceil((W + 2*M)/S), ROWS = Math.ceil((H + 2*M)/S);
+  var dots = [], R = rng(117);
+  var m1, m2;
+
+  function buildMasks(){
+    function mk(draw){
+      var c = document.createElement('canvas'); c.width = W; c.height = H;
+      var g = c.getContext('2d'); g.fillStyle = '#fff'; g.textAlign = 'center'; draw(g);
+      return g.getImageData(0,0,W,H).data;
+    }
+    m1 = mk(function(g){
+      g.font = '540px "Archivo Black"'; if ('letterSpacing' in g) g.letterSpacing = '-18px';
+      g.fillText('117', 540, 1150);
+    });
+    m2 = mk(function(g){
+      if ('letterSpacing' in g) g.letterSpacing = '-4px';
+      g.font = '220px "Archivo Black"';
+      var w = g.measureText('HENDERSON').width, fs = 220*980/w;
+      g.font = fs+'px "Archivo Black"'; g.fillText('HENDERSON', 540, 920);
+      g.font = '300px "Archivo Black"'; if ('letterSpacing' in g) g.letterSpacing = '-10px';
+      g.fillText('117', 540, 1270);
+    });
+    for (var r = 0; r < ROWS; r++) for (var c = 0; c < COLS; c++) {
+      var x = -M + c*S + (r%2 ? S/2 : 0) + (R()-.5)*2.5, y = -M + r*S + (R()-.5)*2.5;
+      function inside(m){ if (x < 0 || y < 0 || x >= W || y >= H) return 0; return m[(Math.floor(y)*W + Math.floor(x))*4] / 255; }
+      dots.push({ x:x, y:y, a:inside(m1), b:inside(m2), j:R(), ph:R()*6.28 });
+    }
+  }
+
+  // sembradora baja (de arriba hacia abajo), cosechadora sube
+  function planterY(t){ return lerp(-M-40, H+M+40, eIO(seg(t,1.0,5.6))); }
+  function combineY(t){ return lerp(H+M+40, -M-40, eIO(seg(t,7.4,10.6))); }
+
+  var chaff = []; (function(){ var r = rng(9); for (var i = 0; i < 260; i++) chaff.push({ x:r()*W, o:r(), v:120+r()*380, s:1+r()*3, w:(r()-.5)*80 }); })();
+
+  function camera(t){
+    var s = lerp(1.32, 1.0, eIO(seg(t,0,6.2))) * lerp(1, 0.9, eIO(seg(t,10.8,13)));
+    var rot = lerp(-0.12, 0, eIO(seg(t,0,6.2))) + lerp(0, 0.03, eIO(seg(t,10.8,17)));
+    var dy = lerp(0, -40, eIO(seg(t,10.8,13)));
+    ctx.translate(540, 960 + dy); ctx.rotate(rot); ctx.scale(s, s); ctx.translate(-540, -960);
+  }
+
+  function field(t){
+    // suelo con textura de lote
+    var g = ctx.createLinearGradient(0,-M,0,H+M);
+    g.addColorStop(0,'#081224'); g.addColorStop(0.5,'#0A1730'); g.addColorStop(1,'#060C18');
+    ctx.fillStyle = g; ctx.fillRect(-M,-M,W+2*M,H+2*M);
+    // líneas de surco
+    ctx.strokeStyle = 'rgba(143,160,190,0.05)'; ctx.lineWidth = 1;
+    ctx.beginPath(); for (var y = -M; y < H+M; y += S) { ctx.moveTo(-M,y+.5); ctx.lineTo(W+M,y+.5); } ctx.stroke();
+
+    var py = planterY(t), cy = combineY(t), harvesting = t > 7.4;
+    var pulse = 0.5 + 0.5*Math.sin(t*3);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      if (d.y > py) continue;                                  // todavía no se sembró
+      var age = (py - d.y) / 320;                              // distancia detrás de la sembradora
+      var useB = harvesting && d.y > cy;
+      var v = useB ? d.b : d.a;
+      // transición entre patrón 1 y 2 al pasar la cosechadora
+      var since = useB ? (d.y - cy) / 300 : 9;
+      var grow = eOut(clamp(age - d.j*0.3));
+      var rb = 1.6 + 1.0*grow;                                  // planta común
+      var rh = rb + (5.8 + 0.6*pulse*(t>5.6?1:0))*grow*v;       // planta "dibujo"
+      var pop = useB && since < 0.6 ? eBack(clamp(since/0.6)) : 1;
+      var r = lerp(rb, rh, v) * (v > 0.5 ? pop : 1) * K * (useB && v > 0.5 ? 0.82 : 1);
+      if (v > 0.5) {
+        var hot = 0.75 + 0.25*Math.sin(t*2.2 + d.ph);
+        ctx.fillStyle = 'rgba(' + OR + ',' + (0.95*grow*hot) + ')';
+      } else {
+        ctx.fillStyle = 'rgba(120,200,130,' + (0.22 + 0.33*grow) + ')';
+      }
+      ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, 6.2832); ctx.fill();
+    }
+    // brillo global sobre el dibujo
+    machines(t, py, cy);
+  }
+  function clampInv(y){ return clamp((y + M + 40) / (H + 2*M + 80)); }
+
+  function machines(t, py, cy){
+    // sembradora
+    if (t > 0.9 && t < 5.8) {
+      ctx.save();
+      var gl = ctx.createLinearGradient(0, py-180, 0, py+10);
+      gl.addColorStop(0,'rgba('+OR+',0)'); gl.addColorStop(1,'rgba('+OR+',0.22)');
+      ctx.fillStyle = gl; ctx.fillRect(-M, py-180, W+2*M, 190);
+      ctx.fillStyle = 'rgba(10,15,27,0.95)'; ctx.fillRect(-M, py, W+2*M, 26);
+      ctx.fillStyle = 'rgb('+OR+')';
+      for (var x = -M; x < W+M; x += S*4) { ctx.fillRect(x, py+4, 6, 18); }
+      ctx.shadowColor = 'rgba('+OR+',1)'; ctx.shadowBlur = 24;
+      ctx.fillRect(-M, py-2, W+2*M, 3);
+      ctx.restore();
+    }
+    // cosechadora con polvo
+    if (t > 7.3 && t < 10.8) {
+      ctx.save();
+      var g2 = ctx.createLinearGradient(0, cy, 0, cy+220);
+      g2.addColorStop(0,'rgba(255,220,160,0.28)'); g2.addColorStop(1,'rgba(255,220,160,0)');
+      ctx.fillStyle = g2; ctx.fillRect(-M, cy, W+2*M, 220);
+      ctx.fillStyle = 'rgba(10,15,27,0.95)'; ctx.fillRect(-M, cy-30, W+2*M, 30);
+      ctx.strokeStyle = 'rgba(255,214,150,0.9)'; ctx.lineWidth = 3;
+      for (var x2 = -M; x2 < W+M; x2 += 26) { ctx.beginPath(); ctx.moveTo(x2, cy-30); ctx.lineTo(x2+13, cy-4); ctx.stroke(); }
+      ctx.shadowColor = 'rgba(255,214,150,1)'; ctx.shadowBlur = 24; ctx.fillStyle = 'rgb(255,214,150)';
+      ctx.fillRect(-M, cy-1, W+2*M, 3);
+      ctx.shadowBlur = 0;
+      for (var i = 0; i < chaff.length; i++) {
+        var c = chaff[i], k = ((t*0.9 + c.o) % 1);
+        var yy = cy + 10 + k*c.v*0.7, xx = c.x + Math.sin(k*6 + c.o*9)*c.w;
+        ctx.fillStyle = 'rgba(255,214,150,' + (0.55*(1-k)) + ')';
+        ctx.fillRect(xx, yy, c.s*1.8, c.s*0.7);
+      }
+      ctx.restore();
+    }
+  }
+
+  // ---------- HUD de dron ----------
+  function hud(t){
+    var a = seg(t,0.2,0.8) * (1 - 0.65*seg(t,11,12));
+    if (a <= 0) return;
+    ctx.save(); ctx.globalAlpha = a;
+    ctx.strokeStyle = 'rgba(232,238,247,0.75)'; ctx.lineWidth = 3;
+    var L = 64, x0 = 60, y0 = 210, x1 = W-60, y1 = 1680;
+    ctx.beginPath();
+    ctx.moveTo(x0,y0+L); ctx.lineTo(x0,y0); ctx.lineTo(x0+L,y0);
+    ctx.moveTo(x1-L,y0); ctx.lineTo(x1,y0); ctx.lineTo(x1,y0+L);
+    ctx.moveTo(x0,y1-L); ctx.lineTo(x0,y1); ctx.lineTo(x0+L,y1);
+    ctx.moveTo(x1-L,y1); ctx.lineTo(x1,y1); ctx.lineTo(x1,y1-L);
+    ctx.stroke();
+    // mira central
+    ctx.strokeStyle = 'rgba(232,238,247,0.35)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(520,960); ctx.lineTo(560,960); ctx.moveTo(540,940); ctx.lineTo(540,980); ctx.stroke();
+    ctx.restore();
+
+    var m = '500 24px "DM Mono"';
+    txt('DRONE · LOTE HENDERSON', x0+6, y0+56+40, m, '#E8EEF7', { align:'left', ls:3, alpha:a*0.9 });
+    var rec = (Math.floor(t*2) % 2) ? 1 : 0.25;
+    ctx.save(); ctx.globalAlpha = a*rec; ctx.fillStyle = '#ff4d4d'; ctx.beginPath(); ctx.arc(x1-128, y0+88, 9, 0, 6.28); ctx.fill(); ctx.restore();
+    txt('REC', x1-8, y0+96, m, '#E8EEF7', { align:'right', ls:3, alpha:a*0.9 });
+
+    var mode = t < 6.2 ? 'SIEMBRA' : t < 7.4 ? 'MONITOREO' : t < 10.8 ? 'COSECHA' : 'CAMPAÑA 117';
+    var prog = t < 6.2 ? seg(t,1.0,5.6) : t < 7.4 ? 1 : seg(t,7.4,10.6);
+    var year = Math.round(1909 + 117*eIO(seg(t,1.0,5.6)));
+    txt('MODO  ' + mode, x0+6, y1-104, m, '#E8EEF7', { align:'left', ls:3, alpha:a*0.9 });
+    txt('AÑO   ' + year, x0+6, y1-66, m, '#E8EEF7', { align:'left', ls:3, alpha:a*0.9 });
+    txt('ALT 120 M', x1-8, y1-104, m, '#8FA0BE', { align:'right', ls:3, alpha:a*0.9 });
+    txt('AVANCE ' + String(Math.round(prog*100)).padStart(3,' ') + '%', x1-8, y1-66, m, '#8FA0BE', { align:'right', ls:3, alpha:a*0.9 });
+    // barra de avance
+    ctx.save(); ctx.globalAlpha = a;
+    ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(x0+6, y1-34, x1-x0-12, 4);
+    ctx.fillStyle = 'rgb('+OR+')'; ctx.fillRect(x0+6, y1-34, (x1-x0-12)*prog, 4);
+    ctx.restore();
+  }
+
+  // ---------- textos ----------
+  function titles(t){
+    // apertura
+    var a1 = seg(t,0.4,0.9) * (1 - seg(t,4.6,5.2));
+    if (a1 > 0) {
+      txt('16 · 11 · 2026', 540, 420, '500 34px "DM Mono"', '#E8EEF7', { ls:12, alpha:a1, glow:'rgba(0,0,0,0.9)', blur:18 });
+    }
+    // monitoreo: frase
+    var a2 = eOut(seg(t,5.9,6.3)) * (1 - seg(t,7.2,7.5));
+    if (a2 > 0) {
+      ctx.save(); ctx.fillStyle = 'rgba(5,7,13,' + (0.7*a2) + ')'; ctx.fillRect(0, 330, W, 130); ctx.restore();
+      txt('117 campañas sembradas.', 540, 415, '600 54px "DM Sans"', '#FFFFFF', { alpha:a2, ls:-0.5 });
+    }
+    // final
+    var a3 = eOut(seg(t,11.2,11.8));
+    if (a3 > 0) {
+      ctx.save(); ctx.globalAlpha = a3;
+      var g = ctx.createLinearGradient(0,330,0,700); g.addColorStop(0,'rgba(5,7,13,0)'); g.addColorStop(0.5,'rgba(5,7,13,0.85)'); g.addColorStop(1,'rgba(5,7,13,0)');
+      ctx.fillStyle = g; ctx.fillRect(0,330,W,370); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 480, W, 110); ctx.clip();
+      txt('Feliz cumpleaños,', 540, 565 + (1-a3)*90, '700 74px "DM Sans"', '#FFFFFF', { ls:-1 });
+      ctx.restore();
+    }
+    var a4 = eOut(seg(t,12.4,13.0));
+    if (a4 > 0) {
+      ctx.save(); ctx.globalAlpha = a4;
+      var g2 = ctx.createLinearGradient(0,1330,0,1640); g2.addColorStop(0,'rgba(5,7,13,0)'); g2.addColorStop(0.5,'rgba(5,7,13,0.88)'); g2.addColorStop(1,'rgba(5,7,13,0)');
+      ctx.fillStyle = g2; ctx.fillRect(0,1330,W,310); ctx.restore();
+      txt('Un pueblo que nació en el campo', 540, 1440 + (1-a4)*30, '600 46px "DM Sans"', '#E8EEF7', { alpha:a4 });
+      txt('y sigue creciendo con él.', 540, 1502 + (1-a4)*30, '600 46px "DM Sans"', '#E8EEF7', { alpha:a4 });
+    }
+    var a5 = seg(t,14.6,15.2);
+    if (a5 > 0) {
+      ctx.save(); ctx.globalAlpha = a5; ctx.fillStyle = 'rgba(5,7,13,0.75)';
+      ctx.beginPath(); ctx.roundRect(540-170, 1555, 340, 70, 35); ctx.fill();
+      ctx.strokeStyle = 'rgba(245,166,35,0.35)'; ctx.lineWidth = 1.5; ctx.stroke(); ctx.restore();
+      txt('@henderseeds', 540, 1600, '500 28px "DM Mono"', '#E8EEF7', { ls:4, alpha:a5*0.9 });
+    }
+  }
+
+  var grain = document.createElement('canvas'); grain.width = 540; grain.height = 960;
+  (function(){ var g = grain.getContext('2d'), id = g.createImageData(540,960), r = rng(7);
+    for (var p = 0; p < id.data.length; p += 4) { var v = r()*255; id.data[p]=id.data[p+1]=id.data[p+2]=v; id.data[p+3]=255; }
+    g.putImageData(id,0,0); })();
+
+  function render(t){
+    ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#05070d'; ctx.fillRect(0,0,W,H);
+    ctx.save(); camera(t); field(t); ctx.restore();
+    // viñeta
+    var v = ctx.createRadialGradient(540,960,520,540,960,1250);
+    v.addColorStop(0,'rgba(0,0,0,0)'); v.addColorStop(1,'rgba(0,0,0,0.6)');
+    ctx.fillStyle = v; ctx.fillRect(0,0,W,H);
+    hud(t); titles(t);
+    // destello al completar cada dibujo
+    var f = Math.max(0.2*(1-seg(t,5.6,6.0))*(t>=5.6?1:0), 0.22*(1-seg(t,10.6,11.1))*(t>=10.6?1:0));
+    if (f > 0) { ctx.fillStyle = 'rgba(255,236,200,'+f+')'; ctx.fillRect(0,0,W,H); }
+    ctx.globalAlpha = 0.04; ctx.globalCompositeOperation = 'overlay';
+    var fr = Math.floor(t*30); ctx.drawImage(grain, -(fr*37)%540, -(fr*53)%960, W*2, H*2);
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    var fi = 1 - seg(t,0,0.4); if (fi > 0) { ctx.fillStyle = 'rgba(5,7,13,'+fi+')'; ctx.fillRect(0,0,W,H); }
+  }
+
+  window.DURATION = DUR;
+  window.renderAt = render;
+  window.ready = Promise.all([
+    document.fonts.load('600px "Archivo Black"'), document.fonts.load('500 24px "DM Mono"'),
+    document.fonts.load('600 54px "DM Sans"'), document.fonts.load('700 74px "DM Sans"')
+  ]).then(function(){ buildMasks(); });
+
+  if (/export/.test(location.search)) { document.body.classList.add('export'); return; }
+  var playing = true, start = null, tNow = 0, tc = document.getElementById('tc');
+  function loop(ts){
+    if (start === null) start = ts - tNow*1000;
+    if (playing) tNow = ((ts - start)/1000) % DUR;
+    render(tNow); tc.textContent = tNow.toFixed(1) + ' s';
+    requestAnimationFrame(loop);
+  }
+  document.getElementById('pp').onclick = function(){ playing = !playing; this.textContent = playing ? 'Pausa' : 'Play'; if (playing) start = null; };
+  document.getElementById('rs').onclick = function(){ tNow = 0; start = null; };
+  window.ready.then(function(){ requestAnimationFrame(loop); });
+})();
+</script>
+</body>
+</html>
