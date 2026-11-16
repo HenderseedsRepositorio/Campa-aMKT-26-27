@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henderson 117 años</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A0F1B; --navy-2:#0D2D5E; --orange:#F5A623;
+  --white:#E8EEF7; --grey:#8FA0BE;
+  --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --arch:'Archivo Black',sans-serif;
+}
+body { background:#05070d; display:flex; justify-content:center; align-items:flex-start; padding:20px; }
+.slide {
+  width:1080px; height:1350px; background:var(--navy);
+  position:relative; overflow:hidden; padding:120px 90px 70px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; flex-shrink:0;
+}
+/* cielo: resplandor de amanecer sobre el horizonte */
+.slide::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 760px 380px at 50% 900px, rgba(245,166,35,0.16), transparent 70%),
+    linear-gradient(180deg, #0A0F1B 0%, #0B1628 55%, #0D2244 67%, #0A0F1B 100%);
+}
+/* campo arado en perspectiva */
+.campo { position:absolute; left:0; right:0; bottom:0; height:460px; z-index:1; overflow:visible; }
+
+.kicker {
+  font-family:var(--mono); font-size:22px; letter-spacing:6px; text-transform:uppercase;
+  color:var(--grey); z-index:2;
+}
+.kicker b { color:var(--white); font-weight:500; }
+
+.num {
+  font-family:var(--arch); color:var(--orange); font-size:400px; line-height:0.9;
+  letter-spacing:-18px; margin-top:44px; z-index:2;
+  text-shadow:0 0 80px rgba(245,166,35,0.25);
+}
+.unidad {
+  font-family:var(--arch); color:#fff; font-size:76px; line-height:1;
+  letter-spacing:-2px; margin-top:6px; z-index:2;
+}
+.divisor { width:64px; height:1px; background:rgba(232,238,247,0.35); margin:46px auto 0; z-index:2; }
+.title {
+  font-family:var(--sans); font-weight:700; color:var(--white); font-size:46px;
+  letter-spacing:-0.5px; margin-top:40px; z-index:2;
+}
+.lema {
+  font-family:var(--sans); font-size:30px; font-weight:500; color:var(--grey);
+  line-height:1.5; margin-top:18px; max-width:760px; z-index:2;
+}
+.spacer { flex:1; }
+.firma {
+  font-family:var(--mono); font-size:17px; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(232,238,247,0.55); z-index:2;
+}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Surcos convergiendo al horizonte -->
+  <svg class="campo" viewBox="0 0 1080 460" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="tierra" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0D2244" stop-opacity="0"/>
+        <stop offset="0.02" stop-color="#091A33" stop-opacity="1"/>
+        <stop offset="1" stop-color="#060A14"/>
+      </linearGradient>
+      <linearGradient id="surco" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F5A623" stop-opacity="0.05"/>
+        <stop offset="1" stop-color="#F5A623" stop-opacity="0.32"/>
+      </linearGradient>
+    </defs>
+    <circle cx="540" cy="40" r="38" fill="#F5A623" fill-opacity="0.18"/>
+    <circle cx="540" cy="40" r="24" fill="#F5A623" fill-opacity="0.45"/>
+    <rect x="0" y="40" width="1080" height="420" fill="url(#tierra)"/>
+    <line x1="0" y1="40" x2="1080" y2="40" stroke="#F5A623" stroke-opacity="0.35" stroke-width="1.5"/>
+    <g stroke="url(#surco)" stroke-width="2" fill="none" id="surcos"></g>
+  </svg>
+
+  <div class="kicker">16 de noviembre · <b>1909 — 2026</b></div>
+  <div class="num">117</div>
+  <div class="unidad">campañas.</div>
+
+  <div class="divisor"></div>
+
+  <div class="title">Feliz cumpleaños, Henderson.</div>
+  <div class="lema">Un pueblo que nació en el campo<br>y sigue creciendo con él.</div>
+
+  <div class="spacer"></div>
+
+  <div class="firma">@henderseeds</div>
+</div>
+
+<script>
+// Dibuja los surcos: líneas desde un punto de fuga en el horizonte hacia abajo
+(function () {
+  var g = document.getElementById('surcos');
+  var vx = 540, vy = 40, n = 26;
+  for (var i = 0; i <= n; i++) {
+    var x = -1400 + (3880 / n) * i;
+    var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', vx); l.setAttribute('y1', vy);
+    l.setAttribute('x2', x);  l.setAttribute('y2', 460);
+    g.appendChild(l);
+  }
+})();
+</script>
+
+<div class="dlbar" style="display:none">
+  <button class="btn-dl" data-fmt="feed">Descargar feed &middot; 4:5</button>
+  <button class="btn-dl" data-fmt="historia">Descargar historia &middot; 9:16</button>
+</div>
+
+<style>
+.dlbar { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+.btn-dl {
+  font-family:'DM Mono',monospace; font-size:14px; font-weight:500;
+  background:#F5A623; color:#0A0F1B; border:none; border-radius:10px;
+  padding:13px 22px; cursor:pointer; box-shadow:0 4px 20px rgba(245,166,35,0.4);
+  transition:transform .15s, box-shadow .15s; text-align:left; white-space:nowrap;
+}
+.btn-dl:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(245,166,35,0.5); }
+.btn-dl:disabled { opacity:.6; cursor:wait; }
+</style>
+
+<!-- Descarga: feed 1080×1350 (4:5) + historia 1080×1920 (9:16), 2x retina -->
+<script>
+(function () {
+  var FILE = '2026-11-16-henderson-117';
+  var STORY_BG = '#05070d';
+  var SCALE = 2;
+  if (window.self !== window.top) return;
+
+  var bar = document.querySelector('.dlbar');
+  bar.style.display = '';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  document.head.appendChild(s);
+
+  var botones = bar.querySelectorAll('.btn-dl');
+  botones.forEach(function (b) {
+    b.addEventListener('click', function () { descargar(b.getAttribute('data-fmt'), b); });
+  });
+
+  function bajar(canvas, nombre) {
+    var a = document.createElement('a');
+    a.download = nombre + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function descargar(fmt, btn) {
+    var orig = btn.textContent;
+    botones.forEach(function (b) { b.disabled = true; });
+    btn.textContent = 'Generando…';
+    document.fonts.ready.then(function () {
+      var slide = document.querySelector('.slide');
+      if (fmt === 'feed') {
+        return html2canvas(slide, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1350 })
+          .then(function (c) { bajar(c, FILE + '-feed-1080x1350'); });
+      }
+      var frame = document.createElement('div');
+      frame.style.cssText = 'position:fixed;left:-99999px;top:0;width:1080px;height:1920px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:' + STORY_BG + ';';
+      var clone = slide.cloneNode(true);
+      clone.style.boxShadow = '0 0 0 2px rgba(245,166,35,0.3)';
+      frame.appendChild(clone);
+      document.body.appendChild(frame);
+      return html2canvas(frame, { scale: SCALE, useCORS: true, backgroundColor: null, width: 1080, height: 1920 })
+        .then(function (c) { document.body.removeChild(frame); bajar(c, FILE + '-historia-1080x1920'); });
+    }).then(function () {
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    }).catch(function (e) {
+      console.error(e);
+      btn.textContent = orig;
+      botones.forEach(function (b) { b.disabled = false; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
