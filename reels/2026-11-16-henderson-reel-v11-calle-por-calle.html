@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reel Henderson · Calle por calle</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#05070d; --fg:#E8EEF7; --muted:#8FA0BE; --accent:#F5A623; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:var(--bg); color:var(--fg); height:100%; }
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:16px; font-family:'DM Mono',monospace; }
+  canvas { height:min(86vh, calc((100vw - 32px) * 16 / 9)); aspect-ratio:9/16; border-radius:14px; box-shadow:0 0 0 1px rgba(255,255,255,0.08); background:#000; }
+  .ctrl { display:flex; gap:10px; align-items:center; font-size:13px; color:var(--muted); }
+  button { font-family:inherit; font-size:13px; background:var(--accent); color:#0a0a0a; border:0; border-radius:8px; padding:8px 14px; cursor:pointer; }
+  body.export { padding:0; display:block; }
+  body.export canvas { height:auto; width:1080px; border-radius:0; box-shadow:none; }
+  body.export .ctrl { display:none; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div class="ctrl"><button id="pp">Pausa</button><button id="rs">Reiniciar</button><span id="tc">0.0 s</span></div>
+<!-- Datos reales: © colaboradores de OpenStreetMap (ODbL), recortados alrededor de Henderson -->
+<script src="datos/henderson-osm-v11.js"></script>
+<script>
+(function () {
+  var W = 1080, H = 1920, DUR = 20;
+  var OR = [245,166,35], AMB = [255,206,120];
+  var cv = document.getElementById('c'), C = cv.getContext('2d');
+  var D = window.OSM;
+
+  // ---------- utilidades ----------
+  function clamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t,a,b){ return clamp((t-a)/(b-a)); }
+  function lerp(a,b,x){ return a+(b-a)*x; }
+  function eOut(x){ return 1 - Math.pow(1-x,3); }
+  function eIn(x){ return x*x*x; }
+  function eIO(x){ return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+  function xOut(x){ return x >= 1 ? 1 : 1 - Math.pow(2, -10*x); }
+  function xIn(x){ return x <= 0 ? 0 : Math.pow(2, 10*x - 10); }
+  function bOut(x){ var c1 = 1.4, c3 = c1 + 1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); }
+  function rgba(c,a){ return 'rgba('+c[0]+','+c[1]+','+c[2]+','+(a==null?1:a)+')'; }
+  function hash(n){ var x = Math.sin(n*127.1 + 311.7)*43758.5453; return x - Math.floor(x); }
+  function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; var t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function keys(K, t){ var i = 0; while (i < K.length-2 && t > K[i+1][0]) i++; var a = K[i], b = K[i+1], u = eIO(seg(t, a[0], b[0])); return lerp(a[1], b[1], u); }
+  var FONT = { big:'"Archivo Black"', sans:'"DM Sans"', mono:'"DM Mono"' };
+  function setFont(px, fam, w, ls){ C.font = (w ? w + ' ' : '') + px + 'px ' + fam; if ('letterSpacing' in C) C.letterSpacing = (ls || 0) + 'px'; }
+  function measure(s, px, fam, w, ls){ C.save(); setFont(px, fam, w, ls); var m = C.measureText(s).width; C.restore(); return m; }
+  function fitPx(s, fam, w, ls, maxPx, width){ return Math.min(maxPx, maxPx*width/measure(s, maxPx, fam, w, ls)); }
+  function text(s, x, y, px, fam, w, color, o){
+    o = o || {}; var ga = C.globalAlpha; C.save();
+    setFont(px, fam, w, o.ls); C.textAlign = o.align || 'center'; C.textBaseline = 'alphabetic';
+    C.globalAlpha = ga * (o.alpha == null ? 1 : o.alpha);
+    if (o.blur && o.blur > 0.3) C.filter = 'blur(' + o.blur.toFixed(1) + 'px)';
+    if (o.shadow) { C.shadowColor = o.shadow; C.shadowBlur = o.sb || 30; C.shadowOffsetY = o.sy || 0; }
+    C.fillStyle = color; C.fillText(s, x, y); C.restore();
+  }
+  function wordsLine(str, y, px, fam, w, t, t0, opts){
+    opts = opts || {};
+    var ws = str.split(' '), sp = measure(' ', px, fam, w, opts.ls), wd = ws.map(function(s){ return measure(s, px, fam, w, opts.ls); });
+    var tot = wd.reduce(function(a,b){ return a+b; }, 0) + sp*(ws.length - 1), x = 540 - tot/2;
+    if (opts.t1 && t > opts.t1) return;
+    var out = opts.t1 ? eIn(seg(t, opts.t1 - 0.32, opts.t1)) : 0;
+    for (var i = 0; i < ws.length; i++) {
+      var p = xOut(seg(t, t0 + i*(opts.stagger || 0.07), t0 + i*(opts.stagger || 0.07) + 0.6));
+      if (p <= 0) { x += wd[i] + sp; continue; }
+      var hl = opts.hl && opts.hl.indexOf(ws[i].replace(/[.,]/g, '')) >= 0;
+      C.save(); C.beginPath(); C.rect(0, y - px*1.05, W, px*1.45); C.clip();
+      text(ws[i], x + wd[i]/2, y + (1 - p)*px*0.9 - out*px*0.5, px, fam, w, hl ? rgba(OR) : (opts.color || '#FFFFFF'),
+        { ls:opts.ls, alpha:(1 - out), blur:(1 - p)*10 + out*8, shadow: hl ? 'rgba(245,166,35,0.45)' : 'rgba(0,0,0,0.75)', sb: hl ? 28 : 22 });
+      C.restore();
+      x += wd[i] + sp;
+    }
+  }
+
+  // ---------- red de calles real: distancia desde la plaza, siguiendo las calles ----------
+  var NODE = {}, NX = [], NY = [], ADJ = [];
+  function nid(p){ var k = p[0] + ',' + p[1]; var i = NODE[k]; if (i === undefined) { i = NX.length; NODE[k] = i; NX.push(p[0]); NY.push(p[1]); ADJ.push([]); } return i; }
+  var SEGS = [];      // [a, b, clase]
+  D.roads.forEach(function(w){ for (var i = 1; i < w.p.length; i++) { var a = nid(w.p[i-1]), b = nid(w.p[i]); var L = Math.hypot(NX[a]-NX[b], NY[a]-NY[b]); ADJ[a].push([b, L]); ADJ[b].push([a, L]); SEGS.push([a, b, w.c]); } });
+  var DIST = new Float64Array(NX.length).fill(Infinity);
+  (function dijkstra(){
+    // arranca desde las esquinas de la Plaza Manuel Belgrano (las 4 más cercanas al centro)
+    var cand = []; for (var i = 0; i < NX.length; i++) cand.push([Math.hypot(NX[i], NY[i]), i]);
+    cand.sort(function(a,b){ return a[0]-b[0]; });
+    var heap = [];
+    function push(d, i){ heap.push([d, i]); var k = heap.length - 1; while (k > 0) { var p = (k - 1) >> 1; if (heap[p][0] <= heap[k][0]) break; var tmp = heap[p]; heap[p] = heap[k]; heap[k] = tmp; k = p; } }
+    function pop(){ var top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; var k = 0; for (;;) { var l = 2*k+1, r = l+1, m = k; if (l < heap.length && heap[l][0] < heap[m][0]) m = l; if (r < heap.length && heap[r][0] < heap[m][0]) m = r; if (m === k) break; var tmp = heap[m]; heap[m] = heap[k]; heap[k] = tmp; k = m; } } return top; }
+    for (var c = 0; c < 6; c++) { DIST[cand[c][1]] = cand[c][0]; push(cand[c][0], cand[c][1]); }
+    while (heap.length) { var it = pop(), d = it[0], u = it[1]; if (d > DIST[u]) continue;
+      for (var j = 0; j < ADJ[u].length; j++) { var v = ADJ[u][j][0], nd = d + ADJ[u][j][1]; if (nd < DIST[v]) { DIST[v] = nd; push(nd, v); } } }
+    for (var n = 0; n < NX.length; n++) if (!isFinite(DIST[n])) DIST[n] = 1.5*Math.hypot(NX[n], NY[n]);
+  })();
+  // vías: se revelan por distancia en línea recta
+  var RAILP = D.rail.map(function(r){ return r.map(function(p){ return [p[0], p[1], Math.hypot(p[0], p[1])]; }); });
+
+  // ---------- cámara ----------
+  var CAM_S = [[0,1.55],[2.6,1.55],[8.2,0.43],[12.4,0.45],[15.0,0.45],[18.2,0.105],[20,0.098]];
+  var CAM_X = [[0,0],[2.6,0],[8.2,-430],[12.4,-460],[15.0,-420],[18.2,-200],[20,-200]];
+  var CAM_Y = [[0,0],[2.6,0],[8.2,-120],[12.4,-140],[15.0,-120],[18.2,-900],[20,-950]];
+  var CAM_R = [[0,-0.32],[2.6,-0.32],[8.2,0.0],[12.4,0.03],[15,0.03],[18.2,-0.05],[20,-0.07]];
+  var CAM_CY = [[0,1000],[8,1000],[15,1000],[18.2,1080],[20,1080]];
+  var cam = {};
+  function setCam(t){ cam.s = keys(CAM_S, t); cam.x = keys(CAM_X, t); cam.y = keys(CAM_Y, t); cam.r = keys(CAM_R, t); cam.cy = keys(CAM_CY, t); cam.c = Math.cos(cam.r); cam.n = Math.sin(cam.r); }
+  function sx(x, y){ var dx = x - cam.x, dy = y - cam.y; return 540 + (dx*cam.c - dy*cam.n)*cam.s; }
+  function sy(x, y){ var dx = x - cam.x, dy = y - cam.y; return cam.cy + (dx*cam.n + dy*cam.c)*cam.s; }
+
+  // frente de crecimiento (metros recorridos por las calles desde la plaza)
+  var FRONT = [[0,0],[2.6,0],[4.2,420],[6.0,1300],[8.0,2700],[9.5,4800],[13,9000],[15.5,14000],[18,30000],[20,40000]];
+  var NIGHT = [[0,0],[12.4,0],[13.4,1],[20,1]];
+
+  // ---------- fondo ----------
+  var R = rng(1909);
+  var DUST = []; for (var j = 0; j < 110; j++) DUST.push({ x:R()*W, y:R()*H, r:0.6 + R()*1.4, v:6 + R()*24, ph:R()*6.28 });
+  var grain = document.createElement('canvas'); grain.width = 540; grain.height = 960;
+  (function(){ var g = grain.getContext('2d'), id = g.createImageData(540,960), r = rng(7);
+    for (var p = 0; p < id.data.length; p += 4) { var v = r()*255; id.data[p]=id.data[p+1]=id.data[p+2]=v; id.data[p+3]=255; }
+    g.putImageData(id,0,0); })();
+  function background(t, night){
+    var g = C.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#04060E'); g.addColorStop(0.55,'#07102A'); g.addColorStop(1,'#0A1632');
+    C.fillStyle = g; C.fillRect(0,0,W,H);
+    var px0 = sx(0,0), py0 = sy(0,0);
+    var gw = C.createRadialGradient(px0, py0, 0, px0, py0, 900);
+    var ga = 0.12 + 0.22*night;
+    gw.addColorStop(0, rgba(OR, ga)); gw.addColorStop(0.5, rgba([230,120,40], ga*0.3)); gw.addColorStop(1, 'rgba(230,120,40,0)');
+    C.save(); C.globalCompositeOperation = 'screen'; C.fillStyle = gw; C.fillRect(0,0,W,H); C.restore();
+    C.save(); C.globalCompositeOperation = 'screen';
+    for (var k = 0; k < DUST.length; k++) { var d = DUST[k], dy = ((d.y - t*d.v) % H + H) % H, dx = d.x + Math.sin(t*0.7 + d.ph)*10;
+      C.fillStyle = 'rgba(255,230,190,'+(0.08 + 0.10*Math.sin(t*2 + d.ph*3))+')'; C.fillRect(dx, dy, d.r, d.r); }
+    C.restore();
+  }
+
+  // ---------- mapa ----------
+  var STY = [
+    { w:3.2, c:[245,166,35], a:0.95 },     // 0 troncales
+    { w:2.8, c:[245,166,35], a:0.95 },     // 1 secundarias (rutas, accesos)
+    { w:2.2, c:[255,198,110], a:0.92 },    // 2 terciarias (avenidas)
+    { w:1.4, c:[200,214,236], a:0.55 },    // 3 sin clasificar (caminos)
+    { w:1.35, c:[232,238,247], a:0.78 },   // 4 residenciales
+    { w:0.9, c:[180,195,220], a:0.40 },    // 5 servicio
+    { w:0.9, c:[180,195,220], a:0.35 },    // 6 huella
+    { w:0.7, c:[180,195,220], a:0.28 }     // 7 peatonales
+  ];
+  function drawAreas(t, F, night){
+    var ap = seg(F, 200, 1800);
+    if (ap > 0) D.areas.forEach(function(a){
+      var col = null;
+      if (a.k === 'park' || a.k === 'grass' || a.k === 'recreation_ground' || a.k === 'grassland') col = [70,150,110];
+      else if (a.k === 'pitch' || a.k === 'sports_centre' || a.k === 'track') col = [80,150,100];
+      else if (a.k === 'water') col = [70,120,200];
+      else if (a.k === 'cemetery') col = [130,140,160];
+      else return;
+      var cx = 0, cy = 0; a.p.forEach(function(q){ cx += q[0]; cy += q[1]; }); cx /= a.p.length; cy /= a.p.length;
+      var lp = seg(F, Math.hypot(cx, cy)*1.15, Math.hypot(cx, cy)*1.15 + 500) * ap;
+      if (lp <= 0) return;
+      C.beginPath(); a.p.forEach(function(q, i){ var X = sx(q[0], q[1]), Y = sy(q[0], q[1]); if (i) C.lineTo(X, Y); else C.moveTo(X, Y); }); C.closePath();
+      var al = (a.k === 'water' ? 0.42 : a.k === 'recreation_ground' ? 0.10 : 0.26) * lp * (1 - 0.45*night);
+      C.fillStyle = rgba(col, al); C.fill();
+    });
+    // Plaza Manuel Belgrano: destacada
+    var pz = D.areas.filter(function(a){ return a.n === 'Plaza Manuel Belgrano'; })[0];
+    if (pz) {
+      var pa = eOut(seg(t, 1.0, 2.2));
+      C.save(); C.beginPath(); pz.p.forEach(function(q, i){ var X = sx(q[0], q[1]), Y = sy(q[0], q[1]); if (i) C.lineTo(X, Y); else C.moveTo(X, Y); }); C.closePath();
+      C.fillStyle = rgba(OR, 0.22*pa); C.fill(); C.strokeStyle = rgba(OR, 0.9*pa); C.lineWidth = 2; C.shadowColor = 'rgba(245,166,35,0.8)'; C.shadowBlur = 18; C.stroke(); C.restore();
+    }
+  }
+  function drawRoads(t, F, night){
+    var lw = Math.max(0.5, Math.min(1.6, cam.s/0.45));          // grosor según el zoom
+    var dim = 1 - 0.35*night;
+    // pasada por clase (de menor a mayor importancia)
+    for (var cls = 7; cls >= 0; cls--) {
+      var st = STY[cls];
+      C.beginPath();
+      var tips = [];
+      for (var i = 0; i < SEGS.length; i++) {
+        var sgm = SEGS[i]; if (sgm[2] !== cls) continue;
+        var a = sgm[0], b = sgm[1], da = DIST[a], db = DIST[b];
+        var d0 = Math.min(da, db), d1 = Math.max(da, db);
+        if (F <= d0) continue;
+        var s0 = da <= db ? a : b, s1 = da <= db ? b : a;
+        var f = d1 > d0 ? clamp((F - d0)/(d1 - d0)) : 1;
+        var x0 = NX[s0], y0 = NY[s0], x1 = lerp(x0, NX[s1], f), y1 = lerp(y0, NY[s1], f);
+        var X0 = sx(x0, y0), Y0 = sy(x0, y0), X1 = sx(x1, y1), Y1 = sy(x1, y1);
+        if ((X0 < -40 && X1 < -40) || (X0 > W+40 && X1 > W+40) || (Y0 < -40 && Y1 < -40) || (Y0 > H+40 && Y1 > H+40)) continue;
+        C.moveTo(X0, Y0); C.lineTo(X1, Y1);
+        if (f < 1 && cls <= 4) tips.push([X1, Y1]);
+      }
+      C.strokeStyle = rgba(st.c, st.a*dim); C.lineWidth = st.w*lw; C.lineCap = 'round'; C.stroke();
+      if (cls <= 2) { C.save(); C.globalCompositeOperation = 'screen'; C.strokeStyle = rgba(st.c, 0.16*dim); C.lineWidth = st.w*lw*4; C.stroke(); C.restore(); }
+      // puntas de luz que avanzan por las calles
+      if (tips.length) {
+        C.save(); C.globalCompositeOperation = 'screen';
+        for (var k = 0; k < tips.length; k++) { var g = C.createRadialGradient(tips[k][0], tips[k][1], 0, tips[k][0], tips[k][1], 14);
+          g.addColorStop(0, 'rgba(255,236,200,0.9)'); g.addColorStop(1, 'rgba(255,190,110,0)'); C.fillStyle = g; C.fillRect(tips[k][0]-14, tips[k][1]-14, 28, 28); }
+        C.restore();
+      }
+    }
+    // vías del ex FC Belgrano (punteado)
+    var rp = seg(F, 0, 9000);
+    if (rp > 0) {
+      C.save(); C.setLineDash([7*lw, 6*lw]); C.strokeStyle = rgba([255,190,120], 0.75*dim); C.lineWidth = 1.6*lw;
+      RAILP.forEach(function(r){ C.beginPath(); var started = false;
+        for (var i = 0; i < r.length; i++) { if (r[i][2] > F*0.9) { started = false; continue; } var X = sx(r[i][0], r[i][1]), Y = sy(r[i][0], r[i][1]); if (!started) { C.moveTo(X, Y); started = true; } else C.lineTo(X, Y); }
+        C.stroke(); });
+      C.restore();
+    }
+  }
+  function drawLights(t, night){
+    if (night <= 0.01) return;
+    C.save(); C.globalCompositeOperation = 'screen';
+    var r0 = Math.max(4, 9*Math.min(1.4, cam.s/0.45));
+    for (var i = 0; i < D.inter.length; i++) {
+      var q = D.inter[i], d = Math.hypot(q[0], q[1]);
+      var on = seg(t, 12.5 + d*0.00055 + hash(i)*0.25, 12.8 + d*0.00055 + hash(i)*0.25) * night;
+      if (on <= 0) continue;
+      var X = sx(q[0], q[1]), Y = sy(q[0], q[1]); if (X < -20 || X > W+20 || Y < -20 || Y > H+20) continue;
+      var tw = 0.8 + 0.2*Math.sin(t*3 + i*1.7), rr = r0*(0.8 + 0.5*hash(i + 3));
+      var g = C.createRadialGradient(X, Y, 0, X, Y, rr*2.2);
+      g.addColorStop(0, 'rgba(255,224,170,'+(0.95*on*tw)+')'); g.addColorStop(0.25, 'rgba(255,180,90,'+(0.45*on*tw)+')'); g.addColorStop(1, 'rgba(255,150,60,0)');
+      C.fillStyle = g; C.fillRect(X - rr*2.2, Y - rr*2.2, rr*4.4, rr*4.4);
+    }
+    C.restore();
+  }
+  // etiquetas de lugares reales (una por golpe)
+  var LABEL_T = [8.75, 9.375, 10.0, 10.625, 11.25];
+  var ORDER = ['PLAZA MANUEL BELGRANO','PARROQUIA SANTA TERESITA','MUNICIPALIDAD','ESTACIÓN HENDERSON','CLUB JUVENTUD UNIDA'];
+  var SIDE = { 'PLAZA MANUEL BELGRANO':[1, 130], 'PARROQUIA SANTA TERESITA':[1, -150], 'MUNICIPALIDAD':[-1, -90], 'ESTACIÓN HENDERSON':[1, 210], 'CLUB JUVENTUD UNIDA':[1, -170] };
+  function drawLabels(t){
+    if (t < 8.6 || t > 12.5) return;
+    var out = eIn(seg(t, 12.05, 12.45));
+    ORDER.forEach(function(name, k){
+      var p = D.pois.filter(function(q){ return q.n === name; })[0]; if (!p) return;
+      var t0 = LABEL_T[k], a = xOut(seg(t, t0, t0 + 0.35));
+      if (a <= 0) return;
+      var X = sx(p.x, p.y), Y = sy(p.x, p.y), sd = SIDE[name] || [1, -120];
+      var lx = X + sd[0]*36, ly = Y + sd[1]*0.0, ty = Y + sd[1];
+      C.save(); C.globalAlpha = 1 - out;
+      // pin
+      var pr = ((t - t0)*1.3) % 1;
+      C.strokeStyle = rgba(OR, 0.8*(1 - pr)); C.lineWidth = 2; C.beginPath(); C.arc(X, Y, 8 + pr*26, 0, 6.283); C.stroke();
+      C.fillStyle = rgba(OR); C.shadowColor = 'rgba(245,166,35,0.9)'; C.shadowBlur = 16; C.beginPath(); C.arc(X, Y, 7*bOut(seg(t, t0, t0 + 0.3)), 0, 6.283); C.fill();
+      C.shadowBlur = 0;
+      // línea guía
+      var lp = eOut(seg(t, t0 + 0.05, t0 + 0.35));
+      C.strokeStyle = 'rgba(255,255,255,0.75)'; C.lineWidth = 1.6;
+      C.beginPath(); C.moveTo(X, Y); C.lineTo(lerp(X, lx, lp), lerp(Y, ty, lp)); C.stroke();
+      // tarjeta
+      var cp = xOut(seg(t, t0 + 0.18, t0 + 0.5));
+      if (cp > 0) {
+        setFont(26, FONT.mono, 500, 3); var tw = C.measureText(name).width + 34, th = 50;
+        var bx = sd[0] > 0 ? lx : lx - tw, by = ty - th/2;
+        bx = Math.max(40, Math.min(W - 40 - tw, bx));
+        C.globalAlpha = (1 - out)*cp; C.fillStyle = 'rgba(5,8,16,0.82)'; C.beginPath(); C.roundRect(bx, by, tw, th, 10); C.fill();
+        C.strokeStyle = 'rgba(245,166,35,0.55)'; C.lineWidth = 1.5; C.stroke();
+        C.fillStyle = '#FFFFFF'; C.textAlign = 'left'; C.textBaseline = 'middle';
+        var n = Math.ceil(name.length*seg(t, t0 + 0.22, t0 + 0.55));
+        C.fillText(name.slice(0, n), bx + 17, by + th/2 + 1);
+      }
+      C.restore();
+    });
+  }
+
+  // ---------- textos ----------
+  function coords(t){
+    var a = seg(t, 0.4, 0.9)*(1 - seg(t, 2.6, 3.1));
+    if (a <= 0) return;
+    var l1 = '36°18′07″ S  ·  61°42′50″ O', l2 = 'HENDERSON · BUENOS AIRES';
+    var n1 = Math.ceil(l1.length*seg(t, 0.5, 1.5)), n2 = Math.ceil(l2.length*seg(t, 1.2, 1.9));
+    text(l1.slice(0, n1), 540, 360, 34, FONT.mono, 500, '#FFFFFF', { ls:4, alpha:a, shadow:'rgba(0,0,0,0.8)', sb:16 });
+    text(l2.slice(0, n2), 540, 410, 24, FONT.mono, 500, '#8FA0BE', { ls:8, alpha:a });
+  }
+  var OFF = document.createElement('canvas'); OFF.width = W; OFF.height = 320;
+  function finale(t){
+    if (t < 15.4) return;
+    var ba = seg(t, 15.4, 16.2);
+    var gt = C.createLinearGradient(0, 200, 0, 960);
+    gt.addColorStop(0, 'rgba(3,5,12,0)'); gt.addColorStop(0.45, 'rgba(3,5,12,'+(0.62*ba)+')'); gt.addColorStop(1, 'rgba(3,5,12,0)');
+    C.fillStyle = gt; C.fillRect(0, 200, W, 760);
+    wordsLine('Feliz cumpleaños,', 470, 80, FONT.sans, 700, t, 15.55, { stagger:0.09 });
+    var word = 'HENDERSON', px = fitPx(word, FONT.big, '', -4, 200, 950);
+    var tot = measure(word, px, FONT.big, '', -4), x = 540 - tot/2, by = 680;
+    for (var i = 0; i < word.length; i++) {
+      var cw = measure(word[i], px, FONT.big, '', -4), p = seg(t, 15.95 + i*0.06, 16.55 + i*0.06);
+      if (p > 0) { var e = xOut(p);
+        C.save(); C.translate(x + cw/2, by + (1 - e)*80); var sc = lerp(1.5, 1, e); C.scale(sc, sc);
+        text(word[i], 0, 0, px, FONT.big, '', 'rgba(8,6,4,0.55)', { ls:-4, alpha:clamp(p*2.5), blur:20 + (1 - e)*14 });
+        text(word[i], 0, 0, px, FONT.big, '', rgba(OR), { ls:-4, alpha:clamp(p*2.5), blur:(1 - e)*14, shadow:'rgba(245,166,35,0.6)', sb:48 });
+        C.restore(); }
+      x += cw;
+    }
+    var sw = seg(t, 17.3, 18.2);
+    if (sw > 0 && sw < 1) {
+      var oc = OFF.getContext('2d'); oc.setTransform(1,0,0,1,0,0); oc.globalCompositeOperation = 'source-over'; oc.clearRect(0,0,W,320);
+      oc.font = px + 'px ' + FONT.big; if ('letterSpacing' in oc) oc.letterSpacing = '-4px'; oc.textAlign = 'center'; oc.fillStyle = '#fff'; oc.fillText(word, 540, 230);
+      oc.globalCompositeOperation = 'source-in';
+      var sxx = lerp(-220, W + 220, eIO(sw)), sg = oc.createLinearGradient(sxx - 160, 0, sxx + 160, 0);
+      sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(0.5, 'rgba(255,250,232,0.92)'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+      oc.fillStyle = sg; oc.fillRect(0,0,W,320);
+      C.save(); C.globalCompositeOperation = 'lighter'; C.drawImage(OFF, 0, by - 230); C.restore();
+    }
+    var dp = eOut(seg(t, 16.7, 17.3));
+    text('1909 — 2026  ·  117 AÑOS', 540, 770, 32, FONT.mono, 500, '#FFFFFF', { ls:lerp(22, 7, dp), alpha:dp, shadow:'rgba(0,0,0,0.9)', sb:16 });
+    var fp = eOut(seg(t, 17.6, 18.2));
+    text('Con cariño, el equipo de Henderseeds.', 540, 1418 + (1 - fp)*24, 40, FONT.sans, 500, '#E8EEF7', { alpha:fp*0.95, shadow:'rgba(0,0,0,0.9)', sb:18 });
+    var hp = eOut(seg(t, 18.1, 18.7));
+    if (hp > 0) {
+      C.save(); C.globalAlpha = hp; C.fillStyle = 'rgba(5,7,13,0.78)';
+      C.beginPath(); C.roundRect(540 - 175, 1462, 350, 72, 36); C.fill();
+      C.strokeStyle = 'rgba(245,166,35,0.45)'; C.lineWidth = 1.5; C.stroke(); C.restore();
+      text('@henderseeds', 540, 1508, 28, FONT.mono, 500, '#FFFFFF', { ls:4, alpha:hp });
+    }
+  }
+  function captions(t){
+    var g = C.createLinearGradient(0, 1340, 0, 1700);
+    var ca = clamp(seg(t, 2.8, 3.3)*(1 - seg(t, 15.0, 15.4)));
+    g.addColorStop(0, 'rgba(3,5,12,0)'); g.addColorStop(0.5, 'rgba(3,5,12,'+(0.6*ca)+')'); g.addColorStop(1, 'rgba(3,5,12,'+(0.45*ca)+')');
+    C.fillStyle = g; C.fillRect(0, 1340, W, 360);
+    wordsLine('Henderson, calle por calle.', 1520, 62, FONT.sans, 700, t, 3.0, { t1:6.1, hl:['calle'] });
+    wordsLine('Cada esquina tiene su historia.', 1520, 58, FONT.sans, 600, t, 6.3, { t1:8.6, hl:['historia'] });
+    wordsLine('Los lugares de siempre.', 1520, 62, FONT.sans, 700, t, 8.8, { t1:12.4, hl:['siempre'] });
+    wordsLine('117 años con luz propia.', 1520, 64, FONT.sans, 700, t, 12.6, { t1:15.2, hl:['luz','propia'] });
+    // atribución obligatoria de los datos
+    var aa = seg(t, 3.0, 3.6);
+    text('Mapa: © colaboradores de OpenStreetMap', 540, 1628, 20, FONT.mono, 400, 'rgba(201,212,230,0.8)', { ls:1, alpha:aa, shadow:'rgba(0,0,0,0.9)', sb:10 });
+  }
+
+  // ---------- render ----------
+  function render(t){
+    C.setTransform(1,0,0,1,0,0); C.globalAlpha = 1; C.globalCompositeOperation = 'source-over'; C.filter = 'none';
+    setCam(t);
+    var F = keys(FRONT, t), night = keys(NIGHT, t);
+    background(t, night);
+    drawAreas(t, F, night);
+    drawRoads(t, F, night);
+    drawLights(t, night);
+    // pulso en la plaza al arrancar
+    var pp = seg(t, 1.0, 2.8);
+    if (pp > 0 && pp < 1) { var X = sx(0,0), Y = sy(0,0); C.save(); C.strokeStyle = rgba(OR, 0.7*(1 - pp)); C.lineWidth = 3; C.beginPath(); C.arc(X, Y, 60 + pp*260, 0, 6.283); C.stroke(); C.restore(); }
+    drawLabels(t);
+    coords(t);
+    captions(t);
+    finale(t);
+    var v = C.createRadialGradient(540, 960, 560, 540, 960, 1300);
+    v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.55)');
+    C.fillStyle = v; C.fillRect(0,0,W,H);
+    C.save(); C.globalAlpha = 0.05; C.globalCompositeOperation = 'overlay';
+    var fr = Math.floor(t*30); C.drawImage(grain, -(fr*37)%540, -(fr*53)%960, W*2, H*2); C.restore();
+    var fi = 1 - seg(t, 0, 0.5); if (fi > 0) { C.fillStyle = 'rgba(0,0,0,'+fi+')'; C.fillRect(0,0,W,H); }
+  }
+
+  window.DURATION = DUR;
+  window.renderAt = render;
+  window.ready = Promise.all([
+    document.fonts.load('200px "Archivo Black"'), document.fonts.load('500 26px "DM Mono"'),
+    document.fonts.load('600 58px "DM Sans"'), document.fonts.load('700 62px "DM Sans"'), document.fonts.load('500 40px "DM Sans"')
+  ]);
+  if (/export/.test(location.search)) { document.body.classList.add('export'); return; }
+  var playing = true, start = null, tNow = 0, tc = document.getElementById('tc');
+  function loop(ts){
+    if (start === null) start = ts - tNow*1000;
+    if (playing) tNow = ((ts - start)/1000) % DUR;
+    render(tNow); tc.textContent = tNow.toFixed(1) + ' s';
+    requestAnimationFrame(loop);
+  }
+  document.getElementById('pp').onclick = function(){ playing = !playing; this.textContent = playing ? 'Pausa' : 'Play'; if (playing) start = null; };
+  document.getElementById('rs').onclick = function(){ tNow = 0; start = null; };
+  window.ready.then(function(){ requestAnimationFrame(loop); });
+})();
+</script>
+</body>
+</html>
