@@ -17,9 +17,10 @@
    (no mencionarla en contenido).
 3. **Asesoramiento técnico** — recorrido de lote, prescripción variable (NDVI),
    posicionamiento de híbridos por ambiente.
-4. **Drone:** se usa para control de siembra y densidad en 7–8 clientes, por pedido del programa
-   de experiencia de Nidera. **No es argumento de marketing:** Alvaro no le ve valor (el control llega
-   cuando el lote ya está sembrado y no se puede volver atrás). No comunicarlo.
+4. **Experiencia Nidera:** Recomendación Asista, siembra variable e informes de visita. El **drone es
+   una parte del informe de visita**, cuando se evalúa calidad de siembra (control de implantación y
+   densidad). Se comunica solo en ese contexto, como parte del informe; nunca como servicio suelto ni
+   como gancho principal (decisión de Alvaro, 25/11/2026; reemplaza el "no comunicarlo" del 07/10).
 5. **Herramientas digitales** — calculadora de márgenes, suite financiera pesos/USD,
    calculadora de cuotas/cheques (ver `herramientas.md`).
 6. **Acompañamiento financiero** — SGR, dólar futuro, canje.

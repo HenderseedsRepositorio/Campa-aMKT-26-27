@@ -32,7 +32,7 @@ y financiación, pero hablamos como en una reunión a campo, no como un manual.
 1. **Gancho en la primera línea** (es lo único que se ve antes del "ver más"):
    una pregunta, un dato o una afirmación fuerte.
 2. **Cuerpo:** UNA idea desarrollada en 2–4 líneas. Aire entre párrafos.
-3. **CTA:** siempre cerrar con acción concreta a WhatsApp `[COMPLETAR: número]`
+3. **CTA:** siempre cerrar con DM + WhatsApp: "Mandanos un DM o escribinos al WhatsApp" (wa.me/5492314530691)
    (o "pasá por la oficina" como secundario).
 4. Hashtags al final, máximo 8, mezclando marca + cultivo + zona
    (ej: #Henderseeds #Nidera #Maiz2627 #Girasol #Henderson #Daireaux #Bolivar #AgroArgentino).
@@ -48,7 +48,7 @@ y financiación, pero hablamos como en una reunión a campo, no como un manual.
 - [ ] ¿Hay UNA idea clara (no tres a medias)?
 - [ ] ¿Voseo consistente, cero lenguaje de manual?
 - [ ] ¿Todo dato numérico tiene fuente o `[COMPLETAR]`?
-- [ ] ¿CTA concreto a WhatsApp?
+- [ ] ¿CTA con DM + WhatsApp?
 - [ ] ¿Máx 8 hashtags, incluyendo zona?
 - [ ] ¿La pieza visual respeta brand/identidad.md?
 

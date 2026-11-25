@@ -22,7 +22,7 @@ construye por **precisión** (a quién), no por **volumen** (cuántas veces a to
 Pensá en dos canales separados que casi no se tocan:
 
 ### Perilla A — Orgánico (lo que ven tus seguidores)
-- **Se queda en 2–3 posteos por semana.** No lo toques. Eso ya es no-invasivo.
+- **Se queda en 2 posteos por semana** (decisión 25/11/2026). No lo toques. Eso ya es no-invasivo.
 - Acá no buscás vender en cada pieza: buscás quedar como "el que sabe de la zona".
 - Si subís esto a 5/día, perdés. La gente silencia, deja de seguir, o te saltea.
 
@@ -138,13 +138,13 @@ La app hace cuatro cosas a la vez:
 
 ## 7. Ritmo semanal y horarios
 
-- **Cadencia orgánica:** 2–3 posteos/semana (la del calendario, no más).
+- **Cadencia orgánica:** 2 posteos/semana (la del calendario, no más).
 - **Mejores horarios para el agro de la zona:**
   - **Mañana temprano (7–9 h):** mate + celular antes de arrancar.
   - **Mediodía (12–14 h):** almuerzo / parate.
   - **Noche (20–22 h):** después de la jornada.
 - **X/Twitter:** mañana temprano y mediodía rinden más para el sector.
-- Evitá publicar todo el mismo día: distribuí los 2–3 posteos a lo largo de la semana.
+- Evitá publicar todo el mismo día: distribuí los 2 posteos a lo largo de la semana.
 
 ---
 

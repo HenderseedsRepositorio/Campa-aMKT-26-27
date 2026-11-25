@@ -52,7 +52,7 @@ Cada vez que entro al proyecto, sigo este ciclo:
 - [ ] ¿El tono es rioplatense, técnico pero cercano? (no marketing genérico)
 - [ ] ¿Hay variedad? No repetir pilar ni enfoque de las últimas 2 semanas.
 - [ ] ¿Los datos de producto vienen de `contexto/productos-26-27.md` o marbetes?
-- [ ] ¿El CTA lleva a WhatsApp (wa.me/5492314530691)?
+- [ ] ¿El CTA lleva a DM + WhatsApp (wa.me/5492314530691)?
 - [ ] ¿Se respeta la regla de NO publicar precios/descuentos/condiciones?
 - [ ] ¿Los hashtags son <= 8 y relevantes?
 - [ ] ¿La pieza visual está descripta con suficiente detalle para diseñar?
@@ -109,9 +109,8 @@ Las piezas se hacen en **HTML single-file**, NO en Canva (Canva no respeta logo 
 - **Linkear** cada placa desde el dashboard (`docs/index.html`) con "Ver placa".
 - El productor las ve online en GitHub Pages y las screenshotea a 1080×1350.
 
-**Regla de contacto (Instagram):** el CTA primario es **"Mandanos un DM"** (ícono
-avioncito) — es la acción nativa sin fricción. El **WhatsApp va como info de última**,
-chico y abajo, con el ícono SVG real verde (`#25D366`). Nunca el número grande/protagonista.
+**Regla de contacto (Instagram, 25/11/2026):** el CTA lleva **DM + WhatsApp juntos**: "Mandanos un DM
+o escribinos al WhatsApp", con el ícono SVG real verde de WhatsApp (`#25D366`) y wa.me/5492314530691 visible.
 
 ## Cómo usar esto
 

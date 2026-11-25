@@ -43,7 +43,7 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 ### A) Copy (Instagram/Facebook)
 - **Línea 1 = gancho** (pregunta, dato fuerte o afirmación que frena el scroll).
 - **Cuerpo:** UNA idea en 2-4 líneas. Aire entre párrafos. Voseo rioplatense.
-- **CTA:** siempre cerrar con acción concreta a WhatsApp (wa.me/5492314530691).
+- **CTA:** siempre cerrar con DM + WhatsApp: "Mandanos un DM o escribinos al WhatsApp" (wa.me/5492314530691).
 - **Hashtags:** máximo 8, al final. Mezclar marca + cultivo + zona.
   Base: #Henderseeds #Nidera + cultivo + zona (Henderson/Daireaux/Bolivar).
 
@@ -132,7 +132,7 @@ Para cada post, seguir `posts/_plantilla-post.md`. Producir:
 ## PASO 6 — Checklist final (no entregar sin pasar esto)
 
 - [ ] ¿Leí todos los archivos de `brand/` y `contexto/`?
-- [ ] ¿Cada post tiene copy final, pieza visual descripta, hashtags (max 8) y CTA a WhatsApp?
+- [ ] ¿Cada post tiene copy final, pieza visual descripta, hashtags (max 8) y CTA a DM + WhatsApp?
 - [ ] ¿Ningún dato inventado? ¿Los `[COMPLETAR]` están listados?
 - [ ] ¿No publiqué precios, descuentos ni condiciones comerciales?
 - [ ] ¿Actualicé `calendario.md`?
@@ -159,7 +159,7 @@ Al terminar, dar un resumen con:
 4. **Nunca marketing genérico.** Prohibido: "imperdible", "no te lo pierdas", "calidad premium", "líder", "revolucionario".
 5. **Máximo 8 hashtags.**
 6. **Paleta navy + naranja.** Fondo oscuro por defecto. Naranja para UN acento por pieza.
-7. **CTA siempre a la conversación privada:** en orgánico "Mandanos un DM" + WhatsApp (wa.me/5492314530691) visible; en pauta, botón "Enviar mensaje de WhatsApp".
+7. **CTA siempre a la conversación privada:** en orgánico DM + WhatsApp juntos (wa.me/5492314530691) visible; en pauta, botón "Enviar mensaje de WhatsApp".
 8. **Datos > adjetivos.** "+392 kg/ha en 191 comparaciones" vence a "excelente rendimiento".
 
 ---
