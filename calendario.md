@@ -61,6 +61,19 @@ Los hitos de `contexto/calendario-comercial.md` pisan la rotación cuando aparez
 | 2026-W39 | 21/09 | 💡 Girasol: pre-siembra en la zona | 💡 Herramientas | 💡 Técnico: dato de siembra |
 | 2026-W40 | 28/09 | 💡 Transición a campaña 26/27 sembrada | 💡 Balance de precampaña | 💡 Institucional |
 
+## Noviembre–diciembre 2026 — empuje de maíz tardío (W48–W49) · 2 publicaciones por semana
+> Decisiones vigentes del 25/11: 2 publicaciones por semana, CTA DM + WhatsApp. Ventana comercial fuerte
+> del tardío hasta el 05/12 (`estrategia/plan-oct-dic-2026.md`). Foco: **NS 7765 VIPTERA3** y **NS 7624 VIPTERA3 CL**.
+> Serie visual "Tardío 26/27": lote real de la zona al atardecer + etiqueta de bolsa (`docs/placas/2026-W48-*.html`).
+
+| Semana | Fecha | Feed (reel) | Historias / Estados de WhatsApp |
+|--------|-------|-------------|----------------------------------|
+| 2026-W47 | dom 16/11 | 📤 Reel aniversario de Henderson — 1.487 visualizaciones, 910 cuentas (al 23/11) | — |
+| 2026-W48 | jue 26/11 | ✍️ [Reel: Tardío en tu mejor lote — NS 7765](posts/2026-W48/post-01-reel-ns7765-tardio.md) | ✍️ [H1 · Dos híbridos, dos lotes](posts/2026-W48/historias-tardio.md) |
+| 2026-W48 | dom 29/11 o lun 30/11 | — | ✍️ [H2 · Chat de WhatsApp (ejemplo)](posts/2026-W48/historias-tardio.md) |
+| 2026-W49 | mar 01/12 | ✍️ [Reel: Tardío y lote sucio — NS 7624](posts/2026-W48/post-02-reel-ns7624-tardio.md) | ✍️ H1 de nuevo |
+| 2026-W49 | jue 03/12 o vie 04/12 | 💡 Segunda publicación de la semana: `[COMPLETAR: foto/clip real de un lote sembrado en la zona]` | — |
+
 ## Octubre–noviembre 2026 — campaña Siembra 26/27 (plan vigente desde el 19/10)
 > Acordado con Henderseeds el 19/10: W43–W44 salen con los 4 reels de abajo. El plan de 9 semanas
 > ([`docs/estrategia/plan.html`](docs/estrategia/plan.html)) sigue como marco (Estados de WhatsApp, pauta A + B)

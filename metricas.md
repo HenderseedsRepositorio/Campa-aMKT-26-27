@@ -88,6 +88,8 @@ atribuibles al post · WA = ídem por WhatsApp.
 | Post | Pilar | Fecha pub. | Formato | Alcance | Inter. | Guard. | Comp. | DMs | WA | Notas |
 |------|-------|-----------|---------|---------|--------|--------|-------|-----|----|----|
 | [Reel aniversario Henderson](https://www.instagram.com/reel/Df0J8_KhORs/) | institucional/comunidad | 16/11 | reel 20 s orgánico | 910 | 31 (27 likes + 4 comp.; +2 seguidores) | 0 | 4 | `[COMPLETAR]` | `[COMPLETAR]` | 1.487 visualizaciones (al 23/11), 0 comentarios |
+| [Reel NS 7765 tardío](posts/2026-W48/post-01-reel-ns7765-tardio.md) | maíz tardío | 26/11 (plan) | reel 15 s | | | | | | | |
+| [Reel NS 7624 tardío](posts/2026-W48/post-02-reel-ns7624-tardio.md) | maíz tardío | 01/12 (plan) | reel 15 s | | | | | | | |
 
 ### Pauta (solo posts 📣)
 
